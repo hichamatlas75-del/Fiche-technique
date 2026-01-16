@@ -521,163 +521,128 @@ function initTabBehavior(){
     });
   });
 }
-
 /* ===============================
-   TIMERS + STATUT + SONS
+   TIMERS + STATUT + SONS (CORRIGÉ)
 ================================= */
 const sndStart = document.getElementById('snd-start');
 const sndDone  = document.getElementById('snd-done');
-const timers = new Map(); // uid -> {sec,interval,el}
+const timers = new Map(); 
 
-function formatTime(s){
-  s = Math.max(0,Math.floor(s));
-  const m = Math.floor(s/60);
-  const r = s%60;
-  const mm = m<10? '0'+m : ''+m;
-  const ss = r<10? '0'+r : ''+r;
-  return `${mm}:${ss}`;
+// Débloquer l'audio au premier clic utilisateur
+document.body.addEventListener('click', () => {
+  sndStart.load();
+  sndDone.load();
+}, { once: true });
+
+function playSound(audio) {
+  audio.pause();
+  audio.currentTime = 0;
+  const playPromise = audio.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(e => console.log("Audio bloqué ou manquant"));
+  }
 }
 
-function startTimer(uid){
-  const tEl = document.getElementById(uid+'-timer');
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const rs = s % 60;
+  return `${m}:${rs < 10 ? '0' : ''}${rs}`;
+}
+
+function startTimer(uid) {
+  const tEl = document.getElementById(uid + '-timer');
   const timeEl = tEl.querySelector('.time');
-  let sec = parseInt(timeEl.dataset.seconds,10);
+  let sec = parseInt(timeEl.dataset.seconds, 10);
+  
   tEl.dataset.state = 'run';
-  timeEl.textContent = formatTime(sec);
-  if(timers.has(uid)) clearInterval(timers.get(uid).interval);
-  sndStart.currentTime = 0; sndStart.play().catch(()=>{});
-  const itv = setInterval(()=>{
+  playSound(sndStart);
+
+  if (timers.has(uid)) clearInterval(timers.get(uid).interval);
+
+  const itv = setInterval(() => {
     sec--;
     timeEl.textContent = formatTime(sec);
-    if(sec<=0){
+    if (sec <= 0) {
       clearInterval(itv);
       tEl.dataset.state = 'done';
-      sndDone.currentTime = 0; sndDone.play().catch(()=>{});
-      const badge = document.getElementById(uid+'-badge');
-      setBadge(badge,'ready');
+      playSound(sndDone);
+      const badge = document.getElementById(uid + '-badge');
+      setBadge(badge, 'ready');
     }
-  },1000);
-  timers.set(uid,{sec,interval:itv,el:tEl});
+  }, 1000);
+  timers.set(uid, { interval: itv });
 }
 
-function stopTimer(uid){
-  if(!timers.has(uid)) return;
-  clearInterval(timers.get(uid).interval);
-  timers.delete(uid);
-  const tEl = document.getElementById(uid+'-timer');
-  if(tEl){ tEl.dataset.state = 'idle'; }
+function stopTimer(uid) {
+  if (timers.has(uid)) {
+    clearInterval(timers.get(uid).interval);
+    timers.delete(uid);
+  }
+  const tEl = document.getElementById(uid + '-timer');
+  if (tEl) tEl.dataset.state = 'idle';
 }
 
-function setBadge(badge,status){
-  badge.dataset.status = status;
-  badge.className = 'badge ' + (status==='to-do'?'todo':status==='in-progress'?'prog':'ready');
-  badge.textContent = status==='to-do'?'À FAIRE':status==='in-progress'?'EN COURS':'PRÊT';
+function setBadge(el, status) {
+  el.className = 'badge ' + status;
+  el.dataset.status = status;
+  el.textContent = status === 'to-do' ? 'À FAIRE' : status === 'prog' ? 'EN COURS' : 'PRÊT';
 }
 
-function initCardsBehavior(){
-  // Status badge click -> cycle + timers
-  document.querySelectorAll('.badge').forEach(b=>{
-    b.addEventListener('click', ()=>{
-      const uid = b.id.replace('-badge','');
-      const status = b.dataset.status;
-      if(status==='to-do'){
-        setBadge(b,'in-progress');
+/* ===============================
+   INTERACTIONS & LIGHTBOX
+================================= */
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lightbox-img');
+const lbClose = document.getElementById('lb-close');
+const lbPrev = document.getElementById('lb-prev');
+const lbNext = document.getElementById('lb-next');
+let currentGallery = [];
+let currentIndex = 0;
+
+function initCardsBehavior() {
+  document.querySelectorAll('.badge').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const uid = btn.id.replace('-badge', '');
+      if (btn.dataset.status === 'to-do') {
+        setBadge(btn, 'prog');
         startTimer(uid);
-      }else if(status==='in-progress'){
-        setBadge(b,'ready');
+      } else if (btn.dataset.status === 'prog') {
+        setBadge(btn, 'ready');
         stopTimer(uid);
-        const tEl = document.getElementById(uid+'-timer');
-        if(tEl){ tEl.dataset.state = 'done'; }
-        sndDone.currentTime = 0; sndDone.play().catch(()=>{});
-      }else{ // ready -> back to to-do (reset)
-        setBadge(b,'to-do');
+        const tEl = document.getElementById(uid + '-timer');
+        tEl.dataset.state = 'done';
+      } else {
+        setBadge(btn, 'to-do');
         stopTimer(uid);
-        const tEl = document.getElementById(uid+'-timer');
-        const timeEl = tEl?.querySelector('.time');
-        if(timeEl){
-          const init = parseInt(timeEl.dataset.seconds,10);
-          timeEl.textContent = formatTime(init);
-        }
-        if(tEl){ tEl.dataset.state = 'idle'; }
+        const tEl = document.getElementById(uid + '-timer');
+        const timeEl = tEl.querySelector('.time');
+        timeEl.textContent = formatTime(parseInt(timeEl.dataset.seconds));
       }
     });
   });
 
-  // Image click -> lightbox + multi
-  document.querySelectorAll('.hero').forEach(img=>{
-    img.addEventListener('click', ()=>{
-      const gallery = (img.dataset.gallery||'').split('|').filter(Boolean);
-      const list = gallery.length? gallery : [img.getAttribute('src')];
-      openLightbox(list,0);
+  document.querySelectorAll('.hero').forEach(img => {
+    img.addEventListener('click', () => {
+      const galleryAttr = img.dataset.gallery;
+      currentGallery = galleryAttr ? galleryAttr.split('|') : [img.src];
+      currentIndex = 0;
+      showLightbox();
     });
   });
 }
 
-/* ===============================
-   LIGHTBOX + Pinch-to-Zoom
-================================= */
-const lb = document.getElementById('lightbox');
-const lbImg = document.getElementById('lightbox-img');
-const lbPrev = document.getElementById('lb-prev');
-const lbNext = document.getElementById('lb-next');
-const lbClose = document.getElementById('lb-close');
-
-let lbList = [];
-let lbIndex = 0;
-let scale=1, initialScale=1, isPinch=false, isDrag=false, swipeDisabled=false;
-let startX=0,startY=0,lastX=0,lastY=0,pinchStart=0;
-
-function openLightbox(list,idx){
-  lbList = list; lbIndex = idx; showLB();
-  lb.classList.add('visible'); resetTransform();
+function showLightbox() {
+  lbImg.src = currentGallery[currentIndex];
+  lb.classList.add('visible');
+  lbPrev.style.display = currentGallery.length > 1 ? 'block' : 'none';
+  lbNext.style.display = currentGallery.length > 1 ? 'block' : 'none';
 }
-function showLB(){
-  lbImg.src = lbList[(lbIndex+lbList.length)%lbList.length];
-}
-function resetTransform(){
-  scale=1; initialScale=1; isPinch=false; isDrag=false; swipeDisabled=false; lastX=0; lastY=0;
-  lbImg.style.transform = '';
-}
-lbPrev.onclick = e=>{e.stopPropagation(); if(!swipeDisabled){ lbIndex--; showLB(); }};
-lbNext.onclick = e=>{e.stopPropagation(); if(!swipeDisabled){ lbIndex++; showLB(); }};
-lbClose.onclick = ()=> lb.classList.remove('visible');
-lb.onclick = e=>{ if(e.target===lb) lb.classList.remove('visible'); };
-document.addEventListener('keydown',e=>{
-  if(!lb.classList.contains('visible'))return;
-  if(e.key==='ArrowLeft' && !swipeDisabled) lbPrev.click();
-  if(e.key==='ArrowRight' && !swipeDisabled) lbNext.click();
-  if(e.key==='Escape') lbClose.click();
-});
 
-function dist(t){ const dx=t[0].clientX-t[1].clientX, dy=t[0].clientY-t[1].clientY; return Math.hypot(dx,dy); }
+lbClose.onclick = () => lb.classList.remove('visible');
+lbPrev.onclick = () => { currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length; lbImg.src = currentGallery[currentIndex]; };
+lbNext.onclick = () => { currentIndex = (currentIndex + 1) % currentGallery.length; lbImg.src = currentGallery[currentIndex]; };
 
-lbImg.addEventListener('touchstart',e=>{
-  if(e.touches.length===2){
-    isPinch=true; swipeDisabled=true; pinchStart=dist(e.touches); initialScale=scale; e.preventDefault();
-  }else if(e.touches.length===1 && scale>1){
-    isDrag=true; swipeDisabled=true; startX=e.touches[0].clientX-lastX; startY=e.touches[0].clientY-lastY; e.preventDefault();
-  }
-},{passive:false});
-lbImg.addEventListener('touchmove',e=>{
-  if(isPinch && e.touches.length===2){
-    const f = dist(e.touches)/pinchStart;
-    scale = Math.min(4, Math.max(1, initialScale*f));
-    lbImg.style.transform = `scale(${scale}) translate(${lastX/scale}px, ${lastY/scale}px)`;
-    e.preventDefault();
-  }else if(isDrag && e.touches.length===1 && scale>1){
-    lastX = e.touches[0].clientX-startX;
-    lastY = e.touches[0].clientY-startY;
-    lbImg.style.transform = `scale(${scale}) translate(${lastX/scale}px, ${lastY/scale}px)`;
-    e.preventDefault();
-  }
-},{passive:false});
-lbImg.addEventListener('touchend',e=>{
-  if(e.touches.length===0){ isDrag=false; isPinch=false; if(scale===1) swipeDisabled=false; }
-},{passive:false});
-
-/* ===============================
-   LANCEMENT
-================================= */
+// Lancement initial
 renderAll();
 </script>
 </body>
