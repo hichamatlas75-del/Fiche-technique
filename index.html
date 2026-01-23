@@ -124,6 +124,16 @@ const DATA = [
   { // PETIT DÉJEUNER (gardé)
     category:"PETIT DÉJEUNER", key:"pdj", color:"#ef476f",
     items:[
+       {name:"COMPAGNARD", image:"images/petit-dej_compagnard.jpeg", prepTime:15, tech:[
+        "pain cake : 2 p","Omelette : 3 œufs","Fromage : 30 g",
+        "Charcuteries : 60 g","Pain seigle : 2 tr","Mesclun : 40 g",
+        "Jus d'orange : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau minérale : 33 cl"
+      ], price:"50 DH"},
+        {name:"AMERICAIN", image:"images/petit-dej_americain.jpeg", prepTime:15, tech:[
+        "Bacon : 2 p","Omelette : 2 œufs","Fromage : 30 g",
+        "avocat : 60 g","Pain seigle : 2 tr","Mesclun : 40 g",
+        "Jus d'orange : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau minérale : 33 cl"
+      ], price:"68 DH"},
       {name:"BRUNCH GREYCORNER", image:"images/petit-dej-gc.jpg", prepTime:15, tech:[
         "Saucisses : 2 p","Omelette : 3 œufs","Fromage : 30 g","Toast hollandais : 2 p","Croquettes fromage : 2 p",
         "Charcuteries : 60 g","Pain seigle : 2 tr","Mesclun : 40 g","Gaufre : 1 p","Pancake : 1 p",
@@ -170,9 +180,12 @@ const DATA = [
       {name:"ESPAGNOL", image:"images/petit-dej-espagnol.jpg", prepTime:15, tech:[
         "Tortilla : 1 p","Croquettes : 2 p","Tapenade : 20 g","Thon : 40 g","Tomates : 60 g","Fromage : 40 g","Pain seigle : 2 tr","Mesclun : 40 g","Jus : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
       ], price:"60 DH"},
-      {name:"MQUILA", image:"images/petit-dej-mquila.jpg", prepTime:12, tech:[
+      {name:"MQUILA-MERGUEZ", image:"images/petit-dej-mquila.jpg", prepTime:12, tech:[
         "Merguez : 120 g","Poivrons/oignons : 120 g","Œufs : 2 p","Jus : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
       ], price:"60 DH"},
+        {name:"MQUILA-FRUITS DE MER", image:"images/petit-dej-mquilafruitdemer.jpeg", prepTime:12, tech:[
+        "crevettes : 100 g","calamars : 100 g","moules : 100 g""Œufs : 2 p","Jus : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
+      ], price:"78 DH"},
       {name:"NORVÉGIEN", image:"images/petit-dej-norvegien.jpg", prepTime:10, tech:[
         "Saumon : 60 g","Avocat : 50 g","Fromage : 30 g","Pain céréales : 2 tr","Jus : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
       ], price:"65 DH"},
@@ -647,5 +660,6 @@ renderAll();
 </script>
 </body>
 </html>
+
 
 
