@@ -6,557 +6,910 @@
 <title>Grey Corner — Fiches Techniques Cuisine</title>
 
 <style>
-  :root{
-    --bg:#0b0e12;       /* fond sombre */
-    --paper:#12161c;    /* cartes */
-    --text:#e7edf6;     /* texte principal */
-    --muted:#9aa8bb;    /* texte secondaire */
-    --border:#1c232c;
-    --chip:#1a2330;
-    --ok:#22c55e;
-    --warn:#facc15;
-    --danger:#ef4444;
+  :root {
+    --bg: #0b0e12;       /* fond sombre */
+    --paper: #12161c;    /* cartes */
+    --paper-hover: #161c24;
+    --text: #e7edf6;     /* texte principal */
+    --muted: #9aa8bb;    /* texte secondaire */
+    --border: #1c232c;
+    --chip: #1a2330;
+    --ok: #22c55e;
+    --warn: #facc15;
+    --danger: #ef4444;
+    --accent: #38bdf8;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-  img{max-width:100%;display:block}
-  button{cursor:pointer}
-
-  .container{max-width:1200px;margin:0 auto;padding:12px 16px}
-
-  header{position:sticky;top:0;background:#0b0e12cc;backdrop-filter:blur(6px);border-bottom:1px solid var(--border);z-index:50}
-  .head{display:flex;align-items:center;gap:10px;padding:10px 0}
-  .logo{width:42px;height:42px;border-radius:10px;border:1px solid var(--border);background:#0f141b;object-fit:cover}
-  .ttl{font-weight:800;letter-spacing:.3px}
-
-  nav{position:sticky;top:62px;z-index:40;background:var(--paper);border-bottom:1px solid var(--border);overflow-x:auto;white-space:nowrap}
-  .tabs{display:flex;gap:0;padding:0 8px}
-  .tab{padding:12px 14px;text-decoration:none;color:var(--muted);font-weight:700;border-bottom:3px solid transparent;display:inline-flex;align-items:center;gap:8px}
-  .tab.active{color:var(--text);}
-
-  .section-title{font-size:26px;font-weight:800;margin:28px 0 16px;text-transform:uppercase;letter-spacing:.5px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;padding-bottom:36px}
-
-  .card{background:var(--paper);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 6px 16px rgba(0,0,0,.25)}
-  .hero{width:100%;height:190px;object-fit:cover;border-bottom:1px solid var(--border);cursor:zoom-in}
-
-  .body{padding:14px 14px 10px}
-  .row-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
-  .name{font-size:18px;font-weight:800;letter-spacing:.3px}
-  .price{font-weight:800;background:var(--chip);border:1px solid var(--border);padding:4px 8px;border-radius:999px}
-
-  .timer{margin:8px 0 10px;font-weight:800;display:flex;align-items:center;gap:8px}
-  .timer .dot{width:8px;height:8px;border-radius:50%;background:var(--warn);box-shadow:0 0 0 0 rgba(250,204,21,.8);animation:pulse 1.3s infinite}
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(250,204,21,.8)}
-    70%{box-shadow:0 0 0 10px rgba(250,204,21,0)}
-    100%{box-shadow:0 0 0 0 rgba(250,204,21,0)}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+    scroll-behavior: smooth;
   }
-  .timer[data-state="idle"] .dot{background:#64748b;animation:none}
-  .timer[data-state="done"] .dot{background:var(--ok);animation:none}
+  img { max-width: 100%; display: block; }
+  button { cursor: pointer; font-family: inherit; }
+  input { font-family: inherit; }
 
-  .meta{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:13px}
-  .chip{background:var(--chip);border:1px solid var(--border);padding:3px 8px;border-radius:999px;font-weight:700}
-  .mins{display:inline-flex;align-items:center;gap:6px}
+  .container { max-width: 1240px; margin: 0 auto; padding: 12px 16px; }
 
-  .tech{margin-top:10px;border-top:1px dashed var(--border);padding-top:10px;color:var(--muted);font-size:14px}
-  .tech li{margin:2px 0}
-  .footer{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-top:1px solid var(--border);background:#0f141b}
-  .badge{padding:6px 12px;border-radius:999px;font-weight:800;border:1px solid transparent;user-select:none}
-  .todo{background:var(--danger);color:#fff}
-  .prog{background:var(--warn);color:#1f2937}
-  .ready{background:var(--ok);color:#fff}
+  /* HEADER */
+  header {
+    position: sticky;
+    top: 0;
+    background: rgba(11, 14, 18, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    z-index: 50;
+  }
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #0f141b;
+    object-fit: cover;
+  }
+  .ttl {
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: .4px;
+    color: var(--text);
+  }
+  .ttl span { color: var(--accent); }
 
-  /* Lightbox */
-  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;justify-content:center;align-items:center;z-index:9999;flex-direction:column}
-  .lightbox.visible{display:flex}
-  #lightbox-img{max-width:92%;max-height:86%;border-radius:12px;border:1px solid #223042;box-shadow:0 0 20px rgba(255,255,255,.08);touch-action:none;cursor:grab}
-  .lb-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);color:#fff;border:none;font-size:30px;padding:10px 16px;border-radius:10px}
-  .lb-btn:hover{background:rgba(255,255,255,.25)}
-  .prev{left:3%} .next{right:3%}
-  .close{top:18px;right:22px;transform:none;font-size:26px}
+  /* SEARCH BAR */
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 14px;
+    gap: 8px;
+    min-width: 260px;
+    max-width: 420px;
+    flex: 1;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .search-box:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+  }
+  .search-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-size: 14px;
+    width: 100%;
+  }
+  .search-box input::placeholder { color: #64748b; }
+  .search-clear {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 16px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+  }
+  .search-clear.visible { display: flex; }
+  .search-clear:hover { color: var(--text); }
 
-  /* Couleurs par catégorie (surlignage onglet actif) */
-  .tab[data-color].active{border-bottom-color:currentColor}
-  .tab[data-color="#ef476f"]{color:#ef476f}
-  .tab[data-color="#22a699"]{color:#22a699}
-  .tab[data-color="#ffb703"]{color:#ffb703}
-  .tab[data-color="#64b5f6"]{color:#64b5f6}
-  .tab[data-color="#b088f9"]{color:#b088f9}
-  .tab[data-color="#f97316"]{color:#f97316}
-  .tab[data-color="#10b981"]{color:#10b981}
-  .tab[data-color="#eab308"]{color:#eab308}
-  .tab[data-color="#fb7185"]{color:#fb7185}
+  /* NAVIGATION TABS */
+  nav {
+    position: sticky;
+    top: 63px;
+    z-index: 40;
+    background: var(--paper);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: thin;
+  }
+  .tabs { display: flex; gap: 4px; padding: 0 8px; }
+  .tab {
+    padding: 12px 14px;
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 700;
+    font-size: 14px;
+    border-bottom: 3px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color .2s, border-color .2s;
+    user-select: none;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--text); }
+
+  /* Tab active indicators */
+  .tab[data-color].active { border-bottom-color: currentColor; }
+  .tab[data-color="#ef476f"] { color: #ef476f; }
+  .tab[data-color="#22a699"] { color: #22a699; }
+  .tab[data-color="#ffb703"] { color: #ffb703; }
+  .tab[data-color="#64b5f6"] { color: #64b5f6; }
+  .tab[data-color="#b088f9"] { color: #b088f9; }
+  .tab[data-color="#f97316"] { color: #f97316; }
+  .tab[data-color="#06b6d4"] { color: #06b6d4; }
+  .tab[data-color="#10b981"] { color: #10b981; }
+  .tab[data-color="#eab308"] { color: #eab308; }
+  .tab[data-color="#fb7185"] { color: #fb7185; }
+
+  /* STATS & SEARCH SUMMARY */
+  .search-info {
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--muted);
+    display: none;
+  }
+  .search-info.visible { display: block; }
+  .search-info strong { color: var(--accent); }
+
+  /* SECTIONS & GRID */
+  .section-wrap { scroll-margin-top: 120px; }
+  .section-title {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 28px 0 16px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-count {
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--chip);
+    color: var(--muted);
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 20px;
+    padding-bottom: 32px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,.3);
+    display: flex;
+    flex-direction: column;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .card:hover {
+    border-color: #2a3647;
+  }
+  .hero-wrap {
+    position: relative;
+    width: 100%;
+    height: 195px;
+    background: #0f141b;
+    overflow: hidden;
+  }
+  .hero {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-bottom: 2px solid var(--border);
+    cursor: zoom-in;
+    transition: transform .25s ease;
+  }
+  .hero:hover { transform: scale(1.03); }
+  .gallery-badge {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(11, 14, 18, 0.85);
+    border: 1px solid var(--border);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+  }
+
+  .body {
+    padding: 16px 14px 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .row-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .name {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: .3px;
+    line-height: 1.3;
+  }
+  .price {
+    font-weight: 800;
+    font-size: 14px;
+    background: var(--chip);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+    color: #38bdf8;
+  }
+
+  /* TIMER */
+  .timer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 8px 0 12px;
+    padding: 6px 10px;
+    background: rgba(0,0,0,.25);
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.04);
+  }
+  .timer {
+    font-weight: 800;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: .5px;
+  }
+  .timer .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #64748b;
+  }
+  .timer[data-state="run"] .dot {
+    background: var(--warn);
+    box-shadow: 0 0 0 0 rgba(250,204,21,.8);
+    animation: pulse 1.3s infinite;
+  }
+  .timer[data-state="done"] .dot {
+    background: var(--ok);
+    animation: none;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(250,204,21,.8); }
+    70% { box-shadow: 0 0 0 10px rgba(250,204,21,0); }
+    100% { box-shadow: 0 0 0 0 rgba(250,204,21,0); }
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .chip {
+    background: var(--chip);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  /* TECH RECIPE LIST */
+  .tech {
+    margin-top: 10px;
+    border-top: 1px dashed var(--border);
+    padding-top: 10px;
+    color: #cbd5e1;
+    font-size: 13.5px;
+    list-style: none;
+    flex: 1;
+  }
+  .tech li {
+    margin: 3px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    border-bottom: 1px dotted rgba(255,255,255,.05);
+    padding-bottom: 2px;
+  }
+  .tech li .item-qty {
+    font-weight: 700;
+    color: #f1f5f9;
+  }
+
+  /* CARD FOOTER */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    border-top: 1px solid var(--border);
+    background: #0f141b;
+  }
+  .badge {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 12px;
+    border: 1px solid transparent;
+    user-select: none;
+    letter-spacing: .4px;
+    transition: transform .1s, opacity .15s;
+  }
+  .badge:active { transform: scale(0.96); }
+  .badge.todo { background: var(--danger); color: #fff; }
+  .badge.prog { background: var(--warn); color: #1e293b; }
+  .badge.ready { background: var(--ok); color: #fff; }
+
+  /* LIGHTBOX */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column;
+    padding: 16px;
+  }
+  .lightbox.visible { display: flex; }
+  #lightbox-img {
+    max-width: 92%;
+    max-height: 84%;
+    border-radius: 12px;
+    border: 1px solid #223042;
+    box-shadow: 0 0 30px rgba(0,0,0,.8);
+    object-fit: contain;
+  }
+  .lb-counter {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .lb-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: none;
+    font-size: 26px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    backdrop-filter: blur(6px);
+    transition: background .2s;
+  }
+  .lb-btn:hover { background: rgba(255, 255, 255, 0.3); }
+  .prev { left: 4%; }
+  .next { right: 4%; }
+  .close {
+    top: 20px;
+    right: 24px;
+    transform: none;
+    font-size: 24px;
+    padding: 8px 14px;
+  }
+
+  @media (max-width: 768px) {
+    .head { flex-direction: column; align-items: stretch; }
+    .search-box { min-width: 100%; }
+    .prev { left: 2%; }
+    .next { right: 2%; }
+  }
 </style>
 </head>
 <body>
 
 <header>
   <div class="container head">
-    <img class="logo" src="images/logo.png" onerror="this.src='images/logo-fallback.png'">
-    <div class="ttl">Fiches Techniques — Grey Corner</div>
+    <div class="brand">
+      <img class="logo" src="images/logo.png" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\' fill=\'%2338bdf8\'%3E%3Cpath d=\'M50 15 L85 80 L15 80 Z\'/%3E%3Ctext x=\'50\' y=\'65\' font-size=\'32\' font-weight=\'bold\' fill=\'%230b0e12\' text-anchor=\'middle\'%3EGC%3C/text%3E%3C/svg%3E';" alt="GC">
+      <div class="ttl">Grey Corner <span>Fiches Techniques</span></div>
+    </div>
+    <div class="search-box">
+      <input id="search-input" type="search" placeholder="🔍 Rechercher un plat, ingrédient (poulet, wrap, burrata...)" autocomplete="off" />
+      <button id="search-clear" class="search-clear" title="Effacer la recherche">✕</button>
+    </div>
   </div>
 </header>
 
 <nav><div class="container"><div id="tabs" class="tabs"></div></div></nav>
 
-<main id="main" class="container"></main>
+<main id="main" class="container">
+  <div id="search-info" class="search-info"></div>
+  <div id="sections-container"></div>
+</main>
 
 <!-- Lightbox -->
 <div id="lightbox" class="lightbox">
-  <button id="lb-close" class="lb-btn close">✕</button>
-  <button id="lb-prev" class="lb-btn prev">❮</button>
-  <img id="lightbox-img" alt="zoom" />
-  <button id="lb-next" class="lb-btn next">❯</button>
+  <button id="lb-close" class="lb-btn close" title="Fermer">✕</button>
+  <button id="lb-prev" class="lb-btn prev" title="Précédent">❮</button>
+  <img id="lightbox-img" alt="Zoom plat" />
+  <div id="lb-counter" class="lb-counter"></div>
+  <button id="lb-next" class="lb-btn next" title="Suivant">❯</button>
 </div>
 
-<!-- Sounds -->
-<audio id="snd-start" preload="auto" src="sounds/start.mp3"></audio>
-<audio id="snd-done" preload="auto" src="sounds/done.mp3"></audio>
+<!-- Audio elements -->
+<audio id="snd-start" preload="auto" src="sounds/START.mp3"></audio>
+<audio id="snd-done" preload="auto" src="sounds/DONE.mp3"></audio>
 
 <script>
 /* ===============================
-   DONNÉES — catégories & items
-   Multi-images uniquement pour ENTREEs & PLATS (images: "a.jpg,b.jpg,c.jpg" ou tableau)
-   prepTime en MINUTES (entier). Le timer démarre quand statut devient EN COURS.
+   DONNÉES COMPLÈTES DU RESTAURANT
 ================================= */
 const DATA = [
-  { // PETIT DÉJEUNER (gardé)
-    category:"PETIT DÉJEUNER", key:"pdj", color:"#ef476f",
-    items:[
-       {name:"COMPAGNARD", image:"images/petit-dej_compagnard.jpeg", prepTime:15, tech:[
-        "pain cake : 2 p","Omelette : 3 œufs","Fromage : 30 g",
-        "Charcuteries : 60 g","Pain seigle : 2 tr","Mesclun : 40 g",
-        "Jus d'orange : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau minérale : 33 cl"
-      ], price:"50 DH"},
-        {name:"AMERICAIN", image:"images/petit-dej_americain.jpeg", prepTime:15, tech:[
-        "Bacon : 2 p","Omelette : 2 œufs","Fromage : 30 g",
-        "avocat : 60 g","Pain seigle : 2 tr","Mesclun : 40 g",
-        "Jus d'orange : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau minérale : 33 cl"
-      ], price:"68 DH"},
-      {name:"BRUNCH GREYCORNER", image:"images/petit-dej-gc.jpg", prepTime:15, tech:[
-        "Saucisses : 2 p","Omelette : 3 œufs","Fromage : 30 g","Toast hollandais : 2 p","Croquettes fromage : 2 p",
-        "Charcuteries : 60 g","Pain seigle : 2 tr","Mesclun : 40 g","Gaufre : 1 p","Pancake : 1 p",
-        "Jus d'orange : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau minérale : 33 cl"
-      ], price:"85 DH"},
-      {name:"BRUNCH DUO", image:"images/petit-dej-duo.jpg", prepTime:20, tech:[
-        "Poulet pané : 120 g","Croquettes : 2 p","Croque maison : 1 p","Omelette fromage : 2 œufs",
-        "Charcuterie : 80 g","Fromage : 60 g","Pain seigle : 2 tr","Beldi : 2 mlaoui + 2 harcha","Mesclun : 40 g",
-        "Muffin : 1 p","Gaufre : 1 p","Jus d'orange : 2×200 ml","Boissons chaudes : 2 p","Desserts : 2 p","Eaux : 2×33 cl"
-      ], price:"140 DH"},
-      {name:"BELDI", image:"images/petit-dej-beldi.jpg", prepTime:10, tech:[
-        "Mlaoui : 2 p","Harcha : 2 p","Baghrir : 1 p","Jben : 40 g","Huile d’olive : 20 ml","Miel : 20 g","Olives : 20 g",
-        "Jus d'orange : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"45 DH"},
-      {name:"HOLLANDAIS", image:"images/petit-dej-hollandais.jpg", prepTime:10, tech:[
-        "Pain mie complet : 2 tr","Œufs au plat : 2 p","Fromage : 40 g","Dinde fumée : 40 g","Mesclun : 40 g",
-        "Jus d'orange : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"50 DH"},
-      {name:"OMELETTE VÉGÉTARIENNE", image:"images/petit-dej-veg.jpg", prepTime:12, tech:[
-        "Œufs : 3 p","Légumes : 120 g","Mesclun : 40 g","Jus d'orange : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"50 DH"},
-      {name:"BERBÈRE", image:"images/petit-dej-berbere.jpg", prepTime:10, tech:[
-        "Baghrir : 1 p","Amlou : 30 g","Fruits secs : 30 g","Jben : 40 g","Miel : 20 g","Banane : 1 p",
-        "Jus d'orange : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"50 DH"},
-      {name:"CROQUE", image:"images/petit-dej-croque.jpg", prepTime:12, tech:[
-        "Croque maison : 1 p","Mesclun : 40 g","Jus d'orange : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"50 DH"},
-      {name:"FASSI", image:"images/petit-dej-fassi.jpg", prepTime:12, tech:[
-        "Khli3 : 80 g","Œufs au plat : 3 p","Jus d'orange : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"50 DH"},
-      {name:"OMELETTE CONTINENTAL", image:"images/petit-dej-cont.jpg", prepTime:12, tech:[
-        "Œufs : 3 p","Charcuterie : 60 g","Fromage : 40 g","Mesclun : 40 g","Jus d'orange : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"50 DH"},
-      {name:"OMELETTE FROMAGE", image:"images/omelette-fromage.jpg", prepTime:10, tech:[
-        "Œufs : 3 p","Fromage : 40 g","Mesclun : 40 g","Jus d'orange : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"50 DH"},
-      {name:"OMELETTE NATURE", image:"images/omelette-nature.jpg", prepTime:10, tech:[
-        "Œufs : 3 p","Mesclun : 40 g","Jus d'orange : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"40 DH"},
-      {name:"OMELETTE DU CHEF", image:"images/petit-dej-chef.jpg", prepTime:12, tech:[
-        "Œufs : 3 p","Champignons : 40 g","Épinards : 30 g","Fromage : 30 g","Mesclun : 40 g","Jus d'orange : 200 ml","Boisson chaude : 1 p","Eau : 33 cl"
-      ], price:"55 DH"},
-      {name:"ESPAGNOL", image:"images/petit-dej-espagnol.jpg", prepTime:15, tech:[
-        "Tortilla : 1 p","Croquettes : 2 p","Tapenade : 20 g","Thon : 40 g","Tomates : 60 g","Fromage : 40 g","Pain seigle : 2 tr","Mesclun : 40 g","Jus : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"60 DH"},
-      {name:"MQUILA-MERGUEZ", image:"images/petit-dej-mquila.jpg", prepTime:12, tech:[
-        "Merguez : 120 g","Poivrons/oignons : 120 g","Œufs : 2 p","Jus : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"60 DH"},
-        {name:"MQUILA-FRUITS DE MER", image:"images/petit-dej_mquilafruitdemer.jpeg", prepTime:12, tech:[
-        "crevettes : 100 g","calamars : 100 g","moules : 100 g","Œufs : 2 p","Jus : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"78 DH"},
-      {name:"NORVÉGIEN", image:"images/petit-dej-norvegien.jpg", prepTime:10, tech:[
-        "Saumon : 60 g","Avocat : 50 g","Fromage : 30 g","Pain céréales : 2 tr","Jus : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"65 DH"},
-      {name:"LIGHT", image:"images/petit-dej-light.jpg", prepTime:7, tech:[
-        "Pain complet : 2 tr","Jben : 40 g","Huile d’olive : 20 ml","Amlou : 20 g","Olives : 20 g","Jus : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"40 DH"},
-      {name:"EXPRESS", image:"images/petit-dej-express.jpg", prepTime:5, tech:[
-        "Viennoiseries : 4 p","Jus : 200 ml","Boisson chaude : 1 p","Dessert : 1 p","Eau : 33 cl"
-      ], price:"40 DH"},
-      {name:"MENU ENFANT (PDJ)", image:"images/menu-enfant-pdj.jpg", prepTime:8, tech:[
-        "Crêpe/Gaufre/Pancake : 1 p","Corn flakes : 1 bol","Lait chocolat : 200 ml"
-      ], price:"38 DH"},
+  {
+    category: "PETIT DÉJEUNER", key: "pdj", color: "#ef476f",
+    items: [
+      { name: "COMPAGNARD", image: "images/petit-dej_compagnard.jpeg", prepTime: 15, tech: [
+        "pain cake : 2 p", "Omelette : 3 œufs", "Fromage : 30 g", "Charcuteries : 60 g",
+        "Pain seigle : 2 tr", "Mesclun : 40 g", "Jus d'orange : 200 ml", "Boisson chaude : 1 p",
+        "Dessert : 1 p", "Eau minérale : 33 cl"
+      ], price: "50 DH" },
+      { name: "AMERICAIN", image: "images/petit-dej_americain.jpeg", prepTime: 15, tech: [
+        "Bacon : 2 p", "Omelette : 2 œufs", "Fromage : 30 g", "avocat : 60 g",
+        "Pain seigle : 2 tr", "Mesclun : 40 g", "Jus d'orange : 200 ml", "Boisson chaude : 1 p",
+        "Dessert : 1 p", "Eau minérale : 33 cl"
+      ], price: "68 DH" },
+      { name: "BRUNCH GREYCORNER", image: "images/petit-dej-gc.jpg", prepTime: 15, tech: [
+        "Saucisses : 2 p", "Omelette : 3 œufs", "Fromage : 30 g", "Toast hollandais : 2 p",
+        "Croquettes fromage : 2 p", "Charcuteries : 60 g", "Pain seigle : 2 tr", "Mesclun : 40 g",
+        "Gaufre : 1 p", "Pancake : 1 p", "Jus d'orange : 200 ml", "Boisson chaude : 1 p",
+        "Dessert : 1 p", "Eau minérale : 33 cl"
+      ], price: "85 DH" },
+      { name: "BRUNCH DUO", image: "images/petit-dej-duo.jpg", prepTime: 20, tech: [
+        "Poulet pané : 120 g", "Croquettes : 2 p", "Croque maison : 1 p", "Omelette fromage : 2 œufs",
+        "Charcuterie : 80 g", "Fromage : 60 g", "Pain seigle : 2 tr", "Beldi : 2 mlaoui + 2 harcha",
+        "Mesclun : 40 g", "Muffin : 1 p", "Gaufre : 1 p", "Jus d'orange : 2×200 ml",
+        "Boissons chaudes : 2 p", "Desserts : 2 p", "Eaux : 2×33 cl"
+      ], price: "140 DH" },
+      { name: "BELDI", image: "images/petit-dej-beldi.jpg", prepTime: 10, tech: [
+        "Mlaoui : 2 p", "Harcha : 2 p", "Baghrir : 1 p", "Jben : 40 g", "Huile d’olive : 20 ml",
+        "Miel : 20 g", "Olives : 20 g", "Jus d'orange : 200 ml", "Boisson chaude : 1 p",
+        "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "45 DH" },
+      { name: "HOLLANDAIS", image: "images/petit-dej-hollandais.jpg", prepTime: 10, tech: [
+        "Pain mie complet : 2 tr", "Œufs au plat : 2 p", "Fromage : 40 g", "Dinde fumée : 40 g",
+        "Mesclun : 40 g", "Jus d'orange : 200 ml", "Boisson chaude : 1 p", "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "50 DH" },
+      { name: "OMELETTE VÉGÉTARIENNE", image: "images/petit-dej-veg.jpg", prepTime: 12, tech: [
+        "Œufs : 3 p", "Légumes : 120 g", "Mesclun : 40 g", "Jus d'orange : 200 ml",
+        "Boisson chaude : 1 p", "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "50 DH" },
+      { name: "BERBÈRE", image: "images/petit-dej-berbere.jpg", prepTime: 10, tech: [
+        "Baghrir : 1 p", "Amlou : 30 g", "Fruits secs : 30 g", "Jben : 40 g", "Miel : 20 g",
+        "Banane : 1 p", "Jus d'orange : 200 ml", "Boisson chaude : 1 p", "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "50 DH" },
+      { name: "CROQUE", image: "images/petit-dej-croque.jpg", prepTime: 12, tech: [
+        "Croque maison : 1 p", "Mesclun : 40 g", "Jus d'orange : 200 ml", "Boisson chaude : 1 p",
+        "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "50 DH" },
+      { name: "FASSI", image: "images/petit-dej-fassi.jpg", prepTime: 12, tech: [
+        "Khli3 : 80 g", "Œufs au plat : 3 p", "Jus d'orange : 200 ml", "Boisson chaude : 1 p",
+        "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "50 DH" },
+      { name: "OMELETTE CONTINENTAL", image: "images/petit-dej-cont.jpg", prepTime: 12, tech: [
+        "Œufs : 3 p", "Charcuterie : 60 g", "Fromage : 40 g", "Mesclun : 40 g",
+        "Jus d'orange : 200 ml", "Boisson chaude : 1 p", "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "50 DH" },
+      { name: "OMELETTE FROMAGE", image: "images/omelette-fromage.jpg", prepTime: 10, tech: [
+        "Œufs : 3 p", "Fromage : 40 g", "Mesclun : 40 g", "Jus d'orange : 200 ml",
+        "Boisson chaude : 1 p", "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "50 DH" },
+      { name: "OMELETTE NATURE", image: "images/omelette-nature.jpg", prepTime: 10, tech: [
+        "Œufs : 3 p", "Mesclun : 40 g", "Jus d'orange : 200 ml", "Boisson chaude : 1 p",
+        "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "40 DH" },
+      { name: "OMELETTE DU CHEF", image: "images/petit-dej-chef.jpg", prepTime: 12, tech: [
+        "Œufs : 3 p", "Champignons : 40 g", "Épinards : 30 g", "Fromage : 30 g",
+        "Mesclun : 40 g", "Jus d'orange : 200 ml", "Boisson chaude : 1 p", "Eau : 33 cl"
+      ], price: "55 DH" },
+      { name: "ESPAGNOL", image: "images/petit-dej-espagnol.jpg", prepTime: 15, tech: [
+        "Tortilla : 1 p", "Croquettes : 2 p", "Tapenade : 20 g", "Thon : 40 g", "Tomates : 60 g",
+        "Fromage : 40 g", "Pain seigle : 2 tr", "Mesclun : 40 g", "Jus : 200 ml",
+        "Boisson chaude : 1 p", "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "60 DH" },
+      { name: "MQUILA-MERGUEZ", image: "images/petit-dej-mquila.jpg", prepTime: 12, tech: [
+        "Merguez : 120 g", "Poivrons/oignons : 120 g", "Œufs : 2 p", "Jus : 200 ml",
+        "Boisson chaude : 1 p", "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "60 DH" },
+      { name: "MQUILA-FRUITS DE MER", image: "images/petit-dej_mquilafruitdemer.jpeg", prepTime: 12, tech: [
+        "crevettes : 100 g", "calamars : 100 g", "moules : 100 g", "Œufs : 2 p",
+        "Jus : 200 ml", "Boisson chaude : 1 p", "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "78 DH" },
+      { name: "NORVÉGIEN", image: "images/petit-dej-norvegien.jpg", prepTime: 10, tech: [
+        "Saumon : 60 g", "Avocat : 50 g", "Fromage : 30 g", "Pain céréales : 2 tr",
+        "Jus : 200 ml", "Boisson chaude : 1 p", "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "65 DH" },
+      { name: "LIGHT", image: "images/petit-dej-light.jpg", prepTime: 7, tech: [
+        "Pain complet : 2 tr", "Jben : 40 g", "Huile d’olive : 20 ml", "Amlou : 20 g",
+        "Olives : 20 g", "Jus : 200 ml", "Boisson chaude : 1 p", "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "40 DH" },
+      { name: "EXPRESS", image: "images/petit-dej-express.jpg", prepTime: 5, tech: [
+        "Viennoiseries : 4 p", "Jus : 200 ml", "Boisson chaude : 1 p", "Dessert : 1 p", "Eau : 33 cl"
+      ], price: "40 DH" },
+      { name: "MENU ENFANT (PDJ)", image: "images/menu-enfant-pdj.jpg", prepTime: 8, tech: [
+        "Crêpe/Gaufre/Pancake : 1 p", "Corn flakes : 1 bol", "Lait chocolat : 200 ml"
+      ], price: "38 DH" },
     ]
   },
 
-  { // ENTRÉES FROIDES — multi images activé
-    category:"ENTRÉES FROIDES", key:"ef", color:"#22a699",
-    items:[
-      {name:"Salade Veggie",
-       images:"images/entree-veggi2.jpg,images/entree-veggi2.jpg,images/entree-veggi3.jpg",
-       prepTime:10, tech:[
-         "S. Rouge : 100 g","Concombre : 80 g","Tomate Cerise : 70 g","Œufs de Caille : 1 p","Haricot Vert : 60 g",
-         "Betterave : 120 g","Carotte : 40 g","Brocoli : 50 g","Radis : 60 g","Thon : 50 g","Sauce Vinaigrette : 200 g","Maïs : 30 g","Poivron : 50 g"
-       ], price:"48 DH"},
-      {name:"Salade Russe",
-       images:"images/entree-russe.jpg,images/entree-russe2.jpg,images/entree-russe3.jpg",
-       prepTime:10, tech:[
-         "Pomme de Terre : 200 g","Carotte : 100 g","Poulet : 25 g","Petit Pois : 50 g","Olive Verte : 15 g","Cornichon : 24 g",
-         "Œuf de Caille : 1 p","Mayonnaise : 30 g","Thon : 50 g","Maïs : 15 g","Radis : 14 g","Poivron : 10 g","Concombre : 10 g"
-       ], price:"54 DH"},
-      {name:"Salade César",
-       images:"images/entree-caesar.jpg,images/entree-caesar2.jpg,images/entree-caesar3.jpg",
-       prepTime:8, tech:[
-         "Roarin : 180 g","Laitue : 100 g","Poulet : 130 g","Croûtons : 30 g","Tomate Cerise : 60 g","Sauce César : 70 g","Parmesan : 30 g"
-       ], price:"62 DH"},
-      {name:"Salade Quinoa",
-       images:"images/entree-quinoa.jpg,images/entree-quinoa2.jpg,images/entree-quinoa3.jpg",
-       prepTime:8, tech:[
-         "Quinoa : 140 g","Gambas Pané : 60 g","Gambas Poché : 80 g","Fruits : 70 g","Feta : 20 g","Kiwi : 120 g",
-         "Vinaigrette : 20 g","Miel : 30 g","Framboise : 17 g"
-       ], price:"68 DH"},
-      {name:"Salade Terre & Mer",
-       images:"images/entree-terremer.jpg,images/entree-terremer2.jpg,images/entree-terremer3.jpg",
-       prepTime:10, tech:[
-         "Poulet Pané : 50 g","Tomate Cerise : 25 g","S. Rouge : 25 g","Maïs : 30 g","Gambas Poché : 73 g","Gambas Pané : 30 g",
-         "Avocat : 150 g","Sauce Tartare : 30 g","Pomme : 24 g","Moules : 16 g","Agrumes : 15 g"
-       ], price:"78 DH"},
-      {name:"TARTARE SAUMON",
-       images:"images/entree-tartare.jpeg",
-       prepTime:7, tech:[
-         "saumon frais : 90 g","SAUMON FUMEE : 25 g","Avocat : 300 g","SAUCE TARTARE : 24 g"
-       ], price:"88 DH"},
-      {name:"Salade Burrata",
-       images:"images/entree-burrata.jpg,images/entree-burrata2.jpg,images/entree-burrata3.jpg",
-       prepTime:7, tech:[
-         "Burrata : 184 g","Noix : 30 g","Roquette : 30 g","Pesto : 15 g","Balsamique : 10 g","Fruits Rouges : 40 g","Radis : 10 g","Tomate Cerise : 25 g"
-       ], price:"88 DH"},
+  {
+    category: "ENTRÉES FROIDES", key: "ef", color: "#22a699",
+    items: [
+      { name: "Salade Veggie",
+        images: "images/entree-veggi.jpg,images/entree-veggi2.jpg,images/entree-veggi3.jpg",
+        prepTime: 10, tech: [
+          "S. Rouge : 100 g", "Concombre : 80 g", "Tomate Cerise : 70 g", "Œufs de Caille : 1 p",
+          "Haricot Vert : 60 g", "Betterave : 120 g", "Carotte : 40 g", "Brocoli : 50 g",
+          "Radis : 60 g", "Thon : 50 g", "Sauce Vinaigrette : 200 g", "Maïs : 30 g", "Poivron : 50 g"
+        ], price: "48 DH" },
+      { name: "Salade Russe",
+        images: "images/entree-russe.jpg,images/entree-russe2.jpg,images/entree-russe3.jpg",
+        prepTime: 10, tech: [
+          "Pomme de Terre : 200 g", "Carotte : 100 g", "Poulet : 25 g", "Petit Pois : 50 g",
+          "Olive Verte : 15 g", "Cornichon : 24 g", "Œuf de Caille : 1 p", "Mayonnaise : 30 g",
+          "Thon : 50 g", "Maïs : 15 g", "Radis : 14 g", "Poivron : 10 g", "Concombre : 10 g"
+        ], price: "54 DH" },
+      { name: "Salade César",
+        images: "images/entree-caesar.jpg,images/entree-caesar2.jpg,images/entree-caesar3.jpg",
+        prepTime: 8, tech: [
+          "Romaine : 180 g", "Laitue : 100 g", "Poulet : 130 g", "Croûtons : 30 g",
+          "Tomate Cerise : 60 g", "Sauce César : 70 g", "Parmesan : 30 g"
+        ], price: "62 DH" },
+      { name: "Salade Quinoa",
+        images: "images/entree-quinoa.jpg,images/entree-quinoa2.jpg,images/entree-quinoa3.jpg",
+        prepTime: 8, tech: [
+          "Quinoa : 140 g", "Gambas Pané : 60 g", "Gambas Poché : 80 g", "Fruits : 70 g",
+          "Feta : 20 g", "Kiwi : 120 g", "Vinaigrette : 20 g", "Miel : 30 g", "Framboise : 17 g"
+        ], price: "68 DH" },
+      { name: "Salade Terre & Mer",
+        images: "images/entree-terremer.jpg,images/entree-terremer2.jpg,images/entree-terremer3.jpg",
+        prepTime: 10, tech: [
+          "Poulet Pané : 50 g", "Tomate Cerise : 25 g", "S. Rouge : 25 g", "Maïs : 30 g",
+          "Gambas Poché : 73 g", "Gambas Pané : 30 g", "Avocat : 150 g", "Sauce Tartare : 30 g",
+          "Pomme : 24 g", "Moules : 16 g", "Agrumes : 15 g"
+        ], price: "78 DH" },
+      { name: "TARTARE SAUMON",
+        images: "images/entree-tartare.jpeg",
+        prepTime: 7, tech: [
+          "saumon frais : 90 g", "SAUMON FUMEE : 25 g", "Avocat : 300 g", "SAUCE TARTARE : 24 g"
+        ], price: "88 DH" },
+      { name: "Salade Burrata",
+        images: "images/entree-burrata.jpg,images/entree-burrata2.jpg,images/entree-burrata3.jpg",
+        prepTime: 7, tech: [
+          "Burrata : 184 g", "Noix : 30 g", "Roquette : 30 g", "Pesto : 15 g",
+          "Balsamique : 10 g", "Fruits Rouges : 40 g", "Radis : 10 g", "Tomate Cerise : 25 g"
+        ], price: "88 DH" },
     ]
   },
 
-  { // ENTRÉES CHAUDES — multi images
-    category:"ENTRÉES CHAUDES", key:"ec", color:"#ffb703",
-    items:[
-      {name:"CROQUETTES 5 FROMAGES",
-       images:"images/entree-croq5fromage.jpg,images/entree-croq5fromage2.jpg,images/entree-croq5fromage3.jpg",
-       prepTime:10, tech:["Mozzarella : 50 g","Edam : 25 g","Brie : 15 g","Parmesan : 15 g","Bleu : 16 g","Lait : 250 ml","Farine : 100 g"], price:"45 DH"},
-      {name:"CROUSTILLON GAMBAS",
-       images:"images/entree-croustillon.jpg,images/entree-croustillon2.jpg,images/entree-croustillon3.jpg",
-       prepTime:12, tech:["Gambas panées : 260 g","Purée : 400 g","Radis : 15 g","Parmesan : 14 g","Crème fraîche : 50 g"], price:"65 DH"},
-      {name:"PIL PIL ESPAGNOL",
-       images:"images/entree-pilpil.jpg,images/entree-pilpil2.jpg,images/entree-pilpil3.jpg",
-       prepTime:14, tech:["Gambas : 260 g","Tomate cerise : 60 g","Pesto : 22 g","Huile d’olive : 30 g","Oignon : 60 g","Ail : 10 g","Sauce tomate : 120 g"], price:"65 DH"},
+  {
+    category: "ENTRÉES CHAUDES", key: "ec", color: "#ffb703",
+    items: [
+      { name: "CROQUETTES 5 FROMAGES",
+        images: "images/entree-croq5fromage.jpg,images/entree-croq5fromage2.jpg,images/entree-croq5fromage3.jpg",
+        prepTime: 10, tech: [
+          "Mozzarella : 50 g", "Edam : 25 g", "Brie : 15 g", "Parmesan : 15 g",
+          "Bleu : 16 g", "Lait : 250 ml", "Farine : 100 g"
+        ], price: "45 DH" },
+      { name: "CROUSTILLON GAMBAS",
+        images: "images/entree-croustillon.jpg,images/entree-croustillon2.jpg,images/entree-croustillon3.jpg",
+        prepTime: 12, tech: [
+          "Gambas panées : 260 g", "Purée : 400 g", "Radis : 15 g", "Parmesan : 14 g", "Crème fraîche : 50 g"
+        ], price: "65 DH" },
+      { name: "PIL PIL ESPAGNOL",
+        images: "images/entree-pilpil.jpg,images/entree-pilpil2.jpg,images/entree-pilpil3.jpg",
+        prepTime: 14, tech: [
+          "Gambas : 260 g", "Tomate cerise : 60 g", "Pesto : 22 g", "Huile d’olive : 30 g",
+          "Oignon : 60 g", "Ail : 10 g", "Sauce tomate : 120 g"
+        ], price: "65 DH" },
     ]
   },
 
-  { // PLATS — multi images
-    category:"PLATS", key:"pl", color:"#64b5f6",
-    items:[
-      {name:"BROCHETTES DE POULET",
-       images:"images/plat-brochette.jpg,images/plat-brochette2.jpg,images/plat-brochette3.jpg",
-       prepTime:18, tech:["Blanc de poulet : 200 g","Sauce barbecue : 30 g","Salade rouge : 50 g","Accompagnements — 2 au choix","Frites : 200 g","Pain : 1 p"], price:"84 DH"},
-      {name:"EMINCE DE POULET",
-       images:"images/plat-emincepoulet.jpg,images/plat-emincepoulet2.jpg,images/plat-emincepoulet3.jpg",
-       prepTime:15, tech:["Poulet : 160 g","Champignons : 90 g","Crème fraîche : 100 ml","Demi-glace : 100 ml","Légumes variés : 220 g","Fokacha : 150 g","Frites : 200 g","Pain : 1 p","Huile : 50 ml"], price:"88 DH"},
-      {name:"BALLOTINE DE POULET",
-       images:"images/plat-ballotine.jpg,images/plat-ballotine2.jpg,images/plat-ballotine3.jpg",
-       prepTime:20, tech:["Poulet : 250 g","Épinard : 40 g","Crème fraîche : 70 ml","Parmesan : 20 g","Cheddar : 60 g","Beurre : 30 g","Légumes : 220 g","Frites : 200 g","Pain : 1 p"], price:"94 DH"},
-      {name:"ESCALOPE A LA PARMIGIANA",
-       images:"images/plat-parmigiana.jpg,images/plat-parmigiana2.jpg,images/plat-parmigiana3.jpg",
-       prepTime:18, tech:["Poulet : 180 g","Parmesan : 30 g","Olive noire : 15 g","Crème fraîche : 100 ml","Moutarde : 10 g","Légumes : 220 g","Frites : 200 g","Pain : 1 p","Beurre : 40 g"], price:"85 DH"},
-      {name:"ESCALOPE A LA MILANAISE",
-       images:"images/plat-milanaise.jpg,images/plat-milanaise2.jpg,images/plat-milanaise3.jpg",
-       prepTime:18, tech:["Poulet : 120 g","Chapelure : 50 g","Crème fraîche : 70 ml","Moutarde : 10 g","Parmesan : 30 g","Légumes : 220 g","Frites : 200 g","Pain : 1 p"], price:"85 DH"},
-      {name:"EMINCE DE BŒUF",
-       images:"images/plat-eminceboeuf.jpg,images/plat-eminceboeuf2.jpg,images/plat-eminceboeuf3.jpg",
-       prepTime:16, tech:["Bœuf : 150 g","Champignons : 80 g","Crème fraîche : 70 ml","Demi-glace : 60 ml","Légumes : 220 g","Fokacha : 150 g","Frites : 200 g","Pain : 1 p","Huile : 60 ml"], price:"103 DH"},
-      {name:"FILET DE BŒUF",
-       images:"images/plat-filet.jpg,images/plat-filet2.jpg,images/plat-filet3.jpg",
-       prepTime:15, tech:["Filet : 180 g","Beurre : 40 g","Poivre vert : 20 g","Demi-glace : 70 ml","Légumes : 220 g","Fokacha : 150 g","Frites : 200 g","Pain : 1 p"], price:"128 DH"},
-      {name:"PAVÉ DE SAUMON",
-       images:"images/plat-saumon.jpg,images/plat-saumon2.jpg,images/plat-saumon3.jpg",
-       prepTime:18, tech:["Saumon : 180 g","Crevette : 80 g","Crème fraîche : 70 ml","Parmesan : 20 g","Beurre : 40 g","Légumes : 220 g","Fokacha : 150 g","Frites : 200 g","Pain : 1 p"], price:"148 DH"},
-      {name:"MENU ENFANT (PLAT)",
-       images:"images/menu-enfant-plat.jpg,images/menu-enfant-plat2.jpg,images/menu-enfant-plat3.jpg",
-       prepTime:10, tech:["Pasta nature ou Mini pizza + boisson","OU Burger / nuggets + frites + boisson"], price:"58 DH"},
+  {
+    category: "PLATS", key: "pl", color: "#64b5f6",
+    items: [
+      { name: "BROCHETTES DE POULET",
+        images: "images/plat-brochette.jpg,images/plat-brochette2.jpg,images/plat-brochette3.jpg",
+        prepTime: 18, tech: [
+          "Blanc de poulet : 200 g", "Sauce barbecue : 30 g", "Salade rouge : 50 g",
+          "Accompagnements — 2 au choix", "Frites : 200 g", "Pain : 1 p"
+        ], price: "84 DH" },
+      { name: "EMINCE DE POULET",
+        images: "images/plat-emincepoulet.jpg,images/plat-emincepoulet2.jpg,images/plat-emincepoulet3.jpg",
+        prepTime: 15, tech: [
+          "Poulet : 160 g", "Champignons : 90 g", "Crème fraîche : 100 ml", "Demi-glace : 100 ml",
+          "Légumes variés : 220 g", "Fokacha : 150 g", "Frites : 200 g", "Pain : 1 p", "Huile : 50 ml"
+        ], price: "88 DH" },
+      { name: "BALLOTINE DE POULET",
+        images: "images/plat-ballotine.jpg,images/plat-ballotine2.jpg,images/plat-ballotine3.jpg",
+        prepTime: 20, tech: [
+          "Poulet : 250 g", "Épinard : 40 g", "Crème fraîche : 70 ml", "Parmesan : 20 g",
+          "Cheddar : 60 g", "Beurre : 30 g", "Légumes : 220 g", "Frites : 200 g", "Pain : 1 p"
+        ], price: "94 DH" },
+      { name: "ESCALOPE A LA PARMIGIANA",
+        images: "images/plat-parmigiana.jpg,images/plat-parmigiana2.jpg,images/plat-parmigiana3.jpg",
+        prepTime: 18, tech: [
+          "Poulet : 180 g", "Parmesan : 30 g", "Olive noire : 15 g", "Crème fraîche : 100 ml",
+          "Moutarde : 10 g", "Légumes : 220 g", "Frites : 200 g", "Pain : 1 p", "Beurre : 40 g"
+        ], price: "85 DH" },
+      { name: "ESCALOPE A LA MILANAISE",
+        images: "images/plat-milanaise.jpg,images/plat-milanaise2.jpg,images/plat-milanaise3.jpg",
+        prepTime: 18, tech: [
+          "Poulet : 120 g", "Chapelure : 50 g", "Crème fraîche : 70 ml", "Moutarde : 10 g",
+          "Parmesan : 30 g", "Légumes : 220 g", "Frites : 200 g", "Pain : 1 p"
+        ], price: "85 DH" },
+      { name: "EMINCE DE BŒUF",
+        images: "images/plat-eminceboeuf.jpg,images/plat-eminceboeuf2.jpg,images/plat-eminceboeuf3.jpg",
+        prepTime: 16, tech: [
+          "Bœuf : 150 g", "Champignons : 80 g", "Crème fraîche : 70 ml", "Demi-glace : 60 ml",
+          "Légumes : 220 g", "Fokacha : 150 g", "Frites : 200 g", "Pain : 1 p", "Huile : 60 ml"
+        ], price: "103 DH" },
+      { name: "FILET DE BŒUF",
+        images: "images/plat-filet.jpg,images/plat-filet2.jpg,images/plat-filet3.jpg",
+        prepTime: 15, tech: [
+          "Filet : 180 g", "Beurre : 40 g", "Poivre vert : 20 g", "Demi-glace : 70 ml",
+          "Légumes : 220 g", "Fokacha : 150 g", "Frites : 200 g", "Pain : 1 p"
+        ], price: "128 DH" },
+      { name: "PAVÉ DE SAUMON",
+        images: "images/plat-saumon.jpg,images/plat-saumon2.jpg,images/plat-saumon3.jpg",
+        prepTime: 18, tech: [
+          "Saumon : 180 g", "Crevette : 80 g", "Crème fraîche : 70 ml", "Parmesan : 20 g",
+          "Beurre : 40 g", "Légumes : 220 g", "Fokacha : 150 g", "Frites : 200 g", "Pain : 1 p"
+        ], price: "148 DH" },
+      { name: "MENU ENFANT (PLAT)",
+        images: "images/menu-enfant-plat.jpg,images/menu-enfant-plat2.jpg,images/menu-enfant-plat3.jpg",
+        prepTime: 10, tech: [
+          "Pasta nature ou Mini pizza + boisson", "OU Burger / nuggets + frites + boisson"
+        ], price: "58 DH" },
     ]
   },
 
-  { // BURGERS
-    category:"BURGERS", key:"bg", color:"#b088f9",
-    items:[
-      {name:"CHICKEN BURGER", image:"images/burger-chicken.jpg", prepTime:18, tech:[
-        "poulet  : 150 g","Sauce blanche : 40 g","Sauce pesto : 20 g","Cheddar : 20 g","Tomate/Laitue : 30 g","Frites : 200 g","Pain : 1 p"
-      ], price:"48 DH"},
-      {name:"CHEESE BURGER", image:"images/burger-cheese.jpg", prepTime:15, tech:[
-        "Viande Hachée : 100 g","Cheddar : 20 g","Tomate : 30 g","Laitue : 20 g","Oignon+Cornichon : 45 ml","Sauce Bigy : 30 g","Frites + Sauce : 200 g","Pain : 1 p"
-      ], price:"54 DH"},
-      {name:"AVOCADO FORESTIER", image:"images/burger-avocado.jpg", prepTime:15, tech:[
-        "Poulet : 120 g","Avocat : 50 g","Tomate/Laitue : 30 g","Œuf : 1 p","Chapelure : 50 g","Cheddar : 20 g","Sauce Bigy : 30 g","Frites+Sauce : 200 g","Pain : 1 p"
-      ], price:"54 DH"},
-      {name:"EGG ET CHEESEBURGER", image:"images/burger-eggcheese.jpg", prepTime:16, tech:[
-        "Viande : 100 g","Œuf : 1 p","Champignon : 30 g","Cheddar : 20 g","Tomate/Laitue : 30 g","Sauce Bigy : 30 g","Frites : 200 g","Pain : 1 p"
-      ], price:"58 DH"},
-      {name:"BIG BURGER", image:"images/burger-big.jpg", prepTime:18, tech:[
-        "Viande : 2×100 g","Cheddar : 20 g","Tomate/Laitue : 30 g","Sauce du chef : 30 g","Frites : 200 g","Pain : 1 p"
-      ], price:"68 DH"},
-      {name:"BURGER ROYAL", image:"images/burger-royal.jpg", prepTime:20, tech:[
-        "Viande : 100 g","Poulet pané : 120 g","Œuf : 1 p","Cheddar : 20 g","Oignons caramélisés : 25 g","Laitue/Tomate : 30 g","Sauce spéciale : 30 g","Frites : 200 g","Pain : 1 p"
-      ], price:"68 DH"},
+  {
+    category: "BURGERS", key: "bg", color: "#b088f9",
+    items: [
+      { name: "CHICKEN BURGER", image: "images/burger-cheese.jpg", prepTime: 18, tech: [
+        "poulet : 150 g", "Sauce blanche : 40 g", "Sauce pesto : 20 g", "Cheddar : 20 g",
+        "Tomate/Laitue : 30 g", "Frites : 200 g", "Pain : 1 p"
+      ], price: "48 DH" },
+      { name: "CHEESE BURGER", image: "images/burger-cheese.jpg", prepTime: 15, tech: [
+        "Viande Hachée : 100 g", "Cheddar : 20 g", "Tomate : 30 g", "Laitue : 20 g",
+        "Oignon+Cornichon : 45 ml", "Sauce Bigy : 30 g", "Frites + Sauce : 200 g", "Pain : 1 p"
+      ], price: "54 DH" },
+      { name: "AVOCADO FORESTIER", image: "images/burger-avocado.jpg", prepTime: 15, tech: [
+        "Poulet : 120 g", "Avocat : 50 g", "Tomate/Laitue : 30 g", "Œuf : 1 p",
+        "Chapelure : 50 g", "Cheddar : 20 g", "Sauce Bigy : 30 g", "Frites+Sauce : 200 g", "Pain : 1 p"
+      ], price: "54 DH" },
+      { name: "EGG ET CHEESEBURGER", image: "images/burger-eggcheese.jpg", prepTime: 16, tech: [
+        "Viande : 100 g", "Œuf : 1 p", "Champignon : 30 g", "Cheddar : 20 g",
+        "Tomate/Laitue : 30 g", "Sauce Bigy : 30 g", "Frites : 200 g", "Pain : 1 p"
+      ], price: "58 DH" },
+      { name: "BIG BURGER", image: "images/burger-big.jpg", prepTime: 18, tech: [
+        "Viande : 2×100 g", "Cheddar : 20 g", "Tomate/Laitue : 30 g",
+        "Sauce du chef : 30 g", "Frites : 200 g", "Pain : 1 p"
+      ], price: "68 DH" },
+      { name: "BURGER ROYAL", image: "images/burger-royal.jpg", prepTime: 20, tech: [
+        "Viande : 100 g", "Poulet pané : 120 g", "Œuf : 1 p", "Cheddar : 20 g",
+        "Oignons caramélisés : 25 g", "Laitue/Tomate : 30 g", "Sauce spéciale : 30 g",
+        "Frites : 200 g", "Pain : 1 p"
+      ], price: "68 DH" },
     ]
   },
 
-  { // PANINIS
-    category:"PANINIS", key:"pa", color:"#f97316",
-    items:[
-      {name:"PANINI CHARCUTERIE", image:"images/panini-charcuterie.jpg", prepTime:10, tech:[
-        "Charcuterie : 120 g","Mozzarella : 60 g","Frites+Sauce : 200 g","Sauce Bigy : 30 g","Pain : 1 p"
-      ], price:"—"},
-      {name:"PANINI POULET", image:"images/panini-poulet.jpg", prepTime:10, tech:[
-        "Poulet : 70 g","Mozzarella : 60 g","Frites+Sauce : 200 g","Sauce Bigy : 30 g","Pain : 1 p"
-      ], price:"—"},
-      {name:"PANINI VIANDE HACHÉE", image:"images/panini-hache.jpg", prepTime:10, tech:[
-        "Viande : 100 g","Mozzarella : 60 g","Frites+Sauce : 200 g","Sauce Bigy : 30 g","Pain : 1 p"
-      ], price:"—"},
-      {name:"PANINI GOURMAND", image:"images/panini-mixte.jpg", prepTime:12, tech:[
-        "Viande : 50 g","Poulet : 50 g","Charcuterie : 50 g","Mozzarella : 60 g","Frites+Sauce : 200 g","Sauce Bigy : 30 g","Pain : 1 p"
-      ], price:"—"},
-      {name:"PANINI FRUITS DE MER", image:"images/panini-fruitsmer.jpg", prepTime:12, tech:[
-        "Crevette : 100 g","Calamar : 50 g","Sauce pesto : 20 g","Mozzarella : 60 g","Frites : 200 g","Sauce Bigy : 30 g","Pain : 1 p"
-      ], price:"—"},
-      {name:"PANINI SAUMON", image:"images/panini-saumon.jpg", prepTime:12, tech:[
-        "Saumon : 90 g","Sauce pesto : 20 g","Mozzarella : 60 g","Frites : 200 g","Sauce Bigy : 30 g","Pain : 1 p"
-      ], price:"—"},
+  {
+    category: "WRAPS", key: "wr", color: "#06b6d4",
+    items: [
+      { name: "WRAP POULET", image: "images/Wrap-poulet.jpg", prepTime: 12, tech: [
+        "Poulet : 120 g", "Œuf : 1 p", "Frites + sauce : 200 g", "Chapelure : 50 g",
+        "Cheddar : 25 g", "Pain : 1 p", "Tomate fraîche : 30 g", "Sauce burger : 60 ml"
+      ], price: "58 DH" },
+      { name: "WRAP VIANDE HACHÉE", image: "images/Wrap-viande-hachee.jpg", prepTime: 12, tech: [
+        "Viande hachée : 100 g", "Œuf : 1 p", "Frites + sauce : 200 g", "Cheddar : 25 g",
+        "Pain : 1 p", "Tomate fraîche : 30 g", "Sauce burger : 60 ml"
+      ], price: "62 DH" },
+      { name: "WRAP GOURMAND", image: "images/Wrap-gourmand.jpg", prepTime: 15, tech: [
+        "Poulet : 120 g", "Charcuterie : 40 g", "Œuf : 1 p", "Chapelure : 50 g",
+        "Cheddar : 25 g", "Frites + sauce : 200 g", "Pain : 1 p", "Tomate fraîche : 30 g", "Sauce burger : 60 ml"
+      ], price: "64 DH" },
     ]
   },
 
-  { // SANDWICHS
-    category:"SANDWICHS", key:"sw", color:"#10b981",
-    items:[
-      {name:"FRUITS DE MER", image:"images/sand-fruitsmer.jpg", prepTime:14, tech:[
-        "Crevette : 125 g","Calamar : 70 g","Sauce Biggy : 40 g","Cheddar : 20 g","Crème fraîche : 60 ml","Sauce fromagère : 20 g","Frites : 200 g","Pain : 1 p"
-      ], price:"55 DH"},
-      {name:"THON", image:"images/sand-thon.jpg", prepTime:8, tech:[
-        "Thon : 120 g","Tomate : 30 g","Sauce burger : 40 ml","Cheddar : 20 g","Frites : 200 g","Pain : 1 p"
-      ], price:"40 DH"},
-      {name:"POULET", image:"images/sand-poulet.jpg", prepTime:10, tech:[
-        "Poulet : 120 g","Tomate : 30 g","Sauce burger : 40 ml","Cheddar : 20 g","Frites : 200 g","Pain : 1 p"
-      ], price:"45 DH"},
-      {name:"POULET CRUNCHY", image:"images/sand-crunchy.jpg", prepTime:12, tech:[
-        "Poulet : 120 g","Œuf : 1 p","Chapelure : 50 g","Tomate : 30 g","Cheddar : 20 g","Frites : 200 g","Pain : 1 p"
-      ], price:"50 DH"},
-      {name:"CHEESE STEAK", image:"images/sand-cheesesteak.jpg", prepTime:12, tech:[
-        "Filet : 70 g","Demi-glace : 40 ml","Champignon : 50 g","Cheddar : 20 g","Crème fraîche : 40 ml","Frites : 200 g","Pain : 1 p"
-      ], price:"55 DH"},
-      {name:"VIANDE HACHÉE", image:"images/sand-hache.jpg", prepTime:10, tech:[
-        "Viande : 100 g","Tomate : 30 g","Sauce spéciale : 30 g","Cheddar : 20 g","Frites : 200 g","Pain : 1 p"
-      ], price:"45 DH"},
+  {
+    category: "PANINIS", key: "pa", color: "#f97316",
+    items: [
+      { name: "PANINI CHARCUTERIE", image: "images/panini-charcuterie.jpg", prepTime: 10, tech: [
+        "Charcuterie : 120 g", "Mozzarella : 60 g", "Frites+Sauce : 200 g", "Sauce Bigy : 30 g", "Pain : 1 p"
+      ], price: "42 DH" },
+      { name: "PANINI POULET", image: "images/panini-poulet.jpg", prepTime: 10, tech: [
+        "Poulet : 70 g", "Mozzarella : 60 g", "Frites+Sauce : 200 g", "Sauce Bigy : 30 g", "Pain : 1 p"
+      ], price: "45 DH" },
+      { name: "PANINI VIANDE HACHÉE", image: "images/panini-hache.jpg", prepTime: 10, tech: [
+        "Viande : 100 g", "Mozzarella : 60 g", "Frites+Sauce : 200 g", "Sauce Bigy : 30 g", "Pain : 1 p"
+      ], price: "45 DH" },
+      { name: "PANINI GOURMAND", image: "images/panini-mixte.jpg", prepTime: 12, tech: [
+        "Viande : 50 g", "Poulet : 50 g", "Charcuterie : 50 g", "Mozzarella : 60 g", "Frites+Sauce : 200 g", "Sauce Bigy : 30 g", "Pain : 1 p"
+      ], price: "50 DH" },
+      { name: "PANINI FRUITS DE MER", image: "images/panini-fruitsmer.jpg", prepTime: 12, tech: [
+        "Crevette : 100 g", "Calamar : 50 g", "Sauce pesto : 20 g", "Mozzarella : 60 g", "Frites : 200 g", "Sauce Bigy : 30 g", "Pain : 1 p"
+      ], price: "55 DH" },
+      { name: "PANINI SAUMON", image: "images/panini-saumon.jpg", prepTime: 12, tech: [
+        "Saumon : 90 g", "Sauce pesto : 20 g", "Mozzarella : 60 g", "Frites : 200 g", "Sauce Bigy : 30 g", "Pain : 1 p"
+      ], price: "58 DH" },
     ]
   },
 
-  { // PIZZAS
-    category:"PIZZA", key:"pz", color:"#eab308",
-    items:[
-      {name:"MARGARITA", image:"images/pizza-margherita.jpg", prepTime:14, tech:["Pâte : 330 g","Mozzarella : 200 g","Sauce tomate : 100 g","Olives noires : 13 g"], price:"50 DH"},
-      {name:"THON", image:"images/pizza-thon.jpg", prepTime:15, tech:["Pâte : 330 g","Mozzarella : 200 g","Sauce tomate : 100 g","Thon : 100 g","Oignons : 40 g","Olives"], price:"60 DH"},
-      {name:"VÉGÉTARIENNE", image:"images/pizza-veggie.jpg", prepTime:15, tech:["Pâte : 330 g","Mozzarella : 200 g","Sauce tomate : 100 g","Champignons : 60 g","Légumes : 220 g"], price:"60 DH"},
-      {name:"REGINA", image:"images/pizza-regina.jpg", prepTime:16, tech:["Pâte : 330 g","Mozzarella : 200 g","Dinde fumée : 100 g","Champignons : 60 g","Sauce blanche : 100 g"], price:"65 DH"},
-      {name:"5 FROMAGES", image:"images/pizza-5fromages.jpg", prepTime:16, tech:["Pâte : 330 g","Mozzarella : 50 g","Brie : 50 g","Bleu : 40 g","Sauce blanche : 100 g","Parmesan : 20 g","Fromage rouge : 40 g"], price:"70 DH"},
-      {name:"VIANDE HACHÉE", image:"images/pizza-hache.jpg", prepTime:16, tech:["Pâte : 330 g","Mozzarella : 200 g","Sauce tomate : 100 g","Viande : 100 g","Tomate cerise : 40 g"], price:"70 DH"},
-      {name:"PEPPERONI", image:"images/pizza-pepperoni.jpg", prepTime:15, tech:["Pâte : 330 g","Mozzarella : 200 g","Sauce tomate : 100 g","Pepperoni : 40 g"], price:"70 DH"},
-      {name:"POULET SAUCE BLANCHE", image:"images/pizza-pouletblanche.jpg", prepTime:16, tech:["Pâte : 330 g","Mozzarella : 200 g","Poulet : 150 g","Champignon : 60 g","Sauce blanche : 100 g"], price:"75 DH"},
-      {name:"4 SAISONS", image:"images/pizza-4saisons.jpg", prepTime:18, tech:["Pâte : 330 g","Mozzarella : 200 g","Calamar : 40 g","Crevette : 40 g","Viande : 40 g","Poulet : 40 g","Légumes : 60 g","Champignon : 60 g"], price:"80 DH"},
-      {name:"MOITIÉ MOITIÉ", image:"images/pizza-moitiemoitie.jpg", prepTime:18, tech:["Pâte : 330 g","Garnitures 2 moitiés (hors fruits de mer/saumon)"], price:"80 DH"},
-      {name:"BURRATA", image:"images/pizza-burrata.jpg", prepTime:15, tech:["Pâte : 330 g","Mozzarella : 200 g","Sauce tomate : 100 g","Burrata : 35 g","Noix : 30 g","Tomate cerise : 20 g"], price:"80 DH"},
-      {name:"FRUITS DE MER", image:"images/pizza-fruitsmer.jpg", prepTime:18, tech:["Pâte : 330 g","Mozzarella : 200 g","Crevette : 110 g","Calamar : 70 g","Moules : 40 g","Champignon : 60 g","Sauce blanche : 100 g"], price:"85 DH"},
-      {name:"SAUMON", image:"images/pizza-saumon.jpg", prepTime:18, tech:["Pâte : 330 g","Mozzarella : 200 g","Saumon : 90 g","Sauce blanche : 100 g","Câpres : 15 g"], price:"90 DH"},
+  {
+    category: "SANDWICHS", key: "sw", color: "#10b981",
+    items: [
+      { name: "FRUITS DE MER", image: "images/sand-fruitsmer.jpg", prepTime: 14, tech: [
+        "Crevette : 125 g", "Calamar : 70 g", "Sauce Biggy : 40 g", "Cheddar : 20 g",
+        "Crème fraîche : 60 ml", "Sauce fromagère : 20 g", "Frites : 200 g", "Pain : 1 p"
+      ], price: "55 DH" },
+      { name: "THON", image: "images/sand-thon.jpg", prepTime: 8, tech: [
+        "Thon : 120 g", "Tomate : 30 g", "Sauce burger : 40 ml", "Cheddar : 20 g", "Frites : 200 g", "Pain : 1 p"
+      ], price: "40 DH" },
+      { name: "POULET", image: "images/sand-poulet.jpg", prepTime: 10, tech: [
+        "Poulet : 120 g", "Tomate : 30 g", "Sauce burger : 40 ml", "Cheddar : 20 g", "Frites : 200 g", "Pain : 1 p"
+      ], price: "45 DH" },
+      { name: "POULET CRUNCHY", image: "images/sand-crunchy.jpg", prepTime: 12, tech: [
+        "Poulet : 120 g", "Œuf : 1 p", "Chapelure : 50 g", "Tomate : 30 g", "Cheddar : 20 g", "Frites : 200 g", "Pain : 1 p"
+      ], price: "50 DH" },
+      { name: "CHEESE STEAK", image: "images/sand-cheesesteak.jpg", prepTime: 12, tech: [
+        "Filet : 70 g", "Demi-glace : 40 ml", "Champignon : 50 g", "Cheddar : 20 g",
+        "Crème fraîche : 40 ml", "Frites : 200 g", "Pain : 1 p"
+      ], price: "55 DH" },
+      { name: "VIANDE HACHÉE", image: "images/sand-hache.jpg", prepTime: 10, tech: [
+        "Viande : 100 g", "Tomate : 30 g", "Sauce spéciale : 30 g", "Cheddar : 20 g", "Frites : 200 g", "Pain : 1 p"
+      ], price: "45 DH" },
     ]
   },
 
-  { // PÂTES
-    category:"PÂTES", key:"pae", color:"#fb7185",
-    items:[
-       {name:"LASAGNE_POULET", image:"images/lasagne_poulet.jpeg", prepTime:15, tech:[
-        "Pâtes : 60 g","poulet : 80 g","Parmesan : 15 g","Huile : 60 g","champignon : 50 g","Pesto : 70 g","Sauce blanche : 100 g","Oignon/Ail : 70 g"
-      ], price:"62 DH"},
-      {name:"LASAGNE_BOLOGNAISE", image:"images/lasagne_bolognaise.jpeg", prepTime:15, tech:[
-        "Pâtes : 60 g","Viande : 100 g","Parmesan : 15 g","Huile : 60 g","Tomate cerise : 50 g","Pesto : 70 g","Sauce tomate : 80 g","Oignon/Ail : 70 g"
-      ], price:"68 DH"},
-      {name:"LASAGNE_FRUIT DE MER", image:"images/lasagne _fruitdemer.jpeg", prepTime:15, tech:[
-        "Pâtes : 60 g","crevette :140 g","Parmesan : 15 g","Huile : 60 g","CALAMAR : 100g","Pesto : 70 g","Sauce blanche : 100 g","Oignon/Ail : 70 g"
-      ], price:"78 DH"},
-      {name:"VÉGÉTARIEN", image:"images/pasta-veg.jpg", prepTime:12, tech:[
-        "Pâtes : 150 g","Sauce pesto : 70 g","Parmesan : 60 g","Huile d'olive : 60 g","Crème : 100 g","Oignon : 60 g","Tomate cerise : 50 g","Légumes : 150 g"
-      ], price:"55 DH"},
-      {name:"CARBONARA", image:"images/pasta-carbonara.jpg", prepTime:14, tech:[
-        "Pâtes : 150 g","Jambon de dinde : 80 g","Parmesan : 60 g","Huile : 60 g","Crème : 100 g","Oignon/Ail : 70 g"
-      ], price:"60 DH"},
-      {name:"5 FROMAGE", image:"images/pasta-5fromages.jpg", prepTime:14, tech:[
-        "Pâtes : 150 g","Brie : 25 g","Parmesan : 25 g","Bleu : 20 g","Mozzarella : 30 g","Edam : 20 g","Huile : 60 g","Crème : 100 g","Oignon/Ail : 70 g"
-      ], price:"60 DH"},
-      {name:"REGATONI RICOTTA", image:"images/pasta-ricotta.jpg", prepTime:15, tech:[
-        "Pâtes : 150 g","Ricotta : 40 g","Parmesan : 60 g","Huile : 60 g","Crème : 100 g","Pesto : 70 g","Courgette : 100 g","Oignon/Ail : 70 g"
-      ], price:"65 DH"},
-      {name:"BOLOGNAISE", image:"images/pasta-bolognaise.jpg", prepTime:15, tech:[
-        "Pâtes : 150 g","Viande : 100 g","Parmesan : 60 g","Huile : 60 g","Tomate cerise : 50 g","Pesto : 70 g","Sauce tomate : 80 g","Oignon/Ail : 70 g"
-      ], price:"65 DH"},
-      {name:"POULET CHAMPIGNON / ÉPINARD", image:"images/pasta-poulet.jpg", prepTime:16, tech:[
-        "Pâtes : 150 g","Poulet : 80 g","Parmesan : 60 g","Huile : 60 g","Crème : 100 g","Pesto : 70 g","Épinard : 30 g","Champignon : 70 g","Oignon/Ail : 70 g"
-      ], price:"70 DH"},
-      {name:"FRUITS DE MER", image:"images/pasta-fruitsmer.jpg", prepTime:18, tech:[
-        "Pâtes : 150 g","Crevettes : 105 g","Calamar : 60 g","Moules : 15 g","Parmesan : 60 g","Huile : 60 g","Crème : 100 g","Pesto : 70 g","Oignon/Ail : 70 g"
-      ], price:"85 DH"},
-      {name:"SAUMON", image:"images/pasta-saumon.jpg", prepTime:18, tech:[
-        "Pâtes : 150 g","Saumon : 90 g","Parmesan : 60 g","Huile : 60 g","Crème : 100 g","Pesto : 70 g","Oignon/Ail : 70 g"
-      ], price:"95 DH"},
-      {name:"SPAGHETTIS NOIRS (suppl.)", image:"images/pasta-noir.jpg", prepTime:0, tech:[
+  {
+    category: "PIZZA", key: "pz", color: "#eab308",
+    items: [
+      { name: "MARGARITA", image: "images/pizza-margherita.jpg", prepTime: 14, tech: [
+        "Pâte : 330 g", "Mozzarella : 200 g", "Sauce tomate : 100 g", "Olives noires : 13 g"
+      ], price: "50 DH" },
+      { name: "THON", image: "images/pizza-thon.jpg", prepTime: 15, tech: [
+        "Pâte : 330 g", "Mozzarella : 200 g", "Sauce tomate : 100 g", "Thon : 100 g", "Oignons : 40 g", "Olives"
+      ], price: "60 DH" },
+      { name: "VÉGÉTARIENNE", image: "images/pizza-veggie.jpg", prepTime: 15, tech: [
+        "Pâte : 330 g", "Mozzarella : 200 g", "Sauce tomate : 100 g", "Champignons : 60 g", "Légumes : 220 g"
+      ], price: "60 DH" },
+      { name: "REGINA", image: "images/pizza-regina.jpg", prepTime: 16, tech: [
+        "Pâte : 330 g", "Mozzarella : 200 g", "Dinde fumée : 100 g", "Champignons : 60 g", "Sauce blanche : 100 g"
+      ], price: "65 DH" },
+      { name: "5 FROMAGES", image: "images/pizza-5fromages.jpg", prepTime: 16, tech: [
+        "Pâte : 330 g", "Mozzarella : 50 g", "Brie : 50 g", "Bleu : 40 g", "Sauce blanche : 100 g",
+        "Parmesan : 20 g", "Fromage rouge : 40 g"
+      ], price: "70 DH" },
+      { name: "VIANDE HACHÉE", image: "images/pizza-hache.jpg", prepTime: 16, tech: [
+        "Pâte : 330 g", "Mozzarella : 200 g", "Sauce tomate : 100 g", "Viande : 100 g", "Tomate cerise : 40 g"
+      ], price: "70 DH" },
+      { name: "PEPPERONI", image: "images/pizza-pepperoni.jpg", prepTime: 15, tech: [
+        "Pâte : 330 g", "Mozzarella : 200 g", "Sauce tomate : 100 g", "Pepperoni : 40 g"
+      ], price: "70 DH" },
+      { name: "POULET SAUCE BLANCHE", image: "images/pizza-pouletblanche.jpg", prepTime: 16, tech: [
+        "Pâte : 330 g", "Mozzarella : 200 g", "Poulet : 150 g", "Champignon : 60 g", "Sauce blanche : 100 g"
+      ], price: "75 DH" },
+      { name: "4 SAISONS", image: "images/pizza-4saisons.jpg", prepTime: 18, tech: [
+        "Pâte : 330 g", "Mozzarella : 200 g", "Calamar : 40 g", "Crevette : 40 g", "Viande : 40 g",
+        "Poulet : 40 g", "Légumes : 60 g", "Champignon : 60 g"
+      ], price: "80 DH" },
+      { name: "MOITIÉ MOITIÉ", image: "images/pizza-moitiemoitie.jpg", prepTime: 18, tech: [
+        "Pâte : 330 g", "Garnitures 2 moitiés (hors fruits de mer/saumon)"
+      ], price: "80 DH" },
+      { name: "BURRATA", image: "images/pizza-burrata.jpg", prepTime: 15, tech: [
+        "Pâte : 330 g", "Mozzarella : 200 g", "Sauce tomate : 100 g", "Burrata : 35 g", "Noix : 30 g", "Tomate cerise : 20 g"
+      ], price: "80 DH" },
+      { name: "FRUITS DE MER", image: "images/pizza-fruitsmer.jpg", prepTime: 18, tech: [
+        "Pâte : 330 g", "Mozzarella : 200 g", "Crevette : 110 g", "Calamar : 70 g", "Moules : 40 g",
+        "Champignon : 60 g", "Sauce blanche : 100 g"
+      ], price: "85 DH" },
+      { name: "SAUMON", image: "images/pizza-saumon.jpg", prepTime: 18, tech: [
+        "Pâte : 330 g", "Mozzarella : 200 g", "Saumon : 90 g", "Sauce blanche : 100 g", "Câpres : 15 g"
+      ], price: "90 DH" },
+    ]
+  },
+
+  {
+    category: "PÂTES", key: "pae", color: "#fb7185",
+    items: [
+      { name: "LASAGNE POULET", image: "images/lasagne-poulet.jpeg", prepTime: 15, tech: [
+        "Pâtes : 60 g", "poulet : 80 g", "Parmesan : 15 g", "Huile : 60 g", "champignon : 50 g",
+        "Pesto : 70 g", "Sauce blanche : 100 g", "Oignon/Ail : 70 g"
+      ], price: "62 DH" },
+      { name: "LASAGNE BOLOGNAISE", image: "images/lasagne_bolognaise.jpeg", prepTime: 15, tech: [
+        "Pâtes : 60 g", "Viande : 100 g", "Parmesan : 15 g", "Huile : 60 g", "Tomate cerise : 50 g",
+        "Pesto : 70 g", "Sauce tomate : 80 g", "Oignon/Ail : 70 g"
+      ], price: "68 DH" },
+      { name: "LASAGNE FRUITS DE MER", image: "images/lasagne-fruitdemer.jpeg", prepTime: 15, tech: [
+        "Pâtes : 60 g", "crevette : 140 g", "Parmesan : 15 g", "Huile : 60 g", "CALAMAR : 100 g",
+        "Pesto : 70 g", "Sauce blanche : 100 g", "Oignon/Ail : 70 g"
+      ], price: "78 DH" },
+      { name: "VÉGÉTARIEN", image: "images/pasta-veg.jpg", prepTime: 12, tech: [
+        "Pâtes : 150 g", "Sauce pesto : 70 g", "Parmesan : 60 g", "Huile d'olive : 60 g",
+        "Crème : 100 g", "Oignon : 60 g", "Tomate cerise : 50 g", "Légumes : 150 g"
+      ], price: "55 DH" },
+      { name: "CARBONARA", image: "images/pasta-carbonara.jpg", prepTime: 14, tech: [
+        "Pâtes : 150 g", "Jambon de dinde : 80 g", "Parmesan : 60 g", "Huile : 60 g", "Crème : 100 g", "Oignon/Ail : 70 g"
+      ], price: "60 DH" },
+      { name: "5 FROMAGES", image: "images/pasta-5fromages.jpg", prepTime: 14, tech: [
+        "Pâtes : 150 g", "Brie : 25 g", "Parmesan : 25 g", "Bleu : 20 g", "Mozzarella : 30 g",
+        "Edam : 20 g", "Huile : 60 g", "Crème : 100 g", "Oignon/Ail : 70 g"
+      ], price: "60 DH" },
+      { name: "RIGATONI RICOTTA", image: "images/pasta-ricotta.jpg", prepTime: 15, tech: [
+        "Pâtes : 150 g", "Ricotta : 40 g", "Parmesan : 60 g", "Huile : 60 g", "Crème : 100 g",
+        "Pesto : 70 g", "Courgette : 100 g", "Oignon/Ail : 70 g"
+      ], price: "65 DH" },
+      { name: "BOLOGNAISE", image: "images/pasta-bolognaise.jpg", prepTime: 15, tech: [
+        "Pâtes : 150 g", "Viande : 100 g", "Parmesan : 60 g", "Huile : 60 g", "Tomate cerise : 50 g",
+        "Pesto : 70 g", "Sauce tomate : 80 g", "Oignon/Ail : 70 g"
+      ], price: "65 DH" },
+      { name: "POULET CHAMPIGNON / ÉPINARD", image: "images/pasta-poulet.jpg", prepTime: 16, tech: [
+        "Pâtes : 150 g", "Poulet : 80 g", "Parmesan : 60 g", "Huile : 60 g", "Crème : 100 g",
+        "Pesto : 70 g", "Épinard : 30 g", "Champignon : 70 g", "Oignon/Ail : 70 g"
+      ], price: "70 DH" },
+      { name: "FRUITS DE MER", image: "images/pasta-fruitsmer.jpg", prepTime: 18, tech: [
+        "Pâtes : 150 g", "Crevettes : 105 g", "Calamar : 60 g", "Moules : 15 g", "Parmesan : 60 g",
+        "Huile : 60 g", "Crème : 100 g", "Pesto : 70 g", "Oignon/Ail : 70 g"
+      ], price: "85 DH" },
+      { name: "SAUMON", image: "images/pasta-saumon.jpg", prepTime: 18, tech: [
+        "Pâtes : 150 g", "Saumon : 90 g", "Parmesan : 60 g", "Huile : 60 g", "Crème : 100 g",
+        "Pesto : 70 g", "Oignon/Ail : 70 g"
+      ], price: "95 DH" },
+      { name: "SPAGHETTIS NOIRS (suppl.)", image: "images/pasta-saumon.jpg", prepTime: 0, tech: [
         "Supplément pâtes noires à l'encre de seiche"
-      ], price:"+5 DH"},
+      ], price: "+5 DH" },
     ]
   },
 ];
 
 /* ===============================
-   RENDU
+   UTILITAIRES & RENDU
 ================================= */
 const tabs = document.getElementById('tabs');
-const main = document.getElementById('main');
+const sectionsContainer = document.getElementById('sections-container');
+const searchInput = document.getElementById('search-input');
+const searchClear = document.getElementById('search-clear');
+const searchInfo = document.getElementById('search-info');
 
-function isMultiImages(item){
-  // multi uniquement pour Entrées (ef, ec) & Plats (pl)
-  return ['ef','ec','pl'].includes(item.__key) && item.__images && item.__images.length>0;
-}
+// SVG Fallback image
+const PLACEHOLDER_SVG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250' fill='%23161c24'%3E%3Crect width='400' height='250' fill='%2312161c'/%3E%3Ccircle cx='200' cy='110' r='45' fill='%231c232c'/%3E%3Cpath d='M175 110 Q200 80 225 110 Z' fill='%2338bdf8' opacity='0.7'/%3E%3Ctext x='200' y='180' fill='%2364748b' font-size='15' font-family='sans-serif' font-weight='bold' text-anchor='middle'%3EGrey Corner Kitchen%3C/text%3E%3C/svg%3E";
 
-function normalizeImagesField(raw){
-  if(!raw) return [];
-  if(Array.isArray(raw)) return raw.filter(Boolean);
-  // string "a,b,c"
-  return raw.split(',').map(s=>s.trim()).filter(Boolean);
-}
-
-function createCard(item, categoryColor){
-  // timer DOM id unique
-  const uid = 't_'+Math.random().toString(36).slice(2,9);
-
-  const techList = (item.tech||[]).map(x=>`<li>${x}</li>`).join('');
-  const timerInit = formatTime(item.prepTime*60);
-
-  // image logique
-  let firstImg = item.image || (item.__images && item.__images[0]) || 'images/placeholder.jpg';
-
-  return `
-    <div class="card" data-id="${uid}">
-      <img class="hero" src="${firstImg}" alt="${item.name}" data-gallery="${(item.__images||[]).join('|')}" style="border-bottom-color:${categoryColor}">
-      <div class="body">
-        <div class="row-top">
-          <div class="name">${item.name}</div>
-          <div class="price">${item.price||''}</div>
-        </div>
-
-        <!-- TIMER visible & animé -->
-        <div class="timer" id="${uid}-timer" data-state="idle">
-          <span class="dot"></span>
-          <span class="time" data-seconds="${item.prepTime*60}">${timerInit}</span>
-        </div>
-
-        <div class="meta">
-          <span class="chip mins">⏱️ ${item.prepTime} min</span>
-        </div>
-
-        <ul class="tech">${techList}</ul>
-      </div>
-      <div class="footer">
-        <span class="chip">FT Standard</span>
-        <span class="badge todo" id="${uid}-badge" data-status="to-do">À FAIRE</span>
-      </div>
-    </div>
-  `;
-}
-
-function renderAll(){
-  tabs.innerHTML = '';
-  main.innerHTML = '';
-  DATA.forEach(cat=>{
-    // enrichir items: __key et __images
-    cat.items.forEach(it=>{
-      it.__key = cat.key;
-      it.__images = normalizeImagesField(it.images);
-    });
-
-    // Tabs
-    const t = document.createElement('a');
-    t.href = `#${cat.key}`;
-    t.className = 'tab';
-    t.dataset.color = cat.color;
-    t.textContent = cat.category;
-    tabs.appendChild(t);
-    if(tabs.children.length===1) t.classList.add('active');
-
-    // Section
-    const sec = document.createElement('section');
-    sec.id = cat.key;
-    sec.innerHTML = `
-      <h2 class="section-title" style="color:${cat.color}">${cat.category}</h2>
-      <div class="grid">
-        ${cat.items.map(it=>createCard(it,cat.color)).join('')}
-      </div>
-    `;
-    main.appendChild(sec);
-  });
-
-  initTabBehavior();
-  initCardsBehavior();
-}
-
-/* ===============================
-   ONGLET ACTIF
-================================= */
-function initTabBehavior(){
-  const all = [...document.querySelectorAll('.tab')];
-  all.forEach(tab=>{
-    tab.addEventListener('click', (e)=>{
-      e.preventDefault();
-      const id = tab.getAttribute('href').slice(1);
-      const target = document.getElementById(id);
-      all.forEach(x=>x.classList.remove('active'));
-      tab.classList.add('active');
-      const y = target.getBoundingClientRect().top + window.scrollY - 110;
-      window.scrollTo({top:y,behavior:'smooth'});
-    });
-  });
-}
-/* ===============================
-   TIMERS + STATUT + SONS (CORRIGÉ)
-================================= */
-const sndStart = document.getElementById('snd-start');
-const sndDone  = document.getElementById('snd-done');
-const timers = new Map(); 
-
-// Débloquer l'audio au premier clic utilisateur
-document.body.addEventListener('click', () => {
-  sndStart.load();
-  sndDone.load();
-}, { once: true });
-
-function playSound(audio) {
-  audio.pause();
-  audio.currentTime = 0;
-  const playPromise = audio.play();
-  if (playPromise !== undefined) {
-    playPromise.catch(e => console.log("Audio bloqué ou manquant"));
-  }
+function normalizeImagesField(raw) {
+  if (!raw) return [];
+  if (Array.isArray(raw)) return raw.filter(Boolean);
+  return raw.split(',').map(s => s.trim()).filter(Boolean);
 }
 
 function formatTime(s) {
@@ -565,36 +918,332 @@ function formatTime(s) {
   return `${m}:${rs < 10 ? '0' : ''}${rs}`;
 }
 
-function startTimer(uid) {
-  const tEl = document.getElementById(uid + '-timer');
-  const timeEl = tEl.querySelector('.time');
-  let sec = parseInt(timeEl.dataset.seconds, 10);
-  
-  tEl.dataset.state = 'run';
-  playSound(sndStart);
-
-  if (timers.has(uid)) clearInterval(timers.get(uid).interval);
-
-  const itv = setInterval(() => {
-    sec--;
-    timeEl.textContent = formatTime(sec);
-    if (sec <= 0) {
-      clearInterval(itv);
-      tEl.dataset.state = 'done';
-      playSound(sndDone);
-      const badge = document.getElementById(uid + '-badge');
-      setBadge(badge, 'ready');
-    }
-  }, 1000);
-  timers.set(uid, { interval: itv });
+// Nettoyage clé UID safe
+function makeItemKey(catKey, itemName) {
+  return 'item_' + catKey + '_' + itemName.toLowerCase().replace(/[^a-z0-9]/g, '_');
 }
 
-function stopTimer(uid) {
-  if (timers.has(uid)) {
-    clearInterval(timers.get(uid).interval);
-    timers.delete(uid);
+function createCard(item, catKey, categoryColor) {
+  const itemKey = makeItemKey(catKey, item.name);
+  const gallery = item.__images && item.__images.length > 0 ? item.__images : [item.image || PLACEHOLDER_SVG];
+  const firstImg = gallery[0] || PLACEHOLDER_SVG;
+  const timerInit = formatTime(item.prepTime * 60);
+
+  const techHtml = (item.tech || []).map(line => {
+    const parts = line.split(':');
+    if (parts.length > 1) {
+      return `<li><span>${parts[0].trim()}</span> <span class="item-qty">${parts.slice(1).join(':').trim()}</span></li>`;
+    }
+    return `<li><span>${line}</span></li>`;
+  }).join('');
+
+  const multiBadge = gallery.length > 1 ? `<span class="gallery-badge">📸 ${gallery.length} photos</span>` : '';
+
+  return `
+    <div class="card" data-key="${itemKey}" data-search="${(item.name + ' ' + (item.tech||[]).join(' ')).toLowerCase()}">
+      <div class="hero-wrap">
+        <img class="hero" src="${firstImg}" alt="${item.name}" data-gallery="${gallery.join('|')}" style="border-bottom-color:${categoryColor}" onerror="this.onerror=null;this.src='${PLACEHOLDER_SVG}';">
+        ${multiBadge}
+      </div>
+      <div class="body">
+        <div class="row-top">
+          <div class="name">${item.name}</div>
+          <div class="price">${item.price || ''}</div>
+        </div>
+
+        <div class="timer-row">
+          <div class="timer" id="${itemKey}-timer" data-state="idle">
+            <span class="dot"></span>
+            <span class="time" data-seconds="${item.prepTime * 60}">${timerInit}</span>
+          </div>
+          <div class="meta">
+            <span class="chip mins">⏱️ ${item.prepTime} min</span>
+          </div>
+        </div>
+
+        <ul class="tech">${techHtml}</ul>
+      </div>
+      <div class="footer">
+        <span class="chip">FT Standard</span>
+        <span class="badge todo" id="${itemKey}-badge" data-key="${itemKey}" data-status="to-do">À FAIRE</span>
+      </div>
+    </div>
+  `;
+}
+
+function renderAll() {
+  tabs.innerHTML = '';
+  sectionsContainer.innerHTML = '';
+
+  DATA.forEach(cat => {
+    cat.items.forEach(it => {
+      it.__key = cat.key;
+      it.__images = normalizeImagesField(it.images || (it.image ? [it.image] : []));
+    });
+
+    // Tab link
+    const t = document.createElement('a');
+    t.href = `#${cat.key}`;
+    t.className = 'tab';
+    t.dataset.color = cat.color;
+    t.dataset.cat = cat.key;
+    t.textContent = `${cat.category} (${cat.items.length})`;
+    tabs.appendChild(t);
+    if (tabs.children.length === 1) t.classList.add('active');
+
+    // Section container
+    const sec = document.createElement('section');
+    sec.id = cat.key;
+    sec.className = 'section-wrap';
+    sec.dataset.cat = cat.key;
+    sec.innerHTML = `
+      <h2 class="section-title" style="color:${cat.color}">
+        ${cat.category}
+        <span class="section-count">${cat.items.length} fiches</span>
+      </h2>
+      <div class="grid">
+        ${cat.items.map(it => createCard(it, cat.key, cat.color)).join('')}
+      </div>
+    `;
+    sectionsContainer.appendChild(sec);
+  });
+
+  initTabBehavior();
+  initCardsBehavior();
+  initSearch();
+  restoreSavedTimers();
+}
+
+/* ===============================
+   GESTION DES ONGLETS
+================================= */
+function initTabBehavior() {
+  const allTabs = [...document.querySelectorAll('.tab')];
+  allTabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = tab.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      allTabs.forEach(x => x.classList.remove('active'));
+      tab.classList.add('active');
+      const y = target.getBoundingClientRect().top + window.scrollY - 115;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+  });
+}
+
+/* ===============================
+   MOTEUR DE RECHERCHE RAPIDE
+================================= */
+function initSearch() {
+  searchInput.addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    searchClear.classList.toggle('visible', q.length > 0);
+
+    const cards = document.querySelectorAll('.card');
+    const sections = document.querySelectorAll('.section-wrap');
+    let matchesCount = 0;
+
+    if (!q) {
+      cards.forEach(c => c.style.display = '');
+      sections.forEach(s => s.style.display = '');
+      searchInfo.classList.remove('visible');
+      return;
+    }
+
+    sections.forEach(sec => {
+      let secMatches = 0;
+      const secCards = sec.querySelectorAll('.card');
+      secCards.forEach(card => {
+        const text = card.dataset.search || '';
+        const match = text.includes(q);
+        card.style.display = match ? '' : 'none';
+        if (match) {
+          secMatches++;
+          matchesCount++;
+        }
+      });
+      sec.style.display = secMatches > 0 ? '' : 'none';
+    });
+
+    searchInfo.innerHTML = `Résultat pour "<strong>${q}</strong>" : <strong>${matchesCount}</strong> fiche(s) trouvée(s).`;
+    searchInfo.classList.add('visible');
+  });
+
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    searchInput.dispatchEvent(new Event('input'));
+    searchInput.focus();
+  });
+}
+
+/* ===============================
+   SONS & SYNTHÉTISEUR AUDIO WEB
+================================= */
+const sndStart = document.getElementById('snd-start');
+const sndDone  = document.getElementById('snd-done');
+let audioCtx = null;
+
+function getAudioContext() {
+  if (!audioCtx) {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (AudioContext) audioCtx = new AudioContext();
   }
-  const tEl = document.getElementById(uid + '-timer');
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+// Bip synthétisé si fichier audio absent ou bloqué
+function playSynthBeep(type) {
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+
+    if (type === 'start') {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(520, now);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.15);
+      gain.gain.setValueAtTime(0.3, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+      osc.start(now);
+      osc.stop(now + 0.2);
+    } else { // done
+      [0, 0.18, 0.36].forEach((delay, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'triangle';
+        const freq = 660 + (i * 220);
+        osc.frequency.setValueAtTime(freq, now + delay);
+        gain.gain.setValueAtTime(0.4, now + delay);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + delay + 0.25);
+        osc.start(now + delay);
+        osc.stop(now + delay + 0.25);
+      });
+    }
+  } catch (err) {
+    console.log("Synth audio indisponible", err);
+  }
+}
+
+function playSound(audioEl, type) {
+  if (audioEl) {
+    audioEl.pause();
+    audioEl.currentTime = 0;
+    const p = audioEl.play();
+    if (p !== undefined) {
+      p.catch(() => playSynthBeep(type));
+      return;
+    }
+  }
+  playSynthBeep(type);
+}
+
+document.body.addEventListener('click', () => {
+  getAudioContext();
+  if (sndStart) sndStart.load();
+  if (sndDone) sndDone.load();
+}, { once: true });
+
+/* ===============================
+   TIMERS & LOCALSTORAGE
+================================= */
+const runningTimers = new Map();
+
+function saveTimerState(key, status, endsAt, totalSec) {
+  try {
+    const raw = localStorage.getItem('gc_kitchen_state') || '{}';
+    const state = JSON.parse(raw);
+    if (status === 'to-do') {
+      delete state[key];
+    } else {
+      state[key] = { status, endsAt, totalSec };
+    }
+    localStorage.setItem('gc_kitchen_state', JSON.stringify(state));
+  } catch (e) {}
+}
+
+function restoreSavedTimers() {
+  try {
+    const raw = localStorage.getItem('gc_kitchen_state');
+    if (!raw) return;
+    const state = JSON.parse(raw);
+    const now = Date.now();
+
+    Object.keys(state).forEach(key => {
+      const item = state[key];
+      const badge = document.getElementById(key + '-badge');
+      const tEl = document.getElementById(key + '-timer');
+      if (!badge || !tEl) return;
+
+      if (item.status === 'prog') {
+        const remainSec = Math.round((item.endsAt - now) / 1000);
+        if (remainSec > 0) {
+          setBadge(badge, 'prog');
+          startTimer(key, remainSec, item.endsAt);
+        } else {
+          setBadge(badge, 'ready');
+          tEl.dataset.state = 'done';
+          const timeEl = tEl.querySelector('.time');
+          timeEl.textContent = "0:00";
+        }
+      } else if (item.status === 'ready') {
+        setBadge(badge, 'ready');
+        tEl.dataset.state = 'done';
+        const timeEl = tEl.querySelector('.time');
+        timeEl.textContent = "0:00";
+      }
+    });
+  } catch (e) {}
+}
+
+function startTimer(key, remainingSeconds = null, targetEndTime = null) {
+  const tEl = document.getElementById(key + '-timer');
+  if (!tEl) return;
+  const timeEl = tEl.querySelector('.time');
+  const baseSeconds = parseInt(timeEl.dataset.seconds, 10) || 600;
+  let sec = remainingSeconds !== null ? remainingSeconds : baseSeconds;
+  const endsAt = targetEndTime || (Date.now() + sec * 1000);
+
+  tEl.dataset.state = 'run';
+  playSound(sndStart, 'start');
+  saveTimerState(key, 'prog', endsAt, baseSeconds);
+
+  if (runningTimers.has(key)) clearInterval(runningTimers.get(key));
+
+  const itv = setInterval(() => {
+    const currentRemain = Math.max(0, Math.round((endsAt - Date.now()) / 1000));
+    timeEl.textContent = formatTime(currentRemain);
+
+    if (currentRemain <= 0) {
+      clearInterval(itv);
+      runningTimers.delete(key);
+      tEl.dataset.state = 'done';
+      playSound(sndDone, 'done');
+      const badge = document.getElementById(key + '-badge');
+      if (badge) setBadge(badge, 'ready');
+      saveTimerState(key, 'ready', endsAt, baseSeconds);
+    }
+  }, 1000);
+
+  runningTimers.set(key, itv);
+}
+
+function stopTimer(key) {
+  if (runningTimers.has(key)) {
+    clearInterval(runningTimers.get(key));
+    runningTimers.delete(key);
+  }
+  const tEl = document.getElementById(key + '-timer');
   if (tEl) tEl.dataset.state = 'idle';
 }
 
@@ -604,70 +1253,93 @@ function setBadge(el, status) {
   el.textContent = status === 'to-do' ? 'À FAIRE' : status === 'prog' ? 'EN COURS' : 'PRÊT';
 }
 
-/* ===============================
-   INTERACTIONS & LIGHTBOX
-================================= */
-const lb = document.getElementById('lightbox');
-const lbImg = document.getElementById('lightbox-img');
-const lbClose = document.getElementById('lb-close');
-const lbPrev = document.getElementById('lb-prev');
-const lbNext = document.getElementById('lb-next');
-let currentGallery = [];
-let currentIndex = 0;
-
 function initCardsBehavior() {
   document.querySelectorAll('.badge').forEach(btn => {
     btn.addEventListener('click', () => {
-      const uid = btn.id.replace('-badge', '');
-      if (btn.dataset.status === 'to-do') {
+      const key = btn.dataset.key;
+      const status = btn.dataset.status;
+      const tEl = document.getElementById(key + '-timer');
+      const timeEl = tEl.querySelector('.time');
+      const baseSec = parseInt(timeEl.dataset.seconds, 10);
+
+      if (status === 'to-do') {
         setBadge(btn, 'prog');
-        startTimer(uid);
-      } else if (btn.dataset.status === 'prog') {
+        startTimer(key);
+      } else if (status === 'prog') {
         setBadge(btn, 'ready');
-        stopTimer(uid);
-        const tEl = document.getElementById(uid + '-timer');
+        stopTimer(key);
         tEl.dataset.state = 'done';
+        saveTimerState(key, 'ready', Date.now(), baseSec);
       } else {
         setBadge(btn, 'to-do');
-        stopTimer(uid);
-        const tEl = document.getElementById(uid + '-timer');
-        const timeEl = tEl.querySelector('.time');
-        timeEl.textContent = formatTime(parseInt(timeEl.dataset.seconds));
+        stopTimer(key);
+        tEl.dataset.state = 'idle';
+        timeEl.textContent = formatTime(baseSec);
+        saveTimerState(key, 'to-do', null, baseSec);
       }
     });
   });
 
+  // Lightbox click
   document.querySelectorAll('.hero').forEach(img => {
     img.addEventListener('click', () => {
       const galleryAttr = img.dataset.gallery;
-      currentGallery = galleryAttr ? galleryAttr.split('|') : [img.src];
+      currentGallery = galleryAttr ? galleryAttr.split('|').filter(Boolean) : [img.src];
       currentIndex = 0;
       showLightbox();
     });
   });
 }
 
+/* ===============================
+   LIGHTBOX
+================================= */
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lightbox-img');
+const lbCounter = document.getElementById('lb-counter');
+const lbClose = document.getElementById('lb-close');
+const lbPrev = document.getElementById('lb-prev');
+const lbNext = document.getElementById('lb-next');
+let currentGallery = [];
+let currentIndex = 0;
+
 function showLightbox() {
+  if (!currentGallery.length) return;
   lbImg.src = currentGallery[currentIndex];
+  lbImg.onerror = () => { lbImg.src = PLACEHOLDER_SVG; };
   lb.classList.add('visible');
-  lbPrev.style.display = currentGallery.length > 1 ? 'block' : 'none';
-  lbNext.style.display = currentGallery.length > 1 ? 'block' : 'none';
+  const isMulti = currentGallery.length > 1;
+  lbPrev.style.display = isMulti ? 'block' : 'none';
+  lbNext.style.display = isMulti ? 'block' : 'none';
+  lbCounter.style.display = isMulti ? 'block' : 'none';
+  if (isMulti) {
+    lbCounter.textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+  }
 }
 
 lbClose.onclick = () => lb.classList.remove('visible');
-lbPrev.onclick = () => { currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length; lbImg.src = currentGallery[currentIndex]; };
-lbNext.onclick = () => { currentIndex = (currentIndex + 1) % currentGallery.length; lbImg.src = currentGallery[currentIndex]; };
+lbPrev.onclick = (e) => {
+  e.stopPropagation();
+  currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+  showLightbox();
+};
+lbNext.onclick = (e) => {
+  e.stopPropagation();
+  currentIndex = (currentIndex + 1) % currentGallery.length;
+  showLightbox();
+};
+lb.onclick = (e) => {
+  if (e.target === lb) lb.classList.remove('visible');
+};
+document.addEventListener('keydown', (e) => {
+  if (!lb.classList.contains('visible')) return;
+  if (e.key === 'Escape') lb.classList.remove('visible');
+  if (e.key === 'ArrowLeft') lbPrev.click();
+  if (e.key === 'ArrowRight') lbNext.click();
+});
 
 // Lancement initial
 renderAll();
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
