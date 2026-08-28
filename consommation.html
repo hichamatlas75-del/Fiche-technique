@@ -218,6 +218,202 @@
     color: var(--accent);
   }
 
+  
+  /* ========================================================
+     CALENDRIER MENSUEL & GESTION MULTI-JOURS
+  ======================================================== */
+  .calendar-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-card);
+  }
+  .cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cal-nav-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .cal-title {
+    font-size: 17px;
+    font-weight: 900;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cal-month-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg);
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .cal-nav-btn {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 5px;
+    color: var(--text);
+    font-weight: 800;
+    transition: all .15s;
+  }
+  .cal-nav-btn:hover {
+    background: var(--paper);
+  }
+  .cal-mode-selector {
+    display: flex;
+    align-items: center;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 3px;
+    gap: 4px;
+  }
+  .cal-mode-btn {
+    padding: 7px 14px;
+    border-radius: 7px;
+    font-size: 12.5px;
+    font-weight: 800;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .cal-mode-btn.active {
+    background: var(--accent);
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(14,165,233,.25);
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .cal-day-name {
+    text-align: center;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 4px 0;
+  }
+  .cal-day-cell {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 6px;
+    min-height: 58px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all .15s;
+    user-select: none;
+  }
+  .cal-day-cell:hover {
+    border-color: var(--accent);
+    background: var(--paper-hover);
+    transform: translateY(-1px);
+  }
+  .cal-day-cell.active {
+    border: 2px solid var(--accent) !important;
+    background: rgba(14, 165, 233, 0.12) !important;
+  }
+  .cal-day-cell.has-data {
+    border-color: rgba(22, 163, 74, 0.4);
+    background: rgba(22, 163, 74, 0.06);
+  }
+  .cal-day-cell.empty {
+    opacity: 0.25;
+    pointer-events: none;
+    border: 1px dashed var(--border);
+  }
+  .cal-day-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cal-day-num {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--text);
+  }
+  .cal-day-badge {
+    font-size: 9.5px;
+    font-weight: 800;
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: var(--ok);
+    color: #fff;
+  }
+  .cal-day-ca {
+    font-size: 10.5px;
+    font-weight: 800;
+    color: var(--ok);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cal-day-empty-text {
+    font-size: 10px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .cal-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12.5px;
+  }
+  .cal-stats-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .cal-stat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    color: var(--text);
+    background: var(--bg);
+    padding: 5px 12px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .cal-stat-pill strong {
+    color: var(--accent);
+  }
+  .cal-stat-pill.success strong {
+    color: var(--ok);
+  }
+
   /* UPLOAD & DROP ZONE */
   .upload-panel {
     background: var(--paper);
@@ -615,6 +811,59 @@
   </div>
 
   <!-- ZONE D'IMPORTATION EXCEL / FICHIER -->
+    <!-- CALENDRIER & SÉLECTEUR DE PÉRIODE MENSUELLE -->
+  <div class="calendar-card">
+    <div class="cal-header">
+      <div class="cal-nav-wrap">
+        <div class="cal-title">
+          <span>📅 Calendrier & Déstockage Mensuel</span>
+        </div>
+        <div class="cal-month-nav">
+          <button class="cal-nav-btn" onclick="prevMonth()" title="Mois précédent">◀</button>
+          <input type="month" id="cal-month-input" style="border:none; background:transparent; font-weight:800; font-size:13.5px; color:var(--text); outline:none; cursor:pointer;" onchange="onMonthInputChange(this.value)" />
+          <button class="cal-nav-btn" onclick="nextMonth()" title="Mois suivant">▶</button>
+        </div>
+      </div>
+      
+      <div class="cal-mode-selector">
+        <button id="btn-mode-day" class="cal-mode-btn active" onclick="setViewMode('day')">
+          📅 Jour Sélectionné (<span id="label-selected-day-short">--/--</span>)
+        </button>
+        <button id="btn-mode-month" class="cal-mode-btn" onclick="setViewMode('month')">
+          📊 Cumul Mensuel (<span id="label-selected-month-short">Mois Entier</span>)
+        </button>
+      </div>
+    </div>
+
+    <!-- GRILLE DU CALENDRIER -->
+    <div class="cal-grid" id="cal-grid-container">
+      <!-- Rendu dynamique des jours 1..31 en JS -->
+    </div>
+
+    <div class="cal-foot">
+      <div class="cal-stats-summary">
+        <div class="cal-stat-pill success">
+          <span>Jours enregistrés :</span>
+          <strong id="stat-cal-days-count">0 / 31 j.</strong>
+        </div>
+        <div class="cal-stat-pill">
+          <span>CA Total du Mois :</span>
+          <strong id="stat-cal-total-ca">0 DH</strong>
+        </div>
+        <div class="cal-stat-pill">
+          <span>Articles Vendus :</span>
+          <strong id="stat-cal-total-qty">0</strong>
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn" style="padding:5px 10px; font-size:11.5px;" onclick="exportFullMonthlyBackupJSON()" title="Sauvegarder toutes les données en fichier JSON">💾 Sauvegarder (JSON)</button>
+        <button class="btn" style="padding:5px 10px; font-size:11.5px;" onclick="document.getElementById('json-backup-input').click()" title="Restaurer un fichier de sauvegarde JSON">📂 Restaurer</button>
+        <input type="file" id="json-backup-input" accept=".json" style="display:none;" onchange="importFullMonthlyBackupJSON(event)" />
+        <button class="btn" style="padding:5px 10px; font-size:11.5px; color:#ef4444;" onclick="clearCurrentDayData()" title="Effacer les ventes du jour sélectionné">🗑️ Effacer le jour</button>
+      </div>
+    </div>
+  </div>
+
   <div id="drop-zone" class="upload-panel">
     <div class="upload-icon">📊</div>
     <div class="upload-title">Importer les Ventes du <span id="label-upload-target-date" style="color:var(--accent);">Aujourd'hui</span></div>
@@ -3747,53 +3996,295 @@ function parseIngredientLine(lineStr) {
   else if (unit.includes('tr') || unit.includes('tranche')) unit = 'tr';
   else if (unit.includes('p') || unit.includes('piece') || unit.includes('pièce') || unit.includes('bouteille') || unit.includes('canette') || unit.includes('capsule')) unit = 'p';
 
-  // FUSION OEUF, OEUFS, OEUFS FRAIS, OEUF AU PLAT, OMELETTE
   const n = cleanText(name);
-  if (!n.includes('caille') && !n.includes('boeuf') && (/\boeufs?\b/.test(n) || n.startsWith('omelette'))) {
+
+  // ========================================================
+  // FUSIONS INTELLIGENTES DES MATIÈRES PREMIÈRES SIMILAIRES
+  // ========================================================
+
+  // 1. VIANDES & VOLAILLES
+  if (n.includes('viande hache') || n.includes('viande hachee') || (n.startsWith('viande') && !n.includes('sechee') && !n.includes('khli'))) {
+    name = 'Viande Hachée';
+    unit = 'g';
+  }
+  else if (n.includes('saucisse') || n.includes('merguez')) {
+    name = 'Merguez & Saucisses';
+    if (unit === 'p') { qty *= 60; unit = 'g'; }
+    else unit = 'g';
+  }
+  else if (n.includes('boeuf')) {
+    name = 'Bœuf (Filet / Émincé)';
+    unit = 'g';
+  }
+  else if (n.includes('poulet') || n.includes('escalope a la milanaise') || n.includes('nugget')) {
+    name = 'Poulet (Blanc / Pané / Émincé)';
+    unit = 'g';
+  }
+  else if (n.includes('dinde') || n.includes('jambon de dinde') || n.includes('charcuterie')) {
+    name = 'Charcuterie & Dinde Fumée';
+    unit = 'g';
+  }
+  else if (n.includes('bacon')) {
+    name = 'Bacon de Bœuf';
+    if (unit === 'p') { qty *= 20; unit = 'g'; }
+    else unit = 'g';
+  }
+  else if (n.includes('khli')) {
+    name = 'Khlii (Viande Séchée Traditionnelle)';
+    unit = 'g';
+  }
+
+  // 2. POISSONS & FRUITS DE MER
+  else if (n.includes('crevette') || n.includes('gambas')) {
+    name = 'Crevettes & Gambas';
+    unit = 'g';
+  }
+  else if (n.includes('saumon fume') || n.includes('saumon fumee')) {
+    name = 'Saumon Fumé';
+    unit = 'g';
+  }
+  else if (n.includes('saumon') || n.includes('pave de saumon')) {
+    name = 'Saumon Frais (Pavé)';
+    unit = 'g';
+  }
+  else if (n.includes('calamar')) {
+    name = 'Calamars';
+    unit = 'g';
+  }
+  else if (n.includes('moule')) {
+    name = 'Moules';
+    unit = 'g';
+  }
+  else if (n.includes('thon')) {
+    name = 'Thon Émietté';
+    unit = 'g';
+  }
+
+  // 3. CRÉMERIE, FROMAGES & ŒUFS
+  else if (!n.includes('caille') && !n.includes('boeuf') && (/\\boeufs?\\b/.test(n) || n.startsWith('omelette'))) {
     name = 'Œufs (Pièces)';
     unit = 'p';
   }
+  else if (n === 'oeufs de caille' || n.includes('caille')) {
+    name = 'Œufs de Caille';
+    unit = 'p';
+  }
+  else if (n === 'fromage' || n === 'fromages' || n.includes('fromage edam') || n.includes('fromage rape') || n.includes('edam') || n.includes('gouda')) {
+    name = 'Fromage (Gouda / Edam / Râpé)';
+    unit = 'g';
+  }
+  else if (n.includes('mozzarella')) {
+    name = 'Mozzarella';
+    unit = 'g';
+  }
+  else if (n.includes('parmesan')) {
+    name = 'Parmesan Reggiano';
+    unit = 'g';
+  }
+  else if (n.includes('cheddar')) {
+    name = 'Cheddar';
+    unit = 'g';
+  }
+  else if (n.includes('jben')) {
+    name = 'Jben Frais Marocain';
+    unit = 'g';
+  }
+  else if (n.includes('lait chaud') || n.includes('lait froid') || n.includes('lait entier') || n === 'lait') {
+    name = 'Lait Entier';
+    unit = 'ml';
+  }
+  else if (n.includes('creme fraiche') || n.includes('creme liquide') || n === 'creme') {
+    name = 'Crème Fraîche';
+    unit = unit === 'ml' ? 'ml' : 'g';
+  }
 
-  // FUSION BOUTEILLES D'EAU, SODAS & PASTILLES NESPRESSO EN PIECES
-  if (n.includes('nespresso') || n.includes('pastille')) {
+  // 4. LÉGUMES & FRUITS
+  else if (n.includes('tomate cerise')) {
+    name = 'Tomates Cerises';
+    unit = 'g';
+  }
+  else if (n.includes('tomate') && !n.includes('sauce') && !n.includes('pesto')) {
+    name = 'Tomates Fraîches';
+    unit = 'g';
+  }
+  else if (n.includes('oignon') && !n.includes('sauce')) {
+    name = 'Oignons Frais';
+    unit = 'g';
+  }
+  else if (n.includes('champignon')) {
+    name = 'Champignons Frais';
+    unit = 'g';
+  }
+  else if (n.includes('pomme de terre') || n.includes('puree') || n.includes('potatos') || n.includes('frite')) {
+    name = 'Pommes de Terre (Frites / Purée)';
+    unit = 'g';
+  }
+  else if (n.includes('salade') || n.includes('mesclun') || n.includes('laitue') || n.includes('roquette')) {
+    name = 'Salade & Mesclun Frais';
+    unit = 'g';
+  }
+  else if (n.includes('avocat')) {
+    name = 'Avocat';
+    unit = 'g';
+  }
+  else if (n.includes('epinard')) {
+    name = 'Épinards Frais';
+    unit = 'g';
+  }
+  else if (n.includes('poivron')) {
+    name = 'Poivrons Frais';
+    unit = 'g';
+  }
+  else if (n.includes('orange') && !n.includes('tranche') && !n.includes('sirop') && !n.includes('fleur')) {
+    name = 'Oranges à Jus';
+    unit = unit === 'ml' ? 'ml' : 'g';
+  }
+  else if (n.includes('citron vert')) {
+    name = 'Citron Vert';
+    unit = unit === 'ml' ? 'ml' : 'g';
+  }
+  else if (n.includes('citron') && !n.includes('tranche') && !n.includes('zeste') && !n.includes('sirop') && !n.includes('icetea') && !n.includes('schwepp')) {
+    name = 'Citrons Jaunes';
+    unit = unit === 'ml' ? 'ml' : 'g';
+  }
+  else if (n.includes('fraise') && !n.includes('sirop')) {
+    name = 'Fraises Fraîches';
+    unit = unit === 'ml' ? 'ml' : 'g';
+  }
+  else if (n.includes('framboise') && !n.includes('sirop') && !n.includes('icetea')) {
+    name = 'Framboises Fraîches';
+    unit = unit === 'ml' ? 'ml' : 'g';
+  }
+  else if (n.includes('mangue') && !n.includes('sirop')) {
+    name = 'Mangues Fraîches';
+    unit = unit === 'ml' ? 'ml' : 'g';
+  }
+  else if (n.includes('banane')) {
+    name = 'Bananes Fraîches';
+    if (unit === 'p') { qty *= 120; unit = 'g'; }
+    else unit = 'g';
+  }
+  else if (n.includes('pomme') && !n.includes('terre') && !n.includes('poms')) {
+    name = 'Pommes Fraîches';
+    unit = 'g';
+  }
+  else if (n.includes('ananas') && !n.includes('tranche')) {
+    name = 'Ananas Frais';
+    unit = unit === 'ml' ? 'ml' : 'g';
+  }
+  else if (n.includes('peche') && !n.includes('sirop') && !n.includes('icetea')) {
+    name = 'Pêches Fraîches';
+    unit = 'g';
+  }
+  else if (n.includes('kiwi')) {
+    name = 'Kiwis Frais';
+    unit = 'g';
+  }
+  else if (n.includes('menthe')) {
+    name = 'Menthe Fraîche';
+    unit = 'g';
+  }
+
+  // 5. BAR, SODAS, EAUX & BOISSONS CHAUDES
+  else if (n.includes('nespresso') || n.includes('pastille')) {
     name = 'Pastille Nespresso';
     unit = 'p';
-  } else if (n.includes('coca cola zero') || n.includes('coca zero')) {
+  }
+  else if (n.includes('coca cola zero') || n.includes('coca zero')) {
     name = 'Coca-Cola Zéro (Canette 33cl)';
     unit = 'p';
-  } else if (n.includes('coca cola') || n.includes('coca')) {
+  }
+  else if (n.includes('coca cola') || n.includes('coca')) {
     name = 'Coca-Cola (Canette 33cl)';
     unit = 'p';
-  } else if (n.includes('sprite')) {
+  }
+  else if (n.includes('sprite')) {
     name = 'Sprite (Canette 33cl)';
     unit = 'p';
-  } else if (n.includes('poms')) {
+  }
+  else if (n.includes('poms')) {
     name = 'Poms (Canette 33cl)';
     unit = 'p';
-  } else if (n.includes('schweppes') || n.includes('schwepps')) {
+  }
+  else if (n.includes('schweppes') || n.includes('schwepps')) {
     name = 'Schweppes (Canette 33cl)';
     unit = 'p';
-  } else if (n.includes('orangina')) {
+  }
+  else if (n.includes('orangina')) {
     name = 'Orangina (Canette 33cl)';
     unit = 'p';
-  } else if (n.includes('red bull')) {
+  }
+  else if (n.includes('red bull')) {
     name = 'Red Bull (Canette 250ml)';
     unit = 'p';
-  } else if (n.includes('oulmes') && (n.includes('75') || n.includes('grand'))) {
+  }
+  else if (n.includes('oulmes') && (n.includes('75') || n.includes('grand'))) {
     name = 'Bouteille Oulmès 75cl';
     unit = 'p';
-  } else if (n.includes('oulmes')) {
+  }
+  else if (n.includes('oulmes')) {
     name = 'Bouteille Oulmès 33/50cl';
     unit = 'p';
-  } else if (n.includes('eau') && (n.includes('75') || n.includes('grand'))) {
+  }
+  else if (n.includes('eau') && (n.includes('75') || n.includes('grand'))) {
     name = 'Bouteille Eau Minérale 75cl';
     unit = 'p';
-  } else if (n.includes('eau') && (n.includes('50') || n.includes('0 5') || n.includes('moyen'))) {
+  }
+  else if (n.includes('eau') && (n.includes('50') || n.includes('0 5') || n.includes('moyen'))) {
     name = 'Bouteille Eau Minérale 50cl';
     unit = 'p';
-  } else if (n.includes('eau') && (n.includes('33') || n.includes('minerale') || n.includes('plate') || n.includes('bouteille'))) {
+  }
+  else if (n.includes('eau') && (n.includes('33') || n.includes('minerale') || n.includes('plate') || n.includes('bouteille'))) {
     name = 'Bouteille Eau Minérale 33cl';
     unit = 'p';
+  }
+  else if (n.startsWith('cafe') && !n.includes('nespresso') && !n.includes('latte') && !n.includes('lait') && !n.includes('gla') && !n.includes('frap')) {
+    name = 'Café en Grains';
+    unit = 'g';
+  }
+  else if (n.includes('the noir')) {
+    name = 'Thé Noir';
+    unit = 'g';
+  }
+  else if (n.includes('the vert') || n.includes('gunpowder') || n === 'the') {
+    name = 'Thé Vert Gunpowder';
+    unit = 'g';
+  }
+  else if (n.includes('verveine')) {
+    name = 'Verveine Séchée';
+    unit = 'g';
+  }
+  else if (n.includes('chocolat en poudre') || n.includes('chocolat chaud') || n.includes('chocolat noir fondu')) {
+    name = 'Chocolat en Poudre & Fondu';
+    unit = 'g';
+  }
+  else if (n.includes('huile d olive') || n.includes('huile dolive')) {
+    name = "Huile d'Olive";
+    unit = 'ml';
+  }
+  else if (n === 'huile' || n.includes('huile de tournesol') || n.includes('huile de table')) {
+    name = 'Huile de Cuisson';
+    unit = 'ml';
+  }
+  else if (n.includes('sauce tomate')) {
+    name = 'Sauce Tomate Pizza / Pasta';
+    unit = 'g';
+  }
+  else if (n.includes('pesto')) {
+    name = 'Sauce Pesto Basilic';
+    unit = 'g';
+  }
+  else if (n.includes('sucre de canne') || n.includes('sirop de canne') || n.includes('sirop de sucre')) {
+    name = 'Sirop de Sucre de Canne';
+    unit = 'ml';
+  }
+  else if (n === 'sucre') {
+    name = 'Sucre en Morceaux / Sachets';
+    unit = unit === 'g' ? 'g' : 'p';
+  }
+  else if (n.includes('miel')) {
+    name = 'Miel Pur';
+    unit = 'g';
   }
 
   return { name, qty, unit, raw: lineStr };
