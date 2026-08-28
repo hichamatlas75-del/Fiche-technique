@@ -3186,6 +3186,12 @@ function makeItemKey(catKey, itemName) {
   return 'item_' + catKey + '_' + itemName.toLowerCase().replace(/[^a-z0-9]/g, '_');
 }
 
+function escapeHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
 function createCard(item, catKey, categoryColor) {
   const itemKey = makeItemKey(catKey, item.name);
   const gallery = item.__images && item.__images.length > 0 ? item.__images : [item.image || PLACEHOLDER_SVG];
@@ -3203,7 +3209,7 @@ function createCard(item, catKey, categoryColor) {
   const multiBadge = gallery.length > 1 ? `<span class="gallery-badge">📸 ${gallery.length} photos</span>` : '';
 
   return `
-    <div class="card" data-key="${itemKey}" data-search="${(item.name + ' ' + (item.tech||[]).join(' ')).toLowerCase()}">
+    <div class="card" data-key="${itemKey}" data-search="${(item.name + ' ' + (item.tech||[]).join(' ')).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')}">
       <div class="hero-wrap">
         <img class="hero" src="${firstImg}" alt="${item.name}" data-gallery="${gallery.join('|')}" style="border-bottom-color:${categoryColor}" onerror="this.onerror=null;this.src='${PLACEHOLDER_SVG}';">
         ${multiBadge}
@@ -3299,39 +3305,56 @@ function initTabBehavior() {
 /* ===============================
    MOTEUR DE RECHERCHE RAPIDE
 ================================= */
+function normalizeText(s) {
+  return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+let cachedCards = null;
+let cachedSections = null;
+let searchDebounceTimer = null;
+
 function initSearch() {
+  // Cache DOM references after render
+  cachedCards = document.querySelectorAll('.card');
+  cachedSections = document.querySelectorAll('.section-wrap');
+
   searchInput.addEventListener('input', (e) => {
-    const q = e.target.value.trim().toLowerCase();
-    searchClear.classList.toggle('visible', q.length > 0);
+    const raw = e.target.value.trim();
+    const q = normalizeText(raw);
+    searchClear.classList.toggle('visible', raw.length > 0);
 
-    const cards = document.querySelectorAll('.card');
-    const sections = document.querySelectorAll('.section-wrap');
-    let matchesCount = 0;
+    // Debounce: wait 150ms after last keystroke
+    clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = setTimeout(() => {
+      const cards = cachedCards || document.querySelectorAll('.card');
+      const sections = cachedSections || document.querySelectorAll('.section-wrap');
+      let matchesCount = 0;
 
-    if (!q) {
-      cards.forEach(c => c.style.display = '');
-      sections.forEach(s => s.style.display = '');
-      searchInfo.classList.remove('visible');
-      return;
-    }
+      if (!q) {
+        cards.forEach(c => c.style.display = '');
+        sections.forEach(s => s.style.display = '');
+        searchInfo.classList.remove('visible');
+        return;
+      }
 
-    sections.forEach(sec => {
-      let secMatches = 0;
-      const secCards = sec.querySelectorAll('.card');
-      secCards.forEach(card => {
-        const text = card.dataset.search || '';
-        const match = text.includes(q);
-        card.style.display = match ? '' : 'none';
-        if (match) {
-          secMatches++;
-          matchesCount++;
-        }
+      sections.forEach(sec => {
+        let secMatches = 0;
+        const secCards = sec.querySelectorAll('.card');
+        secCards.forEach(card => {
+          const text = normalizeText(card.dataset.search || '');
+          const match = text.includes(q);
+          card.style.display = match ? '' : 'none';
+          if (match) {
+            secMatches++;
+            matchesCount++;
+          }
+        });
+        sec.style.display = secMatches > 0 ? '' : 'none';
       });
-      sec.style.display = secMatches > 0 ? '' : 'none';
-    });
 
-    searchInfo.innerHTML = `Résultat pour "<strong>${q}</strong>" : <strong>${matchesCount}</strong> fiche(s) trouvée(s).`;
-    searchInfo.classList.add('visible');
+      searchInfo.innerHTML = `Résultat pour "<strong>${raw}</strong>" : <strong>${matchesCount}</strong> fiche(s) trouvée(s).`;
+      searchInfo.classList.add('visible');
+    }, 150);
   });
 
   searchClear.addEventListener('click', () => {
@@ -3548,6 +3571,8 @@ function initCardsBehavior() {
     img.addEventListener('click', () => {
       const galleryAttr = img.dataset.gallery;
       currentGallery = galleryAttr ? galleryAttr.split('|').filter(Boolean) : [img.src];
+      const card = img.closest('.card');
+      currentGalleryName = card ? card.querySelector('.name').textContent : '';
       currentIndex = 0;
       showLightbox();
     });
@@ -3565,10 +3590,12 @@ const lbPrev = document.getElementById('lb-prev');
 const lbNext = document.getElementById('lb-next');
 let currentGallery = [];
 let currentIndex = 0;
+let currentGalleryName = '';
 
 function showLightbox() {
   if (!currentGallery.length) return;
   lbImg.src = currentGallery[currentIndex];
+  lbImg.alt = currentGalleryName || 'Photo du plat';
   lbImg.onerror = () => { lbImg.src = PLACEHOLDER_SVG; };
   lb.classList.add('visible');
   const isMulti = currentGallery.length > 1;

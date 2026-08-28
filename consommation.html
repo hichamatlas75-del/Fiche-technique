@@ -1024,11 +1024,11 @@
     <div class="modal-body">
       <input type="hidden" id="edit-recipe-id" />
       <div class="form-group">
-        <label>Nom du Plat / Recette</label>
+        <label for="edit-recipe-name">Nom du Plat / Recette</label>
         <input type="text" id="edit-recipe-name" placeholder="Ex: Burger Royal, Salade César..." />
       </div>
       <div class="form-group">
-        <label>Catégorie</label>
+        <label for="edit-recipe-cat">Catégorie</label>
         <select id="edit-recipe-cat">
           <option value="PETIT DÉJEUNER">PETIT DÉJEUNER</option>
           <option value="ENTRÉES FROIDES">ENTRÉES FROIDES</option>
@@ -1047,7 +1047,7 @@
         </select>
       </div>
       <div class="form-group">
-        <label>Ingrédients & Grammages (1 par ligne)</label>
+        <label for="edit-recipe-ingredients">Ingrédients & Grammages (1 par ligne)</label>
         <textarea id="edit-recipe-ingredients" rows="8" placeholder="Exemple :&#10;Poulet : 150 g&#10;Cheddar : 20 g&#10;Frites : 200 g&#10;Pain : 1 p"></textarea>
         <small style="color:var(--muted); font-size:11.5px; display:block; margin-top:4px;">
           Format : <code>Nom Ingrédient : Quantité Unité</code> (ex: <em>Poulet : 120 g</em>, <em>Œufs : 2 p</em>, <em>Crème : 70 ml</em>, <em>Sauce : 30 g</em>).
@@ -3825,10 +3825,11 @@ const ALIAS_MAP = {
 let activeRecipes = [];
 let monthlySalesDB = {}; // Format: { "YYYY-MM-DD": [ { family, product, price, qty, total }, ... ] }
 let currentViewMode = 'day'; // 'day' ou 'month'
-let selectedDate = new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD'
+let selectedDate = new Date().toLocaleDateString('en-CA'); // 'YYYY-MM-DD' (local timezone)
 let selectedYearMonth = selectedDate.slice(0, 7); // 'YYYY-MM'
 
 let currentSalesData = [];
+let currentSalesFilter = 'all'; // 'all', 'matched', 'unmatched'
 let aggregatedIngredients = [];
 
 function loadRecipes() {
@@ -3836,10 +3837,17 @@ function loadRecipes() {
     const saved = localStorage.getItem('gc_recipes_db');
     if (saved) {
       activeRecipes = JSON.parse(saved);
-      return;
+    } else {
+      activeRecipes = JSON.parse(JSON.stringify(BASE_RECIPES));
     }
-  } catch (e) {}
-  activeRecipes = JSON.parse(JSON.stringify(BASE_RECIPES));
+  } catch (e) {
+    activeRecipes = JSON.parse(JSON.stringify(BASE_RECIPES));
+  }
+  // Build recipe index for O(1) lookups
+  window.recipeNameIndex = new Map();
+  activeRecipes.forEach(r => {
+    window.recipeNameIndex.set(cleanText(r.name), r);
+  });
 }
 
 function saveRecipes() {
@@ -3923,11 +3931,9 @@ function findRecipeForProduct(rawName, rawFamille = '') {
     if (r) return r;
   }
 
-  // 3. Recherche exacte par nom de recette nettoyé
-  for (const r of activeRecipes) {
-    const rClean = cleanText(r.name);
-    if (rClean === cName || rClean === simplified) return r;
-  }
+  // 3. Fast O(1) exact match via index
+  if (window.recipeNameIndex && window.recipeNameIndex.has(cName)) return window.recipeNameIndex.get(cName);
+  if (window.recipeNameIndex && window.recipeNameIndex.has(simplified)) return window.recipeNameIndex.get(simplified);
 
   // 4. Recherche par inclusion
   for (const r of activeRecipes) {
@@ -3943,36 +3949,21 @@ function findRecipeForProduct(rawName, rawFamille = '') {
 /* ========================================================
    5. PARSER D'INGRÉDIENTS & SYNCHRONISATION DES CATÉGORIES
 ======================================================== */
+// Dictionnaire configurable pour la catégorisation des ingrédients
+const INGREDIENT_CATEGORIES = {
+  viandes: ['viande', 'boeuf', 'bœuf', 'filet', 'steak', 'poulet', 'merguez', 'saucisse', 'dinde', 'charcuterie', 'khli', 'bacon', 'pepperoni', 'nugget'],
+  poissons: ['saumon', 'crevette', 'gambas', 'calamar', 'moule', 'thon', 'mer', 'poisson'],
+  fromages: ['oeuf', 'œuf', 'omelette', 'fromage', 'mozzarella', 'parmesan', 'cheddar', 'edam', 'gouda', 'jben', 'beurre', 'creme', 'crème', 'lait', 'yaourt', 'ricotta', 'burrata', 'brie', 'bleu'],
+  boissons: ['eau', 'oulmes', 'coca', 'sprite', 'hawai', 'poms', 'schweppes', 'orangina', 'red bull', 'nespresso', 'pastille', 'cafe', 'café', 'the', 'thé', 'verveine', 'infusion', 'chocolat', 'sirop', 'glacon', 'glaçon', 'glace', 'boba'],
+  legumes: ['tomate', 'oignon', 'champignon', 'pomme de terre', 'frite', 'puree', 'potatos', 'avocat', 'salade', 'mesclun', 'laitue', 'roquette', 'epinard', 'épinard', 'poivron', 'radis', 'carotte', 'concombre', 'betterave', 'olive', 'orange', 'citron', 'fraise', 'framboise', 'mangue', 'banane', 'pomme', 'ananas', 'peche', 'pêche', 'kiwi', 'fruits', 'fruit', 'menthe', 'agrumes', 'acai']
+};
+
 function categorizeIngredient(name) {
   const n = cleanText(name);
-
-  // 1. VIANDES & VOLAILLES
-  if (n.includes('viande') || n.includes('boeuf') || n.includes('bœuf') || n.includes('filet') || n.includes('steak') || n.includes('poulet') || n.includes('merguez') || n.includes('saucisse') || n.includes('dinde') || n.includes('charcuterie') || n.includes('khli') || n.includes('bacon') || n.includes('pepperoni') || n.includes('nugget')) {
-    return 'viandes';
+  for (const [category, keywords] of Object.entries(INGREDIENT_CATEGORIES)) {
+    if (keywords.some(kw => n.includes(kw))) return category;
   }
-
-  // 2. POISSONS & MER
-  if (n.includes('saumon') || n.includes('crevette') || n.includes('gambas') || n.includes('calamar') || n.includes('moule') || n.includes('thon') || n.includes('mer') || n.includes('poisson')) {
-    return 'poissons';
-  }
-
-  // 3. FROMAGES, CRÉMERIE & ŒUFS
-  if (n.includes('oeuf') || n.includes('œuf') || n.includes('omelette') || n.includes('fromage') || n.includes('mozzarella') || n.includes('parmesan') || n.includes('cheddar') || n.includes('edam') || n.includes('gouda') || n.includes('jben') || n.includes('beurre') || n.includes('creme') || n.includes('crème') || n.includes('lait') || n.includes('yaourt') || n.includes('ricotta') || n.includes('burrata') || n.includes('brie') || n.includes('bleu')) {
-    return 'fromages';
-  }
-
-  // 4. BAR, SODAS, EAUX & BOISSONS CHAUDES
-  if (n.includes('eau') || n.includes('oulmes') || n.includes('coca') || n.includes('sprite') || n.includes('hawai') || n.includes('poms') || n.includes('schweppes') || n.includes('orangina') || n.includes('red bull') || n.includes('nespresso') || n.includes('pastille') || n.includes('cafe') || n.includes('café') || n.includes('the ') || n.includes('the') || n.includes('thé') || n.includes('verveine') || n.includes('infusion') || n.includes('chocolat') || n.includes('sirop') || n.includes('glacon') || n.includes('glaçon') || n.includes('glace') || n.includes('boba')) {
-    return 'boissons';
-  }
-
-  // 5. LÉGUMES & FRUITS
-  if (n.includes('tomate') || n.includes('oignon') || n.includes('champignon') || n.includes('pomme de terre') || n.includes('frite') || n.includes('puree') || n.includes('potatos') || n.includes('avocat') || n.includes('salade') || n.includes('mesclun') || n.includes('laitue') || n.includes('roquette') || n.includes('epinard') || n.includes('épinard') || n.includes('poivron') || n.includes('radis') || n.includes('carotte') || n.includes('concombre') || n.includes('betterave') || n.includes('olive') || n.includes('orange') || n.includes('citron') || n.includes('fraise') || n.includes('framboise') || n.includes('mangue') || n.includes('banane') || n.includes('pomme') || n.includes('ananas') || n.includes('peche') || n.includes('pêche') || n.includes('kiwi') || n.includes('fruits') || n.includes('fruit') || n.includes('menthe') || n.includes('agrumes') || n.includes('acai')) {
-    return 'legumes';
-  }
-
-  // 6. PAINS, PÂTES & ÉPICERIE (Par défaut)
-  return 'epicerie';
+  return 'epicerie'; // Catégorie par défaut : Pains, Pâtes & Épicerie
 }
 
 function parseIngredientLine(lineStr) {
@@ -4775,11 +4766,19 @@ function renderSummaryTable() {
   }).join('');
 }
 
+function escapeHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
 function renderSalesTable() {
   const tbody = document.getElementById('tbody-sales');
   const search = cleanText(document.getElementById('search-sales').value);
 
   const filtered = currentSalesData.filter(s => {
+    if (currentSalesFilter === 'matched' && !s.matchedRecipe) return false;
+    if (currentSalesFilter === 'unmatched' && s.matchedRecipe) return false;
     if (search && !cleanText(s.product).includes(search) && !cleanText(s.family).includes(search)) return false;
     return true;
   });
@@ -4798,23 +4797,23 @@ function renderSalesTable() {
   tbody.innerHTML = filtered.map(s => {
     const hasRecipe = !!s.matchedRecipe;
     const statusBadge = hasRecipe
-      ? `<span class="badge-tag badge-ok">✅ ${s.matchedRecipe.name}</span>`
+      ? `<span class="badge-tag badge-ok">✅ ${escapeHtml(s.matchedRecipe.name)}</span>`
       : `<span class="badge-tag badge-warn">⚠️ Non configuré / Boisson</span>`;
 
     const ingsList = hasRecipe
-      ? s.matchedRecipe.ingredients.map(i => `<span class="dish-pill">${i}</span>`).join(' ')
+      ? s.matchedRecipe.ingredients.map(i => `<span class="dish-pill">${escapeHtml(i)}</span>`).join(' ')
       : '<span style="color:var(--muted); font-size:12px;">Article sans fiche technique</span>';
 
     return `
       <tr>
-        <td><span style="color:var(--muted); font-size:12.5px;">${s.family}</span></td>
-        <td><strong>${s.product}</strong></td>
+        <td><span style="color:var(--muted); font-size:12.5px;">${escapeHtml(s.family)}</span></td>
+        <td><strong>${escapeHtml(s.product)}</strong></td>
         <td><span class="qty-highlight">${s.qty}</span></td>
         <td><strong>${s.total.toLocaleString('fr-FR', { minimumFractionDigits: 2 })} DH</strong></td>
         <td>${statusBadge}</td>
         <td><div class="dishes-pill-list">${ingsList}</div></td>
         <td>
-          <button class="btn" style="padding: 4px 8px; font-size:11.5px;" onclick="openRecipeEditor('${s.product}')">
+          <button class="btn" style="padding: 4px 8px; font-size:11.5px;" onclick="openRecipeEditor('${escapeHtml(s.product).replace(/'/g, "\\'")}')">
             ${hasRecipe ? '✏️ Éditer' : '➕ Créer Recette'}
           </button>
         </td>
@@ -5085,7 +5084,7 @@ async function autoScanVentesFolder(showUserAlert = false) {
       try {
         const resp = await fetch(p + '?t=' + Date.now());
         if (resp.ok) return resp;
-      } catch (e) {}
+      } catch (e) { console.warn('[Auto-sync]', e); }
     }
     return null;
   }
@@ -5101,7 +5100,7 @@ async function autoScanVentesFolder(showUserAlert = false) {
         const dKey = extractDateFromFilename(fname);
         if (dKey) {
           try {
-            const fResp = await fetchFile('ventes/' + fname);
+            const fResp = await fetchFile('ventes/' + encodeURIComponent(fname));
             if (fResp) {
               const buf = await fResp.arrayBuffer();
               const wb = XLSX.read(new Uint8Array(buf), { type: 'array' });
@@ -5112,11 +5111,11 @@ async function autoScanVentesFolder(showUserAlert = false) {
                 loadedDates.push(dKey);
               }
             }
-          } catch (e) {}
+          } catch (e) { console.warn('[Auto-sync]', e); }
         }
       }
     }
-  } catch (e) {}
+  } catch (e) { console.warn('[Auto-sync]', e); }
 
   // 2. Scan direct par conventions de noms standard pour le mois en cours (1 au 31)
   const [yearStr, monthStr] = selectedYearMonth.split('-');
@@ -5150,7 +5149,7 @@ async function autoScanVentesFolder(showUserAlert = false) {
             break; // Fichier trouvé pour cette date
           }
         }
-      } catch (err) {}
+      } catch (e) { console.warn('[Auto-sync]', e); }
     }
   }
 
@@ -5302,6 +5301,7 @@ function exportToExcel() {
    12. INITIALISATION & GESTIONNAIRES D'ÉVÉNEMENTS
 ======================================================== */
 document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('print-date-val').textContent = new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   loadRecipes();
   loadMonthlySalesDB();
   renderRecipeList();
@@ -5361,6 +5361,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Recherche Ventes
   document.getElementById('search-sales').addEventListener('input', renderSalesTable);
+  
+  // Wire up sales filter buttons
+  document.querySelectorAll('.filter-group .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-group .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSalesFilter = btn.dataset.filter;
+      renderSalesTable();
+    });
+  });
 
   // Recherche Recettes
   document.getElementById('search-recipe-list').addEventListener('input', renderRecipeList);
