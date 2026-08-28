@@ -3938,25 +3938,37 @@ function findRecipeForProduct(rawName, rawFamille = '') {
 }
 
 /* ========================================================
-   5. PARSER D'INGRÉDIENTS & CALCUL DE DÉSTOCKAGE
+   5. PARSER D'INGRÉDIENTS & SYNCHRONISATION DES CATÉGORIES
 ======================================================== */
 function categorizeIngredient(name) {
   const n = cleanText(name);
-  if (n.includes('cafe') || n.includes('nespresso') || n.includes('pastille') || n.includes('the ') || n.includes('the') || n.includes('verveine') || n.includes('infusion') || n.includes('sirop') || n.includes('coca') || n.includes('sprite') || n.includes('hawai') || n.includes('poms') || n.includes('schweppes') || n.includes('orangina') || n.includes('red bull') || n.includes('oulmes') || n.includes('eau') || n.includes('boba') || n.includes('menthe') || n.includes('glacon') || n.includes('glace')) {
-    return 'boissons';
-  }
-  if (n.includes('poulet') || n.includes('boeuf') || n.includes('viande') || n.includes('merguez') || n.includes('khli') || n.includes('bacon') || n.includes('charcuterie') || n.includes('dinde') || n.includes('nugget') || n.includes('pepperoni') || n.includes('saucisse')) {
+
+  // 1. VIANDES & VOLAILLES
+  if (n.includes('viande') || n.includes('boeuf') || n.includes('bœuf') || n.includes('filet') || n.includes('steak') || n.includes('poulet') || n.includes('merguez') || n.includes('saucisse') || n.includes('dinde') || n.includes('charcuterie') || n.includes('khli') || n.includes('bacon') || n.includes('pepperoni') || n.includes('nugget')) {
     return 'viandes';
   }
+
+  // 2. POISSONS & MER
   if (n.includes('saumon') || n.includes('crevette') || n.includes('gambas') || n.includes('calamar') || n.includes('moule') || n.includes('thon') || n.includes('mer') || n.includes('poisson')) {
     return 'poissons';
   }
-  if (n.includes('mozzarella') || n.includes('parmesan') || n.includes('cheddar') || n.includes('fromage') || n.includes('brie') || n.includes('bleu') || n.includes('edam') || n.includes('burrata') || n.includes('ricotta') || n.includes('feta') || n.includes('jben') || n.includes('creme') || n.includes('lait') || n.includes('beurre') || /\boeufs?\b/.test(n) || n.startsWith('omelette') || n.includes('yaourt')) {
+
+  // 3. FROMAGES, CRÉMERIE & ŒUFS
+  if (n.includes('oeuf') || n.includes('œuf') || n.includes('omelette') || n.includes('fromage') || n.includes('mozzarella') || n.includes('parmesan') || n.includes('cheddar') || n.includes('edam') || n.includes('gouda') || n.includes('jben') || n.includes('beurre') || n.includes('creme') || n.includes('crème') || n.includes('lait') || n.includes('yaourt') || n.includes('ricotta') || n.includes('burrata') || n.includes('brie') || n.includes('bleu')) {
     return 'fromages';
   }
-  if (n.includes('tomate') || n.includes('salade') || n.includes('oignon') || n.includes('champignon') || n.includes('pomme de terre') || n.includes('frite') || n.includes('avocat') || n.includes('legume') || n.includes('epinard') || n.includes('carotte') || n.includes('concombre') || n.includes('brocoli') || n.includes('radis') || n.includes('betterave') || n.includes('orange') || n.includes('citron') || n.includes('fraise') || n.includes('mangue') || n.includes('banane') || n.includes('fruits') || n.includes('kiwi') || n.includes('framboise') || n.includes('ananas') || n.includes('peche') || n.includes('myrtille') || n.includes('pomme') || n.includes('datte') || n.includes('gingembre') || n.includes('roquette') || n.includes('olive')) {
+
+  // 4. BAR, SODAS, EAUX & BOISSONS CHAUDES
+  if (n.includes('eau') || n.includes('oulmes') || n.includes('coca') || n.includes('sprite') || n.includes('hawai') || n.includes('poms') || n.includes('schweppes') || n.includes('orangina') || n.includes('red bull') || n.includes('nespresso') || n.includes('pastille') || n.includes('cafe') || n.includes('café') || n.includes('the ') || n.includes('the') || n.includes('thé') || n.includes('verveine') || n.includes('infusion') || n.includes('chocolat') || n.includes('sirop') || n.includes('glacon') || n.includes('glaçon') || n.includes('glace') || n.includes('boba')) {
+    return 'boissons';
+  }
+
+  // 5. LÉGUMES & FRUITS
+  if (n.includes('tomate') || n.includes('oignon') || n.includes('champignon') || n.includes('pomme de terre') || n.includes('frite') || n.includes('puree') || n.includes('potatos') || n.includes('avocat') || n.includes('salade') || n.includes('mesclun') || n.includes('laitue') || n.includes('roquette') || n.includes('epinard') || n.includes('épinard') || n.includes('poivron') || n.includes('radis') || n.includes('carotte') || n.includes('concombre') || n.includes('betterave') || n.includes('olive') || n.includes('orange') || n.includes('citron') || n.includes('fraise') || n.includes('framboise') || n.includes('mangue') || n.includes('banane') || n.includes('pomme') || n.includes('ananas') || n.includes('peche') || n.includes('pêche') || n.includes('kiwi') || n.includes('fruits') || n.includes('fruit') || n.includes('menthe') || n.includes('agrumes') || n.includes('acai')) {
     return 'legumes';
   }
+
+  // 6. PAINS, PÂTES & ÉPICERIE (Par défaut)
   return 'epicerie';
 }
 
@@ -4012,7 +4024,7 @@ function parseIngredientLine(lineStr) {
     if (unit === 'p') { qty *= 60; unit = 'g'; }
     else unit = 'g';
   }
-  else if (n.includes('boeuf')) {
+  else if (n.includes('boeuf') || n.includes('bœuf') || n === 'filet' || n.startsWith('filet') || n.includes('filet de boeuf') || n.includes('steak')) {
     name = 'Bœuf (Filet / Émincé)';
     unit = 'g';
   }
@@ -4061,7 +4073,7 @@ function parseIngredientLine(lineStr) {
   }
 
   // 3. CRÉMERIE, FROMAGES & ŒUFS
-  else if (!n.includes('caille') && !n.includes('boeuf') && (/\\boeufs?\\b/.test(n) || n.startsWith('omelette'))) {
+  else if (!n.includes('caille') && !n.includes('boeuf') && (n.includes('oeuf') || n.includes('œuf') || n.includes('omelette') || n.includes('omlette'))) {
     name = 'Œufs (Pièces)';
     unit = 'p';
   }
@@ -4069,7 +4081,7 @@ function parseIngredientLine(lineStr) {
     name = 'Œufs de Caille';
     unit = 'p';
   }
-  else if (n === 'fromage' || n === 'fromages' || n.includes('fromage edam') || n.includes('fromage rape') || n.includes('edam') || n.includes('gouda')) {
+  else if (n === 'fromage' || n === 'fromages' || n.includes('fromage edam') || n.includes('fromage rape') || n.includes('edam') || n.includes('gouda') || n.includes('fromage variete') || n.includes('fromage rouge')) {
     name = 'Fromage (Gouda / Edam / Râpé)';
     unit = 'g';
   }
@@ -4273,6 +4285,38 @@ function parseIngredientLine(lineStr) {
   else if (n.includes('pesto')) {
     name = 'Sauce Pesto Basilic';
     unit = 'g';
+  }
+  else if (n.includes('sauce biggy') || n.includes('sauce bigy')) {
+    name = 'Sauce Biggy';
+    unit = 'g';
+  }
+  else if (n.includes('sauce tartare')) {
+    name = 'Sauce Tartare';
+    unit = 'g';
+  }
+  else if (n.includes('sauce cesar')) {
+    name = 'Sauce César';
+    unit = 'g';
+  }
+  else if (n.includes('sauce blanche')) {
+    name = 'Sauce Blanche';
+    unit = 'g';
+  }
+  else if (n.includes('sauce burger')) {
+    name = 'Sauce Burger';
+    unit = unit === 'ml' ? 'ml' : 'g';
+  }
+  else if (n.includes('viennoiserie')) {
+    name = 'Viennoiseries';
+    unit = 'p';
+  }
+  else if (n.includes('tranche de citron') || n.includes('tranches de citron')) {
+    name = 'Tranches de Citron';
+    unit = 'tr';
+  }
+  else if (n.includes('tranche d orange') || n.includes('tranches d orange')) {
+    name = "Tranches d'Orange";
+    unit = 'tr';
   }
   else if (n.includes('sucre de canne') || n.includes('sirop de canne') || n.includes('sirop de sucre')) {
     name = 'Sirop de Sucre de Canne';
