@@ -3459,7 +3459,7 @@ const ALIAS_MAP = {
   "cocktail à base d'orange": "jf_cocktail_a_base_d_orange",
   "za3za3 royal grey corner": "jf_za3za3_royal_grey_corner",
   "signature grey corner": "ck_signature_grey_corner",
-  "virgin pina colada": "ck_virgin_pina_colada",
+  "virgin pina colada": "ck_virgin_pi_a_colada",
   "virgin piña colada": "ck_virgin_pi_a_colada",
   "cocktail tropical": "ck_cocktail_tropical",
   "mojito virgin fraicheur": "ck_mojito_virgin_fraicheur",
@@ -3701,7 +3701,7 @@ const ALIAS_MAP = {
   "zaazaa": "jf_za3za3_royal_grey_corner",
   "za3za3 royal": "jf_za3za3_royal_grey_corner",
   "cocktail gc": "ck_signature_grey_corner",
-  "pina colada": "ck_virgin_pina_colada",
+  "pina colada": "ck_virgin_pi_a_colada",
   "tropical": "ck_cocktail_tropical",
   "mojito": "ck_mojito_virgin_fraicheur",
   "mojito virgin": "ck_mojito_virgin_fraicheur",
@@ -3878,12 +3878,20 @@ function loadRecipes() {
   activeRecipes.forEach(r => {
     window.recipeNameIndex.set(cleanText(r.name), r);
   });
+
+  // Normalize ALIAS_MAP keys with cleanText
+  window.cleanAliasMap = {};
+  for (const [key, val] of Object.entries(ALIAS_MAP)) {
+    window.cleanAliasMap[cleanText(key)] = val;
+  }
 }
 
 function saveRecipes() {
   try {
     localStorage.setItem('gc_recipes_db', JSON.stringify(activeRecipes));
-  } catch (e) {}
+  } catch (e) {
+    console.warn('[LocalStorage] Erreur sauvegarde recettes:', e);
+  }
 }
 
 function loadMonthlySalesDB() {
@@ -3893,6 +3901,7 @@ function loadMonthlySalesDB() {
       monthlySalesDB = JSON.parse(saved);
     }
   } catch (e) {
+    console.warn('[LocalStorage] Erreur chargement ventes:', e);
     monthlySalesDB = {};
   }
 }
@@ -3900,7 +3909,9 @@ function loadMonthlySalesDB() {
 function saveMonthlySalesDB() {
   try {
     localStorage.setItem('gc_monthly_sales_db_v2', JSON.stringify(monthlySalesDB));
-  } catch (e) {}
+  } catch (e) {
+    console.warn('[LocalStorage] Erreur sauvegarde ventes:', e);
+  }
 }
 
 /* ========================================================
@@ -3934,8 +3945,9 @@ function findRecipeForProduct(rawName, rawFamille = '') {
   }
 
   // 1. Alias direct
-  if (ALIAS_MAP[cName]) {
-    const r = activeRecipes.find(x => x.id === ALIAS_MAP[cName]);
+  const aliasMap = window.cleanAliasMap || ALIAS_MAP;
+  if (aliasMap[cName]) {
+    const r = activeRecipes.find(x => x.id === aliasMap[cName]);
     if (r) return r;
   }
 
@@ -3956,8 +3968,8 @@ function findRecipeForProduct(rawName, rawFamille = '') {
     .replace(/^supplement\s+/, '')
     .trim();
 
-  if (ALIAS_MAP[simplified]) {
-    const r = activeRecipes.find(x => x.id === ALIAS_MAP[simplified]);
+  if (aliasMap[simplified]) {
+    const r = activeRecipes.find(x => x.id === aliasMap[simplified]);
     if (r) return r;
   }
 
@@ -5155,12 +5167,14 @@ async function autoScanVentesFolder(showUserAlert = false) {
     return null;
   }
 
+  let manifestLoaded = false;
   // 1. Essayer de charger le manifest.json s'il existe
   try {
     const manifestResp = await fetchFile('ventes/manifest.json');
     if (manifestResp) {
       const manifest = await manifestResp.json();
       const filesList = manifest.files || [];
+      manifestLoaded = true;
 
       for (const fname of filesList) {
         const dKey = extractDateFromFilename(fname);
@@ -5183,39 +5197,38 @@ async function autoScanVentesFolder(showUserAlert = false) {
     }
   } catch (e) { console.warn('[Auto-sync]', e); }
 
-  // 2. Scan direct par conventions de noms standard pour le mois en cours (1 au 31)
-  const [yearStr, monthStr] = selectedYearMonth.split('-');
-  const totalDays = new Date(parseInt(yearStr, 10), parseInt(monthStr, 10), 0).getDate();
+  // 2. Scan direct fallback uniquement si manifest.json est absent
+  if (!manifestLoaded) {
+    const [yearStr, monthStr] = selectedYearMonth.split('-');
+    const totalDays = new Date(parseInt(yearStr, 10), parseInt(monthStr, 10), 0).getDate();
 
-  for (let day = 1; day <= totalDays; day++) {
-    const dayStr = String(day).padStart(2, '0');
-    const dKey = `${selectedYearMonth}-${dayStr}`;
-    const compactDate = `${yearStr}${monthStr}${dayStr}`;
+    for (let day = 1; day <= totalDays; day++) {
+      const dayStr = String(day).padStart(2, '0');
+      const dKey = `${selectedYearMonth}-${dayStr}`;
+      const compactDate = `${yearStr}${monthStr}${dayStr}`;
 
-    const candidateFilenames = [
-      `Fin_Journée_${compactDate}.xlsx`,
-      `Fin_Journée_${compactDate}.xls`,
-      `Fin_Journee_${compactDate}.xlsx`,
-      `Fin_Journee_${compactDate}.xls`,
-      `ventes_${compactDate}.xlsx`,
-      `ventes_${compactDate}.xls`
-    ];
+      const candidateFilenames = [
+        `Fin_Journee_${compactDate}.xlsx`,
+        `Fin_Journée_${compactDate}.xlsx`,
+        `ventes_${compactDate}.xlsx`
+      ];
 
-    for (const cName of candidateFilenames) {
-      try {
-        const resp = await fetchFile('ventes/' + encodeURIComponent(cName));
-        if (resp) {
-          const buf = await resp.arrayBuffer();
-          const wb = XLSX.read(new Uint8Array(buf), { type: 'array' });
-          const rows = parseWorkbookToRows(wb);
-          if (rows.length > 0) {
-            monthlySalesDB[dKey] = rows;
-            foundCount++;
-            loadedDates.push(dKey);
-            break; // Fichier trouvé pour cette date
+      for (const cName of candidateFilenames) {
+        try {
+          const resp = await fetchFile('ventes/' + encodeURIComponent(cName));
+          if (resp) {
+            const buf = await resp.arrayBuffer();
+            const wb = XLSX.read(new Uint8Array(buf), { type: 'array' });
+            const rows = parseWorkbookToRows(wb);
+            if (rows.length > 0) {
+              monthlySalesDB[dKey] = rows;
+              foundCount++;
+              loadedDates.push(dKey);
+              break; // Fichier trouvé pour cette date
+            }
           }
-        }
-      } catch (e) { console.warn('[Auto-sync]', e); }
+        } catch (e) { console.warn('[Auto-sync]', e); }
+      }
     }
   }
 
@@ -5428,10 +5441,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Recherche Ventes
   document.getElementById('search-sales').addEventListener('input', renderSalesTable);
   
-  // Wire up sales filter buttons
-  document.querySelectorAll('.filter-group .filter-btn').forEach(btn => {
+  // Wire up sales filter buttons (restreint à l'onglet Ventes)
+  document.querySelectorAll('#tab-sales .filter-group .filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-group .filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#tab-sales .filter-group .filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentSalesFilter = btn.dataset.filter;
       renderSalesTable();

@@ -1973,7 +1973,7 @@ const DATA = [
       },
       {
         "name": "PIL PIL ESPAGNOL",
-        "images": "images/entree-pilpil.jpg,images/entree-pilpil2.jpg,images/entree-pilpil3.jpg",
+        "images": "images/entree-pilpil.jpg,images/entree-pilpil2.jpg",
         "prepTime": 14,
         "tech": [
           "Gambas : 260 g",
@@ -3209,39 +3209,47 @@ function createCard(item, catKey, categoryColor) {
   const itemKey = makeItemKey(catKey, item.name);
   const gallery = item.__images && item.__images.length > 0 ? item.__images : [item.image || PLACEHOLDER_SVG];
   const firstImg = gallery[0] || PLACEHOLDER_SVG;
-  const timerInit = formatTime(item.prepTime * 60);
+  const hasTimer = typeof item.prepTime === 'number' && item.prepTime > 0;
+  const prepSeconds = hasTimer ? item.prepTime * 60 : 0;
+  const timerInit = formatTime(prepSeconds);
+  const priceDisplay = item.price || (item.sellPrice ? item.sellPrice + ' DH' : '');
 
   const techHtml = (item.tech || []).map(line => {
     const parts = line.split(':');
     if (parts.length > 1) {
-      return `<li><span>${parts[0].trim()}</span> <span class="item-qty">${parts.slice(1).join(':').trim()}</span></li>`;
+      return `<li><span>${escapeHtml(parts[0].trim())}</span> <span class="item-qty">${escapeHtml(parts.slice(1).join(':').trim())}</span></li>`;
     }
-    return `<li><span>${line}</span></li>`;
+    return `<li><span>${escapeHtml(line)}</span></li>`;
   }).join('');
 
   const multiBadge = gallery.length > 1 ? `<span class="gallery-badge">📸 ${gallery.length} photos</span>` : '';
+  const escapedName = escapeHtml(item.name);
+  const escapedPrice = escapeHtml(priceDisplay);
 
-  return `
-    <div class="card" data-key="${itemKey}" data-search="${(item.name + ' ' + (item.tech||[]).join(' ')).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')}">
-      <div class="hero-wrap">
-        <img class="hero" src="${firstImg}" alt="${item.name}" data-gallery="${gallery.join('|')}" style="border-bottom-color:${categoryColor}" onerror="this.onerror=null;this.src='${PLACEHOLDER_SVG}';">
-        ${multiBadge}
-      </div>
-      <div class="body">
-        <div class="row-top">
-          <div class="name">${item.name}</div>
-          <div class="price">${item.price || ''}</div>
-        </div>
-
+  const timerRowHtml = hasTimer ? `
         <div class="timer-row">
           <div class="timer" id="${itemKey}-timer" data-state="idle">
             <span class="dot"></span>
-            <span class="time" data-seconds="${item.prepTime * 60}">${timerInit}</span>
+            <span class="time" data-seconds="${prepSeconds}">${timerInit}</span>
           </div>
           <div class="meta">
             <span class="chip mins">⏱️ ${item.prepTime} min</span>
           </div>
+        </div>` : '';
+
+  return `
+    <div class="card" data-key="${itemKey}" data-search="${(item.name + ' ' + (item.tech||[]).join(' ')).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')}">
+      <div class="hero-wrap">
+        <img class="hero" src="${firstImg}" alt="${escapedName}" data-gallery="${gallery.join('|')}" style="border-bottom-color:${categoryColor}" onerror="this.onerror=null;this.src='${PLACEHOLDER_SVG}';">
+        ${multiBadge}
+      </div>
+      <div class="body">
+        <div class="row-top">
+          <div class="name">${escapedName}</div>
+          <div class="price">${escapedPrice}</div>
         </div>
+
+        ${timerRowHtml}
 
         <ul class="tech">${techHtml}</ul>
       </div>
@@ -3558,23 +3566,27 @@ function initCardsBehavior() {
       const key = btn.dataset.key;
       const status = btn.dataset.status;
       const tEl = document.getElementById(key + '-timer');
-      const timeEl = tEl.querySelector('.time');
-      const baseSec = parseInt(timeEl.dataset.seconds, 10);
+      const timeEl = tEl ? tEl.querySelector('.time') : null;
+      const baseSec = timeEl ? parseInt(timeEl.dataset.seconds, 10) : 0;
 
       if (status === 'to-do') {
         setBadge(btn, 'prog');
-        startTimer(key);
+        if (tEl) startTimer(key);
       } else if (status === 'prog') {
         setBadge(btn, 'ready');
-        stopTimer(key);
-        tEl.dataset.state = 'done';
-        saveTimerState(key, 'ready', Date.now(), baseSec);
+        if (tEl) {
+          stopTimer(key);
+          tEl.dataset.state = 'done';
+          saveTimerState(key, 'ready', Date.now(), baseSec);
+        }
       } else {
         setBadge(btn, 'to-do');
-        stopTimer(key);
-        tEl.dataset.state = 'idle';
-        timeEl.textContent = formatTime(baseSec);
-        saveTimerState(key, 'to-do', null, baseSec);
+        if (tEl) {
+          stopTimer(key);
+          tEl.dataset.state = 'idle';
+          if (timeEl) timeEl.textContent = formatTime(baseSec);
+          saveTimerState(key, 'to-do', null, baseSec);
+        }
       }
     });
   });
