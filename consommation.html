@@ -999,8 +999,11 @@
         <span>🔍</span>
         <input type="text" id="search-recipe-list" placeholder="Rechercher une fiche technique..." />
       </div>
-      <div class="nav-actions">
+      <div class="nav-actions" style="gap:8px; flex-wrap:wrap;">
         <button id="btn-add-recipe" class="btn btn-primary">➕ Nouvelle Fiche Technique</button>
+        <button class="btn" onclick="exportRecipesJSON()" title="Télécharger les fiches techniques en fichier JSON">💾 Exporter Fiches (JSON)</button>
+        <button class="btn" onclick="document.getElementById('recipes-import-file').click()" title="Charger un fichier de fiches techniques JSON">📂 Importer Fiches</button>
+        <input type="file" id="recipes-import-file" accept=".json" style="display:none;" onchange="importRecipesJSON(event)" />
         <button id="btn-reset-recipes" class="btn" title="Restaurer les recettes par défaut">🔄 Réinitialiser</button>
       </div>
     </div>
@@ -2008,7 +2011,7 @@ const BASE_RECIPES = [
     "name": "FASSI",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "Khli3 : 80 g",
+      "Khli3 : 100 g",
       "Œufs au plat : 3 p",
       "Jus d'orange : 200 ml",
       "Boisson chaude : 1 p",
@@ -4909,6 +4912,40 @@ function saveRecipeFromModal() {
   closeModal();
   renderRecipeList();
   recalculateCurrentView();
+}
+
+function exportRecipesJSON() {
+  const str = JSON.stringify(activeRecipes, null, 2);
+  const blob = new Blob([str], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `GreyCorner_Fiches_Techniques_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importRecipesJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (Array.isArray(data) && data.length > 0) {
+        activeRecipes = data;
+        saveRecipes();
+        renderRecipeList();
+        recalculateCurrentView();
+        alert(`✅ ${data.length} fiches techniques importées et enregistrées avec succès !`);
+      } else {
+        alert("Le fichier JSON ne contient pas de liste de fiches techniques valide.");
+      }
+    } catch (err) {
+      alert("Erreur lors de la lecture du fichier JSON : " + err.message);
+    }
+  };
+  reader.readAsText(file);
 }
 
 /* ========================================================
