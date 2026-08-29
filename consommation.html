@@ -1423,13 +1423,13 @@ function findRecipeForProduct(rawName, rawFamille = '') {
     return activeRecipes.find(x => x.id === 'ec_croquettes_fromage') || activeRecipes.find(x => x.id === 'ec_boulettes_de_poulet_au_fromage');
   }
   if (cName.includes('emince') && cName.includes('boeuf')) {
-    return activeRecipes.find(x => x.id === 'pc_emince_de_boeuf');
+    return activeRecipes.find(x => x.id === 'pl_emince_de_boeuf');
   }
   if (cName.includes('filet') && cName.includes('boeuf')) {
-    return activeRecipes.find(x => x.id === 'pc_filet_de_boeuf');
+    return activeRecipes.find(x => x.id === 'pl_filet_de_boeuf');
   }
   if (cName.includes('roulade')) {
-    return activeRecipes.find(x => x.id === 'pc_roulade_de_boeuf_vh');
+    return activeRecipes.find(x => x.id === 'pl_roulade_de_boeuf_vh');
   }
   if (/\boeufs?\b/i.test(cName) && !cName.includes('boeuf')) {
     if (cName.includes('beldi')) return activeRecipes.find(x => x.id === 'alc_oeufs_beldi');
@@ -2745,8 +2745,11 @@ async function autoScanVentesFolder(showUserAlert = false) {
       const compactDate = `${yearStr}${monthStr}${dayStr}`;
 
       const candidateFilenames = [
-        `Fin_Journee_${compactDate}.xlsx`,
+        `Fin_Journée_${compactDate}.xls`,
+        `Fin_Journee_${compactDate}.xls`,
         `Fin_Journée_${compactDate}.xlsx`,
+        `Fin_Journee_${compactDate}.xlsx`,
+        `ventes_${compactDate}.xls`,
         `ventes_${compactDate}.xlsx`
       ];
 
@@ -2919,6 +2922,10 @@ function exportToExcel() {
 let auditMonthlyArticles = [];
 let currentAuditCatFilter = 'all';
 let currentAuditStatusFilter = 'all';
+// Unité pratique de pesée pour l'Audit Flash (g→Kg, ml→L)
+let auditFlashFactor = 1;       // diviseur : 1000 pour g→Kg ou ml→L, 1 sinon
+let auditFlashDisplayUnit = 'unité'; // unité affichée à l'utilisateur (Kg, L, p…)
+
 
 function switchAuditSubTab(mode) {
   const btnFlash = document.getElementById('btn-subtab-flash');
@@ -2976,19 +2983,33 @@ function onFlashIngredientChange() {
   const opt = select.options[select.selectedIndex];
   if (!opt || !select.value) return;
 
-  const unit = opt.dataset.unit || 'g';
-  document.querySelectorAll('.flash-unit-lbl').forEach(el => el.textContent = unit);
+  const baseUnit = opt.dataset.unit || 'g';
 
-  // Pré-remplir la théorie avec les ingrédients calculés du jour / mois
+  // Conversion vers l'unité pratique de pesée (g→Kg, ml→L)
+  if (baseUnit === 'g') {
+    auditFlashDisplayUnit = 'Kg';
+    auditFlashFactor = 1000;
+  } else if (baseUnit === 'ml') {
+    auditFlashDisplayUnit = 'L';
+    auditFlashFactor = 1000;
+  } else {
+    auditFlashDisplayUnit = baseUnit;
+    auditFlashFactor = 1;
+  }
+
+  // Mettre à jour tous les libellés d'unité dans le formulaire
+  document.querySelectorAll('.flash-unit-lbl').forEach(el => el.textContent = auditFlashDisplayUnit);
+
+  // Pré-remplir le théorique en unité pratique (Kg ou L, pas g ni ml)
   const cTarget = cleanText(select.value);
   const found = aggregatedIngredients.find(item => cleanText(item.name) === cTarget || cleanText(item.name).includes(cTarget));
   if (found) {
-    document.getElementById('flash-theorique').value = found.totalQty.toFixed(2);
+    document.getElementById('flash-theorique').value = (found.totalQty / auditFlashFactor).toFixed(3);
   } else {
     document.getElementById('flash-theorique').value = '0';
   }
 
-  // Prix unitaire par défaut selon catégorie
+  // Prix unitaire par défaut en DH / unité pratique (DH/Kg, DH/L, DH/p)
   const cat = categorizeIngredient(select.value);
   let defaultPrice = 50;
   if (cat === 'viandes') defaultPrice = 85;
@@ -3002,6 +3023,7 @@ function onFlashIngredientChange() {
   calculateAuditFlash();
 }
 
+
 function calculateAuditFlash() {
   const sInit = parseFloat(document.getElementById('flash-s-init').value) || 0;
   const achats = parseFloat(document.getElementById('flash-achats').value) || 0;
@@ -3010,7 +3032,8 @@ function calculateAuditFlash() {
   const casse = parseFloat(document.getElementById('flash-casse').value) || 0;
   const prix = parseFloat(document.getElementById('flash-prix').value) || 0;
   const select = document.getElementById('flash-ing-select');
-  const unit = select && select.options[select.selectedIndex] ? select.options[select.selectedIndex].dataset.unit || 'unité' : 'unité';
+  // Utiliser l'unité pratique de pesée (Kg, L, p…) définie à la sélection de l'ingrédient
+  const unit = auditFlashDisplayUnit || (select && select.options[select.selectedIndex] ? select.options[select.selectedIndex].dataset.unit || 'unité' : 'unité');
 
   const consReelle = (sInit + achats) - sFinal;
   const consAttendue = theo + casse;
@@ -3467,7 +3490,6 @@ window.exportMonthlyAuditToExcel = exportMonthlyAuditToExcel;
    12. INITIALISATION & GESTIONNAIRES D'ÉVÉNEMENTS
 ======================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-  initAuditFlashDropdown();
   if (window.location.hash === '#tab-audit' || window.location.hash === '#audit') {
     setTimeout(() => {
       document.querySelectorAll('.v-tab').forEach(t => t.classList.remove('active'));
