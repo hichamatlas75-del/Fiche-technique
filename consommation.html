@@ -7,6 +7,13 @@
 
 <!-- SheetJS pour lecture et export Excel .xlsx -->
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+<!-- PDF.js pour lecture et extraction des PDF d'inventaire et de casse -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  if (typeof pdfjsLib !== 'undefined') {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
+</script>
 <!-- Base de données centralisée des recettes -->
 <script src="recipes-data.js"></script>
 
@@ -1014,6 +1021,245 @@
       <!-- Les cartes de recettes seront injectées ici -->
     </div>
   </div>
+
+  <!-- TAB 4: AUDIT DE STOCK & ÉCARTS -->
+  <div id="tab-audit" class="tab-content" style="display:none;">
+    <!-- SOUS-ONGLETS DE NAVIGATION AUDIT -->
+    <div class="audit-subtabs-wrap">
+      <div class="audit-subtabs">
+        <button class="audit-subtab-btn active" id="btn-subtab-flash" onclick="switchAuditSubTab('flash')">
+          ⚡ Mode 1 : Audit Flash (1 Ingrédient)
+        </button>
+        <button class="audit-subtab-btn" id="btn-subtab-month" onclick="switchAuditSubTab('month')">
+          📅 Mode 2 : Clôture & Audit Fin de Mois (Multi-Articles)
+        </button>
+      </div>
+    </div>
+
+    <!-- SOUS-VUE 1 : AUDIT FLASH (1 ARTICLE) -->
+    <div id="audit-view-flash" class="audit-view-content">
+      <div class="flash-audit-wrap">
+        <div class="flash-form-card">
+          <h2 style="font-size:18px; font-weight:800; color:var(--text); margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+            ⚡ Audit Flash Matière Première
+          </h2>
+          <p style="font-size:13px; color:var(--muted); margin-bottom:20px;">
+            Contrôle ponctuel rapide en cours de journée ou de service pour mesurer l'écart de consommation et le coût d'un ingrédient spécifique.
+          </p>
+
+          <div class="form-group">
+            <label for="flash-ing-select">Ingrédient à auditer</label>
+            <select id="flash-ing-select" style="font-weight:700; font-size:14.5px; padding:10px 12px; background:var(--bg); border:1px solid var(--border); border-radius:8px; color:var(--text); width:100%;" onchange="onFlashIngredientChange()">
+              <option value="">-- Choisir un ingrédient --</option>
+            </select>
+          </div>
+
+          <div class="flash-grid-2">
+            <div class="form-group">
+              <label for="flash-s-init">1. Stock Initial (<span class="flash-unit-lbl">unité</span>)</label>
+              <input type="number" id="flash-s-init" step="0.01" placeholder="0.00" value="0" oninput="calculateAuditFlash()" />
+            </div>
+            <div class="form-group">
+              <label for="flash-achats">2. Achats / Entrées du jour (<span class="flash-unit-lbl">unité</span>)</label>
+              <input type="number" id="flash-achats" step="0.01" placeholder="0.00" value="0" oninput="calculateAuditFlash()" />
+            </div>
+          </div>
+
+          <div class="flash-grid-2">
+            <div class="form-group">
+              <label for="flash-s-final">3. Stock Final Réel Compté (<span class="flash-unit-lbl">unité</span>)</label>
+              <input type="number" id="flash-s-final" step="0.01" placeholder="0.00" value="0" oninput="calculateAuditFlash()" />
+            </div>
+            <div class="form-group">
+              <label for="flash-theorique">4. Déstockage Théorique Ventes (<span class="flash-unit-lbl">unité</span>)</label>
+              <input type="number" id="flash-theorique" step="0.01" placeholder="0.00" value="0" oninput="calculateAuditFlash()" />
+            </div>
+          </div>
+
+          <div class="flash-grid-2">
+            <div class="form-group">
+              <label for="flash-casse">5. Casse / Pertes Déclarées (<span class="flash-unit-lbl">unité</span>)</label>
+              <input type="number" id="flash-casse" step="0.01" placeholder="0.00" value="0" oninput="calculateAuditFlash()" />
+            </div>
+            <div class="form-group">
+              <label for="flash-prix">6. Prix Unitaire Moyen Estimé (DH / <span class="flash-unit-lbl">unité</span>)</label>
+              <input type="number" id="flash-prix" step="0.01" placeholder="Ex: 55.00" value="50" oninput="calculateAuditFlash()" />
+            </div>
+          </div>
+
+          <div style="margin-top:10px;">
+            <button class="btn btn-primary" style="width:100%; justify-content:center; padding:12px; font-size:15px;" onclick="calculateAuditFlash()">
+              📊 Calculer la Synthèse de l'Audit Flash
+            </button>
+          </div>
+        </div>
+
+        <!-- RÉSULTAT FLASH -->
+        <div id="flash-result-box" class="flash-form-card" style="display:none; border-top: 3px solid var(--accent);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:8px;">
+            <h3 style="font-size:16px; font-weight:900; color:var(--text);" id="flash-res-title">Diagnostic Flash</h3>
+            <div id="flash-status-badge" class="status-badge ok">CONFORME</div>
+          </div>
+
+          <div class="audit-kpi-grid">
+            <div class="audit-kpi-card">
+              <div class="audit-kpi-label">Consommation Réelle</div>
+              <div class="audit-kpi-val" id="flash-kpi-reel">0.00</div>
+              <div class="audit-kpi-sub">(Stock Init + Achats) - Stock Final</div>
+            </div>
+            <div class="audit-kpi-card">
+              <div class="audit-kpi-label">Conso Attendue</div>
+              <div class="audit-kpi-val" id="flash-kpi-attendu">0.00</div>
+              <div class="audit-kpi-sub">Théorie Ventes + Casse</div>
+            </div>
+            <div class="audit-kpi-card">
+              <div class="audit-kpi-label">Écart Matière (Qté)</div>
+              <div class="audit-kpi-val" id="flash-kpi-ecart">0.00</div>
+              <div class="audit-kpi-sub" id="flash-kpi-ecart-pct">0.0%</div>
+            </div>
+            <div class="audit-kpi-card">
+              <div class="audit-kpi-label">Impact Financier</div>
+              <div class="audit-kpi-val" id="flash-kpi-impact">0.00 DH</div>
+              <div class="audit-kpi-sub">Écart en valeur monétaire</div>
+            </div>
+          </div>
+
+          <div id="flash-diagnostic-box" style="background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:16px; font-size:13.5px; line-height:1.6; color:var(--text);">
+            <!-- Diagnostic généré -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOUS-VUE 2 : AUDIT FIN DE MOIS (MULTI-ARTICLES) -->
+    <div id="audit-view-month" class="audit-view-content" style="display:none;">
+      <!-- LECTEUR INTELLIGENT DE PDF & FICHIERS -->
+      <div class="audit-dropzone-grid">
+        <!-- 1. PDF INVENTAIRE M-1 -->
+        <div class="dropzone-card" id="dz-m1" onclick="document.getElementById('file-pdf-m1').click()">
+          <span class="dropzone-icon">📄</span>
+          <div class="dropzone-title">1. Inventaire M-1 (Stock Initial)</div>
+          <div class="dropzone-desc">Déposez le PDF ou Excel de l'inventaire physique de fin de mois M-1</div>
+          <input type="file" id="file-pdf-m1" accept=".pdf,.xlsx,.xls" style="display:none;" onchange="handleAuditFileUpload(event, 'm1')" />
+          <div class="dropzone-status" id="status-m1">✅ Fichier analysé</div>
+        </div>
+
+        <!-- 2. PDF INVENTAIRE M -->
+        <div class="dropzone-card" id="dz-m" onclick="document.getElementById('file-pdf-m').click()">
+          <span class="dropzone-icon">📋</span>
+          <div class="dropzone-title">2. Inventaire M (Stock Final)</div>
+          <div class="dropzone-desc">Déposez le PDF ou Excel de l'inventaire physique de fin de mois M</div>
+          <input type="file" id="file-pdf-m" accept=".pdf,.xlsx,.xls" style="display:none;" onchange="handleAuditFileUpload(event, 'm')" />
+          <div class="dropzone-status" id="status-m">✅ Fichier analysé</div>
+        </div>
+
+        <!-- 3. PDF CASSE & PERTES -->
+        <div class="dropzone-card" id="dz-casse" onclick="document.getElementById('file-pdf-casse').click()">
+          <span class="dropzone-icon">🗑️</span>
+          <div class="dropzone-title">3. Relevé de Casse / Pertes</div>
+          <div class="dropzone-desc">Déposez le PDF des pertes déclarées du mois</div>
+          <input type="file" id="file-pdf-casse" accept=".pdf,.xlsx,.xls" style="display:none;" onchange="handleAuditFileUpload(event, 'casse')" />
+          <div class="dropzone-status" id="status-casse">✅ Fichier analysé</div>
+        </div>
+      </div>
+
+      <!-- BARRE D'ACTIONS MULTI-ARTICLES -->
+      <div class="controls-bar" style="flex-wrap:wrap; gap:10px;">
+        <div class="search-input-wrap">
+          <span>🔍</span>
+          <input type="text" id="search-audit-multi" placeholder="Filtrer une matière première..." oninput="renderMonthlyAuditTable()" />
+        </div>
+        <div class="nav-actions" style="gap:8px; flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="syncAuditWithMonthlySales()">⚡ Synchroniser Ventes du Mois</button>
+          <button class="btn" onclick="addNewAuditArticlePrompt()">➕ Ajouter Article</button>
+          <button class="btn btn-success" onclick="exportMonthlyAuditToExcel()">📥 Exporter Rapport (.xlsx)</button>
+          <button class="btn" onclick="window.print()">🖨️ Imprimer Synthèse</button>
+          <button class="btn" style="color:var(--danger);" onclick="resetMonthlyAuditData()">🔄 Réinitialiser</button>
+        </div>
+      </div>
+
+      <!-- FILTRES DE FAMILLE ET DE STATUT -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+        <div class="filter-group">
+          <button class="filter-btn active" data-audit-cat="all" onclick="setAuditCatFilter('all', this)">Toutes Catégories</button>
+          <button class="filter-btn" data-audit-cat="viandes" onclick="setAuditCatFilter('viandes', this)">Viandes</button>
+          <button class="filter-btn" data-audit-cat="poissons" onclick="setAuditCatFilter('poissons', this)">Poissons</button>
+          <button class="filter-btn" data-audit-cat="fromages" onclick="setAuditCatFilter('fromages', this)">Fromages</button>
+          <button class="filter-btn" data-audit-cat="legumes" onclick="setAuditCatFilter('legumes', this)">Légumes</button>
+          <button class="filter-btn" data-audit-cat="boissons" onclick="setAuditCatFilter('boissons', this)">Boissons</button>
+          <button class="filter-btn" data-audit-cat="epicerie" onclick="setAuditCatFilter('epicerie', this)">Épicerie/Pains</button>
+        </div>
+
+        <div class="filter-group">
+          <button class="filter-btn active" data-audit-status="all" onclick="setAuditStatusFilter('all', this)">Tous Statuts</button>
+          <button class="filter-btn" data-audit-status="danger" onclick="setAuditStatusFilter('danger', this)">⚠️ Surconsommations</button>
+          <button class="filter-btn" data-audit-status="ok" onclick="setAuditStatusFilter('ok', this)">✅ Conformes</button>
+          <button class="filter-btn" data-audit-status="under" onclick="setAuditStatusFilter('under', this)">📉 Sous-dosages</button>
+        </div>
+      </div>
+
+      <!-- KPIS SYNTHÈSE GLOBALE -->
+      <div class="audit-kpi-grid">
+        <div class="audit-kpi-card">
+          <div class="audit-kpi-label">Valeur Déstockage Théorique</div>
+          <div class="audit-kpi-val" id="audit-kpi-tot-theo">0.00 DH</div>
+          <div class="audit-kpi-sub">Total fiches vendues</div>
+        </div>
+        <div class="audit-kpi-card">
+          <div class="audit-kpi-label">Valeur Consommation Réelle</div>
+          <div class="audit-kpi-val" id="audit-kpi-tot-reel">0.00 DH</div>
+          <div class="audit-kpi-sub">(Init + Achats) - Final</div>
+        </div>
+        <div class="audit-kpi-card">
+          <div class="audit-kpi-label">Écart Net Global</div>
+          <div class="audit-kpi-val" id="audit-kpi-tot-ecart">0.00 DH</div>
+          <div class="audit-kpi-sub" id="audit-kpi-tot-ecart-pct">0.0%</div>
+        </div>
+        <div class="audit-kpi-card">
+          <div class="audit-kpi-label">Pertes / Casse Déclarée</div>
+          <div class="audit-kpi-val warn" id="audit-kpi-tot-casse">0.00 DH</div>
+          <div class="audit-kpi-sub">Montant pertes déclarées</div>
+        </div>
+        <div class="audit-kpi-card">
+          <div class="audit-kpi-label">Articles Audités</div>
+          <div class="audit-kpi-val ok" id="audit-kpi-tot-items">0</div>
+          <div class="audit-kpi-sub" id="audit-kpi-tot-alerts">0 alerte(s)</div>
+        </div>
+      </div>
+
+      <!-- TABLEAU COMPARATIF MULTI-ARTICLES -->
+      <div class="table-responsive">
+        <table id="table-audit-multi">
+          <thead>
+            <tr>
+              <th>Matière Première</th>
+              <th>Catégorie</th>
+              <th>Unité</th>
+              <th style="text-align:right;">Stock M-1</th>
+              <th style="text-align:right;">Achats M</th>
+              <th style="text-align:right;">Stock M</th>
+              <th style="text-align:right; color:var(--accent);">Conso Réelle</th>
+              <th style="text-align:right;">Théorie Ventes</th>
+              <th style="text-align:right;">Casse</th>
+              <th style="text-align:right; font-weight:900;">Écart (Qté)</th>
+              <th style="text-align:right;">Prix Unit.</th>
+              <th style="text-align:right; font-weight:900;">Écart (DH)</th>
+              <th style="text-align:center;">Statut</th>
+              <th style="text-align:center;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-audit-multi">
+            <tr>
+              <td colspan="14" style="text-align:center; padding:40px; color:var(--muted);">
+                Déposez vos PDF d'inventaire ou cliquez sur <em>"Synchroniser Ventes du Mois"</em> pour démarrer l'audit de stock.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <!-- MODAL EDITION / AJOUT RECETTE -->
@@ -2604,9 +2850,561 @@ function exportToExcel() {
 }
 
 /* ========================================================
+   13. MODULE D'AUDIT DE STOCK FLASH & FIN DE MOIS (PDF & MULTI-ARTICLES)
+======================================================== */
+let auditMonthlyArticles = [];
+let currentAuditCatFilter = 'all';
+let currentAuditStatusFilter = 'all';
+
+function switchAuditSubTab(mode) {
+  const btnFlash = document.getElementById('btn-subtab-flash');
+  const btnMonth = document.getElementById('btn-subtab-month');
+  const viewFlash = document.getElementById('audit-view-flash');
+  const viewMonth = document.getElementById('audit-view-month');
+
+  if (mode === 'flash') {
+    btnFlash.classList.add('active');
+    btnMonth.classList.remove('active');
+    viewFlash.style.display = 'block';
+    viewMonth.style.display = 'none';
+  } else {
+    btnMonth.classList.add('active');
+    btnFlash.classList.remove('active');
+    viewMonth.style.display = 'block';
+    viewFlash.style.display = 'none';
+    if (auditMonthlyArticles.length === 0) {
+      syncAuditWithMonthlySales();
+    }
+  }
+}
+
+// 13.1 AUDIT FLASH
+function initAuditFlashDropdown() {
+  const select = document.getElementById('flash-ing-select');
+  if (!select) return;
+
+  const uniqueIngs = new Map();
+  activeRecipes.forEach(r => {
+    (r.ingredients || []).forEach(line => {
+      const parsed = parseIngredientLine(line);
+      const clean = cleanText(parsed.name);
+      if (!uniqueIngs.has(clean)) {
+        uniqueIngs.set(clean, { name: parsed.name, unit: parsed.unit });
+      }
+    });
+  });
+
+  const sorted = [...uniqueIngs.values()].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+  select.innerHTML = '<option value="">-- Choisir un ingrédient (' + sorted.length + ' disponibles) --</option>' +
+    sorted.map(ing => `<option value="${ing.name}" data-unit="${ing.unit}">${ing.name} (${ing.unit})</option>`).join('');
+}
+
+function onFlashIngredientChange() {
+  const select = document.getElementById('flash-ing-select');
+  const opt = select.options[select.selectedIndex];
+  if (!opt || !select.value) return;
+
+  const unit = opt.dataset.unit || 'g';
+  document.querySelectorAll('.flash-unit-lbl').forEach(el => el.textContent = unit);
+
+  // Pré-remplir la théorie avec les ingrédients calculés du jour / mois
+  const cTarget = cleanText(select.value);
+  const found = aggregatedIngredients.find(item => cleanText(item.name) === cTarget || cleanText(item.name).includes(cTarget));
+  if (found) {
+    document.getElementById('flash-theorique').value = found.quantity.toFixed(2);
+  } else {
+    document.getElementById('flash-theorique').value = '0';
+  }
+
+  // Prix unitaire par défaut selon catégorie
+  const cat = categorizeIngredient(select.value);
+  let defaultPrice = 50;
+  if (cat === 'viandes') defaultPrice = 85;
+  else if (cat === 'poissons') defaultPrice = 110;
+  else if (cat === 'fromages') defaultPrice = 65;
+  else if (cat === 'boissons') defaultPrice = 15;
+  else if (cat === 'legumes') defaultPrice = 12;
+  else if (cat === 'epicerie') defaultPrice = 18;
+  document.getElementById('flash-prix').value = defaultPrice;
+
+  calculateAuditFlash();
+}
+
+function calculateAuditFlash() {
+  const sInit = parseFloat(document.getElementById('flash-s-init').value) || 0;
+  const achats = parseFloat(document.getElementById('flash-achats').value) || 0;
+  const sFinal = parseFloat(document.getElementById('flash-s-final').value) || 0;
+  const theo = parseFloat(document.getElementById('flash-theorique').value) || 0;
+  const casse = parseFloat(document.getElementById('flash-casse').value) || 0;
+  const prix = parseFloat(document.getElementById('flash-prix').value) || 0;
+  const select = document.getElementById('flash-ing-select');
+  const unit = select && select.options[select.selectedIndex] ? select.options[select.selectedIndex].dataset.unit || 'unité' : 'unité';
+
+  const consReelle = (sInit + achats) - sFinal;
+  const consAttendue = theo + casse;
+  const ecart = consReelle - consAttendue;
+  const ecartPct = consAttendue > 0 ? (ecart / consAttendue) * 100 : 0;
+  const impactDH = ecart * prix;
+
+  const resBox = document.getElementById('flash-result-box');
+  const badge = document.getElementById('flash-status-badge');
+  const diagBox = document.getElementById('flash-diagnostic-box');
+
+  resBox.style.display = 'block';
+  document.getElementById('flash-kpi-reel').textContent = consReelle.toFixed(2) + ' ' + unit;
+  document.getElementById('flash-kpi-attendu').textContent = consAttendue.toFixed(2) + ' ' + unit;
+  
+  const sign = ecart > 0 ? '+' : '';
+  document.getElementById('flash-kpi-ecart').textContent = sign + ecart.toFixed(2) + ' ' + unit;
+  document.getElementById('flash-kpi-ecart-pct').textContent = sign + ecartPct.toFixed(1) + '%';
+  document.getElementById('flash-kpi-impact').textContent = sign + impactDH.toFixed(2) + ' DH';
+
+  if (Math.abs(ecartPct) <= 3 || (Math.abs(ecart) < 0.05 && consAttendue > 0)) {
+    badge.className = 'status-badge ok';
+    badge.textContent = 'CONFORME (Tolérance ±3%)';
+    diagBox.innerHTML = `<strong>✅ Situation Conforme :</strong> Le dosage en cuisine et les fiches techniques sont scrupuleusement respectés. L'écart (${sign}${ecart.toFixed(2)} ${unit}) est dans la marge normale de manipulation.`;
+  } else if (ecartPct > 3 && ecartPct <= 8) {
+    badge.className = 'status-badge warn';
+    badge.textContent = 'SURDOSAGE LÉGER';
+    diagBox.innerHTML = `<strong>⚠️ Dérive Modérée (+ ${ecartPct.toFixed(1)}%) :</strong> Légère surconsommation constatée (${impactDH.toFixed(2)} DH de surcoût). Recommandation : vérifier le portionnage en cuisine, le calibrage des cuillères/balances et la tare au dressage.`;
+  } else if (ecartPct > 8) {
+    badge.className = 'status-badge danger';
+    badge.textContent = 'SURCONSOMMATION CRITIQUE';
+    diagBox.innerHTML = `<strong>🚨 Surconsommation Critique (+ ${ecartPct.toFixed(1)}%) :</strong> Dérive financière de ${impactDH.toFixed(2)} DH. Causes fréquentes : surdosage systématique des portions, casse importante non enregistrée, coulage ou vol. Réaliser un recomptage physique immédiat.`;
+  } else {
+    badge.className = 'status-badge under';
+    badge.textContent = 'SOUS-DOSAGE';
+    diagBox.innerHTML = `<strong>📉 Consommation Inférieure aux Recettes (${ecartPct.toFixed(1)}%) :</strong> Moins de matière consommée que prévu. Vérifier la conformité de la fiche technique (grammage surévalué) ou contrôler que les portions servies aux clients ne sont pas sous-dosées.`;
+  }
+}
+
+// 13.2 LECTURE INTELLIGENTE DES FICHIERS PDF & EXCEL
+async function handleAuditFileUpload(event, targetType) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const cardId = targetType === 'm1' ? 'dz-m1' : (targetType === 'm' ? 'dz-m' : 'dz-casse');
+  const statusId = targetType === 'm1' ? 'status-m1' : (targetType === 'm' ? 'status-m' : 'status-casse');
+  const card = document.getElementById(cardId);
+  const status = document.getElementById(statusId);
+
+  if (file.name.endsWith('.pdf')) {
+    try {
+      const extractedRows = await extractDataFromPDF(file);
+      applyExtractedDataToAudit(extractedRows, targetType);
+      card.classList.add('loaded');
+      status.textContent = `✅ ${extractedRows.length} articles extraits de ${file.name}`;
+      status.style.display = 'block';
+    } catch (err) {
+      console.error('Erreur lecture PDF:', err);
+      alert('Erreur lors de la lecture du fichier PDF : ' + err.message);
+    }
+  } else if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
+    try {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const data = new Uint8Array(e.target.result);
+        const wb = XLSX.read(data, { type: 'array' });
+        const sheet = wb.Sheets[wb.SheetNames[0]];
+        const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+        const extracted = parseExcelRowsToAuditData(rows);
+        applyExtractedDataToAudit(extracted, targetType);
+        card.classList.add('loaded');
+        status.textContent = `✅ ${extracted.length} articles extraits de ${file.name}`;
+        status.style.display = 'block';
+      };
+      reader.readAsArrayBuffer(file);
+    } catch (err) {
+      console.error('Erreur lecture Excel:', err);
+      alert('Erreur lecture Excel : ' + err.message);
+    }
+  }
+}
+
+async function extractDataFromPDF(file) {
+  if (typeof pdfjsLib === 'undefined') {
+    throw new Error('PDF.js non chargé');
+  }
+
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  let fullTextLines = [];
+
+  for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+    const page = await pdf.getPage(pageNum);
+    const textContent = await page.getTextContent();
+    
+    // Regrouper les éléments par ligne approximative (Y)
+    const items = textContent.items;
+    let linesMap = new Map();
+    items.forEach(it => {
+      const y = Math.round(it.transform[5]);
+      if (!linesMap.has(y)) linesMap.set(y, []);
+      linesMap.get(y).push(it.str);
+    });
+
+    // Trier les lignes du haut vers le bas
+    const sortedY = [...linesMap.keys()].sort((a, b) => b - a);
+    sortedY.forEach(y => {
+      const lineStr = linesMap.get(y).join(' ').trim();
+      if (lineStr.length > 2) fullTextLines.push(lineStr);
+    });
+  }
+
+  return parseTextLinesToAudit(fullTextLines);
+}
+
+function parseTextLinesToAudit(lines) {
+  const result = [];
+  lines.forEach(line => {
+    // Regex pour détecter [Nom / Désignation] [Quantité (ex: 12.50, 10, 0.75)] [Unité facultative (kg, g, l, cl, ml, p, unité)] [Prix facultatif]
+    const match = line.match(/^(.+?)\s+([0-9]+[.,]?[0-9]*)\s*(kg|g|l|cl|ml|p|unite|unites|pcs|btl)?(?:\s+([0-9]+[.,]?[0-9]*))?$/i);
+    if (match) {
+      const rawName = match[1].replace(/^[0-9\-_.]+\s*/, '').trim();
+      let qty = parseFloat(match[2].replace(',', '.'));
+      let unit = (match[3] || 'g').toLowerCase();
+      let price = match[4] ? parseFloat(match[4].replace(',', '.')) : 0;
+
+      // Normalisation de l'unité
+      if (unit === 'kg') { qty = qty * 1000; unit = 'g'; }
+      else if (unit === 'l' || unit === 'litre') { qty = qty * 1000; unit = 'ml'; }
+      else if (unit === 'cl') { qty = qty * 10; unit = 'ml'; }
+
+      if (rawName.length > 2 && !isNaN(qty)) {
+        result.push({ name: rawName, qty: qty, unit: unit, price: price });
+      }
+    }
+  });
+  return result;
+}
+
+function parseExcelRowsToAuditData(rows) {
+  const result = [];
+  rows.forEach((row, i) => {
+    if (i === 0 || !row[0]) return;
+    const name = String(row[0] || row[1] || '').trim();
+    const qty = parseFloat(row[1] || row[2] || 0);
+    const unit = String(row[2] || 'g').trim();
+    const price = parseFloat(row[3] || 0);
+    if (name && !isNaN(qty)) {
+      result.push({ name, qty, unit, price });
+    }
+  });
+  return result;
+}
+
+function applyExtractedDataToAudit(extractedItems, targetType) {
+  if (auditMonthlyArticles.length === 0) {
+    syncAuditWithMonthlySales();
+  }
+
+  extractedItems.forEach(ext => {
+    const cExt = cleanText(ext.name);
+    let target = auditMonthlyArticles.find(a => cleanText(a.name) === cExt || cleanText(a.name).includes(cExt) || cExt.includes(cleanText(a.name)));
+
+    if (!target) {
+      // Nouvel article non présent dans les fiches
+      target = {
+        name: ext.name,
+        category: categorizeIngredient(ext.name),
+        unit: ext.unit || 'g',
+        sInit: 0,
+        achats: 0,
+        sFinal: 0,
+        theorique: 0,
+        casse: 0,
+        prix: ext.price || 50
+      };
+      auditMonthlyArticles.push(target);
+    }
+
+    if (targetType === 'm1') {
+      target.sInit = ext.qty;
+    } else if (targetType === 'm') {
+      target.sFinal = ext.qty;
+    } else if (targetType === 'casse') {
+      target.casse = ext.qty;
+    }
+    if (ext.price && ext.price > 0) target.prix = ext.price;
+  });
+
+  recalculateMonthlyAudit();
+}
+
+// 13.3 SYNCHRONISATION MULTI-ARTICLES AVEC LES VENTES DU MOIS
+function syncAuditWithMonthlySales() {
+  const existingMap = new Map(auditMonthlyArticles.map(a => [cleanText(a.name), a]));
+  const list = [];
+
+  // 1. Extraire les ingrédients consommés calculés
+  aggregatedIngredients.forEach(ing => {
+    const key = cleanText(ing.name);
+    const prev = existingMap.get(key) || {};
+    list.push({
+      name: ing.name,
+      category: ing.category || categorizeIngredient(ing.name),
+      unit: ing.unit || 'g',
+      sInit: prev.sInit || 0,
+      achats: prev.achats || 0,
+      sFinal: prev.sFinal || 0,
+      theorique: ing.quantity || 0,
+      casse: prev.casse || 0,
+      prix: prev.prix || getDefaultPriceForCategory(ing.category || categorizeIngredient(ing.name))
+    });
+  });
+
+  // 2. Ajouter les articles uniques déjà présents
+  existingMap.forEach((val, key) => {
+    if (!list.some(x => cleanText(x.name) === key)) {
+      list.push(val);
+    }
+  });
+
+  auditMonthlyArticles = list;
+  recalculateMonthlyAudit();
+}
+
+function getDefaultPriceForCategory(cat) {
+  if (cat === 'viandes') return 85;
+  if (cat === 'poissons') return 110;
+  if (cat === 'fromages') return 65;
+  if (cat === 'boissons') return 15;
+  if (cat === 'legumes') return 12;
+  return 18;
+}
+
+function addNewAuditArticlePrompt() {
+  const name = prompt('Nom de la nouvelle matière première :');
+  if (!name || !name.trim()) return;
+
+  const unit = prompt('Unité de mesure (g, ml, p) :', 'g') || 'g';
+  const cat = categorizeIngredient(name);
+  const prix = parseFloat(prompt('Prix unitaire moyen estimé (DH) :', '50')) || 50;
+
+  auditMonthlyArticles.unshift({
+    name: name.trim(),
+    category: cat,
+    unit: unit,
+    sInit: 0,
+    achats: 0,
+    sFinal: 0,
+    theorique: 0,
+    casse: 0,
+    prix: prix
+  });
+
+  recalculateMonthlyAudit();
+}
+
+function resetMonthlyAuditData() {
+  if (confirm("Voulez-vous vraiment réinitialiser toutes les données de l'audit de stock ?")) {
+    auditMonthlyArticles = [];
+    document.querySelectorAll('.dropzone-card').forEach(c => c.classList.remove('loaded'));
+    document.querySelectorAll('.dropzone-status').forEach(s => s.style.display = 'none');
+    syncAuditWithMonthlySales();
+  }
+}
+
+function setAuditCatFilter(cat, btn) {
+  currentAuditCatFilter = cat;
+  document.querySelectorAll('[data-audit-cat]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMonthlyAuditTable();
+}
+
+function setAuditStatusFilter(status, btn) {
+  currentAuditStatusFilter = status;
+  document.querySelectorAll('[data-audit-status]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMonthlyAuditTable();
+}
+
+function onAuditFieldChange(idx, field, value) {
+  if (!auditMonthlyArticles[idx]) return;
+  auditMonthlyArticles[idx][field] = parseFloat(value) || 0;
+  recalculateMonthlyAudit();
+}
+
+function removeAuditArticle(idx) {
+  if (confirm("Supprimer cet article de l'audit ?")) {
+    auditMonthlyArticles.splice(idx, 1);
+    recalculateMonthlyAudit();
+  }
+}
+
+function recalculateMonthlyAudit() {
+  let totTheoDH = 0;
+  let totReelDH = 0;
+  let totEcartDH = 0;
+  let totCasseDH = 0;
+  let alertCount = 0;
+
+  auditMonthlyArticles.forEach(item => {
+    const consReelle = (item.sInit + item.achats) - item.sFinal;
+    const consAttendue = item.theorique + item.casse;
+    const ecart = consReelle - consAttendue;
+    const ecartPct = consAttendue > 0 ? (ecart / consAttendue) * 100 : 0;
+    const impactDH = ecart * item.prix;
+
+    item.consReelle = consReelle;
+    item.consAttendue = consAttendue;
+    item.ecart = ecart;
+    item.ecartPct = ecartPct;
+    item.impactDH = impactDH;
+
+    totTheoDH += item.theorique * item.prix;
+    totReelDH += consReelle * item.prix;
+    totEcartDH += impactDH;
+    totCasseDH += item.casse * item.prix;
+
+    if (ecartPct > 8) alertCount++;
+  });
+
+  const totEcartPct = totTheoDH > 0 ? (totEcartDH / totTheoDH) * 100 : 0;
+
+  document.getElementById('audit-kpi-tot-theo').textContent = totTheoDH.toFixed(2) + ' DH';
+  document.getElementById('audit-kpi-tot-reel').textContent = totReelDH.toFixed(2) + ' DH';
+  
+  const sign = totEcartDH > 0 ? '+' : '';
+  const ecartEl = document.getElementById('audit-kpi-tot-ecart');
+  ecartEl.textContent = sign + totEcartDH.toFixed(2) + ' DH';
+  ecartEl.className = 'audit-kpi-val ' + (totEcartDH > 0 ? 'danger' : 'ok');
+  document.getElementById('audit-kpi-tot-ecart-pct').textContent = sign + totEcartPct.toFixed(1) + '% vs Théorique';
+  
+  document.getElementById('audit-kpi-tot-casse').textContent = totCasseDH.toFixed(2) + ' DH';
+  document.getElementById('audit-kpi-tot-items').textContent = auditMonthlyArticles.length;
+  document.getElementById('audit-kpi-tot-alerts').textContent = alertCount + ' alerte(s) critique(s)';
+  document.getElementById('count-audit').textContent = auditMonthlyArticles.length;
+
+  window.auditMonthlyArticles = auditMonthlyArticles;
+  renderMonthlyAuditTable();
+}
+
+function renderMonthlyAuditTable() {
+  const tbody = document.getElementById('tbody-audit-multi');
+  if (!tbody) return;
+
+  const q = cleanText(document.getElementById('search-audit-multi') ? document.getElementById('search-audit-multi').value : '');
+
+  const filtered = auditMonthlyArticles.filter(item => {
+    // Filtre recherche
+    if (q && !cleanText(item.name).includes(q)) return false;
+    // Filtre catégorie
+    if (currentAuditCatFilter !== 'all' && item.category !== currentAuditCatFilter) return false;
+    // Filtre statut
+    if (currentAuditStatusFilter === 'danger' && item.ecartPct <= 8) return false;
+    if (currentAuditStatusFilter === 'ok' && (Math.abs(item.ecartPct) > 3 || item.ecartPct > 8)) return false;
+    if (currentAuditStatusFilter === 'under' && item.ecartPct >= -3) return false;
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="14" style="text-align:center; padding:30px; color:var(--muted);">Aucune matière première ne correspond aux filtres.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(item => {
+    const idx = auditMonthlyArticles.indexOf(item);
+    const sign = item.ecart > 0 ? '+' : '';
+    let badgeHtml = '';
+    if (Math.abs(item.ecartPct) <= 3) {
+      badgeHtml = '<span class="status-badge ok">✅ CONFORME</span>';
+    } else if (item.ecartPct > 3 && item.ecartPct <= 8) {
+      badgeHtml = '<span class="status-badge warn">⚠️ SURDOSAGE</span>';
+    } else if (item.ecartPct > 8) {
+      badgeHtml = '<span class="status-badge danger">🚨 CRITIQUE</span>';
+    } else {
+      badgeHtml = '<span class="status-badge under">📉 SOUS-DOSÉ</span>';
+    }
+
+    return `
+      <tr>
+        <td style="font-weight:700;">${item.name}</td>
+        <td><span class="chip-pill">${item.category}</span></td>
+        <td style="font-size:12px; font-weight:700; color:var(--muted);">${item.unit}</td>
+        <td style="text-align:right;"><input type="number" step="0.01" class="audit-input" value="${item.sInit}" onchange="onAuditFieldChange(${idx}, 'sInit', this.value)" /></td>
+        <td style="text-align:right;"><input type="number" step="0.01" class="audit-input" value="${item.achats}" onchange="onAuditFieldChange(${idx}, 'achats', this.value)" /></td>
+        <td style="text-align:right;"><input type="number" step="0.01" class="audit-input" value="${item.sFinal}" onchange="onAuditFieldChange(${idx}, 'sFinal', this.value)" /></td>
+        <td style="text-align:right; font-weight:800; color:var(--accent);">${item.consReelle.toFixed(2)}</td>
+        <td style="text-align:right;"><input type="number" step="0.01" class="audit-input" value="${item.theorique}" onchange="onAuditFieldChange(${idx}, 'theorique', this.value)" /></td>
+        <td style="text-align:right;"><input type="number" step="0.01" class="audit-input" value="${item.casse}" onchange="onAuditFieldChange(${idx}, 'casse', this.value)" /></td>
+        <td style="text-align:right; font-weight:900; color:${item.ecart > 0 ? 'var(--danger)' : (item.ecart < 0 ? 'var(--accent)' : 'var(--ok)')}">${sign}${item.ecart.toFixed(2)} (${sign}${item.ecartPct.toFixed(1)}%)</td>
+        <td style="text-align:right;"><input type="number" step="0.01" class="audit-input" style="width:70px;" value="${item.prix}" onchange="onAuditFieldChange(${idx}, 'prix', this.value)" /></td>
+        <td style="text-align:right; font-weight:900; color:${item.impactDH > 0 ? 'var(--danger)' : 'var(--ok)'}">${sign}${item.impactDH.toFixed(2)} DH</td>
+        <td style="text-align:center;">${badgeHtml}</td>
+        <td style="text-align:center;"><button class="btn" style="padding:4px 8px; font-size:11px; color:var(--danger);" onclick="removeAuditArticle(${idx})">✕</button></td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function exportMonthlyAuditToExcel() {
+  if (auditMonthlyArticles.length === 0) {
+    alert("Aucune donnée d'audit à exporter.");
+    return;
+  }
+
+  const exportData = auditMonthlyArticles.map(item => ({
+    'Matière Première': item.name,
+    'Catégorie': item.category,
+    'Unité': item.unit,
+    'Stock Initial M-1': item.sInit,
+    'Achats Mois M': item.achats,
+    'Stock Final M': item.sFinal,
+    'Consommation Réelle': item.consReelle,
+    'Théorie Ventes': item.theorique,
+    'Casse Déclarée': item.casse,
+    'Écart Matière (Qté)': item.ecart,
+    'Écart Relatif (%)': item.ecartPct.toFixed(1) + '%',
+    'Prix Unitaire (DH)': item.prix,
+    'Écart Financier (DH)': item.impactDH,
+    'Statut': item.ecartPct > 8 ? 'CRITIQUE' : (item.ecartPct > 3 ? 'SURDOSAGE' : (item.ecartPct < -3 ? 'SOUS-DOSÉ' : 'CONFORME'))
+  }));
+
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(exportData);
+  XLSX.utils.book_append_sheet(wb, ws, 'Audit_Stock_Fin_Mois');
+  XLSX.writeFile(wb, `GreyCorner_Audit_Stock_${selectedYearMonth || 'Cloture'}.xlsx`);
+}
+
+
+// Expositions globales pour les gestionnaires onclick / onchange HTML
+window.switchAuditSubTab = switchAuditSubTab;
+window.initAuditFlashDropdown = initAuditFlashDropdown;
+window.onFlashIngredientChange = onFlashIngredientChange;
+window.calculateAuditFlash = calculateAuditFlash;
+window.handleAuditFileUpload = handleAuditFileUpload;
+window.extractDataFromPDF = extractDataFromPDF;
+window.parseTextLinesToAudit = parseTextLinesToAudit;
+window.parseExcelRowsToAuditData = parseExcelRowsToAuditData;
+window.applyExtractedDataToAudit = applyExtractedDataToAudit;
+window.syncAuditWithMonthlySales = syncAuditWithMonthlySales;
+window.getDefaultPriceForCategory = getDefaultPriceForCategory;
+window.addNewAuditArticlePrompt = addNewAuditArticlePrompt;
+window.resetMonthlyAuditData = resetMonthlyAuditData;
+window.setAuditCatFilter = setAuditCatFilter;
+window.setAuditStatusFilter = setAuditStatusFilter;
+window.onAuditFieldChange = onAuditFieldChange;
+window.removeAuditArticle = removeAuditArticle;
+window.recalculateMonthlyAudit = recalculateMonthlyAudit;
+window.renderMonthlyAuditTable = renderMonthlyAuditTable;
+window.exportMonthlyAuditToExcel = exportMonthlyAuditToExcel;
+
+/* ========================================================
    12. INITIALISATION & GESTIONNAIRES D'ÉVÉNEMENTS
 ======================================================== */
 document.addEventListener('DOMContentLoaded', () => {
+  initAuditFlashDropdown();
+  if (window.location.hash === '#tab-audit' || window.location.hash === '#audit') {
+    setTimeout(() => {
+      document.querySelectorAll('.v-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+      const btn = document.querySelector('[data-tab="tab-audit"]');
+      if (btn) btn.classList.add('active');
+      const tab = document.getElementById('tab-audit');
+      if (tab) tab.style.display = 'block';
+    }, 100);
+  }
   document.getElementById('print-date-val').textContent = new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   loadRecipes();
   loadMonthlySalesDB();
