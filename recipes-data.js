@@ -16,7 +16,7 @@ const DATA = [
         "image": "images/boisson-cafe.webp",
         "prepTime": 2,
         "tech": [
-          "Café : 8 g",
+          "Café : 11 g",
           "Eau chaude : 60 ml",
           "Sucre : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
@@ -28,7 +28,7 @@ const DATA = [
         "image": "images/boisson-americano.webp",
         "prepTime": 2,
         "tech": [
-          "Café : 8 g",
+          "Café : 11 g",
           "Eau chaude : 150 ml",
           "Sucre : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
@@ -40,7 +40,7 @@ const DATA = [
         "image": "images/boisson-cafelait.webp",
         "prepTime": 3,
         "tech": [
-          "Café : 8 g",
+          "Café : 11 g",
           "Lait chaud : 120 ml",
           "Sucre : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
@@ -52,7 +52,7 @@ const DATA = [
         "image": "images/boisson-cafelatte.webp",
         "prepTime": 3,
         "tech": [
-          "Café : 8 g",
+          "Café : 11 g",
           "Lait chaud : 180 ml",
           "Mousse de lait : 30 ml",
           "Sucre : 1 p",
@@ -65,7 +65,7 @@ const DATA = [
         "image": "images/boisson-cappu.webp",
         "prepTime": 3,
         "tech": [
-          "Café : 8 g",
+          "Café : 11 g",
           "Lait chaud : 100 ml",
           "Mousse de lait : 50 ml",
           "Cacao en poudre : 3 g",
@@ -79,7 +79,7 @@ const DATA = [
         "image": "images/boisson-cappu-chant.webp",
         "prepTime": 3,
         "tech": [
-          "Café : 8 g",
+          "Café : 11 g",
           "Lait chaud : 100 ml",
           "Crème chantilly : 30 g",
           "Cacao : 3 g",
@@ -230,7 +230,7 @@ const DATA = [
         "image": "images/boisson-cafelait.webp",
         "prepTime": 2,
         "tech": [
-          "Café : 8 g",
+          "Café : 11 g",
           "Lait chaud : 150 ml",
           "Sucre : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
@@ -242,7 +242,7 @@ const DATA = [
         "image": "images/boisson-cafelait.webp",
         "prepTime": 3,
         "tech": [
-          "Café : 8 g",
+          "Café : 11 g",
           "Lait chaud : 100 ml",
           "Sucre : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
@@ -254,7 +254,7 @@ const DATA = [
         "image": "images/boisson-cafelait.webp",
         "prepTime": 2,
         "tech": [
-          "Café : 8 g",
+          "Café : 11 g",
           "Lait chaud : 80 ml",
           "Sucre : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
@@ -273,7 +273,7 @@ const DATA = [
         "image": "images/icecoffee-class.webp",
         "prepTime": 3,
         "tech": [
-          "Café espresso : 8 g",
+          "Café espresso : 11 g",
           "Lait froid : 100 ml",
           "Sirop de canne : 20 ml",
           "Glaçons : 120 g",
@@ -286,7 +286,7 @@ const DATA = [
         "image": "images/icecoffee-arom.webp",
         "prepTime": 3,
         "tech": [
-          "Café espresso : 8 g",
+          "Café espresso : 11 g",
           "Sirop Caramel / Vanille : 25 ml",
           "Lait froid : 120 ml",
           "Glaçons : 120 g",
@@ -299,7 +299,7 @@ const DATA = [
         "image": "images/frappu-class.webp",
         "prepTime": 4,
         "tech": [
-          "Café espresso : 8 g",
+          "Café espresso : 11 g",
           "Lait : 120 ml",
           "Base frappé vanille : 25 g",
           "Glace pilée : 150 g",
@@ -312,7 +312,7 @@ const DATA = [
         "image": "images/frappu-arom.webp",
         "prepTime": 4,
         "tech": [
-          "Café espresso : 8 g",
+          "Café espresso : 11 g",
           "Lait : 120 ml",
           "Sirop Noisette / Caramel : 30 ml",
           "Glace pilée : 150 g",
@@ -2655,7 +2655,7 @@ const BASE_RECIPES = [
     "name": "CAFÉ NOIR / ESPRESSO",
     "category": "CAFÉS & BOISSONS CHAUDES",
     "ingredients": [
-      "Café : 8 g",
+      "Café : 11 g",
       "Eau chaude : 60 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
@@ -2666,7 +2666,7 @@ const BASE_RECIPES = [
     "name": "CAFÉ AMÉRICAIN",
     "category": "CAFÉS & BOISSONS CHAUDES",
     "ingredients": [
-      "Café : 8 g",
+      "Café : 11 g",
       "Eau chaude : 150 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
@@ -2677,7 +2677,7 @@ const BASE_RECIPES = [
     "name": "CAFÉ AU LAIT",
     "category": "CAFÉS & BOISSONS CHAUDES",
     "ingredients": [
-      "Café : 8 g",
+      "Café : 11 g",
       "Lait chaud : 120 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
@@ -2688,7 +2688,7 @@ const BASE_RECIPES = [
     "name": "CAFÉ LATTE",
     "category": "CAFÉS & BOISSONS CHAUDES",
     "ingredients": [
-      "Café : 8 g",
+      "Café : 11 g",
       "Lait chaud : 180 ml",
       "Mousse de lait : 30 ml",
       "Sucre : 1 p",
@@ -2700,7 +2700,7 @@ const BASE_RECIPES = [
     "name": "CAPPUCCINO ITALIEN",
     "category": "CAFÉS & BOISSONS CHAUDES",
     "ingredients": [
-      "Café : 8 g",
+      "Café : 11 g",
       "Lait chaud : 100 ml",
       "Mousse de lait : 50 ml",
       "Cacao en poudre : 3 g",
@@ -2713,7 +2713,7 @@ const BASE_RECIPES = [
     "name": "CAPPUCCINO CHANTILLY",
     "category": "CAFÉS & BOISSONS CHAUDES",
     "ingredients": [
-      "Café : 8 g",
+      "Café : 11 g",
       "Lait chaud : 100 ml",
       "Crème chantilly : 30 g",
       "Cacao : 3 g",
@@ -2852,7 +2852,7 @@ const BASE_RECIPES = [
     "name": "LAIT CASSÉ",
     "category": "CAFÉS & BOISSONS CHAUDES",
     "ingredients": [
-      "Café : 8 g",
+      "Café : 11 g",
       "Lait chaud : 150 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
@@ -2863,7 +2863,7 @@ const BASE_RECIPES = [
     "name": "CAFÉ SÉPARÉ",
     "category": "CAFÉS & BOISSONS CHAUDES",
     "ingredients": [
-      "Café : 8 g",
+      "Café : 11 g",
       "Lait chaud : 100 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
@@ -2874,7 +2874,7 @@ const BASE_RECIPES = [
     "name": "CAFÉ MOITIÉ",
     "category": "CAFÉS & BOISSONS CHAUDES",
     "ingredients": [
-      "Café : 8 g",
+      "Café : 11 g",
       "Lait chaud : 80 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
@@ -2885,7 +2885,7 @@ const BASE_RECIPES = [
     "name": "ICE COFFEE CLASSIQUE",
     "category": "CAFÉS GLACÉS & FRAPPÉS",
     "ingredients": [
-      "Café espresso : 8 g",
+      "Café espresso : 11 g",
       "Lait froid : 100 ml",
       "Sirop de canne : 20 ml",
       "Glaçons : 120 g",
@@ -2897,7 +2897,7 @@ const BASE_RECIPES = [
     "name": "ICE COFFEE AROMATISÉ",
     "category": "CAFÉS GLACÉS & FRAPPÉS",
     "ingredients": [
-      "Café espresso : 8 g",
+      "Café espresso : 11 g",
       "Sirop Caramel / Vanille : 25 ml",
       "Lait froid : 120 ml",
       "Glaçons : 120 g",
@@ -2909,7 +2909,7 @@ const BASE_RECIPES = [
     "name": "FRAPPUCCINO CLASSIQUE",
     "category": "CAFÉS GLACÉS & FRAPPÉS",
     "ingredients": [
-      "Café espresso : 8 g",
+      "Café espresso : 11 g",
       "Lait : 120 ml",
       "Base frappé vanille : 25 g",
       "Glace pilée : 150 g",
@@ -2921,7 +2921,7 @@ const BASE_RECIPES = [
     "name": "FRAPPUCCINO AROMATISÉ",
     "category": "CAFÉS GLACÉS & FRAPPÉS",
     "ingredients": [
-      "Café espresso : 8 g",
+      "Café espresso : 11 g",
       "Lait : 120 ml",
       "Sirop Noisette / Caramel : 30 ml",
       "Glace pilée : 150 g",

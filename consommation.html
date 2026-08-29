@@ -1332,7 +1332,7 @@ let aggregatedIngredients = [];
 
 function loadRecipes() {
   try {
-    const saved = localStorage.getItem('gc_recipes_db');
+    const saved = localStorage.getItem('gc_recipes_db_v3');
     if (saved) {
       activeRecipes = JSON.parse(saved);
     } else {
@@ -1361,7 +1361,7 @@ function loadRecipes() {
 
 function saveRecipes() {
   try {
-    localStorage.setItem('gc_recipes_db', JSON.stringify(activeRecipes));
+    localStorage.setItem('gc_recipes_db_v3', JSON.stringify(activeRecipes));
   } catch (e) {
     console.warn('[LocalStorage] Erreur sauvegarde recettes:', e);
   }
@@ -1808,7 +1808,7 @@ function parseIngredientLine(lineStr) {
   }
   else if (n.includes('boisson chaude') || n.includes('boissons chaudes')) {
     name = 'Café en Grains';
-    if (unit === 'p') { qty *= 8; unit = 'g'; }
+    if (unit === 'p') { qty *= 11; unit = 'g'; }
     else unit = 'g';
   }
   else if ((n.startsWith('cafe') || n.includes('cafe en grain') || n.includes('espresso')) && !n.includes('nespresso') && !n.includes('latte') && !n.includes('lait') && !n.includes('gla') && !n.includes('frap')) {
