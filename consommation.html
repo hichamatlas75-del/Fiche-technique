@@ -1364,7 +1364,7 @@ function saveRecipes() {
 
 function loadMonthlySalesDB() {
   try {
-    const saved = localStorage.getItem('gc_monthly_sales_db_v2');
+    const saved = localStorage.getItem('gc_monthly_sales_db_v3');
     if (saved) {
       monthlySalesDB = JSON.parse(saved);
     }
@@ -1376,7 +1376,7 @@ function loadMonthlySalesDB() {
 
 function saveMonthlySalesDB() {
   try {
-    localStorage.setItem('gc_monthly_sales_db_v2', JSON.stringify(monthlySalesDB));
+    localStorage.setItem('gc_monthly_sales_db_v3', JSON.stringify(monthlySalesDB));
   } catch (e) {
     console.warn('[LocalStorage] Erreur sauvegarde ventes:', e);
   }
@@ -2578,8 +2578,12 @@ function parseWorkbookToRows(workbook) {
     const qty = colQte >= 0 ? parseNum(row[colQte]) : 1;
     const total = colTotal >= 0 ? parseNum(row[colTotal]) : (qty * price);
 
-    if (qty > 0) {
-      rawRows.push({ family: fam, product: prod, price, qty, total });
+    const finalPrice = price > 0 ? price : (total > 0 && qty > 0 ? total / qty : 0);
+    const finalTotal = total > 0 ? total : (qty * finalPrice);
+
+    // Exclure les lignes à 0 DH (boissons chaudes, thés, cafés et options déjà inclus dans les formules de petit-déjeuner / menus) pour éviter les doublons de déstockage matière première
+    if (qty > 0 && (finalPrice > 0 || finalTotal > 0)) {
+      rawRows.push({ family: fam, product: prod, price: finalPrice, qty, total: finalTotal });
     }
   }
 
