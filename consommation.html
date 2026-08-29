@@ -1352,6 +1352,11 @@ function loadRecipes() {
   for (const [key, val] of Object.entries(ALIAS_MAP)) {
     window.cleanAliasMap[cleanText(key)] = val;
   }
+
+  // Initialiser la liste déroulante des ingrédients de l'Audit Flash
+  if (typeof initAuditFlashDropdown === 'function') {
+    initAuditFlashDropdown();
+  }
 }
 
 function saveRecipes() {
@@ -2886,6 +2891,7 @@ function switchAuditSubTab(mode) {
     btnMonth.classList.remove('active');
     viewFlash.style.display = 'block';
     viewMonth.style.display = 'none';
+    initAuditFlashDropdown();
   } else {
     btnMonth.classList.add('active');
     btnFlash.classList.remove('active');
@@ -2902,12 +2908,15 @@ function initAuditFlashDropdown() {
   const select = document.getElementById('flash-ing-select');
   if (!select) return;
 
+  const currentVal = select.value;
+  const recipesList = (activeRecipes && activeRecipes.length > 0) ? activeRecipes : (window.BASE_RECIPES || []);
+
   const uniqueIngs = new Map();
-  activeRecipes.forEach(r => {
+  recipesList.forEach(r => {
     (r.ingredients || []).forEach(line => {
       const parsed = parseIngredientLine(line);
       const clean = cleanText(parsed.name);
-      if (!uniqueIngs.has(clean)) {
+      if (!uniqueIngs.has(clean) && clean.length > 1) {
         uniqueIngs.set(clean, { name: parsed.name, unit: parsed.unit });
       }
     });
@@ -2916,6 +2925,10 @@ function initAuditFlashDropdown() {
   const sorted = [...uniqueIngs.values()].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
   select.innerHTML = '<option value="">-- Choisir un ingrédient (' + sorted.length + ' disponibles) --</option>' +
     sorted.map(ing => `<option value="${ing.name}" data-unit="${ing.unit}">${ing.name} (${ing.unit})</option>`).join('');
+
+  if (currentVal) {
+    select.value = currentVal;
+  }
 }
 
 function onFlashIngredientChange() {
