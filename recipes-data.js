@@ -303,8 +303,7 @@ const DATA = [
           "Lait : 120 ml",
           "Base frappé vanille : 25 g",
           "Glace pilée : 150 g",
-          "Crème chantilly : 30 g",
-          "Bouteille Eau Minérale 33cl : 1 p"
+          "Crème chantilly : 30 g"
         ],
         "price": "32 DH"
       },
@@ -317,8 +316,7 @@ const DATA = [
           "Lait : 120 ml",
           "Sirop Noisette / Caramel : 30 ml",
           "Glace pilée : 150 g",
-          "Chantilly & Nappage : 35 g",
-          "Bouteille Eau Minérale 33cl : 1 p"
+          "Chantilly & Nappage : 35 g"
         ],
         "price": "35 DH"
       }
@@ -2633,6 +2631,26 @@ const DATA = [
 // 2. Base plate des fiches avec identifiants pour le calcul de déstockage (pour consommation.html)
 const BASE_RECIPES = [
   {
+    "id": "alc_oeufs_beldi",
+    "name": "OEUFS BELDI",
+    "category": "A LA CARTE & BOULANGERIE",
+    "ingredients": [
+      "Œufs Beldi : 2 p",
+      "Huile d’olive : 10 ml",
+      "Sel & Poivre : 1 g"
+    ]
+  },
+  {
+    "id": "ec_croquettes_fromage",
+    "name": "6 CROQUETTES FROMAGE",
+    "category": "ENTRÉES CHAUDES",
+    "ingredients": [
+      "Croquettes de fromage : 6 p",
+      "Sauce : 30 g",
+      "Mesclun : 30 g"
+    ]
+  },
+  {
     "id": "bc_cafe_noir_espresso",
     "name": "CAFÉ NOIR / ESPRESSO",
     "category": "CAFÉS & BOISSONS CHAUDES",
@@ -2895,8 +2913,7 @@ const BASE_RECIPES = [
       "Lait : 120 ml",
       "Base frappé vanille : 25 g",
       "Glace pilée : 150 g",
-      "Crème chantilly : 30 g",
-      "Bouteille Eau Minérale 33cl : 1 p"
+      "Crème chantilly : 30 g"
     ]
   },
   {
@@ -2908,8 +2925,7 @@ const BASE_RECIPES = [
       "Lait : 120 ml",
       "Sirop Noisette / Caramel : 30 ml",
       "Glace pilée : 150 g",
-      "Chantilly & Nappage : 35 g",
-      "Bouteille Eau Minérale 33cl : 1 p"
+      "Chantilly & Nappage : 35 g"
     ]
   },
   {
@@ -4951,6 +4967,18 @@ const BASE_RECIPES = [
 
 // 3. Dictionnaire d'alias et correspondances caisse POS -> Fiches Techniques
 const ALIAS_MAP = {
+  "oeufs beldi": "alc_oeufs_beldi",
+  "oeuf beldi": "alc_oeufs_beldi",
+  "2 oeufs beldi": "alc_oeufs_beldi",
+  "3 oeufs beldi": "alc_oeufs_beldi",
+  "2 oeufs": "sup_supplement_oeufs",
+  "3 oeufs": "sup_supplement_oeufs",
+  "oeuf": "sup_supplement_oeufs",
+  "oeufs": "sup_supplement_oeufs",
+  "6 croquettes fromage": "ec_croquettes_fromage",
+  "6 croquettes de fromage": "ec_croquettes_fromage",
+  "croquettes fromage": "ec_croquettes_fromage",
+  "croquette fromage": "ec_croquettes_fromage",
   "cafe noir espresso": "bc_cafe_noir_espresso",
   "café noir / espresso": "bc_cafe_noir_espresso",
   "cafe americain": "bc_cafe_americain",

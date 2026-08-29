@@ -1401,6 +1401,18 @@ function findRecipeForProduct(rawName, rawFamille = '') {
   const cName = cleanText(rawName);
   const cFam = cleanText(rawFamille);
 
+  // 1. Détection prioritaire des produits spécifiques (Croquettes, Œufs seuls...)
+  if (cName.includes('croquette')) {
+    return activeRecipes.find(x => x.id === 'ec_croquettes_fromage') || activeRecipes.find(x => x.id === 'ec_boulettes_de_poulet_au_fromage');
+  }
+  if (cName.includes('oeuf') || cName.includes('oeufs')) {
+    if (cName.includes('beldi')) return activeRecipes.find(x => x.id === 'alc_oeufs_beldi');
+    if (cName.includes('fromage')) return activeRecipes.find(x => x.id === 'alc_omlette_fromage');
+    if (cName.includes('nature') || cName.includes('omlette') || cName.includes('omelette')) return activeRecipes.find(x => x.id === 'alc_omlette_nature');
+    if (cName.includes('chef')) return activeRecipes.find(x => x.id === 'alc_omlette_chef');
+    return activeRecipes.find(x => x.id === 'sup_supplement_oeufs');
+  }
+
   // Traitement spécifique des produits "A LA CARTE" (Boulangerie, Viennoiseries, Omelettes seules sans formule pdj)
   if (cFam === 'a la carte' || cFam.includes('carte') || cFam.includes('boulangerie')) {
     if (cName.includes('baghrir')) return activeRecipes.find(x => x.id === 'alc_baghrir');
@@ -1412,14 +1424,14 @@ function findRecipeForProduct(rawName, rawFamille = '') {
     if (cName.includes('nature') || cName.includes('omlette') || cName.includes('omelette')) return activeRecipes.find(x => x.id === 'alc_omlette_nature');
   }
 
-  // 1. Alias direct
+  // 2. Alias direct
   const aliasMap = window.cleanAliasMap || ALIAS_MAP;
   if (aliasMap[cName]) {
     const r = activeRecipes.find(x => x.id === aliasMap[cName]);
     if (r) return r;
   }
 
-  // 2. Nettoyage de préfixes habituels de caisse
+  // 3. Nettoyage de préfixes habituels de caisse
   let simplified = cName
     .replace(/^pet dej\s+/, '')
     .replace(/^plat\s+/, '')
@@ -1441,15 +1453,18 @@ function findRecipeForProduct(rawName, rawFamille = '') {
     if (r) return r;
   }
 
-  // 3. Fast O(1) exact match via index
+  // 4. Fast O(1) exact match via index
   if (window.recipeNameIndex && window.recipeNameIndex.has(cName)) return window.recipeNameIndex.get(cName);
   if (window.recipeNameIndex && window.recipeNameIndex.has(simplified)) return window.recipeNameIndex.get(simplified);
 
-  // 4. Recherche par inclusion
+  // 5. Recherche par mot entier (Regex word boundary)
   for (const r of activeRecipes) {
     const rClean = cleanText(r.name);
-    if (cName.includes(rClean) || (rClean.length > 4 && simplified.includes(rClean))) {
-      return r;
+    if (rClean.length > 2) {
+      const reg = new RegExp('\\b' + rClean + '\\b', 'i');
+      if (reg.test(cName) || (rClean.length > 4 && reg.test(simplified))) {
+        return r;
+      }
     }
   }
 
