@@ -3,6 +3,7 @@
  * Source Unique de Vérité (SSOT) partagée entre index.html, consommation.html et les outils d'audit.
  */
 
+(function(global) {
 // 1. Catégories et fiches complètes avec visuels, temps et tarifs (pour affichage index.html)
 const DATA = [
   {
@@ -5429,8 +5430,9 @@ const INGREDIENT_CATEGORIES = {
 };
 
 // Expositions globales pour compatibilité et modularité
-window.CATEGORIES_DATA = DATA;
-window.DATA = DATA;
-window.BASE_RECIPES = BASE_RECIPES;
-window.ALIAS_MAP = ALIAS_MAP;
-window.INGREDIENT_CATEGORIES = INGREDIENT_CATEGORIES;
+global.CATEGORIES_DATA = DATA;
+global.DATA = DATA;
+global.BASE_RECIPES = BASE_RECIPES;
+global.ALIAS_MAP = ALIAS_MAP;
+global.INGREDIENT_CATEGORIES = INGREDIENT_CATEGORIES;
+})(typeof window !== 'undefined' ? window : globalThis);
