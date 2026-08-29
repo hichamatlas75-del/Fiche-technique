@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audit Flash Stock & Déstockage</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      width: 100%;
+      max-width: 600px;
+    }
+    .card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+    h1 { font-size: 1.25rem; margin-top: 0; margin-bottom: 8px; color: var(--accent); }
+    p.desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 20px; }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .input-row {
+      display: flex;
+      gap: 10px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px 12px;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: var(--accent);
+      color: #0f172a;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    button:active { opacity: 0.8; }
+    .result-box {
+      display: none;
+      border-top: 2px solid var(--border);
+      padding-top: 16px;
+      margin-top: 16px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .badge-success { background: rgba(34, 197, 94, 0.2); color: var(--success); border: 1px solid var(--success); }
+    .badge-warning { background: rgba(245, 158, 11, 0.2); color: var(--warning); border: 1px solid var(--warning); }
+    .badge-danger { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+    
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid #33415555;
+      font-size: 0.9rem;
+    }
+    .stat-val { font-weight: 600; }
+    .action-note {
+      margin-top: 14px;
+      padding: 10px;
+      border-radius: 6px;
+      background: #0f172a;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      border-left: 3px solid var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <h1>Audit Flash — Contrôle Dosage</h1>
+    <p class="desc">Rapprochement express entre consommation physique réelle et fiches techniques.</p>
+
+    <div class="form-group">
+      <label>Ingrédient à contrôler</label>
+      <input type="text" id="prodName" value="Mozzarella" placeholder="Ex: Mozzarella, Poulet...">
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label>Stock Début (kg/L/u)</label>
+        <input type="number" id="sInit" step="0.01" placeholder="0.00">
+      </div>
+      <div class="form-group">
+        <label>Entrées / Achats (kg/L/u)</label>
+        <input type="number" id="achats" step="0.01" value="0" placeholder="0.00">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label>Stock Fin (kg/L/u)</label>
+        <input type="number" id="sFinal" step="0.01" placeholder="0.00">
+      </div>
+      <div class="form-group">
+        <label>Déstockage Théorique</label>
+        <input type="number" id="theorique" step="0.01" placeholder="Ex: 3.67">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label>Casses / Pertes déclarées</label>
+        <input type="number" id="casse" step="0.01" value="0" placeholder="0.00">
+      </div>
+      <div class="form-group">
+        <label>Prix unitaire estimé (DH)</label>
+        <input type="number" id="unitPrice" step="0.01" value="55.00" placeholder="DH/kg">
+      </div>
+    </div>
+
+    <button onclick="calculerAudit()">Calculer la Synthèse</button>
+
+    <div id="resultBox" class="result-box">
+      <div id="statusBadge" class="badge">--</div>
+      
+      <div class="stat-row">
+        <span>Consommation Réelle :</span>
+        <span id="resReel" class="stat-val">0.00 kg</span>
+      </div>
+      <div class="stat-row">
+        <span>Attendu (Théorie + Casse) :</span>
+        <span id="resAttendu" class="stat-val">0.00 kg</span>
+      </div>
+      <div class="stat-row">
+        <span>Écart Matière (Quantité) :</span>
+        <span id="resEcart" class="stat-val">0.00 kg</span>
+      </div>
+      <div class="stat-row">
+        <span>Écart Relatif :</span>
+        <span id="resEcartPct" class="stat-val">0.00 %</span>
+      </div>
+      <div class="stat-row">
+        <span>Impact Financier Estimé :</span>
+        <span id="resImpact" class="stat-val">0.00 DH</span>
+      </div>
+
+      <div id="actionBox" class="action-note"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function calculerAudit() {
+  const prod = document.getElementById('prodName').value || 'Ingrédient';
+  const sInit = parseFloat(document.getElementById('sInit').value) || 0;
+  const achats = parseFloat(document.getElementById('achats').value) || 0;
+  const sFinal = parseFloat(document.getElementById('sFinal').value) || 0;
+  const theo = parseFloat(document.getElementById('theorique').value) || 0;
+  const casse = parseFloat(document.getElementById('casse').value) || 0;
+  const prix = parseFloat(document.getElementById('unitPrice').value) || 0;
+
+  if (theo <= 0 && (sInit + achats - sFinal) <= 0) {
+    alert("Veuillez renseigner au moins le stock ou la consommation théorique.");
+    return;
+  }
+
+  const consReelle = (sInit + achats) - sFinal;
+  const consAttendue = theo + casse;
+  const ecart = consReelle - consAttendue;
+  const ecartPct = consAttendue > 0 ? (ecart / consAttendue) * 100 : 0;
+  const impactDH = ecart * prix;
+
+  document.getElementById('resReel').innerText = consReelle.toFixed(2) + " unité(s)";
+  document.getElementById('resAttendu').innerText = consAttendue.toFixed(2) + " unité(s)";
+  
+  const sign = ecart > 0 ? "+" : "";
+  document.getElementById('resEcart').innerText = `${sign}${ecart.toFixed(2)} unité(s)`;
+  document.getElementById('resEcartPct').innerText = `${sign}${ecartPct.toFixed(1)} %`;
+  document.getElementById('resImpact').innerText = `${sign}${impactDH.toFixed(2)} DH`;
+
+  const badge = document.getElementById('statusBadge');
+  const actionBox = document.getElementById('actionBox');
+
+  if (Math.abs(ecartPct) <= 3) {
+    badge.className = "badge badge-success";
+    badge.innerText = "CONFORME (Tolérance ±3%)";
+    actionBox.innerHTML = `<strong>Diagnostic :</strong> Les fiches techniques sont respectées avec précision par l'équipe. L'écart est dans la marge normale de manipulation.`;
+  } else if (ecartPct > 3 && ecartPct <= 8) {
+    badge.className = "badge badge-warning";
+    badge.innerText = "ALERTE : SURDOSAGE LÉGER";
+    actionBox.innerHTML = `<strong>Diagnostic :</strong> Légère surconsommation constatée. Contrôler le dosage manuel en poste (vérifier balances et tare au montage).`;
+  } else if (ecartPct > 8) {
+    badge.className = "badge badge-danger";
+    badge.innerText = "CRITIQUE : SURCONSOMMATION ANORMALE";
+    actionBox.innerHTML = `<strong>Diagnostic :</strong> Forte dérive constatée (+${ecartPct.toFixed(1)}%). Causes probables : surdosage systématique, casse importante non déclarée sur le PDF du jour, ou coulage. Audit physique immédiat requis.`;
+  } else {
+    badge.className = "badge badge-warning";
+    badge.innerText = "ATTENTION : SOUS-DOSAGE";
+    actionBox.innerHTML = `<strong>Diagnostic :</strong> Consommation réelle inférieure aux fiches techniques (-${Math.abs(ecartPct).toFixed(1)}%). Vérifier si les assiettes ne sont pas sous-dosées ou si la fiche technique n'est pas surévaluée.`;
+  }
+
+  document.getElementById('resultBox').style.display = 'block';
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,5436 @@
+/**
+ * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
+ * Source Unique de Vérité (SSOT) partagée entre index.html, consommation.html et les outils d'audit.
+ */
+
+// 1. Catégories et fiches complètes avec visuels, temps et tarifs (pour affichage index.html)
+const DATA = [
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "key": "bc",
+    "color": "#b45309",
+    "items": [
+      {
+        "name": "CAFÉ NOIR / ESPRESSO",
+        "image": "images/boisson-cafe.webp",
+        "prepTime": 2,
+        "tech": [
+          "Café : 8 g",
+          "Eau chaude : 60 ml",
+          "Sucre : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "16 DH"
+      },
+      {
+        "name": "CAFÉ AMÉRICAIN",
+        "image": "images/boisson-americano.webp",
+        "prepTime": 2,
+        "tech": [
+          "Café : 8 g",
+          "Eau chaude : 150 ml",
+          "Sucre : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "18 DH"
+      },
+      {
+        "name": "CAFÉ AU LAIT",
+        "image": "images/boisson-cafelait.webp",
+        "prepTime": 3,
+        "tech": [
+          "Café : 8 g",
+          "Lait chaud : 120 ml",
+          "Sucre : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "19 DH"
+      },
+      {
+        "name": "CAFÉ LATTE",
+        "image": "images/boisson-cafelatte.webp",
+        "prepTime": 3,
+        "tech": [
+          "Café : 8 g",
+          "Lait chaud : 180 ml",
+          "Mousse de lait : 30 ml",
+          "Sucre : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "19 DH"
+      },
+      {
+        "name": "CAPPUCCINO ITALIEN",
+        "image": "images/boisson-cappu.webp",
+        "prepTime": 3,
+        "tech": [
+          "Café : 8 g",
+          "Lait chaud : 100 ml",
+          "Mousse de lait : 50 ml",
+          "Cacao en poudre : 3 g",
+          "Sucre : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "19 DH"
+      },
+      {
+        "name": "CAPPUCCINO CHANTILLY",
+        "image": "images/boisson-cappu-chant.webp",
+        "prepTime": 3,
+        "tech": [
+          "Café : 8 g",
+          "Lait chaud : 100 ml",
+          "Crème chantilly : 30 g",
+          "Cacao : 3 g",
+          "Sucre : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "22 DH"
+      },
+      {
+        "name": "CAFÉ NESPRESSO",
+        "image": "images/boisson-nespresso.webp",
+        "prepTime": 2,
+        "tech": [
+          "Pastille Nespresso : 1 p",
+          "Eau chaude : 50 ml",
+          "Sucre : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "22 DH"
+      },
+      {
+        "name": "CHOCOLAT CHAUD",
+        "image": "images/boisson-chocolat.webp",
+        "prepTime": 3,
+        "tech": [
+          "Chocolat en poudre : 30 g",
+          "Lait chaud : 200 ml",
+          "Sucre : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "22 DH"
+      },
+      {
+        "name": "CHOCOLAT CHAUD CHANTILLY",
+        "image": "images/boisson-choc-chant.webp",
+        "prepTime": 3,
+        "tech": [
+          "Chocolat en poudre : 30 g",
+          "Lait chaud : 180 ml",
+          "Crème chantilly : 35 g",
+          "Coulis chocolat : 10 ml",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "25 DH"
+      },
+      {
+        "name": "CHOCOLAT FONDU GOURMAND",
+        "image": "images/boisson-choc-fondue.webp",
+        "prepTime": 4,
+        "tech": [
+          "Chocolat noir fondu : 45 g",
+          "Lait chaud : 180 ml",
+          "Guimauves : 15 g",
+          "Chantilly : 30 g",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "28 DH"
+      },
+      {
+        "name": "THÉ MAROCAIN À LA MENTHE",
+        "image": "images/boisson-the.webp",
+        "prepTime": 4,
+        "tech": [
+          "Thé vert Gunpowder : 10 g",
+          "Menthe fraîche : 20 g",
+          "Sucre : 25 g",
+          "Eau bouillante : 300 ml",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "16 DH"
+      },
+      {
+        "name": "THÉ NOIR",
+        "image": "images/boisson-thenoir.webp",
+        "prepTime": 3,
+        "tech": [
+          "Thé noir : 8 g",
+          "Eau bouillante : 250 ml",
+          "Sucre : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "16 DH"
+      },
+      {
+        "name": "THÉ NOIR AU LAIT",
+        "image": "images/boisson-thenoir-lait.webp",
+        "prepTime": 3,
+        "tech": [
+          "Thé noir : 8 g",
+          "Lait chaud : 120 ml",
+          "Eau : 130 ml",
+          "Sucre : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "19 DH"
+      },
+      {
+        "name": "VERVEINE NATURE",
+        "image": "images/boisson-verveine.webp",
+        "prepTime": 4,
+        "tech": [
+          "Verveine séchée : 10 g",
+          "Eau chaude : 250 ml",
+          "Miel / Sucre : 20 g",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "15 DH"
+      },
+      {
+        "name": "VERVEINE AROMATISÉE",
+        "image": "images/boisson-verveine-arom.webp",
+        "prepTime": 4,
+        "tech": [
+          "Verveine séchée : 10 g",
+          "Fleur d'oranger : 5 ml",
+          "Zeste de citron : 5 g",
+          "Eau chaude : 250 ml",
+          "Miel : 20 g",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "18 DH"
+      },
+      {
+        "name": "INFUSION BIEN-ÊTRE",
+        "image": "images/boisson-infusion.webp",
+        "prepTime": 4,
+        "tech": [
+          "Mélange plantes infusion : 10 g",
+          "Eau chaude : 250 ml",
+          "Miel : 20 g",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "18 DH"
+      },
+      {
+        "name": "VERRE DE LAIT",
+        "image": "images/boisson-lait.webp",
+        "prepTime": 2,
+        "tech": [
+          "Lait entier frais : 250 ml",
+          "Sucre : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "12 DH"
+      },
+      {
+        "name": "LAIT CASSÉ",
+        "image": "images/boisson-cafelait.webp",
+        "prepTime": 2,
+        "tech": [
+          "Café : 8 g",
+          "Lait chaud : 150 ml",
+          "Sucre : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "19 DH"
+      },
+      {
+        "name": "CAFÉ SÉPARÉ",
+        "image": "images/boisson-cafelait.webp",
+        "prepTime": 3,
+        "tech": [
+          "Café : 8 g",
+          "Lait chaud : 100 ml",
+          "Sucre : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "24 DH"
+      },
+      {
+        "name": "CAFÉ MOITIÉ",
+        "image": "images/boisson-cafelait.webp",
+        "prepTime": 2,
+        "tech": [
+          "Café : 8 g",
+          "Lait chaud : 80 ml",
+          "Sucre : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "19 DH"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS GLACÉS & FRAPPÉS",
+    "key": "fg",
+    "color": "#854d0e",
+    "items": [
+      {
+        "name": "ICE COFFEE CLASSIQUE",
+        "image": "images/icecoffee-class.webp",
+        "prepTime": 3,
+        "tech": [
+          "Café espresso : 8 g",
+          "Lait froid : 100 ml",
+          "Sirop de canne : 20 ml",
+          "Glaçons : 120 g",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "24 DH"
+      },
+      {
+        "name": "ICE COFFEE AROMATISÉ",
+        "image": "images/icecoffee-arom.webp",
+        "prepTime": 3,
+        "tech": [
+          "Café espresso : 8 g",
+          "Sirop Caramel / Vanille : 25 ml",
+          "Lait froid : 120 ml",
+          "Glaçons : 120 g",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "28 DH"
+      },
+      {
+        "name": "FRAPPUCCINO CLASSIQUE",
+        "image": "images/frappu-class.webp",
+        "prepTime": 4,
+        "tech": [
+          "Café espresso : 8 g",
+          "Lait : 120 ml",
+          "Base frappé vanille : 25 g",
+          "Glace pilée : 150 g",
+          "Crème chantilly : 30 g",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "32 DH"
+      },
+      {
+        "name": "FRAPPUCCINO AROMATISÉ",
+        "image": "images/frappu-arom.webp",
+        "prepTime": 4,
+        "tech": [
+          "Café espresso : 8 g",
+          "Lait : 120 ml",
+          "Sirop Noisette / Caramel : 30 ml",
+          "Glace pilée : 150 g",
+          "Chantilly & Nappage : 35 g",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "35 DH"
+      }
+    ]
+  },
+  {
+    "category": "ICE TEA MAISON",
+    "key": "it",
+    "color": "#ea580c",
+    "items": [
+      {
+        "name": "ICE TEA PÊCHE MAISON",
+        "image": "images/icetea-peche.webp",
+        "prepTime": 3,
+        "tech": [
+          "Infusion thé noir : 200 ml",
+          "Sirop de pêche : 30 ml",
+          "Jus de citron : 15 ml",
+          "Pêche fraîche : 30 g",
+          "Glaçons : 100 g"
+        ],
+        "price": "25 DH"
+      },
+      {
+        "name": "ICE TEA CITRON MAISON",
+        "image": "images/icetea-citron.webp",
+        "prepTime": 3,
+        "tech": [
+          "Infusion thé vert : 200 ml",
+          "Jus de citron pressé : 30 ml",
+          "Sirop de canne : 25 ml",
+          "Rondelles de citron : 2 tr",
+          "Glaçons : 100 g"
+        ],
+        "price": "25 DH"
+      },
+      {
+        "name": "ICE TEA FRAMBOISE MAISON",
+        "image": "images/icetea-framboise.webp",
+        "prepTime": 3,
+        "tech": [
+          "Infusion thé fruits rouges : 200 ml",
+          "Purée de framboise : 35 g",
+          "Jus de citron : 15 ml",
+          "Framboises fraîches : 20 g",
+          "Glaçons : 100 g"
+        ],
+        "price": "28 DH"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "key": "jf",
+    "color": "#f59e0b",
+    "items": [
+      {
+        "name": "JUS D'ORANGE PRESSÉ",
+        "image": "images/jus-orange.webp",
+        "prepTime": 3,
+        "tech": [
+          "Oranges fraîches à jus : 380 g"
+        ],
+        "price": "22 DH"
+      },
+      {
+        "name": "JUS DE CITRON / CITRONNADE",
+        "image": "images/jus-citron.webp",
+        "prepTime": 3,
+        "tech": [
+          "Citron pressé : 120 g",
+          "Sirop de canne : 30 ml",
+          "Eau filtrée & Glaçons : 150 ml",
+          "Menthe fraîche : 5 g"
+        ],
+        "price": "22 DH"
+      },
+      {
+        "name": "JUS DE FRAISE",
+        "image": "images/jus-fraise.webp",
+        "prepTime": 3,
+        "tech": [
+          "Fraises fraîches : 220 g",
+          "Jus d'orange frais : 80 ml",
+          "Sirop de sucre : 15 ml"
+        ],
+        "price": "26 DH"
+      },
+      {
+        "name": "JUS DE FRAMBOISE",
+        "image": "images/jus-framboise.webp",
+        "prepTime": 3,
+        "tech": [
+          "Framboises fraîches : 200 g",
+          "Jus d'orange : 80 ml",
+          "Sirop de sucre : 20 ml"
+        ],
+        "price": "32 DH"
+      },
+      {
+        "name": "JUS DE MANGUE",
+        "image": "images/jus-mangue.webp",
+        "prepTime": 3,
+        "tech": [
+          "Mangue fraîche : 220 g",
+          "Jus d'orange frais : 80 ml",
+          "Glaçons : 50 g"
+        ],
+        "price": "30 DH"
+      },
+      {
+        "name": "JUS D'ANANAS",
+        "image": "images/jus-ananas.webp",
+        "prepTime": 3,
+        "tech": [
+          "Ananas frais : 250 g",
+          "Glaçons : 50 g"
+        ],
+        "price": "28 DH"
+      },
+      {
+        "name": "JUS DE PÊCHE",
+        "image": "images/jus-peche.webp",
+        "prepTime": 3,
+        "tech": [
+          "Pêche fraîche : 220 g",
+          "Jus d'orange frais : 80 ml",
+          "Glaçons : 50 g"
+        ],
+        "price": "28 DH"
+      },
+      {
+        "name": "JUS DE CAROTTE",
+        "image": "images/jus-carotte.webp",
+        "prepTime": 4,
+        "tech": [
+          "Carottes fraîches : 350 g",
+          "Jus d'orange frais : 50 ml"
+        ],
+        "price": "24 DH"
+      },
+      {
+        "name": "JUS POMME & BANANE",
+        "image": "images/jus-pomme-banane.webp",
+        "prepTime": 3,
+        "tech": [
+          "Pomme fraîche : 150 g",
+          "Banane : 120 g",
+          "Lait ou Jus d'orange : 100 ml"
+        ],
+        "price": "26 DH"
+      },
+      {
+        "name": "JUS D'AVOCAT AU LAIT",
+        "image": "images/jus-avocat.webp",
+        "prepTime": 3,
+        "tech": [
+          "Avocat Hass : 160 g",
+          "Lait entier frais : 200 ml",
+          "Sucre : 20 g"
+        ],
+        "price": "28 DH"
+      },
+      {
+        "name": "JUS D'AVOCAT ROYAL FRUITS SECS",
+        "image": "images/jus-avocatsec.webp",
+        "prepTime": 4,
+        "tech": [
+          "Avocat Hass : 160 g",
+          "Lait entier : 200 ml",
+          "Miel pur : 25 g",
+          "Amandes, Noix, Raisins secs : 40 g"
+        ],
+        "price": "35 DH"
+      },
+      {
+        "name": "JUS PANACHÉ FRUITS FRAIS",
+        "image": "images/jus-panache.webp",
+        "prepTime": 4,
+        "tech": [
+          "Jus d'orange : 100 ml",
+          "Banane : 80 g",
+          "Fraise : 60 g",
+          "Pomme : 60 g",
+          "Avocat : 40 g"
+        ],
+        "price": "28 DH"
+      },
+      {
+        "name": "COCKTAIL À BASE D'ORANGE",
+        "image": "images/jus-cocktailorange.webp",
+        "prepTime": 3,
+        "tech": [
+          "Jus d'orange frais : 180 ml",
+          "Sirop de grenadine : 20 ml",
+          "Fraise fraîche : 50 g",
+          "Ananas frais : 50 g"
+        ],
+        "price": "28 DH"
+      },
+      {
+        "name": "ZA3ZA3 ROYAL GREY CORNER",
+        "image": "images/jus-za3za3.webp",
+        "prepTime": 5,
+        "tech": [
+          "Avocat : 150 g",
+          "Lait : 180 ml",
+          "Chocolat KitKat / Snickers : 1 p",
+          "Fruits secs variés : 50 g",
+          "Biscuits Oreo : 2 p",
+          "Crème chantilly : 35 g",
+          "Coulis caramel : 15 ml"
+        ],
+        "price": "45 DH"
+      }
+    ]
+  },
+  {
+    "category": "COCKTAILS & MOCKTAILS",
+    "key": "ck",
+    "color": "#ec4899",
+    "items": [
+      {
+        "name": "SIGNATURE GREY CORNER",
+        "image": "images/cocktail-gc.webp",
+        "prepTime": 4,
+        "tech": [
+          "Jus d'ananas : 100 ml",
+          "Jus de mangue : 80 ml",
+          "Purée de fraise : 40 ml",
+          "Jus de citron vert : 20 ml",
+          "Sirop de passion : 20 ml",
+          "Fruits frais décor : 30 g"
+        ],
+        "price": "38 DH"
+      },
+      {
+        "name": "VIRGIN PIÑA COLADA",
+        "image": "images/cocktail-pinacolada.webp",
+        "prepTime": 4,
+        "tech": [
+          "Jus d'ananas frais : 180 ml",
+          "Crème de coco : 60 ml",
+          "Lait de coco : 40 ml",
+          "Glaçons : 100 g",
+          "Tranche d'ananas : 1 tr"
+        ],
+        "price": "35 DH"
+      },
+      {
+        "name": "COCKTAIL TROPICAL",
+        "image": "images/cocktail-tropical.webp",
+        "prepTime": 3,
+        "tech": [
+          "Jus de mangue : 80 ml",
+          "Jus d'ananas : 80 ml",
+          "Jus d'orange : 60 ml",
+          "Sirop de grenadine : 15 ml",
+          "Glaçons : 80 g"
+        ],
+        "price": "32 DH"
+      },
+      {
+        "name": "MOJITO VIRGIN / FRAÎCHEUR",
+        "image": "images/cocktail-fraicheur.webp",
+        "prepTime": 4,
+        "tech": [
+          "Citron vert frais : 1 p (40 g)",
+          "Menthe fraîche : 15 g",
+          "Sucre de canne : 20 g",
+          "Eau gazeuse Oulmès : 150 ml",
+          "Glace pilée : 120 g"
+        ],
+        "price": "32 DH"
+      },
+      {
+        "name": "DÉTOX GINGEMBRE CITRON",
+        "image": "images/cocktail-gingembre.webp",
+        "prepTime": 4,
+        "tech": [
+          "Gingembre frais râpé : 15 g",
+          "Jus de citron pressé : 60 ml",
+          "Miel pur d'abeille : 25 g",
+          "Pomme verte : 100 g",
+          "Eau minérale : 100 ml"
+        ],
+        "price": "32 DH"
+      },
+      {
+        "name": "COCKTAIL SANS ALCOOL SPÉCIAL",
+        "image": "images/cocktail-sf.webp",
+        "prepTime": 3,
+        "tech": [
+          "Jus d'orange : 100 ml",
+          "Jus de pêche : 80 ml",
+          "Purée de framboise : 30 ml",
+          "Sprite : 60 ml",
+          "Glaçons : 80 g"
+        ],
+        "price": "32 DH"
+      },
+      {
+        "name": "MOJITO TROPICAL",
+        "image": "images/cocktail-tropical.webp",
+        "prepTime": 3,
+        "tech": [
+          "Citron vert : 30 g",
+          "Menthe fraîche : 15 g",
+          "Mangue / Passion : 60 ml",
+          "Eau gazeuse Oulmès : 150 ml",
+          "Glace pilée : 120 g"
+        ],
+        "price": "35 DH"
+      },
+      {
+        "name": "MOJITO RED BULL",
+        "image": "images/cocktail-fraicheur.webp",
+        "prepTime": 3,
+        "tech": [
+          "Citron vert : 30 g",
+          "Menthe fraîche : 15 g",
+          "Red Bull (Canette 250ml) : 1 p",
+          "Glace pilée : 120 g"
+        ],
+        "price": "38 DH"
+      },
+      {
+        "name": "MOJITO CITRON",
+        "image": "images/cocktail-fraicheur.webp",
+        "prepTime": 3,
+        "tech": [
+          "Citron vert : 40 g",
+          "Menthe fraîche : 15 g",
+          "Sucre de canne : 20 g",
+          "Eau gazeuse Oulmès : 150 ml",
+          "Glace pilée : 120 g"
+        ],
+        "price": "32 DH"
+      }
+    ]
+  },
+  {
+    "category": "SMOOTHIES & BOWLS",
+    "key": "sm",
+    "color": "#a855f7",
+    "items": [
+      {
+        "name": "SMOOTHIE PINK BERRY",
+        "image": "images/smoothie-pink.webp",
+        "prepTime": 4,
+        "tech": [
+          "Fraises fraîches : 100 g",
+          "Framboises : 60 g",
+          "Yaourt grec nature : 100 g",
+          "Jus de pomme : 80 ml",
+          "Glaçons : 50 g"
+        ],
+        "price": "34 DH"
+      },
+      {
+        "name": "SMOOTHIE ÉNERGÉTIQUE",
+        "image": "images/smoothie-energetic.webp",
+        "prepTime": 4,
+        "tech": [
+          "Banane : 120 g",
+          "Dattes Medjool : 40 g",
+          "Flocons d'avoine : 30 g",
+          "Lait d'amande : 180 ml",
+          "Beurre de cacahuète : 20 g"
+        ],
+        "price": "36 DH"
+      },
+      {
+        "name": "SMOOTHIE HAWAÏ",
+        "image": "images/smoothie-hawai.webp",
+        "prepTime": 4,
+        "tech": [
+          "Mangue fraîche : 100 g",
+          "Ananas frais : 100 g",
+          "Fruit de la passion : 30 g",
+          "Jus d'orange : 80 ml",
+          "Glaçons : 50 g"
+        ],
+        "price": "34 DH"
+      },
+      {
+        "name": "SMOOTHIE MULTIVITAMINÉ",
+        "image": "images/smoothie-multiv.webp",
+        "prepTime": 4,
+        "tech": [
+          "Jus d'orange frais : 100 ml",
+          "Carotte : 80 g",
+          "Pomme : 80 g",
+          "Gingembre frais : 5 g",
+          "Glaçons : 50 g"
+        ],
+        "price": "32 DH"
+      },
+      {
+        "name": "SMOOTHIE JELLY FRUIT",
+        "image": "images/smoothie-jelly.webp",
+        "prepTime": 4,
+        "tech": [
+          "Fruits rouges : 120 g",
+          "Banane : 80 g",
+          "Jus de cranberry : 80 ml",
+          "Perles de fruits Popping Boba : 30 g"
+        ],
+        "price": "36 DH"
+      },
+      {
+        "name": "SMOOTHIE TRIPLE FRUITS",
+        "image": "images/smoothie-triple.webp",
+        "prepTime": 4,
+        "tech": [
+          "Fraise : 70 g",
+          "Mangue : 70 g",
+          "Kiwi frais : 70 g",
+          "Jus d'orange : 80 ml",
+          "Glaçons : 50 g"
+        ],
+        "price": "34 DH"
+      },
+      {
+        "name": "SMOOTHIE BOWL EXOTIQUE",
+        "image": "images/smoothiebowl-exotic.webp",
+        "prepTime": 5,
+        "tech": [
+          "Base mixée Mangue/Banane/Passion : 250 g",
+          "Granola croustillant : 40 g",
+          "Kiwi frais : 30 g",
+          "Graines de chia : 10 g",
+          "Noix de coco râpée : 10 g"
+        ],
+        "price": "45 DH"
+      },
+      {
+        "name": "SMOOTHIE BOWL ULTRA BOOST",
+        "image": "images/smoothiebowl-ultra.webp",
+        "prepTime": 5,
+        "tech": [
+          "Base mixée Açaï/Fruits rouges : 250 g",
+          "Banane : 50 g",
+          "Granola croustillant : 40 g",
+          "Myrtilles & Framboises : 30 g",
+          "Graines de chia : 10 g",
+          "Amandes effilées : 15 g"
+        ],
+        "price": "48 DH"
+      }
+    ]
+  },
+  {
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "key": "sd",
+    "color": "#3b82f6",
+    "items": [
+      {
+        "name": "COCA-COLA 33CL",
+        "image": "images/soda-coca.webp",
+        "prepTime": 1,
+        "tech": [
+          "Coca-Cola (Canette 33cl) : 1 p",
+          "Tranche de citron : 1 tr",
+          "Glaçons"
+        ],
+        "price": "16 DH"
+      },
+      {
+        "name": "COCA-COLA ZÉRO 33CL",
+        "image": "images/soda-cocazero.webp",
+        "prepTime": 1,
+        "tech": [
+          "Coca-Cola Zéro (Canette 33cl) : 1 p",
+          "Tranche de citron : 1 tr",
+          "Glaçons"
+        ],
+        "price": "16 DH"
+      },
+      {
+        "name": "SPRITE 33CL",
+        "image": "images/soda-sprite.webp",
+        "prepTime": 1,
+        "tech": [
+          "Sprite (Canette 33cl) : 1 p",
+          "Tranche de citron : 1 tr",
+          "Glaçons"
+        ],
+        "price": "16 DH"
+      },
+      {
+        "name": "HAWAÏ 33CL",
+        "image": "images/soda-hawai.webp",
+        "prepTime": 1,
+        "tech": [
+          "Hawaï Canette : 33 cl",
+          "Glaçons"
+        ],
+        "price": "16 DH"
+      },
+      {
+        "name": "POMS 33CL",
+        "image": "images/soda-poms.webp",
+        "prepTime": 1,
+        "tech": [
+          "Poms (Canette 33cl) : 1 p",
+          "Glaçons"
+        ],
+        "price": "16 DH"
+      },
+      {
+        "name": "SCHWEPPES CITRON / TONIC 33CL",
+        "image": "images/soda-schweppes.webp",
+        "prepTime": 1,
+        "tech": [
+          "Schweppes (Canette 33cl) : 1 p",
+          "Tranche de citron : 1 tr",
+          "Glaçons"
+        ],
+        "price": "18 DH"
+      },
+      {
+        "name": "ORANGINA 33CL",
+        "image": "images/soda-orangina.webp",
+        "prepTime": 1,
+        "tech": [
+          "Orangina (Canette 33cl) : 1 p",
+          "Tranche d'orange : 1 tr",
+          "Glaçons"
+        ],
+        "price": "18 DH"
+      },
+      {
+        "name": "RED BULL 250ML",
+        "image": "images/soda-redbull.webp",
+        "prepTime": 1,
+        "tech": [
+          "Red Bull (Canette 250ml) : 1 p",
+          "Glaçons"
+        ],
+        "price": "32 DH"
+      }
+    ]
+  },
+  {
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "key": "ea",
+    "color": "#06b6d4",
+    "items": [
+      {
+        "name": "EAU MINÉRALE 33CL",
+        "image": "images/eau-33.webp",
+        "prepTime": 1,
+        "tech": [
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "10 DH"
+      },
+      {
+        "name": "EAU MINÉRALE 50CL",
+        "image": "images/eau-50.webp",
+        "prepTime": 1,
+        "tech": [
+          "Bouteille Eau Minérale 50cl : 1 p"
+        ],
+        "price": "14 DH"
+      },
+      {
+        "name": "EAU MINÉRALE 75CL",
+        "image": "images/eau-75.webp",
+        "prepTime": 1,
+        "tech": [
+          "Bouteille Eau Minérale 75cl : 1 p"
+        ],
+        "price": "18 DH"
+      },
+      {
+        "name": "OULMÈS EAU GAZEUSE 33CL / 50CL",
+        "image": "images/eau-oulmes.webp",
+        "prepTime": 1,
+        "tech": [
+          "Bouteille Oulmès 33/50cl : 1 p",
+          "Tranche de citron : 1 tr"
+        ],
+        "price": "14 DH"
+      },
+      {
+        "name": "OULMÈS EAU GAZEUSE 75CL",
+        "image": "images/eau-oulmes75cl.webp",
+        "prepTime": 1,
+        "tech": [
+          "Bouteille Oulmès 75cl : 1 p",
+          "Tranches de citron : 2 tr"
+        ],
+        "price": "22 DH"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "key": "pdj",
+    "color": "#ef476f",
+    "items": [
+      {
+        "name": "COMPAGNARD",
+        "image": "images/petit-dej_compagnard.jpeg",
+        "prepTime": 15,
+        "tech": [
+          "pain cake : 2 p",
+          "Omelette : 3 œufs",
+          "Fromage : 30 g",
+          "Charcuteries : 60 g",
+          "Pain seigle : 2 tr",
+          "Mesclun : 40 g",
+          "Jus d'orange : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "50 DH"
+      },
+      {
+        "name": "PETIT DÉJEUNER AMÉRICAIN",
+        "image": "images/petit-dej_americain.jpeg",
+        "prepTime": 15,
+        "tech": [
+          "Bacon : 2 p",
+          "Omelette : 2 œufs",
+          "Fromage : 30 g",
+          "avocat : 60 g",
+          "Pain seigle : 2 tr",
+          "Mesclun : 40 g",
+          "Jus d'orange : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "68 DH"
+      },
+      {
+        "name": "BRUNCH GREYCORNER",
+        "image": "images/petit-dej-gc.jpg",
+        "prepTime": 15,
+        "tech": [
+          "Saucisses : 2 p",
+          "Omelette : 3 œufs",
+          "Fromage : 30 g",
+          "Toast hollandais : 2 p",
+          "Croquettes fromage : 2 p",
+          "Charcuteries : 60 g",
+          "Pain seigle : 2 tr",
+          "Mesclun : 40 g",
+          "Gaufre : 1 p",
+          "Pancake : 1 p",
+          "Jus d'orange : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "85 DH"
+      },
+      {
+        "name": "BRUNCH DUO",
+        "image": "images/petit-dej-duo.jpg",
+        "prepTime": 20,
+        "tech": [
+          "Poulet pané : 120 g",
+          "Croquettes : 2 p",
+          "Croque maison : 1 p",
+          "Omelette fromage : 2 œufs",
+          "Charcuterie : 80 g",
+          "Fromage : 60 g",
+          "Pain seigle : 2 tr",
+          "Beldi : 2 mlaoui + 2 harcha",
+          "Mesclun : 40 g",
+          "Muffin : 1 p",
+          "Gaufre : 1 p",
+          "Jus d'orange : 2×200 ml",
+          "Boissons chaudes : 2 p",
+          "Desserts : 2 p",
+          "Bouteille Eau Minérale 33cl : 2 p"
+        ],
+        "price": "140 DH"
+      },
+      {
+        "name": "BELDI",
+        "image": "images/petit-dej-beldi.jpg",
+        "prepTime": 10,
+        "tech": [
+          "Mlaoui : 2 p",
+          "Harcha : 2 p",
+          "Baghrir : 1 p",
+          "Jben : 40 g",
+          "Huile d’olive : 20 ml",
+          "Miel : 20 g",
+          "Olives : 20 g",
+          "Jus d'orange : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "45 DH"
+      },
+      {
+        "name": "HOLLANDAIS",
+        "image": "images/petit-dej-hollandais.jpg",
+        "prepTime": 10,
+        "tech": [
+          "Pain mie complet : 2 tr",
+          "Œufs au plat : 2 p",
+          "Fromage : 40 g",
+          "Dinde fumée : 40 g",
+          "Mesclun : 40 g",
+          "Jus d'orange : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "50 DH"
+      },
+      {
+        "name": "OMELETTE VÉGÉTARIENNE",
+        "image": "images/petit-dej-veg.jpg",
+        "prepTime": 12,
+        "tech": [
+          "Œufs : 3 p",
+          "Légumes : 120 g",
+          "Mesclun : 40 g",
+          "Jus d'orange : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "50 DH"
+      },
+      {
+        "name": "BERBÈRE",
+        "image": "images/petit-dej-berbere.jpg",
+        "prepTime": 10,
+        "tech": [
+          "Baghrir : 1 p",
+          "Amlou : 30 g",
+          "Fruits secs : 30 g",
+          "Jben : 40 g",
+          "Miel : 20 g",
+          "Banane : 1 p",
+          "Jus d'orange : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "50 DH"
+      },
+      {
+        "name": "CROQUE",
+        "image": "images/petit-dej-croque.jpg",
+        "prepTime": 12,
+        "tech": [
+          "Croque maison : 1 p",
+          "Mesclun : 40 g",
+          "Jus d'orange : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "50 DH"
+      },
+      {
+        "name": "FASSI",
+        "image": "images/petit-dej-fassi.jpg",
+        "prepTime": 12,
+        "tech": [
+          "Khli3 : 100 g",
+          "Œufs au plat : 3 p",
+          "Jus d'orange : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "50 DH"
+      },
+      {
+        "name": "OMELETTE CONTINENTAL",
+        "image": "images/petit-dej-cont.jpg",
+        "prepTime": 12,
+        "tech": [
+          "Œufs : 3 p",
+          "Charcuterie : 60 g",
+          "Fromage : 40 g",
+          "Mesclun : 40 g",
+          "Jus d'orange : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "50 DH"
+      },
+      {
+        "name": "OMELETTE FROMAGE",
+        "image": "images/omelette-fromage.jpg",
+        "prepTime": 10,
+        "tech": [
+          "Œufs : 3 p",
+          "Fromage : 40 g",
+          "Mesclun : 40 g",
+          "Jus d'orange : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "50 DH"
+      },
+      {
+        "name": "OMELETTE NATURE",
+        "image": "images/omelette-nature.jpg",
+        "prepTime": 10,
+        "tech": [
+          "Œufs : 3 p",
+          "Mesclun : 40 g",
+          "Jus d'orange : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "40 DH"
+      },
+      {
+        "name": "OMELETTE DU CHEF",
+        "image": "images/petit-dej-chef.jpg",
+        "prepTime": 12,
+        "tech": [
+          "Œufs : 3 p",
+          "Champignons : 40 g",
+          "Épinards : 30 g",
+          "Fromage : 30 g",
+          "Mesclun : 40 g",
+          "Jus d'orange : 200 ml",
+          "Boisson chaude : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "55 DH"
+      },
+      {
+        "name": "ESPAGNOL",
+        "image": "images/petit-dej-espagnol.jpg",
+        "prepTime": 15,
+        "tech": [
+          "Tortilla : 1 p",
+          "Croquettes : 2 p",
+          "Tapenade : 20 g",
+          "Thon : 40 g",
+          "Tomates : 60 g",
+          "Fromage : 40 g",
+          "Pain seigle : 2 tr",
+          "Mesclun : 40 g",
+          "Jus : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "60 DH"
+      },
+      {
+        "name": "MQUILA-MERGUEZ",
+        "image": "images/petit-dej-mquila.jpg",
+        "prepTime": 12,
+        "tech": [
+          "Merguez : 120 g",
+          "Poivrons/oignons : 120 g",
+          "Œufs : 2 p",
+          "Jus : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "60 DH"
+      },
+      {
+        "name": "MQUILA-FRUITS DE MER",
+        "image": "images/petit-dej_mquilafruitdemer.jpeg",
+        "prepTime": 12,
+        "tech": [
+          "crevettes : 100 g",
+          "calamars : 100 g",
+          "moules : 100 g",
+          "Œufs : 2 p",
+          "Jus : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "78 DH"
+      },
+      {
+        "name": "NORVÉGIEN",
+        "image": "images/petit-dej-norvegien.jpg",
+        "prepTime": 10,
+        "tech": [
+          "Saumon : 60 g",
+          "Avocat : 50 g",
+          "Fromage : 30 g",
+          "Pain céréales : 2 tr",
+          "Jus : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "65 DH"
+      },
+      {
+        "name": "LIGHT",
+        "image": "images/petit-dej-light.jpg",
+        "prepTime": 7,
+        "tech": [
+          "Pain complet : 2 tr",
+          "Jben : 40 g",
+          "Huile d’olive : 20 ml",
+          "Amlou : 20 g",
+          "Olives : 20 g",
+          "Jus : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "40 DH"
+      },
+      {
+        "name": "EXPRESS",
+        "image": "images/petit-dej-express.jpg",
+        "prepTime": 5,
+        "tech": [
+          "Viennoiseries : 4 p",
+          "Jus : 200 ml",
+          "Boisson chaude : 1 p",
+          "Dessert : 1 p",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "40 DH"
+      },
+      {
+        "name": "MENU ENFANT (PDJ)",
+        "image": "images/menu-enfant-pdj.jpg",
+        "prepTime": 8,
+        "tech": [
+          "Crêpe/Gaufre/Pancake : 1 p",
+          "Corn flakes : 1 bol",
+          "Lait chocolat : 200 ml"
+        ],
+        "price": "38 DH"
+      }
+    ]
+  },
+  {
+    "category": "ENTRÉES FROIDES",
+    "key": "ef",
+    "color": "#22a699",
+    "items": [
+      {
+        "name": "Salade Veggie",
+        "images": "images/entree-veggi.jpg",
+        "prepTime": 8,
+        "tech": [
+          "Salade Rouge : 100 g",
+          "Concombre : 80 g",
+          "Tomate Cerise : 70 g",
+          "Œufs de Caille : 1 p",
+          "Haricot Vert : 60 g",
+          "Betterave : 120 g",
+          "Carotte : 40 g",
+          "Brocoli : 50 g",
+          "Radis : 60 g",
+          "Thon : 50 g",
+          "Sauce Vinaigrette : 200 g",
+          "Maïs : 30 g",
+          "Poivron : 50 g"
+        ],
+        "price": "48 DH"
+      },
+      {
+        "name": "Salade Russe",
+        "images": "images/entree-russe.jpg",
+        "prepTime": 6,
+        "tech": [
+          "Pomme de Terre : 200 g",
+          "Carotte : 100 g",
+          "Poulet : 25 g",
+          "Petit Pois : 50 g",
+          "Olive Verte : 15 g",
+          "Cornichon : 24 g",
+          "Œufs de Caille : 1 p",
+          "Mayonnaise : 30 g",
+          "Thon : 50 g",
+          "Maïs : 15 g",
+          "Radis : 14 g",
+          "Poivron : 10 g",
+          "Concombre : 10 g"
+        ],
+        "price": "48 DH"
+      },
+      {
+        "name": "Salade César",
+        "images": "images/entree-caesar.jpg,images/entree-caesar3.jpg",
+        "prepTime": 8,
+        "tech": [
+          "Salade Romaine : 180 g",
+          "Laitue : 100 g",
+          "Poulet : 130 g",
+          "Croûtons : 30 g",
+          "Tomate Cerise : 60 g",
+          "Sauce César : 70 g",
+          "Parmesan : 30 g"
+        ],
+        "price": "64 DH"
+      },
+      {
+        "name": "Salade Quinoa",
+        "images": "images/entree-quinoa.jpg",
+        "prepTime": 7,
+        "tech": [
+          "Quinoa : 140 g",
+          "Gambas Pané : 60 g",
+          "Gambas Poché : 80 g",
+          "Fruits : 70 g",
+          "Feta : 20 g",
+          "Kiwi : 120 g",
+          "Vinaigrette : 20 g",
+          "Miel : 30 g",
+          "Framboise : 17 g"
+        ],
+        "price": "78 DH"
+      },
+      {
+        "name": "Salade Terre & Mer",
+        "images": "images/entree-terremer.jpg",
+        "prepTime": 8,
+        "tech": [
+          "Poulet Pané : 50 g",
+          "Tomate Cerise : 25 g",
+          "Salade Rouge : 25 g",
+          "Maïs : 30 g",
+          "Gambas Poché : 73 g",
+          "Gambas Pané : 30 g",
+          "Avocat : 150 g",
+          "Sauce Tartare : 30 g",
+          "Pomme : 24 g",
+          "Moules : 16 g",
+          "Agrumes : 15 g"
+        ],
+        "price": "78 DH"
+      },
+      {
+        "name": "TARTARE SAUMON",
+        "images": "images/entree-tartare.jpeg",
+        "prepTime": 7,
+        "tech": [
+          "saumon frais : 90 g",
+          "SAUMON FUMEE : 25 g",
+          "Avocat : 300 g",
+          "SAUCE TARTARE : 24 g"
+        ],
+        "price": "88 DH"
+      },
+      {
+        "name": "Salade Burrata",
+        "images": "images/entree-burrata.jpg,images/entree-burrata2.jpg,images/entree-burrata3.jpg",
+        "prepTime": 7,
+        "tech": [
+          "Burrata : 184 g",
+          "Noix : 30 g",
+          "Roquette : 30 g",
+          "Pesto : 15 g",
+          "Balsamique : 10 g",
+          "Fruits Rouges : 40 g",
+          "Radis : 10 g",
+          "Tomate Cerise : 25 g"
+        ],
+        "price": "88 DH"
+      }
+    ]
+  },
+  {
+    "category": "ENTRÉES CHAUDES",
+    "key": "ec",
+    "color": "#ffb703",
+    "items": [
+      {
+        "name": "BOULETTE DE POULET AU FROMAGE",
+        "image": "images/entree-boulette-poulet.webp",
+        "prepTime": 10,
+        "tech": [
+          "Poulet : 200 g",
+          "Farine : 100 g",
+          "Chapelure : 50 g",
+          "Edam : 25 g"
+        ],
+        "price": "45 DH"
+      },
+      {
+        "name": "CROUSTILLON GAMBAS",
+        "images": "images/entree-croustillon.jpg,images/entree-croustillon2.jpg,images/entree-croustillon3.jpg",
+        "prepTime": 12,
+        "tech": [
+          "Gambas panées : 260 g",
+          "Purée : 400 g",
+          "Radis : 15 g",
+          "Parmesan : 14 g",
+          "Crème fraîche : 50 g",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "65 DH"
+      },
+      {
+        "name": "PIL PIL ESPAGNOL",
+        "images": "images/entree-pilpil.jpg,images/entree-pilpil2.jpg",
+        "prepTime": 14,
+        "tech": [
+          "Gambas : 260 g",
+          "Tomate cerise : 60 g",
+          "Pesto : 22 g",
+          "Huile d’olive : 30 g",
+          "Oignon : 60 g",
+          "Ail : 10 g",
+          "Sauce tomate : 120 g",
+          "Bouteille Eau Minérale 33cl : 1 p"
+        ],
+        "price": "65 DH"
+      }
+    ]
+  },
+  {
+    "category": "PLATS",
+    "key": "pl",
+    "color": "#64b5f6",
+    "items": [
+      {
+        "name": "BROCHETTES DE POULET",
+        "images": "images/plat-brochette.jpg,images/plat-brochette2.jpg,images/plat-brochette3.jpg",
+        "prepTime": 18,
+        "tech": [
+          "Blanc de poulet : 200 g",
+          "Sauce barbecue : 30 g",
+          "Salade rouge : 50 g",
+          "Accompagnements — 2 au choix",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "84 DH"
+      },
+      {
+        "name": "EMINCE DE POULET",
+        "images": "images/plat-emincepoulet.jpg,images/plat-emincepoulet2.jpg,images/plat-emincepoulet3.jpg",
+        "prepTime": 15,
+        "tech": [
+          "Poulet : 160 g",
+          "Champignons : 90 g",
+          "Crème fraîche : 100 ml",
+          "Demi-glace : 100 ml",
+          "Légumes variés : 220 g",
+          "Fokacha : 150 g",
+          "Frites : 200 g",
+          "Pain : 1 p",
+          "Huile : 50 ml"
+        ],
+        "price": "88 DH"
+      },
+      {
+        "name": "BALLOTINE DE POULET",
+        "images": "images/plat-ballotine.jpg,images/plat-ballotine2.jpg,images/plat-ballotine3.jpg",
+        "prepTime": 20,
+        "tech": [
+          "Poulet : 250 g",
+          "Épinard : 40 g",
+          "Crème fraîche : 70 ml",
+          "Parmesan : 20 g",
+          "Cheddar : 60 g",
+          "Beurre : 30 g",
+          "Légumes : 220 g",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "94 DH"
+      },
+      {
+        "name": "SUPRÊME DE POULET",
+        "images": "images/plat-supreme.webp",
+        "prepTime": 18,
+        "tech": [
+          "Blanc de poulet : 180 g",
+          "Champignon : 120 g",
+          "Crème fraîche : 70 ml",
+          "Persil : 20 g",
+          "Haricot vert : 55 g",
+          "Courgette : 55 g",
+          "Carotte : 57 g",
+          "Brocoli : 77 g",
+          "Persil : 30 g",
+          "Œuf : 1 p",
+          "Frites : 200 g",
+          "Pain : 1 p",
+          "Beurre : 40 g"
+        ],
+        "price": "98 DH"
+      },
+      {
+        "name": "ESCALOPE A LA MILANAISE",
+        "images": "images/plat-milanaise.jpg,images/plat-milanaise2.jpg,images/plat-milanaise3.jpg",
+        "prepTime": 18,
+        "tech": [
+          "Poulet : 120 g",
+          "Chapelure : 50 g",
+          "Crème fraîche : 70 ml",
+          "Moutarde : 10 g",
+          "Parmesan : 30 g",
+          "Légumes : 220 g",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "85 DH"
+      },
+      {
+        "name": "EMINCE DE BŒUF",
+        "images": "images/plat-eminceboeuf.jpg,images/plat-eminceboeuf2.jpg,images/plat-eminceboeuf3.jpg",
+        "prepTime": 16,
+        "tech": [
+          "Bœuf : 150 g",
+          "Champignons : 80 g",
+          "Crème fraîche : 70 ml",
+          "Demi-glace : 60 ml",
+          "Légumes : 220 g",
+          "Fokacha : 150 g",
+          "Frites : 200 g",
+          "Pain : 1 p",
+          "Huile : 60 ml"
+        ],
+        "price": "103 DH"
+      },
+      {
+        "name": "FILET DE BŒUF",
+        "images": "images/plat-filet.jpg,images/plat-filet2.jpg,images/plat-filet3.jpg",
+        "prepTime": 15,
+        "tech": [
+          "Filet : 180 g",
+          "Beurre : 40 g",
+          "Poivre vert : 20 g",
+          "Demi-glace : 70 ml",
+          "Légumes : 220 g",
+          "Fokacha : 150 g",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "128 DH"
+      },
+      {
+        "name": "PAVÉ DE SAUMON",
+        "images": "images/plat-saumon.jpg,images/plat-saumon2.jpg,images/plat-saumon3.jpg",
+        "prepTime": 18,
+        "tech": [
+          "Saumon : 180 g",
+          "Crevette : 80 g",
+          "Crème fraîche : 70 ml",
+          "Parmesan : 20 g",
+          "Beurre : 40 g",
+          "Légumes : 220 g",
+          "Fokacha : 150 g",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "148 DH"
+      },
+      {
+        "name": "MENU ENFANT (PLAT)",
+        "images": "images/menu-enfant-plat.jpg,images/menu-enfant-plat2.jpg,images/menu-enfant-plat3.jpg",
+        "prepTime": 10,
+        "tech": [
+          "Pasta nature ou Mini pizza + boisson",
+          "OU Burger / nuggets + frites + boisson"
+        ],
+        "price": "58 DH"
+      },
+      {
+        "name": "ROULADE DE BŒUF VH",
+        "image": "images/plat-rouladeboeuf.webp",
+        "prepTime": 16,
+        "tech": [
+          "Viande hachée : 200 g",
+          "Épinard : 30 g",
+          "Champignon : 30 g",
+          "Fromage rouge : 20 g",
+          "Fromage bleu : 20 g",
+          "Crème fraîche : 70 ml",
+          "Haricot vert : 55 g",
+          "Courgette : 55 g",
+          "Carotte : 57 g",
+          "Brocoli : 77 g",
+          "Olive noire : 60 g",
+          "Fokacha : 150 g",
+          "Frites : 200 g",
+          "Pain : 1 p",
+          "Huile de table : 30 ml"
+        ],
+        "price": "122 DH"
+      }
+    ]
+  },
+  {
+    "category": "BURGERS",
+    "key": "bg",
+    "color": "#b088f9",
+    "items": [
+      {
+        "name": "CHICKEN BURGER",
+        "image": "images/burger-cheese.jpg",
+        "prepTime": 18,
+        "tech": [
+          "poulet : 150 g",
+          "Sauce blanche : 40 g",
+          "Sauce pesto : 20 g",
+          "Cheddar : 20 g",
+          "Tomate/Laitue : 30 g",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "48 DH"
+      },
+      {
+        "name": "CHEESE BURGER",
+        "image": "images/burger-cheese.jpg",
+        "prepTime": 15,
+        "tech": [
+          "Viande Hachée : 100 g",
+          "Cheddar : 20 g",
+          "Tomate : 30 g",
+          "Laitue : 20 g",
+          "Oignon+Cornichon : 45 ml",
+          "Sauce Bigy : 30 g",
+          "Frites + Sauce : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "54 DH"
+      },
+      {
+        "name": "AVOCADO FORESTIER",
+        "image": "images/burger-avocado.jpg",
+        "prepTime": 15,
+        "tech": [
+          "Poulet : 120 g",
+          "Avocat : 50 g",
+          "Tomate/Laitue : 30 g",
+          "Œuf : 1 p",
+          "Chapelure : 50 g",
+          "Cheddar : 20 g",
+          "Sauce Bigy : 30 g",
+          "Frites+Sauce : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "54 DH"
+      },
+      {
+        "name": "EGG ET CHEESEBURGER",
+        "image": "images/burger-eggcheese.jpg",
+        "prepTime": 16,
+        "tech": [
+          "Viande : 100 g",
+          "Œuf : 1 p",
+          "Champignon : 30 g",
+          "Cheddar : 20 g",
+          "Tomate/Laitue : 30 g",
+          "Sauce Bigy : 30 g",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "58 DH"
+      },
+      {
+        "name": "BIG BURGER",
+        "image": "images/burger-big.jpg",
+        "prepTime": 18,
+        "tech": [
+          "Viande : 2×100 g",
+          "Cheddar : 20 g",
+          "Tomate/Laitue : 30 g",
+          "Sauce du chef : 30 g",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "68 DH"
+      },
+      {
+        "name": "BURGER ROYAL",
+        "image": "images/burger-royal.jpg",
+        "prepTime": 20,
+        "tech": [
+          "Viande : 100 g",
+          "Poulet pané : 120 g",
+          "Œuf : 1 p",
+          "Cheddar : 20 g",
+          "Oignons caramélisés : 25 g",
+          "Laitue/Tomate : 30 g",
+          "Sauce spéciale : 30 g",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "68 DH"
+      }
+    ]
+  },
+  {
+    "category": "WRAPS",
+    "key": "wr",
+    "color": "#06b6d4",
+    "items": [
+      {
+        "name": "WRAP POULET",
+        "image": "images/Wrap-poulet.jpg",
+        "prepTime": 12,
+        "tech": [
+          "Poulet : 120 g",
+          "Œuf : 1 p",
+          "Frites + sauce : 200 g",
+          "Chapelure : 50 g",
+          "Cheddar : 25 g",
+          "Pain : 1 p",
+          "Tomate fraîche : 30 g",
+          "Sauce burger : 60 ml"
+        ],
+        "price": "58 DH"
+      },
+      {
+        "name": "WRAP VIANDE HACHÉE",
+        "image": "images/Wrap-viande-hachee.jpg",
+        "prepTime": 12,
+        "tech": [
+          "Viande hachée : 100 g",
+          "Œuf : 1 p",
+          "Frites + sauce : 200 g",
+          "Cheddar : 25 g",
+          "Pain : 1 p",
+          "Tomate fraîche : 30 g",
+          "Sauce burger : 60 ml"
+        ],
+        "price": "62 DH"
+      },
+      {
+        "name": "WRAP GOURMAND",
+        "image": "images/Wrap-gourmand.jpg",
+        "prepTime": 15,
+        "tech": [
+          "Poulet : 120 g",
+          "Charcuterie : 40 g",
+          "Œuf : 1 p",
+          "Chapelure : 50 g",
+          "Cheddar : 25 g",
+          "Frites + sauce : 200 g",
+          "Pain : 1 p",
+          "Tomate fraîche : 30 g",
+          "Sauce burger : 60 ml"
+        ],
+        "price": "64 DH"
+      }
+    ]
+  },
+  {
+    "category": "PANINIS",
+    "key": "pa",
+    "color": "#f97316",
+    "items": [
+      {
+        "name": "CHARCUTERIE",
+        "image": "images/panini-charcuterie.jpg",
+        "prepTime": 8,
+        "tech": [
+          "Charcuterie : 120 g",
+          "Mozzarella : 60 g",
+          "Frites + sauce : 200 g",
+          "Pain : 1 p",
+          "Sauce biggy : 30 g"
+        ],
+        "price": "36 DH"
+      },
+      {
+        "name": "POULET",
+        "image": "images/panini-poulet.jpg",
+        "prepTime": 8,
+        "tech": [
+          "Poulet : 70 g",
+          "Mozzarella : 60 g",
+          "Frites + sauce : 200 g",
+          "Pain : 1 p",
+          "Sauce biggy : 30 g"
+        ],
+        "price": "38 DH"
+      },
+      {
+        "name": "VIANDE HACHÉE",
+        "image": "images/panini-hache.jpg",
+        "prepTime": 8,
+        "tech": [
+          "Viande : 100 g",
+          "Mozzarella : 60 g",
+          "Frites + sauce : 200 g",
+          "Pain : 1 p",
+          "Sauce biggy : 30 g"
+        ],
+        "price": "42 DH"
+      },
+      {
+        "name": "GOURMAND",
+        "image": "images/panini-mixte.jpg",
+        "prepTime": 10,
+        "tech": [
+          "Viande : 50 g",
+          "Poulet : 50 g",
+          "Charcuterie : 50 g",
+          "Mozzarella : 60 g",
+          "Frites + sauce : 200 g",
+          "Pain : 1 p",
+          "Sauce biggy : 30 g"
+        ],
+        "price": "46 DH"
+      },
+      {
+        "name": "FRUITS DE MER",
+        "image": "images/panini-fruitsmer.jpg",
+        "prepTime": 10,
+        "tech": [
+          "Crevettes : 100 g",
+          "Calamar : 50 g",
+          "Pesto : 20 g",
+          "Mozzarella : 60 g",
+          "Frites + sauce : 200 g",
+          "Pain : 1 p",
+          "Sauce biggy : 30 g"
+        ],
+        "price": "48 DH"
+      },
+      {
+        "name": "SAUMON",
+        "image": "images/panini-saumon.jpg",
+        "prepTime": 10,
+        "tech": [
+          "Saumon : 90 g",
+          "Pesto : 20 g",
+          "Mozzarella : 60 g",
+          "Frites + sauce : 200 g",
+          "Pain : 1 p",
+          "Sauce biggy : 30 g"
+        ],
+        "price": "52 DH"
+      }
+    ]
+  },
+  {
+    "category": "SANDWICHS",
+    "key": "sw",
+    "color": "#10b981",
+    "items": [
+      {
+        "name": "FRUITS DE MER",
+        "image": "images/sand-fruitsmer.jpg",
+        "prepTime": 14,
+        "tech": [
+          "Crevette : 125 g",
+          "Calamar : 70 g",
+          "Sauce Biggy : 40 g",
+          "Cheddar : 20 g",
+          "Crème fraîche : 60 ml",
+          "Sauce fromagère : 20 g",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "55 DH"
+      },
+      {
+        "name": "THON",
+        "image": "images/sand-thon.jpg",
+        "prepTime": 8,
+        "tech": [
+          "Thon : 120 g",
+          "Tomate : 30 g",
+          "Sauce burger : 40 ml",
+          "Cheddar : 20 g",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "40 DH"
+      },
+      {
+        "name": "POULET",
+        "image": "images/sand-poulet.jpg",
+        "prepTime": 10,
+        "tech": [
+          "Poulet : 120 g",
+          "Tomate : 30 g",
+          "Sauce burger : 40 ml",
+          "Cheddar : 20 g",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "45 DH"
+      },
+      {
+        "name": "POULET CRUNCHY",
+        "image": "images/sand-crunchy.jpg",
+        "prepTime": 12,
+        "tech": [
+          "Poulet : 120 g",
+          "Œuf : 1 p",
+          "Chapelure : 50 g",
+          "Tomate : 30 g",
+          "Cheddar : 20 g",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "50 DH"
+      },
+      {
+        "name": "CHEESE STEAK",
+        "image": "images/sand-cheesesteak.jpg",
+        "prepTime": 12,
+        "tech": [
+          "Filet : 70 g",
+          "Demi-glace : 40 ml",
+          "Champignon : 50 g",
+          "Cheddar : 20 g",
+          "Crème fraîche : 40 ml",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "55 DH"
+      },
+      {
+        "name": "VIANDE HACHÉE",
+        "image": "images/sand-hache.jpg",
+        "prepTime": 10,
+        "tech": [
+          "Viande : 100 g",
+          "Tomate : 30 g",
+          "Sauce spéciale : 30 g",
+          "Cheddar : 20 g",
+          "Frites : 200 g",
+          "Pain : 1 p"
+        ],
+        "price": "45 DH"
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "key": "pz",
+    "color": "#eab308",
+    "items": [
+      {
+        "name": "MARGARITA",
+        "image": "images/pizza-margherita.jpg",
+        "prepTime": 14,
+        "tech": [
+          "Pâte : 330 g",
+          "Mozzarella : 200 g",
+          "Sauce tomate : 100 g",
+          "Olives noires : 13 g"
+        ],
+        "price": "50 DH"
+      },
+      {
+        "name": "THON",
+        "image": "images/pizza-thon.jpg",
+        "prepTime": 15,
+        "tech": [
+          "Pâte : 330 g",
+          "Mozzarella : 200 g",
+          "Sauce tomate : 100 g",
+          "Thon : 100 g",
+          "Oignons : 40 g",
+          "Olives"
+        ],
+        "price": "60 DH"
+      },
+      {
+        "name": "VÉGÉTARIENNE",
+        "image": "images/pizza-veggie.jpg",
+        "prepTime": 15,
+        "tech": [
+          "Pâte : 330 g",
+          "Mozzarella : 200 g",
+          "Sauce tomate : 100 g",
+          "Champignons : 60 g",
+          "Légumes : 220 g"
+        ],
+        "price": "60 DH"
+      },
+      {
+        "name": "REGINA",
+        "image": "images/pizza-regina.jpg",
+        "prepTime": 16,
+        "tech": [
+          "Pâte : 330 g",
+          "Mozzarella : 200 g",
+          "Dinde fumée : 100 g",
+          "Champignons : 60 g",
+          "Sauce blanche : 100 g"
+        ],
+        "price": "65 DH"
+      },
+      {
+        "name": "5 FROMAGES",
+        "image": "images/pizza-5fromages.jpg",
+        "prepTime": 16,
+        "tech": [
+          "Pâte : 330 g",
+          "Mozzarella : 50 g",
+          "Brie : 50 g",
+          "Bleu : 40 g",
+          "Sauce blanche : 100 g",
+          "Parmesan : 20 g",
+          "Fromage rouge : 40 g"
+        ],
+        "price": "70 DH"
+      },
+      {
+        "name": "VIANDE HACHÉE",
+        "image": "images/pizza-hache.jpg",
+        "prepTime": 16,
+        "tech": [
+          "Pâte : 330 g",
+          "Mozzarella : 200 g",
+          "Sauce tomate : 100 g",
+          "Viande : 100 g",
+          "Tomate cerise : 40 g"
+        ],
+        "price": "70 DH"
+      },
+      {
+        "name": "PEPPERONI",
+        "image": "images/pizza-pepperoni.jpg",
+        "prepTime": 15,
+        "tech": [
+          "Pâte : 330 g",
+          "Mozzarella : 200 g",
+          "Sauce tomate : 100 g",
+          "Pepperoni : 40 g"
+        ],
+        "price": "70 DH"
+      },
+      {
+        "name": "POULET SAUCE BLANCHE",
+        "image": "images/pizza-pouletblanche.jpg",
+        "prepTime": 16,
+        "tech": [
+          "Pâte : 330 g",
+          "Mozzarella : 200 g",
+          "Poulet : 150 g",
+          "Champignon : 60 g",
+          "Sauce blanche : 100 g"
+        ],
+        "price": "75 DH"
+      },
+      {
+        "name": "4 SAISONS",
+        "image": "images/pizza-4saisons.jpg",
+        "prepTime": 18,
+        "tech": [
+          "Pâte : 330 g",
+          "Mozzarella : 200 g",
+          "Calamar : 40 g",
+          "Crevette : 40 g",
+          "Viande : 40 g",
+          "Poulet : 40 g",
+          "Légumes : 60 g",
+          "Champignon : 60 g"
+        ],
+        "price": "80 DH"
+      },
+      {
+        "name": "MOITIÉ MOITIÉ",
+        "image": "images/pizza-moitiemoitie.jpg",
+        "prepTime": 18,
+        "tech": [
+          "Pâte : 330 g",
+          "Garnitures 2 moitiés (hors fruits de mer/saumon)"
+        ],
+        "price": "80 DH"
+      },
+      {
+        "name": "BURRATA",
+        "image": "images/pizza-burrata.jpg",
+        "prepTime": 15,
+        "tech": [
+          "Pâte : 330 g",
+          "Mozzarella : 200 g",
+          "Sauce tomate : 100 g",
+          "Burrata : 35 g",
+          "Noix : 30 g",
+          "Tomate cerise : 20 g"
+        ],
+        "price": "80 DH"
+      },
+      {
+        "name": "FRUITS DE MER",
+        "image": "images/pizza-fruitsmer.jpg",
+        "prepTime": 18,
+        "tech": [
+          "Pâte : 330 g",
+          "Mozzarella : 200 g",
+          "Crevette : 110 g",
+          "Calamar : 70 g",
+          "Moules : 40 g",
+          "Champignon : 60 g",
+          "Sauce blanche : 100 g"
+        ],
+        "price": "85 DH"
+      },
+      {
+        "name": "SAUMON",
+        "image": "images/pizza-saumon.jpg",
+        "prepTime": 18,
+        "tech": [
+          "Pâte : 330 g",
+          "Mozzarella : 200 g",
+          "Saumon : 90 g",
+          "Sauce blanche : 100 g",
+          "Câpres : 15 g"
+        ],
+        "price": "90 DH"
+      }
+    ]
+  },
+  {
+    "category": "PÂTES",
+    "key": "pae",
+    "color": "#fb7185",
+    "items": [
+      {
+        "name": "LASAGNE POULET",
+        "image": "images/lasagne-poulet.jpeg",
+        "prepTime": 15,
+        "tech": [
+          "Pâtes : 60 g",
+          "poulet : 80 g",
+          "Parmesan : 15 g",
+          "Huile : 60 g",
+          "champignon : 50 g",
+          "Pesto : 70 g",
+          "Sauce blanche : 100 g",
+          "Oignon/Ail : 70 g"
+        ],
+        "price": "62 DH"
+      },
+      {
+        "name": "LASAGNE BOLOGNAISE",
+        "image": "images/lasagne_bolognaise.jpeg",
+        "prepTime": 15,
+        "tech": [
+          "Pâtes : 60 g",
+          "Viande : 100 g",
+          "Parmesan : 15 g",
+          "Huile : 60 g",
+          "Tomate cerise : 50 g",
+          "Pesto : 70 g",
+          "Sauce tomate : 80 g",
+          "Oignon/Ail : 70 g"
+        ],
+        "price": "68 DH"
+      },
+      {
+        "name": "LASAGNE FRUITS DE MER",
+        "image": "images/lasagne-fruitdemer.jpeg",
+        "prepTime": 15,
+        "tech": [
+          "Pâtes : 60 g",
+          "crevette : 140 g",
+          "Parmesan : 15 g",
+          "Huile : 60 g",
+          "CALAMAR : 100 g",
+          "Pesto : 70 g",
+          "Sauce blanche : 100 g",
+          "Oignon/Ail : 70 g"
+        ],
+        "price": "78 DH"
+      },
+      {
+        "name": "VÉGÉTARIEN",
+        "image": "images/pasta-veg.jpg",
+        "prepTime": 12,
+        "tech": [
+          "Pâtes : 150 g",
+          "Sauce pesto : 70 g",
+          "Parmesan : 60 g",
+          "Huile d'olive : 60 g",
+          "Crème : 100 g",
+          "Oignon : 60 g",
+          "Tomate cerise : 50 g",
+          "Légumes : 150 g"
+        ],
+        "price": "55 DH"
+      },
+      {
+        "name": "CARBONARA",
+        "image": "images/pasta-carbonara.jpg",
+        "prepTime": 14,
+        "tech": [
+          "Pâtes : 150 g",
+          "Jambon de dinde : 80 g",
+          "Parmesan : 60 g",
+          "Huile : 60 g",
+          "Crème : 100 g",
+          "Oignon/Ail : 70 g"
+        ],
+        "price": "60 DH"
+      },
+      {
+        "name": "5 FROMAGES",
+        "image": "images/pasta-5fromages.jpg",
+        "prepTime": 14,
+        "tech": [
+          "Pâtes : 150 g",
+          "Brie : 25 g",
+          "Parmesan : 25 g",
+          "Bleu : 20 g",
+          "Mozzarella : 30 g",
+          "Edam : 20 g",
+          "Huile : 60 g",
+          "Crème : 100 g",
+          "Oignon/Ail : 70 g"
+        ],
+        "price": "60 DH"
+      },
+      {
+        "name": "RIGATONI RICOTTA",
+        "image": "images/pasta-ricotta.jpg",
+        "prepTime": 15,
+        "tech": [
+          "Pâtes : 150 g",
+          "Ricotta : 40 g",
+          "Parmesan : 60 g",
+          "Huile : 60 g",
+          "Crème : 100 g",
+          "Pesto : 70 g",
+          "Courgette : 100 g",
+          "Oignon/Ail : 70 g"
+        ],
+        "price": "65 DH"
+      },
+      {
+        "name": "BOLOGNAISE",
+        "image": "images/pasta-bolognaise.jpg",
+        "prepTime": 15,
+        "tech": [
+          "Pâtes : 150 g",
+          "Viande : 100 g",
+          "Parmesan : 60 g",
+          "Huile : 60 g",
+          "Tomate cerise : 50 g",
+          "Pesto : 70 g",
+          "Sauce tomate : 80 g",
+          "Oignon/Ail : 70 g"
+        ],
+        "price": "65 DH"
+      },
+      {
+        "name": "POULET CHAMPIGNON / ÉPINARD",
+        "image": "images/pasta-poulet.jpg",
+        "prepTime": 16,
+        "tech": [
+          "Pâtes : 150 g",
+          "Poulet : 80 g",
+          "Parmesan : 60 g",
+          "Huile : 60 g",
+          "Crème : 100 g",
+          "Pesto : 70 g",
+          "Épinard : 30 g",
+          "Champignon : 70 g",
+          "Oignon/Ail : 70 g"
+        ],
+        "price": "70 DH"
+      },
+      {
+        "name": "FRUITS DE MER",
+        "image": "images/pasta-fruitsmer.jpg",
+        "prepTime": 18,
+        "tech": [
+          "Pâtes : 150 g",
+          "Crevettes : 105 g",
+          "Calamar : 60 g",
+          "Moules : 15 g",
+          "Parmesan : 60 g",
+          "Huile : 60 g",
+          "Crème : 100 g",
+          "Pesto : 70 g",
+          "Oignon/Ail : 70 g"
+        ],
+        "price": "85 DH"
+      },
+      {
+        "name": "SAUMON",
+        "image": "images/pasta-saumon.jpg",
+        "prepTime": 18,
+        "tech": [
+          "Pâtes : 150 g",
+          "Saumon : 90 g",
+          "Parmesan : 60 g",
+          "Huile : 60 g",
+          "Crème : 100 g",
+          "Pesto : 70 g",
+          "Oignon/Ail : 70 g"
+        ],
+        "price": "95 DH"
+      },
+      {
+        "name": "SPAGHETTIS NOIRS (suppl.)",
+        "image": "images/pasta-saumon.jpg",
+        "prepTime": 0,
+        "tech": [
+          "Supplément pâtes noires à l'encre de seiche"
+        ],
+        "price": "+5 DH"
+      }
+    ]
+  },
+  {
+    "category": "DESSERTS & PÂTISSERIES",
+    "key": "dp",
+    "color": "#ec4899",
+    "items": [
+      {
+        "name": "SAN SEBASTIEN CHEESECAKE",
+        "prepTime": 3,
+        "tech": [
+          "Cheesecake San Sebastian : 1 part (160 g)",
+          "Coulis chocolat chaud : 30 g"
+        ],
+        "price": "38 DH"
+      },
+      {
+        "name": "FONDANT AU CHOCOLAT",
+        "prepTime": 8,
+        "tech": [
+          "Fondant chocolat cœur coulant : 1 p (120 g)",
+          "Glace vanille artisanale : 1 boule (50 g)",
+          "Sucre glace : 5 g"
+        ],
+        "price": "38 DH"
+      },
+      {
+        "name": "CHEESECAKE CHOCOLAT",
+        "prepTime": 3,
+        "tech": [
+          "Cheesecake chocolat : 1 part (150 g)",
+          "Chantilly : 20 g"
+        ],
+        "price": "36 DH"
+      },
+      {
+        "name": "BOULE DE GLACE",
+        "prepTime": 2,
+        "tech": [
+          "Glace artisanale au choix : 1 boule (50 g)"
+        ],
+        "price": "14 DH"
+      },
+      {
+        "name": "2 BOULES DE GLACE",
+        "prepTime": 2,
+        "tech": [
+          "Glace artisanale au choix : 2 boules (100 g)",
+          "Coulis & Chantilly : 20 g"
+        ],
+        "price": "26 DH"
+      },
+      {
+        "name": "3 BOULES DE GLACE",
+        "prepTime": 3,
+        "tech": [
+          "Glace artisanale au choix : 3 boules (150 g)",
+          "Coulis, Chantilly & Gaufrette : 30 g"
+        ],
+        "price": "35 DH"
+      }
+    ]
+  },
+  {
+    "category": "CRÊPES",
+    "key": "cr",
+    "color": "#f59e0b",
+    "items": [
+      {
+        "name": "CRÊPE NUTELLA",
+        "prepTime": 8,
+        "tech": [
+          "Pâte à crêpe : 1 p",
+          "Nutella : 60 g",
+          "Banane ou Amandes : 20 g"
+        ],
+        "price": "28 DH"
+      },
+      {
+        "name": "CRÊPE KUNAFA PISTACHE",
+        "prepTime": 10,
+        "tech": [
+          "Pâte à crêpe : 1 p",
+          "Pâte de pistache : 40 g",
+          "Kunafa croustillante : 30 g",
+          "Pistaches concassées : 15 g"
+        ],
+        "price": "45 DH"
+      },
+      {
+        "name": "CRÊPE FROMAGE",
+        "prepTime": 8,
+        "tech": [
+          "Pâte à crêpe : 1 p",
+          "Mozzarella : 50 g",
+          "Fromage rouge : 30 g",
+          "Fromage blanc : 20 g"
+        ],
+        "price": "32 DH"
+      },
+      {
+        "name": "CRÊPE POULET CHAMPIGNON",
+        "prepTime": 10,
+        "tech": [
+          "Pâte à crêpe : 1 p",
+          "Blanc de poulet : 70 g",
+          "Champignons : 40 g",
+          "Mozzarella : 40 g",
+          "Crème fraîche : 40 ml"
+        ],
+        "price": "38 DH"
+      },
+      {
+        "name": "CRÊPE CHARCUTERIE",
+        "prepTime": 8,
+        "tech": [
+          "Pâte à crêpe : 1 p",
+          "Charcuterie de dinde : 60 g",
+          "Mozzarella : 40 g",
+          "Fromage : 20 g"
+        ],
+        "price": "35 DH"
+      },
+      {
+        "name": "CRÊPE NORVÉGIENNE",
+        "prepTime": 10,
+        "tech": [
+          "Pâte à crêpe : 1 p",
+          "Saumon fumé : 60 g",
+          "Crème fraîche : 40 ml",
+          "Fromage : 30 g"
+        ],
+        "price": "48 DH"
+      }
+    ]
+  },
+  {
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "key": "sup",
+    "color": "#64748b",
+    "items": [
+      {
+        "name": "SUPPLÉMENT FRITES",
+        "prepTime": 5,
+        "tech": [
+          "Frites : 200 g",
+          "Sauce : 30 g"
+        ],
+        "price": "15 DH"
+      },
+      {
+        "name": "SUPPLÉMENT PURÉE",
+        "prepTime": 3,
+        "tech": [
+          "Pomme de terre purée : 250 g",
+          "Beurre : 15 g"
+        ],
+        "price": "18 DH"
+      },
+      {
+        "name": "SUPPLÉMENT POTATOS",
+        "prepTime": 5,
+        "tech": [
+          "Pomme de terre potatos : 200 g",
+          "Sauce : 30 g"
+        ],
+        "price": "18 DH"
+      },
+      {
+        "name": "SUPPLÉMENT MIEL",
+        "prepTime": 1,
+        "tech": [
+          "Miel pur : 30 g"
+        ],
+        "price": "8 DH"
+      },
+      {
+        "name": "SUPPLÉMENT JBEN",
+        "prepTime": 1,
+        "tech": [
+          "Jben frais : 50 g"
+        ],
+        "price": "10 DH"
+      },
+      {
+        "name": "SUPPLÉMENT ŒUFS",
+        "prepTime": 4,
+        "tech": [
+          "Œufs frais : 2 p"
+        ],
+        "price": "10 DH"
+      },
+      {
+        "name": "SUPPLÉMENT FROMAGE",
+        "prepTime": 1,
+        "tech": [
+          "Fromage variété : 50 g"
+        ],
+        "price": "12 DH"
+      },
+      {
+        "name": "PIZZA COMPOSÉE AU CHOIX",
+        "prepTime": 15,
+        "tech": [
+          "Pâte à pizza : 330 g",
+          "Mozzarella : 200 g",
+          "Sauce tomate : 100 g",
+          "Garniture composée : 150 g"
+        ],
+        "price": "85 DH"
+      },
+      {
+        "name": "DIVERS CUISINE / FOOD",
+        "prepTime": 5,
+        "tech": [
+          "Ingrédients cuisine divers : 1 portion"
+        ],
+        "price": "10 DH"
+      },
+      {
+        "name": "DIVERS BAR / BOISSONS",
+        "prepTime": 2,
+        "tech": [
+          "Ingrédients bar divers : 1 portion"
+        ],
+        "price": "10 DH"
+      }
+    ]
+  },
+  {
+    "category": "A LA CARTE & BOULANGERIE",
+    "key": "alc",
+    "color": "#d97706",
+    "items": [
+      {
+        "name": "PETIT BAGHRIR",
+        "sellPrice": 5,
+        "cost": 1.5,
+        "margin": 70,
+        "tech": [
+          "Baghrir : 1 p"
+        ]
+      },
+      {
+        "name": "MSEMEN NATURE",
+        "sellPrice": 6,
+        "cost": 1.8,
+        "margin": 70,
+        "tech": [
+          "Msemen : 1 p"
+        ]
+      },
+      {
+        "name": "VIENNOISERIE",
+        "sellPrice": 6,
+        "cost": 2.0,
+        "margin": 66.7,
+        "tech": [
+          "Viennoiserie : 1 p"
+        ]
+      },
+      {
+        "name": "HARCHA NATURE",
+        "sellPrice": 6,
+        "cost": 1.8,
+        "margin": 70,
+        "tech": [
+          "Harcha : 1 p"
+        ]
+      },
+      {
+        "name": "OMLETTE FROMAGE (A LA CARTE)",
+        "sellPrice": 38,
+        "cost": 9.5,
+        "margin": 75,
+        "tech": [
+          "Œufs : 3 p",
+          "Fromage : 40 g",
+          "Mesclun : 30 g"
+        ]
+      },
+      {
+        "name": "OMLETTE NATURE (A LA CARTE)",
+        "sellPrice": 32,
+        "cost": 6.5,
+        "margin": 79.7,
+        "tech": [
+          "Œufs : 3 p",
+          "Mesclun : 30 g"
+        ]
+      }
+    ]
+  }
+];
+
+// 2. Base plate des fiches avec identifiants pour le calcul de déstockage (pour consommation.html)
+const BASE_RECIPES = [
+  {
+    "id": "bc_cafe_noir_espresso",
+    "name": "CAFÉ NOIR / ESPRESSO",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Café : 8 g",
+      "Eau chaude : 60 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_cafe_americain",
+    "name": "CAFÉ AMÉRICAIN",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Café : 8 g",
+      "Eau chaude : 150 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_cafe_au_lait",
+    "name": "CAFÉ AU LAIT",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Café : 8 g",
+      "Lait chaud : 120 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_cafe_latte",
+    "name": "CAFÉ LATTE",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Café : 8 g",
+      "Lait chaud : 180 ml",
+      "Mousse de lait : 30 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_cappuccino_italien",
+    "name": "CAPPUCCINO ITALIEN",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Café : 8 g",
+      "Lait chaud : 100 ml",
+      "Mousse de lait : 50 ml",
+      "Cacao en poudre : 3 g",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_cappuccino_chantilly",
+    "name": "CAPPUCCINO CHANTILLY",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Café : 8 g",
+      "Lait chaud : 100 ml",
+      "Crème chantilly : 30 g",
+      "Cacao : 3 g",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_cafe_nespresso",
+    "name": "CAFÉ NESPRESSO",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Pastille Nespresso : 1 p",
+      "Eau chaude : 50 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_chocolat_chaud",
+    "name": "CHOCOLAT CHAUD",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Chocolat en poudre : 30 g",
+      "Lait chaud : 200 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_chocolat_chaud_chantilly",
+    "name": "CHOCOLAT CHAUD CHANTILLY",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Chocolat en poudre : 30 g",
+      "Lait chaud : 180 ml",
+      "Crème chantilly : 35 g",
+      "Coulis chocolat : 10 ml",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_chocolat_fondu_gourmand",
+    "name": "CHOCOLAT FONDU GOURMAND",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Chocolat noir fondu : 45 g",
+      "Lait chaud : 180 ml",
+      "Guimauves : 15 g",
+      "Chantilly : 30 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_the_marocain_a_la_menthe",
+    "name": "THÉ MAROCAIN À LA MENTHE",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Thé vert Gunpowder : 10 g",
+      "Menthe fraîche : 20 g",
+      "Sucre : 25 g",
+      "Eau bouillante : 300 ml",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_the_noir",
+    "name": "THÉ NOIR",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Thé noir : 8 g",
+      "Eau bouillante : 250 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_the_noir_au_lait",
+    "name": "THÉ NOIR AU LAIT",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Thé noir : 8 g",
+      "Lait chaud : 120 ml",
+      "Eau : 130 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_verveine_nature",
+    "name": "VERVEINE NATURE",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Verveine séchée : 10 g",
+      "Eau chaude : 250 ml",
+      "Miel / Sucre : 20 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_verveine_aromatisee",
+    "name": "VERVEINE AROMATISÉE",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Verveine séchée : 10 g",
+      "Fleur d'oranger : 5 ml",
+      "Zeste de citron : 5 g",
+      "Eau chaude : 250 ml",
+      "Miel : 20 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_infusion_bien_etre",
+    "name": "INFUSION BIEN-ÊTRE",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Mélange plantes infusion : 10 g",
+      "Eau chaude : 250 ml",
+      "Miel : 20 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_verre_de_lait",
+    "name": "VERRE DE LAIT",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Lait entier frais : 250 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_lait_casse",
+    "name": "LAIT CASSÉ",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Café : 8 g",
+      "Lait chaud : 150 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_cafe_separe",
+    "name": "CAFÉ SÉPARÉ",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Café : 8 g",
+      "Lait chaud : 100 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "bc_cafe_moitie",
+    "name": "CAFÉ MOITIÉ",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Café : 8 g",
+      "Lait chaud : 80 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "fg_ice_coffee_classique",
+    "name": "ICE COFFEE CLASSIQUE",
+    "category": "CAFÉS GLACÉS & FRAPPÉS",
+    "ingredients": [
+      "Café espresso : 8 g",
+      "Lait froid : 100 ml",
+      "Sirop de canne : 20 ml",
+      "Glaçons : 120 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "fg_ice_coffee_aromatise",
+    "name": "ICE COFFEE AROMATISÉ",
+    "category": "CAFÉS GLACÉS & FRAPPÉS",
+    "ingredients": [
+      "Café espresso : 8 g",
+      "Sirop Caramel / Vanille : 25 ml",
+      "Lait froid : 120 ml",
+      "Glaçons : 120 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "fg_frappuccino_classique",
+    "name": "FRAPPUCCINO CLASSIQUE",
+    "category": "CAFÉS GLACÉS & FRAPPÉS",
+    "ingredients": [
+      "Café espresso : 8 g",
+      "Lait : 120 ml",
+      "Base frappé vanille : 25 g",
+      "Glace pilée : 150 g",
+      "Crème chantilly : 30 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "fg_frappuccino_aromatise",
+    "name": "FRAPPUCCINO AROMATISÉ",
+    "category": "CAFÉS GLACÉS & FRAPPÉS",
+    "ingredients": [
+      "Café espresso : 8 g",
+      "Lait : 120 ml",
+      "Sirop Noisette / Caramel : 30 ml",
+      "Glace pilée : 150 g",
+      "Chantilly & Nappage : 35 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "it_ice_tea_peche_maison",
+    "name": "ICE TEA PÊCHE MAISON",
+    "category": "ICE TEA MAISON",
+    "ingredients": [
+      "Infusion thé noir : 200 ml",
+      "Sirop de pêche : 30 ml",
+      "Jus de citron : 15 ml",
+      "Pêche fraîche : 30 g",
+      "Glaçons : 100 g"
+    ]
+  },
+  {
+    "id": "it_ice_tea_citron_maison",
+    "name": "ICE TEA CITRON MAISON",
+    "category": "ICE TEA MAISON",
+    "ingredients": [
+      "Infusion thé vert : 200 ml",
+      "Jus de citron pressé : 30 ml",
+      "Sirop de canne : 25 ml",
+      "Rondelles de citron : 2 tr",
+      "Glaçons : 100 g"
+    ]
+  },
+  {
+    "id": "it_ice_tea_framboise_maison",
+    "name": "ICE TEA FRAMBOISE MAISON",
+    "category": "ICE TEA MAISON",
+    "ingredients": [
+      "Infusion thé fruits rouges : 200 ml",
+      "Purée de framboise : 35 g",
+      "Jus de citron : 15 ml",
+      "Framboises fraîches : 20 g",
+      "Glaçons : 100 g"
+    ]
+  },
+  {
+    "id": "jf_jus_d_orange_presse",
+    "name": "JUS D'ORANGE PRESSÉ",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Oranges fraîches à jus : 380 g"
+    ]
+  },
+  {
+    "id": "jf_jus_de_citron_citronnade",
+    "name": "JUS DE CITRON / CITRONNADE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Citron pressé : 120 g",
+      "Sirop de canne : 30 ml",
+      "Eau filtrée & Glaçons : 150 ml",
+      "Menthe fraîche : 5 g"
+    ]
+  },
+  {
+    "id": "jf_jus_de_fraise",
+    "name": "JUS DE FRAISE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Fraises fraîches : 220 g",
+      "Jus d'orange frais : 80 ml",
+      "Sirop de sucre : 15 ml"
+    ]
+  },
+  {
+    "id": "jf_jus_de_framboise",
+    "name": "JUS DE FRAMBOISE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Framboises fraîches : 200 g",
+      "Jus d'orange : 80 ml",
+      "Sirop de sucre : 20 ml"
+    ]
+  },
+  {
+    "id": "jf_jus_de_mangue",
+    "name": "JUS DE MANGUE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Mangue fraîche : 220 g",
+      "Jus d'orange frais : 80 ml",
+      "Glaçons : 50 g"
+    ]
+  },
+  {
+    "id": "jf_jus_d_ananas",
+    "name": "JUS D'ANANAS",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Ananas frais : 250 g",
+      "Glaçons : 50 g"
+    ]
+  },
+  {
+    "id": "jf_jus_de_peche",
+    "name": "JUS DE PÊCHE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Pêche fraîche : 220 g",
+      "Jus d'orange frais : 80 ml",
+      "Glaçons : 50 g"
+    ]
+  },
+  {
+    "id": "jf_jus_de_carotte",
+    "name": "JUS DE CAROTTE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Carottes fraîches : 350 g",
+      "Jus d'orange frais : 50 ml"
+    ]
+  },
+  {
+    "id": "jf_jus_pomme_banane",
+    "name": "JUS POMME & BANANE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Pomme fraîche : 150 g",
+      "Banane : 120 g",
+      "Lait ou Jus d'orange : 100 ml"
+    ]
+  },
+  {
+    "id": "jf_jus_d_avocat_au_lait",
+    "name": "JUS D'AVOCAT AU LAIT",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Avocat Hass : 160 g",
+      "Lait entier frais : 200 ml",
+      "Sucre : 20 g"
+    ]
+  },
+  {
+    "id": "jf_jus_d_avocat_royal_fruits_secs",
+    "name": "JUS D'AVOCAT ROYAL FRUITS SECS",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Avocat Hass : 160 g",
+      "Lait entier : 200 ml",
+      "Miel pur : 25 g",
+      "Amandes, Noix, Raisins secs : 40 g"
+    ]
+  },
+  {
+    "id": "jf_jus_panache_fruits_frais",
+    "name": "JUS PANACHÉ FRUITS FRAIS",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Jus d'orange : 100 ml",
+      "Banane : 80 g",
+      "Fraise : 60 g",
+      "Pomme : 60 g",
+      "Avocat : 40 g"
+    ]
+  },
+  {
+    "id": "jf_cocktail_a_base_d_orange",
+    "name": "COCKTAIL À BASE D'ORANGE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Jus d'orange frais : 180 ml",
+      "Sirop de grenadine : 20 ml",
+      "Fraise fraîche : 50 g",
+      "Ananas frais : 50 g"
+    ]
+  },
+  {
+    "id": "jf_za3za3_royal_grey_corner",
+    "name": "ZA3ZA3 ROYAL GREY CORNER",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Avocat : 150 g",
+      "Lait : 180 ml",
+      "Chocolat KitKat / Snickers : 1 p",
+      "Fruits secs variés : 50 g",
+      "Biscuits Oreo : 2 p",
+      "Crème chantilly : 35 g",
+      "Coulis caramel : 15 ml"
+    ]
+  },
+  {
+    "id": "ck_signature_grey_corner",
+    "name": "SIGNATURE GREY CORNER",
+    "category": "COCKTAILS & MOCKTAILS",
+    "ingredients": [
+      "Jus d'ananas : 100 ml",
+      "Jus de mangue : 80 ml",
+      "Purée de fraise : 40 ml",
+      "Jus de citron vert : 20 ml",
+      "Sirop de passion : 20 ml",
+      "Fruits frais décor : 30 g"
+    ]
+  },
+  {
+    "id": "ck_virgin_pi_a_colada",
+    "name": "VIRGIN PIÑA COLADA",
+    "category": "COCKTAILS & MOCKTAILS",
+    "ingredients": [
+      "Jus d'ananas frais : 180 ml",
+      "Crème de coco : 60 ml",
+      "Lait de coco : 40 ml",
+      "Glaçons : 100 g",
+      "Tranche d'ananas : 1 tr"
+    ]
+  },
+  {
+    "id": "ck_cocktail_tropical",
+    "name": "COCKTAIL TROPICAL",
+    "category": "COCKTAILS & MOCKTAILS",
+    "ingredients": [
+      "Jus de mangue : 80 ml",
+      "Jus d'ananas : 80 ml",
+      "Jus d'orange : 60 ml",
+      "Sirop de grenadine : 15 ml",
+      "Glaçons : 80 g"
+    ]
+  },
+  {
+    "id": "ck_mojito_virgin_fraicheur",
+    "name": "MOJITO VIRGIN / FRAÎCHEUR",
+    "category": "COCKTAILS & MOCKTAILS",
+    "ingredients": [
+      "Citron vert frais : 1 p (40 g)",
+      "Menthe fraîche : 15 g",
+      "Sucre de canne : 20 g",
+      "Eau gazeuse Oulmès : 150 ml",
+      "Glace pilée : 120 g"
+    ]
+  },
+  {
+    "id": "ck_detox_gingembre_citron",
+    "name": "DÉTOX GINGEMBRE CITRON",
+    "category": "COCKTAILS & MOCKTAILS",
+    "ingredients": [
+      "Gingembre frais râpé : 15 g",
+      "Jus de citron pressé : 60 ml",
+      "Miel pur d'abeille : 25 g",
+      "Pomme verte : 100 g",
+      "Eau minérale : 100 ml"
+    ]
+  },
+  {
+    "id": "ck_cocktail_sans_alcool_special",
+    "name": "COCKTAIL SANS ALCOOL SPÉCIAL",
+    "category": "COCKTAILS & MOCKTAILS",
+    "ingredients": [
+      "Jus d'orange : 100 ml",
+      "Jus de pêche : 80 ml",
+      "Purée de framboise : 30 ml",
+      "Sprite : 60 ml",
+      "Glaçons : 80 g"
+    ]
+  },
+  {
+    "id": "ck_mojito_tropical",
+    "name": "MOJITO TROPICAL",
+    "category": "COCKTAILS & MOCKTAILS",
+    "ingredients": [
+      "Citron vert : 30 g",
+      "Menthe fraîche : 15 g",
+      "Mangue / Passion : 60 ml",
+      "Eau gazeuse Oulmès : 150 ml",
+      "Glace pilée : 120 g"
+    ]
+  },
+  {
+    "id": "ck_mojito_red_bull",
+    "name": "MOJITO RED BULL",
+    "category": "COCKTAILS & MOCKTAILS",
+    "ingredients": [
+      "Citron vert : 30 g",
+      "Menthe fraîche : 15 g",
+      "Red Bull (Canette 250ml) : 1 p",
+      "Glace pilée : 120 g"
+    ]
+  },
+  {
+    "id": "ck_mojito_citron",
+    "name": "MOJITO CITRON",
+    "category": "COCKTAILS & MOCKTAILS",
+    "ingredients": [
+      "Citron vert : 40 g",
+      "Menthe fraîche : 15 g",
+      "Sucre de canne : 20 g",
+      "Eau gazeuse Oulmès : 150 ml",
+      "Glace pilée : 120 g"
+    ]
+  },
+  {
+    "id": "sm_smoothie_pink_berry",
+    "name": "SMOOTHIE PINK BERRY",
+    "category": "SMOOTHIES & BOWLS",
+    "ingredients": [
+      "Fraises fraîches : 100 g",
+      "Framboises : 60 g",
+      "Yaourt grec nature : 100 g",
+      "Jus de pomme : 80 ml",
+      "Glaçons : 50 g"
+    ]
+  },
+  {
+    "id": "sm_smoothie_energetique",
+    "name": "SMOOTHIE ÉNERGÉTIQUE",
+    "category": "SMOOTHIES & BOWLS",
+    "ingredients": [
+      "Banane : 120 g",
+      "Dattes Medjool : 40 g",
+      "Flocons d'avoine : 30 g",
+      "Lait d'amande : 180 ml",
+      "Beurre de cacahuète : 20 g"
+    ]
+  },
+  {
+    "id": "sm_smoothie_hawai",
+    "name": "SMOOTHIE HAWAÏ",
+    "category": "SMOOTHIES & BOWLS",
+    "ingredients": [
+      "Mangue fraîche : 100 g",
+      "Ananas frais : 100 g",
+      "Fruit de la passion : 30 g",
+      "Jus d'orange : 80 ml",
+      "Glaçons : 50 g"
+    ]
+  },
+  {
+    "id": "sm_smoothie_multivitamine",
+    "name": "SMOOTHIE MULTIVITAMINÉ",
+    "category": "SMOOTHIES & BOWLS",
+    "ingredients": [
+      "Jus d'orange frais : 100 ml",
+      "Carotte : 80 g",
+      "Pomme : 80 g",
+      "Gingembre frais : 5 g",
+      "Glaçons : 50 g"
+    ]
+  },
+  {
+    "id": "sm_smoothie_jelly_fruit",
+    "name": "SMOOTHIE JELLY FRUIT",
+    "category": "SMOOTHIES & BOWLS",
+    "ingredients": [
+      "Fruits rouges : 120 g",
+      "Banane : 80 g",
+      "Jus de cranberry : 80 ml",
+      "Perles de fruits Popping Boba : 30 g"
+    ]
+  },
+  {
+    "id": "sm_smoothie_triple_fruits",
+    "name": "SMOOTHIE TRIPLE FRUITS",
+    "category": "SMOOTHIES & BOWLS",
+    "ingredients": [
+      "Fraise : 70 g",
+      "Mangue : 70 g",
+      "Kiwi frais : 70 g",
+      "Jus d'orange : 80 ml",
+      "Glaçons : 50 g"
+    ]
+  },
+  {
+    "id": "sm_smoothie_bowl_exotique",
+    "name": "SMOOTHIE BOWL EXOTIQUE",
+    "category": "SMOOTHIES & BOWLS",
+    "ingredients": [
+      "Base mixée Mangue/Banane/Passion : 250 g",
+      "Granola croustillant : 40 g",
+      "Kiwi frais : 30 g",
+      "Graines de chia : 10 g",
+      "Noix de coco râpée : 10 g"
+    ]
+  },
+  {
+    "id": "sm_smoothie_bowl_ultra_boost",
+    "name": "SMOOTHIE BOWL ULTRA BOOST",
+    "category": "SMOOTHIES & BOWLS",
+    "ingredients": [
+      "Base mixée Açaï/Fruits rouges : 250 g",
+      "Banane : 50 g",
+      "Granola croustillant : 40 g",
+      "Myrtilles & Framboises : 30 g",
+      "Graines de chia : 10 g",
+      "Amandes effilées : 15 g"
+    ]
+  },
+  {
+    "id": "sd_coca_cola_33cl",
+    "name": "COCA-COLA 33CL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "ingredients": [
+      "Coca-Cola (Canette 33cl) : 1 p",
+      "Tranche de citron : 1 tr",
+      "Glaçons"
+    ]
+  },
+  {
+    "id": "sd_coca_cola_zero_33cl",
+    "name": "COCA-COLA ZÉRO 33CL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "ingredients": [
+      "Coca-Cola Zéro (Canette 33cl) : 1 p",
+      "Tranche de citron : 1 tr",
+      "Glaçons"
+    ]
+  },
+  {
+    "id": "sd_sprite_33cl",
+    "name": "SPRITE 33CL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "ingredients": [
+      "Sprite (Canette 33cl) : 1 p",
+      "Tranche de citron : 1 tr",
+      "Glaçons"
+    ]
+  },
+  {
+    "id": "sd_hawai_33cl",
+    "name": "HAWAÏ 33CL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "ingredients": [
+      "Hawaï Canette : 33 cl",
+      "Glaçons"
+    ]
+  },
+  {
+    "id": "sd_poms_33cl",
+    "name": "POMS 33CL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "ingredients": [
+      "Poms (Canette 33cl) : 1 p",
+      "Glaçons"
+    ]
+  },
+  {
+    "id": "sd_schweppes_citron_tonic_33cl",
+    "name": "SCHWEPPES CITRON / TONIC 33CL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "ingredients": [
+      "Schweppes (Canette 33cl) : 1 p",
+      "Tranche de citron : 1 tr",
+      "Glaçons"
+    ]
+  },
+  {
+    "id": "sd_orangina_33cl",
+    "name": "ORANGINA 33CL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "ingredients": [
+      "Orangina (Canette 33cl) : 1 p",
+      "Tranche d'orange : 1 tr",
+      "Glaçons"
+    ]
+  },
+  {
+    "id": "sd_red_bull_250ml",
+    "name": "RED BULL 250ML",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "ingredients": [
+      "Red Bull (Canette 250ml) : 1 p",
+      "Glaçons"
+    ]
+  },
+  {
+    "id": "ea_eau_minerale_33cl",
+    "name": "EAU MINÉRALE 33CL",
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "ingredients": [
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "ea_eau_minerale_50cl",
+    "name": "EAU MINÉRALE 50CL",
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "ingredients": [
+      "Bouteille Eau Minérale 50cl : 1 p"
+    ]
+  },
+  {
+    "id": "ea_eau_minerale_75cl",
+    "name": "EAU MINÉRALE 75CL",
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "ingredients": [
+      "Bouteille Eau Minérale 75cl : 1 p"
+    ]
+  },
+  {
+    "id": "ea_oulmes_eau_gazeuse_33cl_50cl",
+    "name": "OULMÈS EAU GAZEUSE 33CL / 50CL",
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "ingredients": [
+      "Bouteille Oulmès 33/50cl : 1 p",
+      "Tranche de citron : 1 tr"
+    ]
+  },
+  {
+    "id": "ea_oulmes_eau_gazeuse_75cl",
+    "name": "OULMÈS EAU GAZEUSE 75CL",
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "ingredients": [
+      "Bouteille Oulmès 75cl : 1 p",
+      "Tranches de citron : 2 tr"
+    ]
+  },
+  {
+    "id": "pdj_compagnard",
+    "name": "COMPAGNARD",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "pain cake : 2 p",
+      "Omelette : 3 œufs",
+      "Fromage : 30 g",
+      "Charcuteries : 60 g",
+      "Pain seigle : 2 tr",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_petit_dejeuner_americain",
+    "name": "PETIT DÉJEUNER AMÉRICAIN",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Bacon : 2 p",
+      "Omelette : 2 œufs",
+      "Fromage : 30 g",
+      "avocat : 60 g",
+      "Pain seigle : 2 tr",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_brunch_greycorner",
+    "name": "BRUNCH GREYCORNER",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Saucisses : 2 p",
+      "Omelette : 3 œufs",
+      "Fromage : 30 g",
+      "Toast hollandais : 2 p",
+      "Croquettes fromage : 2 p",
+      "Charcuteries : 60 g",
+      "Pain seigle : 2 tr",
+      "Mesclun : 40 g",
+      "Gaufre : 1 p",
+      "Pancake : 1 p",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_brunch_duo",
+    "name": "BRUNCH DUO",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Poulet pané : 120 g",
+      "Croquettes : 2 p",
+      "Croque maison : 1 p",
+      "Omelette fromage : 2 œufs",
+      "Charcuterie : 80 g",
+      "Fromage : 60 g",
+      "Pain seigle : 2 tr",
+      "Beldi : 2 mlaoui + 2 harcha",
+      "Mesclun : 40 g",
+      "Muffin : 1 p",
+      "Gaufre : 1 p",
+      "Jus d'orange : 2×200 ml",
+      "Boissons chaudes : 2 p",
+      "Desserts : 2 p",
+      "Bouteille Eau Minérale 33cl : 2 p"
+    ]
+  },
+  {
+    "id": "pdj_beldi",
+    "name": "BELDI",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Mlaoui : 2 p",
+      "Harcha : 2 p",
+      "Baghrir : 1 p",
+      "Jben : 40 g",
+      "Huile d’olive : 20 ml",
+      "Miel : 20 g",
+      "Olives : 20 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_hollandais",
+    "name": "HOLLANDAIS",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Pain mie complet : 2 tr",
+      "Œufs au plat : 2 p",
+      "Fromage : 40 g",
+      "Dinde fumée : 40 g",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_omelette_vegetarienne",
+    "name": "OMELETTE VÉGÉTARIENNE",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Œufs : 3 p",
+      "Légumes : 120 g",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_berbere",
+    "name": "BERBÈRE",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Baghrir : 1 p",
+      "Amlou : 30 g",
+      "Fruits secs : 30 g",
+      "Jben : 40 g",
+      "Miel : 20 g",
+      "Banane : 1 p",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_croque",
+    "name": "CROQUE",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Croque maison : 1 p",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_fassi",
+    "name": "FASSI",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Khli3 : 100 g",
+      "Œufs au plat : 3 p",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_omelette_continental",
+    "name": "OMELETTE CONTINENTAL",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Œufs : 3 p",
+      "Charcuterie : 60 g",
+      "Fromage : 40 g",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_omelette_fromage",
+    "name": "OMELETTE FROMAGE",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Œufs : 3 p",
+      "Fromage : 40 g",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_omelette_nature",
+    "name": "OMELETTE NATURE",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Œufs : 3 p",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_omelette_du_chef",
+    "name": "OMELETTE DU CHEF",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Œufs : 3 p",
+      "Champignons : 40 g",
+      "Épinards : 30 g",
+      "Fromage : 30 g",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_espagnol",
+    "name": "ESPAGNOL",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Tortilla : 1 p",
+      "Croquettes : 2 p",
+      "Tapenade : 20 g",
+      "Thon : 40 g",
+      "Tomates : 60 g",
+      "Fromage : 40 g",
+      "Pain seigle : 2 tr",
+      "Mesclun : 40 g",
+      "Jus : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_mquila_merguez",
+    "name": "MQUILA-MERGUEZ",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Merguez : 120 g",
+      "Poivrons/oignons : 120 g",
+      "Œufs : 2 p",
+      "Jus : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_mquila_fruits_de_mer",
+    "name": "MQUILA-FRUITS DE MER",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "crevettes : 100 g",
+      "calamars : 100 g",
+      "moules : 100 g",
+      "Œufs : 2 p",
+      "Jus : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_norvegien",
+    "name": "NORVÉGIEN",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Saumon : 60 g",
+      "Avocat : 50 g",
+      "Fromage : 30 g",
+      "Pain céréales : 2 tr",
+      "Jus : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_light",
+    "name": "LIGHT",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Pain complet : 2 tr",
+      "Jben : 40 g",
+      "Huile d’olive : 20 ml",
+      "Amlou : 20 g",
+      "Olives : 20 g",
+      "Jus : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_express",
+    "name": "EXPRESS",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Viennoiseries : 4 p",
+      "Jus : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pdj_menu_enfant_pdj",
+    "name": "MENU ENFANT (PDJ)",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Crêpe/Gaufre/Pancake : 1 p",
+      "Corn flakes : 1 bol",
+      "Lait chocolat : 200 ml"
+    ]
+  },
+  {
+    "id": "ef_salade_veggie",
+    "name": "Salade Veggie",
+    "category": "ENTRÉES FROIDES",
+    "ingredients": [
+      "Salade Rouge : 100 g",
+      "Concombre : 80 g",
+      "Tomate Cerise : 70 g",
+      "Œufs de Caille : 1 p",
+      "Haricot Vert : 60 g",
+      "Betterave : 120 g",
+      "Carotte : 40 g",
+      "Brocoli : 50 g",
+      "Radis : 60 g",
+      "Thon : 50 g",
+      "Sauce Vinaigrette : 200 g",
+      "Maïs : 30 g",
+      "Poivron : 50 g"
+    ]
+  },
+  {
+    "id": "ef_salade_russe",
+    "name": "Salade Russe",
+    "category": "ENTRÉES FROIDES",
+    "ingredients": [
+      "Pomme de Terre : 200 g",
+      "Carotte : 100 g",
+      "Poulet : 25 g",
+      "Petit Pois : 50 g",
+      "Olive Verte : 15 g",
+      "Cornichon : 24 g",
+      "Œufs de Caille : 1 p",
+      "Mayonnaise : 30 g",
+      "Thon : 50 g",
+      "Maïs : 15 g",
+      "Radis : 14 g",
+      "Poivron : 10 g",
+      "Concombre : 10 g"
+    ]
+  },
+  {
+    "id": "ef_salade_cesar",
+    "name": "Salade César",
+    "category": "ENTRÉES FROIDES",
+    "ingredients": [
+      "Salade Romaine : 180 g",
+      "Laitue : 100 g",
+      "Poulet : 130 g",
+      "Croûtons : 30 g",
+      "Tomate Cerise : 60 g",
+      "Sauce César : 70 g",
+      "Parmesan : 30 g"
+    ]
+  },
+  {
+    "id": "ef_salade_quinoa",
+    "name": "Salade Quinoa",
+    "category": "ENTRÉES FROIDES",
+    "ingredients": [
+      "Quinoa : 140 g",
+      "Gambas Pané : 60 g",
+      "Gambas Poché : 80 g",
+      "Fruits : 70 g",
+      "Feta : 20 g",
+      "Kiwi : 120 g",
+      "Vinaigrette : 20 g",
+      "Miel : 30 g",
+      "Framboise : 17 g"
+    ]
+  },
+  {
+    "id": "ef_salade_terre_mer",
+    "name": "Salade Terre & Mer",
+    "category": "ENTRÉES FROIDES",
+    "ingredients": [
+      "Poulet Pané : 50 g",
+      "Tomate Cerise : 25 g",
+      "Salade Rouge : 25 g",
+      "Maïs : 30 g",
+      "Gambas Poché : 73 g",
+      "Gambas Pané : 30 g",
+      "Avocat : 150 g",
+      "Sauce Tartare : 30 g",
+      "Pomme : 24 g",
+      "Moules : 16 g",
+      "Agrumes : 15 g"
+    ]
+  },
+  {
+    "id": "ef_tartare_saumon",
+    "name": "TARTARE SAUMON",
+    "category": "ENTRÉES FROIDES",
+    "ingredients": [
+      "saumon frais : 90 g",
+      "SAUMON FUMEE : 25 g",
+      "Avocat : 300 g",
+      "SAUCE TARTARE : 24 g"
+    ]
+  },
+  {
+    "id": "ef_salade_burrata",
+    "name": "Salade Burrata",
+    "category": "ENTRÉES FROIDES",
+    "ingredients": [
+      "Burrata : 184 g",
+      "Noix : 30 g",
+      "Roquette : 30 g",
+      "Pesto : 15 g",
+      "Balsamique : 10 g",
+      "Fruits Rouges : 40 g",
+      "Radis : 10 g",
+      "Tomate Cerise : 25 g"
+    ]
+  },
+  {
+    "id": "ec_boulettes_de_poulet_au_fromage",
+    "name": "BOULETTE DE POULET AU FROMAGE",
+    "category": "ENTRÉES CHAUDES",
+    "ingredients": [
+      "Poulet : 200 g",
+      "Farine : 100 g",
+      "Chapelure : 50 g",
+      "Edam : 25 g"
+    ]
+  },
+  {
+    "id": "ec_croustillon_gambas",
+    "name": "CROUSTILLON GAMBAS",
+    "category": "ENTRÉES CHAUDES",
+    "ingredients": [
+      "Gambas panées : 260 g",
+      "Purée : 400 g",
+      "Radis : 15 g",
+      "Parmesan : 14 g",
+      "Crème fraîche : 50 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "ec_pil_pil_espagnol",
+    "name": "PIL PIL ESPAGNOL",
+    "category": "ENTRÉES CHAUDES",
+    "ingredients": [
+      "Gambas : 260 g",
+      "Tomate cerise : 60 g",
+      "Pesto : 22 g",
+      "Huile d’olive : 30 g",
+      "Oignon : 60 g",
+      "Ail : 10 g",
+      "Sauce tomate : 120 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ]
+  },
+  {
+    "id": "pl_brochettes_de_poulet",
+    "name": "BROCHETTES DE POULET",
+    "category": "PLATS",
+    "ingredients": [
+      "Blanc de poulet : 200 g",
+      "Sauce barbecue : 30 g",
+      "Salade rouge : 50 g",
+      "Accompagnements — 2 au choix",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "pl_emince_de_poulet",
+    "name": "EMINCE DE POULET",
+    "category": "PLATS",
+    "ingredients": [
+      "Poulet : 160 g",
+      "Champignons : 90 g",
+      "Crème fraîche : 100 ml",
+      "Demi-glace : 100 ml",
+      "Légumes variés : 220 g",
+      "Fokacha : 150 g",
+      "Frites : 200 g",
+      "Pain : 1 p",
+      "Huile : 50 ml"
+    ]
+  },
+  {
+    "id": "pl_ballotine_de_poulet",
+    "name": "BALLOTINE DE POULET",
+    "category": "PLATS",
+    "ingredients": [
+      "Poulet : 250 g",
+      "Épinard : 40 g",
+      "Crème fraîche : 70 ml",
+      "Parmesan : 20 g",
+      "Cheddar : 60 g",
+      "Beurre : 30 g",
+      "Légumes : 220 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "pl_supreme_de_poulet",
+    "name": "SUPRÊME DE POULET",
+    "category": "PLATS",
+    "ingredients": [
+      "Blanc de poulet : 180 g",
+      "Champignon : 120 g",
+      "Crème fraîche : 70 ml",
+      "Persil : 20 g",
+      "Haricot vert : 55 g",
+      "Courgette : 55 g",
+      "Carotte : 57 g",
+      "Brocoli : 77 g",
+      "Persil : 30 g",
+      "Œuf : 1 p",
+      "Frites : 200 g",
+      "Pain : 1 p",
+      "Beurre : 40 g"
+    ]
+  },
+  {
+    "id": "pl_escalope_a_la_milanaise",
+    "name": "ESCALOPE A LA MILANAISE",
+    "category": "PLATS",
+    "ingredients": [
+      "Poulet : 120 g",
+      "Chapelure : 50 g",
+      "Crème fraîche : 70 ml",
+      "Moutarde : 10 g",
+      "Parmesan : 30 g",
+      "Légumes : 220 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "pl_emince_de_boeuf",
+    "name": "EMINCE DE BŒUF",
+    "category": "PLATS",
+    "ingredients": [
+      "Bœuf : 150 g",
+      "Champignons : 80 g",
+      "Crème fraîche : 70 ml",
+      "Demi-glace : 60 ml",
+      "Légumes : 220 g",
+      "Fokacha : 150 g",
+      "Frites : 200 g",
+      "Pain : 1 p",
+      "Huile : 60 ml"
+    ]
+  },
+  {
+    "id": "pl_filet_de_boeuf",
+    "name": "FILET DE BŒUF",
+    "category": "PLATS",
+    "ingredients": [
+      "Filet : 180 g",
+      "Beurre : 40 g",
+      "Poivre vert : 20 g",
+      "Demi-glace : 70 ml",
+      "Légumes : 220 g",
+      "Fokacha : 150 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "pl_pave_de_saumon",
+    "name": "PAVÉ DE SAUMON",
+    "category": "PLATS",
+    "ingredients": [
+      "Saumon : 180 g",
+      "Crevette : 80 g",
+      "Crème fraîche : 70 ml",
+      "Parmesan : 20 g",
+      "Beurre : 40 g",
+      "Légumes : 220 g",
+      "Fokacha : 150 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "pl_menu_enfant_plat",
+    "name": "MENU ENFANT (PLAT)",
+    "category": "PLATS",
+    "ingredients": [
+      "Pasta nature ou Mini pizza + boisson",
+      "OU Burger / nuggets + frites + boisson"
+    ]
+  },
+  {
+    "id": "pl_roulade_de_boeuf_vh",
+    "name": "ROULADE DE BŒUF VH",
+    "category": "PLATS",
+    "ingredients": [
+      "Viande hachée : 200 g",
+      "Épinard : 30 g",
+      "Champignon : 30 g",
+      "Fromage rouge : 20 g",
+      "Fromage bleu : 20 g",
+      "Crème fraîche : 70 ml",
+      "Haricot vert : 55 g",
+      "Courgette : 55 g",
+      "Carotte : 57 g",
+      "Brocoli : 77 g",
+      "Olive noire : 60 g",
+      "Fokacha : 150 g",
+      "Frites : 200 g",
+      "Pain : 1 p",
+      "Huile de table : 30 ml"
+    ]
+  },
+  {
+    "id": "bg_chicken_burger",
+    "name": "CHICKEN BURGER",
+    "category": "BURGERS",
+    "ingredients": [
+      "poulet : 150 g",
+      "Sauce blanche : 40 g",
+      "Sauce pesto : 20 g",
+      "Cheddar : 20 g",
+      "Tomate/Laitue : 30 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "bg_cheese_burger",
+    "name": "CHEESE BURGER",
+    "category": "BURGERS",
+    "ingredients": [
+      "Viande Hachée : 100 g",
+      "Cheddar : 20 g",
+      "Tomate : 30 g",
+      "Laitue : 20 g",
+      "Oignon+Cornichon : 45 ml",
+      "Sauce Bigy : 30 g",
+      "Frites + Sauce : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "bg_avocado_forestier",
+    "name": "AVOCADO FORESTIER",
+    "category": "BURGERS",
+    "ingredients": [
+      "Poulet : 120 g",
+      "Avocat : 50 g",
+      "Tomate/Laitue : 30 g",
+      "Œuf : 1 p",
+      "Chapelure : 50 g",
+      "Cheddar : 20 g",
+      "Sauce Bigy : 30 g",
+      "Frites+Sauce : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "bg_egg_et_cheeseburger",
+    "name": "EGG ET CHEESEBURGER",
+    "category": "BURGERS",
+    "ingredients": [
+      "Viande : 100 g",
+      "Œuf : 1 p",
+      "Champignon : 30 g",
+      "Cheddar : 20 g",
+      "Tomate/Laitue : 30 g",
+      "Sauce Bigy : 30 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "bg_big_burger",
+    "name": "BIG BURGER",
+    "category": "BURGERS",
+    "ingredients": [
+      "Viande : 2×100 g",
+      "Cheddar : 20 g",
+      "Tomate/Laitue : 30 g",
+      "Sauce du chef : 30 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "bg_burger_royal",
+    "name": "BURGER ROYAL",
+    "category": "BURGERS",
+    "ingredients": [
+      "Viande : 100 g",
+      "Poulet pané : 120 g",
+      "Œuf : 1 p",
+      "Cheddar : 20 g",
+      "Oignons caramélisés : 25 g",
+      "Laitue/Tomate : 30 g",
+      "Sauce spéciale : 30 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "wr_wrap_poulet",
+    "name": "WRAP POULET",
+    "category": "WRAPS",
+    "ingredients": [
+      "Poulet : 120 g",
+      "Œuf : 1 p",
+      "Frites + sauce : 200 g",
+      "Chapelure : 50 g",
+      "Cheddar : 25 g",
+      "Pain : 1 p",
+      "Tomate fraîche : 30 g",
+      "Sauce burger : 60 ml"
+    ]
+  },
+  {
+    "id": "wr_wrap_viande_hachee",
+    "name": "WRAP VIANDE HACHÉE",
+    "category": "WRAPS",
+    "ingredients": [
+      "Viande hachée : 100 g",
+      "Œuf : 1 p",
+      "Frites + sauce : 200 g",
+      "Cheddar : 25 g",
+      "Pain : 1 p",
+      "Tomate fraîche : 30 g",
+      "Sauce burger : 60 ml"
+    ]
+  },
+  {
+    "id": "wr_wrap_gourmand",
+    "name": "WRAP GOURMAND",
+    "category": "WRAPS",
+    "ingredients": [
+      "Poulet : 120 g",
+      "Charcuterie : 40 g",
+      "Œuf : 1 p",
+      "Chapelure : 50 g",
+      "Cheddar : 25 g",
+      "Frites + sauce : 200 g",
+      "Pain : 1 p",
+      "Tomate fraîche : 30 g",
+      "Sauce burger : 60 ml"
+    ]
+  },
+  {
+    "id": "pa_charcuterie",
+    "name": "CHARCUTERIE",
+    "category": "PANINIS",
+    "ingredients": [
+      "Charcuterie : 120 g",
+      "Mozzarella : 60 g",
+      "Frites + sauce : 200 g",
+      "Pain : 1 p",
+      "Sauce biggy : 30 g"
+    ]
+  },
+  {
+    "id": "pa_poulet",
+    "name": "POULET",
+    "category": "PANINIS",
+    "ingredients": [
+      "Poulet : 70 g",
+      "Mozzarella : 60 g",
+      "Frites + sauce : 200 g",
+      "Pain : 1 p",
+      "Sauce biggy : 30 g"
+    ]
+  },
+  {
+    "id": "pa_viande_hachee",
+    "name": "VIANDE HACHÉE",
+    "category": "PANINIS",
+    "ingredients": [
+      "Viande : 100 g",
+      "Mozzarella : 60 g",
+      "Frites + sauce : 200 g",
+      "Pain : 1 p",
+      "Sauce biggy : 30 g"
+    ]
+  },
+  {
+    "id": "pa_gourmand",
+    "name": "GOURMAND",
+    "category": "PANINIS",
+    "ingredients": [
+      "Viande : 50 g",
+      "Poulet : 50 g",
+      "Charcuterie : 50 g",
+      "Mozzarella : 60 g",
+      "Frites + sauce : 200 g",
+      "Pain : 1 p",
+      "Sauce biggy : 30 g"
+    ]
+  },
+  {
+    "id": "pa_fruits_de_mer",
+    "name": "FRUITS DE MER",
+    "category": "PANINIS",
+    "ingredients": [
+      "Crevettes : 100 g",
+      "Calamar : 50 g",
+      "Pesto : 20 g",
+      "Mozzarella : 60 g",
+      "Frites + sauce : 200 g",
+      "Pain : 1 p",
+      "Sauce biggy : 30 g"
+    ]
+  },
+  {
+    "id": "pa_saumon",
+    "name": "SAUMON",
+    "category": "PANINIS",
+    "ingredients": [
+      "Saumon : 90 g",
+      "Pesto : 20 g",
+      "Mozzarella : 60 g",
+      "Frites + sauce : 200 g",
+      "Pain : 1 p",
+      "Sauce biggy : 30 g"
+    ]
+  },
+  {
+    "id": "sw_fruits_de_mer",
+    "name": "FRUITS DE MER",
+    "category": "SANDWICHS",
+    "ingredients": [
+      "Crevette : 125 g",
+      "Calamar : 70 g",
+      "Sauce Biggy : 40 g",
+      "Cheddar : 20 g",
+      "Crème fraîche : 60 ml",
+      "Sauce fromagère : 20 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "sw_thon",
+    "name": "THON",
+    "category": "SANDWICHS",
+    "ingredients": [
+      "Thon : 120 g",
+      "Tomate : 30 g",
+      "Sauce burger : 40 ml",
+      "Cheddar : 20 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "sw_poulet",
+    "name": "POULET",
+    "category": "SANDWICHS",
+    "ingredients": [
+      "Poulet : 120 g",
+      "Tomate : 30 g",
+      "Sauce burger : 40 ml",
+      "Cheddar : 20 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "sw_poulet_crunchy",
+    "name": "POULET CRUNCHY",
+    "category": "SANDWICHS",
+    "ingredients": [
+      "Poulet : 120 g",
+      "Œuf : 1 p",
+      "Chapelure : 50 g",
+      "Tomate : 30 g",
+      "Cheddar : 20 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "sw_cheese_steak",
+    "name": "CHEESE STEAK",
+    "category": "SANDWICHS",
+    "ingredients": [
+      "Filet : 70 g",
+      "Demi-glace : 40 ml",
+      "Champignon : 50 g",
+      "Cheddar : 20 g",
+      "Crème fraîche : 40 ml",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "sw_viande_hachee",
+    "name": "VIANDE HACHÉE",
+    "category": "SANDWICHS",
+    "ingredients": [
+      "Viande : 100 g",
+      "Tomate : 30 g",
+      "Sauce spéciale : 30 g",
+      "Cheddar : 20 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "pz_margarita",
+    "name": "MARGARITA",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 200 g",
+      "Sauce tomate : 100 g",
+      "Olives noires : 13 g"
+    ]
+  },
+  {
+    "id": "pz_thon",
+    "name": "THON",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 200 g",
+      "Sauce tomate : 100 g",
+      "Thon : 100 g",
+      "Oignons : 40 g",
+      "Olives"
+    ]
+  },
+  {
+    "id": "pz_vegetarienne",
+    "name": "VÉGÉTARIENNE",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 200 g",
+      "Sauce tomate : 100 g",
+      "Champignons : 60 g",
+      "Légumes : 220 g"
+    ]
+  },
+  {
+    "id": "pz_regina",
+    "name": "REGINA",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 200 g",
+      "Dinde fumée : 100 g",
+      "Champignons : 60 g",
+      "Sauce blanche : 100 g"
+    ]
+  },
+  {
+    "id": "pz_5_fromages",
+    "name": "5 FROMAGES",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 50 g",
+      "Brie : 50 g",
+      "Bleu : 40 g",
+      "Sauce blanche : 100 g",
+      "Parmesan : 20 g",
+      "Fromage rouge : 40 g"
+    ]
+  },
+  {
+    "id": "pz_viande_hachee",
+    "name": "VIANDE HACHÉE",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 200 g",
+      "Sauce tomate : 100 g",
+      "Viande : 100 g",
+      "Tomate cerise : 40 g"
+    ]
+  },
+  {
+    "id": "pz_pepperoni",
+    "name": "PEPPERONI",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 200 g",
+      "Sauce tomate : 100 g",
+      "Pepperoni : 40 g"
+    ]
+  },
+  {
+    "id": "pz_poulet_sauce_blanche",
+    "name": "POULET SAUCE BLANCHE",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 200 g",
+      "Poulet : 150 g",
+      "Champignon : 60 g",
+      "Sauce blanche : 100 g"
+    ]
+  },
+  {
+    "id": "pz_4_saisons",
+    "name": "4 SAISONS",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 200 g",
+      "Calamar : 40 g",
+      "Crevette : 40 g",
+      "Viande : 40 g",
+      "Poulet : 40 g",
+      "Légumes : 60 g",
+      "Champignon : 60 g"
+    ]
+  },
+  {
+    "id": "pz_moitie_moitie",
+    "name": "MOITIÉ MOITIÉ",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Garnitures 2 moitiés (hors fruits de mer/saumon)"
+    ]
+  },
+  {
+    "id": "pz_burrata",
+    "name": "BURRATA",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 200 g",
+      "Sauce tomate : 100 g",
+      "Burrata : 35 g",
+      "Noix : 30 g",
+      "Tomate cerise : 20 g"
+    ]
+  },
+  {
+    "id": "pz_fruits_de_mer",
+    "name": "FRUITS DE MER",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 200 g",
+      "Crevette : 110 g",
+      "Calamar : 70 g",
+      "Moules : 40 g",
+      "Champignon : 60 g",
+      "Sauce blanche : 100 g"
+    ]
+  },
+  {
+    "id": "pz_saumon",
+    "name": "SAUMON",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 200 g",
+      "Saumon : 90 g",
+      "Sauce blanche : 100 g",
+      "Câpres : 15 g"
+    ]
+  },
+  {
+    "id": "pae_lasagne_poulet",
+    "name": "LASAGNE POULET",
+    "category": "PÂTES",
+    "ingredients": [
+      "Pâtes : 60 g",
+      "poulet : 80 g",
+      "Parmesan : 15 g",
+      "Huile : 60 g",
+      "champignon : 50 g",
+      "Pesto : 70 g",
+      "Sauce blanche : 100 g",
+      "Oignon/Ail : 70 g"
+    ]
+  },
+  {
+    "id": "pae_lasagne_bolognaise",
+    "name": "LASAGNE BOLOGNAISE",
+    "category": "PÂTES",
+    "ingredients": [
+      "Pâtes : 60 g",
+      "Viande : 100 g",
+      "Parmesan : 15 g",
+      "Huile : 60 g",
+      "Tomate cerise : 50 g",
+      "Pesto : 70 g",
+      "Sauce tomate : 80 g",
+      "Oignon/Ail : 70 g"
+    ]
+  },
+  {
+    "id": "pae_lasagne_fruits_de_mer",
+    "name": "LASAGNE FRUITS DE MER",
+    "category": "PÂTES",
+    "ingredients": [
+      "Pâtes : 60 g",
+      "crevette : 140 g",
+      "Parmesan : 15 g",
+      "Huile : 60 g",
+      "CALAMAR : 100 g",
+      "Pesto : 70 g",
+      "Sauce blanche : 100 g",
+      "Oignon/Ail : 70 g"
+    ]
+  },
+  {
+    "id": "pae_vegetarien",
+    "name": "VÉGÉTARIEN",
+    "category": "PÂTES",
+    "ingredients": [
+      "Pâtes : 150 g",
+      "Sauce pesto : 70 g",
+      "Parmesan : 60 g",
+      "Huile d'olive : 60 g",
+      "Crème : 100 g",
+      "Oignon : 60 g",
+      "Tomate cerise : 50 g",
+      "Légumes : 150 g"
+    ]
+  },
+  {
+    "id": "pae_carbonara",
+    "name": "CARBONARA",
+    "category": "PÂTES",
+    "ingredients": [
+      "Pâtes : 150 g",
+      "Jambon de dinde : 80 g",
+      "Parmesan : 60 g",
+      "Huile : 60 g",
+      "Crème : 100 g",
+      "Oignon/Ail : 70 g"
+    ]
+  },
+  {
+    "id": "pae_5_fromages",
+    "name": "5 FROMAGES",
+    "category": "PÂTES",
+    "ingredients": [
+      "Pâtes : 150 g",
+      "Brie : 25 g",
+      "Parmesan : 25 g",
+      "Bleu : 20 g",
+      "Mozzarella : 30 g",
+      "Edam : 20 g",
+      "Huile : 60 g",
+      "Crème : 100 g",
+      "Oignon/Ail : 70 g"
+    ]
+  },
+  {
+    "id": "pae_rigatoni_ricotta",
+    "name": "RIGATONI RICOTTA",
+    "category": "PÂTES",
+    "ingredients": [
+      "Pâtes : 150 g",
+      "Ricotta : 40 g",
+      "Parmesan : 60 g",
+      "Huile : 60 g",
+      "Crème : 100 g",
+      "Pesto : 70 g",
+      "Courgette : 100 g",
+      "Oignon/Ail : 70 g"
+    ]
+  },
+  {
+    "id": "pae_bolognaise",
+    "name": "BOLOGNAISE",
+    "category": "PÂTES",
+    "ingredients": [
+      "Pâtes : 150 g",
+      "Viande : 100 g",
+      "Parmesan : 60 g",
+      "Huile : 60 g",
+      "Tomate cerise : 50 g",
+      "Pesto : 70 g",
+      "Sauce tomate : 80 g",
+      "Oignon/Ail : 70 g"
+    ]
+  },
+  {
+    "id": "pae_poulet_champignon_epinard",
+    "name": "POULET CHAMPIGNON / ÉPINARD",
+    "category": "PÂTES",
+    "ingredients": [
+      "Pâtes : 150 g",
+      "Poulet : 80 g",
+      "Parmesan : 60 g",
+      "Huile : 60 g",
+      "Crème : 100 g",
+      "Pesto : 70 g",
+      "Épinard : 30 g",
+      "Champignon : 70 g",
+      "Oignon/Ail : 70 g"
+    ]
+  },
+  {
+    "id": "pae_fruits_de_mer",
+    "name": "FRUITS DE MER",
+    "category": "PÂTES",
+    "ingredients": [
+      "Pâtes : 150 g",
+      "Crevettes : 105 g",
+      "Calamar : 60 g",
+      "Moules : 15 g",
+      "Parmesan : 60 g",
+      "Huile : 60 g",
+      "Crème : 100 g",
+      "Pesto : 70 g",
+      "Oignon/Ail : 70 g"
+    ]
+  },
+  {
+    "id": "pae_saumon",
+    "name": "SAUMON",
+    "category": "PÂTES",
+    "ingredients": [
+      "Pâtes : 150 g",
+      "Saumon : 90 g",
+      "Parmesan : 60 g",
+      "Huile : 60 g",
+      "Crème : 100 g",
+      "Pesto : 70 g",
+      "Oignon/Ail : 70 g"
+    ]
+  },
+  {
+    "id": "pae_spaghettis_noirs_suppl",
+    "name": "SPAGHETTIS NOIRS (suppl.)",
+    "category": "PÂTES",
+    "ingredients": [
+      "Supplément pâtes noires à l'encre de seiche"
+    ]
+  },
+  {
+    "id": "dp_san_sebastien_cheesecake",
+    "name": "SAN SEBASTIEN CHEESECAKE",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Cheesecake San Sebastian : 1 part (160 g)",
+      "Coulis chocolat chaud : 30 g"
+    ]
+  },
+  {
+    "id": "dp_fondant_au_chocolat",
+    "name": "FONDANT AU CHOCOLAT",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Fondant chocolat cœur coulant : 1 p (120 g)",
+      "Glace vanille artisanale : 1 boule (50 g)",
+      "Sucre glace : 5 g"
+    ]
+  },
+  {
+    "id": "dp_cheesecake_chocolat",
+    "name": "CHEESECAKE CHOCOLAT",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Cheesecake chocolat : 1 part (150 g)",
+      "Chantilly : 20 g"
+    ]
+  },
+  {
+    "id": "dp_boule_de_glace",
+    "name": "BOULE DE GLACE",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Glace artisanale au choix : 1 boule (50 g)"
+    ]
+  },
+  {
+    "id": "dp_2_boules_de_glace",
+    "name": "2 BOULES DE GLACE",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Glace artisanale au choix : 2 boules (100 g)",
+      "Coulis & Chantilly : 20 g"
+    ]
+  },
+  {
+    "id": "dp_3_boules_de_glace",
+    "name": "3 BOULES DE GLACE",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Glace artisanale au choix : 3 boules (150 g)",
+      "Coulis, Chantilly & Gaufrette : 30 g"
+    ]
+  },
+  {
+    "id": "cr_crepe_nutella",
+    "name": "CRÊPE NUTELLA",
+    "category": "CRÊPES",
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Nutella : 60 g",
+      "Banane ou Amandes : 20 g"
+    ]
+  },
+  {
+    "id": "cr_crepe_kunafa_pistache",
+    "name": "CRÊPE KUNAFA PISTACHE",
+    "category": "CRÊPES",
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Pâte de pistache : 40 g",
+      "Kunafa croustillante : 30 g",
+      "Pistaches concassées : 15 g"
+    ]
+  },
+  {
+    "id": "cr_crepe_fromage",
+    "name": "CRÊPE FROMAGE",
+    "category": "CRÊPES",
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Mozzarella : 50 g",
+      "Fromage rouge : 30 g",
+      "Fromage blanc : 20 g"
+    ]
+  },
+  {
+    "id": "cr_crepe_poulet_champignon",
+    "name": "CRÊPE POULET CHAMPIGNON",
+    "category": "CRÊPES",
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Blanc de poulet : 70 g",
+      "Champignons : 40 g",
+      "Mozzarella : 40 g",
+      "Crème fraîche : 40 ml"
+    ]
+  },
+  {
+    "id": "cr_crepe_charcuterie",
+    "name": "CRÊPE CHARCUTERIE",
+    "category": "CRÊPES",
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Charcuterie de dinde : 60 g",
+      "Mozzarella : 40 g",
+      "Fromage : 20 g"
+    ]
+  },
+  {
+    "id": "cr_crepe_norvegienne",
+    "name": "CRÊPE NORVÉGIENNE",
+    "category": "CRÊPES",
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Saumon fumé : 60 g",
+      "Crème fraîche : 40 ml",
+      "Fromage : 30 g"
+    ]
+  },
+  {
+    "id": "sup_supplement_frites",
+    "name": "SUPPLÉMENT FRITES",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Frites : 200 g",
+      "Sauce : 30 g"
+    ]
+  },
+  {
+    "id": "sup_supplement_puree",
+    "name": "SUPPLÉMENT PURÉE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Pomme de terre purée : 250 g",
+      "Beurre : 15 g"
+    ]
+  },
+  {
+    "id": "sup_supplement_potatos",
+    "name": "SUPPLÉMENT POTATOS",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Pomme de terre potatos : 200 g",
+      "Sauce : 30 g"
+    ]
+  },
+  {
+    "id": "sup_supplement_miel",
+    "name": "SUPPLÉMENT MIEL",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Miel pur : 30 g"
+    ]
+  },
+  {
+    "id": "sup_supplement_jben",
+    "name": "SUPPLÉMENT JBEN",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Jben frais : 50 g"
+    ]
+  },
+  {
+    "id": "sup_supplement_oeufs",
+    "name": "SUPPLÉMENT ŒUFS",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Œufs frais : 2 p"
+    ]
+  },
+  {
+    "id": "sup_supplement_fromage",
+    "name": "SUPPLÉMENT FROMAGE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Fromage variété : 50 g"
+    ]
+  },
+  {
+    "id": "sup_pizza_composee_au_choix",
+    "name": "PIZZA COMPOSÉE AU CHOIX",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Pâte à pizza : 330 g",
+      "Mozzarella : 200 g",
+      "Sauce tomate : 100 g",
+      "Garniture composée : 150 g"
+    ]
+  },
+  {
+    "id": "sup_divers_cuisine_food",
+    "name": "DIVERS CUISINE / FOOD",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Ingrédients cuisine divers : 1 portion"
+    ]
+  },
+  {
+    "id": "sup_divers_bar_boissons",
+    "name": "DIVERS BAR / BOISSONS",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Ingrédients bar divers : 1 portion"
+    ]
+  },
+  {
+    "id": "alc_baghrir",
+    "name": "PETIT BAGHRIR (A LA CARTE)",
+    "category": "A LA CARTE",
+    "ingredients": [
+      "Baghrir : 1 p"
+    ]
+  },
+  {
+    "id": "alc_msemen",
+    "name": "MSEMEN NATURE (A LA CARTE)",
+    "category": "A LA CARTE",
+    "ingredients": [
+      "Msemen : 1 p"
+    ]
+  },
+  {
+    "id": "alc_viennoiserie",
+    "name": "VIENNOISERIE (A LA CARTE)",
+    "category": "A LA CARTE",
+    "ingredients": [
+      "Viennoiserie : 1 p"
+    ]
+  },
+  {
+    "id": "alc_harcha",
+    "name": "HARCHA (A LA CARTE)",
+    "category": "A LA CARTE",
+    "ingredients": [
+      "Harcha : 1 p"
+    ]
+  },
+  {
+    "id": "alc_omlette_fromage",
+    "name": "OMLETTE FROMAGE (A LA CARTE)",
+    "category": "A LA CARTE",
+    "ingredients": [
+      "Œufs : 3 p",
+      "Fromage : 40 g",
+      "Mesclun : 30 g"
+    ]
+  },
+  {
+    "id": "alc_omlette_nature",
+    "name": "OMLETTE NATURE (A LA CARTE)",
+    "category": "A LA CARTE",
+    "ingredients": [
+      "Œufs : 3 p",
+      "Mesclun : 30 g"
+    ]
+  },
+  {
+    "id": "alc_omlette_chef",
+    "name": "OMLETTE DU CHEF (A LA CARTE)",
+    "category": "A LA CARTE",
+    "ingredients": [
+      "Œufs : 3 p",
+      "Champignons : 40 g",
+      "Épinards : 30 g",
+      "Fromage : 30 g"
+    ]
+  }
+];
+
+// 3. Dictionnaire d'alias et correspondances caisse POS -> Fiches Techniques
+const ALIAS_MAP = {
+  "cafe noir espresso": "bc_cafe_noir_espresso",
+  "café noir / espresso": "bc_cafe_noir_espresso",
+  "cafe americain": "bc_cafe_americain",
+  "café américain": "bc_cafe_americain",
+  "cafe au lait": "bc_cafe_au_lait",
+  "café au lait": "bc_cafe_au_lait",
+  "cafe latte": "bc_cafe_latte",
+  "café latte": "bc_cafe_latte",
+  "cappuccino italien": "bc_cappuccino_italien",
+  "cappuccino chantilly": "bc_cappuccino_chantilly",
+  "cafe nespresso": "bc_cafe_nespresso",
+  "café nespresso": "bc_cafe_nespresso",
+  "chocolat chaud": "bc_chocolat_chaud",
+  "chocolat chaud chantilly": "bc_chocolat_chaud_chantilly",
+  "chocolat fondu gourmand": "bc_chocolat_fondu_gourmand",
+  "the marocain a la menthe": "bc_the_marocain_a_la_menthe",
+  "thé marocain à la menthe": "bc_the_marocain_a_la_menthe",
+  "the noir": "bc_the_noir",
+  "thé noir": "bc_the_noir",
+  "the noir au lait": "bc_the_noir_au_lait",
+  "thé noir au lait": "bc_the_noir_au_lait",
+  "verveine nature": "bc_verveine_nature",
+  "verveine aromatisee": "bc_verveine_aromatisee",
+  "verveine aromatisée": "bc_verveine_aromatisee",
+  "infusion bien etre": "bc_infusion_bien_etre",
+  "infusion bien-être": "bc_infusion_bien_etre",
+  "verre de lait": "bc_verre_de_lait",
+  "lait casse": "bc_lait_casse",
+  "lait cassé": "bc_lait_casse",
+  "cafe separe": "bc_cafe_separe",
+  "café séparé": "bc_cafe_separe",
+  "cafe moitie": "bc_cafe_moitie",
+  "café moitié": "bc_cafe_moitie",
+  "ice coffee classique": "fg_ice_coffee_classique",
+  "ice coffee aromatise": "fg_ice_coffee_aromatise",
+  "ice coffee aromatisé": "fg_ice_coffee_aromatise",
+  "frappuccino classique": "fg_frappuccino_classique",
+  "frappuccino aromatise": "fg_frappuccino_aromatise",
+  "frappuccino aromatisé": "fg_frappuccino_aromatise",
+  "ice tea peche maison": "it_ice_tea_peche_maison",
+  "ice tea pêche maison": "it_ice_tea_peche_maison",
+  "ice tea citron maison": "it_ice_tea_citron_maison",
+  "ice tea framboise maison": "it_ice_tea_framboise_maison",
+  "jus d orange presse": "jf_jus_d_orange_presse",
+  "jus d'orange pressé": "jf_jus_d_orange_presse",
+  "jus de citron citronnade": "jf_jus_de_citron_citronnade",
+  "jus de citron / citronnade": "jf_jus_de_citron_citronnade",
+  "jus de fraise": "jf_jus_de_fraise",
+  "jus de framboise": "jf_jus_de_framboise",
+  "jus de mangue": "jf_jus_de_mangue",
+  "jus d ananas": "jf_jus_d_ananas",
+  "jus d'ananas": "jf_jus_d_ananas",
+  "jus de peche": "jf_jus_de_peche",
+  "jus de pêche": "jf_jus_de_peche",
+  "jus de carotte": "jf_jus_de_carotte",
+  "jus pomme banane": "jf_jus_pomme_banane",
+  "jus pomme & banane": "jf_jus_pomme_banane",
+  "jus d avocat au lait": "jf_jus_d_avocat_au_lait",
+  "jus d'avocat au lait": "jf_jus_d_avocat_au_lait",
+  "jus d avocat royal fruits secs": "jf_jus_d_avocat_royal_fruits_secs",
+  "jus d'avocat royal fruits secs": "jf_jus_d_avocat_royal_fruits_secs",
+  "jus panache fruits frais": "jf_jus_panache_fruits_frais",
+  "jus panaché fruits frais": "jf_jus_panache_fruits_frais",
+  "cocktail a base d orange": "jf_cocktail_a_base_d_orange",
+  "cocktail à base d'orange": "jf_cocktail_a_base_d_orange",
+  "za3za3 royal grey corner": "jf_za3za3_royal_grey_corner",
+  "signature grey corner": "ck_signature_grey_corner",
+  "virgin pina colada": "ck_virgin_pi_a_colada",
+  "virgin piña colada": "ck_virgin_pi_a_colada",
+  "cocktail tropical": "ck_cocktail_tropical",
+  "mojito virgin fraicheur": "ck_mojito_virgin_fraicheur",
+  "mojito virgin / fraîcheur": "ck_mojito_virgin_fraicheur",
+  "detox gingembre citron": "ck_detox_gingembre_citron",
+  "détox gingembre citron": "ck_detox_gingembre_citron",
+  "cocktail sans alcool special": "ck_cocktail_sans_alcool_special",
+  "cocktail sans alcool spécial": "ck_cocktail_sans_alcool_special",
+  "mojito tropical": "ck_mojito_tropical",
+  "mojito red bull": "ck_mojito_red_bull",
+  "mojito citron": "ck_mojito_citron",
+  "smoothie pink berry": "sm_smoothie_pink_berry",
+  "smoothie energetique": "sm_smoothie_energetique",
+  "smoothie énergétique": "sm_smoothie_energetique",
+  "smoothie hawai": "sm_smoothie_hawai",
+  "smoothie hawaï": "sm_smoothie_hawai",
+  "smoothie multivitamine": "sm_smoothie_multivitamine",
+  "smoothie multivitaminé": "sm_smoothie_multivitamine",
+  "smoothie jelly fruit": "sm_smoothie_jelly_fruit",
+  "smoothie triple fruits": "sm_smoothie_triple_fruits",
+  "smoothie bowl exotique": "sm_smoothie_bowl_exotique",
+  "smoothie bowl ultra boost": "sm_smoothie_bowl_ultra_boost",
+  "coca cola 33cl": "sd_coca_cola_33cl",
+  "coca-cola 33cl": "sd_coca_cola_33cl",
+  "coca cola zero 33cl": "sd_coca_cola_zero_33cl",
+  "coca-cola zéro 33cl": "sd_coca_cola_zero_33cl",
+  "sprite 33cl": "sd_sprite_33cl",
+  "hawai 33cl": "sd_hawai_33cl",
+  "hawaï 33cl": "sd_hawai_33cl",
+  "poms 33cl": "sd_poms_33cl",
+  "schweppes citron tonic 33cl": "sd_schweppes_citron_tonic_33cl",
+  "schweppes citron / tonic 33cl": "sd_schweppes_citron_tonic_33cl",
+  "orangina 33cl": "sd_orangina_33cl",
+  "red bull 250ml": "sd_red_bull_250ml",
+  "eau minerale 33cl": "ea_eau_minerale_33cl",
+  "eau minérale 33cl": "ea_eau_minerale_33cl",
+  "eau minerale 50cl": "ea_eau_minerale_50cl",
+  "eau minérale 50cl": "ea_eau_minerale_50cl",
+  "eau minerale 75cl": "ea_eau_minerale_75cl",
+  "eau minérale 75cl": "ea_eau_minerale_75cl",
+  "oulmes eau gazeuse 33cl 50cl": "ea_oulmes_eau_gazeuse_33cl_50cl",
+  "oulmès eau gazeuse 33cl / 50cl": "ea_oulmes_eau_gazeuse_33cl_50cl",
+  "oulmes eau gazeuse 75cl": "ea_oulmes_eau_gazeuse_75cl",
+  "oulmès eau gazeuse 75cl": "ea_oulmes_eau_gazeuse_75cl",
+  "compagnard": "pdj_compagnard",
+  "petit dejeuner americain": "pdj_petit_dejeuner_americain",
+  "petit déjeuner américain": "pdj_petit_dejeuner_americain",
+  "brunch greycorner": "pdj_brunch_greycorner",
+  "brunch duo": "pdj_brunch_duo",
+  "beldi": "pdj_beldi",
+  "hollandais": "pdj_hollandais",
+  "omelette vegetarienne": "pdj_omelette_vegetarienne",
+  "omelette végétarienne": "pdj_omelette_vegetarienne",
+  "berbere": "pdj_berbere",
+  "berbère": "pdj_berbere",
+  "croque": "pdj_croque",
+  "fassi": "pdj_fassi",
+  "omelette continental": "pdj_omelette_continental",
+  "omelette fromage": "pdj_omelette_fromage",
+  "omelette nature": "pdj_omelette_nature",
+  "omelette du chef": "pdj_omelette_du_chef",
+  "espagnol": "pdj_espagnol",
+  "mquila merguez": "pdj_mquila_merguez",
+  "mquila-merguez": "pdj_mquila_merguez",
+  "mquila fruits de mer": "pdj_mquila_fruits_de_mer",
+  "mquila-fruits de mer": "pdj_mquila_fruits_de_mer",
+  "norvegien": "pdj_norvegien",
+  "norvégien": "pdj_norvegien",
+  "light": "pdj_light",
+  "express": "pdj_express",
+  "menu enfant pdj": "pdj_menu_enfant_pdj",
+  "menu enfant (pdj)": "pdj_menu_enfant_pdj",
+  "salade veggie": "ef_salade_veggie",
+  "salade russe": "ef_salade_russe",
+  "salade cesar": "ef_salade_cesar",
+  "salade césar": "ef_salade_cesar",
+  "salade quinoa": "ef_salade_quinoa",
+  "salade terre mer": "ef_salade_terre_mer",
+  "salade terre & mer": "ef_salade_terre_mer",
+  "tartare saumon": "ef_tartare_saumon",
+  "salade burrata": "ef_salade_burrata",
+  "croquettes 5 fromages": "ec_boulettes_de_poulet_au_fromage",
+  "croquette 5 fromages": "ec_boulettes_de_poulet_au_fromage",
+  "croquettes au fromage": "ec_boulettes_de_poulet_au_fromage",
+  "croquette au fromage": "ec_boulettes_de_poulet_au_fromage",
+  "croquettes fromage": "ec_boulettes_de_poulet_au_fromage",
+  "croquette fromage": "ec_boulettes_de_poulet_au_fromage",
+  "croquettes": "ec_boulettes_de_poulet_au_fromage",
+  "boulettes de poulet au fromage": "ec_boulettes_de_poulet_au_fromage",
+  "boulette de poulet au fromage": "ec_boulettes_de_poulet_au_fromage",
+  "boulettes de poulet": "ec_boulettes_de_poulet_au_fromage",
+  "boulette de poulet": "ec_boulettes_de_poulet_au_fromage",
+  "boulette poulet fromage": "ec_boulettes_de_poulet_au_fromage",
+  "boulettes poulet fromage": "ec_boulettes_de_poulet_au_fromage",
+  "croustillon gambas": "ec_croustillon_gambas",
+  "pil pil espagnol": "ec_pil_pil_espagnol",
+  "brochettes de poulet": "pl_brochettes_de_poulet",
+  "emince de poulet": "pl_emince_de_poulet",
+  "ballotine de poulet": "pl_ballotine_de_poulet",
+  "supreme de poulet": "pl_supreme_de_poulet",
+  "suprême de poulet": "pl_supreme_de_poulet",
+  "supreme poulet": "pl_supreme_de_poulet",
+  "escalope a la parmigiana": "pl_supreme_de_poulet",
+  "escalope a la milanaise": "pl_escalope_a_la_milanaise",
+  "emince de boeuf": "pl_emince_de_boeuf",
+  "emince de bœuf": "pl_emince_de_boeuf",
+  "filet de boeuf": "pl_filet_de_boeuf",
+  "filet de bœuf": "pl_filet_de_boeuf",
+  "pave de saumon": "pl_pave_de_saumon",
+  "pavé de saumon": "pl_pave_de_saumon",
+  "menu enfant plat": "pl_menu_enfant_plat",
+  "menu enfant (plat)": "pl_menu_enfant_plat",
+  "roulade de boeuf vh": "pl_roulade_de_boeuf_vh",
+  "roulade de bœuf vh": "pl_roulade_de_boeuf_vh",
+  "roulade de boeuf": "pl_roulade_de_boeuf_vh",
+  "roulade de viande hachee": "pl_roulade_de_boeuf_vh",
+  "roulade de viande hachée": "pl_roulade_de_boeuf_vh",
+  "roulade viande hachee": "pl_roulade_de_boeuf_vh",
+  "roulade v hache": "pl_roulade_de_boeuf_vh",
+  "roulade de boeuf de viande hachee": "pl_roulade_de_boeuf_vh",
+  "chicken burger": "bg_chicken_burger",
+  "cheese burger": "bg_cheese_burger",
+  "avocado forestier": "bg_avocado_forestier",
+  "egg et cheeseburger": "bg_egg_et_cheeseburger",
+  "big burger": "bg_big_burger",
+  "burger royal": "bg_burger_royal",
+  "wrap poulet": "wr_wrap_poulet",
+  "wrap viande hachee": "wr_wrap_viande_hachee",
+  "wrap viande hachée": "wr_wrap_viande_hachee",
+  "wrap gourmand": "wr_wrap_gourmand",
+  "charcuterie": "pa_charcuterie",
+  "poulet": "sw_poulet",
+  "viande hachee": "pz_viande_hachee",
+  "viande hachée": "pz_viande_hachee",
+  "gourmand": "pa_gourmand",
+  "fruits de mer": "pae_fruits_de_mer",
+  "saumon": "pae_saumon",
+  "thon": "pz_thon",
+  "poulet crunchy": "sw_poulet_crunchy",
+  "cheese steak": "sw_cheese_steak",
+  "margarita": "pz_margarita",
+  "vegetarienne": "pz_vegetarienne",
+  "végétarienne": "pz_vegetarienne",
+  "regina": "pz_regina",
+  "5 fromages": "pae_5_fromages",
+  "pepperoni": "pz_pepperoni",
+  "poulet sauce blanche": "pz_poulet_sauce_blanche",
+  "4 saisons": "pz_4_saisons",
+  "moitie moitie": "pz_moitie_moitie",
+  "moitié moitié": "pz_moitie_moitie",
+  "burrata": "pz_burrata",
+  "lasagne poulet": "pae_lasagne_poulet",
+  "lasagne bolognaise": "pae_lasagne_bolognaise",
+  "lasagne fruits de mer": "pae_lasagne_fruits_de_mer",
+  "vegetarien": "pae_vegetarien",
+  "végétarien": "pae_vegetarien",
+  "carbonara": "pae_carbonara",
+  "rigatoni ricotta": "pae_rigatoni_ricotta",
+  "bolognaise": "pae_bolognaise",
+  "poulet champignon epinard": "pae_poulet_champignon_epinard",
+  "poulet champignon / épinard": "pae_poulet_champignon_epinard",
+  "spaghettis noirs suppl": "pae_spaghettis_noirs_suppl",
+  "spaghettis noirs (suppl.)": "pae_spaghettis_noirs_suppl",
+  "san sebastien cheesecake": "dp_san_sebastien_cheesecake",
+  "fondant au chocolat": "dp_fondant_au_chocolat",
+  "cheesecake chocolat": "dp_cheesecake_chocolat",
+  "boule de glace": "dp_boule_de_glace",
+  "2 boules de glace": "dp_2_boules_de_glace",
+  "3 boules de glace": "dp_3_boules_de_glace",
+  "crepe nutella": "cr_crepe_nutella",
+  "crêpe nutella": "cr_crepe_nutella",
+  "crepe kunafa pistache": "cr_crepe_kunafa_pistache",
+  "crêpe kunafa pistache": "cr_crepe_kunafa_pistache",
+  "crepe fromage": "cr_crepe_fromage",
+  "crêpe fromage": "cr_crepe_fromage",
+  "crepe poulet champignon": "cr_crepe_poulet_champignon",
+  "crêpe poulet champignon": "cr_crepe_poulet_champignon",
+  "crepe charcuterie": "cr_crepe_charcuterie",
+  "crêpe charcuterie": "cr_crepe_charcuterie",
+  "crepe norvegienne": "cr_crepe_norvegienne",
+  "crêpe norvégienne": "cr_crepe_norvegienne",
+  "supplement frites": "sup_supplement_frites",
+  "supplément frites": "sup_supplement_frites",
+  "supplement puree": "sup_supplement_puree",
+  "supplément purée": "sup_supplement_puree",
+  "supplement potatos": "sup_supplement_potatos",
+  "supplément potatos": "sup_supplement_potatos",
+  "supplement miel": "sup_supplement_miel",
+  "supplément miel": "sup_supplement_miel",
+  "supplement jben": "sup_supplement_jben",
+  "supplément jben": "sup_supplement_jben",
+  "supplement oeufs": "sup_supplement_oeufs",
+  "supplément œufs": "sup_supplement_oeufs",
+  "supplement fromage": "sup_supplement_fromage",
+  "supplément fromage": "sup_supplement_fromage",
+  "pizza composee au choix": "sup_pizza_composee_au_choix",
+  "pizza composée au choix": "sup_pizza_composee_au_choix",
+  "divers cuisine food": "sup_divers_cuisine_food",
+  "divers cuisine / food": "sup_divers_cuisine_food",
+  "divers bar boissons": "sup_divers_bar_boissons",
+  "divers bar / boissons": "sup_divers_bar_boissons",
+  "cafe": "bc_cafe_noir_espresso",
+  "cafe noir": "bc_cafe_noir_espresso",
+  "espresso": "bc_cafe_noir_espresso",
+  "expresso": "bc_cafe_noir_espresso",
+  "americano": "bc_cafe_americain",
+  "cafe lait": "bc_cafe_au_lait",
+  "latte": "bc_cafe_latte",
+  "cappuccino": "bc_cappuccino_italien",
+  "nespresso": "bc_cafe_nespresso",
+  "cafe séparé": "bc_cafe_separe",
+  "cafe moitié": "bc_cafe_moitie",
+  "chocolat au lait": "bc_chocolat_chaud",
+  "chocolat chantilly": "bc_chocolat_chaud_chantilly",
+  "chocolat fondu": "bc_chocolat_fondu_gourmand",
+  "the a la menthe": "bc_the_marocain_a_la_menthe",
+  "the menthe": "bc_the_marocain_a_la_menthe",
+  "the vert": "bc_the_marocain_a_la_menthe",
+  "verveine": "bc_verveine_nature",
+  "verveine au lait": "bc_verveine_aromatisee",
+  "the infusion": "bc_infusion_bien_etre",
+  "infusion": "bc_infusion_bien_etre",
+  "ice coffee": "fg_ice_coffee_classique",
+  "frappuccino": "fg_frappuccino_classique",
+  "frappuccino caramel": "fg_frappuccino_aromatise",
+  "ice tea peche": "it_ice_tea_peche_maison",
+  "ice tea citron": "it_ice_tea_citron_maison",
+  "ice tea framboise": "it_ice_tea_framboise_maison",
+  "jus d orange": "jf_jus_d_orange_presse",
+  "jus orange": "jf_jus_d_orange_presse",
+  "orange presse": "jf_jus_d_orange_presse",
+  "jus de citron": "jf_jus_de_citron_citronnade",
+  "citronnade": "jf_jus_de_citron_citronnade",
+  "jus fraise": "jf_jus_de_fraise",
+  "jus framboise": "jf_jus_de_framboise",
+  "jus mangue": "jf_jus_de_mangue",
+  "jus ananas": "jf_jus_d_ananas",
+  "jus peche": "jf_jus_de_peche",
+  "jus carotte": "jf_jus_de_carotte",
+  "jus de banane": "jf_jus_pomme_banane",
+  "jus banane": "jf_jus_pomme_banane",
+  "jus d avocat": "jf_jus_d_avocat_au_lait",
+  "jus avocat": "jf_jus_d_avocat_au_lait",
+  "jus d avocat royal": "jf_jus_d_avocat_royal_fruits_secs",
+  "jus avocat royal": "jf_jus_d_avocat_royal_fruits_secs",
+  "avocat fruits secs": "jf_jus_d_avocat_royal_fruits_secs",
+  "jus panache": "jf_jus_panache_fruits_frais",
+  "panache": "jf_jus_panache_fruits_frais",
+  "cocktail orange": "jf_cocktail_a_base_d_orange",
+  "za3za3": "jf_za3za3_royal_grey_corner",
+  "zaazaa": "jf_za3za3_royal_grey_corner",
+  "za3za3 royal": "jf_za3za3_royal_grey_corner",
+  "cocktail gc": "ck_signature_grey_corner",
+  "pina colada": "ck_virgin_pi_a_colada",
+  "tropical": "ck_cocktail_tropical",
+  "mojito": "ck_mojito_virgin_fraicheur",
+  "mojito virgin": "ck_mojito_virgin_fraicheur",
+  "cocktail fraicheur": "ck_mojito_virgin_fraicheur",
+  "detox gingembre": "ck_detox_gingembre_citron",
+  "gingembre citron": "ck_detox_gingembre_citron",
+  "cocktail special": "ck_cocktail_sans_alcool_special",
+  "smoothie pink": "sm_smoothie_pink_berry",
+  "smoothie jelly": "sm_smoothie_jelly_fruit",
+  "ultra vitamines bowl": "sm_smoothie_bowl_ultra_boost",
+  "ultra vitamines": "sm_smoothie_bowl_ultra_boost",
+  "san sebastien": "dp_san_sebastien_cheesecake",
+  "san sebastien grey corner": "dp_san_sebastien_cheesecake",
+  "cheesecake san sebastian": "dp_san_sebastien_cheesecake",
+  "fondant chocolat": "dp_fondant_au_chocolat",
+  "cheese cake chocolat": "dp_cheesecake_chocolat",
+  "2 boule de glace": "dp_2_boules_de_glace",
+  "coca": "sd_coca_cola_33cl",
+  "coca cola": "sd_coca_cola_33cl",
+  "coca zero": "sd_coca_cola_zero_33cl",
+  "coca cola zero": "sd_coca_cola_zero_33cl",
+  "sprite": "sd_sprite_33cl",
+  "hawai": "sd_hawai_33cl",
+  "poms": "sd_poms_33cl",
+  "schweppes": "sd_schweppes_citron_tonic_33cl",
+  "schweppes citron": "sd_schweppes_citron_tonic_33cl",
+  "schweppes tonic": "sd_schweppes_citron_tonic_33cl",
+  "schwepps tonic": "sd_schweppes_citron_tonic_33cl",
+  "orangina": "sd_orangina_33cl",
+  "red bull": "sd_red_bull_250ml",
+  "eau 33cl": "ea_eau_minerale_33cl",
+  "eau 33 cl": "ea_eau_minerale_33cl",
+  "eau 33": "ea_eau_minerale_33cl",
+  "eau 50cl": "ea_eau_minerale_50cl",
+  "eau 50 cl": "ea_eau_minerale_50cl",
+  "eau 50": "ea_eau_minerale_50cl",
+  "eau minerale 0 5l": "ea_eau_minerale_50cl",
+  "eau minerale 0.5l": "ea_eau_minerale_50cl",
+  "eau 75cl": "ea_eau_minerale_75cl",
+  "eau 75 cl": "ea_eau_minerale_75cl",
+  "eau mineral 75 cl": "ea_eau_minerale_75cl",
+  "eau 75": "ea_eau_minerale_75cl",
+  "oulmes 33cl": "ea_oulmes_eau_gazeuse_33cl_50cl",
+  "oulmes 50cl": "ea_oulmes_eau_gazeuse_33cl_50cl",
+  "oulmes": "ea_oulmes_eau_gazeuse_33cl_50cl",
+  "oulmes 75cl": "ea_oulmes_eau_gazeuse_75cl",
+  "eau gazeuse 75 cl": "ea_oulmes_eau_gazeuse_75cl",
+  "pet-dej beldi": "pdj_beldi",
+  "petit baghrir": "alc_baghrir",
+  "msemen nature": "alc_msemen",
+  "pet-dej express": "pdj_express",
+  "viennoiserie": "alc_viennoiserie",
+  "pet-dej norvegien": "pdj_norvegien",
+  "pet-dej continental": "pdj_omelette_continental",
+  "continental": "pdj_omelette_continental",
+  "pet-dej light": "pdj_light",
+  "pet-dej fassi": "pdj_fassi",
+  "pet-dej berbere": "pdj_berbere",
+  "pet-dej hollandais": "pdj_hollandais",
+  "pet-dej espagnol": "pdj_espagnol",
+  "pet-dej mquila merguez": "pdj_mquila_merguez",
+  "pet-dej mquila fruits de mer": "pdj_mquila_fruits_de_mer",
+  "pet-dej americain": "pdj_petit_dejeuner_americain",
+  "americain": "pdj_petit_dejeuner_americain",
+  "brunch grey corner": "pdj_brunch_greycorner",
+  "omlette fromage": "pdj_omelette_fromage",
+  "omlette nature": "pdj_omelette_nature",
+  "omlette du chef": "pdj_omelette_du_chef",
+  "omlette vegetarienne": "pdj_omelette_vegetarienne",
+  "menu enfant": "pdj_menu_enfant_pdj",
+  "burger avocado forestier": "bg_avocado_forestier",
+  "plat emince de poulet": "pl_emince_de_poulet",
+  "plat emincedepoulet": "pl_emince_de_poulet",
+  "plat emince de boeuf": "pl_emince_de_boeuf",
+  "plat emincedeboeuf": "pl_emince_de_boeuf",
+  "plat emincede boeuf": "pl_emince_de_boeuf",
+  "emincedeboeuf": "pl_emince_de_boeuf",
+  "emincede boeuf": "pl_emince_de_boeuf",
+  "plat escalope a la milanaise": "pl_escalope_a_la_milanaise",
+  "plat escalope a la parmigiana": "pl_supreme_de_poulet",
+  "plat supreme de poulet": "pl_supreme_de_poulet",
+  "plat suprême de poulet": "pl_supreme_de_poulet",
+  "plat supreme poulet": "pl_supreme_de_poulet",
+  "plat suprême poulet": "pl_supreme_de_poulet",
+  "plat filet de boeuf": "pl_filet_de_boeuf",
+  "plat pave de saumon": "pl_pave_de_saumon",
+  "menu enfant nugette": "pl_menu_enfant_plat",
+  "roulade de boeuf": "pl_roulade_de_boeuf_vh",
+  "plat roulade de boeuf": "pl_roulade_de_boeuf_vh",
+  "plat roulade de bœuf": "pl_roulade_de_boeuf_vh",
+  "plat roulade de viande hachee": "pl_roulade_de_boeuf_vh",
+  "plat roulade de viande hachée": "pl_roulade_de_boeuf_vh",
+  "panini mix": "pa_gourmand",
+  "panini mixte": "pa_gourmand",
+  "panini gourmand": "pa_gourmand",
+  "panini charcuterie": "pa_charcuterie",
+  "panini poulet": "pa_poulet",
+  "panini viande hachee": "pa_viande_hachee",
+  "panini fruits de mer": "pa_fruits_de_mer",
+  "panini saumon": "pa_saumon",
+  "sandwich fruit de mer": "sw_fruits_de_mer",
+  "ciabatta sandwich fruit de mer": "sw_fruits_de_mer",
+  "sandwich cheese steak": "sw_cheese_steak",
+  "ciabatta sandwich cheese steak": "sw_cheese_steak",
+  "sandwich viande hache": "sw_viande_hachee",
+  "ciabatta sandwich viande hache": "sw_viande_hachee",
+  "sandwich poulet": "sw_poulet",
+  "ciabatta sandwich poulet": "sw_poulet",
+  "sandwich poulet crunchy": "sw_poulet_crunchy",
+  "sandwich thon": "sw_thon",
+  "pizza fruits de mer": "pz_fruits_de_mer",
+  "pizza 4 saisons": "pz_4_saisons",
+  "pizza thon": "pz_thon",
+  "pizza viande hachee": "pz_viande_hachee",
+  "pizza poulet": "pz_poulet_sauce_blanche",
+  "pizza pepperoni": "pz_pepperoni",
+  "pizza burrata": "pz_burrata",
+  "pizza margarita": "pz_margarita",
+  "pizza 5 fromages": "pz_5_fromages",
+  "pizza vegetarienne": "pz_vegetarienne",
+  "pizza saumon": "pz_saumon",
+  "pizza regina": "pz_regina",
+  "compose au choix": "sup_pizza_composee_au_choix",
+  "pasta 5 fromages": "pae_5_fromages",
+  "pasta carbonara": "pae_carbonara",
+  "pasta vegetarien": "pae_vegetarien",
+  "pasta bolognaise": "pae_bolognaise",
+  "pasta poulet champignon": "pae_poulet_champignon_epinard",
+  "pasta fruits de mer": "pae_fruits_de_mer",
+  "pasta saumon": "pae_saumon",
+  "puree pomme de terre": "sup_supplement_puree",
+  "puree": "sup_supplement_puree",
+  "potatos": "sup_supplement_potatos",
+  "frites": "sup_supplement_frites",
+  "miel": "sup_supplement_miel",
+  "jben": "sup_supplement_jben",
+  "sup fromage": "sup_supplement_fromage",
+  "divers food": "sup_divers_cuisine_food",
+  "divers bar": "sup_divers_bar_boissons",
+  "baghrir": "alc_baghrir",
+  "msemen": "alc_msemen",
+  "mlaoui": "alc_msemen",
+  "croissant": "alc_viennoiserie",
+  "pain au chocolat": "alc_viennoiserie",
+  "harcha": "alc_harcha"
+};
+
+// 4. Catégorisation des familles d\'ingrédients
+const INGREDIENT_CATEGORIES = {
+  viandes: ['viande', 'boeuf', 'bœuf', 'filet', 'steak', 'poulet', 'merguez', 'saucisse', 'dinde', 'charcuterie', 'khli', 'bacon', 'pepperoni', 'nugget'],
+  poissons: ['saumon', 'crevette', 'gambas', 'calamar', 'moule', 'thon', 'mer', 'poisson'],
+  fromages: ['oeuf', 'œuf', 'omelette', 'fromage', 'mozzarella', 'parmesan', 'cheddar', 'edam', 'gouda', 'jben', 'beurre', 'creme', 'crème', 'lait', 'yaourt', 'ricotta', 'burrata', 'brie', 'bleu'],
+  boissons: ['eau', 'oulmes', 'coca', 'sprite', 'hawai', 'poms', 'schweppes', 'orangina', 'red bull', 'nespresso', 'pastille', 'cafe', 'café', 'the', 'thé', 'verveine', 'infusion', 'chocolat', 'sirop', 'glacon', 'glaçon', 'glace', 'boba', 'boisson chaude'],
+  legumes: ['tomate', 'oignon', 'champignon', 'pomme de terre', 'frite', 'puree', 'potatos', 'avocat', 'salade', 'mesclun', 'laitue', 'roquette', 'epinard', 'épinard', 'poivron', 'radis', 'carotte', 'concombre', 'betterave', 'olive', 'orange', 'citron', 'fraise', 'framboise', 'mangue', 'banane', 'pomme', 'ananas', 'peche', 'pêche', 'kiwi', 'fruits', 'fruit', 'menthe', 'agrumes', 'acai', 'haricot', 'courgette', 'brocoli', 'persil']
+};
+
+// Expositions globales pour compatibilité et modularité
+window.CATEGORIES_DATA = DATA;
+window.DATA = DATA;
+window.BASE_RECIPES = BASE_RECIPES;
+window.ALIAS_MAP = ALIAS_MAP;
+window.INGREDIENT_CATEGORIES = INGREDIENT_CATEGORIES;
