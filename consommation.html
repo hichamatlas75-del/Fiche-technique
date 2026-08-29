@@ -1406,16 +1406,53 @@ function findRecipeForProduct(rawName, rawFamille = '') {
   const cName = cleanText(rawName);
   const cFam = cleanText(rawFamille);
 
-  // 1. Détection prioritaire des produits spécifiques (Croquettes, Œufs seuls...)
+  // 1. Détection prioritaire des produits spécifiques (Brochettes, Couscous, Salades, Suppléments, Paninis, Œufs, Croquettes...)
+  if (cName.includes('brochette')) {
+    return activeRecipes.find(x => x.id === 'plat_brochette_poulet');
+  }
+  if (cName.includes('couscous')) {
+    return activeRecipes.find(x => x.id === 'plat_couscous_poulet');
+  }
+  if (cName.includes('boulette')) {
+    return activeRecipes.find(x => x.id === 'ec_boulettes_poulet');
+  }
   if (cName.includes('croquette')) {
     return activeRecipes.find(x => x.id === 'ec_croquettes_fromage') || activeRecipes.find(x => x.id === 'ec_boulettes_de_poulet_au_fromage');
   }
-  if (cName.includes('oeuf') || cName.includes('oeufs')) {
+  if (cName.includes('emince') && cName.includes('boeuf')) {
+    return activeRecipes.find(x => x.id === 'pc_emince_de_boeuf');
+  }
+  if (cName.includes('filet') && cName.includes('boeuf')) {
+    return activeRecipes.find(x => x.id === 'pc_filet_de_boeuf');
+  }
+  if (cName.includes('roulade')) {
+    return activeRecipes.find(x => x.id === 'pc_roulade_de_boeuf_vh');
+  }
+  if (/\boeufs?\b/i.test(cName) && !cName.includes('boeuf')) {
     if (cName.includes('beldi')) return activeRecipes.find(x => x.id === 'alc_oeufs_beldi');
     if (cName.includes('fromage')) return activeRecipes.find(x => x.id === 'alc_omlette_fromage');
     if (cName.includes('nature') || cName.includes('omlette') || cName.includes('omelette')) return activeRecipes.find(x => x.id === 'alc_omlette_nature');
     if (cName.includes('chef')) return activeRecipes.find(x => x.id === 'alc_omlette_chef');
     return activeRecipes.find(x => x.id === 'sup_supplement_oeufs');
+  }
+  if (cName.startsWith('sup ') || cName.startsWith('supplement')) {
+    if (cName.includes('charcuterie')) return activeRecipes.find(x => x.id === 'sup_supplement_charcuterie');
+    if (cName.includes('fromage')) return activeRecipes.find(x => x.id === 'sup_supplement_fromage');
+    if (cName.includes('poulet')) return activeRecipes.find(x => x.id === 'sup_supplement_poulet');
+    if (cName.includes('viande')) return activeRecipes.find(x => x.id === 'sup_supplement_viande');
+    if (cName.includes('oeuf')) return activeRecipes.find(x => x.id === 'sup_supplement_oeufs');
+  }
+  if (cName.includes('compose')) {
+    if (cName.includes('pizza') || cFam.includes('pizza')) return activeRecipes.find(x => x.id === 'sup_pizza_composee_au_choix');
+    return activeRecipes.find(x => x.id === 'sal_composee_au_choix');
+  }
+  if (cName.includes('panini')) {
+    if (cName.includes('poulet')) return activeRecipes.find(x => x.id === 'pa_poulet');
+    if (cName.includes('charcuterie')) return activeRecipes.find(x => x.id === 'pa_charcuterie');
+    if (cName.includes('viande') || cName.includes('hache')) return activeRecipes.find(x => x.id === 'pa_viande_hachee');
+    if (cName.includes('mix') || cName.includes('gourmand')) return activeRecipes.find(x => x.id === 'pa_gourmand');
+    if (cName.includes('saumon')) return activeRecipes.find(x => x.id === 'pa_saumon');
+    if (cName.includes('mer') || cName.includes('fruit')) return activeRecipes.find(x => x.id === 'pa_fruits_de_mer');
   }
 
   // Traitement spécifique des produits "A LA CARTE" (Boulangerie, Viennoiseries, Omelettes seules sans formule pdj)

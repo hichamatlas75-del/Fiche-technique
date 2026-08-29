@@ -2631,6 +2631,56 @@ const DATA = [
 // 2. Base plate des fiches avec identifiants pour le calcul de déstockage (pour consommation.html)
 const BASE_RECIPES = [
   {
+    "id": "plat_brochette_poulet",
+    "name": "BROCHETTE DE POULET",
+    "category": "PLATS CHAUDS",
+    "ingredients": [
+      "Poulet : 180 g",
+      "Frites : 150 g",
+      "Sauce : 30 g",
+      "Salade : 40 g"
+    ]
+  },
+  {
+    "id": "plat_couscous_poulet",
+    "name": "COUSCOUS POULET AVEC PETIT LAIT",
+    "category": "PLATS MAROCAINS",
+    "ingredients": [
+      "Semoule couscous : 200 g",
+      "Poulet : 180 g",
+      "Légumes couscous : 150 g",
+      "Petit lait (Lben) : 200 ml"
+    ]
+  },
+  {
+    "id": "sup_supplement_charcuterie",
+    "name": "SUPPLÉMENT CHARCUTERIE",
+    "category": "SUPPLÉMENTS",
+    "ingredients": [
+      "Charcuterie : 50 g"
+    ]
+  },
+  {
+    "id": "sal_composee_au_choix",
+    "name": "SALADE COMPOSÉE AU CHOIX",
+    "category": "SALADES",
+    "ingredients": [
+      "Salade mesclun : 100 g",
+      "Garnitures composées : 150 g",
+      "Sauce vinaigrette : 30 ml"
+    ]
+  },
+  {
+    "id": "ec_boulettes_poulet",
+    "name": "BOULETTES DE POULET FR",
+    "category": "ENTRÉES CHAUDES",
+    "ingredients": [
+      "Poulet haché : 150 g",
+      "Sauce : 30 g",
+      "Frites : 150 g"
+    ]
+  },
+  {
     "id": "alc_oeufs_beldi",
     "name": "OEUFS BELDI",
     "category": "A LA CARTE & BOULANGERIE",
@@ -4205,7 +4255,7 @@ const BASE_RECIPES = [
   },
   {
     "id": "pa_charcuterie",
-    "name": "CHARCUTERIE",
+    "name": "PANINI CHARCUTERIE",
     "category": "PANINIS",
     "ingredients": [
       "Charcuterie : 120 g",
@@ -4217,7 +4267,7 @@ const BASE_RECIPES = [
   },
   {
     "id": "pa_poulet",
-    "name": "POULET",
+    "name": "PANINI POULET",
     "category": "PANINIS",
     "ingredients": [
       "Poulet : 70 g",
@@ -4229,7 +4279,7 @@ const BASE_RECIPES = [
   },
   {
     "id": "pa_viande_hachee",
-    "name": "VIANDE HACHÉE",
+    "name": "PANINI VIANDE HACHÉE",
     "category": "PANINIS",
     "ingredients": [
       "Viande : 100 g",
@@ -4241,7 +4291,7 @@ const BASE_RECIPES = [
   },
   {
     "id": "pa_gourmand",
-    "name": "GOURMAND",
+    "name": "PANINI GOURMAND",
     "category": "PANINIS",
     "ingredients": [
       "Viande : 50 g",
@@ -4255,7 +4305,7 @@ const BASE_RECIPES = [
   },
   {
     "id": "pa_fruits_de_mer",
-    "name": "FRUITS DE MER",
+    "name": "PANINI FRUITS DE MER",
     "category": "PANINIS",
     "ingredients": [
       "Crevettes : 100 g",
@@ -4269,7 +4319,7 @@ const BASE_RECIPES = [
   },
   {
     "id": "pa_saumon",
-    "name": "SAUMON",
+    "name": "PANINI SAUMON",
     "category": "PANINIS",
     "ingredients": [
       "Saumon : 90 g",
@@ -4967,6 +5017,27 @@ const BASE_RECIPES = [
 
 // 3. Dictionnaire d'alias et correspondances caisse POS -> Fiches Techniques
 const ALIAS_MAP = {
+  "brochette de poulet": "plat_brochette_poulet",
+  "plat brochette poulet": "plat_brochette_poulet",
+  "brochettes de poulet": "plat_brochette_poulet",
+  "brochette poulet": "plat_brochette_poulet",
+  "couscous poulet avec petit lait": "plat_couscous_poulet",
+  "couscous poulet": "plat_couscous_poulet",
+  "sup charcuterie": "sup_supplement_charcuterie",
+  "supplement charcuterie": "sup_supplement_charcuterie",
+  "compose au choix": "sal_composee_au_choix",
+  "salade composee": "sal_composee_au_choix",
+  "salade compose au choix": "sal_composee_au_choix",
+  "boulettes de poulet fr": "ec_boulettes_poulet",
+  "boulette de poulet fr": "ec_boulettes_poulet",
+  "boulettes de poulet": "ec_boulettes_poulet",
+  "panini poulet": "pa_poulet",
+  "panini charcuterie": "pa_charcuterie",
+  "panini viande hachee": "pa_viande_hachee",
+  "panini mix": "pa_gourmand",
+  "panini gourmand": "pa_gourmand",
+  "panini saumon": "pa_saumon",
+  "panini fruits de mer": "pa_fruits_de_mer",
   "oeufs beldi": "alc_oeufs_beldi",
   "oeuf beldi": "alc_oeufs_beldi",
   "2 oeufs beldi": "alc_oeufs_beldi",
