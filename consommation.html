@@ -922,6 +922,9 @@
     <button class="v-tab" data-tab="tab-recipes">
       ⚙️ Fiches Techniques & Recettes <span id="count-recipes" class="tab-count">0</span>
     </button>
+    <button class="v-tab" data-tab="tab-audit">
+      📋 Audit Stock <span id="count-audit" class="tab-count">0</span>
+    </button>
   </div>
 
   <!-- TAB 1: SYNTHÈSE DES MATIÈRES PREMIÈRES -->
@@ -2980,7 +2983,7 @@ function onFlashIngredientChange() {
   const cTarget = cleanText(select.value);
   const found = aggregatedIngredients.find(item => cleanText(item.name) === cTarget || cleanText(item.name).includes(cTarget));
   if (found) {
-    document.getElementById('flash-theorique').value = found.quantity.toFixed(2);
+    document.getElementById('flash-theorique').value = found.totalQty.toFixed(2);
   } else {
     document.getElementById('flash-theorique').value = '0';
   }
@@ -3216,7 +3219,7 @@ function syncAuditWithMonthlySales() {
       sInit: prev.sInit || 0,
       achats: prev.achats || 0,
       sFinal: prev.sFinal || 0,
-      theorique: ing.quantity || 0,
+      theorique: ing.totalQty || 0,
       casse: prev.casse || 0,
       prix: prev.prix || getDefaultPriceForCategory(ing.category || categorizeIngredient(ing.name))
     });
@@ -3343,7 +3346,8 @@ function recalculateMonthlyAudit() {
   document.getElementById('audit-kpi-tot-casse').textContent = totCasseDH.toFixed(2) + ' DH';
   document.getElementById('audit-kpi-tot-items').textContent = auditMonthlyArticles.length;
   document.getElementById('audit-kpi-tot-alerts').textContent = alertCount + ' alerte(s) critique(s)';
-  document.getElementById('count-audit').textContent = auditMonthlyArticles.length;
+  const countAuditEl = document.getElementById('count-audit');
+  if (countAuditEl) countAuditEl.textContent = auditMonthlyArticles.length;
 
   window.auditMonthlyArticles = auditMonthlyArticles;
   renderMonthlyAuditTable();
@@ -3560,7 +3564,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('btn-reset-recipes').addEventListener('click', () => {
     if (confirm('Voulez-vous réinitialiser toutes les fiches techniques aux valeurs d\'origine ?')) {
-      localStorage.removeItem('gc_recipes_db');
+      localStorage.removeItem('gc_recipes_db_v4');
       loadRecipes();
       renderRecipeList();
       recalculateCurrentView();
