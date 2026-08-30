@@ -1657,6 +1657,7 @@
       </div>
       <div class="nav-actions" style="gap:8px; flex-wrap:wrap;">
         <button id="btn-add-recipe" class="btn btn-primary">➕ Nouvelle Fiche Technique</button>
+        <button class="btn" style="background:#0284c7; color:#fff; border-color:#0284c7;" onclick="downloadUpdatedRecipesDataJs()" title="Télécharger le fichier recipes-data.js complet mis à jour pour le projet">📁 Sauvegarder dans recipes-data.js</button>
         <button class="btn" onclick="exportRecipesJSON()" title="Télécharger les fiches techniques en fichier JSON">💾 Exporter Fiches (JSON)</button>
         <button class="btn" onclick="document.getElementById('recipes-import-file').click()" title="Charger un fichier de fiches techniques JSON">📂 Importer Fiches</button>
         <input type="file" id="recipes-import-file" accept=".json" style="display:none;" onchange="importRecipesJSON(event)" />
@@ -1911,7 +1912,7 @@
 
 <!-- MODAL EDITION / AJOUT RECETTE -->
 <div id="recipe-modal" class="modal-overlay">
-  <div class="modal-box">
+  <div class="modal-box" style="max-width:680px;">
     <div class="modal-head">
       <div class="modal-title" id="modal-recipe-title">Modifier la Fiche Technique</div>
       <button class="btn" style="padding: 4px 8px;" onclick="closeModal()">✕</button>
@@ -1920,38 +1921,74 @@
       <input type="hidden" id="edit-recipe-id" />
       <div class="form-group">
         <label for="edit-recipe-name">Nom du Plat / Recette</label>
-        <input type="text" id="edit-recipe-name" placeholder="Ex: Burger Royal, Salade César..." />
+        <input type="text" id="edit-recipe-name" placeholder="Ex: Burger Royal, Salade César..." oninput="updateModalFoodCostPreview()" />
       </div>
-      <div class="form-group">
-        <label for="edit-recipe-cat">Catégorie</label>
-        <select id="edit-recipe-cat">
-          <option value="PETIT DÉJEUNER">PETIT DÉJEUNER</option>
-          <option value="ENTRÉES FROIDES">ENTRÉES FROIDES</option>
-          <option value="ENTRÉES CHAUDES">ENTRÉES CHAUDES</option>
-          <option value="PLATS">PLATS</option>
-          <option value="BURGERS">BURGERS</option>
-          <option value="WRAPS">WRAPS</option>
-          <option value="PANINIS">PANINIS</option>
-          <option value="SANDWICHS">SANDWICHS</option>
-          <option value="PIZZA">PIZZA</option>
-          <option value="PÂTES">PÂTES</option>
-          <option value="CREPES">CRÊPES</option>
-          <option value="BOISSONS">BOISSONS / JUS</option>
-          <option value="DESSERTS">DESSERTS / GÂTEAUX</option>
-          <option value="AUTRE">AUTRE</option>
-        </select>
+      
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+        <div class="form-group">
+          <label for="edit-recipe-cat">Catégorie</label>
+          <select id="edit-recipe-cat">
+            <option value="PETIT DÉJEUNER">PETIT DÉJEUNER</option>
+            <option value="ENTRÉES FROIDES">ENTRÉES FROIDES</option>
+            <option value="ENTRÉES CHAUDES">ENTRÉES CHAUDES</option>
+            <option value="PLATS">PLATS</option>
+            <option value="BURGERS">BURGERS</option>
+            <option value="WRAPS">WRAPS</option>
+            <option value="PANINIS">PANINIS</option>
+            <option value="SANDWICHS">SANDWICHS</option>
+            <option value="PIZZA">PIZZA</option>
+            <option value="PÂTES">PÂTES</option>
+            <option value="CREPES">CRÊPES</option>
+            <option value="BOISSONS">BOISSONS / JUS</option>
+            <option value="DESSERTS">DESSERTS / GÂTEAUX</option>
+            <option value="AUTRE">AUTRE</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="edit-recipe-price">Prix de Vente (DH)</label>
+          <input type="number" id="edit-recipe-price" step="0.5" placeholder="Ex: 68" oninput="updateModalFoodCostPreview()" />
+        </div>
       </div>
+
       <div class="form-group">
-        <label for="edit-recipe-ingredients">Ingrédients & Grammages (1 par ligne)</label>
-        <textarea id="edit-recipe-ingredients" rows="8" placeholder="Exemple :&#10;Poulet : 150 g&#10;Cheddar : 20 g&#10;Frites : 200 g&#10;Pain : 1 p"></textarea>
+        <label for="edit-recipe-ingredients">Ingrédients & Grammages (1 par ligne - ajustez les quantités en direct)</label>
+        <textarea id="edit-recipe-ingredients" rows="7" placeholder="Exemple :&#10;Poulet : 150 g&#10;Cheddar : 20 g&#10;Frites : 200 g&#10;Pain : 1 p" oninput="updateModalFoodCostPreview()"></textarea>
         <small style="color:var(--muted); font-size:11.5px; display:block; margin-top:4px;">
-          Format : <code>Nom Ingrédient : Quantité Unité</code> (ex: <em>Poulet : 120 g</em>, <em>Œufs : 2 p</em>, <em>Crème : 70 ml</em>, <em>Sauce : 30 g</em>).
+          Format : <code>Nom Ingrédient : Quantité Unité</code> (ex: <em>Poulet : 140 g</em>, <em>Mozzarella : 180 g</em>, <em>Sauce : 30 g</em>).
         </small>
       </div>
+
+      <!-- PANNEAU DE SIMULATION LIVE DU FOOD COST -->
+      <div id="modal-foodcost-panel" style="background:rgba(15, 23, 42, 0.65); border:1px solid var(--border); border-radius:10px; padding:14px; margin-top:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <span style="font-weight:800; font-size:13px; color:var(--text);">📊 Simulation Food Cost & Marge en Direct</span>
+          <span id="modal-fc-badge" class="badge" style="padding:3px 10px; font-size:11px; background:#10b981; color:#fff;">Calculé</span>
+        </div>
+        
+        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; text-align:center; margin-bottom:10px;">
+          <div style="background:var(--card-bg); padding:8px 6px; border-radius:8px; border:1px solid var(--border);">
+            <div style="font-size:10px; color:var(--muted); font-weight:700; text-transform:uppercase;">Coût Matière</div>
+            <div id="modal-fc-cost" style="font-size:16px; font-weight:800; color:#38bdf8; margin-top:2px;">0.00 DH</div>
+          </div>
+          <div style="background:var(--card-bg); padding:8px 6px; border-radius:8px; border:1px solid var(--border);">
+            <div style="font-size:10px; color:var(--muted); font-weight:700; text-transform:uppercase;">Food Cost %</div>
+            <div id="modal-fc-pct" style="font-size:16px; font-weight:800; color:#10b981; margin-top:2px;">0.0%</div>
+          </div>
+          <div style="background:var(--card-bg); padding:8px 6px; border-radius:8px; border:1px solid var(--border);">
+            <div style="font-size:10px; color:var(--muted); font-weight:700; text-transform:uppercase;">Marge Brute</div>
+            <div id="modal-fc-margin" style="font-size:16px; font-weight:800; color:#a78bfa; margin-top:2px;">0.0%</div>
+          </div>
+        </div>
+
+        <div style="font-size:11.5px; font-weight:700; color:var(--muted); margin-bottom:4px;">Détail valorisé des ingrédients :</div>
+        <div id="modal-fc-breakdown" style="font-size:11.5px; max-height:110px; overflow-y:auto; background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:6px 10px;">
+          <!-- Injecté dynamiquement -->
+        </div>
+      </div>
     </div>
-    <div class="modal-foot">
+    <div class="modal-foot" style="display:flex; justify-content:space-between; align-items:center;">
       <button class="btn" onclick="closeModal()">Annuler</button>
-      <button class="btn btn-primary" onclick="saveRecipeFromModal()">Enregistrer la Recette</button>
+      <button class="btn btn-primary" onclick="saveRecipeFromModal()" style="font-weight:800; padding:8px 18px;">💾 Enregistrer la Fiche Technique</button>
     </div>
   </div>
 </div>
@@ -3080,6 +3117,21 @@ function renderSalesTable() {
   }).join('');
 }
 
+function findSellingPriceForRecipe(recipeName) {
+  if (!recipeName) return 0;
+  const cleanN = cleanText(recipeName);
+  if (typeof DATA !== 'undefined' && Array.isArray(DATA)) {
+    for (const cat of DATA) {
+      for (const item of (cat.items || [])) {
+        if (cleanText(item.name) === cleanN) {
+          return item.sellPrice || parseFloat(String(item.price || '0').replace(/[^0-9.]/g, '')) || 0;
+        }
+      }
+    }
+  }
+  return 0;
+}
+
 function renderRecipeList() {
   const container = document.getElementById('recipes-grid-container');
   const search = cleanText(document.getElementById('search-recipe-list').value);
@@ -3092,21 +3144,37 @@ function renderRecipeList() {
   document.getElementById('count-recipes').textContent = activeRecipes.length;
 
   container.innerHTML = filtered.map(r => {
+    const sellPrice = r.sellPrice || findSellingPriceForRecipe(r.name) || 0;
+    const fcCalc = typeof calculateRecipeFoodCost === 'function' ? calculateRecipeFoodCost(r.ingredients, sellPrice) : { cost: 0, foodCost: 0, margin: 0 };
+    
+    const fcColor = fcCalc.foodCost <= 32 ? '#10b981' : fcCalc.foodCost <= 42 ? '#f59e0b' : '#ef4444';
+
     const ingLines = (r.ingredients || []).map(i => {
       const parts = i.split(':');
       if (parts.length > 1) {
-        return `<li><span>${parts[0].trim()}</span> <strong style="color:var(--accent);">${parts.slice(1).join(':').trim()}</strong></li>`;
+        return `<li><span>${escapeHtml(parts[0].trim())}</span> <strong style="color:var(--accent);">${escapeHtml(parts.slice(1).join(':').trim())}</strong></li>`;
       }
-      return `<li><span>${i}</span></li>`;
+      return `<li><span>${escapeHtml(i)}</span></li>`;
     }).join('');
 
     return `
       <div class="recipe-card">
         <div class="recipe-card-title">
-          <span>${r.name}</span>
+          <span>${escapeHtml(r.name)}</span>
           <button class="btn" style="padding: 3px 8px; font-size:11px;" onclick="editRecipe('${r.id}')">✏️ Modifier</button>
         </div>
-        <div style="font-size:11.5px; color:var(--muted); margin-bottom:8px;">Catégorie : <strong>${r.category}</strong></div>
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; font-size:11.5px; color:var(--muted); margin-bottom:8px;">
+          <span>Catégorie : <strong>${escapeHtml(r.category)}</strong></span>
+          ${sellPrice > 0 ? `<span style="font-weight:800; color:var(--accent); font-size:12.5px;">${sellPrice} DH</span>` : ''}
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:6px; padding:6px 10px; margin-bottom:10px; font-size:11.5px;">
+          <span title="Coût matière estimé">💰 Coût : <strong style="color:#38bdf8;">${fcCalc.cost.toFixed(2)} DH</strong></span>
+          <span title="Food Cost" style="font-weight:800; color:${fcColor};">📊 ${fcCalc.foodCost > 0 ? fcCalc.foodCost + '%' : '-'}</span>
+          <span title="Marge brute" style="color:#a78bfa; font-weight:800;">📈 ${fcCalc.margin > 0 ? fcCalc.margin + '%' : '-'}</span>
+        </div>
+
         <ul class="recipe-ing-list">${ingLines}</ul>
       </div>
     `;
@@ -3114,8 +3182,62 @@ function renderRecipeList() {
 }
 
 /* ========================================================
-   9. MODALE & ÉDITION DE FICHES TECHNIQUES
+   9. MODALE & ÉDITION DYNAMIQUE DE FICHES TECHNIQUES (LIVE FOOD COST)
 ======================================================== */
+function updateModalFoodCostPreview() {
+  const rawIngs = document.getElementById('edit-recipe-ingredients').value;
+  const priceVal = parseFloat(document.getElementById('edit-recipe-price').value) || 0;
+  const ingredients = rawIngs.split('\n').map(s => s.trim()).filter(Boolean);
+
+  if (typeof calculateRecipeFoodCost !== 'function') return;
+
+  const fc = calculateRecipeFoodCost(ingredients, priceVal);
+
+  const elCost = document.getElementById('modal-fc-cost');
+  const elPct = document.getElementById('modal-fc-pct');
+  const elMargin = document.getElementById('modal-fc-margin');
+  const elBadge = document.getElementById('modal-fc-badge');
+  const elBreakdown = document.getElementById('modal-fc-breakdown');
+
+  if (elCost) elCost.textContent = `${fc.cost.toFixed(2)} DH`;
+  if (elPct) {
+    elPct.textContent = priceVal > 0 ? `${fc.foodCost}%` : 'Saisir Prix';
+    elPct.style.color = fc.foodCost <= 32 ? '#10b981' : fc.foodCost <= 42 ? '#f59e0b' : '#ef4444';
+  }
+  if (elMargin) {
+    elMargin.textContent = priceVal > 0 ? `${fc.margin}% (${fc.grossMarginDH.toFixed(2)} DH)` : '-';
+  }
+  if (elBadge) {
+    if (priceVal <= 0) {
+      elBadge.textContent = 'Prix manquant';
+      elBadge.style.background = '#64748b';
+    } else if (fc.foodCost <= 32) {
+      elBadge.textContent = 'Food Cost Optimal (≤32%)';
+      elBadge.style.background = '#10b981';
+    } else if (fc.foodCost <= 42) {
+      elBadge.textContent = 'Food Cost Modéré (33-42%)';
+      elBadge.style.background = '#f59e0b';
+    } else {
+      elBadge.textContent = 'Food Cost Élevé (>42%)';
+      elBadge.style.background = '#ef4444';
+    }
+  }
+
+  if (elBreakdown) {
+    if (fc.breakdown && fc.breakdown.length > 0) {
+      elBreakdown.innerHTML = fc.breakdown.map(b => {
+        const pctOfTotal = fc.cost > 0 ? Math.round((b.cost / fc.cost) * 100) : 0;
+        return `<div style="display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px dashed rgba(255,255,255,0.06);">
+          <span>${escapeHtml(b.ingredient)} <strong style="color:var(--text);">${escapeHtml(b.quantity)}</strong></span>
+          <span><strong style="color:#38bdf8;">${b.cost.toFixed(2)} DH</strong> <small style="color:var(--muted); font-size:10px;">(${pctOfTotal}%)</small></span>
+        </div>`;
+      }).join('');
+    } else {
+      elBreakdown.innerHTML = '<span style="color:var(--muted);">Saisissez des ingrédients pour afficher la valorisation unitaire.</span>';
+    }
+  }
+}
+
 function openRecipeEditor(productName) {
   const recipe = findRecipeForProduct(productName);
   if (recipe) {
@@ -3125,8 +3247,10 @@ function openRecipeEditor(productName) {
     document.getElementById('edit-recipe-name').value = productName.toUpperCase();
     document.getElementById('edit-recipe-cat').value = 'AUTRE';
     document.getElementById('edit-recipe-ingredients').value = '';
+    document.getElementById('edit-recipe-price').value = findSellingPriceForRecipe(productName) || '';
     document.getElementById('modal-recipe-title').textContent = `Créer Fiche Technique : ${productName}`;
     document.getElementById('recipe-modal').classList.add('visible');
+    updateModalFoodCostPreview();
   }
 }
 
@@ -3137,8 +3261,10 @@ function editRecipe(id) {
   document.getElementById('edit-recipe-name').value = r.name;
   document.getElementById('edit-recipe-cat').value = r.category || 'AUTRE';
   document.getElementById('edit-recipe-ingredients').value = (r.ingredients || []).join('\n');
+  document.getElementById('edit-recipe-price').value = r.sellPrice || findSellingPriceForRecipe(r.name) || '';
   document.getElementById('modal-recipe-title').textContent = `Modifier : ${r.name}`;
   document.getElementById('recipe-modal').classList.add('visible');
+  updateModalFoodCostPreview();
 }
 
 function closeModal() {
@@ -3150,6 +3276,7 @@ function saveRecipeFromModal() {
   const name = document.getElementById('edit-recipe-name').value.trim();
   const category = document.getElementById('edit-recipe-cat').value;
   const rawIngs = document.getElementById('edit-recipe-ingredients').value;
+  const sellPrice = parseFloat(document.getElementById('edit-recipe-price').value) || 0;
 
   if (!name) {
     alert('Veuillez spécifier le nom du plat.');
@@ -3157,18 +3284,92 @@ function saveRecipeFromModal() {
   }
 
   const ingredients = rawIngs.split('\n').map(s => s.trim()).filter(Boolean);
+  const fcCalc = typeof calculateRecipeFoodCost === 'function' ? calculateRecipeFoodCost(ingredients, sellPrice) : { cost: 0, foodCost: 0, margin: 0, grossMarginDH: 0 };
+
+  const recipeObj = {
+    id: id || ('rec_' + Date.now()),
+    name: name,
+    category: category,
+    ingredients: ingredients,
+    sellPrice: sellPrice,
+    cost: fcCalc.cost,
+    foodCost: fcCalc.foodCost,
+    margin: fcCalc.margin,
+    grossMarginDH: fcCalc.grossMarginDH
+  };
 
   const idx = activeRecipes.findIndex(x => x.id === id);
   if (idx >= 0) {
-    activeRecipes[idx] = { id, name, category, ingredients };
+    activeRecipes[idx] = recipeObj;
   } else {
-    activeRecipes.push({ id, name, category, ingredients });
+    activeRecipes.push(recipeObj);
   }
 
+  // 1. Sauvegarde dans localStorage (persistant)
   saveRecipes();
+
+  // 2. Mettre à jour l'index en mémoire
+  if (window.recipeNameIndex) {
+    window.recipeNameIndex.set(cleanText(name), recipeObj);
+  }
+
+  // 3. Mettre à jour DATA (pour index.html et cohérence globale)
+  if (typeof DATA !== 'undefined' && Array.isArray(DATA)) {
+    DATA.forEach(cat => {
+      (cat.items || []).forEach(it => {
+        if (cleanText(it.name) === cleanText(name)) {
+          it.tech = ingredients;
+          it.sellPrice = sellPrice;
+          it.cost = fcCalc.cost;
+          it.foodCost = fcCalc.foodCost;
+          it.margin = fcCalc.margin;
+          it.grossMarginDH = fcCalc.grossMarginDH;
+        }
+      });
+    });
+  }
+
   closeModal();
   renderRecipeList();
   recalculateCurrentView();
+
+  console.log(`[Fiche Technique] Enregistrée avec succès : "${name}" | Coût=${fcCalc.cost} DH | Food Cost=${fcCalc.foodCost}%`);
+}
+
+function downloadUpdatedRecipesDataJs() {
+  try {
+    // 1. Construire les données DATA et BASE_RECIPES mises à jour
+    const updatedBaseRecipes = activeRecipes.map(r => ({
+      id: r.id,
+      name: r.name,
+      category: r.category || 'AUTRE',
+      ingredients: r.ingredients || []
+    }));
+
+    // 2. Créer le script exportable complet
+    let content = `/**\n * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes\n * Source Unique de Vérité (SSOT) mise à jour automatiquement le ${new Date().toISOString()}\n */\n\n(function(global) {\n`;
+    content += `const DATA = ${JSON.stringify(typeof DATA !== 'undefined' ? DATA : [], null, 2)};\n\n`;
+    content += `const BASE_RECIPES = ${JSON.stringify(updatedBaseRecipes, null, 2)};\n\n`;
+    content += `const ALIAS_MAP = ${JSON.stringify(typeof ALIAS_MAP !== 'undefined' ? ALIAS_MAP : {}, null, 2)};\n\n`;
+    content += `const INGREDIENT_CATEGORIES = ${JSON.stringify(typeof INGREDIENT_CATEGORIES !== 'undefined' ? INGREDIENT_CATEGORIES : {}, null, 2)};\n\n`;
+    content += `const INGREDIENT_UNIT_COSTS = ${JSON.stringify(typeof INGREDIENT_UNIT_COSTS !== 'undefined' ? INGREDIENT_UNIT_COSTS : {}, null, 2)};\n\n`;
+    content += `${calculateRecipeFoodCost.toString()}\n\n`;
+    content += `global.CATEGORIES_DATA = DATA;\nglobal.DATA = DATA;\nglobal.BASE_RECIPES = BASE_RECIPES;\nglobal.ALIAS_MAP = ALIAS_MAP;\nglobal.INGREDIENT_CATEGORIES = INGREDIENT_CATEGORIES;\nglobal.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\nglobal.calculateRecipeFoodCost = calculateRecipeFoodCost;\n})(typeof window !== 'undefined' ? window : globalThis);\n`;
+
+    const blob = new Blob([content], { type: "application/javascript;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "recipes-data.js";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    alert("✅ Le fichier 'recipes-data.js' mis à jour a été généré et téléchargé avec succès !");
+  } catch (err) {
+    alert("Erreur lors de la génération de recipes-data.js : " + err.message);
+  }
 }
 
 function exportRecipesJSON() {
