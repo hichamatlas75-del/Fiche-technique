@@ -745,39 +745,44 @@ function renderAll() {
   tabs.innerHTML = '';
   sectionsContainer.innerHTML = '';
 
-  // Synchronisation dynamique avec les fiches techniques personnalisées (localStorage)
+  // Synchronisation dynamique avec la mercuriale des prix et fiches personnalisées (localStorage)
   try {
+    const savedCustomPrices = localStorage.getItem('gc_ingredient_prices_v1');
+    if (savedCustomPrices && window.INGREDIENT_UNIT_COSTS) {
+      Object.assign(window.INGREDIENT_UNIT_COSTS, JSON.parse(savedCustomPrices));
+    }
+
     const savedCustomRecipes = localStorage.getItem('gc_recipes_db_v4');
+    const customMap = new Map();
     if (savedCustomRecipes) {
       const customList = JSON.parse(savedCustomRecipes);
-      const customMap = new Map();
       customList.forEach(r => {
         if (r && r.name) {
           const norm = r.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
           customMap.set(norm, r);
         }
       });
-
-      DATA.forEach(cat => {
-        cat.items.forEach(it => {
-          const norm = (it.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
-          const match = customMap.get(norm);
-          if (match && Array.isArray(match.ingredients) && match.ingredients.length > 0) {
-            it.tech = match.ingredients;
-            if (typeof calculateRecipeFoodCost === 'function') {
-              const sellP = match.sellPrice || parseFloat(String(it.price || it.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
-              const calc = calculateRecipeFoodCost(it.tech, sellP);
-              it.cost = calc.cost;
-              it.foodCost = calc.foodCost;
-              it.margin = calc.margin;
-              it.grossMarginDH = calc.grossMarginDH;
-            }
-          }
-        });
-      });
     }
+
+    DATA.forEach(cat => {
+      cat.items.forEach(it => {
+        const norm = (it.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+        const match = customMap.get(norm);
+        if (match && Array.isArray(match.ingredients) && match.ingredients.length > 0) {
+          it.tech = match.ingredients;
+        }
+        if (typeof calculateRecipeFoodCost === 'function' && it.tech) {
+          const sellP = (match && match.sellPrice) || parseFloat(String(it.price || it.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
+          const calc = calculateRecipeFoodCost(it.tech, sellP);
+          it.cost = calc.cost;
+          it.foodCost = calc.foodCost;
+          it.margin = calc.margin;
+          it.grossMarginDH = calc.grossMarginDH;
+        }
+      });
+    });
   } catch (e) {
-    console.warn('[LocalStorage] Erreur overlay recettes personnalisées:', e);
+    console.warn('[LocalStorage] Erreur overlay prix et recettes personnalisées:', e);
   }
 
   DATA.forEach(cat => {

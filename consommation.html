@@ -1462,6 +1462,7 @@
     </div>
     <div class="nav-actions">
       <button id="theme-toggle" class="btn" title="Basculer entre le mode clair et le mode sombre">🌙 Mode Sombre</button>
+      <button class="btn" style="background:#0284c7; color:#fff; font-weight:800; border-color:#0284c7;" onclick="openPricesModal()" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières Premières</button>
       <a href="index.html" class="btn" title="Retourner aux fiches techniques">👨‍🍳 Fiches Cuisine</a>
       <button id="btn-export-excel" class="btn btn-success" style="display:none;">📥 Exporter Excel (.xlsx)</button>
       <button id="btn-print" class="btn btn-primary" onclick="window.print()">🖨️ Imprimer Déstockage</button>
@@ -1671,6 +1672,7 @@
         <input type="text" id="search-recipe-list" placeholder="Rechercher une fiche technique..." />
       </div>
       <div class="nav-actions" style="gap:8px; flex-wrap:wrap;">
+        <button class="btn" style="background:#10b981; color:#fff; border-color:#10b981; font-weight:800;" onclick="openPricesModal()" title="Ouvrir la mercuriale et ajuster les prix d'achat des ingrédients">💲 Prix Matières Premières</button>
         <button id="btn-add-recipe" class="btn btn-primary">➕ Nouvelle Fiche Technique</button>
         <button class="btn" style="background:#0284c7; color:#fff; border-color:#0284c7;" onclick="downloadUpdatedRecipesDataJs()" title="Télécharger le fichier recipes-data.js complet mis à jour pour le projet">📁 Sauvegarder dans recipes-data.js</button>
         <button class="btn" onclick="exportRecipesJSON()" title="Télécharger les fiches techniques en fichier JSON">💾 Exporter Fiches (JSON)</button>
@@ -2004,6 +2006,87 @@
     <div class="modal-foot" style="display:flex; justify-content:space-between; align-items:center;">
       <button class="btn" onclick="closeModal()">Annuler</button>
       <button class="btn btn-primary" onclick="saveRecipeFromModal()" style="font-weight:800; padding:8px 18px;">💾 Enregistrer la Fiche Technique</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL MERCURIALE & GESTION DES PRIX D'ACHAT DES MATIÈRES PREMIÈRES -->
+<div id="prices-modal" class="modal-overlay">
+  <div class="modal-box" style="max-width:860px; width:95%; max-height:90vh; display:flex; flex-direction:column;">
+    <div class="modal-head">
+      <div class="modal-title" style="display:flex; align-items:center; gap:8px;">
+        <span>💲 Mercuriale & Prix d'Achat des Matières Premières</span>
+        <span id="prices-count-badge" class="badge" style="background:#0284c7; color:#fff; font-size:11px;">0 matières</span>
+      </div>
+      <button class="btn" style="padding: 4px 8px;" onclick="closePricesModal()">✕</button>
+    </div>
+    
+    <div class="modal-body" style="overflow-y:auto; flex:1; padding:16px;">
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:12px; margin-bottom:14px; font-size:12.5px; color:var(--text); line-height:1.5;">
+        💡 <strong>Réglez vos prix d'achat ici :</strong> Vous pouvez ajuster le prix d'achat unitaire de chaque produit (en DH par <strong>kg</strong>, par <strong>Litre</strong> ou par <strong>pièce</strong>).
+        Toutes les fiches techniques, le Food Cost % et les marges brutes de l'ensemble du restaurant seront recalculés <strong>automatiquement et instantanément</strong>.
+      </div>
+
+      <!-- BARRE DE RECHERCHE ET ACTIONS -->
+      <div style="display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+        <div class="search-input-wrap" style="flex:1; min-width:240px;">
+          <span>🔍</span>
+          <input type="text" id="search-prices-input" placeholder="Filtrer une matière première (ex: poulet, mozzarella, café, huile, saumon...)" oninput="renderPricesTable()" />
+        </div>
+        <button class="btn btn-primary" onclick="showAddNewPriceForm()" style="padding:7px 12px; font-size:12px; font-weight:700;">➕ Ajouter une Matière Première</button>
+      </div>
+
+      <!-- FORMULAIRE AJOUT RAPIDE (MASQUÉ PAR DÉFAUT) -->
+      <div id="add-price-form-box" style="display:none; background:rgba(2, 132, 199, 0.08); border:1px solid var(--accent); border-radius:8px; padding:12px; margin-bottom:14px;">
+        <div style="font-weight:800; font-size:13px; margin-bottom:8px; color:var(--accent);">Ajouter un nouvel ingrédient à la Mercuriale</div>
+        <div style="display:grid; grid-template-columns: 2fr 1fr 1fr auto; gap:8px; align-items:flex-end;">
+          <div>
+            <label style="font-size:11px; font-weight:700; color:var(--muted); display:block; margin-bottom:3px;">Nom Ingrédient</label>
+            <input type="text" id="new-price-name" placeholder="Ex: Avocat Hass, Truffe..." style="width:100%; padding:6px 10px; border-radius:6px; border:1px solid var(--border); background:var(--paper); color:var(--text);" />
+          </div>
+          <div>
+            <label style="font-size:11px; font-weight:700; color:var(--muted); display:block; margin-bottom:3px;">Unité d'achat</label>
+            <select id="new-price-unit" style="width:100%; padding:6px 10px; border-radius:6px; border:1px solid var(--border); background:var(--paper); color:var(--text);">
+              <option value="kg">kg (Kilo)</option>
+              <option value="l">L (Litre)</option>
+              <option value="p">p (Pièce / Bouteille / Boîte)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11px; font-weight:700; color:var(--muted); display:block; margin-bottom:3px;">Prix Achat HT (DH)</label>
+            <input type="number" step="0.1" id="new-price-val" placeholder="Ex: 45.00" style="width:100%; padding:6px 10px; border-radius:6px; border:1px solid var(--border); background:var(--paper); color:var(--text); font-weight:800;" />
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button class="btn btn-success" onclick="confirmAddIngredientPrice()" style="padding:6px 12px; font-size:12px; font-weight:800;">Valider</button>
+            <button class="btn" onclick="hideAddNewPriceForm()" style="padding:6px 10px; font-size:12px;">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLEAU DES PRIX MATIÈRES PREMIÈRES -->
+      <div style="max-height:420px; overflow-y:auto; border:1px solid var(--border); border-radius:8px;">
+        <table style="width:100%; border-collapse:collapse; font-size:12.5px;">
+          <thead>
+            <tr style="background:var(--table-head-bg); position:sticky; top:0; z-index:2; border-bottom:1.5px solid var(--border);">
+              <th style="padding:10px; text-align:left; color:var(--muted); font-weight:800; text-transform:uppercase; font-size:11px;">Matière Première</th>
+              <th style="padding:10px; text-align:center; color:var(--muted); font-weight:800; text-transform:uppercase; font-size:11px; width:120px;">Unité d'Achat</th>
+              <th style="padding:10px; text-align:right; color:var(--muted); font-weight:800; text-transform:uppercase; font-size:11px; width:180px;">Prix d'Achat HT (DH)</th>
+              <th style="padding:10px; text-align:right; color:var(--muted); font-weight:800; text-transform:uppercase; font-size:11px; width:140px;">Coût Unitaire (g/ml)</th>
+            </tr>
+          </thead>
+          <tbody id="prices-table-body">
+            <!-- Lignes injectées dynamiquement -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="modal-foot" style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border-top:1px solid var(--border);">
+      <button class="btn" onclick="closePricesModal()">Fermer</button>
+      <div style="display:flex; gap:8px;">
+        <button class="btn" style="background:#0284c7; color:#fff; border-color:#0284c7;" onclick="downloadUpdatedRecipesDataJs()" title="Sauvegarder les nouveaux prix dans le fichier recipes-data.js du projet">📁 Sauvegarder dans recipes-data.js</button>
+        <button class="btn btn-primary" onclick="saveAllIngredientPricesFromModal()" style="font-weight:800; padding:8px 18px;">💾 Enregistrer les Nouveaux Prix</button>
+      </div>
     </div>
   </div>
 </div>
@@ -3518,6 +3601,227 @@ function importRecipesJSON(event) {
   };
   reader.onerror = () => alert("Erreur de lecture du fichier. Veuillez réessayer.");
   reader.readAsText(file);
+}
+
+/* ========================================================
+   9b. MERCURIALE & PRIX D'ACHAT DES MATIÈRES PREMIÈRES
+======================================================== */
+function loadCustomIngredientPrices() {
+  try {
+    const saved = localStorage.getItem('gc_ingredient_prices_v1');
+    if (saved) {
+      const customPrices = JSON.parse(saved);
+      if (typeof window.INGREDIENT_UNIT_COSTS !== 'undefined') {
+        Object.assign(window.INGREDIENT_UNIT_COSTS, customPrices);
+      }
+    }
+  } catch (e) {
+    console.warn('[Mercuriale] Erreur lecture localStorage:', e);
+  }
+}
+
+function openPricesModal() {
+  loadCustomIngredientPrices();
+  document.getElementById('prices-modal').classList.add('visible');
+  renderPricesTable();
+}
+
+function closePricesModal() {
+  document.getElementById('prices-modal').classList.remove('visible');
+}
+
+function renderPricesTable() {
+  const container = document.getElementById('prices-table-body');
+  const search = cleanText(document.getElementById('search-prices-input').value);
+  const costMap = window.INGREDIENT_UNIT_COSTS || {};
+
+  const entries = Object.entries(costMap);
+  const filtered = entries.filter(([k, v]) => {
+    if (!search) return true;
+    const label = v.label || k;
+    return cleanText(label).includes(search) || cleanText(k).includes(search);
+  });
+
+  document.getElementById('prices-count-badge').textContent = `${entries.length} matières (${filtered.length} affichées)`;
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <tr>
+        <td colspan="4" style="text-align:center; padding:30px; color:var(--muted);">
+          Aucune matière première trouvée pour "${escapeHtml(search)}".
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  container.innerHTML = filtered.map(([key, item]) => {
+    const label = item.label || (key.charAt(0).toUpperCase() + key.slice(1));
+    const unit = item.unit || 'g';
+
+    let displayUnit = 'kg';
+    let purchasePrice = (item.cost || 0) * 1000;
+    let unitDesc = `${(item.cost || 0).toFixed(4)} DH/g`;
+
+    if (unit === 'ml') {
+      displayUnit = 'L';
+      purchasePrice = (item.cost || 0) * 1000;
+      unitDesc = `${(item.cost || 0).toFixed(4)} DH/ml`;
+    } else if (unit === 'piece' || unit === 'p') {
+      displayUnit = 'Pièce / Unité';
+      purchasePrice = item.cost || 0;
+      unitDesc = `${(item.cost || 0).toFixed(2)} DH/p`;
+    }
+
+    purchasePrice = Math.round(purchasePrice * 100) / 100;
+
+    return `
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px 12px; font-weight:700; color:var(--text);">
+          ${escapeHtml(label)}
+          <span style="font-size:10px; color:var(--muted); display:block; font-weight:normal;">Réf: ${escapeHtml(key)}</span>
+        </td>
+        <td style="padding:10px; text-align:center;">
+          <span style="background:var(--chip); color:var(--text); border:1px solid var(--border); padding:3px 8px; border-radius:6px; font-size:11px; font-weight:800;">
+            ${displayUnit}
+          </span>
+        </td>
+        <td style="padding:8px 12px; text-align:right;">
+          <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px;">
+            <input type="number" step="0.1" min="0" 
+              class="price-edit-input" 
+              data-key="${escapeHtml(key)}" 
+              data-unit="${unit}" 
+              value="${purchasePrice}" 
+              style="width:95px; padding:6px 8px; text-align:right; font-weight:800; font-size:13px; border-radius:6px; border:1.5px solid var(--border); background:var(--bg); color:var(--accent);"
+            />
+            <span style="font-size:12px; font-weight:700; color:var(--muted);">DH</span>
+          </div>
+        </td>
+        <td style="padding:10px 12px; text-align:right; font-weight:700; color:var(--muted); font-size:12px;">
+          ${unitDesc}
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function showAddNewPriceForm() {
+  document.getElementById('add-price-form-box').style.display = 'block';
+  document.getElementById('new-price-name').focus();
+}
+
+function hideAddNewPriceForm() {
+  document.getElementById('add-price-form-box').style.display = 'none';
+}
+
+function confirmAddIngredientPrice() {
+  const name = document.getElementById('new-price-name').value.trim();
+  const unit = document.getElementById('new-price-unit').value;
+  const priceVal = parseFloat(document.getElementById('new-price-val').value) || 0;
+
+  if (!name) {
+    alert("Veuillez saisir le nom de la matière première.");
+    return;
+  }
+  if (priceVal <= 0) {
+    alert("Veuillez spécifier un prix d'achat valide supérieur à 0.");
+    return;
+  }
+
+  const key = cleanText(name);
+  let baseUnit = 'g';
+  let unitCost = priceVal / 1000;
+
+  if (unit === 'l') {
+    baseUnit = 'ml';
+    unitCost = priceVal / 1000;
+  } else if (unit === 'p') {
+    baseUnit = 'piece';
+    unitCost = priceVal;
+  }
+
+  if (!window.INGREDIENT_UNIT_COSTS) window.INGREDIENT_UNIT_COSTS = {};
+  window.INGREDIENT_UNIT_COSTS[key] = {
+    cost: unitCost,
+    unit: baseUnit,
+    label: name
+  };
+
+  saveAllIngredientPricesFromModal();
+
+  document.getElementById('new-price-name').value = '';
+  document.getElementById('new-price-val').value = '';
+  hideAddNewPriceForm();
+  renderPricesTable();
+}
+
+function saveAllIngredientPricesFromModal() {
+  const inputs = document.querySelectorAll('.price-edit-input');
+  if (!window.INGREDIENT_UNIT_COSTS) window.INGREDIENT_UNIT_COSTS = {};
+
+  inputs.forEach(inp => {
+    const key = inp.dataset.key;
+    const unit = inp.dataset.unit;
+    const val = parseFloat(inp.value) || 0;
+
+    let unitCost = val / 1000;
+    if (unit === 'piece' || unit === 'p') {
+      unitCost = val;
+    }
+
+    if (window.INGREDIENT_UNIT_COSTS[key]) {
+      window.INGREDIENT_UNIT_COSTS[key].cost = unitCost;
+    } else {
+      window.INGREDIENT_UNIT_COSTS[key] = {
+        cost: unitCost,
+        unit: unit,
+        label: key
+      };
+    }
+  });
+
+  // Sauvegarde persistante dans localStorage
+  try {
+    localStorage.setItem('gc_ingredient_prices_v1', JSON.stringify(window.INGREDIENT_UNIT_COSTS));
+  } catch (e) {
+    console.error('Erreur sauvegarde localStorage prix:', e);
+  }
+
+  // Recalculer les coûts de toutes les fiches techniques actives
+  if (Array.isArray(activeRecipes)) {
+    activeRecipes.forEach(r => {
+      const sellPrice = r.sellPrice || findSellingPriceForRecipe(r.name) || 0;
+      if (typeof calculateRecipeFoodCost === 'function') {
+        const fc = calculateRecipeFoodCost(r.ingredients, sellPrice);
+        r.cost = fc.cost;
+        r.foodCost = fc.foodCost;
+        r.margin = fc.margin;
+        r.grossMarginDH = fc.grossMarginDH;
+      }
+    });
+    saveRecipes();
+  }
+
+  // Mettre à jour DATA si présent
+  if (typeof DATA !== 'undefined' && Array.isArray(DATA)) {
+    DATA.forEach(cat => {
+      (cat.items || []).forEach(it => {
+        if (typeof calculateRecipeFoodCost === 'function') {
+          const sellPrice = it.sellPrice || parseFloat(String(it.price || 0).replace(/[^0-9.]/g, '')) || 0;
+          const fc = calculateRecipeFoodCost(it.tech, sellPrice);
+          it.cost = fc.cost;
+          it.foodCost = fc.foodCost;
+          it.margin = fc.margin;
+          it.grossMarginDH = fc.grossMarginDH;
+        }
+      });
+    });
+  }
+
+  renderRecipeList();
+  recalculateCurrentView();
+  alert("✅ Prix des matières premières enregistrés ! Tous les Food Costs et Marges ont été recalculés avec succès.");
 }
 
 /* ========================================================
