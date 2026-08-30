@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-30T21:37:30.883Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-30T21:45:41.604Z
  */
 
 (function(global) {
@@ -1918,18 +1918,19 @@ const DATA = [
         "images": "images/entree-croustillon.jpg,images/entree-croustillon2.jpg,images/entree-croustillon3.jpg",
         "prepTime": 12,
         "tech": [
-          "Gambas panées : 330 g",
-          "Purée : 300 g",
+          "Gambas panées : 260 g",
+          "Purée : 400 g",
           "Radis : 15 g",
           "Parmesan : 14 g",
-          "Crème fraîche : 50 g"
+          "Crème fraîche : 50 g",
+          "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "68 DH",
-        "cost": 30.45,
+        "cost": 29.45,
         "sellPrice": 68,
-        "foodCost": 44.8,
-        "margin": 55.2,
-        "grossMarginDH": 37.55
+        "foodCost": 43.3,
+        "margin": 56.7,
+        "grossMarginDH": 38.55
       },
       {
         "name": "PIL PIL ESPAGNOL",
@@ -1989,15 +1990,14 @@ const DATA = [
           "Légumes variés : 220 g",
           "Fokacha : 150 g",
           "Frites : 200 g",
-          "Pain : 1 p",
           "Huile : 50 ml"
         ],
         "price": "88 DH",
-        "cost": 32.53,
+        "cost": 30.53,
         "sellPrice": 88,
-        "foodCost": 37,
-        "margin": 63,
-        "grossMarginDH": 55.47
+        "foodCost": 34.7,
+        "margin": 65.3,
+        "grossMarginDH": 57.47
       },
       {
         "name": "BALLOTINE DE POULET",
@@ -2073,22 +2073,21 @@ const DATA = [
         "images": "images/plat-eminceboeuf.jpg,images/plat-eminceboeuf2.jpg,images/plat-eminceboeuf3.jpg",
         "prepTime": 16,
         "tech": [
-          "Bœuf : 150 g",
+          "FILET DE Bœuf : 150 g",
           "Champignons : 80 g",
           "Crème fraîche : 70 ml",
           "Demi-glace : 60 ml",
           "Légumes : 220 g",
           "Fokacha : 150 g",
           "Frites : 200 g",
-          "Pain : 1 p",
           "Huile : 60 ml"
         ],
         "price": "103 DH",
-        "cost": 22.24,
+        "cost": 44.24,
         "sellPrice": 103,
-        "foodCost": 21.6,
-        "margin": 78.4,
-        "grossMarginDH": 80.76
+        "foodCost": 43,
+        "margin": 57,
+        "grossMarginDH": 58.76
       },
       {
         "name": "FILET DE BŒUF",
@@ -2101,15 +2100,14 @@ const DATA = [
           "Demi-glace : 70 ml",
           "Légumes : 220 g",
           "Fokacha : 150 g",
-          "Frites : 200 g",
-          "Pain : 1 p"
+          "Frites : 200 g"
         ],
         "price": "135 DH",
-        "cost": 45.85,
+        "cost": 49.25,
         "sellPrice": 135,
-        "foodCost": 34,
-        "margin": 66,
-        "grossMarginDH": 89.15
+        "foodCost": 36.5,
+        "margin": 63.5,
+        "grossMarginDH": 85.75
       },
       {
         "name": "PAVÉ DE SAUMON",
@@ -2598,11 +2596,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "65 DH",
-        "cost": 22.45,
+        "cost": 24.55,
         "sellPrice": 65,
-        "foodCost": 34.5,
-        "margin": 65.5,
-        "grossMarginDH": 42.55
+        "foodCost": 37.8,
+        "margin": 62.2,
+        "grossMarginDH": 40.45
       },
       {
         "name": "VIANDE HACHÉE",
@@ -4893,7 +4891,6 @@ const BASE_RECIPES = [
       "Légumes variés : 220 g",
       "Fokacha : 150 g",
       "Frites : 200 g",
-      "Pain : 1 p",
       "Huile : 50 ml"
     ]
   },
@@ -4953,14 +4950,13 @@ const BASE_RECIPES = [
     "name": "EMINCE DE BŒUF",
     "category": "PLATS",
     "ingredients": [
-      "Bœuf : 150 g",
+      "FILET DE Bœuf : 150 g",
       "Champignons : 80 g",
       "Crème fraîche : 70 ml",
       "Demi-glace : 60 ml",
       "Légumes : 220 g",
       "Fokacha : 150 g",
       "Frites : 200 g",
-      "Pain : 1 p",
       "Huile : 60 ml"
     ]
   },
@@ -4969,14 +4965,13 @@ const BASE_RECIPES = [
     "name": "FILET DE BŒUF",
     "category": "PLATS",
     "ingredients": [
-      "Filet : 200 g",
+      "Filet : 180 g",
       "Beurre : 40 g",
       "Poivre vert : 20 g",
       "Demi-glace : 70 ml",
       "Légumes : 220 g",
       "Fokacha : 150 g",
-      "Frites : 200 g",
-      "Pain : 1 p"
+      "Frites : 200 g"
     ]
   },
   {
@@ -6992,11 +6987,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "filet de boeuf": {
-    "cost": 0.15,
+    "cost": 0.18,
     "unit": "g"
   },
   "filet": {
-    "cost": 0.15,
+    "cost": 0.18,
     "unit": "g"
   },
   "viande tajine": {
