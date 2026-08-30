@@ -1,0 +1,7776 @@
+[
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "CAFÉ NOIR / ESPRESSO",
+    "sellPrice": 16,
+    "cost": 3.35,
+    "foodCostPct": 20.9,
+    "marginPct": 79.1,
+    "details": [
+      {
+        "ing": "Café",
+        "qty": "10 g",
+        "cost": 1.4000000000000001,
+        "matched": "CAFE  1KG"
+      },
+      {
+        "ing": "Eau chaude",
+        "qty": "60 ml",
+        "cost": 0,
+        "matched": "Gratuit"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "1 p",
+        "cost": 1.4500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "CAFÉ AMÉRICAIN",
+    "sellPrice": 17,
+    "cost": 3.35,
+    "foodCostPct": 19.7,
+    "marginPct": 80.3,
+    "details": [
+      {
+        "ing": "Café",
+        "qty": "10 g",
+        "cost": 1.4000000000000001,
+        "matched": "CAFE  1KG"
+      },
+      {
+        "ing": "Eau chaude",
+        "qty": "150 ml",
+        "cost": 0,
+        "matched": "Gratuit"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "1 p",
+        "cost": 1.4500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "CAFÉ AU LAIT",
+    "sellPrice": 19,
+    "cost": 4.45,
+    "foodCostPct": 23.4,
+    "marginPct": 76.6,
+    "details": [
+      {
+        "ing": "Café",
+        "qty": "10 g",
+        "cost": 1.4000000000000001,
+        "matched": "CAFE  1KG"
+      },
+      {
+        "ing": "Lait chaud",
+        "qty": "120 ml",
+        "cost": 1.1003999999999998,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "1 p",
+        "cost": 1.4500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "CAFÉ LATTE",
+    "sellPrice": 19,
+    "cost": 5.28,
+    "foodCostPct": 27.8,
+    "marginPct": 72.2,
+    "details": [
+      {
+        "ing": "Café",
+        "qty": "10 g",
+        "cost": 1.4000000000000001,
+        "matched": "CAFE  1KG"
+      },
+      {
+        "ing": "Lait chaud",
+        "qty": "180 ml",
+        "cost": 1.6505999999999998,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Mousse de lait",
+        "qty": "30 ml",
+        "cost": 0.27509999999999996,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "1 p",
+        "cost": 1.4500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "CAPPUCCINO ITALIEN",
+    "sellPrice": 19,
+    "cost": 5.23,
+    "foodCostPct": 27.5,
+    "marginPct": 72.5,
+    "details": [
+      {
+        "ing": "Café",
+        "qty": "10 g",
+        "cost": 1.4000000000000001,
+        "matched": "CAFE  1KG"
+      },
+      {
+        "ing": "Lait chaud",
+        "qty": "100 ml",
+        "cost": 0.9169999999999999,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Mousse de lait",
+        "qty": "50 ml",
+        "cost": 0.45849999999999996,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Cacao en poudre",
+        "qty": "3 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "1 p",
+        "cost": 1.4500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "CAPPUCCINO CHANTILLY",
+    "sellPrice": 22,
+    "cost": 5.71,
+    "foodCostPct": 26,
+    "marginPct": 74,
+    "details": [
+      {
+        "ing": "Café",
+        "qty": "10 g",
+        "cost": 1.4000000000000001,
+        "matched": "CAFE  1KG"
+      },
+      {
+        "ing": "Lait chaud",
+        "qty": "100 ml",
+        "cost": 0.9169999999999999,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Crème chantilly",
+        "qty": "30 g",
+        "cost": 0.8999999999999999,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Cacao",
+        "qty": "3 g",
+        "cost": 0.54,
+        "matched": "DROPS CACAO"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "1 p",
+        "cost": 1.4500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "CAFÉ NESPRESSO",
+    "sellPrice": 22,
+    "cost": 4.8,
+    "foodCostPct": 21.8,
+    "marginPct": 78.2,
+    "details": [
+      {
+        "ing": "Pastille Nespresso",
+        "qty": "1 p",
+        "cost": 2.85,
+        "matched": "NESCAFE GOLD"
+      },
+      {
+        "ing": "Eau chaude",
+        "qty": "50 ml",
+        "cost": 0,
+        "matched": "Gratuit"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "1 p",
+        "cost": 1.4500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "CHOCOLAT CHAUD",
+    "sellPrice": 18,
+    "cost": 4.28,
+    "foodCostPct": 23.8,
+    "marginPct": 76.2,
+    "details": [
+      {
+        "ing": "Chocolat en poudre",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Lait chaud",
+        "qty": "200 ml",
+        "cost": 1.8339999999999999,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "1 p",
+        "cost": 1.4500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "CHOCOLAT CHAUD CHANTILLY",
+    "sellPrice": 22,
+    "cost": 4.2,
+    "foodCostPct": 19.1,
+    "marginPct": 80.9,
+    "details": [
+      {
+        "ing": "Chocolat en poudre",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Lait chaud",
+        "qty": "180 ml",
+        "cost": 1.6505999999999998,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Crème chantilly",
+        "qty": "35 g",
+        "cost": 1.05,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Coulis chocolat",
+        "qty": "10 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "CHOCOLAT FONDU GOURMAND",
+    "sellPrice": 26,
+    "cost": 3.65,
+    "foodCostPct": 14,
+    "marginPct": 86,
+    "details": [
+      {
+        "ing": "Chocolat noir fondu",
+        "qty": "45 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Lait chaud",
+        "qty": "180 ml",
+        "cost": 1.6505999999999998,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Guimauves",
+        "qty": "15 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Chantilly",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "THÉ MAROCAIN À LA MENTHE",
+    "sellPrice": 16,
+    "cost": 42.65,
+    "foodCostPct": 266.6,
+    "marginPct": -166.6,
+    "details": [
+      {
+        "ing": "Thé vert Gunpowder",
+        "qty": "10 g",
+        "cost": 0.9199999999999999,
+        "matched": "THE SBAA 500G"
+      },
+      {
+        "ing": "Menthe fraîche",
+        "qty": "20 g",
+        "cost": 40,
+        "matched": "MENTH"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "25 g",
+        "cost": 0.7250000000000001,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Eau bouillante",
+        "qty": "300 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "THÉ NOIR",
+    "sellPrice": 15,
+    "cost": 5.81,
+    "foodCostPct": 38.7,
+    "marginPct": 61.3,
+    "details": [
+      {
+        "ing": "Thé noir",
+        "qty": "8 g",
+        "cost": 3.36,
+        "matched": "LIPTON 100PC"
+      },
+      {
+        "ing": "Eau bouillante",
+        "qty": "250 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "1 p",
+        "cost": 1.4500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "THÉ NOIR AU LAIT",
+    "sellPrice": 18,
+    "cost": 6.41,
+    "foodCostPct": 35.6,
+    "marginPct": 64.4,
+    "details": [
+      {
+        "ing": "Thé noir",
+        "qty": "8 g",
+        "cost": 3.36,
+        "matched": "LIPTON 100PC"
+      },
+      {
+        "ing": "Lait chaud",
+        "qty": "120 ml",
+        "cost": 1.1003999999999998,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Eau",
+        "qty": "130 ml",
+        "cost": 0,
+        "matched": "Gratuit"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "1 p",
+        "cost": 1.4500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "VERVEINE NATURE",
+    "sellPrice": 15,
+    "cost": 2.26,
+    "foodCostPct": 15.1,
+    "marginPct": 84.9,
+    "details": [
+      {
+        "ing": "Verveine séchée",
+        "qty": "10 g",
+        "cost": 1.18,
+        "matched": "VERVIENE"
+      },
+      {
+        "ing": "Eau chaude",
+        "qty": "250 ml",
+        "cost": 0,
+        "matched": "Gratuit"
+      },
+      {
+        "ing": "Miel / Sucre",
+        "qty": "20 g",
+        "cost": 0.5800000000000001,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "VERVEINE AROMATISÉE",
+    "sellPrice": 18,
+    "cost": 2.53,
+    "foodCostPct": 14.1,
+    "marginPct": 85.9,
+    "details": [
+      {
+        "ing": "Verveine séchée",
+        "qty": "10 g",
+        "cost": 1.18,
+        "matched": "VERVIENE"
+      },
+      {
+        "ing": "Fleur d'oranger",
+        "qty": "5 ml",
+        "cost": 0.025,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Zeste de citron",
+        "qty": "5 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Eau chaude",
+        "qty": "250 ml",
+        "cost": 0,
+        "matched": "Gratuit"
+      },
+      {
+        "ing": "Miel",
+        "qty": "20 g",
+        "cost": 0.32,
+        "matched": "MIEL  1 KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "INFUSION BIEN-ÊTRE",
+    "sellPrice": 18,
+    "cost": 1.32,
+    "foodCostPct": 7.3,
+    "marginPct": 92.7,
+    "details": [
+      {
+        "ing": "Mélange plantes infusion",
+        "qty": "10 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Eau chaude",
+        "qty": "250 ml",
+        "cost": 0,
+        "matched": "Gratuit"
+      },
+      {
+        "ing": "Miel",
+        "qty": "20 g",
+        "cost": 0.32,
+        "matched": "MIEL  1 KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "VERRE DE LAIT",
+    "sellPrice": 12,
+    "cost": 4.24,
+    "foodCostPct": 35.3,
+    "marginPct": 64.7,
+    "details": [
+      {
+        "ing": "Lait entier frais",
+        "qty": "250 ml",
+        "cost": 2.2925,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "1 p",
+        "cost": 1.4500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "LAIT CASSÉ",
+    "sellPrice": 19,
+    "cost": 4.17,
+    "foodCostPct": 21.9,
+    "marginPct": 78.1,
+    "details": [
+      {
+        "ing": "Café",
+        "qty": "6 g",
+        "cost": 0.8400000000000001,
+        "matched": "CAFE  1KG"
+      },
+      {
+        "ing": "Lait chaud",
+        "qty": "150 ml",
+        "cost": 1.3755,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "1 p",
+        "cost": 1.4500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "CAFÉ SÉPARÉ",
+    "sellPrice": 24,
+    "cost": 4.27,
+    "foodCostPct": 17.8,
+    "marginPct": 82.2,
+    "details": [
+      {
+        "ing": "Café",
+        "qty": "10 g",
+        "cost": 1.4000000000000001,
+        "matched": "CAFE  1KG"
+      },
+      {
+        "ing": "Lait chaud",
+        "qty": "100 ml",
+        "cost": 0.9169999999999999,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "1 p",
+        "cost": 1.4500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "name": "CAFÉ MOITIÉ",
+    "sellPrice": 19,
+    "cost": 4.08,
+    "foodCostPct": 21.5,
+    "marginPct": 78.5,
+    "details": [
+      {
+        "ing": "Café",
+        "qty": "10 g",
+        "cost": 1.4000000000000001,
+        "matched": "CAFE  1KG"
+      },
+      {
+        "ing": "Lait chaud",
+        "qty": "80 ml",
+        "cost": 0.7335999999999999,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "1 p",
+        "cost": 1.4500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS GLACÉS & FRAPPÉS",
+    "name": "ICE COFFEE CLASSIQUE",
+    "sellPrice": 20,
+    "cost": 2.42,
+    "foodCostPct": 12.1,
+    "marginPct": 87.9,
+    "details": [
+      {
+        "ing": "Café espresso",
+        "qty": "10 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Lait froid",
+        "qty": "100 ml",
+        "cost": 0.9169999999999999,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Sirop de canne",
+        "qty": "20 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "120 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS GLACÉS & FRAPPÉS",
+    "name": "ICE COFFEE AROMATISÉ",
+    "sellPrice": 23,
+    "cost": 3902.1,
+    "foodCostPct": 16965.7,
+    "marginPct": -16865.7,
+    "details": [
+      {
+        "ing": "Café espresso",
+        "qty": "10 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sirop Caramel / Vanille",
+        "qty": "25 ml",
+        "cost": 3900,
+        "matched": "SIROP CARAMEL"
+      },
+      {
+        "ing": "Lait froid",
+        "qty": "120 ml",
+        "cost": 1.1003999999999998,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "120 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS GLACÉS & FRAPPÉS",
+    "name": "FRAPPUCCINO CLASSIQUE",
+    "sellPrice": 25,
+    "cost": 3.5,
+    "foodCostPct": 14,
+    "marginPct": 86,
+    "details": [
+      {
+        "ing": "Café espresso",
+        "qty": "10 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Lait",
+        "qty": "120 ml",
+        "cost": 1.1003999999999998,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Base frappé vanille",
+        "qty": "25 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Glace pilée",
+        "qty": "150 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Crème chantilly",
+        "qty": "30 g",
+        "cost": 0.8999999999999999,
+        "matched": "HULALA  1L"
+      }
+    ]
+  },
+  {
+    "category": "CAFÉS GLACÉS & FRAPPÉS",
+    "name": "FRAPPUCCINO AROMATISÉ",
+    "sellPrice": 28,
+    "cost": 4682.6,
+    "foodCostPct": 16723.6,
+    "marginPct": -16623.6,
+    "details": [
+      {
+        "ing": "Café espresso",
+        "qty": "10 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Lait",
+        "qty": "120 ml",
+        "cost": 1.1003999999999998,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Sirop Noisette / Caramel",
+        "qty": "30 ml",
+        "cost": 4680,
+        "matched": "SIROP NOISETTE VED"
+      },
+      {
+        "ing": "Glace pilée",
+        "qty": "150 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Chantilly & Nappage",
+        "qty": "35 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "ICE TEA MAISON",
+    "name": "ICE TEA PÊCHE MAISON",
+    "sellPrice": 28,
+    "cost": 1344.5,
+    "foodCostPct": 4801.8,
+    "marginPct": -4701.8,
+    "details": [
+      {
+        "ing": "Infusion thé noir",
+        "qty": "200 ml",
+        "cost": 84,
+        "matched": "LIPTON 100PC"
+      },
+      {
+        "ing": "Sirop de pêche",
+        "qty": "30 ml",
+        "cost": 540,
+        "matched": "THE AR  PECHE  PC"
+      },
+      {
+        "ing": "Jus de citron",
+        "qty": "15 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pêche fraîche",
+        "qty": "30 g",
+        "cost": 720,
+        "matched": "PECHE CONSERV"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "100 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      }
+    ]
+  },
+  {
+    "category": "ICE TEA MAISON",
+    "name": "ICE TEA CITRON MAISON",
+    "sellPrice": 28,
+    "cost": 19.9,
+    "foodCostPct": 71.1,
+    "marginPct": 28.9,
+    "details": [
+      {
+        "ing": "Infusion thé vert",
+        "qty": "200 ml",
+        "cost": 18.4,
+        "matched": "THE SBAA 500G"
+      },
+      {
+        "ing": "Jus de citron pressé",
+        "qty": "30 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sirop de canne",
+        "qty": "25 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Rondelles de citron",
+        "qty": "2 tr",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "100 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      }
+    ]
+  },
+  {
+    "category": "ICE TEA MAISON",
+    "name": "ICE TEA FRAMBOISE MAISON",
+    "sellPrice": 28,
+    "cost": 2,
+    "foodCostPct": 7.1,
+    "marginPct": 92.9,
+    "details": [
+      {
+        "ing": "Infusion thé fruits rouges",
+        "qty": "200 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Purée de framboise",
+        "qty": "35 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus de citron",
+        "qty": "15 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Framboises fraîches",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "100 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "name": "JUS D'ORANGE PRESSÉ",
+    "sellPrice": 22,
+    "cost": 1.9,
+    "foodCostPct": 8.6,
+    "marginPct": 91.4,
+    "details": [
+      {
+        "ing": "Oranges fraîches à jus",
+        "qty": "380 g",
+        "cost": 1.9000000000000001,
+        "matched": "LORANGE"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "name": "JUS DE CITRON / CITRONNADE",
+    "sellPrice": 25,
+    "cost": 11,
+    "foodCostPct": 44,
+    "marginPct": 56,
+    "details": [
+      {
+        "ing": "Citron pressé",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sirop de canne",
+        "qty": "30 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Eau filtrée & Glaçons",
+        "qty": "150 ml",
+        "cost": 0,
+        "matched": "Gratuit"
+      },
+      {
+        "ing": "Menthe fraîche",
+        "qty": "5 g",
+        "cost": 10,
+        "matched": "MENTH"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "name": "JUS DE FRAISE",
+    "sellPrice": 30,
+    "cost": 1.34,
+    "foodCostPct": 4.5,
+    "marginPct": 95.5,
+    "details": [
+      {
+        "ing": "Fraises fraîches",
+        "qty": "220 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange frais",
+        "qty": "80 ml",
+        "cost": 0.4,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Sirop de sucre",
+        "qty": "15 ml",
+        "cost": 0.435,
+        "matched": "SUCRE CAFE 5KG"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "name": "JUS DE FRAMBOISE",
+    "sellPrice": 35,
+    "cost": 1.48,
+    "foodCostPct": 4.2,
+    "marginPct": 95.8,
+    "details": [
+      {
+        "ing": "Framboises fraîches",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "80 ml",
+        "cost": 0.4,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Sirop de sucre",
+        "qty": "20 ml",
+        "cost": 0.5800000000000001,
+        "matched": "SUCRE CAFE 5KG"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "name": "JUS DE MANGUE",
+    "sellPrice": 30,
+    "cost": 7.22,
+    "foodCostPct": 24.1,
+    "marginPct": 75.9,
+    "details": [
+      {
+        "ing": "Mangue fraîche",
+        "qty": "220 g",
+        "cost": 6.82,
+        "matched": "MANGUE"
+      },
+      {
+        "ing": "Jus d'orange frais",
+        "qty": "80 ml",
+        "cost": 0.4,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "50 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "name": "JUS D'ANANAS",
+    "sellPrice": 32,
+    "cost": 5.38,
+    "foodCostPct": 16.8,
+    "marginPct": 83.2,
+    "details": [
+      {
+        "ing": "Ananas frais",
+        "qty": "250 g",
+        "cost": 5.375,
+        "matched": "ANANAS"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "50 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "name": "JUS DE PÊCHE",
+    "sellPrice": 30,
+    "cost": 5280.4,
+    "foodCostPct": 17601.3,
+    "marginPct": -17501.3,
+    "details": [
+      {
+        "ing": "Pêche fraîche",
+        "qty": "220 g",
+        "cost": 5280,
+        "matched": "PECHE CONSERV"
+      },
+      {
+        "ing": "Jus d'orange frais",
+        "qty": "80 ml",
+        "cost": 0.4,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "50 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "name": "JUS DE CAROTTE",
+    "sellPrice": 25,
+    "cost": 0.75,
+    "foodCostPct": 3,
+    "marginPct": 97,
+    "details": [
+      {
+        "ing": "Carottes fraîches",
+        "qty": "350 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange frais",
+        "qty": "50 ml",
+        "cost": 0.25,
+        "matched": "LORANGE"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "name": "JUS POMME & BANANE",
+    "sellPrice": 28,
+    "cost": 1.92,
+    "foodCostPct": 6.9,
+    "marginPct": 93.1,
+    "details": [
+      {
+        "ing": "Pomme fraîche",
+        "qty": "150 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Banane",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Lait ou Jus d'orange",
+        "qty": "100 ml",
+        "cost": 0.9169999999999999,
+        "matched": "LAIT UHT 1L"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "name": "JUS D'AVOCAT AU LAIT",
+    "sellPrice": 32,
+    "cost": 2.91,
+    "foodCostPct": 9.1,
+    "marginPct": 90.9,
+    "details": [
+      {
+        "ing": "Avocat Hass",
+        "qty": "160 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Lait entier frais",
+        "qty": "200 ml",
+        "cost": 1.8339999999999999,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Sucre",
+        "qty": "20 g",
+        "cost": 0.5800000000000001,
+        "matched": "SUCRE CAFE 5KG"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "name": "JUS D'AVOCAT ROYAL FRUITS SECS",
+    "sellPrice": 38,
+    "cost": 5.73,
+    "foodCostPct": 15.1,
+    "marginPct": 84.9,
+    "details": [
+      {
+        "ing": "Avocat Hass",
+        "qty": "160 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Lait entier",
+        "qty": "200 ml",
+        "cost": 1.8339999999999999,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Miel pur",
+        "qty": "25 g",
+        "cost": 0.4,
+        "matched": "MIEL  1 KG"
+      },
+      {
+        "ing": "Amandes, Noix, Raisins secs",
+        "qty": "40 g",
+        "cost": 3,
+        "matched": "NOIX KG"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "name": "JUS PANACHÉ FRUITS FRAIS",
+    "sellPrice": 38,
+    "cost": 2.96,
+    "foodCostPct": 7.8,
+    "marginPct": 92.2,
+    "details": [
+      {
+        "ing": "Jus d'orange",
+        "qty": "100 ml",
+        "cost": 0.5,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Banane",
+        "qty": "80 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fraise",
+        "qty": "60 g",
+        "cost": 0.96,
+        "matched": "FRAISE KG"
+      },
+      {
+        "ing": "Pomme",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Avocat",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "name": "COCKTAIL À BASE D'ORANGE",
+    "sellPrice": 42,
+    "cost": 2.97,
+    "foodCostPct": 7.1,
+    "marginPct": 92.9,
+    "details": [
+      {
+        "ing": "Jus d'orange frais",
+        "qty": "180 ml",
+        "cost": 0.9,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Sirop de grenadine",
+        "qty": "20 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fraise fraîche",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Ananas frais",
+        "qty": "50 g",
+        "cost": 1.075,
+        "matched": "ANANAS"
+      }
+    ]
+  },
+  {
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "name": "ZA3ZA3 ROYAL GREY CORNER",
+    "sellPrice": 46,
+    "cost": 10.28,
+    "foodCostPct": 22.3,
+    "marginPct": 77.7,
+    "details": [
+      {
+        "ing": "Avocat",
+        "qty": "150 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Lait",
+        "qty": "180 ml",
+        "cost": 1.6505999999999998,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Chocolat KitKat / Snickers",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fruits secs variés",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Biscuits Oreo",
+        "qty": "2 p",
+        "cost": 5.58,
+        "matched": "OREO"
+      },
+      {
+        "ing": "Crème chantilly",
+        "qty": "35 g",
+        "cost": 1.05,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Coulis caramel",
+        "qty": "15 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "COCKTAILS & MOCKTAILS",
+    "name": "SIGNATURE GREY CORNER",
+    "sellPrice": 48,
+    "cost": 6.63,
+    "foodCostPct": 13.8,
+    "marginPct": 86.2,
+    "details": [
+      {
+        "ing": "Jus d'ananas",
+        "qty": "100 ml",
+        "cost": 2.15,
+        "matched": "ANANAS"
+      },
+      {
+        "ing": "Jus de mangue",
+        "qty": "80 ml",
+        "cost": 2.48,
+        "matched": "MANGUE"
+      },
+      {
+        "ing": "Purée de fraise",
+        "qty": "40 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus de citron vert",
+        "qty": "20 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sirop de passion",
+        "qty": "20 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fruits frais décor",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "COCKTAILS & MOCKTAILS",
+    "name": "VIRGIN PIÑA COLADA",
+    "sellPrice": 42,
+    "cost": 6.06,
+    "foodCostPct": 14.4,
+    "marginPct": 85.6,
+    "details": [
+      {
+        "ing": "Jus d'ananas frais",
+        "qty": "180 ml",
+        "cost": 3.8699999999999997,
+        "matched": "ANANAS"
+      },
+      {
+        "ing": "Crème de coco",
+        "qty": "60 ml",
+        "cost": 1.7999999999999998,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Lait de coco",
+        "qty": "40 ml",
+        "cost": 0.36679999999999996,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "100 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      },
+      {
+        "ing": "Tranche d'ananas",
+        "qty": "1 tr",
+        "cost": 0.0215,
+        "matched": "ANANAS"
+      }
+    ]
+  },
+  {
+    "category": "COCKTAILS & MOCKTAILS",
+    "name": "COCKTAIL TROPICAL",
+    "sellPrice": 42,
+    "cost": 5,
+    "foodCostPct": 11.9,
+    "marginPct": 88.1,
+    "details": [
+      {
+        "ing": "Jus de mangue",
+        "qty": "80 ml",
+        "cost": 2.48,
+        "matched": "MANGUE"
+      },
+      {
+        "ing": "Jus d'ananas",
+        "qty": "80 ml",
+        "cost": 1.7199999999999998,
+        "matched": "ANANAS"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "60 ml",
+        "cost": 0.3,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Sirop de grenadine",
+        "qty": "15 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "80 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      }
+    ]
+  },
+  {
+    "category": "COCKTAILS & MOCKTAILS",
+    "name": "MOJITO VIRGIN / FRAÎCHEUR",
+    "sellPrice": 42,
+    "cost": 32.08,
+    "foodCostPct": 76.4,
+    "marginPct": 23.6,
+    "details": [
+      {
+        "ing": "Citron vert frais",
+        "qty": "1 p (40 g)",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Menthe fraîche",
+        "qty": "15 g",
+        "cost": 30,
+        "matched": "MENTH"
+      },
+      {
+        "ing": "Sucre de canne",
+        "qty": "20 g",
+        "cost": 0.5800000000000001,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Eau gazeuse Oulmès",
+        "qty": "150 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Glace pilée",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "COCKTAILS & MOCKTAILS",
+    "name": "DÉTOX GINGEMBRE CITRON",
+    "sellPrice": 32,
+    "cost": 2.4,
+    "foodCostPct": 7.5,
+    "marginPct": 92.5,
+    "details": [
+      {
+        "ing": "Gingembre frais râpé",
+        "qty": "15 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus de citron pressé",
+        "qty": "60 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Miel pur d'abeille",
+        "qty": "25 g",
+        "cost": 0.4,
+        "matched": "MIEL  1 KG"
+      },
+      {
+        "ing": "Pomme verte",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Eau minérale",
+        "qty": "100 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "COCKTAILS & MOCKTAILS",
+    "name": "COCKTAIL SANS ALCOOL SPÉCIAL",
+    "sellPrice": 34,
+    "cost": 2374,
+    "foodCostPct": 6982.4,
+    "marginPct": -6882.4,
+    "details": [
+      {
+        "ing": "Jus d'orange",
+        "qty": "100 ml",
+        "cost": 0.5,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Jus de pêche",
+        "qty": "80 ml",
+        "cost": 1920,
+        "matched": "PECHE CONSERV"
+      },
+      {
+        "ing": "Purée de framboise",
+        "qty": "30 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sprite",
+        "qty": "60 ml",
+        "cost": 453,
+        "matched": "SPRITE 33 CL"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "80 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      }
+    ]
+  },
+  {
+    "category": "COCKTAILS & MOCKTAILS",
+    "name": "MOJITO TROPICAL",
+    "sellPrice": 38,
+    "cost": 33.36,
+    "foodCostPct": 87.8,
+    "marginPct": 12.2,
+    "details": [
+      {
+        "ing": "Citron vert",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Menthe fraîche",
+        "qty": "15 g",
+        "cost": 30,
+        "matched": "MENTH"
+      },
+      {
+        "ing": "Mangue / Passion",
+        "qty": "60 ml",
+        "cost": 1.8599999999999999,
+        "matched": "MANGUE"
+      },
+      {
+        "ing": "Eau gazeuse Oulmès",
+        "qty": "150 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Glace pilée",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "COCKTAILS & MOCKTAILS",
+    "name": "MOJITO RED BULL",
+    "sellPrice": 44,
+    "cost": 31.5,
+    "foodCostPct": 71.6,
+    "marginPct": 28.4,
+    "details": [
+      {
+        "ing": "Citron vert",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Menthe fraîche",
+        "qty": "15 g",
+        "cost": 30,
+        "matched": "MENTH"
+      },
+      {
+        "ing": "Red Bull (Canette 250ml)",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Glace pilée",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "COCKTAILS & MOCKTAILS",
+    "name": "MOJITO CITRON",
+    "sellPrice": 34,
+    "cost": 32.08,
+    "foodCostPct": 94.4,
+    "marginPct": 5.6,
+    "details": [
+      {
+        "ing": "Citron vert",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Menthe fraîche",
+        "qty": "15 g",
+        "cost": 30,
+        "matched": "MENTH"
+      },
+      {
+        "ing": "Sucre de canne",
+        "qty": "20 g",
+        "cost": 0.5800000000000001,
+        "matched": "SUCRE CAFE 5KG"
+      },
+      {
+        "ing": "Eau gazeuse Oulmès",
+        "qty": "150 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Glace pilée",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "SMOOTHIES & BOWLS",
+    "name": "SMOOTHIE PINK BERRY",
+    "sellPrice": 48,
+    "cost": 2,
+    "foodCostPct": 4.2,
+    "marginPct": 95.8,
+    "details": [
+      {
+        "ing": "Fraises fraîches",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Framboises",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Yaourt grec nature",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus de pomme",
+        "qty": "80 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "50 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      }
+    ]
+  },
+  {
+    "category": "SMOOTHIES & BOWLS",
+    "name": "SMOOTHIE ÉNERGÉTIQUE",
+    "sellPrice": 42,
+    "cost": 3.65,
+    "foodCostPct": 8.7,
+    "marginPct": 91.3,
+    "details": [
+      {
+        "ing": "Banane",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dattes Medjool",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Flocons d'avoine",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Lait d'amande",
+        "qty": "180 ml",
+        "cost": 1.6505999999999998,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Beurre de cacahuète",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "SMOOTHIES & BOWLS",
+    "name": "SMOOTHIE HAWAÏ",
+    "sellPrice": 42,
+    "cost": 6.15,
+    "foodCostPct": 14.6,
+    "marginPct": 85.4,
+    "details": [
+      {
+        "ing": "Mangue fraîche",
+        "qty": "100 g",
+        "cost": 3.1,
+        "matched": "MANGUE"
+      },
+      {
+        "ing": "Ananas frais",
+        "qty": "100 g",
+        "cost": 2.15,
+        "matched": "ANANAS"
+      },
+      {
+        "ing": "Fruit de la passion",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "80 ml",
+        "cost": 0.4,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "50 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      }
+    ]
+  },
+  {
+    "category": "SMOOTHIES & BOWLS",
+    "name": "SMOOTHIE MULTIVITAMINÉ",
+    "sellPrice": 42,
+    "cost": 2,
+    "foodCostPct": 4.8,
+    "marginPct": 95.2,
+    "details": [
+      {
+        "ing": "Jus d'orange frais",
+        "qty": "100 ml",
+        "cost": 0.5,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Carotte",
+        "qty": "80 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pomme",
+        "qty": "80 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Gingembre frais",
+        "qty": "5 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "50 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      }
+    ]
+  },
+  {
+    "category": "SMOOTHIES & BOWLS",
+    "name": "SMOOTHIE JELLY FRUIT",
+    "sellPrice": 48,
+    "cost": 2,
+    "foodCostPct": 4.2,
+    "marginPct": 95.8,
+    "details": [
+      {
+        "ing": "Fruits rouges",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Banane",
+        "qty": "80 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus de cranberry",
+        "qty": "80 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Perles de fruits Popping Boba",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "SMOOTHIES & BOWLS",
+    "name": "SMOOTHIE TRIPLE FRUITS",
+    "sellPrice": 48,
+    "cost": 4.95,
+    "foodCostPct": 10.3,
+    "marginPct": 89.7,
+    "details": [
+      {
+        "ing": "Fraise",
+        "qty": "70 g",
+        "cost": 1.12,
+        "matched": "FRAISE KG"
+      },
+      {
+        "ing": "Mangue",
+        "qty": "70 g",
+        "cost": 2.17,
+        "matched": "MANGUE"
+      },
+      {
+        "ing": "Kiwi frais",
+        "qty": "70 g",
+        "cost": 1.26,
+        "matched": "KIWI"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "80 ml",
+        "cost": 0.4,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Glaçons",
+        "qty": "50 g",
+        "cost": 0,
+        "matched": "Gratuit"
+      }
+    ]
+  },
+  {
+    "category": "SMOOTHIES & BOWLS",
+    "name": "SMOOTHIE BOWL EXOTIQUE",
+    "sellPrice": 48,
+    "cost": 10.04,
+    "foodCostPct": 20.9,
+    "marginPct": 79.1,
+    "details": [
+      {
+        "ing": "Base mixée Mangue/Banane/Passion",
+        "qty": "250 g",
+        "cost": 7.75,
+        "matched": "MANGUE"
+      },
+      {
+        "ing": "Granola croustillant",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Kiwi frais",
+        "qty": "30 g",
+        "cost": 0.5399999999999999,
+        "matched": "KIWI"
+      },
+      {
+        "ing": "Graines de chia",
+        "qty": "10 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Noix de coco râpée",
+        "qty": "10 g",
+        "cost": 0.75,
+        "matched": "NOIX KG"
+      }
+    ]
+  },
+  {
+    "category": "SMOOTHIES & BOWLS",
+    "name": "SMOOTHIE BOWL ULTRA BOOST",
+    "sellPrice": 48,
+    "cost": 3.61,
+    "foodCostPct": 7.5,
+    "marginPct": 92.5,
+    "details": [
+      {
+        "ing": "Base mixée Açaï/Fruits rouges",
+        "qty": "250 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Banane",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Granola croustillant",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Myrtilles & Framboises",
+        "qty": "30 g",
+        "cost": 1.1099999999999999,
+        "matched": "MERTYLLE CONGELE   KG"
+      },
+      {
+        "ing": "Graines de chia",
+        "qty": "10 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Amandes effilées",
+        "qty": "15 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "name": "COCA-COLA 33CL",
+    "sellPrice": 17,
+    "cost": 1,
+    "foodCostPct": 5.9,
+    "marginPct": 94.1,
+    "details": [
+      {
+        "ing": "Coca-Cola (Canette 33cl)",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tranche de citron",
+        "qty": "1 tr",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "name": "COCA-COLA ZÉRO 33CL",
+    "sellPrice": 17,
+    "cost": 1,
+    "foodCostPct": 5.9,
+    "marginPct": 94.1,
+    "details": [
+      {
+        "ing": "Coca-Cola Zéro (Canette 33cl)",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tranche de citron",
+        "qty": "1 tr",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "name": "SPRITE 33CL",
+    "sellPrice": 17,
+    "cost": 1,
+    "foodCostPct": 5.9,
+    "marginPct": 94.1,
+    "details": [
+      {
+        "ing": "Sprite (Canette 33cl)",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tranche de citron",
+        "qty": "1 tr",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "name": "HAWAÏ 33CL",
+    "sellPrice": 17,
+    "cost": 0.5,
+    "foodCostPct": 2.9,
+    "marginPct": 97.1,
+    "details": [
+      {
+        "ing": "Hawaï Canette",
+        "qty": "33 cl",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "name": "POMS 33CL",
+    "sellPrice": 17,
+    "cost": 0.5,
+    "foodCostPct": 2.9,
+    "marginPct": 97.1,
+    "details": [
+      {
+        "ing": "Poms (Canette 33cl)",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "name": "SCHWEPPES CITRON / TONIC 33CL",
+    "sellPrice": 17,
+    "cost": 1,
+    "foodCostPct": 5.9,
+    "marginPct": 94.1,
+    "details": [
+      {
+        "ing": "Schweppes (Canette 33cl)",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tranche de citron",
+        "qty": "1 tr",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "name": "ORANGINA 33CL",
+    "sellPrice": 17,
+    "cost": 0.51,
+    "foodCostPct": 3,
+    "marginPct": 97,
+    "details": [
+      {
+        "ing": "Orangina (Canette 33cl)",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tranche d'orange",
+        "qty": "1 tr",
+        "cost": 0.005,
+        "matched": "LORANGE"
+      }
+    ]
+  },
+  {
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "name": "RED BULL 250ML",
+    "sellPrice": 28,
+    "cost": 0.5,
+    "foodCostPct": 1.8,
+    "marginPct": 98.2,
+    "details": [
+      {
+        "ing": "Red Bull (Canette 250ml)",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "name": "EAU MINÉRALE 33CL",
+    "sellPrice": 10,
+    "cost": 0.5,
+    "foodCostPct": 5,
+    "marginPct": 95,
+    "details": [
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "name": "EAU MINÉRALE 50CL",
+    "sellPrice": 12,
+    "cost": 0.5,
+    "foodCostPct": 4.2,
+    "marginPct": 95.8,
+    "details": [
+      {
+        "ing": "Bouteille Eau Minérale 50cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "name": "EAU MINÉRALE 75CL",
+    "sellPrice": 22,
+    "cost": 0.5,
+    "foodCostPct": 2.3,
+    "marginPct": 97.7,
+    "details": [
+      {
+        "ing": "Bouteille Eau Minérale 75cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "name": "OULMÈS EAU GAZEUSE 33CL / 50CL",
+    "sellPrice": 16,
+    "cost": 1,
+    "foodCostPct": 6.3,
+    "marginPct": 93.8,
+    "details": [
+      {
+        "ing": "Bouteille Oulmès 33/50cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tranche de citron",
+        "qty": "1 tr",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "name": "OULMÈS EAU GAZEUSE 75CL",
+    "sellPrice": 26,
+    "cost": 1,
+    "foodCostPct": 3.8,
+    "marginPct": 96.2,
+    "details": [
+      {
+        "ing": "Bouteille Oulmès 75cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tranches de citron",
+        "qty": "2 tr",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "COMPAGNARD",
+    "sellPrice": 52,
+    "cost": 20.7,
+    "foodCostPct": 39.8,
+    "marginPct": 60.2,
+    "details": [
+      {
+        "ing": "pain cake",
+        "qty": "2 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Omelette",
+        "qty": "3 œufs",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fromage",
+        "qty": "30 g",
+        "cost": 1.2,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "Charcuteries",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain seigle",
+        "qty": "2 tr",
+        "cost": 15,
+        "matched": "PAIN SEIGLE"
+      },
+      {
+        "ing": "Mesclun",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "200 ml",
+        "cost": 1,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "PETIT DÉJEUNER AMÉRICAIN",
+    "sellPrice": 68,
+    "cost": 20.7,
+    "foodCostPct": 30.4,
+    "marginPct": 69.6,
+    "details": [
+      {
+        "ing": "Bacon",
+        "qty": "2 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Omelette",
+        "qty": "2 œufs",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fromage",
+        "qty": "30 g",
+        "cost": 1.2,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "avocat",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain seigle",
+        "qty": "2 tr",
+        "cost": 15,
+        "matched": "PAIN SEIGLE"
+      },
+      {
+        "ing": "Mesclun",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "200 ml",
+        "cost": 1,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "BRUNCH GREYCORNER",
+    "sellPrice": 85,
+    "cost": 32.7,
+    "foodCostPct": 38.5,
+    "marginPct": 61.5,
+    "details": [
+      {
+        "ing": "Saucisses",
+        "qty": "2 p",
+        "cost": 10.5,
+        "matched": "SAUCISS"
+      },
+      {
+        "ing": "Omelette",
+        "qty": "3 œufs",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fromage",
+        "qty": "30 g",
+        "cost": 1.2,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "Toast hollandais",
+        "qty": "2 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Croquettes fromage",
+        "qty": "2 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Charcuteries",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain seigle",
+        "qty": "2 tr",
+        "cost": 15,
+        "matched": "PAIN SEIGLE"
+      },
+      {
+        "ing": "Mesclun",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Gaufre",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pancake",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "200 ml",
+        "cost": 1,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "BRUNCH DUO",
+    "sellPrice": 144,
+    "cost": 23.41,
+    "foodCostPct": 16.3,
+    "marginPct": 83.7,
+    "details": [
+      {
+        "ing": "Poulet pané",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Croquettes",
+        "qty": "2 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Croque maison",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Omelette fromage",
+        "qty": "2 œufs",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Charcuterie",
+        "qty": "80 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fromage",
+        "qty": "60 g",
+        "cost": 2.4,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "Pain seigle",
+        "qty": "2 tr",
+        "cost": 15,
+        "matched": "PAIN SEIGLE"
+      },
+      {
+        "ing": "Beldi",
+        "qty": "2 mlaoui + 2 harcha",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Mesclun",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Muffin",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Gaufre",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "2×200 ml",
+        "cost": 0.01,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Boissons chaudes",
+        "qty": "2 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Desserts",
+        "qty": "2 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "2 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "BELDI",
+    "sellPrice": 45,
+    "cost": 7.03,
+    "foodCostPct": 15.6,
+    "marginPct": 84.4,
+    "details": [
+      {
+        "ing": "Mlaoui",
+        "qty": "2 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Harcha",
+        "qty": "2 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Baghrir",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jben",
+        "qty": "40 g",
+        "cost": 1.6,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "Huile d’olive",
+        "qty": "20 ml",
+        "cost": 0.312,
+        "matched": "HUILE TABLE 5L"
+      },
+      {
+        "ing": "Miel",
+        "qty": "20 g",
+        "cost": 0.32,
+        "matched": "MIEL  1 KG"
+      },
+      {
+        "ing": "Olives",
+        "qty": "20 g",
+        "cost": 0.8,
+        "matched": "OLIVE NOIRE"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "200 ml",
+        "cost": 1,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "HOLLANDAIS",
+    "sellPrice": 52,
+    "cost": 8.16,
+    "foodCostPct": 15.7,
+    "marginPct": 84.3,
+    "details": [
+      {
+        "ing": "Pain mie complet",
+        "qty": "2 tr",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Œufs au plat",
+        "qty": "2 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fromage",
+        "qty": "40 g",
+        "cost": 1.6,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "Dinde fumée",
+        "qty": "40 g",
+        "cost": 2.56,
+        "matched": "DINDE FUMEE  KG"
+      },
+      {
+        "ing": "Mesclun",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "200 ml",
+        "cost": 1,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "OMELETTE VÉGÉTARIENNE",
+    "sellPrice": 52,
+    "cost": 3.69,
+    "foodCostPct": 7.1,
+    "marginPct": 92.9,
+    "details": [
+      {
+        "ing": "Œufs",
+        "qty": "3 p",
+        "cost": 0.1905,
+        "matched": "OEUFS"
+      },
+      {
+        "ing": "Légumes",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Mesclun",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "200 ml",
+        "cost": 1,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "BERBÈRE",
+    "sellPrice": 54,
+    "cost": 8.77,
+    "foodCostPct": 16.2,
+    "marginPct": 83.8,
+    "details": [
+      {
+        "ing": "Baghrir",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Amlou",
+        "qty": "30 g",
+        "cost": 2.85,
+        "matched": "AMLOU AMANDE 1 L"
+      },
+      {
+        "ing": "Fruits secs",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jben",
+        "qty": "40 g",
+        "cost": 1.6,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "Miel",
+        "qty": "20 g",
+        "cost": 0.32,
+        "matched": "MIEL  1 KG"
+      },
+      {
+        "ing": "Banane",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "200 ml",
+        "cost": 1,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "CROQUE",
+    "sellPrice": 50,
+    "cost": 3.5,
+    "foodCostPct": 7,
+    "marginPct": 93,
+    "details": [
+      {
+        "ing": "Croque maison",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Mesclun",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "200 ml",
+        "cost": 1,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "FASSI",
+    "sellPrice": 55,
+    "cost": 14,
+    "foodCostPct": 25.5,
+    "marginPct": 74.5,
+    "details": [
+      {
+        "ing": "Khli3",
+        "qty": "100 g",
+        "cost": 11,
+        "matched": "KHLIE 1KG"
+      },
+      {
+        "ing": "Œufs au plat",
+        "qty": "3 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "200 ml",
+        "cost": 1,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "OMELETTE CONTINENTAL",
+    "sellPrice": 52,
+    "cost": 5.29,
+    "foodCostPct": 10.2,
+    "marginPct": 89.8,
+    "details": [
+      {
+        "ing": "Œufs",
+        "qty": "3 p",
+        "cost": 0.1905,
+        "matched": "OEUFS"
+      },
+      {
+        "ing": "Charcuterie",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fromage",
+        "qty": "40 g",
+        "cost": 1.6,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "Mesclun",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "200 ml",
+        "cost": 1,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "OMELETTE FROMAGE",
+    "sellPrice": 52,
+    "cost": 4.79,
+    "foodCostPct": 9.2,
+    "marginPct": 90.8,
+    "details": [
+      {
+        "ing": "Œufs",
+        "qty": "3 p",
+        "cost": 0.1905,
+        "matched": "OEUFS"
+      },
+      {
+        "ing": "Fromage",
+        "qty": "40 g",
+        "cost": 1.6,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "Mesclun",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "200 ml",
+        "cost": 1,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "OMELETTE NATURE",
+    "sellPrice": 42,
+    "cost": 3.19,
+    "foodCostPct": 7.6,
+    "marginPct": 92.4,
+    "details": [
+      {
+        "ing": "Œufs",
+        "qty": "3 p",
+        "cost": 0.1905,
+        "matched": "OEUFS"
+      },
+      {
+        "ing": "Mesclun",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "200 ml",
+        "cost": 1,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "OMELETTE DU CHEF",
+    "sellPrice": 58,
+    "cost": 6.74,
+    "foodCostPct": 11.6,
+    "marginPct": 88.4,
+    "details": [
+      {
+        "ing": "Œufs",
+        "qty": "3 p",
+        "cost": 0.1905,
+        "matched": "OEUFS"
+      },
+      {
+        "ing": "Champignons",
+        "qty": "40 g",
+        "cost": 2.4,
+        "matched": "CHAMPIGNONS"
+      },
+      {
+        "ing": "Épinards",
+        "qty": "30 g",
+        "cost": 0.44999999999999996,
+        "matched": "LES EPINARD"
+      },
+      {
+        "ing": "Fromage",
+        "qty": "30 g",
+        "cost": 1.2,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "Mesclun",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus d'orange",
+        "qty": "200 ml",
+        "cost": 1,
+        "matched": "LORANGE"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "ESPAGNOL",
+    "sellPrice": 64,
+    "cost": 132.93,
+    "foodCostPct": 207.7,
+    "marginPct": -107.7,
+    "details": [
+      {
+        "ing": "Tortilla",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Croquettes",
+        "qty": "2 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tapenade",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Thon",
+        "qty": "40 g",
+        "cost": 2.33,
+        "matched": "THON 1 KG  TAM"
+      },
+      {
+        "ing": "Tomates",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fromage",
+        "qty": "40 g",
+        "cost": 1.6,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "Pain seigle",
+        "qty": "2 tr",
+        "cost": 15,
+        "matched": "PAIN SEIGLE"
+      },
+      {
+        "ing": "Mesclun",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus",
+        "qty": "200 ml",
+        "cost": 110.00000000000001,
+        "matched": "GOBLETS JUS EMPORTE 100PC"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "MQUILA-MERGUEZ",
+    "sellPrice": 64,
+    "cost": 112.63,
+    "foodCostPct": 176,
+    "marginPct": -76,
+    "details": [
+      {
+        "ing": "Merguez",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Poivrons/oignons",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Œufs",
+        "qty": "2 p",
+        "cost": 0.127,
+        "matched": "OEUFS"
+      },
+      {
+        "ing": "Jus",
+        "qty": "200 ml",
+        "cost": 110.00000000000001,
+        "matched": "GOBLETS JUS EMPORTE 100PC"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "MQUILA-FRUITS DE MER",
+    "sellPrice": 78,
+    "cost": 118.13,
+    "foodCostPct": 151.4,
+    "marginPct": -51.4,
+    "details": [
+      {
+        "ing": "crevettes",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "calamars",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "moules",
+        "qty": "100 g",
+        "cost": 5.5,
+        "matched": "LES MOULES KG"
+      },
+      {
+        "ing": "Œufs",
+        "qty": "2 p",
+        "cost": 0.127,
+        "matched": "OEUFS"
+      },
+      {
+        "ing": "Jus",
+        "qty": "200 ml",
+        "cost": 110.00000000000001,
+        "matched": "GOBLETS JUS EMPORTE 100PC"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "NORVÉGIEN",
+    "sellPrice": 68,
+    "cost": 135.4,
+    "foodCostPct": 199.1,
+    "marginPct": -99.1,
+    "details": [
+      {
+        "ing": "Saumon",
+        "qty": "60 g",
+        "cost": 7.199999999999999,
+        "matched": "SAUMON FRAIS KG"
+      },
+      {
+        "ing": "Avocat",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fromage",
+        "qty": "30 g",
+        "cost": 1.2,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "Pain céréales",
+        "qty": "2 tr",
+        "cost": 15,
+        "matched": "PAIN CEREALE"
+      },
+      {
+        "ing": "Jus",
+        "qty": "200 ml",
+        "cost": 110.00000000000001,
+        "matched": "GOBLETS JUS EMPORTE 100PC"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "LIGHT",
+    "sellPrice": 42,
+    "cost": 120.11,
+    "foodCostPct": 286,
+    "marginPct": -186,
+    "details": [
+      {
+        "ing": "Pain complet",
+        "qty": "2 tr",
+        "cost": 4,
+        "matched": "MINI PAIN COMPLET"
+      },
+      {
+        "ing": "Jben",
+        "qty": "40 g",
+        "cost": 1.6,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "Huile d’olive",
+        "qty": "20 ml",
+        "cost": 0.312,
+        "matched": "HUILE TABLE 5L"
+      },
+      {
+        "ing": "Amlou",
+        "qty": "20 g",
+        "cost": 1.9,
+        "matched": "AMLOU AMANDE 1 L"
+      },
+      {
+        "ing": "Olives",
+        "qty": "20 g",
+        "cost": 0.8,
+        "matched": "OLIVE NOIRE"
+      },
+      {
+        "ing": "Jus",
+        "qty": "200 ml",
+        "cost": 110.00000000000001,
+        "matched": "GOBLETS JUS EMPORTE 100PC"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "EXPRESS",
+    "sellPrice": 44,
+    "cost": 112,
+    "foodCostPct": 254.5,
+    "marginPct": -154.5,
+    "details": [
+      {
+        "ing": "Viennoiseries",
+        "qty": "4 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Jus",
+        "qty": "200 ml",
+        "cost": 110.00000000000001,
+        "matched": "GOBLETS JUS EMPORTE 100PC"
+      },
+      {
+        "ing": "Boisson chaude",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Dessert",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PETIT DÉJEUNER",
+    "name": "MENU ENFANT (PDJ)",
+    "sellPrice": 40,
+    "cost": 2.83,
+    "foodCostPct": 7.1,
+    "marginPct": 92.9,
+    "details": [
+      {
+        "ing": "Crêpe/Gaufre/Pancake",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Corn flakes",
+        "qty": "1 bol",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Lait chocolat",
+        "qty": "200 ml",
+        "cost": 1.8339999999999999,
+        "matched": "LAIT UHT 1L"
+      }
+    ]
+  },
+  {
+    "category": "ENTRÉES FROIDES",
+    "name": "Salade Veggie",
+    "sellPrice": 48,
+    "cost": 557.96,
+    "foodCostPct": 1162.4,
+    "marginPct": -1062.4,
+    "details": [
+      {
+        "ing": "Salade Rouge",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Concombre",
+        "qty": "80 g",
+        "cost": 0.8,
+        "matched": "CONCOMBRE"
+      },
+      {
+        "ing": "Tomate Cerise",
+        "qty": "70 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Œufs de Caille",
+        "qty": "1 p",
+        "cost": 2.25,
+        "matched": "AIL"
+      },
+      {
+        "ing": "Haricot Vert",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Betterave",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Carotte",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Brocoli",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Radis",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Thon",
+        "qty": "50 g",
+        "cost": 2.9125,
+        "matched": "THON 1 KG  TAM"
+      },
+      {
+        "ing": "Sauce Vinaigrette",
+        "qty": "200 g",
+        "cost": 8,
+        "matched": "HUILE OLIVE L"
+      },
+      {
+        "ing": "Maïs",
+        "qty": "30 g",
+        "cost": 540,
+        "matched": "EPIS MAIS"
+      },
+      {
+        "ing": "Poivron",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "ENTRÉES FROIDES",
+    "name": "Salade Russe",
+    "sellPrice": 54,
+    "cost": 2440.06,
+    "foodCostPct": 4518.6,
+    "marginPct": -4418.6,
+    "details": [
+      {
+        "ing": "Pomme de Terre",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Carotte",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Poulet",
+        "qty": "25 g",
+        "cost": 1.075,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Petit Pois",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Olive Verte",
+        "qty": "15 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Cornichon",
+        "qty": "24 g",
+        "cost": 0.72,
+        "matched": "CORNICHON 250G"
+      },
+      {
+        "ing": "Œufs de Caille",
+        "qty": "1 p",
+        "cost": 2.25,
+        "matched": "AIL"
+      },
+      {
+        "ing": "Mayonnaise",
+        "qty": "30 g",
+        "cost": 2160,
+        "matched": "MAYONAISE 4 KG STAR"
+      },
+      {
+        "ing": "Thon",
+        "qty": "50 g",
+        "cost": 2.9125,
+        "matched": "THON 1 KG  TAM"
+      },
+      {
+        "ing": "Maïs",
+        "qty": "15 g",
+        "cost": 270,
+        "matched": "EPIS MAIS"
+      },
+      {
+        "ing": "Radis",
+        "qty": "14 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Poivron",
+        "qty": "10 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Concombre",
+        "qty": "10 g",
+        "cost": 0.1,
+        "matched": "CONCOMBRE"
+      }
+    ]
+  },
+  {
+    "category": "ENTRÉES FROIDES",
+    "name": "Salade César",
+    "sellPrice": 65,
+    "cost": 13.01,
+    "foodCostPct": 20,
+    "marginPct": 80,
+    "details": [
+      {
+        "ing": "Salade Romaine",
+        "qty": "180 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Laitue",
+        "qty": "100 g",
+        "cost": 0.9169999999999999,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Poulet",
+        "qty": "130 g",
+        "cost": 5.59,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Croûtons",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tomate Cerise",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce César",
+        "qty": "70 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "30 g",
+        "cost": 4.5,
+        "matched": "PARMESAN"
+      }
+    ]
+  },
+  {
+    "category": "ENTRÉES FROIDES",
+    "name": "Salade Quinoa",
+    "sellPrice": 68,
+    "cost": 2665.14,
+    "foodCostPct": 3919.3,
+    "marginPct": -3819.3,
+    "details": [
+      {
+        "ing": "Quinoa",
+        "qty": "140 g",
+        "cost": 7.7,
+        "matched": "QUINAO BLANC"
+      },
+      {
+        "ing": "Gambas Pané",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Gambas Poché",
+        "qty": "80 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fruits",
+        "qty": "70 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Feta",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Kiwi",
+        "qty": "120 g",
+        "cost": 2.1599999999999997,
+        "matched": "KIWI"
+      },
+      {
+        "ing": "Vinaigrette",
+        "qty": "20 g",
+        "cost": 0.8,
+        "matched": "HUILE OLIVE L"
+      },
+      {
+        "ing": "Miel",
+        "qty": "30 g",
+        "cost": 0.48,
+        "matched": "MIEL  1 KG"
+      },
+      {
+        "ing": "Framboise",
+        "qty": "17 g",
+        "cost": 2652,
+        "matched": "SIROP FRAMBOISE"
+      }
+    ]
+  },
+  {
+    "category": "ENTRÉES FROIDES",
+    "name": "Salade Terre & Mer",
+    "sellPrice": 78,
+    "cost": 545.38,
+    "foodCostPct": 699.2,
+    "marginPct": -599.2,
+    "details": [
+      {
+        "ing": "Poulet Pané",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tomate Cerise",
+        "qty": "25 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Salade Rouge",
+        "qty": "25 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Maïs",
+        "qty": "30 g",
+        "cost": 540,
+        "matched": "EPIS MAIS"
+      },
+      {
+        "ing": "Gambas Poché",
+        "qty": "73 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Gambas Pané",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Avocat",
+        "qty": "150 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce Tartare",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pomme",
+        "qty": "24 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Moules",
+        "qty": "16 g",
+        "cost": 0.88,
+        "matched": "LES MOULES KG"
+      },
+      {
+        "ing": "Agrumes",
+        "qty": "15 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "ENTRÉES FROIDES",
+    "name": "TARTARE SAUMON",
+    "sellPrice": 88,
+    "cost": 14.8,
+    "foodCostPct": 16.8,
+    "marginPct": 83.2,
+    "details": [
+      {
+        "ing": "saumon frais",
+        "qty": "90 g",
+        "cost": 10.799999999999999,
+        "matched": "SAUMON FRAIS KG"
+      },
+      {
+        "ing": "SAUMON FUMEE",
+        "qty": "25 g",
+        "cost": 3,
+        "matched": "SAUMON FRAIS KG"
+      },
+      {
+        "ing": "Avocat",
+        "qty": "300 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "SAUCE TARTARE",
+        "qty": "24 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "ENTRÉES FROIDES",
+    "name": "Salade Burrata",
+    "sellPrice": 98,
+    "cost": 60.25,
+    "foodCostPct": 61.5,
+    "marginPct": 38.5,
+    "details": [
+      {
+        "ing": "Burrata",
+        "qty": "184 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Noix",
+        "qty": "30 g",
+        "cost": 2.25,
+        "matched": "NOIX KG"
+      },
+      {
+        "ing": "Roquette",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pesto",
+        "qty": "15 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Balsamique",
+        "qty": "10 g",
+        "cost": 55,
+        "matched": "VINAIGRE BLANC"
+      },
+      {
+        "ing": "Fruits Rouges",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Radis",
+        "qty": "10 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tomate Cerise",
+        "qty": "25 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "ENTRÉES CHAUDES",
+    "name": "BOULETTE DE POULET AU FROMAGE",
+    "sellPrice": 52,
+    "cost": 12,
+    "foodCostPct": 23.1,
+    "marginPct": 76.9,
+    "details": [
+      {
+        "ing": "Poulet",
+        "qty": "200 g",
+        "cost": 8.6,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Farine",
+        "qty": "100 g",
+        "cost": 2.4,
+        "matched": "FARINE 5KG"
+      },
+      {
+        "ing": "Chapelure",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Edam",
+        "qty": "25 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "ENTRÉES CHAUDES",
+    "name": "CROUSTILLON GAMBAS",
+    "sellPrice": 68,
+    "cost": 5.6,
+    "foodCostPct": 8.2,
+    "marginPct": 91.8,
+    "details": [
+      {
+        "ing": "Gambas panées",
+        "qty": "260 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Purée",
+        "qty": "400 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Radis",
+        "qty": "15 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "14 g",
+        "cost": 2.1,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Crème fraîche",
+        "qty": "50 g",
+        "cost": 1.5,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "ENTRÉES CHAUDES",
+    "name": "PIL PIL ESPAGNOL",
+    "sellPrice": 68,
+    "cost": 3.92,
+    "foodCostPct": 5.8,
+    "marginPct": 94.2,
+    "details": [
+      {
+        "ing": "Gambas",
+        "qty": "260 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tomate cerise",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pesto",
+        "qty": "22 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Huile d’olive",
+        "qty": "30 g",
+        "cost": 0.46799999999999997,
+        "matched": "HUILE TABLE 5L"
+      },
+      {
+        "ing": "Oignon",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Ail",
+        "qty": "10 g",
+        "cost": 0.44999999999999996,
+        "matched": "AIL"
+      },
+      {
+        "ing": "Sauce tomate",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Bouteille Eau Minérale 33cl",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PLATS",
+    "name": "BROCHETTES DE POULET",
+    "sellPrice": 84,
+    "cost": 4.5,
+    "foodCostPct": 5.4,
+    "marginPct": 94.6,
+    "details": [
+      {
+        "ing": "Blanc de poulet",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce barbecue",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Salade rouge",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "PLATS",
+    "name": "EMINCE DE POULET",
+    "sellPrice": 88,
+    "cost": 6320.06,
+    "foodCostPct": 7181.9,
+    "marginPct": -7081.9,
+    "details": [
+      {
+        "ing": "Poulet",
+        "qty": "160 g",
+        "cost": 6.879999999999999,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Champignons",
+        "qty": "90 g",
+        "cost": 5.3999999999999995,
+        "matched": "CHAMPIGNONS"
+      },
+      {
+        "ing": "Crème fraîche",
+        "qty": "100 ml",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Demi-glace",
+        "qty": "100 ml",
+        "cost": 6300,
+        "matched": "DEMI GLACE 600G"
+      },
+      {
+        "ing": "Légumes variés",
+        "qty": "220 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fokacha",
+        "qty": "150 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      },
+      {
+        "ing": "Huile",
+        "qty": "50 ml",
+        "cost": 0.7799999999999999,
+        "matched": "HUILE TABLE 5L"
+      }
+    ]
+  },
+  {
+    "category": "PLATS",
+    "name": "BALLOTINE DE POULET",
+    "sellPrice": 94,
+    "cost": 8059.95,
+    "foodCostPct": 8574.4,
+    "marginPct": -8474.4,
+    "details": [
+      {
+        "ing": "Poulet",
+        "qty": "250 g",
+        "cost": 10.75,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Épinard",
+        "qty": "40 g",
+        "cost": 0.6,
+        "matched": "LES EPINARD"
+      },
+      {
+        "ing": "Crème fraîche",
+        "qty": "70 ml",
+        "cost": 2.1,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "20 g",
+        "cost": 3,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "60 g",
+        "cost": 5700,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Beurre",
+        "qty": "30 g",
+        "cost": 2340,
+        "matched": "BEURRE CENTRAL KG"
+      },
+      {
+        "ing": "Légumes",
+        "qty": "220 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "PLATS",
+    "name": "SUPRÊME DE POULET",
+    "sellPrice": 98,
+    "cost": 3140.8,
+    "foodCostPct": 3204.9,
+    "marginPct": -3104.9,
+    "details": [
+      {
+        "ing": "Blanc de poulet",
+        "qty": "180 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Champignon",
+        "qty": "120 g",
+        "cost": 7.199999999999999,
+        "matched": "CHAMPIGNONS"
+      },
+      {
+        "ing": "Crème fraîche",
+        "qty": "70 ml",
+        "cost": 2.1,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Persil",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Haricot vert",
+        "qty": "55 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Courgette",
+        "qty": "55 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Carotte",
+        "qty": "57 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Brocoli",
+        "qty": "77 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Persil",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Œuf",
+        "qty": "1 p",
+        "cost": 5,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      },
+      {
+        "ing": "Beurre",
+        "qty": "40 g",
+        "cost": 3120,
+        "matched": "BEURRE CENTRAL KG"
+      }
+    ]
+  },
+  {
+    "category": "PLATS",
+    "name": "ESCALOPE A LA MILANAISE",
+    "sellPrice": 85,
+    "cost": 15.98,
+    "foodCostPct": 18.8,
+    "marginPct": 81.2,
+    "details": [
+      {
+        "ing": "Poulet",
+        "qty": "120 g",
+        "cost": 5.159999999999999,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Chapelure",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Crème fraîche",
+        "qty": "70 ml",
+        "cost": 2.1,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Moutarde",
+        "qty": "10 g",
+        "cost": 0.21499999999999997,
+        "matched": "MOTARD 1 KG STAR"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "30 g",
+        "cost": 4.5,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Légumes",
+        "qty": "220 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "PLATS",
+    "name": "EMINCE DE BŒUF",
+    "sellPrice": 103,
+    "cost": 3792.34,
+    "foodCostPct": 3681.9,
+    "marginPct": -3581.9,
+    "details": [
+      {
+        "ing": "Bœuf",
+        "qty": "150 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Champignons",
+        "qty": "80 g",
+        "cost": 4.8,
+        "matched": "CHAMPIGNONS"
+      },
+      {
+        "ing": "Crème fraîche",
+        "qty": "70 ml",
+        "cost": 2.1,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Demi-glace",
+        "qty": "60 ml",
+        "cost": 3780,
+        "matched": "DEMI GLACE 600G"
+      },
+      {
+        "ing": "Légumes",
+        "qty": "220 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fokacha",
+        "qty": "150 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      },
+      {
+        "ing": "Huile",
+        "qty": "60 ml",
+        "cost": 0.9359999999999999,
+        "matched": "HUILE TABLE 5L"
+      }
+    ]
+  },
+  {
+    "category": "PLATS",
+    "name": "FILET DE BŒUF",
+    "sellPrice": 135,
+    "cost": 8093,
+    "foodCostPct": 5994.8,
+    "marginPct": -5894.8,
+    "details": [
+      {
+        "ing": "Filet",
+        "qty": "180 g",
+        "cost": 27,
+        "matched": "FILET BOEUF"
+      },
+      {
+        "ing": "Beurre",
+        "qty": "40 g",
+        "cost": 3120,
+        "matched": "BEURRE CENTRAL KG"
+      },
+      {
+        "ing": "Poivre vert",
+        "qty": "20 g",
+        "cost": 532,
+        "matched": "POIVRE VERT CONSERV"
+      },
+      {
+        "ing": "Demi-glace",
+        "qty": "70 ml",
+        "cost": 4410,
+        "matched": "DEMI GLACE 600G"
+      },
+      {
+        "ing": "Légumes",
+        "qty": "220 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fokacha",
+        "qty": "150 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "PLATS",
+    "name": "PAVÉ DE SAUMON",
+    "sellPrice": 145,
+    "cost": 3155.5,
+    "foodCostPct": 2176.2,
+    "marginPct": -2076.2,
+    "details": [
+      {
+        "ing": "Saumon",
+        "qty": "180 g",
+        "cost": 21.599999999999998,
+        "matched": "SAUMON FRAIS KG"
+      },
+      {
+        "ing": "Crevette",
+        "qty": "80 g",
+        "cost": 4.8,
+        "matched": "CREVETTE GRIS KG"
+      },
+      {
+        "ing": "Crème fraîche",
+        "qty": "70 ml",
+        "cost": 2.1,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "20 g",
+        "cost": 3,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Beurre",
+        "qty": "40 g",
+        "cost": 3120,
+        "matched": "BEURRE CENTRAL KG"
+      },
+      {
+        "ing": "Légumes",
+        "qty": "220 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Fokacha",
+        "qty": "150 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "PLATS",
+    "name": "MENU ENFANT (PLAT)",
+    "sellPrice": 58,
+    "cost": 0,
+    "foodCostPct": 0,
+    "marginPct": 100,
+    "details": []
+  },
+  {
+    "category": "PLATS",
+    "name": "ROULADE DE BŒUF VH",
+    "sellPrice": 120,
+    "cost": 36.32,
+    "foodCostPct": 30.3,
+    "marginPct": 69.7,
+    "details": [
+      {
+        "ing": "Viande hachée",
+        "qty": "200 g",
+        "cost": 20,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Épinard",
+        "qty": "30 g",
+        "cost": 0.44999999999999996,
+        "matched": "LES EPINARD"
+      },
+      {
+        "ing": "Champignon",
+        "qty": "30 g",
+        "cost": 1.7999999999999998,
+        "matched": "CHAMPIGNONS"
+      },
+      {
+        "ing": "Fromage rouge",
+        "qty": "20 g",
+        "cost": 3.1,
+        "matched": "FROMAGE ROUGE"
+      },
+      {
+        "ing": "Fromage bleu",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Crème fraîche",
+        "qty": "70 ml",
+        "cost": 2.1,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Haricot vert",
+        "qty": "55 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Courgette",
+        "qty": "55 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Carotte",
+        "qty": "57 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Brocoli",
+        "qty": "77 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Olive noire",
+        "qty": "60 g",
+        "cost": 2.4,
+        "matched": "OLIVE NOIRE"
+      },
+      {
+        "ing": "Fokacha",
+        "qty": "150 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      },
+      {
+        "ing": "Huile de table",
+        "qty": "30 ml",
+        "cost": 0.46799999999999997,
+        "matched": "HUILE TABLE 5L"
+      }
+    ]
+  },
+  {
+    "category": "BURGERS",
+    "name": "CHICKEN BURGER",
+    "sellPrice": 50,
+    "cost": 1911.43,
+    "foodCostPct": 3822.9,
+    "marginPct": -3722.9,
+    "details": [
+      {
+        "ing": "poulet",
+        "qty": "150 g",
+        "cost": 6.449999999999999,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Sauce blanche",
+        "qty": "40 g",
+        "cost": 1.2,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Sauce pesto",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "20 g",
+        "cost": 1900,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Tomate/Laitue",
+        "qty": "30 g",
+        "cost": 0.27509999999999996,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "BURGERS",
+    "name": "CHEESE BURGER",
+    "sellPrice": 54,
+    "cost": 1914.68,
+    "foodCostPct": 3545.7,
+    "marginPct": -3445.7,
+    "details": [
+      {
+        "ing": "Viande Hachée",
+        "qty": "100 g",
+        "cost": 10,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "20 g",
+        "cost": 1900,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Tomate",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Laitue",
+        "qty": "20 g",
+        "cost": 0.18339999999999998,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Oignon+Cornichon",
+        "qty": "45 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce Bigy",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Frites + Sauce",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "BURGERS",
+    "name": "AVOCADO FORESTIER",
+    "sellPrice": 54,
+    "cost": 1914.94,
+    "foodCostPct": 3546.2,
+    "marginPct": -3446.2,
+    "details": [
+      {
+        "ing": "Poulet",
+        "qty": "120 g",
+        "cost": 5.159999999999999,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Avocat",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tomate/Laitue",
+        "qty": "30 g",
+        "cost": 0.27509999999999996,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Œuf",
+        "qty": "1 p",
+        "cost": 5,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Chapelure",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "20 g",
+        "cost": 1900,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Sauce Bigy",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Frites+Sauce",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "BURGERS",
+    "name": "EGG ET CHEESEBURGER",
+    "sellPrice": 56,
+    "cost": 1920.58,
+    "foodCostPct": 3429.6,
+    "marginPct": -3329.6,
+    "details": [
+      {
+        "ing": "Viande",
+        "qty": "100 g",
+        "cost": 10,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Œuf",
+        "qty": "1 p",
+        "cost": 5,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Champignon",
+        "qty": "30 g",
+        "cost": 1.7999999999999998,
+        "matched": "CHAMPIGNONS"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "20 g",
+        "cost": 1900,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Tomate/Laitue",
+        "qty": "30 g",
+        "cost": 0.27509999999999996,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Sauce Bigy",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "BURGERS",
+    "name": "BIG BURGER",
+    "sellPrice": 68,
+    "cost": 1903.98,
+    "foodCostPct": 2800,
+    "marginPct": -2700,
+    "details": [
+      {
+        "ing": "Viande",
+        "qty": "2×100 g",
+        "cost": 0.2,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "20 g",
+        "cost": 1900,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Tomate/Laitue",
+        "qty": "30 g",
+        "cost": 0.27509999999999996,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Sauce du chef",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "BURGERS",
+    "name": "BURGER ROYAL",
+    "sellPrice": 70,
+    "cost": 1919.78,
+    "foodCostPct": 2742.5,
+    "marginPct": -2642.5,
+    "details": [
+      {
+        "ing": "Viande",
+        "qty": "100 g",
+        "cost": 10,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Poulet pané",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Œuf",
+        "qty": "1 p",
+        "cost": 5,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "20 g",
+        "cost": 1900,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Oignons caramélisés",
+        "qty": "25 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Laitue/Tomate",
+        "qty": "30 g",
+        "cost": 0.27509999999999996,
+        "matched": "LAIT UHT 1L"
+      },
+      {
+        "ing": "Sauce spéciale",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "WRAPS",
+    "name": "WRAP POULET",
+    "sellPrice": 58,
+    "cost": 2389.66,
+    "foodCostPct": 4120.1,
+    "marginPct": -4020.1,
+    "details": [
+      {
+        "ing": "Poulet",
+        "qty": "120 g",
+        "cost": 5.159999999999999,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Œuf",
+        "qty": "1 p",
+        "cost": 5,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Frites + sauce",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Chapelure",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "25 g",
+        "cost": 2375,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      },
+      {
+        "ing": "Tomate fraîche",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce burger",
+        "qty": "60 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "WRAPS",
+    "name": "WRAP VIANDE HACHÉE",
+    "sellPrice": 62,
+    "cost": 2394,
+    "foodCostPct": 3861.3,
+    "marginPct": -3761.3,
+    "details": [
+      {
+        "ing": "Viande hachée",
+        "qty": "100 g",
+        "cost": 10,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Œuf",
+        "qty": "1 p",
+        "cost": 5,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Frites + sauce",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "25 g",
+        "cost": 2375,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      },
+      {
+        "ing": "Tomate fraîche",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce burger",
+        "qty": "60 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "WRAPS",
+    "name": "WRAP GOURMAND",
+    "sellPrice": 64,
+    "cost": 2390.16,
+    "foodCostPct": 3734.6,
+    "marginPct": -3634.6,
+    "details": [
+      {
+        "ing": "Poulet",
+        "qty": "120 g",
+        "cost": 5.159999999999999,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Charcuterie",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Œuf",
+        "qty": "1 p",
+        "cost": 5,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Chapelure",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "25 g",
+        "cost": 2375,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Frites + sauce",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      },
+      {
+        "ing": "Tomate fraîche",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce burger",
+        "qty": "60 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PANINIS",
+    "name": "CHARCUTERIE",
+    "sellPrice": 40,
+    "cost": 7.3,
+    "foodCostPct": 18.3,
+    "marginPct": 81.8,
+    "details": [
+      {
+        "ing": "Charcuterie",
+        "qty": "120 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "60 g",
+        "cost": 3.3,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Frites + sauce",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      },
+      {
+        "ing": "Sauce biggy",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PANINIS",
+    "name": "POULET",
+    "sellPrice": 44,
+    "cost": 9.81,
+    "foodCostPct": 22.3,
+    "marginPct": 77.7,
+    "details": [
+      {
+        "ing": "Poulet",
+        "qty": "70 g",
+        "cost": 3.01,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "60 g",
+        "cost": 3.3,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Frites + sauce",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      },
+      {
+        "ing": "Sauce biggy",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PANINIS",
+    "name": "VIANDE HACHÉE",
+    "sellPrice": 54,
+    "cost": 16.8,
+    "foodCostPct": 31.1,
+    "marginPct": 68.9,
+    "details": [
+      {
+        "ing": "Viande",
+        "qty": "100 g",
+        "cost": 10,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "60 g",
+        "cost": 3.3,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Frites + sauce",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      },
+      {
+        "ing": "Sauce biggy",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PANINIS",
+    "name": "GOURMAND",
+    "sellPrice": 64,
+    "cost": 14.45,
+    "foodCostPct": 22.6,
+    "marginPct": 77.4,
+    "details": [
+      {
+        "ing": "Viande",
+        "qty": "50 g",
+        "cost": 5,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Poulet",
+        "qty": "50 g",
+        "cost": 2.15,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Charcuterie",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "60 g",
+        "cost": 3.3,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Frites + sauce",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      },
+      {
+        "ing": "Sauce biggy",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PANINIS",
+    "name": "FRUITS DE MER",
+    "sellPrice": 64,
+    "cost": 10.7,
+    "foodCostPct": 16.7,
+    "marginPct": 83.3,
+    "details": [
+      {
+        "ing": "Crevettes",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Calamar",
+        "qty": "50 g",
+        "cost": 2.9000000000000004,
+        "matched": "CALAMAR KG"
+      },
+      {
+        "ing": "Pesto",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "60 g",
+        "cost": 3.3,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Frites + sauce",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      },
+      {
+        "ing": "Sauce biggy",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PANINIS",
+    "name": "SAUMON",
+    "sellPrice": 64,
+    "cost": 18.1,
+    "foodCostPct": 28.3,
+    "marginPct": 71.7,
+    "details": [
+      {
+        "ing": "Saumon",
+        "qty": "90 g",
+        "cost": 10.799999999999999,
+        "matched": "SAUMON FRAIS KG"
+      },
+      {
+        "ing": "Pesto",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "60 g",
+        "cost": 3.3,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Frites + sauce",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      },
+      {
+        "ing": "Sauce biggy",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "SANDWICHS",
+    "name": "FRUITS DE MER",
+    "sellPrice": 65,
+    "cost": 1917.36,
+    "foodCostPct": 2949.8,
+    "marginPct": -2849.8,
+    "details": [
+      {
+        "ing": "Crevette",
+        "qty": "125 g",
+        "cost": 7.5,
+        "matched": "CREVETTE GRIS KG"
+      },
+      {
+        "ing": "Calamar",
+        "qty": "70 g",
+        "cost": 4.0600000000000005,
+        "matched": "CALAMAR KG"
+      },
+      {
+        "ing": "Sauce Biggy",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "20 g",
+        "cost": 1900,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Crème fraîche",
+        "qty": "60 ml",
+        "cost": 1.7999999999999998,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Sauce fromagère",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "SANDWICHS",
+    "name": "THON",
+    "sellPrice": 48,
+    "cost": 1910.99,
+    "foodCostPct": 3981.2,
+    "marginPct": -3881.2,
+    "details": [
+      {
+        "ing": "Thon",
+        "qty": "120 g",
+        "cost": 6.99,
+        "matched": "THON 1 KG  TAM"
+      },
+      {
+        "ing": "Tomate",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce burger",
+        "qty": "40 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "20 g",
+        "cost": 1900,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "SANDWICHS",
+    "name": "POULET",
+    "sellPrice": 48,
+    "cost": 1909.16,
+    "foodCostPct": 3977.4,
+    "marginPct": -3877.4,
+    "details": [
+      {
+        "ing": "Poulet",
+        "qty": "120 g",
+        "cost": 5.159999999999999,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Tomate",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce burger",
+        "qty": "40 ml",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "20 g",
+        "cost": 1900,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "SANDWICHS",
+    "name": "POULET CRUNCHY",
+    "sellPrice": 58,
+    "cost": 1914.16,
+    "foodCostPct": 3300.3,
+    "marginPct": -3200.3,
+    "details": [
+      {
+        "ing": "Poulet",
+        "qty": "120 g",
+        "cost": 5.159999999999999,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Œuf",
+        "qty": "1 p",
+        "cost": 5,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Chapelure",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tomate",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "20 g",
+        "cost": 1900,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "SANDWICHS",
+    "name": "CHEESE STEAK",
+    "sellPrice": 65,
+    "cost": 4437.7,
+    "foodCostPct": 6827.2,
+    "marginPct": -6727.2,
+    "details": [
+      {
+        "ing": "Filet",
+        "qty": "70 g",
+        "cost": 10.5,
+        "matched": "FILET BOEUF"
+      },
+      {
+        "ing": "Demi-glace",
+        "qty": "40 ml",
+        "cost": 2520,
+        "matched": "DEMI GLACE 600G"
+      },
+      {
+        "ing": "Champignon",
+        "qty": "50 g",
+        "cost": 3,
+        "matched": "CHAMPIGNONS"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "20 g",
+        "cost": 1900,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Crème fraîche",
+        "qty": "40 ml",
+        "cost": 1.2,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "SANDWICHS",
+    "name": "VIANDE HACHÉE",
+    "sellPrice": 54,
+    "cost": 1914,
+    "foodCostPct": 3544.4,
+    "marginPct": -3444.4,
+    "details": [
+      {
+        "ing": "Viande",
+        "qty": "100 g",
+        "cost": 10,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Tomate",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce spéciale",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Cheddar",
+        "qty": "20 g",
+        "cost": 1900,
+        "matched": "CHEDDAR 88PC"
+      },
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pain",
+        "qty": "1 p",
+        "cost": 2.5,
+        "matched": "PAIN BURGER"
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "MARGARITA",
+    "sellPrice": 52,
+    "cost": 17.96,
+    "foodCostPct": 34.5,
+    "marginPct": 65.5,
+    "details": [
+      {
+        "ing": "Pâte",
+        "qty": "330 g",
+        "cost": 5.9399999999999995,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "200 g",
+        "cost": 11,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Sauce tomate",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Olives noires",
+        "qty": "13 g",
+        "cost": 0.52,
+        "matched": "OLIVE NOIRE"
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "THON",
+    "sellPrice": 65,
+    "cost": 23.76,
+    "foodCostPct": 36.6,
+    "marginPct": 63.4,
+    "details": [
+      {
+        "ing": "Pâte",
+        "qty": "330 g",
+        "cost": 5.9399999999999995,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "200 g",
+        "cost": 11,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Sauce tomate",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Thon",
+        "qty": "100 g",
+        "cost": 5.825,
+        "matched": "THON 1 KG  TAM"
+      },
+      {
+        "ing": "Oignons",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "VÉGÉTARIENNE",
+    "sellPrice": 62,
+    "cost": 21.54,
+    "foodCostPct": 34.7,
+    "marginPct": 65.3,
+    "details": [
+      {
+        "ing": "Pâte",
+        "qty": "330 g",
+        "cost": 5.9399999999999995,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "200 g",
+        "cost": 11,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Sauce tomate",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Champignons",
+        "qty": "60 g",
+        "cost": 3.5999999999999996,
+        "matched": "CHAMPIGNONS"
+      },
+      {
+        "ing": "Légumes",
+        "qty": "220 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "REGINA",
+    "sellPrice": 68,
+    "cost": 29.94,
+    "foodCostPct": 44,
+    "marginPct": 56,
+    "details": [
+      {
+        "ing": "Pâte",
+        "qty": "330 g",
+        "cost": 5.9399999999999995,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "200 g",
+        "cost": 11,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Dinde fumée",
+        "qty": "100 g",
+        "cost": 6.4,
+        "matched": "DINDE FUMEE  KG"
+      },
+      {
+        "ing": "Champignons",
+        "qty": "60 g",
+        "cost": 3.5999999999999996,
+        "matched": "CHAMPIGNONS"
+      },
+      {
+        "ing": "Sauce blanche",
+        "qty": "100 g",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "5 FROMAGES",
+    "sellPrice": 78,
+    "cost": 860.84,
+    "foodCostPct": 1103.6,
+    "marginPct": -1003.6,
+    "details": [
+      {
+        "ing": "Pâte",
+        "qty": "330 g",
+        "cost": 5.9399999999999995,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "50 g",
+        "cost": 2.75,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Brie",
+        "qty": "50 g",
+        "cost": 11.95,
+        "matched": "FR BRIE"
+      },
+      {
+        "ing": "Bleu",
+        "qty": "40 g",
+        "cost": 828,
+        "matched": "FR BLEU 100G"
+      },
+      {
+        "ing": "Sauce blanche",
+        "qty": "100 g",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "20 g",
+        "cost": 3,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Fromage rouge",
+        "qty": "40 g",
+        "cost": 6.2,
+        "matched": "FROMAGE ROUGE"
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "VIANDE HACHÉE",
+    "sellPrice": 78,
+    "cost": 27.94,
+    "foodCostPct": 35.8,
+    "marginPct": 64.2,
+    "details": [
+      {
+        "ing": "Pâte",
+        "qty": "330 g",
+        "cost": 5.9399999999999995,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "200 g",
+        "cost": 11,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Sauce tomate",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Viande",
+        "qty": "100 g",
+        "cost": 10,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Tomate cerise",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "PEPPERONI",
+    "sellPrice": 74,
+    "cost": 17.94,
+    "foodCostPct": 24.2,
+    "marginPct": 75.8,
+    "details": [
+      {
+        "ing": "Pâte",
+        "qty": "330 g",
+        "cost": 5.9399999999999995,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "200 g",
+        "cost": 11,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Sauce tomate",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pepperoni",
+        "qty": "40 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "POULET SAUCE BLANCHE",
+    "sellPrice": 78,
+    "cost": 29.99,
+    "foodCostPct": 38.4,
+    "marginPct": 61.6,
+    "details": [
+      {
+        "ing": "Pâte",
+        "qty": "330 g",
+        "cost": 5.9399999999999995,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "200 g",
+        "cost": 11,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Poulet",
+        "qty": "150 g",
+        "cost": 6.449999999999999,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Champignon",
+        "qty": "60 g",
+        "cost": 3.5999999999999996,
+        "matched": "CHAMPIGNONS"
+      },
+      {
+        "ing": "Sauce blanche",
+        "qty": "100 g",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "4 SAISONS",
+    "sellPrice": 88,
+    "cost": 31.48,
+    "foodCostPct": 35.8,
+    "marginPct": 64.2,
+    "details": [
+      {
+        "ing": "Pâte",
+        "qty": "330 g",
+        "cost": 5.9399999999999995,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "200 g",
+        "cost": 11,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Calamar",
+        "qty": "40 g",
+        "cost": 2.3200000000000003,
+        "matched": "CALAMAR KG"
+      },
+      {
+        "ing": "Crevette",
+        "qty": "40 g",
+        "cost": 2.4,
+        "matched": "CREVETTE GRIS KG"
+      },
+      {
+        "ing": "Viande",
+        "qty": "40 g",
+        "cost": 4,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Poulet",
+        "qty": "40 g",
+        "cost": 1.7199999999999998,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Légumes",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Champignon",
+        "qty": "60 g",
+        "cost": 3.5999999999999996,
+        "matched": "CHAMPIGNONS"
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "MOITIÉ MOITIÉ",
+    "sellPrice": 88,
+    "cost": 5.94,
+    "foodCostPct": 6.8,
+    "marginPct": 93.3,
+    "details": [
+      {
+        "ing": "Pâte",
+        "qty": "330 g",
+        "cost": 5.9399999999999995,
+        "matched": "SPAGHETI 500G"
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "BURRATA",
+    "sellPrice": 110,
+    "cost": 20.69,
+    "foodCostPct": 18.8,
+    "marginPct": 81.2,
+    "details": [
+      {
+        "ing": "Pâte",
+        "qty": "330 g",
+        "cost": 5.9399999999999995,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "200 g",
+        "cost": 11,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Sauce tomate",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Burrata",
+        "qty": "35 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Noix",
+        "qty": "30 g",
+        "cost": 2.25,
+        "matched": "NOIX KG"
+      },
+      {
+        "ing": "Tomate cerise",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "FRUITS DE MER",
+    "sellPrice": 88,
+    "cost": 36.4,
+    "foodCostPct": 41.4,
+    "marginPct": 58.6,
+    "details": [
+      {
+        "ing": "Pâte",
+        "qty": "330 g",
+        "cost": 5.9399999999999995,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "200 g",
+        "cost": 11,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Crevette",
+        "qty": "110 g",
+        "cost": 6.6,
+        "matched": "CREVETTE GRIS KG"
+      },
+      {
+        "ing": "Calamar",
+        "qty": "70 g",
+        "cost": 4.0600000000000005,
+        "matched": "CALAMAR KG"
+      },
+      {
+        "ing": "Moules",
+        "qty": "40 g",
+        "cost": 2.2,
+        "matched": "LES MOULES KG"
+      },
+      {
+        "ing": "Champignon",
+        "qty": "60 g",
+        "cost": 3.5999999999999996,
+        "matched": "CHAMPIGNONS"
+      },
+      {
+        "ing": "Sauce blanche",
+        "qty": "100 g",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "SAUMON",
+    "sellPrice": 94,
+    "cost": 300.74,
+    "foodCostPct": 319.9,
+    "marginPct": -219.9,
+    "details": [
+      {
+        "ing": "Pâte",
+        "qty": "330 g",
+        "cost": 5.9399999999999995,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "200 g",
+        "cost": 11,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Saumon",
+        "qty": "90 g",
+        "cost": 10.799999999999999,
+        "matched": "SAUMON FRAIS KG"
+      },
+      {
+        "ing": "Sauce blanche",
+        "qty": "100 g",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Câpres",
+        "qty": "15 g",
+        "cost": 270,
+        "matched": "CAPRE"
+      }
+    ]
+  },
+  {
+    "category": "PÂTES",
+    "name": "LASAGNE POULET",
+    "sellPrice": 60,
+    "cost": 17.36,
+    "foodCostPct": 28.9,
+    "marginPct": 71.1,
+    "details": [
+      {
+        "ing": "Pâtes",
+        "qty": "60 g",
+        "cost": 1.0799999999999998,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "poulet",
+        "qty": "80 g",
+        "cost": 3.4399999999999995,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "15 g",
+        "cost": 2.25,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Huile",
+        "qty": "60 g",
+        "cost": 0.9359999999999999,
+        "matched": "HUILE TABLE 5L"
+      },
+      {
+        "ing": "champignon",
+        "qty": "50 g",
+        "cost": 3,
+        "matched": "CHAMPIGNONS"
+      },
+      {
+        "ing": "Pesto",
+        "qty": "70 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce blanche",
+        "qty": "100 g",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Oignon/Ail",
+        "qty": "70 g",
+        "cost": 3.15,
+        "matched": "AIL"
+      }
+    ]
+  },
+  {
+    "category": "PÂTES",
+    "name": "LASAGNE BOLOGNAISE",
+    "sellPrice": 72,
+    "cost": 18.92,
+    "foodCostPct": 26.3,
+    "marginPct": 73.7,
+    "details": [
+      {
+        "ing": "Pâtes",
+        "qty": "60 g",
+        "cost": 1.0799999999999998,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Viande",
+        "qty": "100 g",
+        "cost": 10,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "15 g",
+        "cost": 2.25,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Huile",
+        "qty": "60 g",
+        "cost": 0.9359999999999999,
+        "matched": "HUILE TABLE 5L"
+      },
+      {
+        "ing": "Tomate cerise",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pesto",
+        "qty": "70 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce tomate",
+        "qty": "80 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Oignon/Ail",
+        "qty": "70 g",
+        "cost": 3.15,
+        "matched": "AIL"
+      }
+    ]
+  },
+  {
+    "category": "PÂTES",
+    "name": "LASAGNE FRUITS DE MER",
+    "sellPrice": 78,
+    "cost": 25.12,
+    "foodCostPct": 32.2,
+    "marginPct": 67.8,
+    "details": [
+      {
+        "ing": "Pâtes",
+        "qty": "60 g",
+        "cost": 1.0799999999999998,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "crevette",
+        "qty": "140 g",
+        "cost": 8.4,
+        "matched": "CREVETTE GRIS KG"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "15 g",
+        "cost": 2.25,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Huile",
+        "qty": "60 g",
+        "cost": 0.9359999999999999,
+        "matched": "HUILE TABLE 5L"
+      },
+      {
+        "ing": "CALAMAR",
+        "qty": "100 g",
+        "cost": 5.800000000000001,
+        "matched": "CALAMAR KG"
+      },
+      {
+        "ing": "Pesto",
+        "qty": "70 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce blanche",
+        "qty": "100 g",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Oignon/Ail",
+        "qty": "70 g",
+        "cost": 3.15,
+        "matched": "AIL"
+      }
+    ]
+  },
+  {
+    "category": "PÂTES",
+    "name": "VÉGÉTARIEN",
+    "sellPrice": 60,
+    "cost": 17.64,
+    "foodCostPct": 29.4,
+    "marginPct": 70.6,
+    "details": [
+      {
+        "ing": "Pâtes",
+        "qty": "150 g",
+        "cost": 2.6999999999999997,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Sauce pesto",
+        "qty": "70 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "60 g",
+        "cost": 9,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Huile d'olive",
+        "qty": "60 g",
+        "cost": 0.9359999999999999,
+        "matched": "HUILE TABLE 5L"
+      },
+      {
+        "ing": "Crème",
+        "qty": "100 g",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Oignon",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Tomate cerise",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Légumes",
+        "qty": "150 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "PÂTES",
+    "name": "CARBONARA",
+    "sellPrice": 65,
+    "cost": 19.29,
+    "foodCostPct": 29.7,
+    "marginPct": 70.3,
+    "details": [
+      {
+        "ing": "Pâtes",
+        "qty": "150 g",
+        "cost": 2.6999999999999997,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Jambon de dinde",
+        "qty": "80 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "60 g",
+        "cost": 9,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Huile",
+        "qty": "60 g",
+        "cost": 0.9359999999999999,
+        "matched": "HUILE TABLE 5L"
+      },
+      {
+        "ing": "Crème",
+        "qty": "100 g",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Oignon/Ail",
+        "qty": "70 g",
+        "cost": 3.15,
+        "matched": "AIL"
+      }
+    ]
+  },
+  {
+    "category": "PÂTES",
+    "name": "5 FROMAGES",
+    "sellPrice": 70,
+    "cost": 435.66,
+    "foodCostPct": 622.4,
+    "marginPct": -522.4,
+    "details": [
+      {
+        "ing": "Pâtes",
+        "qty": "150 g",
+        "cost": 2.6999999999999997,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Brie",
+        "qty": "25 g",
+        "cost": 5.975,
+        "matched": "FR BRIE"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "25 g",
+        "cost": 3.75,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Bleu",
+        "qty": "20 g",
+        "cost": 414,
+        "matched": "FR BLEU 100G"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "30 g",
+        "cost": 1.65,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Edam",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Huile",
+        "qty": "60 g",
+        "cost": 0.9359999999999999,
+        "matched": "HUILE TABLE 5L"
+      },
+      {
+        "ing": "Crème",
+        "qty": "100 g",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Oignon/Ail",
+        "qty": "70 g",
+        "cost": 3.15,
+        "matched": "AIL"
+      }
+    ]
+  },
+  {
+    "category": "PÂTES",
+    "name": "RIGATONI RICOTTA",
+    "sellPrice": 68,
+    "cost": 21.39,
+    "foodCostPct": 31.5,
+    "marginPct": 68.5,
+    "details": [
+      {
+        "ing": "Pâtes",
+        "qty": "150 g",
+        "cost": 2.6999999999999997,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Ricotta",
+        "qty": "40 g",
+        "cost": 1.6,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "60 g",
+        "cost": 9,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Huile",
+        "qty": "60 g",
+        "cost": 0.9359999999999999,
+        "matched": "HUILE TABLE 5L"
+      },
+      {
+        "ing": "Crème",
+        "qty": "100 g",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Pesto",
+        "qty": "70 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Courgette",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Oignon/Ail",
+        "qty": "70 g",
+        "cost": 3.15,
+        "matched": "AIL"
+      }
+    ]
+  },
+  {
+    "category": "PÂTES",
+    "name": "BOLOGNAISE",
+    "sellPrice": 75,
+    "cost": 27.29,
+    "foodCostPct": 36.4,
+    "marginPct": 63.6,
+    "details": [
+      {
+        "ing": "Pâtes",
+        "qty": "150 g",
+        "cost": 2.6999999999999997,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Viande",
+        "qty": "100 g",
+        "cost": 10,
+        "matched": "V HACHEE"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "60 g",
+        "cost": 9,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Huile",
+        "qty": "60 g",
+        "cost": 0.9359999999999999,
+        "matched": "HUILE TABLE 5L"
+      },
+      {
+        "ing": "Tomate cerise",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pesto",
+        "qty": "70 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce tomate",
+        "qty": "80 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Oignon/Ail",
+        "qty": "70 g",
+        "cost": 3.15,
+        "matched": "AIL"
+      }
+    ]
+  },
+  {
+    "category": "PÂTES",
+    "name": "POULET CHAMPIGNON / ÉPINARD",
+    "sellPrice": 75,
+    "cost": 27.38,
+    "foodCostPct": 36.5,
+    "marginPct": 63.5,
+    "details": [
+      {
+        "ing": "Pâtes",
+        "qty": "150 g",
+        "cost": 2.6999999999999997,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Poulet",
+        "qty": "80 g",
+        "cost": 3.4399999999999995,
+        "matched": "BLANC  POULET    KG"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "60 g",
+        "cost": 9,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Huile",
+        "qty": "60 g",
+        "cost": 0.9359999999999999,
+        "matched": "HUILE TABLE 5L"
+      },
+      {
+        "ing": "Crème",
+        "qty": "100 g",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Pesto",
+        "qty": "70 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Épinard",
+        "qty": "30 g",
+        "cost": 0.44999999999999996,
+        "matched": "LES EPINARD"
+      },
+      {
+        "ing": "Champignon",
+        "qty": "70 g",
+        "cost": 4.2,
+        "matched": "CHAMPIGNONS"
+      },
+      {
+        "ing": "Oignon/Ail",
+        "qty": "70 g",
+        "cost": 3.15,
+        "matched": "AIL"
+      }
+    ]
+  },
+  {
+    "category": "PÂTES",
+    "name": "FRUITS DE MER",
+    "sellPrice": 88,
+    "cost": 24.09,
+    "foodCostPct": 27.4,
+    "marginPct": 72.6,
+    "details": [
+      {
+        "ing": "Pâtes",
+        "qty": "150 g",
+        "cost": 2.6999999999999997,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Crevettes",
+        "qty": "105 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Calamar",
+        "qty": "60 g",
+        "cost": 3.48,
+        "matched": "CALAMAR KG"
+      },
+      {
+        "ing": "Moules",
+        "qty": "15 g",
+        "cost": 0.825,
+        "matched": "LES MOULES KG"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "60 g",
+        "cost": 9,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Huile",
+        "qty": "60 g",
+        "cost": 0.9359999999999999,
+        "matched": "HUILE TABLE 5L"
+      },
+      {
+        "ing": "Crème",
+        "qty": "100 g",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Pesto",
+        "qty": "70 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Oignon/Ail",
+        "qty": "70 g",
+        "cost": 3.15,
+        "matched": "AIL"
+      }
+    ]
+  },
+  {
+    "category": "PÂTES",
+    "name": "SAUMON",
+    "sellPrice": 98,
+    "cost": 30.09,
+    "foodCostPct": 30.7,
+    "marginPct": 69.3,
+    "details": [
+      {
+        "ing": "Pâtes",
+        "qty": "150 g",
+        "cost": 2.6999999999999997,
+        "matched": "SPAGHETI 500G"
+      },
+      {
+        "ing": "Saumon",
+        "qty": "90 g",
+        "cost": 10.799999999999999,
+        "matched": "SAUMON FRAIS KG"
+      },
+      {
+        "ing": "Parmesan",
+        "qty": "60 g",
+        "cost": 9,
+        "matched": "PARMESAN"
+      },
+      {
+        "ing": "Huile",
+        "qty": "60 g",
+        "cost": 0.9359999999999999,
+        "matched": "HUILE TABLE 5L"
+      },
+      {
+        "ing": "Crème",
+        "qty": "100 g",
+        "cost": 3,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Pesto",
+        "qty": "70 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Oignon/Ail",
+        "qty": "70 g",
+        "cost": 3.15,
+        "matched": "AIL"
+      }
+    ]
+  },
+  {
+    "category": "PÂTES",
+    "name": "SPAGHETTIS NOIRS (suppl.)",
+    "sellPrice": 5,
+    "cost": 0,
+    "foodCostPct": 0,
+    "marginPct": 100,
+    "details": []
+  },
+  {
+    "category": "DESSERTS & PÂTISSERIES",
+    "name": "SAN SEBASTIEN CHEESECAKE",
+    "sellPrice": 45,
+    "cost": 1,
+    "foodCostPct": 2.2,
+    "marginPct": 97.8,
+    "details": [
+      {
+        "ing": "Cheesecake San Sebastian",
+        "qty": "1 part (160 g)",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Coulis chocolat chaud",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "DESSERTS & PÂTISSERIES",
+    "name": "FONDANT AU CHOCOLAT",
+    "sellPrice": 40,
+    "cost": 10.65,
+    "foodCostPct": 26.6,
+    "marginPct": 73.4,
+    "details": [
+      {
+        "ing": "Fondant chocolat cœur coulant",
+        "qty": "1 p (120 g)",
+        "cost": 10,
+        "matched": "FONDANT CHOCOLAT"
+      },
+      {
+        "ing": "Glace vanille artisanale",
+        "qty": "1 boule (50 g)",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sucre glace",
+        "qty": "5 g",
+        "cost": 0.14500000000000002,
+        "matched": "SUCRE CAFE 5KG"
+      }
+    ]
+  },
+  {
+    "category": "DESSERTS & PÂTISSERIES",
+    "name": "CHEESECAKE CHOCOLAT",
+    "sellPrice": 45,
+    "cost": 1,
+    "foodCostPct": 2.2,
+    "marginPct": 97.8,
+    "details": [
+      {
+        "ing": "Cheesecake chocolat",
+        "qty": "1 part (150 g)",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Chantilly",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "DESSERTS & PÂTISSERIES",
+    "name": "BOULE DE GLACE",
+    "sellPrice": 16,
+    "cost": 0.5,
+    "foodCostPct": 3.1,
+    "marginPct": 96.9,
+    "details": [
+      {
+        "ing": "Glace artisanale au choix",
+        "qty": "1 boule (50 g)",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "DESSERTS & PÂTISSERIES",
+    "name": "2 BOULES DE GLACE",
+    "sellPrice": 30,
+    "cost": 1,
+    "foodCostPct": 3.3,
+    "marginPct": 96.7,
+    "details": [
+      {
+        "ing": "Glace artisanale au choix",
+        "qty": "2 boules (100 g)",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Coulis & Chantilly",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "DESSERTS & PÂTISSERIES",
+    "name": "3 BOULES DE GLACE",
+    "sellPrice": 35,
+    "cost": 1,
+    "foodCostPct": 2.9,
+    "marginPct": 97.1,
+    "details": [
+      {
+        "ing": "Glace artisanale au choix",
+        "qty": "3 boules (150 g)",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Coulis, Chantilly & Gaufrette",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CRÊPES",
+    "name": "CRÊPE NUTELLA",
+    "sellPrice": 38,
+    "cost": 5.74,
+    "foodCostPct": 15.1,
+    "marginPct": 84.9,
+    "details": [
+      {
+        "ing": "Pâte à crêpe",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Nutella",
+        "qty": "60 g",
+        "cost": 4.74,
+        "matched": "NUTELLA 1 KG"
+      },
+      {
+        "ing": "Banane ou Amandes",
+        "qty": "20 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "CRÊPES",
+    "name": "CRÊPE KUNAFA PISTACHE",
+    "sellPrice": 48,
+    "cost": 15401.25,
+    "foodCostPct": 32085.9,
+    "marginPct": -31985.9,
+    "details": [
+      {
+        "ing": "Pâte à crêpe",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Pâte de pistache",
+        "qty": "40 g",
+        "cost": 11200,
+        "matched": "PISTACHE"
+      },
+      {
+        "ing": "Kunafa croustillante",
+        "qty": "30 g",
+        "cost": 0.75,
+        "matched": "KOUNAFA  kg"
+      },
+      {
+        "ing": "Pistaches concassées",
+        "qty": "15 g",
+        "cost": 4200,
+        "matched": "PISTACHE"
+      }
+    ]
+  },
+  {
+    "category": "CRÊPES",
+    "name": "CRÊPE FROMAGE",
+    "sellPrice": 45,
+    "cost": 8.86,
+    "foodCostPct": 19.7,
+    "marginPct": 80.3,
+    "details": [
+      {
+        "ing": "Pâte à crêpe",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "50 g",
+        "cost": 2.75,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Fromage rouge",
+        "qty": "30 g",
+        "cost": 4.65,
+        "matched": "FROMAGE ROUGE"
+      },
+      {
+        "ing": "Fromage blanc",
+        "qty": "20 g",
+        "cost": 0.96,
+        "matched": "FROMAGE BLANC NATURE"
+      }
+    ]
+  },
+  {
+    "category": "CRÊPES",
+    "name": "CRÊPE POULET CHAMPIGNON",
+    "sellPrice": 48,
+    "cost": 6.8,
+    "foodCostPct": 14.2,
+    "marginPct": 85.8,
+    "details": [
+      {
+        "ing": "Pâte à crêpe",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Blanc de poulet",
+        "qty": "70 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Champignons",
+        "qty": "40 g",
+        "cost": 2.4,
+        "matched": "CHAMPIGNONS"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "40 g",
+        "cost": 2.2,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Crème fraîche",
+        "qty": "40 ml",
+        "cost": 1.2,
+        "matched": "HULALA  1L"
+      }
+    ]
+  },
+  {
+    "category": "CRÊPES",
+    "name": "CRÊPE CHARCUTERIE",
+    "sellPrice": 45,
+    "cost": 4,
+    "foodCostPct": 8.9,
+    "marginPct": 91.1,
+    "details": [
+      {
+        "ing": "Pâte à crêpe",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Charcuterie de dinde",
+        "qty": "60 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "40 g",
+        "cost": 2.2,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Fromage",
+        "qty": "20 g",
+        "cost": 0.8,
+        "matched": "JEBAN"
+      }
+    ]
+  },
+  {
+    "category": "CRÊPES",
+    "name": "CRÊPE NORVÉGIENNE",
+    "sellPrice": 58,
+    "cost": 19.7,
+    "foodCostPct": 34,
+    "marginPct": 66,
+    "details": [
+      {
+        "ing": "Pâte à crêpe",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Saumon fumé",
+        "qty": "60 g",
+        "cost": 16.8,
+        "matched": "SAUMON FUMEE KG"
+      },
+      {
+        "ing": "Crème fraîche",
+        "qty": "40 ml",
+        "cost": 1.2,
+        "matched": "HULALA  1L"
+      },
+      {
+        "ing": "Fromage",
+        "qty": "30 g",
+        "cost": 1.2,
+        "matched": "JEBAN"
+      }
+    ]
+  },
+  {
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "name": "SUPPLÉMENT FRITES",
+    "sellPrice": 15,
+    "cost": 1020.5,
+    "foodCostPct": 6803.3,
+    "marginPct": -6703.3,
+    "details": [
+      {
+        "ing": "Frites",
+        "qty": "200 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Sauce",
+        "qty": "30 g",
+        "cost": 1020,
+        "matched": "TOPPING CHOCOLAT"
+      }
+    ]
+  },
+  {
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "name": "SUPPLÉMENT PURÉE",
+    "sellPrice": 18,
+    "cost": 1170.5,
+    "foodCostPct": 6502.8,
+    "marginPct": -6402.8,
+    "details": [
+      {
+        "ing": "Pomme de terre purée",
+        "qty": "250 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Beurre",
+        "qty": "15 g",
+        "cost": 1170,
+        "matched": "BEURRE CENTRAL KG"
+      }
+    ]
+  },
+  {
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "name": "SUPPLÉMENT POTATOS",
+    "sellPrice": 18,
+    "cost": 1025.4,
+    "foodCostPct": 5696.7,
+    "marginPct": -5596.7,
+    "details": [
+      {
+        "ing": "Pomme de terre potatos",
+        "qty": "200 g",
+        "cost": 5.4,
+        "matched": "POTAYTOS KG"
+      },
+      {
+        "ing": "Sauce",
+        "qty": "30 g",
+        "cost": 1020,
+        "matched": "TOPPING CHOCOLAT"
+      }
+    ]
+  },
+  {
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "name": "SUPPLÉMENT MIEL",
+    "sellPrice": 8,
+    "cost": 0.48,
+    "foodCostPct": 6,
+    "marginPct": 94,
+    "details": [
+      {
+        "ing": "Miel pur",
+        "qty": "30 g",
+        "cost": 0.48,
+        "matched": "MIEL  1 KG"
+      }
+    ]
+  },
+  {
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "name": "SUPPLÉMENT JBEN",
+    "sellPrice": 10,
+    "cost": 2,
+    "foodCostPct": 20,
+    "marginPct": 80,
+    "details": [
+      {
+        "ing": "Jben frais",
+        "qty": "50 g",
+        "cost": 2,
+        "matched": "JEBAN"
+      }
+    ]
+  },
+  {
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "name": "SUPPLÉMENT ŒUFS",
+    "sellPrice": 10,
+    "cost": 0.13,
+    "foodCostPct": 1.3,
+    "marginPct": 98.7,
+    "details": [
+      {
+        "ing": "Œufs frais",
+        "qty": "2 p",
+        "cost": 0.127,
+        "matched": "OEUFS"
+      }
+    ]
+  },
+  {
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "name": "SUPPLÉMENT FROMAGE",
+    "sellPrice": 12,
+    "cost": 0.5,
+    "foodCostPct": 4.2,
+    "marginPct": 95.8,
+    "details": [
+      {
+        "ing": "Fromage variété",
+        "qty": "50 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "name": "PIZZA COMPOSÉE AU CHOIX",
+    "sellPrice": 85,
+    "cost": 12.5,
+    "foodCostPct": 14.7,
+    "marginPct": 85.3,
+    "details": [
+      {
+        "ing": "Pâte à pizza",
+        "qty": "330 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Mozzarella",
+        "qty": "200 g",
+        "cost": 11,
+        "matched": "MOZZARELLA"
+      },
+      {
+        "ing": "Sauce tomate",
+        "qty": "100 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      },
+      {
+        "ing": "Garniture composée",
+        "qty": "150 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "name": "DIVERS CUISINE / FOOD",
+    "sellPrice": 10,
+    "cost": 0.5,
+    "foodCostPct": 5,
+    "marginPct": 95,
+    "details": [
+      {
+        "ing": "Ingrédients cuisine divers",
+        "qty": "1 portion",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "name": "DIVERS BAR / BOISSONS",
+    "sellPrice": 10,
+    "cost": 0.5,
+    "foodCostPct": 5,
+    "marginPct": 95,
+    "details": [
+      {
+        "ing": "Ingrédients bar divers",
+        "qty": "1 portion",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "A LA CARTE & BOULANGERIE",
+    "name": "PETIT BAGHRIR",
+    "sellPrice": 5,
+    "cost": 0.5,
+    "foodCostPct": 10,
+    "marginPct": 90,
+    "details": [
+      {
+        "ing": "Baghrir",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "A LA CARTE & BOULANGERIE",
+    "name": "MSEMEN NATURE",
+    "sellPrice": 6,
+    "cost": 35,
+    "foodCostPct": 583.3,
+    "marginPct": -483.3,
+    "details": [
+      {
+        "ing": "Msemen",
+        "qty": "1 p",
+        "cost": 35,
+        "matched": "SEMEN"
+      }
+    ]
+  },
+  {
+    "category": "A LA CARTE & BOULANGERIE",
+    "name": "VIENNOISERIE",
+    "sellPrice": 6,
+    "cost": 0.5,
+    "foodCostPct": 8.3,
+    "marginPct": 91.7,
+    "details": [
+      {
+        "ing": "Viennoiserie",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "A LA CARTE & BOULANGERIE",
+    "name": "HARCHA NATURE",
+    "sellPrice": 6,
+    "cost": 0.5,
+    "foodCostPct": 8.3,
+    "marginPct": 91.7,
+    "details": [
+      {
+        "ing": "Harcha",
+        "qty": "1 p",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "A LA CARTE & BOULANGERIE",
+    "name": "OMLETTE FROMAGE (A LA CARTE)",
+    "sellPrice": 38,
+    "cost": 2.29,
+    "foodCostPct": 6,
+    "marginPct": 94,
+    "details": [
+      {
+        "ing": "Œufs",
+        "qty": "3 p",
+        "cost": 0.1905,
+        "matched": "OEUFS"
+      },
+      {
+        "ing": "Fromage",
+        "qty": "40 g",
+        "cost": 1.6,
+        "matched": "JEBAN"
+      },
+      {
+        "ing": "Mesclun",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  },
+  {
+    "category": "A LA CARTE & BOULANGERIE",
+    "name": "OMLETTE NATURE (A LA CARTE)",
+    "sellPrice": 32,
+    "cost": 0.69,
+    "foodCostPct": 2.2,
+    "marginPct": 97.8,
+    "details": [
+      {
+        "ing": "Œufs",
+        "qty": "3 p",
+        "cost": 0.1905,
+        "matched": "OEUFS"
+      },
+      {
+        "ing": "Mesclun",
+        "qty": "30 g",
+        "cost": 0.5,
+        "matched": "FALLBACK"
+      }
+    ]
+  }
+]
