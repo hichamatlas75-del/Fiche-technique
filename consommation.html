@@ -238,6 +238,7 @@
     padding: 20px 24px;
     margin-bottom: 24px;
     box-shadow: var(--shadow-card);
+    overflow: hidden;
   }
   .cal-header {
     display: flex;
@@ -311,11 +312,19 @@
     color: #ffffff;
     box-shadow: 0 2px 6px rgba(14,165,233,.25);
   }
+  .cal-grid-scroll-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    padding-bottom: 4px;
+  }
   .cal-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 6px;
     margin-bottom: 16px;
+    width: 100%;
   }
   .cal-day-name {
     text-align: center;
@@ -421,6 +430,151 @@
   }
   .cal-stat-pill.success strong {
     color: var(--ok);
+  }
+  .cal-foot-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* ========================================================
+     ADAPTATION MOBILE DU CALENDRIER (SMARTPHONES & TABLETTES)
+  ======================================================== */
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px 8px;
+    }
+    .calendar-card {
+      padding: 14px 10px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+    .cal-header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+    }
+    .cal-nav-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .cal-title {
+      font-size: 15px;
+    }
+    .cal-month-nav {
+      padding: 3px 6px;
+    }
+    .cal-mode-selector {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+    }
+    .cal-mode-btn {
+      padding: 8px 4px;
+      font-size: 11.5px;
+      text-align: center;
+      justify-content: center;
+      line-height: 1.25;
+      white-space: normal;
+    }
+    .cal-grid {
+      gap: 4px;
+      min-width: 310px;
+      margin-bottom: 10px;
+    }
+    .cal-day-name {
+      font-size: 10.5px;
+      padding: 2px 0;
+    }
+    .cal-day-cell {
+      padding: 5px 3px;
+      min-height: 48px;
+      border-radius: 6px;
+    }
+    .cal-day-num {
+      font-size: 11px;
+    }
+    .cal-day-badge {
+      font-size: 8px;
+      padding: 1px 3px;
+      border-radius: 3px;
+      line-height: 1.1;
+    }
+    .cal-day-ca {
+      font-size: 9px;
+      margin-top: 1px;
+      letter-spacing: -0.2px;
+      text-align: center;
+    }
+    .cal-day-empty-text {
+      font-size: 9px;
+    }
+    .cal-foot {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding-top: 10px;
+    }
+    .cal-stats-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 4px;
+      width: 100%;
+    }
+    .cal-stat-pill {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 6px 2px;
+      font-size: 10px;
+      gap: 2px;
+      border-radius: 6px;
+    }
+    .cal-stat-pill strong {
+      font-size: 11.5px;
+    }
+    .cal-foot-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      width: 100%;
+    }
+    .cal-foot-actions .btn {
+      padding: 8px 3px;
+      font-size: 10.5px;
+      justify-content: center;
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .cal-title {
+      font-size: 13.5px;
+    }
+    .cal-grid {
+      gap: 3px;
+      min-width: 295px;
+    }
+    .cal-day-cell {
+      padding: 4px 2px;
+      min-height: 44px;
+    }
+    .cal-day-num {
+      font-size: 10.5px;
+    }
+    .cal-day-badge {
+      font-size: 7.5px;
+      padding: 0 2px;
+    }
+    .cal-day-ca {
+      font-size: 8.5px;
+      letter-spacing: -0.4px;
+    }
   }
 
   /* UPLOAD & DROP ZONE */
@@ -1332,8 +1486,10 @@
     </div>
 
     <!-- GRILLE DU CALENDRIER -->
-    <div class="cal-grid" id="cal-grid-container">
-      <!-- Rendu dynamique des jours 1..31 en JS -->
+    <div class="cal-grid-scroll-wrap">
+      <div class="cal-grid" id="cal-grid-container">
+        <!-- Rendu dynamique des jours 1..31 en JS -->
+      </div>
     </div>
 
     <div class="cal-foot">
@@ -1351,7 +1507,7 @@
           <strong id="stat-cal-total-qty">0</strong>
         </div>
       </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+      <div class="cal-foot-actions">
         <button class="btn" style="padding:5px 10px; font-size:11.5px;" onclick="exportFullMonthlyBackupJSON()" title="Sauvegarder toutes les données en fichier JSON">💾 Sauvegarder (JSON)</button>
         <button class="btn" style="padding:5px 10px; font-size:11.5px;" onclick="document.getElementById('json-backup-input').click()" title="Restaurer un fichier de sauvegarde JSON">📂 Restaurer</button>
         <input type="file" id="json-backup-input" accept=".json" style="display:none;" onchange="importFullMonthlyBackupJSON(event)" />
@@ -3048,18 +3204,33 @@ function importRecipesJSON(event) {
 /* ========================================================
    10. LECTURE EXCEL (SHEETJS), PARSER DE FICHIER & AUTO-SYNC /VENTES
 ======================================================== */
-function extractDateFromFilename(filename) {
-  if (!filename) return null;
-  // Patterns: Fin_Journée_20260827.xls, Fin_Journee_20260827.xlsx, 20260827, 2026-08-27
-  const m1 = filename.match(/(\d{4})(\d{2})(\d{2})/);
-  if (m1) {
-    const y = m1[1];
-    const m = m1[2];
-    const d = m1[3];
-    return `${y}-${m}-${d}`;
-  }
-  const m2 = filename.match(/(\d{4})-(\d{2})-(\d{2})/);
-  if (m2) return m2[0];
+function extractDateFromFilename(rawFilename) {
+  if (!rawFilename) return null;
+  let filename = rawFilename;
+  try { filename = decodeURIComponent(rawFilename); } catch (e) {}
+
+  filename = filename.trim();
+
+  // 1. Format ISO avec séparateurs : YYYY-MM-DD ou YYYY_MM_DD ou YYYY.MM.DD
+  const mIso = filename.match(/\b(20\d{2})[-_.](0[1-9]|1[0-2])[-_.](0[1-9]|[12]\d|3[01])\b/);
+  if (mIso) return `${mIso[1]}-${mIso[2]}-${mIso[3]}`;
+
+  // 2. Format compact YYYYMMDD (ex: 20260829)
+  const mCompact = filename.match(/\b(20\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\b/);
+  if (mCompact) return `${mCompact[1]}-${mCompact[2]}-${mCompact[3]}`;
+
+  // 3. Format FR avec séparateurs : DD-MM-YYYY ou DD_MM_YYYY (ex: 29-08-2026)
+  const mFr = filename.match(/\b(0[1-9]|[12]\d|3[01])[-_.](0[1-9]|1[0-2])[-_.](20\d{2})\b/);
+  if (mFr) return `${mFr[3]}-${mFr[2]}-${mFr[1]}`;
+
+  // 4. Format FR compact DDMMYYYY (ex: 29082026)
+  const mFrCompact = filename.match(/\b(0[1-9]|[12]\d|3[01])(0[1-9]|1[0-2])(20\d{2})\b/);
+  if (mFrCompact) return `${mFrCompact[3]}-${mFrCompact[2]}-${mFrCompact[1]}`;
+
+  // Fallback 8 chiffres
+  const mFallback = filename.match(/(\d{4})(\d{2})(\d{2})/);
+  if (mFallback) return `${mFallback[1]}-${mFallback[2]}-${mFallback[3]}`;
+
   return null;
 }
 
@@ -3172,114 +3343,157 @@ async function autoScanVentesFolder(showUserAlert = false) {
   const banner = document.getElementById('sync-status-banner');
   if (banner) {
     banner.style.display = 'block';
-    banner.textContent = "🔄 Analyse du dossier /ventes en cours...";
+    banner.textContent = "🔄 Analyse et synchronisation du dossier /ventes en cours...";
     banner.style.color = "var(--accent)";
   }
 
   let foundCount = 0;
   let loadedDates = [];
 
-  // Helper pour tenter plusieurs chemins relatifs
-  async function fetchFile(path) {
+  // Helper pour tenter plusieurs chemins relatifs avec cache-busting
+  async function fetchFile(path, fallbackUrl = null) {
     const candidatePaths = [path, './' + path, '/' + path];
+    if (fallbackUrl) candidatePaths.push(fallbackUrl);
     for (const p of candidatePaths) {
       try {
-        const resp = await fetch(p + '?t=' + Date.now());
+        const sep = p.includes('?') ? '&' : '?';
+        const resp = await fetch(p + sep + 't=' + Date.now(), { cache: 'no-store' });
         if (resp.ok) return resp;
-      } catch (e) { console.warn('[Auto-sync]', e); }
+      } catch (e) { console.warn('[Auto-sync fetch]', e); }
     }
     return null;
   }
 
-  let manifestLoaded = false;
-  // 1. Essayer de charger le manifest.json s'il existe
+  // Map unifiée pour collecter les fichiers : Map<filename, downloadUrl|null>
+  const filesToProcess = new Map();
+
+  // 1. SOURCE DYNAMIQUE EN TEMPS RÉEL : API GitHub
+  // Détecte instantanément TOUT fichier poussé sur le dépôt, même sans manifest.json !
+  try {
+    const ghResp = await fetch('https://api.github.com/repos/hichamatlas75-del/Fiche-technique/contents/ventes?t=' + Date.now(), {
+      headers: { 'Accept': 'application/vnd.github.v3+json' },
+      cache: 'no-store'
+    });
+    if (ghResp.ok) {
+      const ghItems = await ghResp.json();
+      if (Array.isArray(ghItems)) {
+        ghItems.forEach(item => {
+          if (item && item.name) {
+            const low = item.name.toLowerCase();
+            if (low.endsWith('.xls') || low.endsWith('.xlsx')) {
+              filesToProcess.set(item.name, item.download_url || null);
+            }
+          }
+        });
+      }
+    }
+  } catch (e) {
+    console.warn('[Auto-sync GitHub API]', e);
+  }
+
+  // 2. SOURCE STATIQUE : manifest.json (fonctionne en local ou si API GitHub indisponible)
   try {
     const manifestResp = await fetchFile('ventes/manifest.json');
     if (manifestResp) {
       const manifest = await manifestResp.json();
       const filesList = manifest.files || [];
-      manifestLoaded = true;
-
-      for (const fname of filesList) {
-        const dKey = extractDateFromFilename(fname);
-        if (dKey) {
-          try {
-            const fResp = await fetchFile('ventes/' + encodeURIComponent(fname));
-            if (fResp) {
-              const buf = await fResp.arrayBuffer();
-              const wb = XLSX.read(new Uint8Array(buf), { type: 'array' });
-              const rows = parseWorkbookToRows(wb);
-              if (rows.length > 0) {
-                monthlySalesDB[dKey] = rows;
-                foundCount++;
-                loadedDates.push(dKey);
-              }
-            }
-          } catch (e) { console.warn('[Auto-sync]', e); }
+      filesList.forEach(fname => {
+        if (!filesToProcess.has(fname)) {
+          filesToProcess.set(fname, null);
         }
-      }
+      });
     }
-  } catch (e) { console.warn('[Auto-sync]', e); }
+  } catch (e) {
+    console.warn('[Auto-sync manifest.json]', e);
+  }
 
-  // 2. Scan direct fallback uniquement si manifest.json est absent
-  if (!manifestLoaded) {
-    const [yearStr, monthStr] = selectedYearMonth.split('-');
+  // 3. SCANNER DE CANDIDATS (TOUJOURS ACTIF : teste les dates du mois sélectionné et du mois en cours)
+  // Ne s'arrête PAS même si manifest ou GitHub API sont présents, afin de capturer tout fichier non référencé !
+  const monthsToScan = new Set([
+    selectedYearMonth,
+    new Date().toISOString().slice(0, 7)
+  ]);
+
+  monthsToScan.forEach(ym => {
+    const [yearStr, monthStr] = ym.split('-');
     const totalDays = new Date(parseInt(yearStr, 10), parseInt(monthStr, 10), 0).getDate();
 
     for (let day = 1; day <= totalDays; day++) {
       const dayStr = String(day).padStart(2, '0');
-      const dKey = `${selectedYearMonth}-${dayStr}`;
       const compactDate = `${yearStr}${monthStr}${dayStr}`;
 
-      const candidateFilenames = [
+      const candidateNames = [
         `Fin_Journée_${compactDate}.xls`,
         `Fin_Journee_${compactDate}.xls`,
         `Fin_Journée_${compactDate}.xlsx`,
         `Fin_Journee_${compactDate}.xlsx`,
+        `Fin_Journée_${dayStr}-${monthStr}-${yearStr}.xls`,
+        `Fin_Journee_${dayStr}-${monthStr}-${yearStr}.xls`,
+        `Fin_Journée_${dayStr}_${monthStr}_${yearStr}.xls`,
+        `Fin_Journee_${dayStr}_${monthStr}_${yearStr}.xls`,
+        `Fin_Journée_${yearStr}-${monthStr}-${dayStr}.xls`,
+        `Fin_Journee_${yearStr}-${monthStr}-${dayStr}.xls`,
         `ventes_${compactDate}.xls`,
         `ventes_${compactDate}.xlsx`
       ];
 
-      for (const cName of candidateFilenames) {
-        try {
-          const resp = await fetchFile('ventes/' + encodeURIComponent(cName));
-          if (resp) {
-            const buf = await resp.arrayBuffer();
-            const wb = XLSX.read(new Uint8Array(buf), { type: 'array' });
-            const rows = parseWorkbookToRows(wb);
-            if (rows.length > 0) {
-              monthlySalesDB[dKey] = rows;
-              foundCount++;
-              loadedDates.push(dKey);
-              break; // Fichier trouvé pour cette date
-            }
+      candidateNames.forEach(cName => {
+        if (!filesToProcess.has(cName)) {
+          filesToProcess.set(cName, null);
+        }
+      });
+    }
+  });
+
+  // 4. CHARGEMENT ET TRAITEMENT DES FICHIERS
+  for (const [fname, downloadUrl] of filesToProcess.entries()) {
+    const dKey = extractDateFromFilename(fname);
+    if (!dKey) continue;
+
+    try {
+      const resp = await fetchFile('ventes/' + encodeURIComponent(fname), downloadUrl);
+      if (resp) {
+        const buf = await resp.arrayBuffer();
+        const wb = XLSX.read(new Uint8Array(buf), { type: 'array' });
+        const rows = parseWorkbookToRows(wb);
+        if (rows.length > 0) {
+          monthlySalesDB[dKey] = rows;
+          foundCount++;
+          if (!loadedDates.includes(dKey)) {
+            loadedDates.push(dKey);
           }
-        } catch (e) { console.warn('[Auto-sync]', e); }
+        }
       }
+    } catch (e) {
+      console.warn('[Auto-sync file error]', fname, e);
     }
   }
 
+  // 5. SAUVEGARDE & ACTUALISATION DE L'INTERFACE
   if (foundCount > 0) {
     saveMonthlySalesDB();
 
-    // AUTO-SÉLECTION : Si la date actuellement sélectionnée n'a pas de vente, basculer sur le jour le plus récent avec des ventes !
+    // AUTO-SÉLECTION : Basculer automatiquement sur la journée la plus récente avec des données
     const availableDates = Object.keys(monthlySalesDB).filter(d => monthlySalesDB[d] && monthlySalesDB[d].length > 0).sort();
     if (availableDates.length > 0) {
-      if (!monthlySalesDB[selectedDate] || monthlySalesDB[selectedDate].length === 0) {
-        selectedDate = availableDates[availableDates.length - 1];
-        selectedYearMonth = selectedDate.slice(0, 7);
-      }
+      selectedDate = availableDates[availableDates.length - 1];
+      selectedYearMonth = selectedDate.slice(0, 7);
     }
 
     renderCalendar();
     recalculateCurrentView();
 
+    loadedDates.sort();
+    const lastDateFR = formatDateFR(selectedDate);
+    const msg = `✅ ${foundCount} journée(s) synchronisée(s) ! Dernière date active : ${lastDateFR}.`;
+
     if (banner) {
       banner.style.color = "var(--ok)";
-      banner.textContent = `✅ ${foundCount} journée(s) de vente synchronisée(s) ! Données chargées pour le ${formatDateFR(selectedDate)}.`;
+      banner.textContent = msg;
     }
     if (showUserAlert) {
-      alert(`✅ Synchronisation réussie ! ${foundCount} fichier(s) du dossier /ventes chargés.\nAffichage des ventes du ${formatDateFR(selectedDate)}.`);
+      const recentList = loadedDates.slice(-6).map(d => '• ' + formatDateFR(d)).join('\n');
+      alert(`✅ Synchronisation réussie !\n${foundCount} fichier(s) traités.\n\nJournées récentes chargées :\n${recentList}\n\nAffichage automatique des ventes du ${lastDateFR}.`);
     }
   } else {
     if (banner) {
@@ -3287,7 +3501,7 @@ async function autoScanVentesFolder(showUserAlert = false) {
       banner.textContent = "📁 Dossier /ventes prêt. Déposez vos fichiers 'Fin_Journée_YYYYMMDD.xls' pour auto-chargement.";
     }
     if (showUserAlert) {
-      alert("Aucun nouveau fichier trouvé dans le dossier /ventes pour ce mois.");
+      alert("Aucun nouveau fichier de vente n'a été trouvé dans le dossier /ventes pour cette période.");
     }
   }
 }
