@@ -725,6 +725,7 @@
   }
   table {
     width: 100%;
+    min-width: 600px;
     border-collapse: collapse;
     text-align: left;
     font-size: 14px;
@@ -882,7 +883,7 @@
   /* RECIPE EDIT LIST */
   .recipe-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
     gap: 16px;
   }
   .recipe-card {
@@ -1469,9 +1470,9 @@
           <span>📅 Calendrier & Déstockage Mensuel</span>
         </div>
         <div class="cal-month-nav">
-          <button class="cal-nav-btn" onclick="prevMonth()" title="Mois précédent">◀</button>
+          <button class="cal-nav-btn" onclick="prevMonth()" title="Mois précédent" aria-label="Mois précédent">◀</button>
           <input type="month" id="cal-month-input" style="border:none; background:transparent; font-weight:800; font-size:13.5px; color:var(--text); outline:none; cursor:pointer;" onchange="onMonthInputChange(this.value)" />
-          <button class="cal-nav-btn" onclick="nextMonth()" title="Mois suivant">▶</button>
+          <button class="cal-nav-btn" onclick="nextMonth()" title="Mois suivant" aria-label="Mois suivant">▶</button>
         </div>
       </div>
       
@@ -2889,7 +2890,9 @@ function exportFullMonthlyBackupJSON() {
   const a = document.createElement('a');
   a.href = url;
   a.download = `GreyCorner_Sauvegarde_Mensuelle_${selectedYearMonth}.json`;
+  document.body.appendChild(a);
   a.click();
+  document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
 
@@ -2916,6 +2919,7 @@ function importFullMonthlyBackupJSON(event) {
       alert("Erreur lors de la lecture du fichier JSON : " + err.message);
     }
   };
+  reader.onerror = () => alert("Erreur de lecture du fichier. Veuillez réessayer.");
   reader.readAsText(file);
 }
 
@@ -3174,7 +3178,9 @@ function exportRecipesJSON() {
   const a = document.createElement('a');
   a.href = url;
   a.download = `GreyCorner_Fiches_Techniques_${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);
   a.click();
+  document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
 
@@ -3198,6 +3204,7 @@ function importRecipesJSON(event) {
       alert("Erreur lors de la lecture du fichier JSON : " + err.message);
     }
   };
+  reader.onerror = () => alert("Erreur de lecture du fichier. Veuillez réessayer.");
   reader.readAsText(file);
 }
 
@@ -3260,7 +3267,7 @@ function parseWorkbookToRows(workbook) {
     }
   }
 
-  if (colProduit === -1) { colProduit = 1; colFamille = 0; colPrix = 2; colQte = 3; colTotal = 4; headerRowIndex = 0; }
+  if (colProduit === -1) { colProduit = 1; colFamille = 0; colPrix = 2; colQte = 3; colTotal = 4; headerRowIndex = -1; }
 
   const rawRows = [];
   for (let i = headerRowIndex + 1; i < json.length; i++) {
@@ -3411,7 +3418,7 @@ async function autoScanVentesFolder(showUserAlert = false) {
   // Ne s'arrête PAS même si manifest ou GitHub API sont présents, afin de capturer tout fichier non référencé !
   const monthsToScan = new Set([
     selectedYearMonth,
-    new Date().toISOString().slice(0, 7)
+    new Date().toLocaleDateString('en-CA').slice(0, 7)
   ]);
 
   monthsToScan.forEach(ym => {
@@ -3689,6 +3696,7 @@ function initAuditFlashDropdown() {
 
 function onFlashIngredientChange() {
   const select = document.getElementById('flash-ing-select');
+  if (!select) return;
   const opt = select.options[select.selectedIndex];
   if (!opt || !select.value) return;
 
@@ -3747,7 +3755,7 @@ function calculateAuditFlash() {
   const consReelle = (sInit + achats) - sFinal;
   const consAttendue = theo + casse;
   const ecart = consReelle - consAttendue;
-  const ecartPct = consAttendue > 0 ? (ecart / consAttendue) * 100 : 0;
+  const ecartPct = consAttendue > 0 ? (ecart / consAttendue) * 100 : (ecart !== 0 ? Infinity : 0);
   const impactDH = ecart * prix;
 
   const resBox = document.getElementById('flash-result-box');
@@ -3817,6 +3825,7 @@ async function handleAuditFileUpload(event, targetType) {
         status.textContent = `✅ ${extracted.length} articles extraits de ${file.name}`;
         status.style.display = 'block';
       };
+      reader.onerror = () => alert("Erreur de lecture du fichier Excel. Veuillez réessayer.");
       reader.readAsArrayBuffer(file);
     } catch (err) {
       console.error('Erreur lecture Excel:', err);
@@ -4047,7 +4056,7 @@ function recalculateMonthlyAudit() {
     const consReelle = (item.sInit + item.achats) - item.sFinal;
     const consAttendue = item.theorique + item.casse;
     const ecart = consReelle - consAttendue;
-    const ecartPct = consAttendue > 0 ? (ecart / consAttendue) * 100 : 0;
+    const ecartPct = consAttendue > 0 ? (ecart / consAttendue) * 100 : (ecart !== 0 ? Infinity : 0);
     const impactDH = ecart * item.prix;
 
     item.consReelle = consReelle;

@@ -38,6 +38,7 @@ $syncAction = {
         if ($staged) {
             Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Envoi vers GitHub en cours..." -ForegroundColor Yellow
             git commit -m "Auto: ajout $fileName via surveillance automatique"
+            git pull --rebase origin main
             git push origin main
             if ($LASTEXITCODE -eq 0) {
                 Write-Host "[$(Get-Date -Format 'HH:mm:ss')] SUCCES : $fileName est synchronise sur GitHub !" -ForegroundColor Green

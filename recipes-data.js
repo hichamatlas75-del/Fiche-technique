@@ -4925,6 +4925,22 @@ const BASE_RECIPES = [
     ]
   },
   {
+    "id": "sup_supplement_poulet",
+    "name": "SUPPLÉMENT POULET",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Poulet émincé : 80 g"
+    ]
+  },
+  {
+    "id": "sup_supplement_viande",
+    "name": "SUPPLÉMENT VIANDE HACHÉE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Viande hachée : 80 g"
+    ]
+  },
+  {
     "id": "sup_pizza_composee_au_choix",
     "name": "PIZZA COMPOSÉE AU CHOIX",
     "category": "SUPPLÉMENTS & EXTRAS",

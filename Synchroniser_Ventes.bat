@@ -33,6 +33,9 @@ if %ERRORLEVEL% EQU 0 (
 echo [*] Nouveau fichier detecte, preparation du commit...
 git commit -m "Auto: ajout ventes du jour via synchroniseur"
 
+echo [*] Synchronisation avec le depot distant...
+git pull --rebase origin main
+
 echo [*] Envoi en cours vers GitHub (git push)...
 git push origin main
 
