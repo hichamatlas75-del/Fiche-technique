@@ -6923,4 +6923,10 @@ global.DATA = DATA;
 global.BASE_RECIPES = BASE_RECIPES;
 global.ALIAS_MAP = ALIAS_MAP;
 global.INGREDIENT_CATEGORIES = INGREDIENT_CATEGORIES;
+global.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;
+global.calculateRecipeFoodCost = calculateRecipeFoodCost;
+if (typeof window !== 'undefined') {
+  window.calculateRecipeFoodCost = calculateRecipeFoodCost;
+  window.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;
+}
 })(typeof window !== 'undefined' ? window : globalThis);
