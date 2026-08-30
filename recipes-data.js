@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-30T13:09:35.060Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-30T18:30:28.095Z
  */
 
 (function(global) {
@@ -3543,22 +3543,22 @@ const BASE_RECIPES = [
   {
     "id": "plat_brochette_poulet",
     "name": "BROCHETTE DE POULET",
-    "category": "PLATS CHAUDS",
+    "category": "PLATS",
     "ingredients": [
-      "Poulet : 180 g",
-      "Frites : 150 g",
+      "Poulet : 200 g",
+      "Frites : 200 g",
       "Sauce : 30 g",
-      "Salade : 40 g"
+      "legumes : 500 g"
     ]
   },
   {
     "id": "plat_couscous_poulet",
     "name": "COUSCOUS POULET AVEC PETIT LAIT",
-    "category": "PLATS MAROCAINS",
+    "category": "AUTRE",
     "ingredients": [
       "Semoule couscous : 200 g",
-      "Poulet : 180 g",
-      "Légumes couscous : 150 g",
+      "Poulet : 200 g",
+      "Légumes couscous : 250 g",
       "Petit lait (Lben) : 200 ml"
     ]
   },
@@ -3585,9 +3585,10 @@ const BASE_RECIPES = [
     "name": "BOULETTES DE POULET FR",
     "category": "ENTRÉES CHAUDES",
     "ingredients": [
-      "Poulet haché : 150 g",
+      "Poulet haché : 200 g",
       "Sauce : 30 g",
-      "Frites : 150 g"
+      "FR EDAM: 40 g",
+      "CHAPLURE: 50 g"
     ]
   },
   {
