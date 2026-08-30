@@ -905,13 +905,28 @@
   .recipe-ing-list {
     list-style: none;
     font-size: 12.5px;
-    color: var(--muted);
+    color: var(--text);
   }
   .recipe-ing-list li {
-    padding: 3px 0;
+    padding: 4px 0;
     border-bottom: 1px dotted var(--border);
     display: flex;
     justify-content: space-between;
+    align-items: center;
+  }
+  .recipe-ing-list li span {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .recipe-ing-list li strong {
+    font-weight: 800;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    background: rgba(2, 132, 199, 0.12);
+    color: var(--accent);
+    padding: 2px 7px;
+    border-radius: 5px;
+    border: 1px solid rgba(2, 132, 199, 0.25);
   }
 
   /* PRINT STYLES */

@@ -10,48 +10,74 @@
 
 <style>
   :root {
-    /* THÈME CLAIR (Par défaut - Très lisible, moderne et épuré) */
+    /* THÈME CLAIR (Très lisible, haute définition, moderne) */
     --bg: #f8fafc;
     --paper: #ffffff;
-    --paper-hover: #f1f5f9;
+    --paper-hover: #f8fafc;
     --text: #0f172a;
-    --muted: #64748b;
-    --border: #e2e8f0;
+    --muted: #475569;
+    --border: #cbd5e1;
     --chip: #f1f5f9;
     --ok: #16a34a;
     --warn: #d97706;
     --danger: #dc2626;
     --accent: #0284c7;
     --accent-bg: #e0f2fe;
-    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
-    --header-bg: rgba(255, 255, 255, 0.95);
+    --card-shadow: 0 4px 12px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.05);
+    --header-bg: rgba(255, 255, 255, 0.96);
     --footer-bg: #f8fafc;
     --timer-bg: #f1f5f9;
-    --timer-border: #e2e8f0;
-    --tech-border: rgba(0, 0, 0, 0.06);
-    --tech-text: #334155;
+    --timer-border: #cbd5e1;
+    --tech-border: rgba(0, 0, 0, 0.08);
+    --tech-text: #1e293b;
+    --qty-bg: #e2e8f0;
+    --qty-text: #0f172a;
+    --qty-border: #cbd5e1;
+
+    /* Financial Row - Thème Clair */
+    --fin-bg: #f8fafc;
+    --fin-border: #cbd5e1;
+    --fin-label: #475569;
+    --fin-cost: #0284c7;
+    --fin-fc-low: #15803d;
+    --fin-fc-med: #b45309;
+    --fin-fc-high: #b91c1c;
+    --fin-margin: #6d28d9;
   }
 
   [data-theme="dark"] {
     --bg: #0b0e12;
     --paper: #12161c;
     --paper-hover: #161c24;
-    --text: #e7edf6;
-    --muted: #9aa8bb;
-    --border: #1c232c;
-    --chip: #1a2330;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --border: #263242;
+    --chip: #1e293b;
     --ok: #22c55e;
     --warn: #facc15;
     --danger: #ef4444;
     --accent: #38bdf8;
     --accent-bg: rgba(56, 189, 248, 0.15);
-    --card-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-    --header-bg: rgba(11, 14, 18, 0.92);
+    --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    --header-bg: rgba(11, 14, 18, 0.94);
     --footer-bg: #0f141b;
-    --timer-bg: rgba(0,0,0,.25);
-    --timer-border: rgba(255,255,255,.04);
-    --tech-border: rgba(255,255,255,.05);
-    --tech-text: #cbd5e1;
+    --timer-bg: #1a222d;
+    --timer-border: #263242;
+    --tech-border: rgba(255, 255, 255, 0.08);
+    --tech-text: #e2e8f0;
+    --qty-bg: #1e293b;
+    --qty-text: #38bdf8;
+    --qty-border: #334155;
+
+    /* Financial Row - Thème Sombre */
+    --fin-bg: #151b23;
+    --fin-border: #263242;
+    --fin-label: #94a3b8;
+    --fin-cost: #38bdf8;
+    --fin-fc-low: #4ade80;
+    --fin-fc-med: #fbbf24;
+    --fin-fc-high: #f87171;
+    --fin-margin: #c084fc;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -323,19 +349,21 @@
   .name {
     font-size: 17px;
     font-weight: 800;
-    letter-spacing: .3px;
-    line-height: 1.3;
+    letter-spacing: .2px;
+    line-height: 1.25;
     color: var(--text);
   }
   .price {
     font-weight: 800;
-    font-size: 14px;
+    font-size: 14.5px;
+    font-variant-numeric: tabular-nums;
     background: var(--accent-bg);
-    border: 1px solid var(--accent);
-    padding: 4px 10px;
+    border: 1.5px solid var(--accent);
+    padding: 4px 12px;
     border-radius: 999px;
     white-space: nowrap;
     color: var(--accent);
+    box-shadow: 0 1px 3px rgba(2, 132, 199, 0.12);
   }
 
   /* FINANCIAL / FOOD COST ROW */
@@ -343,13 +371,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 4px;
-    margin: 6px 0 10px;
-    padding: 6px 10px;
-    background: rgba(15, 23, 42, 0.45);
-    border: 1px solid var(--border);
+    gap: 6px;
+    margin: 8px 0 12px;
+    padding: 7px 10px;
+    background: var(--fin-bg);
+    border: 1px solid var(--fin-border);
     border-radius: 8px;
     font-size: 11.5px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
   }
   .fin-item {
     display: flex;
@@ -360,34 +389,35 @@
     text-align: center;
   }
   .fin-item:not(:last-child) {
-    border-right: 1px solid var(--border);
-    padding-right: 4px;
+    border-right: 1px solid var(--fin-border);
+    padding-right: 6px;
   }
   .fin-label {
     font-size: 9.5px;
-    color: var(--muted);
+    color: var(--fin-label);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: .3px;
+    letter-spacing: .4px;
+    margin-bottom: 2px;
   }
   .fin-val {
     font-weight: 800;
-    font-size: 12px;
-    color: var(--text);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
   }
-  .fin-item.cost .fin-val { color: #38bdf8; }
-  .fin-item.fc-low .fin-val { color: #10b981; }
-  .fin-item.fc-med .fin-val { color: #f59e0b; }
-  .fin-item.fc-high .fin-val { color: #ef4444; }
-  .fin-item.margin .fin-val { color: #a78bfa; }
+  .fin-item.cost .fin-val { color: var(--fin-cost); }
+  .fin-item.fc-low .fin-val { color: var(--fin-fc-low); }
+  .fin-item.fc-med .fin-val { color: var(--fin-fc-med); }
+  .fin-item.fc-high .fin-val { color: var(--fin-fc-high); }
+  .fin-item.margin .fin-val { color: var(--fin-margin); }
 
   /* TIMER */
   .timer-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 8px 0 12px;
-    padding: 6px 10px;
+    margin: 6px 0 10px;
+    padding: 7px 10px;
     background: var(--timer-bg);
     border-radius: 8px;
     border: 1px solid var(--timer-border);
@@ -399,6 +429,7 @@
     align-items: center;
     gap: 8px;
     letter-spacing: .5px;
+    font-variant-numeric: tabular-nums;
     color: var(--text);
   }
   .timer .dot {
@@ -450,16 +481,29 @@
     flex: 1;
   }
   .tech li {
-    margin: 3px 0;
+    margin: 4px 0;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 8px;
     border-bottom: 1px dotted var(--tech-border);
-    padding-bottom: 2px;
+    padding-bottom: 3px;
+    line-height: 1.35;
+  }
+  .tech li span:first-child {
+    color: var(--tech-text);
+    font-weight: 600;
   }
   .tech li .item-qty {
     font-weight: 800;
-    color: var(--text);
+    font-size: 12.5px;
+    font-variant-numeric: tabular-nums;
+    color: var(--qty-text);
+    background: var(--qty-bg);
+    border: 1px solid var(--qty-border);
+    padding: 2px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
   }
 
   /* CARD FOOTER */
