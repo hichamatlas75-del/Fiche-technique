@@ -33,7 +33,7 @@ const DATA = [
           "Sucre : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "18 DH"
+        "price": "17 DH"
       },
       {
         "name": "CAFÉ AU LAIT",
@@ -110,7 +110,7 @@ const DATA = [
           "Sucre : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "22 DH"
+        "price": "18 DH"
       },
       {
         "name": "CHOCOLAT CHAUD CHANTILLY",
@@ -123,7 +123,7 @@ const DATA = [
           "Coulis chocolat : 10 ml",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "25 DH"
+        "price": "22 DH"
       },
       {
         "name": "CHOCOLAT FONDU GOURMAND",
@@ -136,7 +136,7 @@ const DATA = [
           "Chantilly : 30 g",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "28 DH"
+        "price": "26 DH"
       },
       {
         "name": "THÉ MAROCAIN À LA MENTHE",
@@ -161,7 +161,7 @@ const DATA = [
           "Sucre : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "16 DH"
+        "price": "15 DH"
       },
       {
         "name": "THÉ NOIR AU LAIT",
@@ -174,7 +174,7 @@ const DATA = [
           "Sucre : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "19 DH"
+        "price": "18 DH"
       },
       {
         "name": "VERVEINE NATURE",
@@ -279,7 +279,7 @@ const DATA = [
           "Glaçons : 120 g",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "24 DH"
+        "price": "20 DH"
       },
       {
         "name": "ICE COFFEE AROMATISÉ",
@@ -292,7 +292,7 @@ const DATA = [
           "Glaçons : 120 g",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "28 DH"
+        "price": "23 DH"
       },
       {
         "name": "FRAPPUCCINO CLASSIQUE",
@@ -305,7 +305,7 @@ const DATA = [
           "Glace pilée : 150 g",
           "Crème chantilly : 30 g"
         ],
-        "price": "32 DH"
+        "price": "25 DH"
       },
       {
         "name": "FRAPPUCCINO AROMATISÉ",
@@ -318,7 +318,7 @@ const DATA = [
           "Glace pilée : 150 g",
           "Chantilly & Nappage : 35 g"
         ],
-        "price": "35 DH"
+        "price": "28 DH"
       }
     ]
   },
@@ -338,7 +338,7 @@ const DATA = [
           "Pêche fraîche : 30 g",
           "Glaçons : 100 g"
         ],
-        "price": "25 DH"
+        "price": "28 DH"
       },
       {
         "name": "ICE TEA CITRON MAISON",
@@ -351,7 +351,7 @@ const DATA = [
           "Rondelles de citron : 2 tr",
           "Glaçons : 100 g"
         ],
-        "price": "25 DH"
+        "price": "28 DH"
       },
       {
         "name": "ICE TEA FRAMBOISE MAISON",
@@ -392,7 +392,7 @@ const DATA = [
           "Eau filtrée & Glaçons : 150 ml",
           "Menthe fraîche : 5 g"
         ],
-        "price": "22 DH"
+        "price": "25 DH"
       },
       {
         "name": "JUS DE FRAISE",
@@ -403,7 +403,7 @@ const DATA = [
           "Jus d'orange frais : 80 ml",
           "Sirop de sucre : 15 ml"
         ],
-        "price": "26 DH"
+        "price": "30 DH"
       },
       {
         "name": "JUS DE FRAMBOISE",
@@ -414,7 +414,7 @@ const DATA = [
           "Jus d'orange : 80 ml",
           "Sirop de sucre : 20 ml"
         ],
-        "price": "32 DH"
+        "price": "35 DH"
       },
       {
         "name": "JUS DE MANGUE",
@@ -435,7 +435,7 @@ const DATA = [
           "Ananas frais : 250 g",
           "Glaçons : 50 g"
         ],
-        "price": "28 DH"
+        "price": "32 DH"
       },
       {
         "name": "JUS DE PÊCHE",
@@ -446,7 +446,7 @@ const DATA = [
           "Jus d'orange frais : 80 ml",
           "Glaçons : 50 g"
         ],
-        "price": "28 DH"
+        "price": "30 DH"
       },
       {
         "name": "JUS DE CAROTTE",
@@ -456,7 +456,7 @@ const DATA = [
           "Carottes fraîches : 350 g",
           "Jus d'orange frais : 50 ml"
         ],
-        "price": "24 DH"
+        "price": "25 DH"
       },
       {
         "name": "JUS POMME & BANANE",
@@ -467,7 +467,7 @@ const DATA = [
           "Banane : 120 g",
           "Lait ou Jus d'orange : 100 ml"
         ],
-        "price": "26 DH"
+        "price": "28 DH"
       },
       {
         "name": "JUS D'AVOCAT AU LAIT",
@@ -478,7 +478,7 @@ const DATA = [
           "Lait entier frais : 200 ml",
           "Sucre : 20 g"
         ],
-        "price": "28 DH"
+        "price": "32 DH"
       },
       {
         "name": "JUS D'AVOCAT ROYAL FRUITS SECS",
@@ -490,7 +490,7 @@ const DATA = [
           "Miel pur : 25 g",
           "Amandes, Noix, Raisins secs : 40 g"
         ],
-        "price": "35 DH"
+        "price": "38 DH"
       },
       {
         "name": "JUS PANACHÉ FRUITS FRAIS",
@@ -503,7 +503,7 @@ const DATA = [
           "Pomme : 60 g",
           "Avocat : 40 g"
         ],
-        "price": "28 DH"
+        "price": "38 DH"
       },
       {
         "name": "COCKTAIL À BASE D'ORANGE",
@@ -515,7 +515,7 @@ const DATA = [
           "Fraise fraîche : 50 g",
           "Ananas frais : 50 g"
         ],
-        "price": "28 DH"
+        "price": "42 DH"
       },
       {
         "name": "ZA3ZA3 ROYAL GREY CORNER",
@@ -530,7 +530,7 @@ const DATA = [
           "Crème chantilly : 35 g",
           "Coulis caramel : 15 ml"
         ],
-        "price": "45 DH"
+        "price": "46 DH"
       }
     ]
   },
@@ -551,7 +551,7 @@ const DATA = [
           "Sirop de passion : 20 ml",
           "Fruits frais décor : 30 g"
         ],
-        "price": "38 DH"
+        "price": "48 DH"
       },
       {
         "name": "VIRGIN PIÑA COLADA",
@@ -564,7 +564,7 @@ const DATA = [
           "Glaçons : 100 g",
           "Tranche d'ananas : 1 tr"
         ],
-        "price": "35 DH"
+        "price": "42 DH"
       },
       {
         "name": "COCKTAIL TROPICAL",
@@ -577,7 +577,7 @@ const DATA = [
           "Sirop de grenadine : 15 ml",
           "Glaçons : 80 g"
         ],
-        "price": "32 DH"
+        "price": "42 DH"
       },
       {
         "name": "MOJITO VIRGIN / FRAÎCHEUR",
@@ -590,7 +590,7 @@ const DATA = [
           "Eau gazeuse Oulmès : 150 ml",
           "Glace pilée : 120 g"
         ],
-        "price": "32 DH"
+        "price": "42 DH"
       },
       {
         "name": "DÉTOX GINGEMBRE CITRON",
@@ -616,7 +616,7 @@ const DATA = [
           "Sprite : 60 ml",
           "Glaçons : 80 g"
         ],
-        "price": "32 DH"
+        "price": "34 DH"
       },
       {
         "name": "MOJITO TROPICAL",
@@ -629,7 +629,7 @@ const DATA = [
           "Eau gazeuse Oulmès : 150 ml",
           "Glace pilée : 120 g"
         ],
-        "price": "35 DH"
+        "price": "38 DH"
       },
       {
         "name": "MOJITO RED BULL",
@@ -641,7 +641,7 @@ const DATA = [
           "Red Bull (Canette 250ml) : 1 p",
           "Glace pilée : 120 g"
         ],
-        "price": "38 DH"
+        "price": "44 DH"
       },
       {
         "name": "MOJITO CITRON",
@@ -654,7 +654,7 @@ const DATA = [
           "Eau gazeuse Oulmès : 150 ml",
           "Glace pilée : 120 g"
         ],
-        "price": "32 DH"
+        "price": "34 DH"
       }
     ]
   },
@@ -674,7 +674,7 @@ const DATA = [
           "Jus de pomme : 80 ml",
           "Glaçons : 50 g"
         ],
-        "price": "34 DH"
+        "price": "48 DH"
       },
       {
         "name": "SMOOTHIE ÉNERGÉTIQUE",
@@ -687,7 +687,7 @@ const DATA = [
           "Lait d'amande : 180 ml",
           "Beurre de cacahuète : 20 g"
         ],
-        "price": "36 DH"
+        "price": "42 DH"
       },
       {
         "name": "SMOOTHIE HAWAÏ",
@@ -700,7 +700,7 @@ const DATA = [
           "Jus d'orange : 80 ml",
           "Glaçons : 50 g"
         ],
-        "price": "34 DH"
+        "price": "42 DH"
       },
       {
         "name": "SMOOTHIE MULTIVITAMINÉ",
@@ -713,7 +713,7 @@ const DATA = [
           "Gingembre frais : 5 g",
           "Glaçons : 50 g"
         ],
-        "price": "32 DH"
+        "price": "42 DH"
       },
       {
         "name": "SMOOTHIE JELLY FRUIT",
@@ -725,7 +725,7 @@ const DATA = [
           "Jus de cranberry : 80 ml",
           "Perles de fruits Popping Boba : 30 g"
         ],
-        "price": "36 DH"
+        "price": "48 DH"
       },
       {
         "name": "SMOOTHIE TRIPLE FRUITS",
@@ -738,7 +738,7 @@ const DATA = [
           "Jus d'orange : 80 ml",
           "Glaçons : 50 g"
         ],
-        "price": "34 DH"
+        "price": "48 DH"
       },
       {
         "name": "SMOOTHIE BOWL EXOTIQUE",
@@ -751,7 +751,7 @@ const DATA = [
           "Graines de chia : 10 g",
           "Noix de coco râpée : 10 g"
         ],
-        "price": "45 DH"
+        "price": "48 DH"
       },
       {
         "name": "SMOOTHIE BOWL ULTRA BOOST",
@@ -783,7 +783,7 @@ const DATA = [
           "Tranche de citron : 1 tr",
           "Glaçons"
         ],
-        "price": "16 DH"
+        "price": "17 DH"
       },
       {
         "name": "COCA-COLA ZÉRO 33CL",
@@ -794,7 +794,7 @@ const DATA = [
           "Tranche de citron : 1 tr",
           "Glaçons"
         ],
-        "price": "16 DH"
+        "price": "17 DH"
       },
       {
         "name": "SPRITE 33CL",
@@ -805,7 +805,7 @@ const DATA = [
           "Tranche de citron : 1 tr",
           "Glaçons"
         ],
-        "price": "16 DH"
+        "price": "17 DH"
       },
       {
         "name": "HAWAÏ 33CL",
@@ -815,7 +815,7 @@ const DATA = [
           "Hawaï Canette : 33 cl",
           "Glaçons"
         ],
-        "price": "16 DH"
+        "price": "17 DH"
       },
       {
         "name": "POMS 33CL",
@@ -825,7 +825,7 @@ const DATA = [
           "Poms (Canette 33cl) : 1 p",
           "Glaçons"
         ],
-        "price": "16 DH"
+        "price": "17 DH"
       },
       {
         "name": "SCHWEPPES CITRON / TONIC 33CL",
@@ -836,7 +836,7 @@ const DATA = [
           "Tranche de citron : 1 tr",
           "Glaçons"
         ],
-        "price": "18 DH"
+        "price": "17 DH"
       },
       {
         "name": "ORANGINA 33CL",
@@ -847,7 +847,7 @@ const DATA = [
           "Tranche d'orange : 1 tr",
           "Glaçons"
         ],
-        "price": "18 DH"
+        "price": "17 DH"
       },
       {
         "name": "RED BULL 250ML",
@@ -857,7 +857,7 @@ const DATA = [
           "Red Bull (Canette 250ml) : 1 p",
           "Glaçons"
         ],
-        "price": "32 DH"
+        "price": "28 DH"
       }
     ]
   },
@@ -882,7 +882,7 @@ const DATA = [
         "tech": [
           "Bouteille Eau Minérale 50cl : 1 p"
         ],
-        "price": "14 DH"
+        "price": "12 DH"
       },
       {
         "name": "EAU MINÉRALE 75CL",
@@ -891,7 +891,7 @@ const DATA = [
         "tech": [
           "Bouteille Eau Minérale 75cl : 1 p"
         ],
-        "price": "18 DH"
+        "price": "22 DH"
       },
       {
         "name": "OULMÈS EAU GAZEUSE 33CL / 50CL",
@@ -901,7 +901,7 @@ const DATA = [
           "Bouteille Oulmès 33/50cl : 1 p",
           "Tranche de citron : 1 tr"
         ],
-        "price": "14 DH"
+        "price": "16 DH"
       },
       {
         "name": "OULMÈS EAU GAZEUSE 75CL",
@@ -911,7 +911,7 @@ const DATA = [
           "Bouteille Oulmès 75cl : 1 p",
           "Tranches de citron : 2 tr"
         ],
-        "price": "22 DH"
+        "price": "26 DH"
       }
     ]
   },
@@ -936,7 +936,7 @@ const DATA = [
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "50 DH"
+        "price": "52 DH"
       },
       {
         "name": "PETIT DÉJEUNER AMÉRICAIN",
@@ -999,7 +999,7 @@ const DATA = [
           "Desserts : 2 p",
           "Bouteille Eau Minérale 33cl : 2 p"
         ],
-        "price": "140 DH"
+        "price": "144 DH"
       },
       {
         "name": "BELDI",
@@ -1035,7 +1035,7 @@ const DATA = [
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "50 DH"
+        "price": "52 DH"
       },
       {
         "name": "OMELETTE VÉGÉTARIENNE",
@@ -1050,7 +1050,7 @@ const DATA = [
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "50 DH"
+        "price": "52 DH"
       },
       {
         "name": "BERBÈRE",
@@ -1068,7 +1068,7 @@ const DATA = [
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "50 DH"
+        "price": "54 DH"
       },
       {
         "name": "CROQUE",
@@ -1096,7 +1096,7 @@ const DATA = [
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "50 DH"
+        "price": "55 DH"
       },
       {
         "name": "OMELETTE CONTINENTAL",
@@ -1112,7 +1112,7 @@ const DATA = [
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "50 DH"
+        "price": "52 DH"
       },
       {
         "name": "OMELETTE FROMAGE",
@@ -1127,7 +1127,7 @@ const DATA = [
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "50 DH"
+        "price": "52 DH"
       },
       {
         "name": "OMELETTE NATURE",
@@ -1141,7 +1141,7 @@ const DATA = [
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "40 DH"
+        "price": "42 DH"
       },
       {
         "name": "OMELETTE DU CHEF",
@@ -1157,7 +1157,7 @@ const DATA = [
           "Boisson chaude : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "55 DH"
+        "price": "58 DH"
       },
       {
         "name": "ESPAGNOL",
@@ -1177,7 +1177,7 @@ const DATA = [
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "60 DH"
+        "price": "64 DH"
       },
       {
         "name": "MQUILA-MERGUEZ",
@@ -1192,7 +1192,7 @@ const DATA = [
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "60 DH"
+        "price": "64 DH"
       },
       {
         "name": "MQUILA-FRUITS DE MER",
@@ -1224,7 +1224,7 @@ const DATA = [
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "65 DH"
+        "price": "68 DH"
       },
       {
         "name": "LIGHT",
@@ -1241,7 +1241,7 @@ const DATA = [
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "40 DH"
+        "price": "42 DH"
       },
       {
         "name": "EXPRESS",
@@ -1254,7 +1254,7 @@ const DATA = [
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "40 DH"
+        "price": "44 DH"
       },
       {
         "name": "MENU ENFANT (PDJ)",
@@ -1265,7 +1265,7 @@ const DATA = [
           "Corn flakes : 1 bol",
           "Lait chocolat : 200 ml"
         ],
-        "price": "38 DH"
+        "price": "40 DH"
       }
     ]
   },
@@ -1314,7 +1314,7 @@ const DATA = [
           "Poivron : 10 g",
           "Concombre : 10 g"
         ],
-        "price": "48 DH"
+        "price": "54 DH"
       },
       {
         "name": "Salade César",
@@ -1329,7 +1329,7 @@ const DATA = [
           "Sauce César : 70 g",
           "Parmesan : 30 g"
         ],
-        "price": "64 DH"
+        "price": "65 DH"
       },
       {
         "name": "Salade Quinoa",
@@ -1346,7 +1346,7 @@ const DATA = [
           "Miel : 30 g",
           "Framboise : 17 g"
         ],
-        "price": "78 DH"
+        "price": "68 DH"
       },
       {
         "name": "Salade Terre & Mer",
@@ -1393,7 +1393,7 @@ const DATA = [
           "Radis : 10 g",
           "Tomate Cerise : 25 g"
         ],
-        "price": "88 DH"
+        "price": "98 DH"
       }
     ]
   },
@@ -1412,7 +1412,7 @@ const DATA = [
           "Chapelure : 50 g",
           "Edam : 25 g"
         ],
-        "price": "45 DH"
+        "price": "52 DH"
       },
       {
         "name": "CROUSTILLON GAMBAS",
@@ -1426,7 +1426,7 @@ const DATA = [
           "Crème fraîche : 50 g",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "65 DH"
+        "price": "68 DH"
       },
       {
         "name": "PIL PIL ESPAGNOL",
@@ -1442,7 +1442,7 @@ const DATA = [
           "Sauce tomate : 120 g",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "65 DH"
+        "price": "68 DH"
       }
     ]
   },
@@ -1567,7 +1567,7 @@ const DATA = [
           "Frites : 200 g",
           "Pain : 1 p"
         ],
-        "price": "128 DH"
+        "price": "135 DH"
       },
       {
         "name": "PAVÉ DE SAUMON",
@@ -1584,7 +1584,7 @@ const DATA = [
           "Frites : 200 g",
           "Pain : 1 p"
         ],
-        "price": "148 DH"
+        "price": "145 DH"
       },
       {
         "name": "MENU ENFANT (PLAT)",
@@ -1617,7 +1617,7 @@ const DATA = [
           "Pain : 1 p",
           "Huile de table : 30 ml"
         ],
-        "price": "122 DH"
+        "price": "120 DH"
       }
     ]
   },
@@ -1639,7 +1639,7 @@ const DATA = [
           "Frites : 200 g",
           "Pain : 1 p"
         ],
-        "price": "48 DH"
+        "price": "50 DH"
       },
       {
         "name": "CHEESE BURGER",
@@ -1688,7 +1688,7 @@ const DATA = [
           "Frites : 200 g",
           "Pain : 1 p"
         ],
-        "price": "58 DH"
+        "price": "56 DH"
       },
       {
         "name": "BIG BURGER",
@@ -1719,7 +1719,7 @@ const DATA = [
           "Frites : 200 g",
           "Pain : 1 p"
         ],
-        "price": "68 DH"
+        "price": "70 DH"
       }
     ]
   },
@@ -1794,7 +1794,7 @@ const DATA = [
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
-        "price": "36 DH"
+        "price": "40 DH"
       },
       {
         "name": "POULET",
@@ -1807,7 +1807,7 @@ const DATA = [
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
-        "price": "38 DH"
+        "price": "44 DH"
       },
       {
         "name": "VIANDE HACHÉE",
@@ -1820,7 +1820,7 @@ const DATA = [
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
-        "price": "42 DH"
+        "price": "54 DH"
       },
       {
         "name": "GOURMAND",
@@ -1835,7 +1835,7 @@ const DATA = [
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
-        "price": "46 DH"
+        "price": "64 DH"
       },
       {
         "name": "FRUITS DE MER",
@@ -1850,7 +1850,7 @@ const DATA = [
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
-        "price": "48 DH"
+        "price": "64 DH"
       },
       {
         "name": "SAUMON",
@@ -1864,7 +1864,7 @@ const DATA = [
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
-        "price": "52 DH"
+        "price": "64 DH"
       }
     ]
   },
@@ -1887,7 +1887,7 @@ const DATA = [
           "Frites : 200 g",
           "Pain : 1 p"
         ],
-        "price": "55 DH"
+        "price": "65 DH"
       },
       {
         "name": "THON",
@@ -1901,7 +1901,7 @@ const DATA = [
           "Frites : 200 g",
           "Pain : 1 p"
         ],
-        "price": "40 DH"
+        "price": "48 DH"
       },
       {
         "name": "POULET",
@@ -1915,7 +1915,7 @@ const DATA = [
           "Frites : 200 g",
           "Pain : 1 p"
         ],
-        "price": "45 DH"
+        "price": "48 DH"
       },
       {
         "name": "POULET CRUNCHY",
@@ -1930,7 +1930,7 @@ const DATA = [
           "Frites : 200 g",
           "Pain : 1 p"
         ],
-        "price": "50 DH"
+        "price": "58 DH"
       },
       {
         "name": "CHEESE STEAK",
@@ -1945,7 +1945,7 @@ const DATA = [
           "Frites : 200 g",
           "Pain : 1 p"
         ],
-        "price": "55 DH"
+        "price": "65 DH"
       },
       {
         "name": "VIANDE HACHÉE",
@@ -1959,7 +1959,7 @@ const DATA = [
           "Frites : 200 g",
           "Pain : 1 p"
         ],
-        "price": "45 DH"
+        "price": "54 DH"
       }
     ]
   },
@@ -1978,7 +1978,7 @@ const DATA = [
           "Sauce tomate : 100 g",
           "Olives noires : 13 g"
         ],
-        "price": "50 DH"
+        "price": "52 DH"
       },
       {
         "name": "THON",
@@ -1992,7 +1992,7 @@ const DATA = [
           "Oignons : 40 g",
           "Olives"
         ],
-        "price": "60 DH"
+        "price": "65 DH"
       },
       {
         "name": "VÉGÉTARIENNE",
@@ -2005,7 +2005,7 @@ const DATA = [
           "Champignons : 60 g",
           "Légumes : 220 g"
         ],
-        "price": "60 DH"
+        "price": "62 DH"
       },
       {
         "name": "REGINA",
@@ -2018,7 +2018,7 @@ const DATA = [
           "Champignons : 60 g",
           "Sauce blanche : 100 g"
         ],
-        "price": "65 DH"
+        "price": "68 DH"
       },
       {
         "name": "5 FROMAGES",
@@ -2033,7 +2033,7 @@ const DATA = [
           "Parmesan : 20 g",
           "Fromage rouge : 40 g"
         ],
-        "price": "70 DH"
+        "price": "78 DH"
       },
       {
         "name": "VIANDE HACHÉE",
@@ -2046,7 +2046,7 @@ const DATA = [
           "Viande : 100 g",
           "Tomate cerise : 40 g"
         ],
-        "price": "70 DH"
+        "price": "78 DH"
       },
       {
         "name": "PEPPERONI",
@@ -2058,7 +2058,7 @@ const DATA = [
           "Sauce tomate : 100 g",
           "Pepperoni : 40 g"
         ],
-        "price": "70 DH"
+        "price": "74 DH"
       },
       {
         "name": "POULET SAUCE BLANCHE",
@@ -2071,7 +2071,7 @@ const DATA = [
           "Champignon : 60 g",
           "Sauce blanche : 100 g"
         ],
-        "price": "75 DH"
+        "price": "78 DH"
       },
       {
         "name": "4 SAISONS",
@@ -2087,7 +2087,7 @@ const DATA = [
           "Légumes : 60 g",
           "Champignon : 60 g"
         ],
-        "price": "80 DH"
+        "price": "88 DH"
       },
       {
         "name": "MOITIÉ MOITIÉ",
@@ -2097,7 +2097,7 @@ const DATA = [
           "Pâte : 330 g",
           "Garnitures 2 moitiés (hors fruits de mer/saumon)"
         ],
-        "price": "80 DH"
+        "price": "88 DH"
       },
       {
         "name": "BURRATA",
@@ -2111,7 +2111,7 @@ const DATA = [
           "Noix : 30 g",
           "Tomate cerise : 20 g"
         ],
-        "price": "80 DH"
+        "price": "110 DH"
       },
       {
         "name": "FRUITS DE MER",
@@ -2126,7 +2126,7 @@ const DATA = [
           "Champignon : 60 g",
           "Sauce blanche : 100 g"
         ],
-        "price": "85 DH"
+        "price": "88 DH"
       },
       {
         "name": "SAUMON",
@@ -2139,7 +2139,7 @@ const DATA = [
           "Sauce blanche : 100 g",
           "Câpres : 15 g"
         ],
-        "price": "90 DH"
+        "price": "94 DH"
       }
     ]
   },
@@ -2162,7 +2162,7 @@ const DATA = [
           "Sauce blanche : 100 g",
           "Oignon/Ail : 70 g"
         ],
-        "price": "62 DH"
+        "price": "60 DH"
       },
       {
         "name": "LASAGNE BOLOGNAISE",
@@ -2178,7 +2178,7 @@ const DATA = [
           "Sauce tomate : 80 g",
           "Oignon/Ail : 70 g"
         ],
-        "price": "68 DH"
+        "price": "72 DH"
       },
       {
         "name": "LASAGNE FRUITS DE MER",
@@ -2210,7 +2210,7 @@ const DATA = [
           "Tomate cerise : 50 g",
           "Légumes : 150 g"
         ],
-        "price": "55 DH"
+        "price": "60 DH"
       },
       {
         "name": "CARBONARA",
@@ -2224,7 +2224,7 @@ const DATA = [
           "Crème : 100 g",
           "Oignon/Ail : 70 g"
         ],
-        "price": "60 DH"
+        "price": "65 DH"
       },
       {
         "name": "5 FROMAGES",
@@ -2241,7 +2241,7 @@ const DATA = [
           "Crème : 100 g",
           "Oignon/Ail : 70 g"
         ],
-        "price": "60 DH"
+        "price": "70 DH"
       },
       {
         "name": "RIGATONI RICOTTA",
@@ -2257,7 +2257,7 @@ const DATA = [
           "Courgette : 100 g",
           "Oignon/Ail : 70 g"
         ],
-        "price": "65 DH"
+        "price": "68 DH"
       },
       {
         "name": "BOLOGNAISE",
@@ -2273,7 +2273,7 @@ const DATA = [
           "Sauce tomate : 80 g",
           "Oignon/Ail : 70 g"
         ],
-        "price": "65 DH"
+        "price": "75 DH"
       },
       {
         "name": "POULET CHAMPIGNON / ÉPINARD",
@@ -2290,7 +2290,7 @@ const DATA = [
           "Champignon : 70 g",
           "Oignon/Ail : 70 g"
         ],
-        "price": "70 DH"
+        "price": "75 DH"
       },
       {
         "name": "FRUITS DE MER",
@@ -2307,7 +2307,7 @@ const DATA = [
           "Pesto : 70 g",
           "Oignon/Ail : 70 g"
         ],
-        "price": "85 DH"
+        "price": "88 DH"
       },
       {
         "name": "SAUMON",
@@ -2322,7 +2322,7 @@ const DATA = [
           "Pesto : 70 g",
           "Oignon/Ail : 70 g"
         ],
-        "price": "95 DH"
+        "price": "98 DH"
       },
       {
         "name": "SPAGHETTIS NOIRS (suppl.)",
@@ -2331,7 +2331,7 @@ const DATA = [
         "tech": [
           "Supplément pâtes noires à l'encre de seiche"
         ],
-        "price": "+5 DH"
+        "price": "5 DH"
       }
     ]
   },
@@ -2347,7 +2347,7 @@ const DATA = [
           "Cheesecake San Sebastian : 1 part (160 g)",
           "Coulis chocolat chaud : 30 g"
         ],
-        "price": "38 DH"
+        "price": "45 DH"
       },
       {
         "name": "FONDANT AU CHOCOLAT",
@@ -2357,7 +2357,7 @@ const DATA = [
           "Glace vanille artisanale : 1 boule (50 g)",
           "Sucre glace : 5 g"
         ],
-        "price": "38 DH"
+        "price": "40 DH"
       },
       {
         "name": "CHEESECAKE CHOCOLAT",
@@ -2366,7 +2366,7 @@ const DATA = [
           "Cheesecake chocolat : 1 part (150 g)",
           "Chantilly : 20 g"
         ],
-        "price": "36 DH"
+        "price": "45 DH"
       },
       {
         "name": "BOULE DE GLACE",
@@ -2374,7 +2374,7 @@ const DATA = [
         "tech": [
           "Glace artisanale au choix : 1 boule (50 g)"
         ],
-        "price": "14 DH"
+        "price": "16 DH"
       },
       {
         "name": "2 BOULES DE GLACE",
@@ -2383,7 +2383,7 @@ const DATA = [
           "Glace artisanale au choix : 2 boules (100 g)",
           "Coulis & Chantilly : 20 g"
         ],
-        "price": "26 DH"
+        "price": "30 DH"
       },
       {
         "name": "3 BOULES DE GLACE",
@@ -2409,7 +2409,7 @@ const DATA = [
           "Nutella : 60 g",
           "Banane ou Amandes : 20 g"
         ],
-        "price": "28 DH"
+        "price": "38 DH"
       },
       {
         "name": "CRÊPE KUNAFA PISTACHE",
@@ -2420,7 +2420,7 @@ const DATA = [
           "Kunafa croustillante : 30 g",
           "Pistaches concassées : 15 g"
         ],
-        "price": "45 DH"
+        "price": "48 DH"
       },
       {
         "name": "CRÊPE FROMAGE",
@@ -2431,7 +2431,7 @@ const DATA = [
           "Fromage rouge : 30 g",
           "Fromage blanc : 20 g"
         ],
-        "price": "32 DH"
+        "price": "45 DH"
       },
       {
         "name": "CRÊPE POULET CHAMPIGNON",
@@ -2443,7 +2443,7 @@ const DATA = [
           "Mozzarella : 40 g",
           "Crème fraîche : 40 ml"
         ],
-        "price": "38 DH"
+        "price": "48 DH"
       },
       {
         "name": "CRÊPE CHARCUTERIE",
@@ -2454,7 +2454,7 @@ const DATA = [
           "Mozzarella : 40 g",
           "Fromage : 20 g"
         ],
-        "price": "35 DH"
+        "price": "45 DH"
       },
       {
         "name": "CRÊPE NORVÉGIENNE",
@@ -2465,7 +2465,7 @@ const DATA = [
           "Crème fraîche : 40 ml",
           "Fromage : 30 g"
         ],
-        "price": "48 DH"
+        "price": "58 DH"
       }
     ]
   },
@@ -2588,7 +2588,7 @@ const DATA = [
       {
         "name": "VIENNOISERIE",
         "sellPrice": 6,
-        "cost": 2.0,
+        "cost": 2,
         "margin": 66.7,
         "tech": [
           "Viennoiserie : 1 p"
