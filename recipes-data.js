@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-30T21:32:04.841Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-30T21:37:30.883Z
  */
 
 (function(global) {
@@ -1918,40 +1918,38 @@ const DATA = [
         "images": "images/entree-croustillon.jpg,images/entree-croustillon2.jpg,images/entree-croustillon3.jpg",
         "prepTime": 12,
         "tech": [
-          "Gambas panées : 260 g",
-          "Purée : 400 g",
+          "Gambas panées : 330 g",
+          "Purée : 300 g",
           "Radis : 15 g",
           "Parmesan : 14 g",
-          "Crème fraîche : 50 g",
-          "Bouteille Eau Minérale 33cl : 1 p"
+          "Crème fraîche : 50 g"
         ],
         "price": "68 DH",
-        "cost": 29.45,
+        "cost": 30.45,
         "sellPrice": 68,
-        "foodCost": 43.3,
-        "margin": 56.7,
-        "grossMarginDH": 38.55
+        "foodCost": 44.8,
+        "margin": 55.2,
+        "grossMarginDH": 37.55
       },
       {
         "name": "PIL PIL ESPAGNOL",
         "images": "images/entree-pilpil.jpg,images/entree-pilpil2.jpg",
         "prepTime": 14,
         "tech": [
-          "Gambas : 260 g",
+          "Gambas : 330 g",
           "Tomate cerise : 60 g",
           "Pesto : 22 g",
           "Huile d’olive : 30 g",
           "Oignon : 60 g",
           "Ail : 10 g",
-          "Sauce tomate : 120 g",
-          "Bouteille Eau Minérale 33cl : 1 p"
+          "Sauce tomate : 120 g"
         ],
         "price": "68 DH",
-        "cost": 22.72,
+        "cost": 25.47,
         "sellPrice": 68,
-        "foodCost": 33.4,
-        "margin": 66.6,
-        "grossMarginDH": 45.28
+        "foodCost": 37.5,
+        "margin": 62.5,
+        "grossMarginDH": 42.53
       }
     ]
   },
@@ -4850,7 +4848,7 @@ const BASE_RECIPES = [
     "category": "ENTRÉES CHAUDES",
     "ingredients": [
       "Gambas panées : 330 g",
-      "Purée : 250 g",
+      "Purée : 300 g",
       "Radis : 15 g",
       "Parmesan : 14 g",
       "Crème fraîche : 50 g"
@@ -4861,14 +4859,13 @@ const BASE_RECIPES = [
     "name": "PIL PIL ESPAGNOL",
     "category": "ENTRÉES CHAUDES",
     "ingredients": [
-      "Gambas : 260 g",
+      "Gambas : 330 g",
       "Tomate cerise : 60 g",
       "Pesto : 22 g",
       "Huile d’olive : 30 g",
       "Oignon : 60 g",
       "Ail : 10 g",
-      "Sauce tomate : 120 g",
-      "Bouteille Eau Minérale 33cl : 1 p"
+      "Sauce tomate : 120 g"
     ]
   },
   {
