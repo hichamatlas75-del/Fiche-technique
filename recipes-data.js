@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-30T18:30:28.095Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-30T21:32:04.841Z
  */
 
 (function(global) {
@@ -1643,11 +1643,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "78 DH",
-        "cost": 36.34,
+        "cost": 29.84,
         "sellPrice": 78,
-        "foodCost": 46.6,
-        "margin": 53.4,
-        "grossMarginDH": 41.66
+        "foodCost": 38.3,
+        "margin": 61.7,
+        "grossMarginDH": 48.16
       },
       {
         "name": "NORVÉGIEN",
@@ -1753,11 +1753,11 @@ const DATA = [
           "Poivron : 50 g"
         ],
         "price": "48 DH",
-        "cost": 16.49,
+        "cost": 16.48,
         "sellPrice": 48,
-        "foodCost": 34.4,
-        "margin": 65.6,
-        "grossMarginDH": 31.51
+        "foodCost": 34.3,
+        "margin": 65.7,
+        "grossMarginDH": 31.52
       },
       {
         "name": "Salade Russe",
@@ -1779,11 +1779,11 @@ const DATA = [
           "Concombre : 10 g"
         ],
         "price": "54 DH",
-        "cost": 10.33,
+        "cost": 10.32,
         "sellPrice": 54,
         "foodCost": 19.1,
         "margin": 80.9,
-        "grossMarginDH": 43.67
+        "grossMarginDH": 43.68
       },
       {
         "name": "Salade César",
@@ -1821,11 +1821,11 @@ const DATA = [
           "Framboise : 17 g"
         ],
         "price": "68 DH",
-        "cost": 37.21,
+        "cost": 21.11,
         "sellPrice": 68,
-        "foodCost": 54.7,
-        "margin": 45.3,
-        "grossMarginDH": 30.79
+        "foodCost": 31,
+        "margin": 69,
+        "grossMarginDH": 46.89
       },
       {
         "name": "Salade Terre & Mer",
@@ -1845,11 +1845,11 @@ const DATA = [
           "Agrumes : 15 g"
         ],
         "price": "78 DH",
-        "cost": 29.49,
+        "cost": 17.65,
         "sellPrice": 78,
-        "foodCost": 37.8,
-        "margin": 62.2,
-        "grossMarginDH": 48.51
+        "foodCost": 22.6,
+        "margin": 77.4,
+        "grossMarginDH": 60.35
       },
       {
         "name": "TARTARE SAUMON",
@@ -1926,11 +1926,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "68 DH",
-        "cost": 59.35,
+        "cost": 29.45,
         "sellPrice": 68,
-        "foodCost": 87.3,
-        "margin": 12.7,
-        "grossMarginDH": 8.65
+        "foodCost": 43.3,
+        "margin": 56.7,
+        "grossMarginDH": 38.55
       },
       {
         "name": "PIL PIL ESPAGNOL",
@@ -1947,11 +1947,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "68 DH",
-        "cost": 52.62,
+        "cost": 22.72,
         "sellPrice": 68,
-        "foodCost": 77.4,
-        "margin": 22.6,
-        "grossMarginDH": 15.38
+        "foodCost": 33.4,
+        "margin": 66.6,
+        "grossMarginDH": 45.28
       }
     ]
   },
@@ -2129,11 +2129,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "145 DH",
-        "cost": 51,
+        "cost": 45.8,
         "sellPrice": 145,
-        "foodCost": 35.2,
-        "margin": 64.8,
-        "grossMarginDH": 94
+        "foodCost": 31.6,
+        "margin": 68.4,
+        "grossMarginDH": 99.2
       },
       {
         "name": "MENU ENFANT (PLAT)",
@@ -2475,11 +2475,11 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "price": "64 DH",
-        "cost": 30.39,
+        "cost": 23.89,
         "sellPrice": 64,
-        "foodCost": 47.5,
-        "margin": 52.5,
-        "grossMarginDH": 33.61
+        "foodCost": 37.3,
+        "margin": 62.7,
+        "grossMarginDH": 40.11
       },
       {
         "name": "SAUMON",
@@ -2522,11 +2522,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "65 DH",
-        "cost": 33.58,
+        "cost": 25.46,
         "sellPrice": 65,
-        "foodCost": 51.7,
-        "margin": 48.3,
-        "grossMarginDH": 31.42
+        "foodCost": 39.2,
+        "margin": 60.8,
+        "grossMarginDH": 39.54
       },
       {
         "name": "THON",
@@ -2643,11 +2643,11 @@ const DATA = [
           "Olives noires : 13 g"
         ],
         "price": "52 DH",
-        "cost": 15.4,
+        "cost": 15.39,
         "sellPrice": 52,
         "foodCost": 29.6,
         "margin": 70.4,
-        "grossMarginDH": 36.6
+        "grossMarginDH": 36.61
       },
       {
         "name": "THON",
@@ -2680,11 +2680,11 @@ const DATA = [
           "Légumes : 220 g"
         ],
         "price": "62 DH",
-        "cost": 19.18,
+        "cost": 19.17,
         "sellPrice": 62,
         "foodCost": 30.9,
         "margin": 69.1,
-        "grossMarginDH": 42.82
+        "grossMarginDH": 42.83
       },
       {
         "name": "REGINA",
@@ -2736,11 +2736,11 @@ const DATA = [
           "Tomate cerise : 40 g"
         ],
         "price": "78 DH",
-        "cost": 25.48,
+        "cost": 25.47,
         "sellPrice": 78,
         "foodCost": 32.7,
         "margin": 67.3,
-        "grossMarginDH": 52.52
+        "grossMarginDH": 52.53
       },
       {
         "name": "PEPPERONI",
@@ -2753,11 +2753,11 @@ const DATA = [
           "Pepperoni : 40 g"
         ],
         "price": "74 DH",
-        "cost": 19.68,
+        "cost": 19.67,
         "sellPrice": 74,
         "foodCost": 26.6,
         "margin": 73.4,
-        "grossMarginDH": 54.32
+        "grossMarginDH": 54.33
       },
       {
         "name": "POULET SAUCE BLANCHE",
@@ -2792,11 +2792,11 @@ const DATA = [
           "Champignon : 60 g"
         ],
         "price": "88 DH",
-        "cost": 32.3,
+        "cost": 29.7,
         "sellPrice": 88,
-        "foodCost": 36.7,
-        "margin": 63.3,
-        "grossMarginDH": 55.7
+        "foodCost": 33.7,
+        "margin": 66.3,
+        "grossMarginDH": 58.3
       },
       {
         "name": "MOITIÉ MOITIÉ",
@@ -2826,11 +2826,11 @@ const DATA = [
           "Tomate cerise : 20 g"
         ],
         "price": "110 DH",
-        "cost": 22.75,
+        "cost": 22.74,
         "sellPrice": 110,
         "foodCost": 20.7,
         "margin": 79.3,
-        "grossMarginDH": 87.25
+        "grossMarginDH": 87.26
       },
       {
         "name": "FRUITS DE MER",
@@ -2846,11 +2846,11 @@ const DATA = [
           "Sauce blanche : 100 g"
         ],
         "price": "88 DH",
-        "cost": 42.25,
+        "cost": 35.1,
         "sellPrice": 88,
-        "foodCost": 48,
-        "margin": 52,
-        "grossMarginDH": 45.75
+        "foodCost": 39.9,
+        "margin": 60.1,
+        "grossMarginDH": 52.9
       },
       {
         "name": "SAUMON",
@@ -2934,11 +2934,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "78 DH",
-        "cost": 38.54,
+        "cost": 29.44,
         "sellPrice": 78,
-        "foodCost": 49.4,
-        "margin": 50.6,
-        "grossMarginDH": 39.46
+        "foodCost": 37.7,
+        "margin": 62.3,
+        "grossMarginDH": 48.56
       },
       {
         "name": "VÉGÉTARIEN",
@@ -3082,11 +3082,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "88 DH",
-        "cost": 39.38,
+        "cost": 32.56,
         "sellPrice": 88,
-        "foodCost": 44.8,
-        "margin": 55.3,
-        "grossMarginDH": 48.62
+        "foodCost": 37,
+        "margin": 63,
+        "grossMarginDH": 55.44
       },
       {
         "name": "SAUMON",
@@ -3427,11 +3427,11 @@ const DATA = [
           "Garniture composée : 150 g"
         ],
         "price": "85 DH",
-        "cost": 17.13,
+        "cost": 17.12,
         "sellPrice": 85,
-        "foodCost": 20.2,
-        "margin": 79.8,
-        "grossMarginDH": 67.87
+        "foodCost": 20.1,
+        "margin": 79.9,
+        "grossMarginDH": 67.88
       },
       {
         "name": "DIVERS CUISINE / FOOD",
@@ -3928,17 +3928,17 @@ const BASE_RECIPES = [
   {
     "id": "jf_jus_d_orange_presse",
     "name": "JUS D'ORANGE PRESSÉ",
-    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "category": "AUTRE",
     "ingredients": [
-      "Oranges fraîches à jus : 380 g"
+      "Oranges fraîches à jus : 500 g"
     ]
   },
   {
     "id": "jf_jus_de_citron_citronnade",
     "name": "JUS DE CITRON / CITRONNADE",
-    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "category": "AUTRE",
     "ingredients": [
-      "Citron pressé : 120 g",
+      "Citron pressé : 200 g",
       "Sirop de canne : 30 ml",
       "Eau filtrée & Glaçons : 150 ml",
       "Menthe fraîche : 5 g"
@@ -4158,7 +4158,7 @@ const BASE_RECIPES = [
   {
     "id": "ck_mojito_red_bull",
     "name": "MOJITO RED BULL",
-    "category": "COCKTAILS & MOCKTAILS",
+    "category": "AUTRE",
     "ingredients": [
       "Citron vert : 30 g",
       "Menthe fraîche : 15 g",
@@ -4849,12 +4849,11 @@ const BASE_RECIPES = [
     "name": "CROUSTILLON GAMBAS",
     "category": "ENTRÉES CHAUDES",
     "ingredients": [
-      "Gambas panées : 260 g",
-      "Purée : 400 g",
+      "Gambas panées : 330 g",
+      "Purée : 250 g",
       "Radis : 15 g",
       "Parmesan : 14 g",
-      "Crème fraîche : 50 g",
-      "Bouteille Eau Minérale 33cl : 1 p"
+      "Crème fraîche : 50 g"
     ]
   },
   {
@@ -6832,11 +6831,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "ml"
   },
   "infusion the noir": {
-    "cost": 0.0021,
+    "cost": 0.0021000000000000003,
     "unit": "ml"
   },
   "infusion the vert": {
-    "cost": 0.0021,
+    "cost": 0.0021000000000000003,
     "unit": "ml"
   },
   "infusion the fruits rouges": {
@@ -7076,19 +7075,19 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "crevette": {
-    "cost": 0.13,
+    "cost": 0.065,
     "unit": "g"
   },
   "crevettes": {
-    "cost": 0.13,
+    "cost": 0.065,
     "unit": "g"
   },
   "gambas": {
-    "cost": 0.18,
+    "cost": 0.065,
     "unit": "g"
   },
   "gambas panees": {
-    "cost": 0.18,
+    "cost": 0.065,
     "unit": "g"
   },
   "calamar": {
@@ -7216,7 +7215,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece"
   },
   "oeufs de caille": {
-    "cost": 0.6944444444444444,
+    "cost": 0.69,
     "unit": "piece"
   },
   "pain burger": {
@@ -7264,11 +7263,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece"
   },
   "pate a pizza": {
-    "cost": 0.00909090909090909,
+    "cost": 0.009089999999999999,
     "unit": "g"
   },
   "pate": {
-    "cost": 0.00909090909090909,
+    "cost": 0.009089999999999999,
     "unit": "g"
   },
   "spaghetti": {
@@ -7548,11 +7547,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "mais": {
-    "cost": 0.03235294117647059,
+    "cost": 0.032350000000000004,
     "unit": "g"
   },
   "maïs": {
-    "cost": 0.03235294117647059,
+    "cost": 0.032350000000000004,
     "unit": "g"
   },
   "olives noires": {
