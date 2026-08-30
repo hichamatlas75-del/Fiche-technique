@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-30T21:45:41.604Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-30T22:04:21.292Z
  */
 
 (function(global) {
@@ -1643,11 +1643,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "78 DH",
-        "cost": 29.84,
+        "cost": 28.84,
         "sellPrice": 78,
-        "foodCost": 38.3,
-        "margin": 61.7,
-        "grossMarginDH": 48.16
+        "foodCost": 37,
+        "margin": 63,
+        "grossMarginDH": 49.16
       },
       {
         "name": "NORVÉGIEN",
@@ -1664,11 +1664,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "68 DH",
-        "cost": 18.93,
+        "cost": 19.83,
         "sellPrice": 68,
-        "foodCost": 27.8,
-        "margin": 72.2,
-        "grossMarginDH": 49.07
+        "foodCost": 29.2,
+        "margin": 70.8,
+        "grossMarginDH": 48.17
       },
       {
         "name": "LIGHT",
@@ -1862,11 +1862,11 @@ const DATA = [
           "SAUCE TARTARE : 24 g"
         ],
         "price": "88 DH",
-        "cost": 21.67,
+        "cost": 23.4,
         "sellPrice": 88,
-        "foodCost": 24.6,
-        "margin": 75.4,
-        "grossMarginDH": 66.33
+        "foodCost": 26.6,
+        "margin": 73.4,
+        "grossMarginDH": 64.6
       },
       {
         "name": "Salade Burrata",
@@ -2125,11 +2125,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "145 DH",
-        "cost": 45.8,
+        "cost": 47.7,
         "sellPrice": 145,
-        "foodCost": 31.6,
-        "margin": 68.4,
-        "grossMarginDH": 99.2
+        "foodCost": 32.9,
+        "margin": 67.1,
+        "grossMarginDH": 97.3
       },
       {
         "name": "MENU ENFANT (PLAT)",
@@ -2471,11 +2471,11 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "price": "64 DH",
-        "cost": 23.89,
+        "cost": 22.89,
         "sellPrice": 64,
-        "foodCost": 37.3,
-        "margin": 62.7,
-        "grossMarginDH": 40.11
+        "foodCost": 35.8,
+        "margin": 64.2,
+        "grossMarginDH": 41.11
       },
       {
         "name": "SAUMON",
@@ -2490,11 +2490,11 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "price": "64 DH",
-        "cost": 23.44,
+        "cost": 24.79,
         "sellPrice": 64,
-        "foodCost": 36.6,
-        "margin": 63.4,
-        "grossMarginDH": 40.56
+        "foodCost": 38.7,
+        "margin": 61.3,
+        "grossMarginDH": 39.21
       }
     ]
   },
@@ -2518,11 +2518,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "65 DH",
-        "cost": 25.46,
+        "cost": 24.21,
         "sellPrice": 65,
-        "foodCost": 39.2,
-        "margin": 60.8,
-        "grossMarginDH": 39.54
+        "foodCost": 37.2,
+        "margin": 62.8,
+        "grossMarginDH": 40.79
       },
       {
         "name": "THON",
@@ -2788,11 +2788,11 @@ const DATA = [
           "Champignon : 60 g"
         ],
         "price": "88 DH",
-        "cost": 29.7,
+        "cost": 29.3,
         "sellPrice": 88,
-        "foodCost": 33.7,
-        "margin": 66.3,
-        "grossMarginDH": 58.3
+        "foodCost": 33.3,
+        "margin": 66.7,
+        "grossMarginDH": 58.7
       },
       {
         "name": "MOITIÉ MOITIÉ",
@@ -2803,11 +2803,11 @@ const DATA = [
           "Garnitures 2 moitiés (hors fruits de mer/saumon)"
         ],
         "price": "88 DH",
-        "cost": 9,
+        "cost": 9.75,
         "sellPrice": 88,
-        "foodCost": 10.2,
-        "margin": 89.8,
-        "grossMarginDH": 79
+        "foodCost": 11.1,
+        "margin": 88.9,
+        "grossMarginDH": 78.25
       },
       {
         "name": "BURRATA",
@@ -2842,11 +2842,11 @@ const DATA = [
           "Sauce blanche : 100 g"
         ],
         "price": "88 DH",
-        "cost": 35.1,
+        "cost": 34,
         "sellPrice": 88,
-        "foodCost": 39.9,
-        "margin": 60.1,
-        "grossMarginDH": 52.9
+        "foodCost": 38.6,
+        "margin": 61.4,
+        "grossMarginDH": 54
       },
       {
         "name": "SAUMON",
@@ -2860,11 +2860,11 @@ const DATA = [
           "Câpres : 15 g"
         ],
         "price": "94 DH",
-        "cost": 28.25,
+        "cost": 29.6,
         "sellPrice": 94,
-        "foodCost": 30.1,
-        "margin": 69.9,
-        "grossMarginDH": 65.75
+        "foodCost": 31.5,
+        "margin": 68.5,
+        "grossMarginDH": 64.4
       }
     ]
   },
@@ -2930,11 +2930,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "78 DH",
-        "cost": 29.44,
+        "cost": 28.04,
         "sellPrice": 78,
-        "foodCost": 37.7,
-        "margin": 62.3,
-        "grossMarginDH": 48.56
+        "foodCost": 35.9,
+        "margin": 64.1,
+        "grossMarginDH": 49.96
       },
       {
         "name": "VÉGÉTARIEN",
@@ -3078,11 +3078,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "88 DH",
-        "cost": 32.56,
+        "cost": 31.51,
         "sellPrice": 88,
-        "foodCost": 37,
-        "margin": 63,
-        "grossMarginDH": 55.44
+        "foodCost": 35.8,
+        "margin": 64.2,
+        "grossMarginDH": 56.49
       },
       {
         "name": "SAUMON",
@@ -3098,11 +3098,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "98 DH",
-        "cost": 30.01,
+        "cost": 31.36,
         "sellPrice": 98,
-        "foodCost": 30.6,
-        "margin": 69.4,
-        "grossMarginDH": 67.99
+        "foodCost": 32,
+        "margin": 68,
+        "grossMarginDH": 66.64
       },
       {
         "name": "SPAGHETTIS NOIRS (suppl.)",
@@ -7055,11 +7055,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "saumon": {
-    "cost": 0.12,
+    "cost": 0.135,
     "unit": "g"
   },
   "saumon frais": {
-    "cost": 0.12,
+    "cost": 0.135,
     "unit": "g"
   },
   "saumon fume": {
@@ -7067,11 +7067,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "crevette": {
-    "cost": 0.065,
+    "cost": 0.055,
     "unit": "g"
   },
   "crevettes": {
-    "cost": 0.065,
+    "cost": 0.055,
     "unit": "g"
   },
   "gambas": {
