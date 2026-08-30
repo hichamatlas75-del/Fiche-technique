@@ -26,7 +26,7 @@ if %ERRORLEVEL% EQU 0 (
     echo [i] Aucun nouveau fichier a synchroniser. Le dossier est deja a jour !
     echo.
     echo Fermeture dans 3 secondes...
-    timeout /t 3 >nul
+    ping 127.0.0.1 -n 4 >nul
     exit /b 0
 )
 
@@ -49,4 +49,4 @@ if %ERRORLEVEL% EQU 0 (
 
 echo.
 echo Fermeture dans 4 secondes...
-timeout /t 4 >nul
+ping 127.0.0.1 -n 5 >nul
