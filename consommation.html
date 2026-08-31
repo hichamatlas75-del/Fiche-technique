@@ -1734,6 +1734,54 @@
         <!-- Bandes injectées dynamiquement -->
       </div>
     </div>
+
+    <!-- SECTION ANALYSE : ARTICLES NON VENDUS & FAIBLE RENDEMENT -->
+    <div class="low-sales-card" style="margin-top:28px; background:var(--paper-card); border:1px solid rgba(239, 68, 68, 0.25); border-radius:12px; padding:20px; box-shadow:var(--shadow-card);">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:12px;">
+        <div>
+          <h3 style="font-size:17px; font-weight:800; color:var(--text); display:flex; align-items:center; gap:8px;">
+            <span>⚠️ Articles Non Vendus (0 vente) ou à Faible Rendement</span>
+            <span id="low-sales-count-badge" class="badge" style="background:#ef4444; color:#fff; font-size:11px; padding:2px 8px;">0 articles</span>
+          </h3>
+          <p style="font-size:12.5px; color:var(--muted); margin-top:2px;">
+            Produits de la carte enregistrant 0 vente ou un faible volume sur la période (Menu Engineering & Détection des Flops)
+          </p>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <div class="filter-group" style="margin:0;">
+            <button class="filter-btn active" id="btn-low-filter-all" onclick="setLowSalesFilter('all')">Tous (<span id="count-low-all">0</span>)</button>
+            <button class="filter-btn" id="btn-low-filter-zero" onclick="setLowSalesFilter('zero')">💤 0 Vente (<span id="count-low-zero">0</span>)</button>
+            <button class="filter-btn" id="btn-low-filter-low" onclick="setLowSalesFilter('low')">📉 Faible Rotation ≤ 2 (<span id="count-low-low">0</span>)</button>
+          </div>
+          <div class="search-input-wrap" style="min-width:180px;">
+            <span>🔍</span>
+            <input type="text" id="search-low-sales" placeholder="Filtrer article..." oninput="renderLowSalesTable()" style="padding:6px 8px 6px 30px; font-size:12px;" />
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLEAU DES ARTICLES NON VENDUS / FAIBLE RENDEMENT -->
+      <div class="table-responsive" style="max-height:380px; overflow-y:auto; border:1px solid var(--border); border-radius:8px;">
+        <table>
+          <thead>
+            <tr style="background:var(--table-head-bg); position:sticky; top:0; z-index:2; border-bottom:1.5px solid var(--border);">
+              <th style="padding:10px; text-align:left;">Article / Plat de la Carte</th>
+              <th style="padding:10px; text-align:left;">Catégorie</th>
+              <th style="padding:10px; text-align:right;">Prix Vente</th>
+              <th style="padding:10px; text-align:right;">Coût Estimé</th>
+              <th style="padding:10px; text-align:center;">Quantité Vendue</th>
+              <th style="padding:10px; text-align:right;">CA Généré</th>
+              <th style="padding:10px; text-align:center;">Diagnostic & Statut</th>
+              <th style="padding:10px; text-align:center;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-low-sales">
+            <!-- Lignes injectées dynamiquement -->
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <!-- TAB 3: GESTIONNAIRE DE FICHES TECHNIQUES -->
@@ -3491,6 +3539,7 @@ function renderSalesTable() {
   }).join('');
 
   renderSalesBarChart();
+  renderLowSalesTable();
 }
 
 function renderSalesBarChart() {
@@ -3618,6 +3667,167 @@ function renderSalesBarChart() {
           <span style="font-size:10.5px; color:var(--muted); display:block;">${sharePct}% du total</span>
         </div>
       </div>
+    `;
+  }).join('');
+}
+
+let lowSalesFilter = 'all'; // 'all', 'zero', 'low'
+
+function setLowSalesFilter(val) {
+  lowSalesFilter = val;
+  const btnAll = document.getElementById('btn-low-filter-all');
+  const btnZero = document.getElementById('btn-low-filter-zero');
+  const btnLow = document.getElementById('btn-low-filter-low');
+  if (btnAll) btnAll.classList.toggle('active', val === 'all');
+  if (btnZero) btnZero.classList.toggle('active', val === 'zero');
+  if (btnLow) btnLow.classList.toggle('active', val === 'low');
+  renderLowSalesTable();
+}
+
+function renderLowSalesTable() {
+  const tbody = document.getElementById('tbody-low-sales');
+  const searchInput = document.getElementById('search-low-sales');
+  if (!tbody) return;
+
+  const search = cleanText(searchInput ? searchInput.value : '');
+
+  // 1. Construire une map des ventes par produit (nom normalisé)
+  const salesMap = new Map();
+  (currentSalesData || []).forEach(s => {
+    const key = cleanText(s.product);
+    salesMap.set(key, (salesMap.get(key) || 0) + (s.qty || 0));
+    if (s.matchedRecipe && s.matchedRecipe.name) {
+      const rKey = cleanText(s.matchedRecipe.name);
+      salesMap.set(rKey, (salesMap.get(rKey) || 0) + (s.qty || 0));
+    }
+  });
+
+  // 2. Récupérer toutes les fiches de la carte (activeRecipes)
+  const allMenuItems = [];
+  const seenNames = new Set();
+
+  if (Array.isArray(activeRecipes)) {
+    activeRecipes.forEach(r => {
+      const norm = cleanText(r.name);
+      if (!seenNames.has(norm)) {
+        seenNames.add(norm);
+        const qtySold = salesMap.get(norm) || 0;
+        const sellPrice = r.sellPrice || findSellingPriceForRecipe(r.name) || 0;
+        const fc = typeof calculateRecipeFoodCost === 'function' ? calculateRecipeFoodCost(r.ingredients, sellPrice) : { cost: 0 };
+        allMenuItems.push({
+          id: r.id,
+          name: r.name,
+          category: r.category || 'AUTRE',
+          sellPrice: sellPrice,
+          cost: fc.cost || 0,
+          qtySold: qtySold,
+          totalCA: qtySold * sellPrice,
+          isRecipe: true
+        });
+      }
+    });
+  }
+
+  // Ajouter aussi les articles de vente qui ont <= 2 ventes
+  (currentSalesData || []).forEach(s => {
+    const norm = cleanText(s.product);
+    if (!seenNames.has(norm)) {
+      seenNames.add(norm);
+      if ((s.qty || 0) <= 2) {
+        allMenuItems.push({
+          id: s.product,
+          name: s.product,
+          category: s.family || 'AUTRE',
+          sellPrice: s.price || (s.qty > 0 ? (s.total / s.qty) : 0),
+          cost: 0,
+          qtySold: s.qty || 0,
+          totalCA: s.total || 0,
+          isRecipe: false
+        });
+      }
+    }
+  });
+
+  // 3. Filtrer uniquement les articles à 0 vente ou faible rendement (<= 2 ventes)
+  const zeroSalesList = allMenuItems.filter(item => item.qtySold === 0);
+  const lowSalesList = allMenuItems.filter(item => item.qtySold > 0 && item.qtySold <= 2);
+  const allProblemItems = allMenuItems.filter(item => item.qtySold <= 2);
+
+  // Mettre à jour les compteurs
+  const elCountBadge = document.getElementById('low-sales-count-badge');
+  const elCountAll = document.getElementById('count-low-all');
+  const elCountZero = document.getElementById('count-low-zero');
+  const elCountLow = document.getElementById('count-low-low');
+
+  if (elCountBadge) elCountBadge.textContent = `${allProblemItems.length} articles`;
+  if (elCountAll) elCountAll.textContent = allProblemItems.length;
+  if (elCountZero) elCountZero.textContent = zeroSalesList.length;
+  if (elCountLow) elCountLow.textContent = lowSalesList.length;
+
+  // Filtrer selon l'onglet actif
+  let displayed = allProblemItems;
+  if (lowSalesFilter === 'zero') displayed = zeroSalesList;
+  else if (lowSalesFilter === 'low') displayed = lowSalesList;
+
+  // Filtrer par recherche
+  if (search) {
+    displayed = displayed.filter(item => cleanText(item.name).includes(search) || cleanText(item.category).includes(search));
+  }
+
+  // Trier par quantité vendue croissant (0 en premier, puis 1, puis 2)
+  displayed.sort((a, b) => {
+    if (a.qtySold !== b.qtySold) return a.qtySold - b.qtySold;
+    return a.name.localeCompare(b.name, 'fr');
+  });
+
+  if (displayed.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" style="text-align:center; padding:30px; color:var(--muted);">
+          ${allProblemItems.length === 0 ? '🎉 Excellent ! Tous les articles de la carte ont un bon niveau de vente.' : 'Aucun article ne correspond à votre filtre.'}
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = displayed.map(item => {
+    let statusBadge = '';
+    let recoText = '';
+
+    if (item.qtySold === 0) {
+      statusBadge = '<span class="status-badge danger" style="padding:3px 8px; font-size:11px;">💤 0 Vente (Produit Dormant)</span>';
+      recoText = '<span style="color:#ef4444; font-size:11.5px; font-weight:700;">Risque de perte / À promouvoir ou réviser</span>';
+    } else if (item.qtySold === 1) {
+      statusBadge = '<span class="status-badge warn" style="padding:3px 8px; font-size:11px;">⚠️ 1 seule vente</span>';
+      recoText = '<span style="color:#f59e0b; font-size:11.5px; font-weight:700;">Faible rotation / Évaluer popularité</span>';
+    } else {
+      statusBadge = '<span class="status-badge warn" style="padding:3px 8px; font-size:11px; background:rgba(234,179,8,0.15); color:#ca8a04;">📉 2 ventes</span>';
+      recoText = '<span style="color:var(--muted); font-size:11.5px;">Volume modeste</span>';
+    }
+
+    return `
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px 12px;">
+          <strong style="color:var(--text); font-size:13px;">${escapeHtml(item.name)}</strong>
+          <div style="font-size:11px; color:var(--muted); margin-top:2px;">${recoText}</div>
+        </td>
+        <td style="padding:10px;"><span class="chip-pill" style="font-size:10.5px;">${escapeHtml(item.category)}</span></td>
+        <td style="padding:10px; text-align:right; font-weight:800; color:var(--text);">${item.sellPrice > 0 ? `${item.sellPrice.toFixed(2)} DH` : '-'}</td>
+        <td style="padding:10px; text-align:right; font-weight:700; color:#38bdf8;">${item.cost > 0 ? `${item.cost.toFixed(2)} DH` : '-'}</td>
+        <td style="padding:10px; text-align:center;">
+          <span class="qty-highlight" style="font-size:13px; font-weight:900; background:${item.qtySold === 0 ? 'rgba(239,68,68,0.15)' : 'rgba(245,158,11,0.15)'}; color:${item.qtySold === 0 ? '#ef4444' : '#d97706'}; padding:2px 8px; border-radius:6px;">
+            ${item.qtySold}
+          </span>
+        </td>
+        <td style="padding:10px; text-align:right; font-weight:800; color:var(--muted);">${item.totalCA.toLocaleString('fr-FR', { minimumFractionDigits: 2 })} DH</td>
+        <td style="padding:10px; text-align:center;">${statusBadge}</td>
+        <td style="padding:10px; text-align:center;">
+          <button class="btn" style="padding:4px 8px; font-size:11px;" onclick="openRecipeEditor('${escapeHtml(item.name).replace(/'/g, "\\'")}')">
+            ✏️ Fiche Tech.
+          </button>
+        </td>
+      </tr>
     `;
   }).join('');
 }
