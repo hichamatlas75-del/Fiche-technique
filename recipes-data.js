@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-31T10:26:10.178Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-31T19:05:40.335Z
  */
 
 (function(global) {
@@ -21,11 +21,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "16 DH",
-        "cost": 3.24,
+        "cost": 3.49,
         "sellPrice": 16,
-        "foodCost": 20.3,
-        "margin": 79.8,
-        "grossMarginDH": 12.76
+        "foodCost": 21.8,
+        "margin": 78.2,
+        "grossMarginDH": 12.51
       },
       {
         "name": "CAFÉ AMÉRICAIN",
@@ -38,11 +38,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "17 DH",
-        "cost": 3.24,
+        "cost": 3.49,
         "sellPrice": 17,
-        "foodCost": 19.1,
-        "margin": 80.9,
-        "grossMarginDH": 13.76
+        "foodCost": 20.5,
+        "margin": 79.5,
+        "grossMarginDH": 13.51
       },
       {
         "name": "CAFÉ AU LAIT",
@@ -55,11 +55,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "19 DH",
-        "cost": 4.34,
+        "cost": 4.59,
         "sellPrice": 19,
-        "foodCost": 22.8,
-        "margin": 77.2,
-        "grossMarginDH": 14.66
+        "foodCost": 24.2,
+        "margin": 75.8,
+        "grossMarginDH": 14.41
       },
       {
         "name": "CAFÉ LATTE",
@@ -73,11 +73,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "19 DH",
-        "cost": 5.17,
+        "cost": 5.42,
         "sellPrice": 19,
-        "foodCost": 27.2,
-        "margin": 72.8,
-        "grossMarginDH": 13.83
+        "foodCost": 28.5,
+        "margin": 71.5,
+        "grossMarginDH": 13.58
       },
       {
         "name": "CAPPUCCINO ITALIEN",
@@ -92,11 +92,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "19 DH",
-        "cost": 4.83,
+        "cost": 5.08,
         "sellPrice": 19,
-        "foodCost": 25.4,
-        "margin": 74.6,
-        "grossMarginDH": 14.17
+        "foodCost": 26.7,
+        "margin": 73.3,
+        "grossMarginDH": 13.92
       },
       {
         "name": "CAPPUCCINO CHANTILLY",
@@ -111,11 +111,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "22 DH",
-        "cost": 5.27,
+        "cost": 5.52,
         "sellPrice": 22,
-        "foodCost": 24,
-        "margin": 76,
-        "grossMarginDH": 16.73
+        "foodCost": 25.1,
+        "margin": 74.9,
+        "grossMarginDH": 16.48
       },
       {
         "name": "CAFÉ NESPRESSO",
@@ -320,11 +320,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "19 DH",
-        "cost": 4.16,
+        "cost": 4.31,
         "sellPrice": 19,
-        "foodCost": 21.9,
-        "margin": 78.1,
-        "grossMarginDH": 14.84
+        "foodCost": 22.7,
+        "margin": 77.3,
+        "grossMarginDH": 14.69
       },
       {
         "name": "CAFÉ SÉPARÉ",
@@ -337,11 +337,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "24 DH",
-        "cost": 4.16,
+        "cost": 4.41,
         "sellPrice": 24,
-        "foodCost": 17.3,
-        "margin": 82.7,
-        "grossMarginDH": 19.84
+        "foodCost": 18.4,
+        "margin": 81.6,
+        "grossMarginDH": 19.59
       },
       {
         "name": "CAFÉ MOITIÉ",
@@ -354,11 +354,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "19 DH",
-        "cost": 3.97,
+        "cost": 4.22,
         "sellPrice": 19,
-        "foodCost": 20.9,
-        "margin": 79.1,
-        "grossMarginDH": 15.03
+        "foodCost": 22.2,
+        "margin": 77.8,
+        "grossMarginDH": 14.78
       }
     ]
   },
@@ -379,11 +379,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "20 DH",
-        "cost": 4.57,
+        "cost": 4.82,
         "sellPrice": 20,
-        "foodCost": 22.9,
-        "margin": 77.2,
-        "grossMarginDH": 15.43
+        "foodCost": 24.1,
+        "margin": 75.9,
+        "grossMarginDH": 15.18
       },
       {
         "name": "ICE COFFEE AROMATISÉ",
@@ -397,11 +397,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "23 DH",
-        "cost": 4.93,
+        "cost": 5.18,
         "sellPrice": 23,
-        "foodCost": 21.4,
-        "margin": 78.6,
-        "grossMarginDH": 18.07
+        "foodCost": 22.5,
+        "margin": 77.5,
+        "grossMarginDH": 17.82
       },
       {
         "name": "FRAPPUCCINO CLASSIQUE",
@@ -415,11 +415,11 @@ const DATA = [
           "Crème chantilly : 30 g"
         ],
         "price": "25 DH",
-        "cost": 4.28,
+        "cost": 4.53,
         "sellPrice": 25,
-        "foodCost": 17.1,
-        "margin": 82.9,
-        "grossMarginDH": 20.72
+        "foodCost": 18.1,
+        "margin": 81.9,
+        "grossMarginDH": 20.47
       },
       {
         "name": "FRAPPUCCINO AROMATISÉ",
@@ -433,11 +433,11 @@ const DATA = [
           "Chantilly & Nappage : 35 g"
         ],
         "price": "28 DH",
-        "cost": 4.35,
+        "cost": 4.6,
         "sellPrice": 28,
-        "foodCost": 15.5,
-        "margin": 84.5,
-        "grossMarginDH": 23.65
+        "foodCost": 16.4,
+        "margin": 83.6,
+        "grossMarginDH": 23.4
       }
     ]
   },
@@ -1643,11 +1643,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "78 DH",
-        "cost": 28.84,
+        "cost": 35.84,
         "sellPrice": 78,
-        "foodCost": 37,
-        "margin": 63,
-        "grossMarginDH": 49.16
+        "foodCost": 45.9,
+        "margin": 54.1,
+        "grossMarginDH": 42.16
       },
       {
         "name": "NORVÉGIEN",
@@ -1867,27 +1867,6 @@ const DATA = [
         "foodCost": 26.6,
         "margin": 73.4,
         "grossMarginDH": 64.6
-      },
-      {
-        "name": "Salade Burrata",
-        "images": "images/entree-burrata.jpg,images/entree-burrata2.jpg,images/entree-burrata3.jpg",
-        "prepTime": 7,
-        "tech": [
-          "Burrata : 184 g",
-          "Noix : 30 g",
-          "Roquette : 30 g",
-          "Pesto : 15 g",
-          "Balsamique : 10 g",
-          "Fruits Rouges : 40 g",
-          "Radis : 10 g",
-          "Tomate Cerise : 25 g"
-        ],
-        "price": "98 DH",
-        "cost": 33.69,
-        "sellPrice": 98,
-        "foodCost": 34.4,
-        "margin": 65.6,
-        "grossMarginDH": 64.31
       }
     ]
   },
@@ -2471,11 +2450,11 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "price": "64 DH",
-        "cost": 22.89,
+        "cost": 26.39,
         "sellPrice": 64,
-        "foodCost": 35.8,
-        "margin": 64.2,
-        "grossMarginDH": 41.11
+        "foodCost": 41.2,
+        "margin": 58.8,
+        "grossMarginDH": 37.61
       },
       {
         "name": "SAUMON",
@@ -2518,11 +2497,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "65 DH",
-        "cost": 24.21,
+        "cost": 29.11,
         "sellPrice": 65,
-        "foodCost": 37.2,
-        "margin": 62.8,
-        "grossMarginDH": 40.79
+        "foodCost": 44.8,
+        "margin": 55.2,
+        "grossMarginDH": 35.89
       },
       {
         "name": "THON",
@@ -2788,11 +2767,11 @@ const DATA = [
           "Champignon : 60 g"
         ],
         "price": "88 DH",
-        "cost": 29.3,
+        "cost": 32.1,
         "sellPrice": 88,
-        "foodCost": 33.3,
-        "margin": 66.7,
-        "grossMarginDH": 58.7
+        "foodCost": 36.5,
+        "margin": 63.5,
+        "grossMarginDH": 55.9
       },
       {
         "name": "MOITIÉ MOITIÉ",
@@ -2817,16 +2796,16 @@ const DATA = [
           "Pâte : 330 g",
           "Mozzarella : 200 g",
           "Sauce tomate : 100 g",
-          "Burrata : 35 g",
+          "Burrata : 1 P",
           "Noix : 30 g",
           "Tomate cerise : 20 g"
         ],
         "price": "110 DH",
-        "cost": 22.74,
+        "cost": 42.42,
         "sellPrice": 110,
-        "foodCost": 20.7,
-        "margin": 79.3,
-        "grossMarginDH": 87.26
+        "foodCost": 38.6,
+        "margin": 61.4,
+        "grossMarginDH": 67.58
       },
       {
         "name": "FRUITS DE MER",
@@ -2842,11 +2821,11 @@ const DATA = [
           "Sauce blanche : 100 g"
         ],
         "price": "88 DH",
-        "cost": 34,
+        "cost": 38.9,
         "sellPrice": 88,
-        "foodCost": 38.6,
-        "margin": 61.4,
-        "grossMarginDH": 54
+        "foodCost": 44.2,
+        "margin": 55.8,
+        "grossMarginDH": 49.1
       },
       {
         "name": "SAUMON",
@@ -2930,11 +2909,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "78 DH",
-        "cost": 28.04,
+        "cost": 35.04,
         "sellPrice": 78,
-        "foodCost": 35.9,
-        "margin": 64.1,
-        "grossMarginDH": 49.96
+        "foodCost": 44.9,
+        "margin": 55.1,
+        "grossMarginDH": 42.96
       },
       {
         "name": "VÉGÉTARIEN",
@@ -3078,11 +3057,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "88 DH",
-        "cost": 31.51,
+        "cost": 35.71,
         "sellPrice": 88,
-        "foodCost": 35.8,
-        "margin": 64.2,
-        "grossMarginDH": 56.49
+        "foodCost": 40.6,
+        "margin": 59.4,
+        "grossMarginDH": 52.29
       },
       {
         "name": "SAUMON",
@@ -4740,16 +4719,16 @@ const BASE_RECIPES = [
     "name": "Salade Russe",
     "category": "ENTRÉES FROIDES",
     "ingredients": [
-      "Pomme de Terre : 200 g",
-      "Carotte : 100 g",
-      "Poulet : 25 g",
-      "Petit Pois : 50 g",
+      "Pomme de Terre : 400 g",
+      "Carotte : 200 g",
+      "Poulet : 50 g",
+      "Petit Pois : 150 g",
       "Olive Verte : 15 g",
       "Cornichon : 24 g",
       "Œufs de Caille : 1 p",
       "Mayonnaise : 30 g",
-      "Thon : 50 g",
-      "Maïs : 15 g",
+      "Thon : 100 g",
+      "Maïs : 50 g",
       "Radis : 14 g",
       "Poivron : 10 g",
       "Concombre : 10 g"
@@ -4812,21 +4791,6 @@ const BASE_RECIPES = [
       "SAUMON FUMEE : 25 g",
       "Avocat : 300 g",
       "SAUCE TARTARE : 24 g"
-    ]
-  },
-  {
-    "id": "ef_salade_burrata",
-    "name": "Salade Burrata",
-    "category": "ENTRÉES FROIDES",
-    "ingredients": [
-      "Burrata : 184 g",
-      "Noix : 30 g",
-      "Roquette : 30 g",
-      "Pesto : 15 g",
-      "Balsamique : 10 g",
-      "Fruits Rouges : 40 g",
-      "Radis : 10 g",
-      "Tomate Cerise : 25 g"
     ]
   },
   {
@@ -5442,7 +5406,7 @@ const BASE_RECIPES = [
       "Pâte : 330 g",
       "Mozzarella : 200 g",
       "Sauce tomate : 100 g",
-      "Burrata : 35 g",
+      "Burrata : 1 P",
       "Noix : 30 g",
       "Tomate cerise : 20 g"
     ]
@@ -5703,11 +5667,10 @@ const BASE_RECIPES = [
   {
     "id": "cr_crepe_nutella",
     "name": "CRÊPE NUTELLA",
-    "category": "CRÊPES",
+    "category": "CREPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "Nutella : 60 g",
-      "Banane ou Amandes : 20 g"
+      "Nutella : 60 g"
     ]
   },
   {
@@ -5928,6 +5891,268 @@ const BASE_RECIPES = [
       "Champignons : 40 g",
       "Épinards : 30 g",
       "Fromage : 30 g"
+    ]
+  },
+  {
+    "id": "rec_1788198223698",
+    "name": "PIZZA VEGET ARIENNE",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 200 g",
+      "Sauce tomate : 100 g",
+      "Olives noires : 13 g",
+      "legumes : 500 g"
+    ]
+  },
+  {
+    "id": "rec_1788198656162",
+    "name": "EGG BURGER",
+    "category": "BURGERS",
+    "ingredients": [
+      "Viande Hachée : 100 g",
+      "Cheddar : 20 g",
+      "oeufs  : 1P",
+      "Tomate : 30 g",
+      "Laitue : 20 g",
+      "Oignon+Cornichon : 45 ml",
+      "Sauce Bigy : 30 g",
+      "Frites + Sauce : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "rec_1788198827952",
+    "name": "CREPE PECHEUR",
+    "category": "CREPES",
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "crevette : 150 g",
+      "calamar : 40 g",
+      "Mozzarella : 60 g",
+      "creme fraiche : 50 g"
+    ]
+  },
+  {
+    "id": "rec_1788199150306",
+    "name": "CREPE BOLONAISE",
+    "category": "CREPES",
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "VIANDE HACHEE :100 g",
+      "Mozzarella : 60 g",
+      "SAUCE TOMATE : 50 g"
+    ]
+  },
+  {
+    "id": "rec_1788199269031",
+    "name": "CREPE GREY CORNER SALEE",
+    "category": "CREPES",
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "VIANDE HACHEE : 50 g",
+      "CHARCUTERIE : 50 g",
+      "poulet : 50 g",
+      "Mozzarella : 60 g",
+      "Fromage : 20 g"
+    ]
+  },
+  {
+    "id": "rec_1788199499882",
+    "name": "CREPE BANANE NUTELLA",
+    "category": "CREPES",
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Nutella : 60 g",
+      "BANANE : 100 g"
+    ]
+  },
+  {
+    "id": "rec_1788199584604",
+    "name": "CREPE NATURE",
+    "category": "CREPES",
+    "ingredients": [
+      "Pâte à crêpe : 2 p"
+    ]
+  },
+  {
+    "id": "rec_1788199636915",
+    "name": "CREPE CHOCO-NOISETTE",
+    "category": "AUTRE",
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Nutella : 60 g",
+      "NOISETTE : 50 g",
+      "nutella : 60 g"
+    ]
+  },
+  {
+    "id": "rec_1788199691970",
+    "name": "CREPE EXOTIQUE",
+    "category": "CREPES",
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Nutella : 60 g",
+      "FRUITS DE SAISON: 500 g"
+    ]
+  },
+  {
+    "id": "rec_1788199770175",
+    "name": "CREPE GREY CORNER SUCREE",
+    "category": "CREPES",
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Nutella : 60 g",
+      "varietes gourmandises : 10 P"
+    ]
+  },
+  {
+    "id": "rec_1788199916543",
+    "name": "CREPE PM-CARAMELISEE",
+    "category": "CREPES",
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "CARAMELLE  :400 g"
+    ]
+  },
+  {
+    "id": "rec_1788200045078",
+    "name": "NUTELLA",
+    "category": "AUTRE",
+    "ingredients": [
+      "NUTELLA : 20 g"
+    ]
+  },
+  {
+    "id": "rec_1788200166784",
+    "name": "MQILA MERGUEZ",
+    "category": "PETIT DÉJEUNER",
+    "ingredients": [
+      "Merguez : 120 g",
+      "Poivrons/oignons : 120 g",
+      "Œufs : 2 p"
+    ]
+  },
+  {
+    "id": "rec_1788200259401",
+    "name": "POULARD",
+    "category": "SANDWICHS",
+    "ingredients": [
+      "POULET : 70 g",
+      "Demi-glace : 40 ml",
+      "Champignon : 50 g",
+      "Cheddar : 20 g",
+      "Crème fraîche : 40 ml",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ]
+  },
+  {
+    "id": "rec_1788200443790",
+    "name": "PASTA 5 FROMAGE",
+    "category": "PÂTES",
+    "ingredients": [
+      "PATES :150 g",
+      "Brie : 50 g",
+      "Bleu : 40 g",
+      "Sauce blanche : 100 g",
+      "Parmesan : 20 g",
+      "Fromage rouge : 40 g"
+    ]
+  },
+  {
+    "id": "rec_1788200577957",
+    "name": "PASTA NATURE",
+    "category": "PÂTES",
+    "ingredients": [
+      "Pâtes : 150 g",
+      "Parmesan : 60 g",
+      "Huile : 60 g",
+      "Tomate cerise : 50 g",
+      "Pesto : 70 g",
+      "Sauce tomate : 80 g",
+      "Oignon/Ail : 70 g"
+    ]
+  },
+  {
+    "id": "rec_1788200694469",
+    "name": "PASTA REGATONI RICOTTA",
+    "category": "PÂTES",
+    "ingredients": [
+      "Pâtes : 150 g",
+      "FR RICOTTA : 100 g",
+      "Parmesan : 60 g",
+      "Huile : 60 g",
+      "Tomate cerise : 50 g",
+      "Pesto : 70 g",
+      "Oignon/Ail : 70 g"
+    ]
+  },
+  {
+    "id": "rec_1788200961049",
+    "name": "MENU ENFANT PIZZA",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 220 g",
+      "Mozzarella : 100 g",
+      "Sauce tomate : 100 g",
+      "Olives noires : 13 g",
+      "COCA : 1 p"
+    ]
+  },
+  {
+    "id": "rec_1788201140701",
+    "name": "MENU ENFANT BURGER",
+    "category": "AUTRE",
+    "ingredients": [
+      "Viande Hachée : 70 g",
+      "Cheddar : 20 g",
+      "Sauce Bigy : 30 g",
+      "Frites + Sauce : 200 g",
+      "Pain : 1 p",
+      "coca : 1 p"
+    ]
+  },
+  {
+    "id": "rec_1788201291652",
+    "name": "SALADE CERCLE VEGGL",
+    "category": "ENTRÉES FROIDES",
+    "ingredients": [
+      "chaux ROUGE : 100 G",
+      "CONCOMBRE:80 G",
+      "TOMATE CERISE:70",
+      "ŒUFS DE CAILLE:1P",
+      "haricot vert:60 G",
+      "BETTTRAVE:120 G",
+      "carotte:40 G",
+      "brocoli:50 G",
+      "RADIS:60 G",
+      "THON:50 G",
+      "SAUCE VINIGRETTE:100 ML",
+      "MAIS:3 G",
+      "POIVRON:50G"
+    ]
+  },
+  {
+    "id": "rec_1788201601213",
+    "name": "SALADE BURRATTA",
+    "category": "ENTRÉES FROIDES",
+    "ingredients": [
+      "BURRATA : 1 p",
+      "NOIX : 30 G",
+      "tomate:30 G",
+      "roquette :25 G",
+      "vinaigre balsamique :10 G"
+    ]
+  },
+  {
+    "id": "rec_1788201893575",
+    "name": "RUSSE",
+    "category": "ENTRÉES FROIDES",
+    "ingredients": [
+      "LEGUMES VARIEES :30 P",
+      "OEUF DE CAILLE : 1 p",
+      "poulet : 50 g"
     ]
   }
 ];
@@ -7154,8 +7379,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "burrata": {
-    "cost": 0.152,
-    "unit": "g"
+    "cost": 25,
+    "unit": "piece",
+    "label": "BURRATA"
   },
   "jben": {
     "cost": 0.04,
