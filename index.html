@@ -789,6 +789,44 @@ function renderAll() {
         }
       });
     });
+
+    // Insérer dynamiquement les nouvelles fiches créées dans consommation.html
+    const existingNorms = new Set();
+    DATA.forEach(cat => {
+      (cat.items || []).forEach(it => {
+        const norm = (it.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+        existingNorms.add(norm);
+      });
+    });
+
+    customMap.forEach((r, norm) => {
+      if (!existingNorms.has(norm) && !deletedSet.has(norm) && !deletedSet.has(r.id)) {
+        const rCatNorm = (r.category || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+        let targetCat = DATA.find(c => {
+          const cNorm = (c.category || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+          return cNorm.includes(rCatNorm) || rCatNorm.includes(cNorm);
+        });
+        if (!targetCat) {
+          targetCat = DATA.find(c => c.key === 'sup') || DATA[DATA.length - 1];
+        }
+        const sellP = parseFloat(r.sellPrice) || 0;
+        const calc = typeof calculateRecipeFoodCost === 'function' ? calculateRecipeFoodCost(r.ingredients || [], sellP) : { cost: 0, foodCost: 0, margin: 0, grossMarginDH: 0 };
+        targetCat.items.push({
+          id: r.id,
+          name: r.name,
+          image: r.image || 'images/placeholder.svg',
+          prepTime: r.prepTime || 5,
+          tech: r.ingredients || [],
+          price: sellP > 0 ? `${sellP} DH` : '',
+          sellPrice: sellP,
+          cost: calc.cost,
+          foodCost: calc.foodCost,
+          margin: calc.margin,
+          grossMarginDH: calc.grossMarginDH
+        });
+        existingNorms.add(norm);
+      }
+    });
   } catch (e) {
     console.warn('[LocalStorage] Erreur overlay prix et recettes personnalisées:', e);
   }

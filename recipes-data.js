@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-31T19:05:40.335Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-31T19:49:25.002Z
  */
 
 (function(global) {
@@ -3646,15 +3646,12 @@ const BASE_RECIPES = [
   },
   {
     "id": "bc_cappuccino_chantilly",
-    "name": "CAPPUCCINO CHANTILLY",
+    "name": "Cappuccino Avec Chantilly",
     "category": "CAFÉS & BOISSONS CHAUDES",
     "ingredients": [
       "Café : 10 g",
-      "Lait chaud : 100 ml",
-      "Crème chantilly : 30 g",
-      "Cacao : 3 g",
-      "Sucre : 1 p",
-      "Bouteille Eau Minérale 33cl : 1 p"
+      "Lait : 100 ml",
+      "Chantilly : 30 g"
     ]
   },
   {
@@ -5895,14 +5892,14 @@ const BASE_RECIPES = [
   },
   {
     "id": "rec_1788198223698",
-    "name": "PIZZA VEGET ARIENNE",
+    "name": "PIZZA VEGETARIENNE",
     "category": "PIZZA",
     "ingredients": [
-      "Pâte : 330 g",
+      "Pâte à pizza : 330 g",
       "Mozzarella : 200 g",
       "Sauce tomate : 100 g",
-      "Olives noires : 13 g",
-      "legumes : 500 g"
+      "Olives noires : 15 g",
+      "Légumes grillés : 150 g"
     ]
   },
   {
@@ -5978,12 +5975,11 @@ const BASE_RECIPES = [
   {
     "id": "rec_1788199636915",
     "name": "CREPE CHOCO-NOISETTE",
-    "category": "AUTRE",
+    "category": "CREPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
       "Nutella : 60 g",
-      "NOISETTE : 50 g",
-      "nutella : 60 g"
+      "Noisette : 30 g"
     ]
   },
   {
@@ -5993,7 +5989,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte à crêpe : 1 p",
       "Nutella : 60 g",
-      "FRUITS DE SAISON: 500 g"
+      "Fruits de saison : 80 g"
     ]
   },
   {
@@ -6003,7 +5999,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte à crêpe : 1 p",
       "Nutella : 60 g",
-      "varietes gourmandises : 10 P"
+      "Chocolat varié : 50 g"
     ]
   },
   {
@@ -6012,7 +6008,7 @@ const BASE_RECIPES = [
     "category": "CREPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "CARAMELLE  :400 g"
+      "Caramel : 40 g"
     ]
   },
   {
@@ -6118,19 +6114,19 @@ const BASE_RECIPES = [
     "name": "SALADE CERCLE VEGGL",
     "category": "ENTRÉES FROIDES",
     "ingredients": [
-      "chaux ROUGE : 100 G",
-      "CONCOMBRE:80 G",
-      "TOMATE CERISE:70",
-      "ŒUFS DE CAILLE:1P",
-      "haricot vert:60 G",
-      "BETTTRAVE:120 G",
-      "carotte:40 G",
-      "brocoli:50 G",
-      "RADIS:60 G",
-      "THON:50 G",
-      "SAUCE VINIGRETTE:100 ML",
-      "MAIS:3 G",
-      "POIVRON:50G"
+      "Chou rouge : 100 g",
+      "Concombre : 80 g",
+      "Tomate cerise : 70 g",
+      "Œufs de caille : 1 p",
+      "Haricot vert : 60 g",
+      "Betterave : 120 g",
+      "Carotte : 40 g",
+      "Brocoli : 50 g",
+      "Radis : 60 g",
+      "Thon : 50 g",
+      "Vinaigrette : 40 ml",
+      "Maïs : 30 g",
+      "Poivron : 50 g"
     ]
   },
   {
@@ -6150,9 +6146,676 @@ const BASE_RECIPES = [
     "name": "RUSSE",
     "category": "ENTRÉES FROIDES",
     "ingredients": [
-      "LEGUMES VARIEES :30 P",
-      "OEUF DE CAILLE : 1 p",
-      "poulet : 50 g"
+      "Pomme de terre : 150 g",
+      "Carotte : 80 g",
+      "Petit Pois : 50 g",
+      "Œufs de caille : 1 p",
+      "Poulet : 50 g",
+      "Mayonnaise : 30 g"
+    ]
+  },
+  {
+    "id": "sod_schweppes_citron",
+    "name": "SCHWEPPES CITRON",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "ingredients": [
+      "Canette Schweppes Citron : 1 p"
+    ]
+  },
+  {
+    "id": "sod_oulmes_mojito",
+    "name": "OULMES MOJITO",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "ingredients": [
+      "Canette Oulmès Mojito : 1 p"
+    ]
+  },
+  {
+    "id": "sod_oulmes_tropical",
+    "name": "OULMES TROPICAL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "ingredients": [
+      "Canette Oulmès Tropical : 1 p"
+    ]
+  },
+  {
+    "id": "ck_gingembre",
+    "name": "GINGEMBRE",
+    "category": "COCKTAILS & MOCKTAILS",
+    "ingredients": [
+      "Jus de gingembre : 150 ml",
+      "Citron : 30 ml",
+      "Miel : 20 g"
+    ]
+  },
+  {
+    "id": "ck_fraicheur",
+    "name": "Cocktail Fraîcheur",
+    "category": "COCKTAILS & MOCKTAILS",
+    "ingredients": [
+      "Jus de pomme : 150 ml",
+      "Menthe : 10 g",
+      "Citron : 30 ml",
+      "Glaçons : 1 p"
+    ]
+  },
+  {
+    "id": "ck_san_francisco",
+    "name": "San Francisco",
+    "category": "COCKTAILS & MOCKTAILS",
+    "ingredients": [
+      "Jus d'orange : 100 ml",
+      "Jus d'ananas : 100 ml",
+      "Sirop grenadine : 20 ml"
+    ]
+  },
+  {
+    "id": "ck_cocktail_gc",
+    "name": "Cocktail GREY CORNER",
+    "category": "COCKTAILS & MOCKTAILS",
+    "ingredients": [
+      "Fruits variés : 150 g",
+      "Jus d'orange : 100 ml",
+      "Sirop : 20 ml"
+    ]
+  },
+  {
+    "id": "sm_triple_berry",
+    "name": "Triple Berry",
+    "category": "SMOOTHIES & BOWLS",
+    "ingredients": [
+      "Fruits rouges : 120 g",
+      "Lait : 100 ml",
+      "Yaourt : 50 g"
+    ]
+  },
+  {
+    "id": "sm_energetique",
+    "name": "Énergétique",
+    "category": "SMOOTHIES & BOWLS",
+    "ingredients": [
+      "Banane : 100 g",
+      "Dattes : 40 g",
+      "Lait : 150 ml",
+      "Miel : 15 g"
+    ]
+  },
+  {
+    "id": "sm_pink_smoothie",
+    "name": "Pink Smoothie",
+    "category": "SMOOTHIES & BOWLS",
+    "ingredients": [
+      "Fraise : 100 g",
+      "Framboise : 50 g",
+      "Yaourt : 80 g",
+      "Lait : 100 ml"
+    ]
+  },
+  {
+    "id": "sm_multi_vitamine",
+    "name": "Multi-Vitamine",
+    "category": "SMOOTHIES & BOWLS",
+    "ingredients": [
+      "Jus d'orange : 100 ml",
+      "Carotte : 60 g",
+      "Pomme : 80 g"
+    ]
+  },
+  {
+    "id": "sm_hawaien",
+    "name": "Hawaïen",
+    "category": "SMOOTHIES & BOWLS",
+    "ingredients": [
+      "Ananas : 100 g",
+      "Mangue : 80 g",
+      "Jus d'orange : 100 ml"
+    ]
+  },
+  {
+    "id": "smb_exotique_bowl",
+    "name": "Exotique BOWL",
+    "category": "SMOOTHIES & BOWLS",
+    "ingredients": [
+      "Fruits exotiques : 150 g",
+      "Açaï : 50 g",
+      "Muesli : 40 g",
+      "Graines de chia : 10 g"
+    ]
+  },
+  {
+    "id": "jf_fruits_secs",
+    "name": "FRUITS SECS",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Fruits secs / Amandes : 50 g",
+      "Lait : 150 ml",
+      "Miel : 15 g"
+    ]
+  },
+  {
+    "id": "jf_avocat_orange",
+    "name": "JUS D'AVOCAT ORANGE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Avocat : 100 g",
+      "Jus d'orange : 150 ml"
+    ]
+  },
+  {
+    "id": "jf_pomme",
+    "name": "Jus De Pomme",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Pomme : 250 g"
+    ]
+  },
+  {
+    "id": "jf_banane_orange",
+    "name": "BANANE ORANGE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Banane : 100 g",
+      "Jus d'orange : 150 ml"
+    ]
+  },
+  {
+    "id": "jf_panache_lait",
+    "name": "Panaché AU LAIT",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Fruits de saison : 120 g",
+      "Lait : 150 ml"
+    ]
+  },
+  {
+    "id": "jf_mini_orange",
+    "name": "MINI ORANGE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Orange : 150 g"
+    ]
+  },
+  {
+    "id": "jf_bettrave",
+    "name": "JUS DE BETTRAVE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "ingredients": [
+      "Betterave : 150 g",
+      "Jus d'orange : 100 ml"
+    ]
+  },
+  {
+    "id": "cr_gaufre_nutella",
+    "name": "Gauffre Nutella",
+    "category": "CRÊPES",
+    "ingredients": [
+      "Pâte à gaufre : 1 p",
+      "Nutella : 60 g"
+    ]
+  },
+  {
+    "id": "cr_gaufre_nutela_banane",
+    "name": "Gauffre Nutela Banane",
+    "category": "CRÊPES",
+    "ingredients": [
+      "Pâte à gaufre : 1 p",
+      "Nutella : 60 g",
+      "Banane : 80 g"
+    ]
+  },
+  {
+    "id": "cr_gaufre_kunafa_pistache",
+    "name": "GAUFFRE KUNAFA PISTACHE",
+    "category": "CRÊPES",
+    "ingredients": [
+      "Pâte à gaufre : 1 p",
+      "Kunafa : 40 g",
+      "Pistache : 30 g",
+      "Sirop : 20 ml"
+    ]
+  },
+  {
+    "id": "cr_gaufre_exotique",
+    "name": "Gauffre Exotique",
+    "category": "CRÊPES",
+    "ingredients": [
+      "Pâte à gaufre : 1 p",
+      "Fruits de saison : 80 g",
+      "Nutella : 40 g"
+    ]
+  },
+  {
+    "id": "cr_gaufre_choco_noisette",
+    "name": "Gauffre Choco-Noisette",
+    "category": "CRÊPES",
+    "ingredients": [
+      "Pâte à gaufre : 1 p",
+      "Nutella : 60 g",
+      "Noisette : 30 g"
+    ]
+  },
+  {
+    "id": "cr_gaufre_pm_caramelisee",
+    "name": "Gauffre PM-Caramelisee",
+    "category": "CRÊPES",
+    "ingredients": [
+      "Pâte à gaufre : 1 p",
+      "Pomme : 60 g",
+      "Caramel : 40 g"
+    ]
+  },
+  {
+    "id": "cr_gaufre_nature",
+    "name": "GAUFFRE NATURE",
+    "category": "CRÊPES",
+    "ingredients": [
+      "Pâte à gaufre : 1 p",
+      "Sucre : 15 g"
+    ]
+  },
+  {
+    "id": "des_coupe_grey_corner",
+    "name": "Coupe Grey Corner",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Boules de glace : 3 p",
+      "Chantilly : 40 g",
+      "Coulis : 20 ml",
+      "Amandes : 15 g"
+    ]
+  },
+  {
+    "id": "des_banana_split",
+    "name": "Banana Split",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Banane : 1 p",
+      "Boules de glace : 3 p",
+      "Chantilly : 40 g",
+      "Chocolat : 20 ml"
+    ]
+  },
+  {
+    "id": "des_coupe_enfant",
+    "name": "Coupe Enfant",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Boules de glace : 2 p",
+      "Chantilly : 20 g",
+      "Smarties : 15 g"
+    ]
+  },
+  {
+    "id": "des_coupe_amor",
+    "name": "Coupe Amor",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Boules de glace : 3 p",
+      "Fruits rouges : 40 g",
+      "Chantilly : 30 g"
+    ]
+  },
+  {
+    "id": "des_milkshake_nutella",
+    "name": "Milkshake Nutella",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Lait : 180 ml",
+      "Boules de glace : 2 p",
+      "Nutella : 50 g",
+      "Chantilly : 20 g"
+    ]
+  },
+  {
+    "id": "des_milkshake_vanille",
+    "name": "Milkshake Vanille",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Lait : 180 ml",
+      "Boules de glace : 3 p",
+      "Chantilly : 20 g"
+    ]
+  },
+  {
+    "id": "des_milkshake_cookies",
+    "name": "Milkshake Cookies",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Lait : 180 ml",
+      "Boules de glace : 2 p",
+      "Cookies : 40 g",
+      "Chantilly : 20 g"
+    ]
+  },
+  {
+    "id": "des_milkshake_fraise",
+    "name": "Milkshake Fraise",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Lait : 180 ml",
+      "Boules de glace : 2 p",
+      "Fraise : 50 g",
+      "Chantilly : 20 g"
+    ]
+  },
+  {
+    "id": "des_milkshake_chocolat",
+    "name": "Milkshake Chocolat",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Lait : 180 ml",
+      "Boules de glace : 2 p",
+      "Chocolat : 30 ml",
+      "Chantilly : 20 g"
+    ]
+  },
+  {
+    "id": "des_milkshake_kitkat",
+    "name": "Milkshake Kitkat",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Lait : 180 ml",
+      "Boules de glace : 2 p",
+      "KitKat : 1 p",
+      "Chantilly : 20 g"
+    ]
+  },
+  {
+    "id": "des_milkshake_caramel",
+    "name": "Milkshake Caramel",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Lait : 180 ml",
+      "Boules de glace : 2 p",
+      "Caramel : 40 g",
+      "Chantilly : 20 g"
+    ]
+  },
+  {
+    "id": "des_orangeshake",
+    "name": "ORANGESHAKE AU CHOIX",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Jus d'orange : 180 ml",
+      "Boules de glace : 2 p"
+    ]
+  },
+  {
+    "id": "des_pain_cake_nutella",
+    "name": "Pain Cake Nutella",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Pancakes : 3 p",
+      "Nutella : 60 g"
+    ]
+  },
+  {
+    "id": "des_pain_cake_fruits",
+    "name": "Pain Cake Fruits De Saison",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Pancakes : 3 p",
+      "Fruits de saison : 80 g",
+      "Miel : 30 g"
+    ]
+  },
+  {
+    "id": "des_pain_cake_enfant",
+    "name": "Pain Cake Enfant",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Pancakes : 2 p",
+      "Nutella : 30 g",
+      "Smarties : 10 g"
+    ]
+  },
+  {
+    "id": "des_pain_cake_gc",
+    "name": "Pain Cake Grey Corner",
+    "category": "DESSERTS & PÂTISSERIES",
+    "ingredients": [
+      "Pancakes : 3 p",
+      "Nutella : 50 g",
+      "Fruits de saison : 60 g",
+      "Boules de glace : 1 p"
+    ]
+  },
+  {
+    "id": "bc_lait_chaud",
+    "name": "LAIT CHAUD",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Lait : 200 ml",
+      "Sucre : 1 p"
+    ]
+  },
+  {
+    "id": "bc_lait_froid",
+    "name": "Lait FROID",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Lait : 200 ml",
+      "Sucre : 1 p"
+    ]
+  },
+  {
+    "id": "bc_cafe_aromatise",
+    "name": "CAFE AROMATISE",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Café : 10 g",
+      "Eau chaude : 60 ml",
+      "Sirop : 15 ml"
+    ]
+  },
+  {
+    "id": "bc_cafe_double",
+    "name": "CAFE DOUBLE",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Café : 18 g",
+      "Eau chaude : 100 ml",
+      "Sucre : 2 p"
+    ]
+  },
+  {
+    "id": "bc_the_m3achab",
+    "name": "THE M3ACHAB",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Thé vert : 8 g",
+      "Menthe : 15 g",
+      "Sucre : 2 p"
+    ]
+  },
+  {
+    "id": "bc_the_americain",
+    "name": "The Americain",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "ingredients": [
+      "Sachet thé : 1 p",
+      "Eau chaude : 200 ml"
+    ]
+  },
+  {
+    "id": "sup_amlou",
+    "name": "AMLOU",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Amlou : 40 g"
+    ]
+  },
+  {
+    "id": "sup_beurre",
+    "name": "BEURRE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Beurre : 30 g"
+    ]
+  },
+  {
+    "id": "sup_cornflex",
+    "name": "CORNFLEX",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Corn flakes : 40 g",
+      "Lait : 100 ml"
+    ]
+  },
+  {
+    "id": "sup_huile_olive",
+    "name": "HUILE OLIVE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Huile d'olive : 40 ml"
+    ]
+  },
+  {
+    "id": "sup_la_vache_qui_rit",
+    "name": "LA VACHE QUI RIT",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Fromage portion : 2 p"
+    ]
+  },
+  {
+    "id": "sup_3_merguez",
+    "name": "3 MERGUEZ",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Merguez : 100 g"
+    ]
+  },
+  {
+    "id": "sup_champignon",
+    "name": "CHAMPIGNON",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Champignon : 60 g"
+    ]
+  },
+  {
+    "id": "sup_fromage_rouge_taj",
+    "name": "FROMAGE ROUGE TAJ",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Fromage : 40 g"
+    ]
+  },
+  {
+    "id": "sup_parmesan_fromage",
+    "name": "PARMESAN FROMAGE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Parmesan : 30 g"
+    ]
+  },
+  {
+    "id": "sup_amuse_bouche",
+    "name": "AMUSE BOUCHE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Ingrédients cuisine divers : 50 g"
+    ]
+  },
+  {
+    "id": "sup_riz",
+    "name": "RIZ",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Riz : 150 g"
+    ]
+  },
+  {
+    "id": "sup_legumes_sautees",
+    "name": "LEGUMES SAUTEES",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Légumes variés : 150 g",
+      "Huile : 10 ml"
+    ]
+  },
+  {
+    "id": "alc_mssemen_agrich",
+    "name": "MSSEMEN AGRICH",
+    "category": "A LA CARTE & BOULANGERIE",
+    "ingredients": [
+      "Msemen : 1 p",
+      "Griche : 40 g"
+    ]
+  },
+  {
+    "id": "alc_pain_cereal",
+    "name": "PAIN CEREAL",
+    "category": "A LA CARTE & BOULANGERIE",
+    "ingredients": [
+      "Pain céréales : 1 p"
+    ]
+  },
+  {
+    "id": "alc_pain_grille",
+    "name": "PAIN GRILLE",
+    "category": "A LA CARTE & BOULANGERIE",
+    "ingredients": [
+      "Pain toast : 2 p"
+    ]
+  },
+  {
+    "id": "alc_berber",
+    "name": "BERBER",
+    "category": "A LA CARTE & BOULANGERIE",
+    "ingredients": [
+      "Œufs : 2 p",
+      "Khlii : 50 g",
+      "Tomate : 40 g"
+    ]
+  },
+  {
+    "id": "alc_toast_nutella",
+    "name": "TOAST NUTELLA",
+    "category": "A LA CARTE & BOULANGERIE",
+    "ingredients": [
+      "Pain toast : 2 p",
+      "Nutella : 40 g"
+    ]
+  },
+  {
+    "id": "alc_confiture",
+    "name": "CONFITURE",
+    "category": "A LA CARTE & BOULANGERIE",
+    "ingredients": [
+      "Confiture : 40 g"
+    ]
+  },
+  {
+    "id": "sup_lben",
+    "name": "LBEN",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Lben : 250 ml"
+    ]
+  },
+  {
+    "id": "pz_regina_dinde",
+    "name": "REGINA DINDE FUMEE",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte à pizza : 330 g",
+      "Mozzarella : 200 g",
+      "Sauce tomate : 100 g",
+      "Dinde fumée : 80 g",
+      "Champignon : 50 g"
+    ]
+  },
+  {
+    "id": "me_pasta_nature",
+    "name": "MENU ENFANT PASTA NATURE",
+    "category": "PÂTES",
+    "ingredients": [
+      "Pâtes : 100 g",
+      "Sauce tomate : 60 g",
+      "Parmesan : 15 g",
+      "Canette Soda : 1 p"
     ]
   }
 ];
@@ -6534,7 +7197,7 @@ const ALIAS_MAP = {
   "hawai": "sd_hawai_33cl",
   "poms": "sd_poms_33cl",
   "schweppes": "sd_schweppes_citron_tonic_33cl",
-  "schweppes citron": "sd_schweppes_citron_tonic_33cl",
+  "schweppes citron": "sod_schweppes_citron",
   "schweppes tonic": "sd_schweppes_citron_tonic_33cl",
   "schwepps tonic": "sd_schweppes_citron_tonic_33cl",
   "orangina": "sd_orangina_33cl",
@@ -6620,7 +7283,7 @@ const ALIAS_MAP = {
   "pizza burrata": "pz_burrata",
   "pizza margarita": "pz_margarita",
   "pizza 5 fromages": "pz_5_fromages",
-  "pizza vegetarienne": "pz_vegetarienne",
+  "pizza vegetarienne": "rec_1788198223698",
   "pizza saumon": "pz_saumon",
   "pizza regina": "pz_regina",
   "pasta 5 fromages": "pae_5_fromages",
@@ -6644,7 +7307,87 @@ const ALIAS_MAP = {
   "mlaoui": "alc_msemen",
   "croissant": "alc_viennoiserie",
   "pain au chocolat": "alc_viennoiserie",
-  "harcha": "alc_harcha"
+  "harcha": "alc_harcha",
+  "schwepps citron": "sod_schweppes_citron",
+  "gingembre": "ck_gingembre",
+  "gauffre nutella": "cr_gaufre_nutella",
+  "gaufre nutella": "cr_gaufre_nutella",
+  "regina dinde fumee": "pz_regina_dinde",
+  "lait chaud": "bc_lait_chaud",
+  "lait froid": "bc_lait_froid",
+  "fraicheur": "ck_fraicheur",
+  "triple berry": "sm_triple_berry",
+  "fruits sec": "jf_fruits_secs",
+  "fruits secs": "jf_fruits_secs",
+  "oulmess mojito": "sod_oulmes_mojito",
+  "oulmes mojito": "sod_oulmes_mojito",
+  "jus d avocat orange": "jf_avocat_orange",
+  "avocat orange": "jf_avocat_orange",
+  "energetique": "sm_energetique",
+  "coupe grey corner": "des_coupe_grey_corner",
+  "exotique bowl": "smb_exotique_bowl",
+  "pink smoothie": "sm_pink_smoothie",
+  "san francisco": "ck_san_francisco",
+  "cafe aromatise": "bc_cafe_aromatise",
+  "pain cake nutella": "des_pain_cake_nutella",
+  "pancake nutella": "des_pain_cake_nutella",
+  "amlou": "sup_amlou",
+  "jus de pomme": "jf_pomme",
+  "banana split": "des_banana_split",
+  "gauffre nutela banane": "cr_gaufre_nutela_banane",
+  "gaufre nutella banane": "cr_gaufre_nutela_banane",
+  "the m3achab": "bc_the_m3achab",
+  "oulmes tropical": "sod_oulmes_tropical",
+  "huile olive": "sup_huile_olive",
+  "banane orange": "jf_banane_orange",
+  "la vache qui rit": "sup_la_vache_qui_rit",
+  "cocktail grey corner": "ck_cocktail_gc",
+  "coupe enfant": "des_coupe_enfant",
+  "milkshake nutella": "des_milkshake_nutella",
+  "multi vitamine": "sm_multi_vitamine",
+  "multi-vitamine": "sm_multi_vitamine",
+  "3 merguez": "sup_3_merguez",
+  "beurre": "sup_beurre",
+  "cornflex": "sup_cornflex",
+  "corn flakes": "sup_cornflex",
+  "menu enfant pasta nature": "me_pasta_nature",
+  "coupe amor": "des_coupe_amor",
+  "hawaien": "sm_hawaien",
+  "milkshake vanille": "des_milkshake_vanille",
+  "milkshake cookies": "des_milkshake_cookies",
+  "parmesan fromage": "sup_parmesan_fromage",
+  "orangeshake au choix": "des_orangeshake",
+  "milkshake fraise": "des_milkshake_fraise",
+  "pain cake fruits de saison": "des_pain_cake_fruits",
+  "milkshake chocolat": "des_milkshake_chocolat",
+  "gauffre kunafa pistache": "cr_gaufre_kunafa_pistache",
+  "mini orange": "jf_mini_orange",
+  "gauffre exotique": "cr_gaufre_exotique",
+  "amuse bouche": "sup_amuse_bouche",
+  "riz": "sup_riz",
+  "legumes sautees": "sup_legumes_sautes",
+  "mssemen agrich": "alc_mssemen_agrich",
+  "panache au lait": "jf_panache_lait",
+  "champignon": "sup_champignon",
+  "pain cereal": "alc_pain_cereal",
+  "milkshake kitkat": "des_milkshake_kitkat",
+  "gauffre choco-noisette": "cr_gaufre_choco_noisette",
+  "fromage rouge taj": "sup_fromage_rouge_taj",
+  "pain grille": "alc_pain_grille",
+  "berber": "alc_berber",
+  "gauffre pm-caramelisee": "cr_gaufre_pm_caramelisee",
+  "milkshake caramel": "des_milkshake_caramel",
+  "gauffre nature": "cr_gaufre_nature",
+  "pain cake enfant": "des_pain_cake_enfant",
+  "confiture": "alc_confiture",
+  "the americain": "bc_the_americain",
+  "cafe double": "bc_cafe_double",
+  "lben": "sup_lben",
+  "cappuccino avec chantilly": "bc_cappuccino_chantilly",
+  "jus de bettrave": "jf_bettrave",
+  "toast nutella": "alc_toast_nutella",
+  "pain cake grey corner": "des_pain_cake_gc",
+  "pizza veget arienne": "rec_1788198223698"
 };
 
 const INGREDIENT_CATEGORIES = {
@@ -6832,11 +7575,13 @@ const INGREDIENT_UNIT_COSTS = {
   },
   "sauce vinaigrette": {
     "cost": 0.025,
-    "unit": "g"
+    "unit": "ml",
+    "label": "Sauce Vinaigrette"
   },
   "vinaigrette": {
     "cost": 0.025,
-    "unit": "g"
+    "unit": "ml",
+    "label": "Sauce Vinaigrette"
   },
   "vinaigre balsamique": {
     "cost": 0.015,
@@ -7035,8 +7780,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "chantilly": {
-    "cost": 0.03,
-    "unit": "g"
+    "cost": 0.045,
+    "unit": "g",
+    "label": "Chantilly"
   },
   "leben": {
     "cost": 0.009,
@@ -7064,7 +7810,8 @@ const INGREDIENT_UNIT_COSTS = {
   },
   "sirop": {
     "cost": 0.035,
-    "unit": "ml"
+    "unit": "ml",
+    "label": "Sirop"
   },
   "sirop de canne": {
     "cost": 0.035,
@@ -7400,8 +8147,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "yaourt": {
-    "cost": 0.03,
-    "unit": "g"
+    "cost": 0.025,
+    "unit": "g",
+    "label": "Yaourt"
   },
   "beurre": {
     "cost": 0.08,
@@ -7456,8 +8204,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece"
   },
   "pain cereales": {
-    "cost": 0.94,
-    "unit": "piece"
+    "cost": 3.5,
+    "unit": "piece",
+    "label": "Pain Céréales"
   },
   "pain cereal": {
     "cost": 0.94,
@@ -7552,8 +8301,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "riz": {
-    "cost": 0.027,
-    "unit": "g"
+    "cost": 0.015,
+    "unit": "g",
+    "label": "Riz Cuit"
   },
   "quinoa": {
     "cost": 0.055,
@@ -7740,16 +8490,19 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "haricot vert": {
-    "cost": 0.018,
-    "unit": "g"
+    "cost": 0.015,
+    "unit": "g",
+    "label": "Haricot Vert"
   },
   "betterave": {
-    "cost": 0.008,
-    "unit": "g"
+    "cost": 0.007,
+    "unit": "g",
+    "label": "Betterave"
   },
   "brocoli": {
-    "cost": 0.02,
-    "unit": "g"
+    "cost": 0.022,
+    "unit": "g",
+    "label": "Brocoli"
   },
   "radis": {
     "cost": 0.01,
@@ -7792,8 +8545,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "gingembre": {
-    "cost": 0.03,
-    "unit": "g"
+    "cost": 0.025,
+    "unit": "ml",
+    "label": "Gingembre"
   },
   "gingembre frais": {
     "cost": 0.03,
@@ -7812,8 +8566,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "legumes varies": {
-    "cost": 0.01,
-    "unit": "g"
+    "cost": 0.015,
+    "unit": "g",
+    "label": "Légumes Variés"
   },
   "garnitures composees": {
     "cost": 0.015,
@@ -7888,8 +8643,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "framboise": {
-    "cost": 0.035,
-    "unit": "g"
+    "cost": 0.09,
+    "unit": "g",
+    "label": "Framboise"
   },
   "framboises fraiches": {
     "cost": 0.035,
@@ -7920,8 +8676,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "ananas": {
-    "cost": 0.018,
-    "unit": "g"
+    "cost": 0.02,
+    "unit": "g",
+    "label": "Ananas"
   },
   "peche": {
     "cost": 0.03,
@@ -7936,8 +8693,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "mangue": {
-    "cost": 0.031,
-    "unit": "g"
+    "cost": 0.03,
+    "unit": "g",
+    "label": "Mangue"
   },
   "kiwi": {
     "cost": 0.018,
@@ -7952,8 +8710,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "dattes": {
-    "cost": 0.06,
-    "unit": "g"
+    "cost": 0.045,
+    "unit": "g",
+    "label": "Dattes"
   },
   "fruit de la passion": {
     "cost": 0.045,
@@ -7988,8 +8747,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "menthe": {
-    "cost": 0.04,
-    "unit": "g"
+    "cost": 0.01,
+    "unit": "g",
+    "label": "Menthe"
   },
   "menthe fraiche": {
     "cost": 0.04,
@@ -8080,8 +8840,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "glace vanille": {
-    "cost": 0.064,
-    "unit": "g"
+    "cost": 3,
+    "unit": "piece",
+    "label": "Boule Glace"
   },
   "glace": {
     "cost": 0.064,
@@ -8112,8 +8873,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "amlou": {
-    "cost": 0.075,
-    "unit": "g"
+    "cost": 0.12,
+    "unit": "g",
+    "label": "Amlou"
   },
   "nutella": {
     "cost": 0.079,
@@ -8124,8 +8886,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "kunafa": {
-    "cost": 0.025,
-    "unit": "g"
+    "cost": 0.06,
+    "unit": "g",
+    "label": "Kunafa"
   },
   "kunafa croustillante": {
     "cost": 0.025,
@@ -8148,8 +8911,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "pistache": {
-    "cost": 0.28,
-    "unit": "g"
+    "cost": 0.22,
+    "unit": "g",
+    "label": "Pistache"
   },
   "pistaches": {
     "cost": 0.28,
@@ -8168,8 +8932,9 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "graines de chia": {
-    "cost": 0.05,
-    "unit": "g"
+    "cost": 0.08,
+    "unit": "g",
+    "label": "Graines de Chia"
   },
   "granola": {
     "cost": 0.035,
@@ -8222,6 +8987,151 @@ const INGREDIENT_UNIT_COSTS = {
   "origan": {
     "cost": 0.078,
     "unit": "g"
+  },
+  "caramel": {
+    "cost": 0.045,
+    "unit": "g",
+    "label": "Caramel"
+  },
+  "chou rouge": {
+    "cost": 0.008,
+    "unit": "g",
+    "label": "Chou Rouge"
+  },
+  "legumes grilles": {
+    "cost": 0.018,
+    "unit": "g",
+    "label": "Légumes Grillés"
+  },
+  "tapenade": {
+    "cost": 0.065,
+    "unit": "g",
+    "label": "Tapenade"
+  },
+  "corn flakes": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "Corn Flakes"
+  },
+  "feta": {
+    "cost": 0.09,
+    "unit": "g",
+    "label": "Feta"
+  },
+  "agrumes": {
+    "cost": 0.015,
+    "unit": "g",
+    "label": "Agrumes"
+  },
+  "farine": {
+    "cost": 0.006,
+    "unit": "g",
+    "label": "Farine"
+  },
+  "chapelure": {
+    "cost": 0.018,
+    "unit": "g",
+    "label": "Chapelure"
+  },
+  "persil": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "Persil"
+  },
+  "fokacha": {
+    "cost": 0.012,
+    "unit": "g",
+    "label": "Fokacha"
+  },
+  "dinde fumee": {
+    "cost": 0.085,
+    "unit": "g",
+    "label": "Dinde Fumée"
+  },
+  "pate a gaufre": {
+    "cost": 1.8,
+    "unit": "piece",
+    "label": "Pâte à Gaufre"
+  },
+  "pancakes": {
+    "cost": 1.2,
+    "unit": "piece",
+    "label": "Pancake"
+  },
+  "boules de glace": {
+    "cost": 3,
+    "unit": "piece",
+    "label": "Boule Glace"
+  },
+  "boule glace": {
+    "cost": 3,
+    "unit": "piece",
+    "label": "Boule Glace"
+  },
+  "cookies": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "Cookies"
+  },
+  "kitkat": {
+    "cost": 6,
+    "unit": "piece",
+    "label": "KitKat"
+  },
+  "lben": {
+    "cost": 0.012,
+    "unit": "ml",
+    "label": "Lait Fermenté Lben"
+  },
+  "smarties": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "Smarties"
+  },
+  "noisette": {
+    "cost": 0.15,
+    "unit": "g",
+    "label": "Noisette"
+  },
+  "grenadine": {
+    "cost": 0.035,
+    "unit": "ml",
+    "label": "Sirop Grenadine"
+  },
+  "muesli": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "Muesli"
+  },
+  "acai": {
+    "cost": 0.12,
+    "unit": "g",
+    "label": "Açaï"
+  },
+  "khlii": {
+    "cost": 0.18,
+    "unit": "g",
+    "label": "Khlii"
+  },
+  "griche": {
+    "cost": 0.12,
+    "unit": "g",
+    "label": "Griche"
+  },
+  "confiture": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "Confiture"
+  },
+  "pain toast": {
+    "cost": 0.8,
+    "unit": "piece",
+    "label": "Pain Toast"
+  },
+  "fromage portion": {
+    "cost": 1.2,
+    "unit": "piece",
+    "label": "Fromage Portion"
   }
 };
 

@@ -20,7 +20,7 @@ if not "%~1"=="" (
 
 :: 2. Mise a jour automatique du manifest.json
 echo [*] Mise a jour de la liste des fichiers de ventes (manifest.json)...
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$dir = Join-Path (Get-Location) 'ventes'; if (Test-Path $dir) { $files = Get-ChildItem -Path $dir -File | Where-Object { ($_.Extension -eq '.xls' -or $_.Extension -eq '.xlsx') -and $_.Name -ne 'manifest.json' } | Select-Object -ExpandProperty Name | Sort-Object; $manifest = @{ files = $files; lastUpdated = (Get-Date -Format 'yyyy-MM-dd') }; ($manifest | ConvertTo-Json -Depth 4) | Set-Content -Path (Join-Path $dir 'manifest.json') -Encoding UTF8 }" >nul 2>&1
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$dir = Join-Path (Get-Location) 'ventes'; if (Test-Path $dir) { $files = @(Get-ChildItem -Path $dir -File | Where-Object { ($_.Extension -eq '.xls' -or $_.Extension -eq '.xlsx') -and $_.Name -ne 'manifest.json' } | Select-Object -ExpandProperty Name | Sort-Object); $manifest = @{ files = $files; lastUpdated = (Get-Date -Format 'yyyy-MM-dd') }; ($manifest | ConvertTo-Json -Depth 4) | Set-Content -Path (Join-Path $dir 'manifest.json') -Encoding UTF8 }" >nul 2>&1
 
 :: 3. Ajout des fichiers a Git
 echo [*] Verification des fichiers et commits dans ventes/...

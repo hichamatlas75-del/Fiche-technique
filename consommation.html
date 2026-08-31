@@ -2479,7 +2479,16 @@ function findRecipeForProduct(rawName, rawFamille = '') {
     .replace(/^sandwich\s+/, '')
     .replace(/^crepes salees\s+/, '')
     .replace(/^crepes sucree\s+/, '')
+    .replace(/^crepes\s+/, '')
     .replace(/^crepe\s+/, '')
+    .replace(/^gauffres\s+/, '')
+    .replace(/^gauffre\s+/, '')
+    .replace(/^gaufres\s+/, '')
+    .replace(/^gaufre\s+/, '')
+    .replace(/^milkshakes\s+/, '')
+    .replace(/^milkshake\s+/, '')
+    .replace(/^pain cake\s+/, '')
+    .replace(/^pancake\s+/, '')
     .replace(/^supplement cuisine\s+/, '')
     .replace(/^supplement ptdej\s+/, '')
     .replace(/^supplement\s+/, '')
@@ -3701,7 +3710,9 @@ function renderLowSalesTable() {
     salesMap.set(key, (salesMap.get(key) || 0) + (s.qty || 0));
     if (s.matchedRecipe && s.matchedRecipe.name) {
       const rKey = cleanText(s.matchedRecipe.name);
-      salesMap.set(rKey, (salesMap.get(rKey) || 0) + (s.qty || 0));
+      if (rKey && rKey !== key) {
+        salesMap.set(rKey, (salesMap.get(rKey) || 0) + (s.qty || 0));
+      }
     }
   });
 
@@ -4609,9 +4620,10 @@ async function autoScanVentesFolder(showUserAlert = false) {
     const manifestResp = await fetchFile('ventes/manifest.json');
     if (manifestResp) {
       const manifest = await manifestResp.json();
-      const filesList = manifest.files || [];
+      const rawFiles = manifest ? manifest.files : [];
+      const filesList = Array.isArray(rawFiles) ? rawFiles : (rawFiles ? [rawFiles] : []);
       filesList.forEach(fname => {
-        if (!filesToProcess.has(fname)) {
+        if (fname && !filesToProcess.has(fname)) {
           filesToProcess.set(fname, null);
         }
       });
@@ -4620,43 +4632,36 @@ async function autoScanVentesFolder(showUserAlert = false) {
     console.warn('[Auto-sync manifest.json]', e);
   }
 
-  // 3. SCANNER DE CANDIDATS (TOUJOURS ACTIF : teste les dates du mois sélectionné et du mois en cours)
-  // Ne s'arrête PAS même si manifest ou GitHub API sont présents, afin de capturer tout fichier non référencé !
-  const monthsToScan = new Set([
-    selectedYearMonth,
-    new Date().toLocaleDateString('en-CA').slice(0, 7)
-  ]);
+  // 3. SCANNER DE CANDIDATS (ACTIF UNIQUEMENT EN SECOURS si aucun fichier détecté par GitHub API / manifest.json)
+  if (filesToProcess.size === 0) {
+    const monthsToScan = new Set([
+      selectedYearMonth,
+      new Date().toLocaleDateString('en-CA').slice(0, 7)
+    ]);
 
-  monthsToScan.forEach(ym => {
-    const [yearStr, monthStr] = ym.split('-');
-    const totalDays = new Date(parseInt(yearStr, 10), parseInt(monthStr, 10), 0).getDate();
+    monthsToScan.forEach(ym => {
+      const [yearStr, monthStr] = ym.split('-');
+      const totalDays = new Date(parseInt(yearStr, 10), parseInt(monthStr, 10), 0).getDate();
 
-    for (let day = 1; day <= totalDays; day++) {
-      const dayStr = String(day).padStart(2, '0');
-      const compactDate = `${yearStr}${monthStr}${dayStr}`;
+      for (let day = 1; day <= totalDays; day++) {
+        const dayStr = String(day).padStart(2, '0');
+        const compactDate = `${yearStr}${monthStr}${dayStr}`;
 
-      const candidateNames = [
-        `Fin_Journée_${compactDate}.xls`,
-        `Fin_Journee_${compactDate}.xls`,
-        `Fin_Journée_${compactDate}.xlsx`,
-        `Fin_Journee_${compactDate}.xlsx`,
-        `Fin_Journée_${dayStr}-${monthStr}-${yearStr}.xls`,
-        `Fin_Journee_${dayStr}-${monthStr}-${yearStr}.xls`,
-        `Fin_Journée_${dayStr}_${monthStr}_${yearStr}.xls`,
-        `Fin_Journee_${dayStr}_${monthStr}_${yearStr}.xls`,
-        `Fin_Journée_${yearStr}-${monthStr}-${dayStr}.xls`,
-        `Fin_Journee_${yearStr}-${monthStr}-${dayStr}.xls`,
-        `ventes_${compactDate}.xls`,
-        `ventes_${compactDate}.xlsx`
-      ];
+        const candidateNames = [
+          `Fin_Journée_${compactDate}.xls`,
+          `Fin_Journee_${compactDate}.xls`,
+          `Fin_Journée_${compactDate}.xlsx`,
+          `Fin_Journee_${compactDate}.xlsx`
+        ];
 
-      candidateNames.forEach(cName => {
-        if (!filesToProcess.has(cName)) {
-          filesToProcess.set(cName, null);
-        }
-      });
-    }
-  });
+        candidateNames.forEach(cName => {
+          if (!filesToProcess.has(cName)) {
+            filesToProcess.set(cName, null);
+          }
+        });
+      }
+    });
+  }
 
   // 4. CHARGEMENT ET TRAITEMENT DES FICHIERS
   for (const [fname, downloadUrl] of filesToProcess.entries()) {
