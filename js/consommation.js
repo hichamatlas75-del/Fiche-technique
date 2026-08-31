@@ -3279,16 +3279,30 @@ function renderMenuEngineeringMatrix() {
     const qty = sale.qty || 0;
     if (qty <= 0) return;
 
-    const totalCA = sale.total || 0;
-    const price = sale.price > 0 ? sale.price : (qty > 0 ? (totalCA / qty) : 0);
     const family = sale.family || 'DIVERS';
-    distinctFamilies.add(family);
+    const famClean = cleanText(family);
 
-    let cost = 0;
+    // Exclusion explicite de la catégorie "A LA CARTE" et "PERSONNEL" du Menu Engineering
+    if (famClean === 'a la carte' || famClean === 'a la carte boulangerie' || famClean.includes('a la carte') || famClean === 'personnel') {
+      return;
+    }
+
     let recipe = sale.matchedRecipe;
     if (!recipe && typeof findRecipeForProduct === 'function') {
       recipe = findRecipeForProduct(sale.product, sale.family);
     }
+
+    const recCatClean = recipe && recipe.category ? cleanText(recipe.category) : '';
+    if (recCatClean === 'a la carte' || recCatClean === 'a la carte boulangerie' || recCatClean.includes('a la carte')) {
+      return;
+    }
+
+    distinctFamilies.add(family);
+
+    const totalCA = sale.total || 0;
+    const price = sale.price > 0 ? sale.price : (qty > 0 ? (totalCA / qty) : 0);
+
+    let cost = 0;
 
     if (recipe && Array.isArray(recipe.ingredients) && recipe.ingredients.length > 0) {
       const fc = typeof calculateRecipeFoodCost === 'function' ? calculateRecipeFoodCost(recipe.ingredients, price) : { cost: 0 };
