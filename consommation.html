@@ -151,6 +151,9 @@
     <button class="v-tab" data-tab="tab-sales">
       🧾 Détail des Ventes & Recettes <span id="count-sales" class="tab-count">0</span>
     </button>
+    <button class="v-tab" data-tab="tab-menu-engineering">
+      🎯 Menu Engineering (Rentabilité / Ventes) <span id="count-menu-eng" class="tab-count">0</span>
+    </button>
     <button class="v-tab" data-tab="tab-recipes">
       ⚙️ Fiches Techniques & Recettes <span id="count-recipes" class="tab-count">0</span>
     </button>
@@ -356,7 +359,188 @@
     </div>
   </div>
 
-  <!-- TAB 3: GESTIONNAIRE DE FICHES TECHNIQUES -->
+    <!-- TAB 3: MATRICE DE MENU ENGINEERING (KASAVANA & SMITH) -->
+  <div id="tab-menu-engineering" class="tab-content" style="display:none;">
+    <!-- BANDEAU PRINCIPAL DE SYNTHÈSE & SEUILS -->
+    <div class="menu-eng-header-card">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+        <div style="max-width:700px;">
+          <h2 style="font-size:1.35rem; font-weight:900; color:var(--accent); margin-bottom:6px; display:flex; align-items:center; gap:8px;">
+            🎯 Matrice de Menu Engineering <span style="font-size:12px; background:var(--accent-bg); color:var(--accent); padding:3px 8px; border-radius:6px; font-weight:800;">Modèle Kasavana & Smith</span>
+          </h2>
+          <p style="font-size:13px; color:var(--muted); line-height:1.5;">
+            Analyse stratégique croisant la <strong>Profitabilité (Marge Brute unitaire en DH)</strong> et la <strong>Popularité (Volume des Ventes)</strong> pour piloter la rentabilité de la carte, détecter les gisements de marge et optimiser vos prix.
+          </p>
+        </div>
+        
+        <div class="menu-eng-kpis-grid">
+          <div class="menu-eng-kpi-pill">
+            <span class="kpi-title">Marge Moyenne Carte</span>
+            <strong id="me-kpi-avg-margin" class="kpi-val accent">0.00 DH</strong>
+            <span class="kpi-sub">Seuil Profitabilité</span>
+          </div>
+          <div class="menu-eng-kpi-pill">
+            <span class="kpi-title">Seuil Popularité</span>
+            <strong id="me-kpi-pop-thresh" class="kpi-val">0 unités</strong>
+            <span class="kpi-sub">70% moyenne/article</span>
+          </div>
+          <div class="menu-eng-kpi-pill">
+            <span class="kpi-title">Marge Totale Générée</span>
+            <strong id="me-kpi-total-profit" class="kpi-val success">0 DH</strong>
+            <span class="kpi-sub">Sur la période</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BANNIÈRE D'OPPORTUNITÉ D'OPTIMISATION FINANCIÈRE -->
+      <div id="me-opportunity-banner" class="me-opportunity-box">
+        <!-- Rendu dynamique JS -->
+      </div>
+    </div>
+
+    <!-- LES 4 QUADRANTS VISUELS INTERACTIFS -->
+    <div class="menu-eng-quadrants-grid">
+      <!-- 1. ÉTOILES -->
+      <div class="quad-card quad-star" onclick="setMenuEngQuadrantFilter('star')">
+        <div class="quad-head">
+          <span class="quad-icon">⭐</span>
+          <div>
+            <div class="quad-name">ÉTOILES (Stars)</div>
+            <div class="quad-crit">Forte Marge & Forte Vente</div>
+          </div>
+          <div id="badge-count-stars" class="quad-count">0</div>
+        </div>
+        <div class="quad-body">
+          <div class="quad-desc">Les champions absolus de votre restaurant. Très rentables et très demandés.</div>
+          <div class="quad-action"><strong>Plan d'action :</strong> Maintenir rigoureusement la recette et la qualité, positionner en zone chaude sur la carte.</div>
+        </div>
+        <div class="quad-foot">
+          <span>Part du CA : <strong id="pct-ca-stars">0%</strong></span>
+          <span class="quad-filter-link">Filtrer ces plats →</span>
+        </div>
+      </div>
+
+      <!-- 2. CHEVAUX DE TRAIT -->
+      <div class="quad-card quad-plowhorse" onclick="setMenuEngQuadrantFilter('plowhorse')">
+        <div class="quad-head">
+          <span class="quad-icon">🐎</span>
+          <div>
+            <div class="quad-name">CHEVAUX DE TRAIT (Plowhorses)</div>
+            <div class="quad-crit">Faible Marge & Forte Vente</div>
+          </div>
+          <div id="badge-count-plowhorses" class="quad-count">0</div>
+        </div>
+        <div class="quad-body">
+          <div class="quad-desc">Très gros volumes de vente mais marge unitaire insuffisante. Fort potentiel de gain !</div>
+          <div class="quad-action"><strong>Plan d'action :</strong> Augmenter légèrement le prix (+1 à +3 DH) ou réduire le coût portion (renégocier fournisseurs).</div>
+        </div>
+        <div class="quad-foot">
+          <span>Part du CA : <strong id="pct-ca-plowhorses">0%</strong></span>
+          <span class="quad-filter-link">Filtrer ces plats →</span>
+        </div>
+      </div>
+
+      <!-- 3. DILEMMES / PUZZLES -->
+      <div class="quad-card quad-puzzle" onclick="setMenuEngQuadrantFilter('puzzle')">
+        <div class="quad-head">
+          <span class="quad-icon">🧩</span>
+          <div>
+            <div class="quad-name">DILEMMES / PUZZLES</div>
+            <div class="quad-crit">Forte Marge & Faible Vente</div>
+          </div>
+          <div id="badge-count-puzzles" class="quad-count">0</div>
+        </div>
+        <div class="quad-body">
+          <div class="quad-desc">Excellente rentabilité unitaire mais volume de commande encore trop faible.</div>
+          <div class="quad-action"><strong>Plan d'action :</strong> Booster la visibilité en salle (suggestions serveurs, mise en avant réseaux, reformulation).</div>
+        </div>
+        <div class="quad-foot">
+          <span>Part du CA : <strong id="pct-ca-puzzles">0%</strong></span>
+          <span class="quad-filter-link">Filtrer ces plats →</span>
+        </div>
+      </div>
+
+      <!-- 4. POIDS MORTS -->
+      <div class="quad-card quad-dog" onclick="setMenuEngQuadrantFilter('dog')">
+        <div class="quad-head">
+          <span class="quad-icon">🐕</span>
+          <div>
+            <div class="quad-name">POIDS MORTS (Dogs)</div>
+            <div class="quad-crit">Faible Marge & Faible Vente</div>
+          </div>
+          <div id="badge-count-dogs" class="quad-count">0</div>
+        </div>
+        <div class="quad-body">
+          <div class="quad-desc">Peu vendus et peu rentables. Encombrent la carte et le stockage sans créer de valeur.</div>
+          <div class="quad-action"><strong>Plan d'action :</strong> Retravailler la recette, augmenter significativement le prix ou supprimer de la carte.</div>
+        </div>
+        <div class="quad-foot">
+          <span>Part du CA : <strong id="pct-ca-dogs">0%</strong></span>
+          <span class="quad-filter-link">Filtrer ces plats →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTRÔLES & FILTRES DU TABLEAU -->
+    <div class="controls-bar" style="margin-top:20px; flex-wrap:wrap; gap:10px;">
+      <div class="search-input-wrap" style="min-width:220px; flex:1;">
+        <span>🔍</span>
+        <input type="text" id="search-menu-eng" placeholder="Rechercher un plat dans la matrice..." oninput="renderMenuEngineeringTable()" />
+      </div>
+
+      <!-- FILTRE PAR QUADRANT -->
+      <div class="filter-group" id="group-filter-me-quad">
+        <button class="filter-btn active" id="btn-me-filter-all" onclick="setMenuEngQuadrantFilter('all')">Tous (<span id="me-btn-count-all">0</span>)</button>
+        <button class="filter-btn" id="btn-me-filter-star" style="color:#10b981;" onclick="setMenuEngQuadrantFilter('star')">⭐ Étoiles (<span id="me-btn-count-star">0</span>)</button>
+        <button class="filter-btn" id="btn-me-filter-plowhorse" style="color:#0284c7;" onclick="setMenuEngQuadrantFilter('plowhorse')">🐎 Chevaux (<span id="me-btn-count-plowhorse">0</span>)</button>
+        <button class="filter-btn" id="btn-me-filter-puzzle" style="color:#8b5cf6;" onclick="setMenuEngQuadrantFilter('puzzle')">🧩 Dilemmes (<span id="me-btn-count-puzzle">0</span>)</button>
+        <button class="filter-btn" id="btn-me-filter-dog" style="color:#ef4444;" onclick="setMenuEngQuadrantFilter('dog')">🐕 Poids morts (<span id="me-btn-count-dog">0</span>)</button>
+      </div>
+
+      <!-- FILTRE PAR FAMILLE -->
+      <div style="display:flex; align-items:center; gap:6px;">
+        <label for="filter-me-family" style="font-size:11.5px; font-weight:800; color:var(--muted);">Famille :</label>
+        <select id="filter-me-family" onchange="onMenuEngFamilyFilterChange(this.value)" style="padding:7px 12px; border-radius:8px; border:1px solid var(--border); background:var(--paper-card); color:var(--text); font-weight:700; font-size:12px; cursor:pointer;">
+          <option value="all">📁 Toutes les Familles</option>
+        </select>
+      </div>
+
+      <!-- TRI -->
+      <div style="display:flex; align-items:center; gap:6px;">
+        <label for="sort-me-select" style="font-size:11.5px; font-weight:800; color:var(--muted);">Trier par :</label>
+        <select id="sort-me-select" onchange="onMenuEngSortChange(this.value)" style="padding:7px 12px; border-radius:8px; border:1px solid var(--border); background:var(--paper-card); color:var(--text); font-weight:700; font-size:12px; cursor:pointer;">
+          <option value="profit">💰 Marge Totale Générée (DH)</option>
+          <option value="margin">📈 Marge Brute Unitaire (DH)</option>
+          <option value="qty">📦 Volume Ventes (Quantité)</option>
+          <option value="ca">💵 Chiffre d'Affaires (CA)</option>
+          <option value="foodcost">🥗 Coût Portion (Food Cost %)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- TABLEAU ANALYTIQUE & PLANS D'ACTION -->
+    <div class="table-responsive" style="margin-top:12px;">
+      <table>
+        <thead>
+          <tr style="background:var(--table-head-bg); position:sticky; top:0; z-index:2; border-bottom:1.5px solid var(--border);">
+            <th style="padding:10px; text-align:left; min-width:170px;">Article & Catégorie</th>
+            <th style="padding:10px; text-align:right; width:95px;">Prix Vente</th>
+            <th style="padding:10px; text-align:right; width:110px;">Coût Portion</th>
+            <th style="padding:10px; text-align:right; width:110px;">Marge Brute (DH)</th>
+            <th style="padding:10px; text-align:center; width:90px;">Quantité</th>
+            <th style="padding:10px; text-align:right; width:115px;">Marge Totale</th>
+            <th style="padding:10px; text-align:center; width:140px;">Classification</th>
+            <th style="padding:10px; text-align:left; min-width:240px;">💡 Recommandation Stratégique & Action</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-menu-engineering">
+          <!-- Lignes injectées dynamiquement -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TAB 4: GESTIONNAIRE DE FICHES TECHNIQUES -->
   <div id="tab-recipes" class="tab-content" style="display:none;">
     <div class="controls-bar">
       <div class="search-input-wrap">

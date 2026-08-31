@@ -812,6 +812,7 @@ function processSalesAndCalculateStock(rawRows, periodTitle = '', isMonthly = fa
 
   renderSummaryTable();
   renderSalesTable();
+  renderMenuEngineeringMatrix();
   const expBtn = document.getElementById('btn-export-excel');
   if (expBtn) expBtn.style.display = 'inline-flex';
 }
@@ -3196,6 +3197,338 @@ window.removeAuditArticle = removeAuditArticle;
 window.recalculateMonthlyAudit = recalculateMonthlyAudit;
 window.renderMonthlyAuditTable = renderMonthlyAuditTable;
 window.exportMonthlyAuditToExcel = exportMonthlyAuditToExcel;
+
+
+/* ========================================================
+   11. MATRICE DE MENU ENGINEERING (KASAVANA & SMITH)
+======================================================== */
+let menuEngQuadrantFilter = 'all'; // 'all', 'star', 'plowhorse', 'puzzle', 'dog'
+let menuEngFamilyFilter = 'all';
+let menuEngSortMetric = 'profit'; // 'profit', 'margin', 'qty', 'ca', 'foodcost'
+let menuEngData = [];
+
+function setMenuEngQuadrantFilter(quad) {
+  menuEngQuadrantFilter = quad;
+  
+  // Mettre à jour les boutons de filtre
+  const btnAll = document.getElementById('btn-me-filter-all');
+  const btnStar = document.getElementById('btn-me-filter-star');
+  const btnPlowhorse = document.getElementById('btn-me-filter-plowhorse');
+  const btnPuzzle = document.getElementById('btn-me-filter-puzzle');
+  const btnDog = document.getElementById('btn-me-filter-dog');
+  
+  if (btnAll) btnAll.classList.toggle('active', quad === 'all');
+  if (btnStar) btnStar.classList.toggle('active', quad === 'star');
+  if (btnPlowhorse) btnPlowhorse.classList.toggle('active', quad === 'plowhorse');
+  if (btnPuzzle) btnPuzzle.classList.toggle('active', quad === 'puzzle');
+  if (btnDog) btnDog.classList.toggle('active', quad === 'dog');
+
+  // Mettre en surbrillance la carte de quadrant correspondante
+  document.querySelectorAll('.quad-card').forEach(c => c.classList.remove('active-filter'));
+  if (quad !== 'all') {
+    const activeCard = document.querySelector('.quad-' + quad);
+    if (activeCard) activeCard.classList.add('active-filter');
+  }
+
+  renderMenuEngineeringTable();
+}
+
+function onMenuEngFamilyFilterChange(val) {
+  menuEngFamilyFilter = val;
+  renderMenuEngineeringTable();
+}
+
+function onMenuEngSortChange(val) {
+  menuEngSortMetric = val;
+  renderMenuEngineeringTable();
+}
+
+function populateMenuEngFamilyDropdown(families) {
+  const select = document.getElementById('filter-me-family');
+  if (!select) return;
+  const current = select.value || 'all';
+  select.innerHTML = '<option value="all">📁 Toutes les Familles</option>';
+  (families || []).forEach(f => {
+    const opt = document.createElement('option');
+    opt.value = f;
+    opt.textContent = f;
+    if (f === current) opt.selected = true;
+    select.appendChild(opt);
+  });
+}
+
+function renderMenuEngineeringMatrix() {
+  const tbody = document.getElementById('tbody-menu-engineering');
+  const countTabBadge = document.getElementById('count-menu-eng');
+  if (!tbody) return;
+
+  if (!currentSalesData || currentSalesData.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:30px; color:var(--muted);">Aucune donnée de vente pour générer la matrice.</td></tr>';
+    if (countTabBadge) countTabBadge.textContent = '0';
+    return;
+  }
+
+  // 1. Calculer les métriques individuelles pour chaque article vendu
+  let totalVolume = 0;
+  let totalGrossProfit = 0;
+  let totalRevenue = 0;
+  const distinctFamilies = new Set();
+  const classifiedItems = [];
+
+  currentSalesData.forEach(sale => {
+    const qty = sale.qty || 0;
+    if (qty <= 0) return;
+
+    const totalCA = sale.total || 0;
+    const price = sale.price > 0 ? sale.price : (qty > 0 ? (totalCA / qty) : 0);
+    const family = sale.family || 'DIVERS';
+    distinctFamilies.add(family);
+
+    let cost = 0;
+    let recipe = sale.matchedRecipe;
+    if (!recipe && typeof findRecipeForProduct === 'function') {
+      recipe = findRecipeForProduct(sale.product, sale.family);
+    }
+
+    if (recipe && Array.isArray(recipe.ingredients) && recipe.ingredients.length > 0) {
+      const fc = typeof calculateRecipeFoodCost === 'function' ? calculateRecipeFoodCost(recipe.ingredients, price) : { cost: 0 };
+      cost = fc.cost || 0;
+    } else {
+      // Estimation standard food cost 28% si non relié
+      cost = Math.round(price * 0.28 * 100) / 100;
+    }
+
+    const gmDH = Math.max(0, Math.round((price - cost) * 100) / 100);
+    const totalItemProfit = Math.round((qty * gmDH) * 100) / 100;
+    const fcPct = price > 0 ? Math.round((cost / price) * 1000) / 10 : 0;
+
+    totalVolume += qty;
+    totalGrossProfit += totalItemProfit;
+    totalRevenue += totalCA;
+
+    classifiedItems.push({
+      product: sale.product,
+      family: family,
+      recipeName: recipe ? recipe.name : '',
+      hasRecipe: !!recipe,
+      price: price,
+      cost: cost,
+      foodCostPct: fcPct,
+      grossMarginDH: gmDH,
+      qty: qty,
+      totalCA: totalCA,
+      totalProfitDH: totalItemProfit
+    });
+  });
+
+  const N = classifiedItems.length;
+  if (countTabBadge) countTabBadge.textContent = String(N);
+
+  // 2. Calcul des seuils Kasavana & Smith
+  // Seuil de profitabilité = Marge brute unitaire moyenne pondérée
+  const avgGrossMargin = totalVolume > 0 ? (totalGrossProfit / totalVolume) : 0;
+  // Seuil de popularité = 70% de la moyenne des ventes par article
+  const popThreshold = N > 0 ? (totalVolume / N) * 0.70 : 0;
+
+  // 3. Catégorisation des articles
+  let countStars = 0, caStars = 0, profitStars = 0;
+  let countPlowhorses = 0, caPlowhorses = 0, profitPlowhorses = 0;
+  let countPuzzles = 0, caPuzzles = 0, profitPuzzles = 0;
+  let countDogs = 0, caDogs = 0, profitDogs = 0;
+  let plowhorseVolume = 0;
+
+  classifiedItems.forEach(item => {
+    const isHighPop = item.qty >= popThreshold;
+    const isHighProfit = item.grossMarginDH >= avgGrossMargin;
+
+    if (isHighPop && isHighProfit) {
+      item.quadrant = 'star';
+      item.quadrantLabel = '⭐ Étoile';
+      item.actionAdvice = '🏆 Pilier clé : Maintenir la qualité et le grammage stricts. Positionner au centre de la carte.';
+      countStars++;
+      caStars += item.totalCA;
+      profitStars += item.totalProfitDH;
+    } else if (isHighPop && !isHighProfit) {
+      item.quadrant = 'plowhorse';
+      item.quadrantLabel = '🐎 Cheval de trait';
+      item.actionAdvice = '⚠️ Optimiser la marge : Tester une hausse de +1 à +3 DH ou optimiser le coût portion (potentiel élevé).';
+      countPlowhorses++;
+      caPlowhorses += item.totalCA;
+      profitPlowhorses += item.totalProfitDH;
+      plowhorseVolume += item.qty;
+    } else if (!isHighPop && isHighProfit) {
+      item.quadrant = 'puzzle';
+      item.quadrantLabel = '🧩 Dilemme';
+      item.actionAdvice = '🎯 Booster la popularité : Inciter les serveurs à le recommander, ajouter une photo ou proposer en formule.';
+      countPuzzles++;
+      caPuzzles += item.totalCA;
+      profitPuzzles += item.totalProfitDH;
+    } else {
+      item.quadrant = 'dog';
+      item.quadrantLabel = '🐕 Poids mort';
+      item.actionAdvice = '🛑 Faible rentabilité : Retravailler la recette, augmenter le prix ou envisager le retrait de la carte.';
+      countDogs++;
+      caDogs += item.totalCA;
+      profitDogs += item.totalProfitDH;
+    }
+  });
+
+  menuEngData = classifiedItems;
+
+  // 4. Mettre à jour les KPIs d'en-tête
+  const kpiMargin = document.getElementById('me-kpi-avg-margin');
+  const kpiPop = document.getElementById('me-kpi-pop-thresh');
+  const kpiProfit = document.getElementById('me-kpi-total-profit');
+  
+  if (kpiMargin) kpiMargin.textContent = avgGrossMargin.toFixed(2) + ' DH';
+  if (kpiPop) kpiPop.textContent = Math.round(popThreshold) + ' unités';
+  if (kpiProfit) kpiProfit.textContent = totalGrossProfit.toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' DH';
+
+  // 5. Mettre à jour les compteurs des 4 quadrants
+  const elStars = document.getElementById('badge-count-stars');
+  const elPlowhorses = document.getElementById('badge-count-plowhorses');
+  const elPuzzles = document.getElementById('badge-count-puzzles');
+  const elDogs = document.getElementById('badge-count-dogs');
+
+  if (elStars) elStars.textContent = String(countStars);
+  if (elPlowhorses) elPlowhorses.textContent = String(countPlowhorses);
+  if (elPuzzles) elPuzzles.textContent = String(countPuzzles);
+  if (elDogs) elDogs.textContent = String(countDogs);
+
+  // Parts du CA
+  const pctStars = totalRevenue > 0 ? ((caStars / totalRevenue) * 100).toFixed(1) : 0;
+  const pctPlowhorses = totalRevenue > 0 ? ((caPlowhorses / totalRevenue) * 100).toFixed(1) : 0;
+  const pctPuzzles = totalRevenue > 0 ? ((caPuzzles / totalRevenue) * 100).toFixed(1) : 0;
+  const pctDogs = totalRevenue > 0 ? ((caDogs / totalRevenue) * 100).toFixed(1) : 0;
+
+  const elPctStars = document.getElementById('pct-ca-stars');
+  const elPctPlowhorses = document.getElementById('pct-ca-plowhorses');
+  const elPctPuzzles = document.getElementById('pct-ca-puzzles');
+  const elPctDogs = document.getElementById('pct-ca-dogs');
+
+  if (elPctStars) elPctStars.textContent = `${pctStars}% (${Math.round(caStars).toLocaleString('fr-FR')} DH)`;
+  if (elPctPlowhorses) elPctPlowhorses.textContent = `${pctPlowhorses}% (${Math.round(caPlowhorses).toLocaleString('fr-FR')} DH)`;
+  if (elPctPuzzles) elPctPuzzles.textContent = `${pctPuzzles}% (${Math.round(caPuzzles).toLocaleString('fr-FR')} DH)`;
+  if (elPctDogs) elPctDogs.textContent = `${pctDogs}% (${Math.round(caDogs).toLocaleString('fr-FR')} DH)`;
+
+  // Mettre à jour les boutons de filtre
+  const bAll = document.getElementById('me-btn-count-all');
+  const bStar = document.getElementById('me-btn-count-star');
+  const bPlow = document.getElementById('me-btn-count-plowhorse');
+  const bPuz = document.getElementById('me-btn-count-puzzle');
+  const bDog = document.getElementById('me-btn-count-dog');
+
+  if (bAll) bAll.textContent = String(N);
+  if (bStar) bStar.textContent = String(countStars);
+  if (bPlow) bPlow.textContent = String(countPlowhorses);
+  if (bPuz) bPuz.textContent = String(countPuzzles);
+  if (bDog) bDog.textContent = String(countDogs);
+
+  // 6. Bannière d'opportunité d'optimisation
+  const banner = document.getElementById('me-opportunity-banner');
+  if (banner) {
+    const extraGain2DH = plowhorseVolume * 2;
+    if (countPlowhorses > 0 && extraGain2DH > 0) {
+      banner.innerHTML = `
+        <span style="font-size:22px;">💡</span>
+        <div>
+          <strong>Opportunité de Gain Majeur :</strong> En augmentant le prix des <strong>${countPlowhorses} Chevaux de trait</strong> de seulement <strong>+2,00 DH</strong>, vous dégageriez <strong>+${extraGain2DH.toLocaleString('fr-FR', { minimumFractionDigits: 2 })} DH</strong> de bénéfice brut supplémentaire sur cette période, sans impacter la fidélité client !
+        </div>
+      `;
+      banner.style.display = 'flex';
+    } else {
+      banner.innerHTML = `
+        <span style="font-size:22px;">✅</span>
+        <div>
+          <strong>Structure Tarifaire Équilibrée :</strong> La majorité de votre chiffre d'affaires est portée par vos articles Étoiles et rentables.
+        </div>
+      `;
+      banner.style.display = 'flex';
+    }
+  }
+
+  // 7. Remplir le menu déroulant des familles
+  populateMenuEngFamilyDropdown(Array.from(distinctFamilies).sort());
+
+  // 8. Rendu du tableau
+  renderMenuEngineeringTable();
+}
+
+function renderMenuEngineeringTable() {
+  const tbody = document.getElementById('tbody-menu-engineering');
+  const searchInput = document.getElementById('search-menu-eng');
+  if (!tbody) return;
+
+  const search = cleanText(searchInput ? searchInput.value : '');
+
+  let list = menuEngData.filter(item => {
+    if (menuEngQuadrantFilter !== 'all' && item.quadrant !== menuEngQuadrantFilter) return false;
+    if (menuEngFamilyFilter !== 'all' && item.family !== menuEngFamilyFilter) return false;
+    if (search) {
+      const pClean = cleanText(item.product);
+      const fClean = cleanText(item.family);
+      if (!pClean.includes(search) && !fClean.includes(search)) return false;
+    }
+    return true;
+  });
+
+  // Tri
+  list.sort((a, b) => {
+    if (menuEngSortMetric === 'profit') return b.totalProfitDH - a.totalProfitDH;
+    if (menuEngSortMetric === 'margin') return b.grossMarginDH - a.grossMarginDH;
+    if (menuEngSortMetric === 'qty') return b.qty - a.qty;
+    if (menuEngSortMetric === 'ca') return b.totalCA - a.totalCA;
+    if (menuEngSortMetric === 'foodcost') return a.foodCostPct - b.foodCostPct;
+    return b.totalProfitDH - a.totalProfitDH;
+  });
+
+  if (list.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:30px; color:var(--muted);">Aucun article ne correspond aux critères de filtre sélectionnés.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = list.map(item => {
+    let badgeClass = 'badge-me ' + item.quadrant;
+    let fcColor = item.foodCostPct <= 28 ? '#10b981' : (item.foodCostPct <= 35 ? '#f59e0b' : '#ef4444');
+
+    return `
+      <tr style="border-bottom:1px solid var(--border); transition:background 0.15s ease;">
+        <td style="padding:10px;">
+          <strong style="color:var(--text); font-size:13.5px;">${escapeHtml(item.product)}</strong>
+          <span style="display:block; font-size:11px; color:var(--muted);">${escapeHtml(item.family)}</span>
+        </td>
+        <td style="padding:10px; text-align:right; font-weight:800; color:var(--text); font-variant-numeric:tabular-nums;">
+          ${item.price.toFixed(2)} DH
+        </td>
+        <td style="padding:10px; text-align:right; font-variant-numeric:tabular-nums;">
+          <span style="font-weight:700; color:var(--muted);">${item.cost.toFixed(2)} DH</span>
+          <span style="display:block; font-size:10.5px; font-weight:800; color:${fcColor};">(${item.foodCostPct}%)</span>
+        </td>
+        <td style="padding:10px; text-align:right; font-weight:900; color:var(--accent); font-variant-numeric:tabular-nums; font-size:13.5px;">
+          ${item.grossMarginDH.toFixed(2)} DH
+        </td>
+        <td style="padding:10px; text-align:center; font-weight:800; color:var(--text);">
+          ${item.qty.toLocaleString('fr-FR')}
+        </td>
+        <td style="padding:10px; text-align:right; font-weight:900; color:#10b981; font-variant-numeric:tabular-nums; font-size:13.5px;">
+          ${item.totalProfitDH.toLocaleString('fr-FR', { minimumFractionDigits: 2 })} DH
+        </td>
+        <td style="padding:10px; text-align:center;">
+          <span class="${badgeClass}">${item.quadrantLabel}</span>
+        </td>
+        <td style="padding:10px; font-size:12px; line-height:1.4; color:var(--text);">
+          ${item.actionAdvice}
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+window.setMenuEngQuadrantFilter = setMenuEngQuadrantFilter;
+window.onMenuEngFamilyFilterChange = onMenuEngFamilyFilterChange;
+window.onMenuEngSortChange = onMenuEngSortChange;
+window.renderMenuEngineeringMatrix = renderMenuEngineeringMatrix;
+window.renderMenuEngineeringTable = renderMenuEngineeringTable;
 
 /* ========================================================
    12. INITIALISATION & GESTIONNAIRES D'ÉVÉNEMENTS
