@@ -3281,9 +3281,17 @@ function renderMenuEngineeringMatrix() {
 
     const family = sale.family || 'DIVERS';
     const famClean = cleanText(family);
+    const prodClean = cleanText(sale.product || '');
 
-    // Exclusion explicite de la catégorie "A LA CARTE" et "PERSONNEL" du Menu Engineering
-    if (famClean === 'a la carte' || famClean === 'a la carte boulangerie' || famClean.includes('a la carte') || famClean === 'personnel') {
+    // Exclusion explicite des catégories "A LA CARTE", "PERSONNEL" et consommations internes
+    if (
+      famClean === 'a la carte' ||
+      famClean === 'a la carte boulangerie' ||
+      famClean.includes('a la carte') ||
+      famClean === 'personnel' ||
+      famClean.includes('personnel') ||
+      prodClean.includes('personnel')
+    ) {
       return;
     }
 
@@ -3293,7 +3301,13 @@ function renderMenuEngineeringMatrix() {
     }
 
     const recCatClean = recipe && recipe.category ? cleanText(recipe.category) : '';
-    if (recCatClean === 'a la carte' || recCatClean === 'a la carte boulangerie' || recCatClean.includes('a la carte')) {
+    if (
+      recCatClean === 'a la carte' ||
+      recCatClean === 'a la carte boulangerie' ||
+      recCatClean.includes('a la carte') ||
+      recCatClean === 'personnel' ||
+      recCatClean.includes('personnel')
+    ) {
       return;
     }
 
