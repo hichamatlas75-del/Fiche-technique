@@ -2123,9 +2123,12 @@
         </div>
       </div>
     </div>
-    <div class="modal-foot" style="display:flex; justify-content:space-between; align-items:center;">
-      <button class="btn" onclick="closeModal()">Annuler</button>
-      <button class="btn btn-primary" onclick="saveRecipeFromModal()" style="font-weight:800; padding:8px 18px;">💾 Enregistrer la Fiche Technique</button>
+    <div class="modal-foot" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+      <button id="btn-delete-recipe-modal" class="btn" style="color:#ef4444; border-color:rgba(239,68,68,0.35); font-weight:700; display:none;" onclick="deleteRecipeFromModal()">🗑️ Supprimer cette Fiche</button>
+      <div style="display:flex; gap:8px; margin-left:auto;">
+        <button class="btn" onclick="closeModal()">Annuler</button>
+        <button class="btn btn-primary" onclick="saveRecipeFromModal()" style="font-weight:800; padding:8px 18px;">💾 Enregistrer la Fiche Technique</button>
+      </div>
     </div>
   </div>
 </div>
@@ -3876,7 +3879,10 @@ function renderRecipeList() {
       <div class="recipe-card">
         <div class="recipe-card-title">
           <span>${escapeHtml(r.name)}</span>
-          <button class="btn" style="padding: 3px 8px; font-size:11px;" onclick="editRecipe('${r.id}')">✏️ Modifier</button>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <button class="btn" style="padding: 3px 8px; font-size:11px;" onclick="editRecipe('${r.id}')">✏️ Modifier</button>
+            <button class="btn" style="padding: 3px 8px; font-size:11px; color:#ef4444; border-color:rgba(239,68,68,0.35);" onclick="deleteRecipe('${r.id}')" title="Supprimer définitivement cette fiche technique">🗑️</button>
+          </div>
         </div>
         
         <div style="display:flex; justify-content:space-between; align-items:center; font-size:11.5px; color:var(--muted); margin-bottom:8px;">
@@ -3964,6 +3970,10 @@ function openRecipeEditor(productName) {
     document.getElementById('edit-recipe-ingredients').value = '';
     document.getElementById('edit-recipe-price').value = findSellingPriceForRecipe(productName) || '';
     document.getElementById('modal-recipe-title').textContent = `Créer Fiche Technique : ${productName}`;
+    
+    const btnDelete = document.getElementById('btn-delete-recipe-modal');
+    if (btnDelete) btnDelete.style.display = 'none';
+
     document.getElementById('recipe-modal').classList.add('visible');
     updateModalFoodCostPreview();
   }
@@ -3978,12 +3988,65 @@ function editRecipe(id) {
   document.getElementById('edit-recipe-ingredients').value = (r.ingredients || []).join('\n');
   document.getElementById('edit-recipe-price').value = r.sellPrice || findSellingPriceForRecipe(r.name) || '';
   document.getElementById('modal-recipe-title').textContent = `Modifier : ${r.name}`;
+  
+  const btnDelete = document.getElementById('btn-delete-recipe-modal');
+  if (btnDelete) btnDelete.style.display = 'inline-flex';
+
   document.getElementById('recipe-modal').classList.add('visible');
   updateModalFoodCostPreview();
 }
 
 function closeModal() {
   document.getElementById('recipe-modal').classList.remove('visible');
+}
+
+function deleteRecipe(id) {
+  const r = activeRecipes.find(x => x.id === id);
+  const name = r ? r.name : 'cette fiche technique';
+
+  if (!confirm(`⚠️ Êtes-vous sûr de vouloir supprimer définitivement la fiche technique "${name}" ?\n\nCette action retirera la fiche de la base et recalculera le déstockage et le Food Cost.`)) {
+    return;
+  }
+
+  // 1. Filtrer et supprimer de activeRecipes
+  activeRecipes = activeRecipes.filter(x => x.id !== id);
+
+  // 2. Sauvegarder dans localStorage
+  saveRecipes();
+
+  // 3. Mettre à jour l'index en mémoire
+  if (window.recipeNameIndex && r) {
+    window.recipeNameIndex.delete(cleanText(r.name));
+  }
+
+  // 4. Supprimer de DATA si présent
+  if (typeof DATA !== 'undefined' && Array.isArray(DATA) && r) {
+    DATA.forEach(cat => {
+      if (Array.isArray(cat.items)) {
+        cat.items = cat.items.filter(it => cleanText(it.name) !== cleanText(r.name));
+      }
+    });
+  }
+
+  // 5. Enregistrer l'exclusion pour index.html
+  try {
+    const deletedList = JSON.parse(localStorage.getItem('gc_deleted_recipes_v1') || '[]');
+    if (r && !deletedList.includes(r.id)) deletedList.push(r.id);
+    if (r && !deletedList.includes(cleanText(r.name))) deletedList.push(cleanText(r.name));
+    localStorage.setItem('gc_deleted_recipes_v1', JSON.stringify(deletedList));
+  } catch (e) {}
+
+  closeModal();
+  renderRecipeList();
+  recalculateCurrentView();
+  console.log(`[Fiche Technique] Supprimée avec succès : "${name}"`);
+}
+
+function deleteRecipeFromModal() {
+  const id = document.getElementById('edit-recipe-id').value;
+  if (id) {
+    deleteRecipe(id);
+  }
 }
 
 function saveRecipeFromModal() {

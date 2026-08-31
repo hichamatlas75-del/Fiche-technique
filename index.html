@@ -764,7 +764,15 @@ function renderAll() {
       });
     }
 
+    const deletedList = JSON.parse(localStorage.getItem('gc_deleted_recipes_v1') || '[]');
+    const deletedSet = new Set(deletedList.map(x => String(x).toLowerCase().trim()));
+
     DATA.forEach(cat => {
+      cat.items = (cat.items || []).filter(it => {
+        const norm = (it.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+        return !deletedSet.has(norm) && !deletedSet.has(it.id);
+      });
+
       cat.items.forEach(it => {
         const norm = (it.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
         const match = customMap.get(norm);
