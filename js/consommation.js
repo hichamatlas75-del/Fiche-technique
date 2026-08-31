@@ -3031,7 +3031,20 @@ const INVENTORY_SYNONYMS = {
   'lait uht': 'lait',
   'avocat hass': 'avocat',
   'pate tartiner': 'nutella',
-  'pate a tartiner': 'nutella'
+  'pate a tartiner': 'nutella',
+  'crem chese': 'cream cheese',
+  'crem plus': 'creme liquide',
+  'aubirgine': 'aubergine',
+  'buratta': 'burrata',
+  'fromage buratta': 'burrata',
+  'fette': 'feta',
+  'fr fette': 'feta',
+  'sucre semoule': 'sucre',
+  'vanille poudre': 'vanille',
+  'lorange': 'orange',
+  'brocolis': 'brocoli',
+  'spagheti': 'spaghetti',
+  'olive vert': 'olives'
 };
 
 function normalizeSmartInventoryText(str) {
@@ -3378,6 +3391,7 @@ window.handleAuditFileUpload = handleAuditFileUpload;
 window.extractDataFromPDF = extractDataFromPDF;
 window.parseTextLinesToAudit = parseTextLinesToAudit;
 window.parseExcelRowsToAuditData = parseExcelRowsToAuditData;
+window.findBestIngredientMatch = findBestIngredientMatch;
 window.applyExtractedDataToAudit = applyExtractedDataToAudit;
 window.syncAuditWithMonthlySales = syncAuditWithMonthlySales;
 window.getDefaultPriceForCategory = getDefaultPriceForCategory;

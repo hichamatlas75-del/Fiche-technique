@@ -9132,6 +9132,26 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 1.2,
     "unit": "piece",
     "label": "Fromage Portion"
+  },
+  "aubergine": {
+    "cost": 0.005,
+    "unit": "g",
+    "label": "Aubergine"
+  },
+  "cream cheese": {
+    "cost": 0.0456,
+    "unit": "g",
+    "label": "Cream Cheese"
+  },
+  "fromage burrata": {
+    "cost": 35.0,
+    "unit": "piece",
+    "label": "Fromage Burrata"
+  },
+  "quinoa noir": {
+    "cost": 0.055,
+    "unit": "g",
+    "label": "Quinoa Noir"
   }
 };
 
