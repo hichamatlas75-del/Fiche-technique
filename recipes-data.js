@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-30T22:04:21.292Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-08-31T10:26:10.178Z
  */
 
 (function(global) {
@@ -1326,10 +1326,10 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "Saucisses : 2 p",
-          "Omelette : 3 œufs",
+          "OEUFS : 3 P",
           "Fromage : 30 g",
-          "Toast hollandais : 2 p",
-          "Croquettes fromage : 2 p",
+          "Toast hollandais : 1 p",
+          "Croquettes fromage : 1 p",
           "Charcuteries : 60 g",
           "Pain seigle : 2 tr",
           "Mesclun : 40 g",
@@ -1341,21 +1341,21 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "85 DH",
-        "cost": 41.67,
+        "cost": 39.92,
         "sellPrice": 85,
-        "foodCost": 49,
-        "margin": 51,
-        "grossMarginDH": 43.33
+        "foodCost": 47,
+        "margin": 53,
+        "grossMarginDH": 45.08
       },
       {
         "name": "BRUNCH DUO",
         "image": "images/petit-dej-duo.jpg",
         "prepTime": 20,
         "tech": [
-          "Poulet pané : 120 g",
+          "Poulet pané : 60 g",
           "Croquettes : 2 p",
           "Croque maison : 1 p",
-          "Omelette fromage : 2 œufs",
+          "œufs         : 2 p",
           "Charcuterie : 80 g",
           "Fromage : 60 g",
           "Pain seigle : 2 tr",
@@ -1364,16 +1364,16 @@ const DATA = [
           "Muffin : 1 p",
           "Gaufre : 1 p",
           "Jus d'orange : 2×200 ml",
-          "Boissons chaudes : 2 p",
+          "THE A LA MENTHE : 2 p",
           "Desserts : 2 p",
           "Bouteille Eau Minérale 33cl : 2 p"
         ],
         "price": "144 DH",
-        "cost": 48.06,
+        "cost": 48.33,
         "sellPrice": 144,
-        "foodCost": 33.4,
-        "margin": 66.6,
-        "grossMarginDH": 95.94
+        "foodCost": 33.6,
+        "margin": 66.4,
+        "grossMarginDH": 95.67
       },
       {
         "name": "BELDI",
@@ -4429,10 +4429,10 @@ const BASE_RECIPES = [
     "category": "PETIT DÉJEUNER",
     "ingredients": [
       "Saucisses : 2 p",
-      "Omelette : 3 œufs",
+      "OEUFS : 3 P",
       "Fromage : 30 g",
-      "Toast hollandais : 2 p",
-      "Croquettes fromage : 2 p",
+      "Toast hollandais : 1 p",
+      "Croquettes fromage : 1 p",
       "Charcuteries : 60 g",
       "Pain seigle : 2 tr",
       "Mesclun : 40 g",
@@ -4449,10 +4449,10 @@ const BASE_RECIPES = [
     "name": "BRUNCH DUO",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "Poulet pané : 120 g",
+      "Poulet pané : 60 g",
       "Croquettes : 2 p",
       "Croque maison : 1 p",
-      "Omelette fromage : 2 œufs",
+      "œufs         : 2 p",
       "Charcuterie : 80 g",
       "Fromage : 60 g",
       "Pain seigle : 2 tr",
@@ -4461,7 +4461,7 @@ const BASE_RECIPES = [
       "Muffin : 1 p",
       "Gaufre : 1 p",
       "Jus d'orange : 2×200 ml",
-      "Boissons chaudes : 2 p",
+      "THE A LA MENTHE : 2 p",
       "Desserts : 2 p",
       "Bouteille Eau Minérale 33cl : 2 p"
     ]
@@ -4986,8 +4986,7 @@ const BASE_RECIPES = [
       "Beurre : 40 g",
       "Légumes : 220 g",
       "Fokacha : 150 g",
-      "Frites : 200 g",
-      "Pain : 1 p"
+      "Frites : 200 g"
     ]
   },
   {
@@ -5455,7 +5454,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte : 330 g",
       "Mozzarella : 200 g",
-      "Crevette : 110 g",
+      "Crevette : 165 g",
       "Calamar : 70 g",
       "Moules : 40 g",
       "Champignon : 60 g",
@@ -7083,7 +7082,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "calamar": {
-    "cost": 0.095,
+    "cost": 0.165,
     "unit": "g"
   },
   "moules": {
@@ -7739,11 +7738,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "cafe": {
-    "cost": 0.115,
+    "cost": 0.14,
     "unit": "g"
   },
   "cafe espresso": {
-    "cost": 0.115,
+    "cost": 0.14,
     "unit": "g"
   },
   "pastille nespresso": {
