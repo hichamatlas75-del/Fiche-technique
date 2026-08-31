@@ -33,20 +33,27 @@ $syncAction = {
         Start-Sleep -Seconds 2
         
         Set-Location $repoDir
+        
+        # 1. Mise à jour automatique de manifest.json
+        $excelFiles = Get-ChildItem -Path $ventesDir -File | Where-Object { ($_.Extension -eq '.xls' -or $_.Extension -eq '.xlsx') -and $_.Name -ne 'manifest.json' } | Select-Object -ExpandProperty Name | Sort-Object
+        $manifestObj = @{ files = $excelFiles; lastUpdated = (Get-Date -Format 'yyyy-MM-dd') }
+        ($manifestObj | ConvertTo-Json -Depth 4) | Set-Content -Path (Join-Path $ventesDir 'manifest.json') -Encoding UTF8
+        
+        # 2. Ajout des fichiers et commit
         git add ventes/
         $staged = git diff --staged --name-only
         if ($staged) {
-            Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Envoi vers GitHub en cours..." -ForegroundColor Yellow
             git commit -m "Auto: ajout $fileName via surveillance automatique"
-            git pull --rebase origin main
-            git push origin main
-            if ($LASTEXITCODE -eq 0) {
-                Write-Host "[$(Get-Date -Format 'HH:mm:ss')] SUCCES : $fileName est synchronise sur GitHub !" -ForegroundColor Green
-            } else {
-                Write-Host "[$(Get-Date -Format 'HH:mm:ss')] ERREUR lors du git push." -ForegroundColor Red
-            }
+        }
+        
+        # 3. Synchronisation GitHub
+        Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Envoi vers GitHub en cours..." -ForegroundColor Yellow
+        git pull --rebase origin main 2>$null
+        git push origin main
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host "[$(Get-Date -Format 'HH:mm:ss')] SUCCES : $fileName est synchronise sur GitHub !" -ForegroundColor Green
         } else {
-            Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Aucun changement staged a pusher." -ForegroundColor Gray
+            Write-Host "[$(Get-Date -Format 'HH:mm:ss')] ERREUR lors du git push. Verifiez la connexion." -ForegroundColor Red
         }
     }
 }

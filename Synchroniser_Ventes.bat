@@ -10,7 +10,7 @@ echo.
 
 cd /d "%~dp0"
 
-:: Si un fichier a ete glisse-depose directement sur ce script
+:: 1. Si un fichier a ete glisse-depose directement sur ce script
 if not "%~1"=="" (
     echo [*] Fichier depose detecte : %~nx1
     copy /y "%~1" "%~dp0ventes\%~nx1" >nul
@@ -18,36 +18,38 @@ if not "%~1"=="" (
     echo.
 )
 
-echo [*] Verification des nouveaux fichiers dans ventes/...
+:: 2. Mise a jour automatique du manifest.json
+echo [*] Mise a jour de la liste des fichiers de ventes (manifest.json)...
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$dir = Join-Path (Get-Location) 'ventes'; if (Test-Path $dir) { $files = Get-ChildItem -Path $dir -File | Where-Object { ($_.Extension -eq '.xls' -or $_.Extension -eq '.xlsx') -and $_.Name -ne 'manifest.json' } | Select-Object -ExpandProperty Name | Sort-Object; $manifest = @{ files = $files; lastUpdated = (Get-Date -Format 'yyyy-MM-dd') }; ($manifest | ConvertTo-Json -Depth 4) | Set-Content -Path (Join-Path $dir 'manifest.json') -Encoding UTF8 }" >nul 2>&1
+
+:: 3. Ajout des fichiers a Git
+echo [*] Verification des fichiers et commits dans ventes/...
 git add ventes/
+
+:: 4. Commit s'il y a des nouveaux fichiers ou modifications
 git diff --staged --quiet
-if %ERRORLEVEL% EQU 0 (
-    echo.
-    echo [i] Aucun nouveau fichier a synchroniser. Le dossier est deja a jour !
-    echo.
-    echo Fermeture dans 3 secondes...
-    ping 127.0.0.1 -n 4 >nul
-    exit /b 0
+if %ERRORLEVEL% NEQ 0 (
+    echo [*] Nouveaux fichiers detectes, preparation du commit...
+    git commit -m "Auto: ajout ventes du jour via synchroniseur"
 )
 
-echo [*] Nouveau fichier detecte, preparation du commit...
-git commit -m "Auto: ajout ventes du jour via synchroniseur"
-
-echo [*] Synchronisation avec le depot distant...
-git pull --rebase origin main
-
-echo [*] Envoi en cours vers GitHub (git push)...
+:: 5. Verification de la connexion et synchronisation distante
+echo [*] Synchronisation avec GitHub (git pull --rebase ^& git push)...
+git pull --rebase origin main >nul 2>&1
 git push origin main
 
 if %ERRORLEVEL% EQU 0 (
     echo.
     echo =====================================================
-    echo   SUCCES : Le fichier est en ligne sur GitHub !
+    echo   [SUCCES] Vos ventes sont synchronisees sur GitHub !
     echo   L'application Fiche-Technique est a jour.
     echo =====================================================
 ) else (
     echo.
-    echo [!] Erreur lors du push vers GitHub. Verifiez votre connexion Internet.
+    echo =====================================================
+    echo   [!] Erreur lors de l'envoi vers GitHub.
+    echo   Verifiez votre connexion Internet et reessayez.
+    echo =====================================================
 )
 
 echo.
