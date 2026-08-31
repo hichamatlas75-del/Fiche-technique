@@ -2909,10 +2909,12 @@ function applyExtractedDataToAudit(extractedItems, targetType, isFirstFile = fal
   }
 
   extractedItems.forEach(ext => {
-    const cExt = cleanText(ext.name);
-    let target = auditMonthlyArticles.find(a => cleanText(a.name) === cExt || cleanText(a.name).includes(cExt) || cExt.includes(cleanText(a.name)));
+    // 1. Recherche par Smart Fuzzy Matching (Tolérance orthographe, synonymes, déclinaisons)
+    const matchResult = findBestIngredientMatch(ext.name, auditMonthlyArticles);
+    let target = matchResult ? matchResult.article : null;
 
     if (!target) {
+      // Nouvel article non présent dans les fiches
       target = {
         name: ext.name,
         category: categorizeIngredient(ext.name),
@@ -2927,20 +2929,206 @@ function applyExtractedDataToAudit(extractedItems, targetType, isFirstFile = fal
       auditMonthlyArticles.push(target);
     }
 
+    // 2. Conversion d'unité intelligente automatique (ex: kg -> g, L -> ml, cl -> ml)
+    let convertedQty = ext.qty;
+    const impUnit = (ext.unit || '').toLowerCase().trim();
+    const targetUnit = (target.unit || 'g').toLowerCase().trim();
+
+    if (targetUnit === 'g') {
+      if (impUnit === 'kg' || impUnit === 'kilo') convertedQty = ext.qty * 1000;
+    } else if (targetUnit === 'kg') {
+      if (impUnit === 'g' || impUnit === 'gr') convertedQty = ext.qty / 1000;
+    } else if (targetUnit === 'ml') {
+      if (impUnit === 'l' || impUnit === 'litre') convertedQty = ext.qty * 1000;
+      else if (impUnit === 'cl') convertedQty = ext.qty * 10;
+    } else if (targetUnit === 'l' || targetUnit === 'litre') {
+      if (impUnit === 'ml') convertedQty = ext.qty / 1000;
+      else if (impUnit === 'cl') convertedQty = ext.qty / 100;
+    }
+
+    // 3. Application ou cumul des quantités
     if (targetType === 'm1') {
-      if (isFirstFile) target.sInit = ext.qty;
-      else target.sInit = (target.sInit || 0) + ext.qty;
+      if (isFirstFile) target.sInit = convertedQty;
+      else target.sInit = (target.sInit || 0) + convertedQty;
     } else if (targetType === 'm') {
-      if (isFirstFile) target.sFinal = ext.qty;
-      else target.sFinal = (target.sFinal || 0) + ext.qty;
+      if (isFirstFile) target.sFinal = convertedQty;
+      else target.sFinal = (target.sFinal || 0) + convertedQty;
     } else if (targetType === 'casse') {
-      if (isFirstFile) target.casse = ext.qty;
-      else target.casse = (target.casse || 0) + ext.qty;
+      if (isFirstFile) target.casse = convertedQty;
+      else target.casse = (target.casse || 0) + convertedQty;
     }
     if (ext.price && ext.price > 0) target.prix = ext.price;
   });
 
   recalculateMonthlyAudit();
+}
+
+
+/* ========================================================
+   13.B MOTEUR DE RAPPROCHEMENT INTELLIGENT & SYNONYMES (SMART MATCHING)
+======================================================== */
+const INVENTORY_NOISE_WORDS = new Set([
+  'kg', 'g', 'gr', 'gramme', 'grammes', 'kilo', 'kilos', 'l', 'litre', 'litres', 'cl', 'ml',
+  'colis', 'carton', 'pack', 'btl', 'bouteille', 'bouteilles', 'boite', 'boites', 'bt', 'sachet', 'sachets',
+  'sac', 'sacs', 'barquette', 'barquettes', 'piece', 'pieces', 'pcs', 'pce', 'tranche', 'tranches', 'portion', 'portions',
+  'frais', 'fraiche', 'fraiches', 'congele', 'congeles', 'surgele', 'surgeles', 'cuit', 'cuits', 'cuite', 'cuites',
+  'cru', 'crus', 'crue', 'crues', 'marine', 'marines', 'marinee', 'marinees', 'rape', 'rapes', 'rapee', 'rapees',
+  'tranche', 'tranches', 'tranchee', 'tranchees', 'bloc', 'blocs', 'moulu', 'moulus', 'grain', 'grains',
+  'entier', 'entiers', 'entiere', 'entieres', 'uht', 'pur', 'pure', 'bio', 'nature',
+  'de', 'du', 'des', 'la', 'le', 'les', 'l', 'd', 'en', 'au', 'aux', 'a', 'pour', 'avec', 'sans',
+  'qualite', 'sup', 'superieure', 'extra', 'select', 'import', 'local', 'maison'
+]);
+
+const INVENTORY_SYNONYMS = {
+  'mozza': 'mozzarella',
+  'mozzarela': 'mozzarella',
+  'mozarila': 'mozzarella',
+  'mozzarella râpée': 'mozzarella',
+  'mozzarella bloc': 'mozzarella',
+  'saumon': 'saumon',
+  'salmon': 'saumon',
+  'saumon fumé': 'saumon',
+  'pave saumon': 'saumon',
+  'poulet': 'poulet',
+  'chicken': 'poulet',
+  'blanc poulet': 'poulet',
+  'blanc de poulet': 'poulet',
+  'filet poulet': 'poulet',
+  'filet de poulet': 'poulet',
+  'escalope poulet': 'poulet',
+  'emince poulet': 'poulet',
+  'kefta': 'viande hachee',
+  'steak hache': 'viande hachee',
+  'hache boeuf': 'viande hachee',
+  'hache': 'viande hachee',
+  'crevette': 'crevettes',
+  'crevettes': 'crevettes',
+  'shrimp': 'crevettes',
+  'gambas': 'crevettes',
+  'oeuf': 'oeufs',
+  'oeufs': 'oeufs',
+  'egg': 'oeufs',
+  'eggs': 'oeufs',
+  'coulis tomate': 'sauce tomate',
+  'base tomate': 'sauce tomate',
+  'sauce pizza': 'sauce tomate',
+  'creme fraiche': 'creme liquide',
+  'creme cuisson': 'creme liquide',
+  'creme 30': 'creme liquide',
+  'creme 35': 'creme liquide',
+  'pain bun': 'pain burger',
+  'buns': 'pain burger',
+  'bun': 'pain burger',
+  'toast': 'pain de mie',
+  'wrap': 'tortilla wrap',
+  'tortilla': 'tortilla wrap',
+  'galette wrap': 'tortilla wrap',
+  'monin': 'sirop',
+  'espresso': 'cafe',
+  'cafe grains': 'cafe',
+  'cafe moulu': 'cafe',
+  'lait centrale': 'lait',
+  'lait uht': 'lait',
+  'avocat hass': 'avocat',
+  'pate tartiner': 'nutella',
+  'pate a tartiner': 'nutella'
+};
+
+function normalizeSmartInventoryText(str) {
+  if (!str) return '';
+  let s = str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[0-9]+([.,][0-9]+)?\s*(kg|g|l|cl|ml|p|pcs|gr)?\b/gi, ' ')
+    .replace(/[^a-z0-9]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  for (const [k, v] of Object.entries(INVENTORY_SYNONYMS)) {
+    const reg = new RegExp('\\b' + k + '\\b', 'g');
+    s = s.replace(reg, v);
+  }
+
+  const tokens = s.split(' ')
+    .map(w => w.replace(/s\b/, ''))
+    .filter(w => w.length > 1 && !INVENTORY_NOISE_WORDS.has(w));
+
+  return tokens.join(' ');
+}
+
+function levenshteinDistance(a, b) {
+  if (a === b) return 0;
+  const m = a.length, n = b.length;
+  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+  for (let i = 0; i <= m; i++) dp[i][0] = i;
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost);
+    }
+  }
+  return dp[m][n];
+}
+
+function findBestIngredientMatch(importedName, candidateArticles) {
+  const normImp = normalizeSmartInventoryText(importedName);
+  if (!normImp || !candidateArticles || candidateArticles.length === 0) return null;
+
+  let bestArticle = null;
+  let bestScore = 0;
+
+  const impTokens = new Set(normImp.split(' ').filter(x => x.length > 1));
+
+  for (const article of candidateArticles) {
+    const normArt = normalizeSmartInventoryText(article.name);
+    if (!normArt) continue;
+
+    let score = 0;
+
+    if (normImp === normArt) {
+      score = 1.0;
+    } else if (normImp.includes(normArt) || normArt.includes(normImp)) {
+      score = 0.95;
+    } else {
+      const artTokens = new Set(normArt.split(' ').filter(x => x.length > 1));
+      let matchCount = 0;
+      impTokens.forEach(t => {
+        if (artTokens.has(t)) matchCount++;
+        else {
+          for (const at of artTokens) {
+            if (levenshteinDistance(t, at) <= 1 && Math.min(t.length, at.length) >= 4) {
+              matchCount += 0.85;
+              break;
+            }
+          }
+        }
+      });
+
+      const totalTokens = Math.max(impTokens.size, artTokens.size);
+      if (totalTokens > 0) {
+        score = Math.max(score, matchCount / totalTokens);
+      }
+
+      const dist = levenshteinDistance(normImp, normArt);
+      const maxLen = Math.max(normImp.length, normArt.length);
+      if (maxLen > 0) {
+        const levScore = 1 - (dist / maxLen);
+        if (levScore > score) score = levScore;
+      }
+    }
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestArticle = article;
+    }
+  }
+
+  if (bestScore >= 0.55) {
+    return { article: bestArticle, score: bestScore };
+  }
+  return null;
 }
 
 // 13.3 SYNCHRONISATION MULTI-ARTICLES AVEC LES VENTES DU MOIS
