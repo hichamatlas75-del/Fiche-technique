@@ -1,0 +1,121 @@
+/* ========================================================
+   GREY CORNER — STYLES COMMUNS & THÈMES GLOBAUX
+======================================================== */
+:root {
+  /* THÈME CLAIR (Par défaut - Lisibilité optimale, contrastes nets) */
+  --bg: #f8fafc;
+  --paper: #ffffff;
+  --paper-hover: #f1f5f9;
+  --paper-card: #ffffff;
+  --thead-bg: #f1f5f9;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --muted: #64748b;
+  --border: #cbd5e1;
+  --border-light: #e2e8f0;
+  --chip: #f1f5f9;
+  --chip-text: #334155;
+  --ok: #16a34a;
+  --warn: #d97706;
+  --danger: #dc2626;
+  --accent: #0284c7;
+  --accent-bg: #e0f2fe;
+  --accent-dark: #0369a1;
+  --purple: #9333ea;
+  --orange: #ea580c;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --header-bg: rgba(255, 255, 255, 0.96);
+  --footer-bg: #f8fafc;
+  --card-shadow: 0 4px 12px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.05);
+
+  /* Financial Row - Thème Clair */
+  --fin-bg: #f8fafc;
+  --fin-border: #cbd5e1;
+  --fin-label: #475569;
+  --fin-cost: #0284c7;
+  --fin-fc-low: #15803d;
+  --fin-fc-med: #b45309;
+  --fin-fc-high: #b91c1c;
+  --fin-margin: #6d28d9;
+
+  /* Timers & Quantités */
+  --timer-bg: #f1f5f9;
+  --timer-border: #cbd5e1;
+  --tech-border: rgba(0, 0, 0, 0.08);
+  --tech-text: #1e293b;
+  --qty-bg: #e2e8f0;
+  --qty-text: #0f172a;
+  --qty-border: #cbd5e1;
+  --table-hover: #f8fafc;
+  --dish-pill-bg: #f1f5f9;
+  --dish-pill-border: #e2e8f0;
+  --dish-pill-text: #334155;
+}
+
+[data-theme="dark"] {
+  /* THÈME SOMBRE (Haute définition, repos visuel) */
+  --bg: #0b0e12;
+  --paper: #12161c;
+  --paper-hover: #171d25;
+  --paper-card: #151b22;
+  --thead-bg: #0f141b;
+  --text: #e7edf6;
+  --text-muted: #9aa8bb;
+  --muted: #9aa8bb;
+  --border: #263242;
+  --border-light: #1f2937;
+  --chip: #1a2330;
+  --chip-text: #cbd5e1;
+  --ok: #22c55e;
+  --warn: #facc15;
+  --danger: #ef4444;
+  --accent: #38bdf8;
+  --accent-bg: rgba(56, 189, 248, 0.15);
+  --accent-dark: #0284c7;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 4px 12px rgba(0,0,0,0.25);
+  --header-bg: rgba(11, 14, 18, 0.95);
+  --footer-bg: #0f141b;
+  --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+  /* Financial Row - Thème Sombre */
+  --fin-bg: #151b23;
+  --fin-border: #263242;
+  --fin-label: #94a3b8;
+  --fin-cost: #38bdf8;
+  --fin-fc-low: #4ade80;
+  --fin-fc-med: #fbbf24;
+  --fin-fc-high: #f87171;
+  --fin-margin: #c084fc;
+
+  /* Timers & Quantités */
+  --timer-bg: #1a222d;
+  --timer-border: #263242;
+  --tech-border: rgba(255, 255, 255, 0.08);
+  --tech-text: #e2e8f0;
+  --qty-bg: #1e293b;
+  --qty-text: #38bdf8;
+  --qty-border: #334155;
+  --table-hover: #171d25;
+  --dish-pill-bg: #1a2330;
+  --dish-pill-border: #1f2937;
+  --dish-pill-text: #cbd5e1;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+  scroll-behavior: smooth;
+  transition: background-color .2s, color .2s;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-decoration: none; }
+button { cursor: pointer; font-family: inherit; }
+input, select, textarea { font-family: inherit; }
+
+.container { max-width: 1300px; margin: 0 auto; padding: 12px 16px; }
