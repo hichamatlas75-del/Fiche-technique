@@ -1124,6 +1124,7 @@ function getCategoryBadge(cat) {
 }
 
 function renderSummaryTable() {
+  renderSummaryTopIngredientsPodium();
   const tbody = document.getElementById('tbody-ingredients');
   const search = cleanText(document.getElementById('search-ing').value);
   const activeCat = document.querySelector('.filter-btn.active') ? document.querySelector('.filter-btn.active').dataset.cat : 'all';
@@ -3231,16 +3232,19 @@ function setMenuEngQuadrantFilter(quad) {
   }
 
   renderMenuEngineeringTable();
+  renderMenuEngineeringScatterPlot();
 }
 
 function onMenuEngFamilyFilterChange(val) {
   menuEngFamilyFilter = val;
   renderMenuEngineeringTable();
+  renderMenuEngineeringScatterPlot();
 }
 
 function onMenuEngSortChange(val) {
   menuEngSortMetric = val;
   renderMenuEngineeringTable();
+  renderMenuEngineeringScatterPlot();
 }
 
 function populateMenuEngFamilyDropdown(families) {
@@ -3480,6 +3484,7 @@ function renderMenuEngineeringMatrix() {
 
   // 8. Rendu du tableau
   renderMenuEngineeringTable();
+  renderMenuEngineeringScatterPlot();
 }
 
 function renderMenuEngineeringTable() {
@@ -3529,8 +3534,13 @@ function renderMenuEngineeringTable() {
           ${item.price.toFixed(2)} DH
         </td>
         <td style="padding:10px; text-align:right; font-variant-numeric:tabular-nums;">
-          <span style="font-weight:700; color:var(--muted);">${item.cost.toFixed(2)} DH</span>
-          <span style="display:block; font-size:10.5px; font-weight:800; color:${fcColor};">(${item.foodCostPct}%)</span>
+          <span style="font-weight:700; color:var(--text); font-size:12.5px;">${item.cost.toFixed(2)} DH</span>
+          <div class="fc-gauge-wrap">
+            <span style="font-weight:800; font-size:11px; color:${fcColor};">${item.foodCostPct}%</span>
+            <div class="fc-gauge-bar">
+              <div class="fc-gauge-fill ${item.foodCostPct <= 28 ? 'ok' : (item.foodCostPct <= 35 ? 'warn' : 'danger')}" style="width:${Math.min(100, Math.max(8, item.foodCostPct * 2))}%;"></div>
+            </div>
+          </div>
         </td>
         <td style="padding:10px; text-align:right; font-weight:900; color:var(--accent); font-variant-numeric:tabular-nums; font-size:13.5px;">
           ${item.grossMarginDH.toFixed(2)} DH
@@ -3552,11 +3562,299 @@ function renderMenuEngineeringTable() {
   }).join('');
 }
 
+
+/* ========================================================
+   11.B DIAGRAMME 2D SCATTER PLOT (CANVAS MENU ENGINEERING)
+======================================================== */
+let scatterPlotPoints = [];
+let hoveredScatterPoint = null;
+let scatterCanvasBound = false;
+
+function renderMenuEngineeringScatterPlot() {
+  const canvas = document.getElementById('canvas-menu-eng-scatter');
+  const container = document.getElementById('scatter-plot-wrapper');
+  const tooltip = document.getElementById('scatter-tooltip');
+  if (!canvas || !container) return;
+
+  const ctx = canvas.getContext('2d');
+  const rect = container.getBoundingClientRect();
+  const width = rect.width || 800;
+  const height = 420;
+
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
+  canvas.style.width = width + 'px';
+  canvas.style.height = height + 'px';
+  ctx.scale(dpr, dpr);
+
+  ctx.clearRect(0, 0, width, height);
+
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const textColor = isDark ? '#94a3b8' : '#64748b';
+  const gridColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
+  const axisColor = isDark ? '#475569' : '#cbd5e1';
+
+  if (!menuEngData || menuEngData.length === 0) {
+    ctx.fillStyle = textColor;
+    ctx.font = '14px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Aucune donnée pour tracer la cartographie.', width / 2, height / 2);
+    return;
+  }
+
+  const padding = { top: 30, right: 35, bottom: 45, left: 65 };
+  const plotW = width - padding.left - padding.right;
+  const plotH = height - padding.top - padding.bottom;
+
+  // Calcul des Max
+  const maxQty = Math.max(10, Math.max(...menuEngData.map(i => i.qty))) * 1.12;
+  const maxGM = Math.max(10, Math.max(...menuEngData.map(i => i.grossMarginDH))) * 1.15;
+  const maxCA = Math.max(1, Math.max(...menuEngData.map(i => i.totalCA)));
+
+  // Calcul des Seuils
+  const totalVolume = menuEngData.reduce((acc, i) => acc + i.qty, 0);
+  const totalProfit = menuEngData.reduce((acc, i) => acc + i.totalProfitDH, 0);
+  const avgGrossMargin = totalVolume > 0 ? (totalProfit / totalVolume) : 0;
+  const popThreshold = menuEngData.length > 0 ? (totalVolume / menuEngData.length) * 0.70 : 0;
+
+  const thresholdX = padding.left + (popThreshold / maxQty) * plotW;
+  const thresholdY = padding.top + plotH - (avgGrossMargin / maxGM) * plotH;
+
+  // 1. Fond des 4 Quadrants
+  // Top-Right: Star
+  ctx.fillStyle = isDark ? 'rgba(16, 185, 129, 0.08)' : 'rgba(16, 185, 129, 0.06)';
+  ctx.fillRect(thresholdX, padding.top, width - padding.right - thresholdX, thresholdY - padding.top);
+
+  // Bottom-Right: Plowhorse
+  ctx.fillStyle = isDark ? 'rgba(2, 132, 199, 0.08)' : 'rgba(2, 132, 199, 0.06)';
+  ctx.fillRect(thresholdX, thresholdY, width - padding.right - thresholdX, height - padding.bottom - thresholdY);
+
+  // Top-Left: Puzzle
+  ctx.fillStyle = isDark ? 'rgba(139, 92, 246, 0.08)' : 'rgba(139, 92, 246, 0.06)';
+  ctx.fillRect(padding.left, padding.top, thresholdX - padding.left, thresholdY - padding.top);
+
+  // Bottom-Left: Dog
+  ctx.fillStyle = isDark ? 'rgba(239, 68, 68, 0.08)' : 'rgba(239, 68, 68, 0.06)';
+  ctx.fillRect(padding.left, thresholdY, thresholdX - padding.left, height - padding.bottom - thresholdY);
+
+  // 2. Lignes de grille
+  ctx.strokeStyle = gridColor;
+  ctx.lineWidth = 1;
+  const yTicks = 5;
+  for (let i = 0; i <= yTicks; i++) {
+    const yVal = (maxGM / yTicks) * i;
+    const yPos = padding.top + plotH - (yVal / maxGM) * plotH;
+    ctx.beginPath();
+    ctx.moveTo(padding.left, yPos);
+    ctx.lineTo(width - padding.right, yPos);
+    ctx.stroke();
+
+    ctx.fillStyle = textColor;
+    ctx.font = '10px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(yVal.toFixed(0) + ' DH', padding.left - 8, yPos + 3);
+  }
+
+  const xTicks = 5;
+  for (let i = 0; i <= xTicks; i++) {
+    const xVal = (maxQty / xTicks) * i;
+    const xPos = padding.left + (xVal / maxQty) * plotW;
+    ctx.beginPath();
+    ctx.moveTo(xPos, padding.top);
+    ctx.lineTo(xPos, height - padding.bottom);
+    ctx.stroke();
+
+    ctx.fillStyle = textColor;
+    ctx.font = '10px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(Math.round(xVal).toString(), xPos, height - padding.bottom + 16);
+  }
+
+  // 3. Lignes de Seuils Pointillées
+  ctx.save();
+  ctx.setLineDash([5, 4]);
+  ctx.lineWidth = 1.5;
+
+  // Seuil X (Popularité)
+  ctx.strokeStyle = '#0284c7';
+  ctx.beginPath();
+  ctx.moveTo(thresholdX, padding.top);
+  ctx.lineTo(thresholdX, height - padding.bottom);
+  ctx.stroke();
+
+  // Seuil Y (Marge moyenne)
+  ctx.strokeStyle = '#10b981';
+  ctx.beginPath();
+  ctx.moveTo(padding.left, thresholdY);
+  ctx.lineTo(width - padding.right, thresholdY);
+  ctx.stroke();
+  ctx.restore();
+
+  // Labels des Seuils
+  ctx.fillStyle = '#0284c7';
+  ctx.font = 'bold 10px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('Seuil Popularité : ' + Math.round(popThreshold) + ' u.', thresholdX + 6, padding.top + 14);
+
+  ctx.fillStyle = '#10b981';
+  ctx.font = 'bold 10px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.textAlign = 'right';
+  ctx.fillText('Marge Moy. : ' + avgGrossMargin.toFixed(1) + ' DH', width - padding.right - 6, thresholdY - 6);
+
+  // Labels des Axes
+  ctx.fillStyle = textColor;
+  ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Volume de Ventes (Unités Vendues) →', padding.left + plotW / 2, height - 10);
+
+  ctx.save();
+  ctx.translate(16, padding.top + plotH / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText('Marge Brute Unitaire (DH) →', 0, 0);
+  ctx.restore();
+
+  // 4. Tracé des Bulles / Points
+  scatterPlotPoints = [];
+
+  menuEngData.forEach(item => {
+    const cx = padding.left + (item.qty / maxQty) * plotW;
+    const cy = padding.top + plotH - (item.grossMarginDH / maxGM) * plotH;
+    const r = Math.min(22, Math.max(5, 5 + Math.sqrt(item.totalCA / maxCA) * 16));
+
+    scatterPlotPoints.push({ x: cx, y: cy, r: r, item: item });
+
+    let color = '#10b981';
+    if (item.quadrant === 'plowhorse') color = '#0284c7';
+    if (item.quadrant === 'puzzle') color = '#8b5cf6';
+    if (item.quadrant === 'dog') color = '#ef4444';
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fillStyle = color + (isDark ? 'cc' : 'b3');
+    ctx.fill();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  });
+
+  // Si un point est survolé, dessiner son halo
+  if (hoveredScatterPoint) {
+    const p = hoveredScatterPoint;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r + 5, 0, Math.PI * 2);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+  }
+
+  // 5. Attacher les écouteurs de souris (une seule fois)
+  if (!scatterCanvasBound) {
+    scatterCanvasBound = true;
+
+    canvas.addEventListener('mousemove', (e) => {
+      const cRect = canvas.getBoundingClientRect();
+      const mx = e.clientX - cRect.left;
+      const my = e.clientY - cRect.top;
+
+      let found = null;
+      for (let i = scatterPlotPoints.length - 1; i >= 0; i--) {
+        const pt = scatterPlotPoints[i];
+        const dist = Math.hypot(mx - pt.x, my - pt.y);
+        if (dist <= pt.r + 4) {
+          found = pt;
+          break;
+        }
+      }
+
+      if (found) {
+        hoveredScatterPoint = found;
+        const it = found.item;
+        tooltip.innerHTML = `
+          <div class="tt-title">${escapeHtml(it.product)}</div>
+          <div style="font-size:10.5px; color:#94a3b8; margin-bottom:6px;">${escapeHtml(it.family)} — ${it.quadrantLabel}</div>
+          <div class="tt-row"><span>Prix de vente :</span><strong class="tt-val">${it.price.toFixed(2)} DH</strong></div>
+          <div class="tt-row"><span>Coût Portion (FC%) :</span><strong class="tt-val">${it.cost.toFixed(2)} DH (${it.foodCostPct}%)</strong></div>
+          <div class="tt-row"><span>Marge Brute / plat :</span><strong class="tt-val" style="color:#38bdf8;">${it.grossMarginDH.toFixed(2)} DH</strong></div>
+          <div class="tt-row"><span>Quantité vendue :</span><strong class="tt-val">${it.qty.toLocaleString('fr-FR')} u.</strong></div>
+          <div class="tt-row"><span>CA Total :</span><strong class="tt-val" style="color:#10b981;">${it.totalCA.toLocaleString('fr-FR', { minimumFractionDigits: 2 })} DH</strong></div>
+          <div style="margin-top:6px; padding-top:6px; border-top:1px solid rgba(255,255,255,0.15); font-size:11px; color:#fde047;">
+            💡 ${escapeHtml(it.actionAdvice)}
+          </div>
+        `;
+        tooltip.style.left = mx + 'px';
+        tooltip.style.top = (my - 10) + 'px';
+        tooltip.style.display = 'block';
+        renderMenuEngineeringScatterPlot();
+      } else {
+        if (hoveredScatterPoint) {
+          hoveredScatterPoint = null;
+          tooltip.style.display = 'none';
+          renderMenuEngineeringScatterPlot();
+        }
+      }
+    });
+
+    canvas.addEventListener('mouseleave', () => {
+      hoveredScatterPoint = null;
+      if (tooltip) tooltip.style.display = 'none';
+      renderMenuEngineeringScatterPlot();
+    });
+
+    window.addEventListener('resize', () => {
+      renderMenuEngineeringScatterPlot();
+    });
+  }
+}
+
+function renderSummaryTopIngredientsPodium() {
+  const container = document.getElementById('summary-top-ingredients-podium');
+  if (!container) return;
+
+  if (!aggregatedIngredients || aggregatedIngredients.length === 0) {
+    container.style.display = 'none';
+    return;
+  }
+
+  const top4 = [...aggregatedIngredients]
+    .filter(ing => ing.qty > 0)
+    .sort((a, b) => b.qty - a.qty)
+    .slice(0, 4);
+
+  if (top4.length === 0) {
+    container.style.display = 'none';
+    return;
+  }
+
+  const medals = ['🥇', '🥈', '🥉', '🏅'];
+  const totalWeight = top4.reduce((acc, x) => acc + x.qty, 0);
+
+  container.innerHTML = top4.map((ing, idx) => {
+    return `
+      <div class="podium-ing-card">
+        <span class="pod-rank">${medals[idx]}</span>
+        <div>
+          <div class="pod-name">${escapeHtml(ing.name)}</div>
+          <div class="pod-cat">${escapeHtml(ing.category || 'Épicerie')}</div>
+        </div>
+        <div>
+          <div class="pod-qty">${ing.qty.toLocaleString('fr-FR', { maximumFractionDigits: 1 })} <span style="font-size:13px; font-weight:700;">${ing.unit}</span></div>
+          <div style="font-size:11px; color:var(--muted); margin-top:2px;">Consommé sur la période</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  container.style.display = 'grid';
+}
+
 window.setMenuEngQuadrantFilter = setMenuEngQuadrantFilter;
 window.onMenuEngFamilyFilterChange = onMenuEngFamilyFilterChange;
 window.onMenuEngSortChange = onMenuEngSortChange;
 window.renderMenuEngineeringMatrix = renderMenuEngineeringMatrix;
 window.renderMenuEngineeringTable = renderMenuEngineeringTable;
+window.renderMenuEngineeringScatterPlot = renderMenuEngineeringScatterPlot;
+window.renderSummaryTopIngredientsPodium = renderSummaryTopIngredientsPodium;
 
 /* ========================================================
    12. INITIALISATION & GESTIONNAIRES D'ÉVÉNEMENTS

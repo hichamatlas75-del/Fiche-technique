@@ -164,6 +164,9 @@
 
   <!-- TAB 1: SYNTHÈSE DES MATIÈRES PREMIÈRES -->
   <div id="tab-summary" class="tab-content">
+        <!-- PODIUM TOP MATIÈRES PREMIÈRES -->
+    <div id="summary-top-ingredients-podium" class="top-ing-podium-grid" style="display:none;"></div>
+
     <div class="controls-bar">
       <div class="search-input-wrap">
         <span>🔍</span>
@@ -480,6 +483,33 @@
           <span>Part du CA : <strong id="pct-ca-dogs">0%</strong></span>
           <span class="quad-filter-link">Filtrer ces plats →</span>
         </div>
+      </div>
+    </div>
+
+    </div>
+
+    <!-- DIAGRAMME 2D SCATTER PLOT DES 4 QUADRANTS -->
+    <div class="menu-eng-chart-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+        <div>
+          <h3 style="font-size:1.05rem; font-weight:900; color:var(--text); margin:0; display:flex; align-items:center; gap:8px;">
+            📊 Cartographie 2D des Plats (Scatter Plot Interactif)
+          </h3>
+          <span style="font-size:12px; color:var(--muted);">
+            Survolez une bulle pour voir les détails. Taille de la bulle = Chiffre d'Affaires généré (DH).
+          </span>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+          <span class="badge-me star" style="font-size:11px;">⭐ Étoiles</span>
+          <span class="badge-me plowhorse" style="font-size:11px;">🐎 Chevaux</span>
+          <span class="badge-me puzzle" style="font-size:11px;">🧩 Dilemmes</span>
+          <span class="badge-me dog" style="font-size:11px;">🐕 Poids morts</span>
+        </div>
+      </div>
+      
+      <div class="scatter-plot-container" id="scatter-plot-wrapper">
+        <canvas id="canvas-menu-eng-scatter" height="420"></canvas>
+        <div id="scatter-tooltip" class="scatter-tooltip" style="display:none;"></div>
       </div>
     </div>
 
