@@ -709,30 +709,30 @@
     <div id="audit-view-month" class="audit-view-content" style="display:none;">
       <!-- LECTEUR INTELLIGENT DE PDF & FICHIERS -->
       <div class="audit-dropzone-grid">
-        <!-- 1. PDF INVENTAIRE M-1 -->
+        <!-- 1. INVENTAIRE M-1 (Stock Initial) -->
         <div class="dropzone-card" id="dz-m1" onclick="document.getElementById('file-pdf-m1').click()">
           <span class="dropzone-icon">📄</span>
           <div class="dropzone-title">1. Inventaire M-1 (Stock Initial)</div>
-          <div class="dropzone-desc">Déposez le PDF ou Excel de l'inventaire physique de fin de mois M-1</div>
-          <input type="file" id="file-pdf-m1" accept=".pdf,.xlsx,.xls" style="display:none;" onchange="handleAuditFileUpload(event, 'm1')" />
+          <div class="dropzone-desc">Déposez 1 ou plusieurs fichiers (PDF / Excel) du stock initial M-1</div>
+          <input type="file" id="file-pdf-m1" accept=".pdf,.xlsx,.xls,.csv" multiple style="display:none;" onchange="handleAuditFileUpload(event, 'm1')" />
           <div class="dropzone-status" id="status-m1">✅ Fichier analysé</div>
         </div>
 
-        <!-- 2. PDF INVENTAIRE M -->
+        <!-- 2. INVENTAIRE M (Stock Final : Cuisine, Bar, Petit Déjeuner) -->
         <div class="dropzone-card" id="dz-m" onclick="document.getElementById('file-pdf-m').click()">
           <span class="dropzone-icon">📋</span>
           <div class="dropzone-title">2. Inventaire M (Stock Final)</div>
-          <div class="dropzone-desc">Déposez le PDF ou Excel de l'inventaire physique de fin de mois M</div>
-          <input type="file" id="file-pdf-m" accept=".pdf,.xlsx,.xls" style="display:none;" onchange="handleAuditFileUpload(event, 'm')" />
+          <div class="dropzone-desc">Déposez vos inventaires (Cuisine, Bar, Petit Déjeuner). L'application cumule automatiquement les stocks !</div>
+          <input type="file" id="file-pdf-m" accept=".pdf,.xlsx,.xls,.csv" multiple style="display:none;" onchange="handleAuditFileUpload(event, 'm')" />
           <div class="dropzone-status" id="status-m">✅ Fichier analysé</div>
         </div>
 
-        <!-- 3. PDF CASSE & PERTES -->
+        <!-- 3. RELEVÉ DE CASSE & PERTES -->
         <div class="dropzone-card" id="dz-casse" onclick="document.getElementById('file-pdf-casse').click()">
           <span class="dropzone-icon">🗑️</span>
           <div class="dropzone-title">3. Relevé de Casse / Pertes</div>
-          <div class="dropzone-desc">Déposez le PDF des pertes déclarées du mois</div>
-          <input type="file" id="file-pdf-casse" accept=".pdf,.xlsx,.xls" style="display:none;" onchange="handleAuditFileUpload(event, 'casse')" />
+          <div class="dropzone-desc">Déposez le fichier (PDF / Excel) des pertes & casses déclarées</div>
+          <input type="file" id="file-pdf-casse" accept=".pdf,.xlsx,.xls,.csv" multiple style="display:none;" onchange="handleAuditFileUpload(event, 'casse')" />
           <div class="dropzone-status" id="status-casse">✅ Fichier analysé</div>
         </div>
       </div>

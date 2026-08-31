@@ -2785,47 +2785,49 @@ function calculateAuditFlash() {
   }
 }
 
-// 13.2 LECTURE INTELLIGENTE DES FICHIERS PDF & EXCEL
+// 13.2 LECTURE INTELLIGENTE DES FICHIERS PDF & EXCEL (MULTI-FICHIERS CUISINE, BAR, PT DEJEUNER)
 async function handleAuditFileUpload(event, targetType) {
-  const file = event.target.files[0];
-  if (!file) return;
+  const fileList = event.target.files;
+  if (!fileList || fileList.length === 0) return;
 
   const cardId = targetType === 'm1' ? 'dz-m1' : (targetType === 'm' ? 'dz-m' : 'dz-casse');
   const statusId = targetType === 'm1' ? 'status-m1' : (targetType === 'm' ? 'status-m' : 'status-casse');
   const card = document.getElementById(cardId);
   const status = document.getElementById(statusId);
 
-  if (file.name.endsWith('.pdf')) {
-    try {
-      const extractedRows = await extractDataFromPDF(file);
-      applyExtractedDataToAudit(extractedRows, targetType);
-      card.classList.add('loaded');
-      status.textContent = `✅ ${extractedRows.length} articles extraits de ${file.name}`;
-      status.style.display = 'block';
-    } catch (err) {
-      console.error('Erreur lecture PDF:', err);
-      alert('Erreur lors de la lecture du fichier PDF : ' + err.message);
-    }
-  } else if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
-    try {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const data = new Uint8Array(e.target.result);
+  let totalExtractedCount = 0;
+
+  for (let i = 0; i < fileList.length; i++) {
+    const file = fileList[i];
+
+    if (file.name.endsWith('.pdf')) {
+      try {
+        const extractedRows = await extractDataFromPDF(file);
+        applyExtractedDataToAudit(extractedRows, targetType, i === 0);
+        totalExtractedCount += extractedRows.length;
+      } catch (err) {
+        console.error('Erreur lecture PDF:', err);
+      }
+    } else if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls') || file.name.endsWith('.csv')) {
+      try {
+        const buffer = await file.arrayBuffer();
+        const data = new Uint8Array(buffer);
         const wb = XLSX.read(data, { type: 'array' });
         const sheet = wb.Sheets[wb.SheetNames[0]];
         const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
         const extracted = parseExcelRowsToAuditData(rows);
-        applyExtractedDataToAudit(extracted, targetType);
-        card.classList.add('loaded');
-        status.textContent = `✅ ${extracted.length} articles extraits de ${file.name}`;
-        status.style.display = 'block';
-      };
-      reader.onerror = () => alert("Erreur de lecture du fichier Excel. Veuillez réessayer.");
-      reader.readAsArrayBuffer(file);
-    } catch (err) {
-      console.error('Erreur lecture Excel:', err);
-      alert('Erreur lecture Excel : ' + err.message);
+        applyExtractedDataToAudit(extracted, targetType, i === 0);
+        totalExtractedCount += extracted.length;
+      } catch (err) {
+        console.error('Erreur lecture Excel:', err);
+      }
     }
+  }
+
+  if (card && status) {
+    card.classList.add('loaded');
+    status.textContent = `✅ ${fileList.length} fichier(s) analysé(s) (${totalExtractedCount} lignes importées)`;
+    status.style.display = 'block';
   }
 }
 
@@ -2901,7 +2903,7 @@ function parseExcelRowsToAuditData(rows) {
   return result;
 }
 
-function applyExtractedDataToAudit(extractedItems, targetType) {
+function applyExtractedDataToAudit(extractedItems, targetType, isFirstFile = false) {
   if (auditMonthlyArticles.length === 0) {
     syncAuditWithMonthlySales();
   }
@@ -2911,7 +2913,6 @@ function applyExtractedDataToAudit(extractedItems, targetType) {
     let target = auditMonthlyArticles.find(a => cleanText(a.name) === cExt || cleanText(a.name).includes(cExt) || cExt.includes(cleanText(a.name)));
 
     if (!target) {
-      // Nouvel article non présent dans les fiches
       target = {
         name: ext.name,
         category: categorizeIngredient(ext.name),
@@ -2927,11 +2928,14 @@ function applyExtractedDataToAudit(extractedItems, targetType) {
     }
 
     if (targetType === 'm1') {
-      target.sInit = ext.qty;
+      if (isFirstFile) target.sInit = ext.qty;
+      else target.sInit = (target.sInit || 0) + ext.qty;
     } else if (targetType === 'm') {
-      target.sFinal = ext.qty;
+      if (isFirstFile) target.sFinal = ext.qty;
+      else target.sFinal = (target.sFinal || 0) + ext.qty;
     } else if (targetType === 'casse') {
-      target.casse = ext.qty;
+      if (isFirstFile) target.casse = ext.qty;
+      else target.casse = (target.casse || 0) + ext.qty;
     }
     if (ext.price && ext.price > 0) target.prix = ext.price;
   });
