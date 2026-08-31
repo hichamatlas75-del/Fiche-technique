@@ -1742,3 +1742,82 @@
   font-weight: 900;
   color: var(--accent);
 }
+
+
+/* ============================================================
+   ONGLETS DE NAVIGATION (PILLS ANTI-TRONCATURE & DESIGN PRO)
+============================================================ */
+.view-tabs {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  border-bottom: 2px solid var(--border) !important;
+  margin: 20px 0 24px !important;
+  padding-bottom: 6px !important;
+  overflow: visible !important;
+}
+
+.v-tab {
+  padding: 10px 16px !important;
+  background: var(--paper) !important;
+  border: 1.5px solid var(--border) !important;
+  border-radius: 10px !important;
+  color: var(--muted) !important;
+  font-weight: 800 !important;
+  font-size: 13.5px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  white-space: nowrap !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
+}
+
+.v-tab:hover {
+  color: var(--text) !important;
+  background: var(--paper-hover) !important;
+  border-color: #94a3b8 !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08) !important;
+}
+
+.v-tab.active {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+  border-color: #0284c7 !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35) !important;
+}
+
+.v-tab.active .tab-count {
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+}
+
+/* Style spécifique violet vibrant pour l'onglet Audit Stock */
+.v-tab[data-tab="tab-audit"] {
+  border-color: rgba(124, 58, 237, 0.4) !important;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, var(--paper) 100%) !important;
+}
+
+.v-tab[data-tab="tab-audit"]:hover {
+  border-color: #7c3aed !important;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2) !important;
+}
+
+.v-tab[data-tab="tab-audit"].active {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%) !important;
+  border-color: #7c3aed !important;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4) !important;
+  color: #ffffff !important;
+}
+
+.v-tab[data-tab="tab-audit"] .tab-count {
+  background: #7c3aed !important;
+  color: #ffffff !important;
+}
+
+.v-tab[data-tab="tab-audit"].active .tab-count {
+  background: rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+}

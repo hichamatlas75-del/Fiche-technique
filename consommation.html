@@ -34,8 +34,9 @@
     </div>
     <div class="nav-actions">
       <button id="theme-toggle" class="btn" title="Basculer entre le mode clair et le mode sombre">🌙 Mode Sombre</button>
+      <button class="btn" style="background:#7c3aed; color:#fff; font-weight:800; border-color:#7c3aed; box-shadow:0 3px 12px rgba(124, 58, 237, 0.35);" onclick="switchToAuditTab()" title="Accéder directement au module d'Audit de Stock & Contrôle des écarts">📋 Audit Stock</button>
       <button class="btn" style="background:#0284c7; color:#fff; font-weight:800; border-color:#0284c7;" onclick="openPricesModal()" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières Premières</button>
-      <a href="index.html" class="btn" title="Retourner aux fiches techniques">👨‍🍳 Fiches Cuisine</a>
+      <a href="index.html" class="btn" title="Retourner aux fiches techniques cuisine">👨‍🍳 Fiches Cuisine</a>
       <button id="btn-export-excel" class="btn btn-success" style="display:none;">📥 Exporter Excel (.xlsx)</button>
       <button id="btn-print" class="btn btn-primary" onclick="window.print()">🖨️ Imprimer Déstockage</button>
     </div>
@@ -143,22 +144,22 @@
     </div>
   </div>
 
-  <!-- ONGLETS DE NAVIGATION DE LA VUE -->
+  <!-- ONGLETS DE NAVIGATION DE LA VUE (Pills élégants & Anti-troncature) -->
   <div class="view-tabs">
     <button class="v-tab active" data-tab="tab-summary">
-      🥩 Synthèse Matières Premières <span id="count-ingredients" class="tab-count">0</span>
+      🥩 Matières Premières <span id="count-ingredients" class="tab-count">0</span>
     </button>
     <button class="v-tab" data-tab="tab-sales">
-      🧾 Détail des Ventes & Recettes <span id="count-sales" class="tab-count">0</span>
+      🧾 Ventes & Recettes <span id="count-sales" class="tab-count">0</span>
     </button>
     <button class="v-tab" data-tab="tab-menu-engineering">
-      🎯 Menu Engineering (Rentabilité / Ventes) <span id="count-menu-eng" class="tab-count">0</span>
+      🎯 Menu Engineering <span id="count-menu-eng" class="tab-count">0</span>
     </button>
     <button class="v-tab" data-tab="tab-recipes">
-      ⚙️ Fiches Techniques & Recettes <span id="count-recipes" class="tab-count">0</span>
+      ⚙️ Fiches Techniques <span id="count-recipes" class="tab-count">0</span>
     </button>
-    <button class="v-tab" data-tab="tab-audit">
-      📋 Audit Stock <span id="count-audit" class="tab-count">0</span>
+    <button class="v-tab" data-tab="tab-audit" style="border-color:rgba(124, 58, 237, 0.45);">
+      📋 Audit Stock <span id="count-audit" class="tab-count" style="background:#7c3aed; color:#fff;">0</span>
     </button>
   </div>
 

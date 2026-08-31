@@ -3848,6 +3848,32 @@ function renderSummaryTopIngredientsPodium() {
   container.style.display = 'grid';
 }
 
+
+function switchToTab(tabId) {
+  document.querySelectorAll('.v-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+  const btn = document.querySelector(`[data-tab="${tabId}"]`);
+  if (btn) btn.classList.add('active');
+  const tab = document.getElementById(tabId);
+  if (tab) {
+    tab.style.display = 'block';
+    const rect = tab.getBoundingClientRect();
+    if (rect.top < 0 || rect.top > window.innerHeight) {
+      tab.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+  if (window.location.hash !== '#' + tabId) {
+    history.pushState(null, '', '#' + tabId);
+  }
+}
+
+function switchToAuditTab() {
+  switchToTab('tab-audit');
+}
+
+window.switchToTab = switchToTab;
+window.switchToAuditTab = switchToAuditTab;
+
 window.setMenuEngQuadrantFilter = setMenuEngQuadrantFilter;
 window.onMenuEngFamilyFilterChange = onMenuEngFamilyFilterChange;
 window.onMenuEngSortChange = onMenuEngSortChange;
@@ -3860,6 +3886,14 @@ window.renderSummaryTopIngredientsPodium = renderSummaryTopIngredientsPodium;
    12. INITIALISATION & GESTIONNAIRES D'ÉVÉNEMENTS
 ======================================================== */
 document.addEventListener('DOMContentLoaded', () => {
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'tab-audit' || hash === 'audit') switchToTab('tab-audit');
+    else if (hash === 'tab-menu-engineering' || hash === 'menu-engineering') switchToTab('tab-menu-engineering');
+    else if (hash === 'tab-sales' || hash === 'sales') switchToTab('tab-sales');
+    else if (hash === 'tab-recipes' || hash === 'recipes') switchToTab('tab-recipes');
+    else if (hash === 'tab-summary' || hash === 'summary') switchToTab('tab-summary');
+  });
   if (window.location.hash === '#tab-audit' || window.location.hash === '#audit') {
     setTimeout(() => {
       document.querySelectorAll('.v-tab').forEach(t => t.classList.remove('active'));
