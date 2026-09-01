@@ -1821,11 +1821,11 @@ const DATA = [
           "Framboise : 17 g"
         ],
         "price": "68 DH",
-        "cost": 32.83,
+        "cost": 39.61,
         "sellPrice": 68,
-        "foodCost": 48.3,
-        "margin": 51.7,
-        "grossMarginDH": 35.17
+        "foodCost": 58.3,
+        "margin": 41.8,
+        "grossMarginDH": 28.39
       },
       {
         "name": "Salade Terre & Mer",
@@ -1845,11 +1845,11 @@ const DATA = [
           "Agrumes : 15 g"
         ],
         "price": "78 DH",
-        "cost": 28.34,
+        "cost": 31.68,
         "sellPrice": 78,
-        "foodCost": 36.3,
-        "margin": 63.7,
-        "grossMarginDH": 49.66
+        "foodCost": 40.6,
+        "margin": 59.4,
+        "grossMarginDH": 46.32
       },
       {
         "name": "TARTARE SAUMON",
@@ -1897,26 +1897,27 @@ const DATA = [
         "images": "images/entree-croustillon.jpg,images/entree-croustillon2.jpg,images/entree-croustillon3.jpg",
         "prepTime": 12,
         "tech": [
-          "Gambas panées : 260 g",
-          "Purée : 400 g",
+          "Gambas chair pure : 100 g",
+          "Chapelure : 30 g",
+          "Purée : 200 g",
           "Radis : 15 g",
           "Parmesan : 14 g",
           "Crème fraîche : 50 g",
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "68 DH",
-        "cost": 29.45,
+        "cost": 30.65,
         "sellPrice": 68,
-        "foodCost": 43.3,
-        "margin": 56.7,
-        "grossMarginDH": 38.55
+        "foodCost": 45.1,
+        "margin": 54.9,
+        "grossMarginDH": 37.35
       },
       {
         "name": "PIL PIL ESPAGNOL",
         "images": "images/entree-pilpil.jpg,images/entree-pilpil2.jpg",
         "prepTime": 14,
         "tech": [
-          "Gambas : 330 g",
+          "Gambas chair pure : 100 g",
           "Tomate cerise : 60 g",
           "Pesto : 22 g",
           "Huile d’olive : 30 g",
@@ -1925,11 +1926,11 @@ const DATA = [
           "Sauce tomate : 120 g"
         ],
         "price": "68 DH",
-        "cost": 22.17,
+        "cost": 25.02,
         "sellPrice": 68,
-        "foodCost": 32.6,
-        "margin": 67.4,
-        "grossMarginDH": 45.83
+        "foodCost": 36.8,
+        "margin": 63.2,
+        "grossMarginDH": 42.98
       }
     ]
   },
@@ -4806,8 +4807,9 @@ const BASE_RECIPES = [
     "name": "CROUSTILLON GAMBAS",
     "category": "ENTRÉES CHAUDES",
     "ingredients": [
-      "Gambas panées : 330 g",
-      "Purée : 300 g",
+      "Gambas chair pure : 100 g",
+      "Chapelure : 30 g",
+      "Purée : 200 g",
       "Radis : 15 g",
       "Parmesan : 14 g",
       "Crème fraîche : 50 g"
@@ -4818,7 +4820,7 @@ const BASE_RECIPES = [
     "name": "PIL PIL ESPAGNOL",
     "category": "ENTRÉES CHAUDES",
     "ingredients": [
-      "Gambas : 330 g",
+      "Gambas chair pure : 100 g",
       "Tomate cerise : 60 g",
       "Pesto : 22 g",
       "Huile d’olive : 30 g",
@@ -8053,24 +8055,44 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 0.055,
     "unit": "g"
   },
+  "gambas chair pure": {
+    "cost": 0.210,
+    "unit": "g"
+  },
+  "gambas chair pur": {
+    "cost": 0.210,
+    "unit": "g"
+  },
+  "gambas chair": {
+    "cost": 0.210,
+    "unit": "g"
+  },
+  "crevette chair pure": {
+    "cost": 0.210,
+    "unit": "g"
+  },
+  "crevette chair pur": {
+    "cost": 0.210,
+    "unit": "g"
+  },
   "gambas panees": {
-    "cost": 0.065,
+    "cost": 0.180,
     "unit": "g"
   },
   "gambas pane": {
-    "cost": 0.065,
+    "cost": 0.180,
     "unit": "g"
   },
   "gambas poche": {
-    "cost": 0.2115,
+    "cost": 0.210,
     "unit": "g"
   },
   "gambas pochee": {
-    "cost": 0.2115,
+    "cost": 0.210,
     "unit": "g"
   },
   "gambas decortiquees": {
-    "cost": 0.2115,
+    "cost": 0.210,
     "unit": "g"
   },
   "calamar": {

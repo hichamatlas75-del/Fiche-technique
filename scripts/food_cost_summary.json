@@ -3533,10 +3533,10 @@
     "category": "ENTRÉES FROIDES",
     "name": "Salade Quinoa",
     "sellPrice": 68,
-    "cost": 32.83,
-    "foodCostPct": 48.3,
-    "marginPct": 51.7,
-    "grossMarginDH": 35.17,
+    "cost": 39.61,
+    "foodCostPct": 58.3,
+    "marginPct": 41.8,
+    "grossMarginDH": 28.39,
     "details": [
       {
         "ingredient": "Quinoa",
@@ -3546,12 +3546,12 @@
       {
         "ingredient": "Gambas Pané",
         "quantity": "60 g",
-        "cost": 3.9
+        "cost": 10.8
       },
       {
         "ingredient": "Gambas Poché",
         "quantity": "80 g",
-        "cost": 16.92
+        "cost": 16.8
       },
       {
         "ingredient": "Fruits",
@@ -3589,10 +3589,10 @@
     "category": "ENTRÉES FROIDES",
     "name": "Salade Terre & Mer",
     "sellPrice": 78,
-    "cost": 28.34,
-    "foodCostPct": 36.3,
-    "marginPct": 63.7,
-    "grossMarginDH": 49.66,
+    "cost": 31.68,
+    "foodCostPct": 40.6,
+    "marginPct": 59.4,
+    "grossMarginDH": 46.32,
     "details": [
       {
         "ingredient": "Poulet Pané",
@@ -3617,12 +3617,12 @@
       {
         "ingredient": "Gambas Poché",
         "quantity": "73 g",
-        "cost": 15.44
+        "cost": 15.33
       },
       {
         "ingredient": "Gambas Pané",
         "quantity": "30 g",
-        "cost": 1.95
+        "cost": 5.4
       },
       {
         "ingredient": "Avocat",
@@ -3717,20 +3717,25 @@
     "category": "ENTRÉES CHAUDES",
     "name": "CROUSTILLON GAMBAS",
     "sellPrice": 68,
-    "cost": 29.45,
-    "foodCostPct": 43.3,
-    "marginPct": 56.7,
-    "grossMarginDH": 38.55,
+    "cost": 30.65,
+    "foodCostPct": 45.1,
+    "marginPct": 54.9,
+    "grossMarginDH": 37.35,
     "details": [
       {
-        "ingredient": "Gambas panées",
-        "quantity": "260 g",
-        "cost": 16.9
+        "ingredient": "Gambas chair pure",
+        "quantity": "100 g",
+        "cost": 21
+      },
+      {
+        "ingredient": "Chapelure",
+        "quantity": "30 g",
+        "cost": 0.6
       },
       {
         "ingredient": "Purée",
-        "quantity": "400 g",
-        "cost": 7
+        "quantity": "200 g",
+        "cost": 3.5
       },
       {
         "ingredient": "Radis",
@@ -3758,15 +3763,15 @@
     "category": "ENTRÉES CHAUDES",
     "name": "PIL PIL ESPAGNOL",
     "sellPrice": 68,
-    "cost": 22.17,
-    "foodCostPct": 32.6,
-    "marginPct": 67.4,
-    "grossMarginDH": 45.83,
+    "cost": 25.02,
+    "foodCostPct": 36.8,
+    "marginPct": 63.2,
+    "grossMarginDH": 42.98,
     "details": [
       {
-        "ingredient": "Gambas",
-        "quantity": "330 g",
-        "cost": 18.15
+        "ingredient": "Gambas chair pure",
+        "quantity": "100 g",
+        "cost": 21
       },
       {
         "ingredient": "Tomate cerise",
