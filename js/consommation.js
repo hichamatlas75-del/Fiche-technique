@@ -108,13 +108,21 @@ let currentSalesData = [];
 let currentSalesFilter = 'all'; // 'all', 'matched', 'unmatched'
 let aggregatedIngredients = [];
 
+const RECIPES_DB_VERSION = 'v5.3_seafood_standards';
+
 function loadRecipes() {
   try {
-    const saved = localStorage.getItem('gc_recipes_db_v4');
-    if (saved) {
+    const savedVersion = localStorage.getItem('gc_recipes_db_version');
+    const saved = localStorage.getItem('gc_recipes_db_v5');
+    if (savedVersion === RECIPES_DB_VERSION && saved) {
       activeRecipes = JSON.parse(saved);
     } else {
       activeRecipes = JSON.parse(JSON.stringify(BASE_RECIPES));
+      try {
+        localStorage.removeItem('gc_recipes_db_v4');
+        localStorage.setItem('gc_recipes_db_version', RECIPES_DB_VERSION);
+        localStorage.setItem('gc_recipes_db_v5', JSON.stringify(activeRecipes));
+      } catch (err) {}
     }
   } catch (e) {
     activeRecipes = JSON.parse(JSON.stringify(BASE_RECIPES));
@@ -139,7 +147,8 @@ function loadRecipes() {
 
 function saveRecipes() {
   try {
-    localStorage.setItem('gc_recipes_db_v4', JSON.stringify(activeRecipes));
+    localStorage.setItem('gc_recipes_db_version', RECIPES_DB_VERSION);
+    localStorage.setItem('gc_recipes_db_v5', JSON.stringify(activeRecipes));
   } catch (e) {
     console.warn('[LocalStorage] Erreur sauvegarde recettes:', e);
   }
@@ -4499,6 +4508,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-reset-recipes').addEventListener('click', () => {
     if (confirm('Voulez-vous réinitialiser toutes les fiches techniques aux valeurs d\'origine ?')) {
       localStorage.removeItem('gc_recipes_db_v4');
+      localStorage.removeItem('gc_recipes_db_v5');
+      localStorage.removeItem('gc_recipes_db_version');
       loadRecipes();
       renderRecipeList();
       recalculateCurrentView();
