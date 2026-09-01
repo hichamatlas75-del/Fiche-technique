@@ -3001,24 +3001,26 @@ function applyExtractedDataToAudit(extractedItems, targetType, isFirstFile = fal
       auditMonthlyArticles.push(target);
     }
 
-    // 2. Conversion d'unité intelligente automatique (ex: kg -> g, L -> ml, cl -> ml)
-    let convertedQty = ext.qty;
-    const impUnit = (ext.unit || '').toLowerCase().trim();
+    // 2. Conversion automatique des conditionnements groupés (Boîtes 24 Sodas, 12 Eaux/Oulmès, 8 Orangina, 88 Fromage, etc.)
+    const packConv = convertBeveragePackaging(ext.name, ext.qty, ext.unit);
+    let convertedQty = packConv.qty;
+    const impUnit = (packConv.unit || '').toLowerCase().trim();
     const targetUnit = (target.unit || 'g').toLowerCase().trim();
 
+    // 3. Conversion d'unité intelligente métrique (ex: kg -> g, L -> ml, cl -> ml)
     if (targetUnit === 'g') {
-      if (impUnit === 'kg' || impUnit === 'kilo') convertedQty = ext.qty * 1000;
+      if (impUnit === 'kg' || impUnit === 'kilo') convertedQty = convertedQty * 1000;
     } else if (targetUnit === 'kg') {
-      if (impUnit === 'g' || impUnit === 'gr') convertedQty = ext.qty / 1000;
+      if (impUnit === 'g' || impUnit === 'gr') convertedQty = convertedQty / 1000;
     } else if (targetUnit === 'ml') {
-      if (impUnit === 'l' || impUnit === 'litre') convertedQty = ext.qty * 1000;
-      else if (impUnit === 'cl') convertedQty = ext.qty * 10;
+      if (impUnit === 'l' || impUnit === 'litre') convertedQty = convertedQty * 1000;
+      else if (impUnit === 'cl') convertedQty = convertedQty * 10;
     } else if (targetUnit === 'l' || targetUnit === 'litre') {
-      if (impUnit === 'ml') convertedQty = ext.qty / 1000;
-      else if (impUnit === 'cl') convertedQty = ext.qty / 100;
+      if (impUnit === 'ml') convertedQty = convertedQty / 1000;
+      else if (impUnit === 'cl') convertedQty = convertedQty / 100;
     }
 
-    // 3. Application ou cumul des quantités
+    // 4. Application ou cumul des quantités
     if (targetType === 'm1') {
       if (isFirstFile) target.sInit = convertedQty;
       else target.sInit = (target.sInit || 0) + convertedQty;
@@ -3032,7 +3034,10 @@ function applyExtractedDataToAudit(extractedItems, targetType, isFirstFile = fal
       if (isFirstFile) target.casse = convertedQty;
       else target.casse = (target.casse || 0) + convertedQty;
     }
-    if (ext.price && ext.price > 0) target.prix = ext.price;
+    if (ext.price && ext.price > 0) {
+      if (packConv.multiplier > 1) target.prix = ext.price / packConv.multiplier;
+      else target.prix = ext.price;
+    }
   });
 
   recalculateMonthlyAudit();
@@ -3217,6 +3222,46 @@ function findBestIngredientMatch(importedName, candidateArticles) {
     return { article: bestArticle, score: bestScore };
   }
   return null;
+}
+
+/* ========================================================
+   13.C CONVERSION AUTOMATIQUE DES CONDITIONNEMENTS (SODAS 24, EAUX/OULMÈS 12, ORANGINA 8, PACKS)
+======================================================== */
+function convertBeveragePackaging(rawName, qty, rawUnit) {
+  if (!rawName || isNaN(qty)) return { qty: qty || 0, unit: rawUnit || 'piece', multiplier: 1 };
+  
+  const name = String(rawName).toLowerCase().trim();
+  const unit = (rawUnit || '').toLowerCase().trim();
+
+  // Détecter si l'unité est un conditionnement groupé
+  const isPack = ['paquet', 'boite', 'boîte', 'carton', 'pack', 'colis', 'pq', 'bt'].includes(unit);
+
+  // 1. Détection de multiplicateur explicite dans le libellé (ex: '88PC', '18 PC', '16 PC', '100PC', '12 PC', '8 PC')
+  const explicitMatch = name.match(/(\d+)\s*(pc|pcs|u|canette|canettes|bouteille|bouteilles)/i);
+  if (explicitMatch) {
+    const multiplier = parseInt(explicitMatch[1], 10);
+    if (multiplier > 1 && (isPack || unit === 'boite' || unit === 'paquet' || unit === 'carton' || unit === 'pq')) {
+      return { qty: qty * multiplier, unit: 'piece', multiplier, reason: 'explicit ' + multiplier + 'pc' };
+    }
+  }
+
+  // 2. Orangina (Boîte de 8 canettes/bouteilles)
+  if (name.includes('orangina') && (isPack || unit === 'paquet' || unit === 'boite')) {
+    return { qty: qty * 8, unit: 'piece', multiplier: 8, reason: 'Orangina pack 8' };
+  }
+
+  // 3. Eaux Minérales & Oulmès (Boîte de 12 pour Sidi Ali 33cl, 50cl, 75cl, Oulmès 25cl, 75cl, Mojito, Tropical)
+  if ((name.includes('sidi ali') || name.includes('oulmes') || name.includes('oulmès') || name.includes('mojito') || name.includes('tropical') || name.includes('eau min') || name.includes('eau gazeuse')) && (isPack || unit === 'paquet' || unit === 'boite')) {
+    return { qty: qty * 12, unit: 'piece', multiplier: 12, reason: 'Eau/Oulmès pack 12' };
+  }
+
+  // 4. Sodas (Boîte de 24 canettes pour Coca, Coca Zéro, Sprite, Fanta, Hawai, Poms, Schweppes, Redbull)
+  const isSoda = name.includes('coca') || name.includes('fanta') || name.includes('sprite') || name.includes('hawai') || name.includes('poms') || name.includes('schwep') || name.includes('redbull') || name.includes('soda');
+  if (isSoda && (isPack || unit === 'paquet' || unit === 'boite')) {
+    return { qty: qty * 24, unit: 'piece', multiplier: 24, reason: 'Soda pack 24' };
+  }
+
+  return { qty: qty, unit: unit || 'piece', multiplier: 1, reason: 'standard' };
 }
 
 // 13.3 SYNCHRONISATION MULTI-ARTICLES AVEC LES VENTES DU MOIS
@@ -3467,6 +3512,7 @@ window.extractDataFromPDF = extractDataFromPDF;
 window.parseTextLinesToAudit = parseTextLinesToAudit;
 window.parseExcelRowsToAuditData = parseExcelRowsToAuditData;
 window.findBestIngredientMatch = findBestIngredientMatch;
+window.convertBeveragePackaging = convertBeveragePackaging;
 window.applyExtractedDataToAudit = applyExtractedDataToAudit;
 window.syncAuditWithMonthlySales = syncAuditWithMonthlySales;
 window.getDefaultPriceForCategory = getDefaultPriceForCategory;
