@@ -3338,6 +3338,25 @@ function resetMonthlyAuditData() {
   }
 }
 
+
+function isHighImpactIngredient(item) {
+  if (!item) return false;
+  const cat = item.category || categorizeIngredient(item.name);
+  
+  // 1. Viandes, Poissons, Fromages (Pivots Coût Matière)
+  if (cat === 'viandes' || cat === 'poissons' || cat === 'fromages') return true;
+  
+  // 2. Café & Boissons Majeures
+  const n = cleanText(item.name);
+  if (n.includes('cafe') || n.includes('café') || n.includes('espresso') || n.includes('cacao') || n.includes('the sbaa') || n.includes('lipton')) return true;
+  
+  // 3. Ingrédients nobles / coûteux
+  if (n.includes('avocat') || n.includes('nutella') || n.includes('creme') || n.includes('beurre') || n.includes('pistache') || n.includes('amande') || n.includes('noix') || n.includes('huile olive') || n.includes('khlii') || n.includes('amlou') || n.includes('saumon')) return true;
+  
+  if (item.prix >= 40) return true;
+  return false;
+}
+
 function setAuditCatFilter(cat, btn) {
   currentAuditCatFilter = cat;
   document.querySelectorAll('[data-audit-cat]').forEach(b => b.classList.remove('active'));
@@ -3420,17 +3439,66 @@ function renderMonthlyAuditTable() {
 
   const q = cleanText(document.getElementById('search-audit-multi') ? document.getElementById('search-audit-multi').value : '');
 
+  // Mettre à jour les compteurs de catégorie
+  let countAll = 0, countStrategic = 0, countViandes = 0, countPoissons = 0, countFromages = 0, countBoissons = 0, countLegumes = 0, countEpicerie = 0;
+  auditMonthlyArticles.forEach(item => {
+    countAll++;
+    if (isHighImpactIngredient(item)) countStrategic++;
+    const c = item.category || categorizeIngredient(item.name);
+    if (c === 'viandes') countViandes++;
+    else if (c === 'poissons') countPoissons++;
+    else if (c === 'fromages') countFromages++;
+    else if (c === 'boissons') countBoissons++;
+    else if (c === 'legumes') countLegumes++;
+    else countEpicerie++;
+  });
+
+  const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  setEl('audit-count-all', countAll);
+  setEl('audit-count-strategic', countStrategic);
+  setEl('audit-count-viandes', countViandes);
+  setEl('audit-count-poissons', countPoissons);
+  setEl('audit-count-fromages', countFromages);
+  setEl('audit-count-boissons', countBoissons);
+  setEl('audit-count-legumes', countLegumes);
+  setEl('audit-count-epicerie', countEpicerie);
+
+  // Filtrage
   const filtered = auditMonthlyArticles.filter(item => {
-    // Filtre recherche
     if (q && !cleanText(item.name).includes(q)) return false;
-    // Filtre catégorie
-    if (currentAuditCatFilter !== 'all' && item.category !== currentAuditCatFilter) return false;
-    // Filtre statut
+    if (currentAuditCatFilter === 'strategic' && !isHighImpactIngredient(item)) return false;
+    else if (currentAuditCatFilter !== 'all' && currentAuditCatFilter !== 'strategic' && item.category !== currentAuditCatFilter) return false;
+    
     if (currentAuditStatusFilter === 'danger' && item.ecartPct <= 8) return false;
     if (currentAuditStatusFilter === 'ok' && (Math.abs(item.ecartPct) > 3 || item.ecartPct > 8)) return false;
     if (currentAuditStatusFilter === 'under' && item.ecartPct >= -3) return false;
     return true;
   });
+
+  // Calcul des KPIs sur la sélection active
+  let fTotTheo = 0, fTotReel = 0, fTotEcart = 0, fTotCasse = 0, fAlertCount = 0;
+  filtered.forEach(item => {
+    fTotTheo += item.theorique * item.prix;
+    fTotReel += (item.consReelle || 0) * item.prix;
+    fTotEcart += (item.impactDH || 0);
+    fTotCasse += (item.casse || 0) * item.prix;
+    if ((item.ecartPct || 0) > 8) fAlertCount++;
+  });
+
+  const fSign = fTotEcart > 0 ? '+' : '';
+  const fTotEcartPct = fTotTheo > 0 ? (fTotEcart / fTotTheo) * 100 : 0;
+
+  setEl('audit-kpi-tot-theo', fTotTheo.toFixed(2) + ' DH');
+  setEl('audit-kpi-tot-reel', fTotReel.toFixed(2) + ' DH');
+  const ecartEl = document.getElementById('audit-kpi-tot-ecart');
+  if (ecartEl) {
+    ecartEl.textContent = fSign + fTotEcart.toFixed(2) + ' DH';
+    ecartEl.className = 'audit-kpi-val ' + (fTotEcart > 0 ? 'danger' : 'ok');
+  }
+  setEl('audit-kpi-tot-ecart-pct', fSign + fTotEcartPct.toFixed(1) + '% vs Théorique');
+  setEl('audit-kpi-tot-casse', fTotCasse.toFixed(2) + ' DH');
+  setEl('audit-kpi-tot-items', filtered.length);
+  setEl('audit-kpi-tot-alerts', fAlertCount + ' alerte(s) critique(s)');
 
   if (filtered.length === 0) {
     tbody.innerHTML = '<tr><td colspan="14" style="text-align:center; padding:30px; color:var(--muted);">Aucune matière première ne correspond aux filtres.</td></tr>';
@@ -3448,27 +3516,30 @@ function renderMonthlyAuditTable() {
     } else if (item.ecartPct > 8) {
       badgeHtml = '<span class="status-badge danger">🚨 CRITIQUE</span>';
     } else {
-      badgeHtml = '<span class="status-badge under">📉 SOUS-DOSÉ</span>';
+      badgeHtml = '<span class="status-badge under">📉 SOUS-DOSAGE</span>';
     }
 
-    return `
-      <tr>
-        <td style="font-weight:700;">${item.name}</td>
-        <td><span class="chip-pill">${item.category}</span></td>
-        <td style="font-size:12px; font-weight:700; color:var(--muted);">${item.unit}</td>
-        <td style="text-align:right;"><input type="number" step="0.01" class="audit-input" value="${item.sInit}" onchange="onAuditFieldChange(${idx}, 'sInit', this.value)" /></td>
-        <td style="text-align:right;"><input type="number" step="0.01" class="audit-input" value="${item.achats}" onchange="onAuditFieldChange(${idx}, 'achats', this.value)" /></td>
-        <td style="text-align:right;"><input type="number" step="0.01" class="audit-input" value="${item.sFinal}" onchange="onAuditFieldChange(${idx}, 'sFinal', this.value)" /></td>
-        <td style="text-align:right; font-weight:800; color:var(--accent);">${item.consReelle.toFixed(2)}</td>
-        <td style="text-align:right;"><input type="number" step="0.01" class="audit-input" value="${item.theorique}" onchange="onAuditFieldChange(${idx}, 'theorique', this.value)" /></td>
-        <td style="text-align:right;"><input type="number" step="0.01" class="audit-input" value="${item.casse}" onchange="onAuditFieldChange(${idx}, 'casse', this.value)" /></td>
-        <td style="text-align:right; font-weight:900; color:${item.ecart > 0 ? 'var(--danger)' : (item.ecart < 0 ? 'var(--accent)' : 'var(--ok)')}">${sign}${item.ecart.toFixed(2)} (${sign}${item.ecartPct.toFixed(1)}%)</td>
-        <td style="text-align:right;"><input type="number" step="0.01" class="audit-input" style="width:70px;" value="${item.prix}" onchange="onAuditFieldChange(${idx}, 'prix', this.value)" /></td>
-        <td style="text-align:right; font-weight:900; color:${item.impactDH > 0 ? 'var(--danger)' : 'var(--ok)'}">${sign}${item.impactDH.toFixed(2)} DH</td>
-        <td style="text-align:center;">${badgeHtml}</td>
-        <td style="text-align:center;"><button class="btn" style="padding:4px 8px; font-size:11px; color:var(--danger);" onclick="removeAuditArticle(${idx})">✕</button></td>
-      </tr>
-    `;
+    const isStrategic = isHighImpactIngredient(item);
+    const starIcon = isStrategic ? '<span title="Produit Stratégique à Fort Impact (80/20)" style="color:#d97706; margin-right:4px;">⭐</span>' : '';
+
+    return `<tr>
+      <td style="font-weight:800; min-width:180px;">
+        ${starIcon}${item.name}
+      </td>
+      <td style="text-align:center;"><span class="cat-chip ${item.category}">${item.category.toUpperCase()}</span></td>
+      <td style="text-align:center;"><span class="unit-chip">${item.unit}</span></td>
+      <td><input type="number" step="0.01" value="${(item.sInit || 0).toFixed(2)}" onchange="onAuditFieldChange(${idx}, 'sInit', this.value)" class="audit-input" /></td>
+      <td><input type="number" step="0.01" value="${(item.achats || 0).toFixed(2)}" onchange="onAuditFieldChange(${idx}, 'achats', this.value)" class="audit-input" /></td>
+      <td><input type="number" step="0.01" value="${(item.sFinal || 0).toFixed(2)}" onchange="onAuditFieldChange(${idx}, 'sFinal', this.value)" class="audit-input" /></td>
+      <td style="font-weight:800; color:var(--text); text-align:right;">${(item.consReelle || 0).toFixed(2)}</td>
+      <td style="font-weight:700; color:var(--muted); text-align:right;">${(item.theorique || 0).toFixed(2)}</td>
+      <td><input type="number" step="0.01" value="${(item.casse || 0).toFixed(2)}" onchange="onAuditFieldChange(${idx}, 'casse', this.value)" class="audit-input" /></td>
+      <td style="font-weight:900; text-align:right; color:${item.ecart > 0 ? 'var(--danger)' : 'var(--success)'};">${sign}${(item.ecart || 0).toFixed(2)}</td>
+      <td style="text-align:center;">${badgeHtml}</td>
+      <td><input type="number" step="0.01" value="${(item.prix || 0).toFixed(2)}" onchange="onAuditFieldChange(${idx}, 'prix', this.value)" class="audit-input price" /></td>
+      <td style="font-weight:900; text-align:right; color:${item.impactDH > 0 ? 'var(--danger)' : 'var(--success)'};">${sign}${(item.impactDH || 0).toFixed(2)} DH</td>
+      <td style="text-align:center;"><button class="btn-del-row" onclick="removeAuditArticle(${idx})" title="Supprimer">✕</button></td>
+    </tr>`;
   }).join('');
 }
 

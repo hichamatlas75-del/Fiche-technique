@@ -763,14 +763,15 @@
 
       <!-- FILTRES DE FAMILLE ET DE STATUT -->
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
-        <div class="filter-group">
-          <button class="filter-btn active" data-audit-cat="all" onclick="setAuditCatFilter('all', this)">Toutes Catégories</button>
-          <button class="filter-btn" data-audit-cat="viandes" onclick="setAuditCatFilter('viandes', this)">Viandes</button>
-          <button class="filter-btn" data-audit-cat="poissons" onclick="setAuditCatFilter('poissons', this)">Poissons</button>
-          <button class="filter-btn" data-audit-cat="fromages" onclick="setAuditCatFilter('fromages', this)">Fromages</button>
-          <button class="filter-btn" data-audit-cat="legumes" onclick="setAuditCatFilter('legumes', this)">Légumes</button>
-          <button class="filter-btn" data-audit-cat="boissons" onclick="setAuditCatFilter('boissons', this)">Boissons</button>
-          <button class="filter-btn" data-audit-cat="epicerie" onclick="setAuditCatFilter('epicerie', this)">Épicerie/Pains</button>
+        <div class="filter-group" style="flex-wrap:wrap; gap:6px;">
+          <button class="filter-btn active" data-audit-cat="all" onclick="setAuditCatFilter('all', this)">Toutes Catégories (<span id="audit-count-all">0</span>)</button>
+          <button class="filter-btn" data-audit-cat="strategic" style="color:#d97706; font-weight:900; background:linear-gradient(135deg, rgba(217, 119, 6, 0.12) 0%, var(--paper) 100%); border-color:rgba(217, 119, 6, 0.5); box-shadow:0 2px 8px rgba(217, 119, 6, 0.18);" onclick="setAuditCatFilter('strategic', this)">🎯 Fort Impact (Viandes, Poissons, Fromages, Café) (<span id="audit-count-strategic">0</span>)</button>
+          <button class="filter-btn" data-audit-cat="viandes" onclick="setAuditCatFilter('viandes', this)">🥩 Viandes & Volailles (<span id="audit-count-viandes">0</span>)</button>
+          <button class="filter-btn" data-audit-cat="poissons" onclick="setAuditCatFilter('poissons', this)">🐟 Poissons & Mer (<span id="audit-count-poissons">0</span>)</button>
+          <button class="filter-btn" data-audit-cat="fromages" onclick="setAuditCatFilter('fromages', this)">🧀 Fromages & Laitiers (<span id="audit-count-fromages">0</span>)</button>
+          <button class="filter-btn" data-audit-cat="boissons" onclick="setAuditCatFilter('boissons', this)">☕ Café & Boissons (<span id="audit-count-boissons">0</span>)</button>
+          <button class="filter-btn" data-audit-cat="legumes" onclick="setAuditCatFilter('legumes', this)">🥗 Légumes & Fruits (<span id="audit-count-legumes">0</span>)</button>
+          <button class="filter-btn" data-audit-cat="epicerie" onclick="setAuditCatFilter('epicerie', this)">🥖 Épicerie & Pains (<span id="audit-count-epicerie">0</span>)</button>
         </div>
 
         <div class="filter-group">
