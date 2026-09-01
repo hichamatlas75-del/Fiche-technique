@@ -3717,10 +3717,10 @@
     "category": "ENTRÉES CHAUDES",
     "name": "CROUSTILLON GAMBAS",
     "sellPrice": 68,
-    "cost": 30.65,
-    "foodCostPct": 45.1,
-    "marginPct": 54.9,
-    "grossMarginDH": 37.35,
+    "cost": 28.85,
+    "foodCostPct": 42.4,
+    "marginPct": 57.6,
+    "grossMarginDH": 39.15,
     "details": [
       {
         "ingredient": "Gambas chair pure",
@@ -3751,11 +3751,6 @@
         "ingredient": "Crème fraîche",
         "quantity": "50 g",
         "cost": 1.5
-      },
-      {
-        "ingredient": "Bouteille Eau Minérale 33cl",
-        "quantity": "1 p",
-        "cost": 1.8
       }
     ]
   },

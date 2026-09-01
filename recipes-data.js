@@ -1902,15 +1902,14 @@ const DATA = [
           "Purée : 200 g",
           "Radis : 15 g",
           "Parmesan : 14 g",
-          "Crème fraîche : 50 g",
-          "Bouteille Eau Minérale 33cl : 1 p"
+          "Crème fraîche : 50 g"
         ],
         "price": "68 DH",
-        "cost": 30.65,
+        "cost": 28.85,
         "sellPrice": 68,
-        "foodCost": 45.1,
-        "margin": 54.9,
-        "grossMarginDH": 37.35
+        "foodCost": 42.4,
+        "margin": 57.6,
+        "grossMarginDH": 39.15
       },
       {
         "name": "PIL PIL ESPAGNOL",
