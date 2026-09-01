@@ -141,16 +141,52 @@
 
     <!-- BANNIÈRE HERO -->
     <div class="audit-hero">
-      <div>
-        <h2 class="audit-hero-title">⚡ Audit Flash Manuel de Stock</h2>
+      <div style="flex:1; min-width:300px;">
+        <h2 class="audit-hero-title">⚡ Audit Flash Manuel de Stock & Historique</h2>
         <p class="audit-hero-subtitle">
-          Sélectionnez un ingrédient stratégique (viandes, poissons, fromages, café...), saisissez vos stocks physiques et comparez-les immédiatement aux ventes théoriques avec calcul du coût réel des écarts.
+          Contrôlez vos matières premières stratégiques, comparez immédiatement vos stocks physiques aux ventes théoriques et archivez vos sessions d'audit datées.
         </p>
       </div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn btn-success" onclick="exportAuditHistoryToExcel()">📥 Exporter Rapport (.xlsx)</button>
-        <button class="btn btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
-        <button class="btn" onclick="clearAuditHistory()" style="color:var(--danger); border-color:var(--danger);">🗑️ Réinitialiser</button>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <button class="btn btn-primary" onclick="closeAndSaveCurrentSession()" style="background:#0284c7; color:#fff; font-weight:800; border:none; box-shadow:0 4px 12px rgba(2,132,199,0.35);">
+          💾 Clôturer & Enregistrer la Session
+        </button>
+        <button class="btn btn-success" onclick="exportAuditHistoryToExcel()">📥 Exporter Session (.xlsx)</button>
+        <button class="btn btn-secondary" onclick="exportFullHistoryJSON()" title="Télécharger l'historique complet au format JSON">📁 Sauvegarde JSON</button>
+        <button class="btn btn-secondary" onclick="startNewAuditSession()">➕ Nouvelle Session</button>
+      </div>
+    </div>
+
+    <!-- BANDEAU CONTEXTE DE LA SESSION EN COURS -->
+    <div style="background:var(--paper); border:1px solid var(--border); border-radius:14px; padding:16px 20px; margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; box-shadow:var(--shadow-card);">
+      <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap; flex:1;">
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <label style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">Session d'Audit :</label>
+          <select id="session-selector" onchange="onSessionSelectChange(this.value)" style="font-weight:700; font-size:13.5px; padding:6px 10px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text);">
+            <option value="current">➕ Session Active (En cours)</option>
+          </select>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <label style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">Date du Contrôle :</label>
+          <input type="date" id="session-date" style="font-weight:700; font-size:13.5px; padding:6px 10px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text);" />
+        </div>
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <label style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">Période / Service :</label>
+          <select id="session-service" style="font-weight:700; font-size:13.5px; padding:6px 10px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text);">
+            <option value="Service Soir">🌙 Clôture Service Soir</option>
+            <option value="Service Midi">☀️ Clôture Service Midi</option>
+            <option value="Inventaire Hebdomadaire">📅 Inventaire Hebdomadaire</option>
+            <option value="Inventaire Mensuel">📊 Inventaire Fin de Mois</option>
+            <option value="Contrôle Flash Aléatoire">⚡ Contrôle Flash Inopiné</option>
+          </select>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <label style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">Auditeur / Responsable :</label>
+          <input type="text" id="session-auditor" value="Manager" placeholder="Nom de l'auditeur" style="font-weight:700; font-size:13.5px; padding:6px 10px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); width:140px;" />
+        </div>
+      </div>
+      <div id="session-status-tag" style="padding:6px 12px; border-radius:8px; font-size:12px; font-weight:800; background:rgba(2, 132, 199, 0.1); color:#0284c7; border:1px solid rgba(2, 132, 199, 0.3);">
+        🔵 SESSION ACTIVE
       </div>
     </div>
 
@@ -218,7 +254,7 @@
 
         <div style="margin-top:16px; display:flex; gap:10px;">
           <button class="btn btn-primary flash-calc-btn" onclick="saveCurrentAuditToHistory()" style="flex:1; font-weight:800;">
-            💾 Enregistrer cet Ingrédient dans le Tableau
+            💾 Ajouter / Mettre à Jour dans la Session
           </button>
           <button class="btn" onclick="resetFlashInputs()" style="padding:10px 14px;">
             🔄 Réinitialiser
@@ -270,12 +306,12 @@
 
     </div>
 
-    <!-- SECTION 3 : TABLEAU RÉCAPITULATIF DES AUDITS ENREGISTRÉS -->
-    <div class="table-responsive-card">
+    <!-- SECTION 3 : TABLEAU RÉCAPITULATIF DES AUDITS DE LA SESSION -->
+    <div class="table-responsive-card" style="margin-bottom:30px;">
       <div class="table-header-bar">
         <div>
-          <h3 style="font-size:16px; font-weight:800; margin:0; color:var(--text);">📋 Tableau des Matières Premières Auditées (<span id="audit-history-count">0</span>)</h3>
-          <span style="font-size:12px; color:var(--text-muted);">Synthèse consolidée des contrôles physiques manuels</span>
+          <h3 style="font-size:16px; font-weight:800; margin:0; color:var(--text);">📋 Ingrédients de la Session en Cours (<span id="audit-history-count">0</span>)</h3>
+          <span style="font-size:12px; color:var(--text-muted);">Synthèse consolidée des contrôles physiques de cette session</span>
         </div>
         <div style="display:flex; gap:10px; align-items:center;">
           <span id="audit-history-total-dh" style="font-weight:900; font-size:16px; color:var(--accent);">Écart Total : 0.00 DH</span>
@@ -305,7 +341,44 @@
           <tbody id="audit-history-tbody">
             <tr>
               <td colspan="14" style="text-align:center; padding:30px; color:var(--text-muted);">
-                Aucun audit enregistré pour le moment. Remplissez le formulaire ci-dessus et cliquez sur <strong>"Enregistrer cet Ingrédient"</strong>.
+                Aucun audit enregistré pour le moment. Remplissez le formulaire ci-dessus et cliquez sur <strong>"Ajouter dans la Session"</strong>.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION 4 : 📜 HISTORIQUE CHRONOLOGIQUE DES SESSIONS PASSÉES -->
+    <div class="table-responsive-card">
+      <div class="table-header-bar" style="background:rgba(2, 132, 199, 0.05);">
+        <div>
+          <h3 style="font-size:16px; font-weight:800; margin:0; color:var(--text);">📜 Historique des Sessions d'Audit Clôturées (<span id="past-sessions-count">0</span>)</h3>
+          <span style="font-size:12px; color:var(--text-muted);">Toutes les sessions d'inventaire archivées par date, période et auditeur</span>
+        </div>
+        <div>
+          <button class="btn btn-secondary" onclick="clearAllPastSessions()" style="font-size:12px; color:var(--danger); border-color:var(--danger);">🗑️ Vider l'Historique</button>
+        </div>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table class="destock-table">
+          <thead>
+            <tr>
+              <th style="text-align:left;">Date & Heure</th>
+              <th style="text-align:left;">Période / Service</th>
+              <th style="text-align:left;">Auditeur</th>
+              <th style="text-align:center;">Articles</th>
+              <th style="text-align:right;">Impact Financier</th>
+              <th style="text-align:center;">Conformité</th>
+              <th style="text-align:center;">Diagnostic Global</th>
+              <th style="text-align:center; min-width:180px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="past-sessions-tbody">
+            <tr>
+              <td colspan="8" style="text-align:center; padding:30px; color:var(--text-muted);">
+                Aucune session clôturée pour l'instant. Clôturez votre première session avec le bouton bleu ci-dessus.
               </td>
             </tr>
           </tbody>
