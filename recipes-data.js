@@ -2442,7 +2442,7 @@ const DATA = [
         "prepTime": 10,
         "tech": [
           "Crevettes : 100 g",
-          "Calamar : 50 g",
+          "Calamar : 40 g",
           "Pesto : 20 g",
           "Mozzarella : 60 g",
           "Frites + sauce : 200 g",
@@ -2450,11 +2450,11 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "price": "64 DH",
-        "cost": 30.39,
+        "cost": 29.44,
         "sellPrice": 64,
-        "foodCost": 47.5,
-        "margin": 52.5,
-        "grossMarginDH": 33.61
+        "foodCost": 46,
+        "margin": 54,
+        "grossMarginDH": 34.56
       },
       {
         "name": "SAUMON",
@@ -2487,8 +2487,8 @@ const DATA = [
         "image": "images/sand-fruitsmer.jpg",
         "prepTime": 14,
         "tech": [
-          "Crevette : 125 g",
-          "Calamar : 70 g",
+          "Crevette : 100 g",
+          "Calamar : 40 g",
           "Sauce Biggy : 40 g",
           "Cheddar : 20 g",
           "Crème fraîche : 60 ml",
@@ -2497,11 +2497,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "65 DH",
-        "cost": 33.58,
+        "cost": 27.48,
         "sellPrice": 65,
-        "foodCost": 51.7,
-        "margin": 48.3,
-        "grossMarginDH": 31.42
+        "foodCost": 42.3,
+        "margin": 57.7,
+        "grossMarginDH": 37.52
       },
       {
         "name": "THON",
@@ -2814,18 +2814,18 @@ const DATA = [
         "tech": [
           "Pâte : 330 g",
           "Mozzarella : 150 g",
-          "Crevette : 110 g",
-          "Calamar : 70 g",
-          "Moules : 40 g",
-          "Champignon : 60 g",
+          "Crevette : 100 g",
+          "Calamar : 40 g",
+          "Moules : 20 g",
+          "Champignon : 40 g",
           "Sauce blanche : 100 g"
         ],
         "price": "88 DH",
-        "cost": 39.5,
+        "cost": 33.55,
         "sellPrice": 88,
-        "foodCost": 44.9,
-        "margin": 55.1,
-        "grossMarginDH": 48.5
+        "foodCost": 38.1,
+        "margin": 61.9,
+        "grossMarginDH": 54.45
       },
       {
         "name": "SAUMON",
@@ -2900,20 +2900,20 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "Pâtes : 60 g",
-          "crevette : 140 g",
+          "Crevette : 100 g",
+          "CALAMAR : 40 g",
           "Parmesan : 15 g",
-          "Huile : 60 g",
-          "CALAMAR : 100 g",
-          "Pesto : 70 g",
+          "Huile : 30 g",
+          "Pesto : 40 g",
           "Sauce blanche : 100 g",
-          "Oignon/Ail : 70 g"
+          "Oignon/Ail : 50 g"
         ],
         "price": "78 DH",
-        "cost": 38.54,
+        "cost": 25.7,
         "sellPrice": 78,
-        "foodCost": 49.4,
-        "margin": 50.6,
-        "grossMarginDH": 39.46
+        "foodCost": 32.9,
+        "margin": 67.1,
+        "grossMarginDH": 52.3
       },
       {
         "name": "VÉGÉTARIEN",
@@ -3047,21 +3047,21 @@ const DATA = [
         "prepTime": 18,
         "tech": [
           "Pâtes : 150 g",
-          "Crevettes : 105 g",
-          "Calamar : 60 g",
+          "Crevettes : 100 g",
+          "Calamar : 40 g",
           "Moules : 15 g",
-          "Parmesan : 60 g",
-          "Huile : 60 g",
+          "Parmesan : 30 g",
+          "Huile : 30 g",
           "Crème : 100 g",
-          "Pesto : 70 g",
-          "Oignon/Ail : 70 g"
+          "Pesto : 40 g",
+          "Oignon/Ail : 50 g"
         ],
         "price": "88 DH",
-        "cost": 39.38,
+        "cost": 30.39,
         "sellPrice": 88,
-        "foodCost": 44.8,
-        "margin": 55.3,
-        "grossMarginDH": 48.62
+        "foodCost": 34.5,
+        "margin": 65.5,
+        "grossMarginDH": 57.61
       },
       {
         "name": "SAUMON",
@@ -3290,6 +3290,23 @@ const DATA = [
         "foodCost": 39.1,
         "margin": 60.9,
         "grossMarginDH": 35.35
+      },
+      {
+        "name": "CRÊPE PÊCHEUR",
+        "prepTime": 10,
+        "tech": [
+          "Pâte à crêpe : 1 p",
+          "Crevettes : 100 g",
+          "Calamar : 40 g",
+          "Mozzarella : 40 g",
+          "Crème fraîche : 30 ml"
+        ],
+        "price": "58 DH",
+        "cost": 21.7,
+        "sellPrice": 58,
+        "foodCost": 37.4,
+        "margin": 62.6,
+        "grossMarginDH": 36.3
       }
     ]
   },
@@ -5172,7 +5189,7 @@ const BASE_RECIPES = [
     "category": "PANINIS",
     "ingredients": [
       "Crevettes : 100 g",
-      "Calamar : 50 g",
+      "Calamar : 40 g",
       "Pesto : 20 g",
       "Mozzarella : 60 g",
       "Frites + sauce : 200 g",
@@ -5198,8 +5215,8 @@ const BASE_RECIPES = [
     "name": "FRUITS DE MER",
     "category": "SANDWICHS",
     "ingredients": [
-      "Crevette : 125 g",
-      "Calamar : 70 g",
+      "Crevette : 100 g",
+      "Calamar : 40 g",
       "Sauce Biggy : 40 g",
       "Cheddar : 20 g",
       "Crème fraîche : 60 ml",
@@ -5416,10 +5433,10 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte : 330 g",
       "Mozzarella : 150 g",
-      "Crevette : 165 g",
-      "Calamar : 70 g",
-      "Moules : 40 g",
-      "Champignon : 60 g",
+      "Crevette : 100 g",
+      "Calamar : 40 g",
+      "Moules : 20 g",
+      "Champignon : 40 g",
       "Sauce blanche : 100 g"
     ]
   },
@@ -5471,13 +5488,13 @@ const BASE_RECIPES = [
     "category": "PÂTES",
     "ingredients": [
       "Pâtes : 60 g",
-      "crevette : 140 g",
+      "Crevette : 100 g",
+      "CALAMAR : 40 g",
       "Parmesan : 15 g",
-      "Huile : 60 g",
-      "CALAMAR : 100 g",
-      "Pesto : 70 g",
+      "Huile : 30 g",
+      "Pesto : 40 g",
       "Sauce blanche : 100 g",
-      "Oignon/Ail : 70 g"
+      "Oignon/Ail : 50 g"
     ]
   },
   {
@@ -5576,14 +5593,14 @@ const BASE_RECIPES = [
     "category": "PÂTES",
     "ingredients": [
       "Pâtes : 150 g",
-      "Crevettes : 105 g",
-      "Calamar : 60 g",
+      "Crevettes : 100 g",
+      "Calamar : 40 g",
       "Moules : 15 g",
-      "Parmesan : 60 g",
-      "Huile : 60 g",
+      "Parmesan : 30 g",
+      "Huile : 30 g",
       "Crème : 100 g",
-      "Pesto : 70 g",
-      "Oignon/Ail : 70 g"
+      "Pesto : 40 g",
+      "Oignon/Ail : 50 g"
     ]
   },
   {
@@ -5925,10 +5942,10 @@ const BASE_RECIPES = [
     "category": "CREPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "crevette : 150 g",
+      "crevette : 100 g",
       "calamar : 40 g",
-      "Mozzarella : 60 g",
-      "creme fraiche : 50 g"
+      "Mozzarella : 40 g",
+      "creme fraiche : 30 g"
     ]
   },
   {
