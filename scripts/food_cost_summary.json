@@ -5300,10 +5300,10 @@
     "category": "PIZZA",
     "name": "MARGARITA",
     "sellPrice": 52,
-    "cost": 15.4,
-    "foodCostPct": 29.6,
-    "marginPct": 70.4,
-    "grossMarginDH": 36.6,
+    "cost": 12.65,
+    "foodCostPct": 24.3,
+    "marginPct": 75.7,
+    "grossMarginDH": 39.35,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5312,8 +5312,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "200 g",
-        "cost": 11
+        "quantity": "150 g",
+        "cost": 8.25
       },
       {
         "ingredient": "Sauce tomate",
@@ -5331,10 +5331,10 @@
     "category": "PIZZA",
     "name": "THON",
     "sellPrice": 65,
-    "cost": 22.94,
-    "foodCostPct": 35.3,
-    "marginPct": 64.7,
-    "grossMarginDH": 42.06,
+    "cost": 20.19,
+    "foodCostPct": 31.1,
+    "marginPct": 68.9,
+    "grossMarginDH": 44.81,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5343,8 +5343,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "200 g",
-        "cost": 11
+        "quantity": "150 g",
+        "cost": 8.25
       },
       {
         "ingredient": "Sauce tomate",
@@ -5372,10 +5372,10 @@
     "category": "PIZZA",
     "name": "VÉGÉTARIENNE",
     "sellPrice": 62,
-    "cost": 19.18,
-    "foodCostPct": 30.9,
-    "marginPct": 69.1,
-    "grossMarginDH": 42.82,
+    "cost": 16.43,
+    "foodCostPct": 26.5,
+    "marginPct": 73.5,
+    "grossMarginDH": 45.57,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5384,8 +5384,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "200 g",
-        "cost": 11
+        "quantity": "150 g",
+        "cost": 8.25
       },
       {
         "ingredient": "Sauce tomate",
@@ -5408,10 +5408,10 @@
     "category": "PIZZA",
     "name": "REGINA",
     "sellPrice": 68,
-    "cost": 21.1,
-    "foodCostPct": 31,
-    "marginPct": 69,
-    "grossMarginDH": 46.9,
+    "cost": 18.35,
+    "foodCostPct": 27,
+    "marginPct": 73,
+    "grossMarginDH": 49.65,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5420,8 +5420,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "200 g",
-        "cost": 11
+        "quantity": "150 g",
+        "cost": 8.25
       },
       {
         "ingredient": "Dinde fumée",
@@ -5490,10 +5490,10 @@
     "category": "PIZZA",
     "name": "VIANDE HACHÉE",
     "sellPrice": 78,
-    "cost": 25.48,
-    "foodCostPct": 32.7,
-    "marginPct": 67.3,
-    "grossMarginDH": 52.52,
+    "cost": 22.73,
+    "foodCostPct": 29.1,
+    "marginPct": 70.9,
+    "grossMarginDH": 55.27,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5502,8 +5502,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "200 g",
-        "cost": 11
+        "quantity": "150 g",
+        "cost": 8.25
       },
       {
         "ingredient": "Sauce tomate",
@@ -5526,10 +5526,10 @@
     "category": "PIZZA",
     "name": "PEPPERONI",
     "sellPrice": 74,
-    "cost": 19.68,
-    "foodCostPct": 26.6,
-    "marginPct": 73.4,
-    "grossMarginDH": 54.32,
+    "cost": 16.93,
+    "foodCostPct": 22.9,
+    "marginPct": 77.1,
+    "grossMarginDH": 57.07,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5538,8 +5538,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "200 g",
-        "cost": 11
+        "quantity": "150 g",
+        "cost": 8.25
       },
       {
         "ingredient": "Sauce tomate",
@@ -5557,10 +5557,10 @@
     "category": "PIZZA",
     "name": "POULET SAUCE BLANCHE",
     "sellPrice": 78,
-    "cost": 28.85,
-    "foodCostPct": 37,
-    "marginPct": 63,
-    "grossMarginDH": 49.15,
+    "cost": 26.1,
+    "foodCostPct": 33.5,
+    "marginPct": 66.5,
+    "grossMarginDH": 51.9,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5569,8 +5569,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "200 g",
-        "cost": 11
+        "quantity": "150 g",
+        "cost": 8.25
       },
       {
         "ingredient": "Poulet",
@@ -5593,10 +5593,10 @@
     "category": "PIZZA",
     "name": "4 SAISONS",
     "sellPrice": 88,
-    "cost": 32.3,
-    "foodCostPct": 36.7,
-    "marginPct": 63.3,
-    "grossMarginDH": 55.7,
+    "cost": 29.55,
+    "foodCostPct": 33.6,
+    "marginPct": 66.4,
+    "grossMarginDH": 58.45,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5605,8 +5605,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "200 g",
-        "cost": 11
+        "quantity": "150 g",
+        "cost": 8.25
       },
       {
         "ingredient": "Calamar",
@@ -5665,10 +5665,10 @@
     "category": "PIZZA",
     "name": "BURRATA",
     "sellPrice": 110,
-    "cost": 25.03,
-    "foodCostPct": 22.8,
-    "marginPct": 77.2,
-    "grossMarginDH": 84.97,
+    "cost": 22.28,
+    "foodCostPct": 20.3,
+    "marginPct": 79.7,
+    "grossMarginDH": 87.72,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5677,8 +5677,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "200 g",
-        "cost": 11
+        "quantity": "150 g",
+        "cost": 8.25
       },
       {
         "ingredient": "Sauce tomate",
@@ -5706,10 +5706,10 @@
     "category": "PIZZA",
     "name": "FRUITS DE MER",
     "sellPrice": 88,
-    "cost": 42.25,
-    "foodCostPct": 48,
-    "marginPct": 52,
-    "grossMarginDH": 45.75,
+    "cost": 39.5,
+    "foodCostPct": 44.9,
+    "marginPct": 55.1,
+    "grossMarginDH": 48.5,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5718,8 +5718,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "200 g",
-        "cost": 11
+        "quantity": "150 g",
+        "cost": 8.25
       },
       {
         "ingredient": "Crevette",
@@ -5752,10 +5752,10 @@
     "category": "PIZZA",
     "name": "SAUMON",
     "sellPrice": 94,
-    "cost": 28.25,
-    "foodCostPct": 30.1,
-    "marginPct": 69.9,
-    "grossMarginDH": 65.75,
+    "cost": 25.5,
+    "foodCostPct": 27.1,
+    "marginPct": 72.9,
+    "grossMarginDH": 68.5,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5764,8 +5764,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "200 g",
-        "cost": 11
+        "quantity": "150 g",
+        "cost": 8.25
       },
       {
         "ingredient": "Saumon",

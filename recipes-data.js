@@ -2613,16 +2613,16 @@ const DATA = [
         "prepTime": 14,
         "tech": [
           "Pâte : 330 g",
-          "Mozzarella : 200 g",
+          "Mozzarella : 150 g",
           "Sauce tomate : 100 g",
           "Olives noires : 13 g"
         ],
         "price": "52 DH",
-        "cost": 15.4,
+        "cost": 12.65,
         "sellPrice": 52,
-        "foodCost": 29.6,
-        "margin": 70.4,
-        "grossMarginDH": 36.6
+        "foodCost": 24.3,
+        "margin": 75.7,
+        "grossMarginDH": 39.35
       },
       {
         "name": "THON",
@@ -2630,18 +2630,18 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "Pâte : 330 g",
-          "Mozzarella : 200 g",
+          "Mozzarella : 150 g",
           "Sauce tomate : 100 g",
           "Thon : 100 g",
           "Oignons : 40 g",
           "Olives"
         ],
         "price": "65 DH",
-        "cost": 22.94,
+        "cost": 20.19,
         "sellPrice": 65,
-        "foodCost": 35.3,
-        "margin": 64.7,
-        "grossMarginDH": 42.06
+        "foodCost": 31.1,
+        "margin": 68.9,
+        "grossMarginDH": 44.81
       },
       {
         "name": "VÉGÉTARIENNE",
@@ -2649,17 +2649,17 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "Pâte : 330 g",
-          "Mozzarella : 200 g",
+          "Mozzarella : 150 g",
           "Sauce tomate : 100 g",
           "Champignons : 60 g",
           "Légumes : 220 g"
         ],
         "price": "62 DH",
-        "cost": 19.18,
+        "cost": 16.43,
         "sellPrice": 62,
-        "foodCost": 30.9,
-        "margin": 69.1,
-        "grossMarginDH": 42.82
+        "foodCost": 26.5,
+        "margin": 73.5,
+        "grossMarginDH": 45.57
       },
       {
         "name": "REGINA",
@@ -2667,17 +2667,17 @@ const DATA = [
         "prepTime": 16,
         "tech": [
           "Pâte : 330 g",
-          "Mozzarella : 200 g",
+          "Mozzarella : 150 g",
           "Dinde fumée : 100 g",
           "Champignons : 60 g",
           "Sauce blanche : 100 g"
         ],
         "price": "68 DH",
-        "cost": 21.1,
+        "cost": 18.35,
         "sellPrice": 68,
-        "foodCost": 31,
-        "margin": 69,
-        "grossMarginDH": 46.9
+        "foodCost": 27,
+        "margin": 73,
+        "grossMarginDH": 49.65
       },
       {
         "name": "5 FROMAGES",
@@ -2705,17 +2705,17 @@ const DATA = [
         "prepTime": 16,
         "tech": [
           "Pâte : 330 g",
-          "Mozzarella : 200 g",
+          "Mozzarella : 150 g",
           "Sauce tomate : 100 g",
           "Viande : 100 g",
           "Tomate cerise : 40 g"
         ],
         "price": "78 DH",
-        "cost": 25.48,
+        "cost": 22.73,
         "sellPrice": 78,
-        "foodCost": 32.7,
-        "margin": 67.3,
-        "grossMarginDH": 52.52
+        "foodCost": 29.1,
+        "margin": 70.9,
+        "grossMarginDH": 55.27
       },
       {
         "name": "PEPPERONI",
@@ -2723,16 +2723,16 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "Pâte : 330 g",
-          "Mozzarella : 200 g",
+          "Mozzarella : 150 g",
           "Sauce tomate : 100 g",
           "Pepperoni : 40 g"
         ],
         "price": "74 DH",
-        "cost": 19.68,
+        "cost": 16.93,
         "sellPrice": 74,
-        "foodCost": 26.6,
-        "margin": 73.4,
-        "grossMarginDH": 54.32
+        "foodCost": 22.9,
+        "margin": 77.1,
+        "grossMarginDH": 57.07
       },
       {
         "name": "POULET SAUCE BLANCHE",
@@ -2740,17 +2740,17 @@ const DATA = [
         "prepTime": 16,
         "tech": [
           "Pâte : 330 g",
-          "Mozzarella : 200 g",
+          "Mozzarella : 150 g",
           "Poulet : 150 g",
           "Champignon : 60 g",
           "Sauce blanche : 100 g"
         ],
         "price": "78 DH",
-        "cost": 28.85,
+        "cost": 26.1,
         "sellPrice": 78,
-        "foodCost": 37,
-        "margin": 63,
-        "grossMarginDH": 49.15
+        "foodCost": 33.5,
+        "margin": 66.5,
+        "grossMarginDH": 51.9
       },
       {
         "name": "4 SAISONS",
@@ -2758,7 +2758,7 @@ const DATA = [
         "prepTime": 18,
         "tech": [
           "Pâte : 330 g",
-          "Mozzarella : 200 g",
+          "Mozzarella : 150 g",
           "Calamar : 40 g",
           "Crevette : 40 g",
           "Viande : 40 g",
@@ -2767,11 +2767,11 @@ const DATA = [
           "Champignon : 60 g"
         ],
         "price": "88 DH",
-        "cost": 32.3,
+        "cost": 29.55,
         "sellPrice": 88,
-        "foodCost": 36.7,
-        "margin": 63.3,
-        "grossMarginDH": 55.7
+        "foodCost": 33.6,
+        "margin": 66.4,
+        "grossMarginDH": 58.45
       },
       {
         "name": "MOITIÉ MOITIÉ",
@@ -2794,18 +2794,18 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "Pâte : 330 g",
-          "Mozzarella : 200 g",
+          "Mozzarella : 150 g",
           "Sauce tomate : 100 g",
           "Burrata : 1 P",
           "Noix : 30 g",
           "Tomate cerise : 20 g"
         ],
         "price": "110 DH",
-        "cost": 25.03,
+        "cost": 22.28,
         "sellPrice": 110,
-        "foodCost": 22.8,
-        "margin": 77.2,
-        "grossMarginDH": 84.97
+        "foodCost": 20.3,
+        "margin": 79.7,
+        "grossMarginDH": 87.72
       },
       {
         "name": "FRUITS DE MER",
@@ -2813,7 +2813,7 @@ const DATA = [
         "prepTime": 18,
         "tech": [
           "Pâte : 330 g",
-          "Mozzarella : 200 g",
+          "Mozzarella : 150 g",
           "Crevette : 110 g",
           "Calamar : 70 g",
           "Moules : 40 g",
@@ -2821,11 +2821,11 @@ const DATA = [
           "Sauce blanche : 100 g"
         ],
         "price": "88 DH",
-        "cost": 42.25,
+        "cost": 39.5,
         "sellPrice": 88,
-        "foodCost": 48,
-        "margin": 52,
-        "grossMarginDH": 45.75
+        "foodCost": 44.9,
+        "margin": 55.1,
+        "grossMarginDH": 48.5
       },
       {
         "name": "SAUMON",
@@ -2833,17 +2833,17 @@ const DATA = [
         "prepTime": 18,
         "tech": [
           "Pâte : 330 g",
-          "Mozzarella : 200 g",
+          "Mozzarella : 150 g",
           "Saumon : 90 g",
           "Sauce blanche : 100 g",
           "Câpres : 15 g"
         ],
         "price": "94 DH",
-        "cost": 28.25,
+        "cost": 25.5,
         "sellPrice": 94,
-        "foodCost": 30.1,
-        "margin": 69.9,
-        "grossMarginDH": 65.75
+        "foodCost": 27.1,
+        "margin": 72.9,
+        "grossMarginDH": 68.5
       }
     ]
   },
@@ -5280,7 +5280,7 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
-      "Mozzarella : 200 g",
+      "Mozzarella : 150 g",
       "Sauce tomate : 100 g",
       "Olives noires : 13 g"
     ]
@@ -5291,7 +5291,7 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
-      "Mozzarella : 200 g",
+      "Mozzarella : 150 g",
       "Sauce tomate : 100 g",
       "Thon : 100 g",
       "Oignons : 40 g",
@@ -5304,7 +5304,7 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
-      "Mozzarella : 200 g",
+      "Mozzarella : 150 g",
       "Sauce tomate : 100 g",
       "Champignons : 60 g",
       "Légumes : 220 g"
@@ -5316,7 +5316,7 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
-      "Mozzarella : 200 g",
+      "Mozzarella : 150 g",
       "Dinde fumée : 100 g",
       "Champignons : 60 g",
       "Sauce blanche : 100 g"
@@ -5342,7 +5342,7 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
-      "Mozzarella : 200 g",
+      "Mozzarella : 150 g",
       "Sauce tomate : 100 g",
       "Viande : 100 g",
       "Tomate cerise : 40 g"
@@ -5354,7 +5354,7 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
-      "Mozzarella : 200 g",
+      "Mozzarella : 150 g",
       "Sauce tomate : 100 g",
       "Pepperoni : 40 g"
     ]
@@ -5365,7 +5365,7 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
-      "Mozzarella : 200 g",
+      "Mozzarella : 150 g",
       "Poulet : 150 g",
       "Champignon : 60 g",
       "Sauce blanche : 100 g"
@@ -5377,7 +5377,7 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
-      "Mozzarella : 200 g",
+      "Mozzarella : 150 g",
       "Calamar : 40 g",
       "Crevette : 40 g",
       "Viande : 40 g",
@@ -5401,7 +5401,7 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
-      "Mozzarella : 200 g",
+      "Mozzarella : 150 g",
       "Sauce tomate : 100 g",
       "Burrata : 1 P",
       "Noix : 30 g",
@@ -5414,7 +5414,7 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
-      "Mozzarella : 200 g",
+      "Mozzarella : 150 g",
       "Crevette : 165 g",
       "Calamar : 70 g",
       "Moules : 40 g",
@@ -5428,7 +5428,7 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
-      "Mozzarella : 200 g",
+      "Mozzarella : 150 g",
       "Saumon : 90 g",
       "Sauce blanche : 100 g",
       "Câpres : 15 g"
@@ -5896,7 +5896,7 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Pâte à pizza : 330 g",
-      "Mozzarella : 200 g",
+      "Mozzarella : 150 g",
       "Sauce tomate : 100 g",
       "Olives noires : 15 g",
       "Légumes grillés : 150 g"
@@ -6801,7 +6801,7 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Pâte à pizza : 330 g",
-      "Mozzarella : 200 g",
+      "Mozzarella : 150 g",
       "Sauce tomate : 100 g",
       "Dinde fumée : 80 g",
       "Champignon : 50 g"
