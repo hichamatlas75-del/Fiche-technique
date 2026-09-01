@@ -9,12 +9,12 @@
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 
 <!-- Styles Modulaires -->
-<link rel="stylesheet" href="css/common.css" />
-<link rel="stylesheet" href="css/consommation.css" />
+<link rel="stylesheet" href="css/common.css?v=5.5" />
+<link rel="stylesheet" href="css/consommation.css?v=5.5" />
 
 <!-- Données Centralisées (SSOT) & Utilitaires -->
-<script src="recipes-data.js?v=5.3"></script>
-<script src="js/core-utils.js?v=5.3"></script>
+<script src="recipes-data.js?v=5.5"></script>
+<script src="js/core-utils.js?v=5.5"></script>
 
 <style>
   .audit-page-container {
@@ -120,19 +120,19 @@
 
   <!-- HEADER NAVIGATION -->
   <header class="app-header">
-    <div class="header-content">
-      <div class="brand">
-        <span class="brand-logo">GC</span>
-        <div class="brand-text">
-          <h1>Grey Corner <span class="badge-dept">Audit Flash</span></h1>
-          <p>Contrôle Manuel des Stocks & Diagnostic des Écarts</p>
+    <div class="container head" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <div class="brand" style="display:flex; align-items:center; gap:12px;">
+        <div class="logo-badge" style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg, #0284c7, #38bdf8); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:17px; color:#fff;">GC</div>
+        <div class="ttl-group">
+          <div class="ttl">Grey Corner <span style="color:var(--accent);">⚡ Audit Flash</span></div>
+          <div class="sub-ttl" style="font-size:11px; color:var(--text-muted); font-weight:600;">Contrôle Manuel des Stocks & Diagnostic des Écarts</div>
         </div>
       </div>
-      <div class="header-actions">
-        <button class="btn btn-secondary" onclick="toggleAppTheme()">🌓 Thème</button>
-        <a href="comparateur.html" class="btn btn-secondary" style="text-decoration:none; background:rgba(2, 132, 199, 0.15); color:#0284c7; border-color:rgba(2, 132, 199, 0.3); font-weight:700;">⚖️ Normes & Comparateur</a>
-        <a href="consommation.html" class="btn btn-primary" style="text-decoration:none;">📊 Déstockage & Ventes</a>
+      <div class="header-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <button class="btn btn-secondary" onclick="toggleAppTheme()" title="Basculer le thème">🌓 Thème</button>
         <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">🍽️ Fiches Cuisine</a>
+        <a href="consommation.html" class="btn btn-secondary" style="text-decoration:none;">📊 Déstockage</a>
+        <a href="comparateur.html" class="btn btn-secondary" style="text-decoration:none;">⚖️ Normes & Comparateur</a>
       </div>
     </div>
   </header>
@@ -388,6 +388,6 @@
 
   </main>
 
-  <script src="js/audit-flash-page.js?v=5.3"></script>
+  <script src="js/audit-flash-page.js?v=5.5"></script>
 </body>
 </html>

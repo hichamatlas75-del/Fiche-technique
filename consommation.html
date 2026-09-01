@@ -16,12 +16,12 @@
 </script>
 
 <!-- Styles Modulaires -->
-<link rel="stylesheet" href="css/common.css" />
-<link rel="stylesheet" href="css/consommation.css" />
+<link rel="stylesheet" href="css/common.css?v=5.5" />
+<link rel="stylesheet" href="css/consommation.css?v=5.5" />
 
 <!-- Données Centralisées (SSOT) & Utilitaires -->
-<script src="recipes-data.js?v=5.3"></script>
-<script src="js/core-utils.js?v=5.3"></script>
+<script src="recipes-data.js?v=5.5"></script>
+<script src="js/core-utils.js?v=5.5"></script>
 </head>
 <body>
 <header>
@@ -34,13 +34,13 @@
       </div>
     </div>
     <div class="nav-actions">
-      <button id="theme-toggle" class="btn" title="Basculer entre le mode clair et le mode sombre">🌙 Mode Sombre</button>
-      <a href="comparateur.html" class="btn" style="background:rgba(2, 132, 199, 0.15); color:#0284c7; font-weight:800; border-color:rgba(2, 132, 199, 0.3); text-decoration:none;" title="Comparateur Fiches Grey Corner vs Normes Internationales">⚖️ Normes & Comparateur</a>
-      <a href="audit.html" class="btn" style="background:#7c3aed; color:#fff; font-weight:800; border-color:#7c3aed; box-shadow:0 3px 12px rgba(124, 58, 237, 0.35); text-decoration:none;" title="Ouvrir la page dédiée à l'Audit Flash Manuel de Stock">⚡ Audit Flash Manuel</a>
-      <button class="btn" style="background:#0284c7; color:#fff; font-weight:800; border-color:#0284c7;" onclick="openPricesModal()" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières Premières</button>
-      <a href="index.html" class="btn" title="Retourner aux fiches techniques cuisine">👨‍🍳 Fiches Cuisine</a>
+      <button id="theme-toggle" class="btn btn-secondary" title="Basculer le thème">🌓 Thème</button>
+      <a href="index.html" class="btn btn-secondary" title="Retourner aux fiches techniques cuisine">🍽️ Fiches Cuisine</a>
+      <a href="audit.html" class="btn btn-secondary" title="Ouvrir la page dédiée à l'Audit Flash Manuel de Stock">⚡ Audit Flash</a>
+      <a href="comparateur.html" class="btn btn-secondary" title="Comparateur Fiches Grey Corner vs Normes Internationales">⚖️ Normes & Comparateur</a>
+      <button class="btn btn-primary" onclick="openPricesModal()" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
       <button id="btn-export-excel" class="btn btn-success" style="display:none;">📥 Exporter Excel (.xlsx)</button>
-      <button id="btn-print" class="btn btn-primary" onclick="window.print()">🖨️ Imprimer Déstockage</button>
+      <button id="btn-print" class="btn btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
     </div>
   </div>
 </header>
@@ -769,6 +769,6 @@
 </div>
 
 <!-- Logique Métier Déstockage & Contrôle de Gestion -->
-<script src="js/consommation.js?v=5.3"></script>
+<script src="js/consommation.js?v=5.5"></script>
 </body>
 </html>

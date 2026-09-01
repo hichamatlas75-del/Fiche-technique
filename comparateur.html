@@ -9,32 +9,32 @@
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 
 <!-- Styles Modulaires -->
-<link rel="stylesheet" href="css/common.css" />
-<link rel="stylesheet" href="css/comparateur.css" />
+<link rel="stylesheet" href="css/common.css?v=5.5" />
+<link rel="stylesheet" href="css/comparateur.css?v=5.5" />
 
 <!-- Données Centralisées (SSOT), Standards Proposés & Utilitaires -->
-<script src="recipes-data.js?v=5.4"></script>
-<script src="js/core-utils.js?v=5.4"></script>
-<script src="js/proposed-standards.js?v=5.4"></script>
-<script src="js/comparateur.js?v=5.4"></script>
+<script src="recipes-data.js?v=5.5"></script>
+<script src="js/core-utils.js?v=5.5"></script>
+<script src="js/proposed-standards.js?v=5.5"></script>
+<script src="js/comparateur.js?v=5.5"></script>
 </head>
 <body>
 
   <!-- HEADER NAVIGATION -->
-  <header class="app-header" style="background:var(--header-bg); border-bottom:1px solid var(--border); padding:12px 20px; position:sticky; top:0; z-index:100; backdrop-filter:blur(8px);">
-    <div class="container" style="display:flex; justify-content:space-between; align-items:center; max-width:1400px; margin:0 auto; flex-wrap:wrap; gap:12px;">
+  <header class="app-header">
+    <div class="container head" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
       <div class="brand" style="display:flex; align-items:center; gap:12px;">
-        <img class="logo" src="images/logo.png" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\' fill=\'%230284c7\'%3E%3Cpath d=\'M50 15 L85 80 L15 80 Z\'/%3E%3Ctext x=\'50\' y=\'65\' font-size=\'32\' font-weight=\'bold\' fill=\'%23ffffff\' text-anchor=\'middle\'%3EGC%3C/text%3E%3C/svg%3E';" alt="GC" style="height:36px; width:auto;">
-        <div>
-          <div style="font-size:18px; font-weight:900; color:var(--text); line-height:1.2;">Grey Corner <span style="color:var(--accent); font-size:14px; font-weight:700;">⚖️ Fiches Techniques vs Normes Int.</span></div>
-          <div style="font-size:11px; color:var(--text-muted);">Gestion Opérationnelle & Comparatif des Standards F&B</div>
+        <div class="logo-badge" style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg, #0284c7, #38bdf8); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:17px; color:#fff;">GC</div>
+        <div class="ttl-group">
+          <div class="ttl">Grey Corner <span style="color:var(--accent);">⚖️ Fiches Techniques vs Normes Int.</span></div>
+          <div class="sub-ttl" style="font-size:11px; color:var(--text-muted); font-weight:600;">Gestion Opérationnelle & Comparatif des Standards F&B</div>
         </div>
       </div>
-      <div class="header-actions" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-        <button id="theme-toggle" class="btn btn-secondary" onclick="window.toggleAppTheme ? window.toggleAppTheme() : document.body.classList.toggle('dark-theme')" title="Basculer le thème" style="padding:6px 12px; font-size:13px; font-weight:700;">🌓 Thème</button>
-        <a href="index.html" class="btn btn-secondary" style="text-decoration:none; padding:6px 12px; font-size:13px; font-weight:700;">🍽️ Fiches Cuisine</a>
-        <a href="audit.html" class="btn btn-secondary" style="text-decoration:none; padding:6px 12px; font-size:13px; font-weight:700;">⚡ Audit Flash</a>
-        <a href="consommation.html" class="btn btn-secondary" style="text-decoration:none; padding:6px 12px; font-size:13px; font-weight:700;">📊 Déstockage</a>
+      <div class="header-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <button id="theme-toggle" class="btn btn-secondary" onclick="window.toggleAppTheme ? window.toggleAppTheme() : document.body.classList.toggle('dark-theme')" title="Basculer le thème">🌓 Thème</button>
+        <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">🍽️ Fiches Cuisine</a>
+        <a href="consommation.html" class="btn btn-secondary" style="text-decoration:none;">📊 Déstockage</a>
+        <a href="audit.html" class="btn btn-secondary" style="text-decoration:none;">⚡ Audit Flash</a>
       </div>
     </div>
   </header>

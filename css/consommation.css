@@ -1,73 +1,12 @@
-:root {
-    /* THÈME CLAIR (Par défaut - Très lisible, épuré et moderne) */
-    --bg: #f8fafc;
-    --paper: #ffffff;
-    --paper-hover: #f1f5f9;
-    --paper-card: #ffffff;
-    --thead-bg: #f1f5f9;
-    --text: #0f172a;
-    --text-muted: #64748b;
-    --muted: #64748b;
-    --border: #e2e8f0;
-    --border-light: #edf2f7;
-    --chip: #f1f5f9;
-    --chip-text: #334155;
-    --ok: #16a34a;
-    --warn: #d97706;
-    --danger: #dc2626;
-    --accent: #0284c7;
-    --accent-bg: #e0f2fe;
-    --accent-dark: #0369a1;
-    --purple: #9333ea;
-    --orange: #ea580c;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
-    --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-    --header-bg: rgba(255, 255, 255, 0.95);
-    --dish-pill-bg: #f1f5f9;
-    --dish-pill-border: #e2e8f0;
-    --dish-pill-text: #334155;
-    --table-hover: #f8fafc;
-  }
+/* ========================================================
+   GREY CORNER — STYLES DÉSTOCKAGE & VENTES (consommation.html)
+======================================================== */
 
-  [data-theme="dark"] {
-    --bg: #0b0e12;
-    --paper: #12161c;
-    --paper-hover: #171d25;
-    --paper-card: #151b22;
-    --thead-bg: #0f141b;
-    --text: #e7edf6;
-    --text-muted: #9aa8bb;
-    --muted: #9aa8bb;
-    --border: #1f2937;
-    --border-light: #263242;
-    --chip: #1a2330;
-    --chip-text: #cbd5e1;
-    --ok: #22c55e;
-    --warn: #facc15;
-    --danger: #ef4444;
-    --accent: #38bdf8;
-    --accent-bg: rgba(56, 189, 248, 0.15);
-    --accent-dark: #0284c7;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    --shadow-card: 0 4px 12px rgba(0,0,0,0.25);
-    --header-bg: rgba(11, 14, 18, 0.95);
-    --dish-pill-bg: #1a2330;
-    --dish-pill-border: #1f2937;
-    --dish-pill-text: #cbd5e1;
-    --table-hover: #171d25;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body {
-    background: var(--bg);
-    color: var(--text);
-    font: 15px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
-    transition: background-color .2s, color .2s;
-  }
-  a { color: var(--accent); text-decoration: none; }
-  button, input, select { font-family: inherit; }
-
-  .container { max-width: 1300px; margin: 0 auto; padding: 16px 20px; }
+.container { 
+  max-width: 1360px; 
+  margin: 0 auto; 
+  padding: 16px 20px; 
+}
 
   /* HEADER */
   header {
