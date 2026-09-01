@@ -1643,11 +1643,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "78 DH",
-        "cost": 27.69,
+        "cost": 23.99,
         "sellPrice": 78,
-        "foodCost": 35.5,
-        "margin": 64.5,
-        "grossMarginDH": 50.31
+        "foodCost": 30.8,
+        "margin": 69.2,
+        "grossMarginDH": 54.01
       },
       {
         "name": "NORVÉGIEN",
@@ -2442,7 +2442,7 @@ const DATA = [
         "prepTime": 10,
         "tech": [
           "Crevettes chair : 40 g (soit 145 g brut)",
-          "Calamar : 40 g",
+          "Calamar net : 40 g (soit 120 g brut)",
           "Pesto : 20 g",
           "Mozzarella : 60 g",
           "Frites + sauce : 200 g",
@@ -2450,11 +2450,11 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "price": "64 DH",
-        "cost": 22.74,
+        "cost": 25.9,
         "sellPrice": 64,
-        "foodCost": 35.5,
-        "margin": 64.5,
-        "grossMarginDH": 41.26
+        "foodCost": 40.5,
+        "margin": 59.5,
+        "grossMarginDH": 38.1
       },
       {
         "name": "SAUMON",
@@ -2488,7 +2488,7 @@ const DATA = [
         "prepTime": 14,
         "tech": [
           "Crevettes chair : 40 g (soit 145 g brut)",
-          "Calamar : 40 g",
+          "Calamar net : 40 g (soit 120 g brut)",
           "Sauce Biggy : 40 g",
           "Cheddar : 20 g",
           "Crème fraîche : 60 ml",
@@ -2497,11 +2497,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "65 DH",
-        "cost": 24.22,
+        "cost": 27.38,
         "sellPrice": 65,
-        "foodCost": 37.3,
-        "margin": 62.7,
-        "grossMarginDH": 40.78
+        "foodCost": 42.1,
+        "margin": 57.9,
+        "grossMarginDH": 37.62
       },
       {
         "name": "THON",
@@ -2759,19 +2759,19 @@ const DATA = [
         "tech": [
           "Pâte : 330 g",
           "Mozzarella : 150 g",
-          "Calamar : 40 g",
-          "Crevette : 40 g",
+          "Calamar net : 40 g (soit 120 g brut)",
+          "Crevettes chair : 40 g (soit 145 g brut)",
           "Viande : 40 g",
           "Poulet : 40 g",
           "Légumes : 60 g",
           "Champignon : 60 g"
         ],
         "price": "88 DH",
-        "cost": 26.55,
+        "cost": 35.91,
         "sellPrice": 88,
-        "foodCost": 30.2,
-        "margin": 69.8,
-        "grossMarginDH": 61.45
+        "foodCost": 40.8,
+        "margin": 59.2,
+        "grossMarginDH": 52.09
       },
       {
         "name": "MOITIÉ MOITIÉ",
@@ -2815,17 +2815,17 @@ const DATA = [
           "Pâte : 330 g",
           "Mozzarella : 150 g",
           "Crevettes chair : 40 g (soit 145 g brut)",
-          "Calamar : 40 g",
+          "Calamar net : 40 g (soit 120 g brut)",
           "Moules : 20 g",
           "Champignon : 40 g",
           "Sauce blanche : 100 g"
         ],
         "price": "88 DH",
-        "cost": 28.95,
+        "cost": 32.11,
         "sellPrice": 88,
-        "foodCost": 32.9,
-        "margin": 67.1,
-        "grossMarginDH": 59.05
+        "foodCost": 36.5,
+        "margin": 63.5,
+        "grossMarginDH": 55.89
       },
       {
         "name": "SAUMON",
@@ -2901,7 +2901,7 @@ const DATA = [
         "tech": [
           "Pâtes : 60 g",
           "Crevettes chair : 40 g (soit 145 g brut)",
-          "CALAMAR : 40 g",
+          "Calamar net : 40 g (soit 120 g brut)",
           "Parmesan : 15 g",
           "Huile : 30 g",
           "Pesto : 40 g",
@@ -2909,11 +2909,11 @@ const DATA = [
           "Oignon/Ail : 50 g"
         ],
         "price": "78 DH",
-        "cost": 21.1,
+        "cost": 24.26,
         "sellPrice": 78,
-        "foodCost": 27.1,
-        "margin": 72.9,
-        "grossMarginDH": 56.9
+        "foodCost": 31.1,
+        "margin": 68.9,
+        "grossMarginDH": 53.74
       },
       {
         "name": "VÉGÉTARIEN",
@@ -3048,7 +3048,7 @@ const DATA = [
         "tech": [
           "Pâtes : 150 g",
           "Crevettes chair : 40 g (soit 145 g brut)",
-          "Calamar : 40 g",
+          "Calamar net : 40 g (soit 120 g brut)",
           "Moules : 15 g",
           "Parmesan : 30 g",
           "Huile : 30 g",
@@ -3057,11 +3057,11 @@ const DATA = [
           "Oignon/Ail : 50 g"
         ],
         "price": "88 DH",
-        "cost": 25.79,
+        "cost": 28.95,
         "sellPrice": 88,
-        "foodCost": 29.3,
-        "margin": 70.7,
-        "grossMarginDH": 62.21
+        "foodCost": 32.9,
+        "margin": 67.1,
+        "grossMarginDH": 59.05
       },
       {
         "name": "SAUMON",
@@ -3297,16 +3297,16 @@ const DATA = [
         "tech": [
           "Pâte à crêpe : 1 p",
           "Crevettes chair : 40 g (soit 145 g brut)",
-          "Calamar : 40 g",
+          "Calamar net : 40 g (soit 120 g brut)",
           "Mozzarella : 40 g",
           "Crème fraîche : 30 ml"
         ],
         "price": "58 DH",
-        "cost": 17.1,
+        "cost": 20.26,
         "sellPrice": 58,
-        "foodCost": 29.5,
-        "margin": 70.5,
-        "grossMarginDH": 40.9
+        "foodCost": 34.9,
+        "margin": 65.1,
+        "grossMarginDH": 37.74
       }
     ]
   },
@@ -5189,7 +5189,7 @@ const BASE_RECIPES = [
     "category": "PANINIS",
     "ingredients": [
       "Crevettes avec coquille : 145 g",
-      "Calamar : 40 g",
+      "Calamar congelé : 120 g",
       "Pesto : 20 g",
       "Mozzarella : 60 g",
       "Frites + sauce : 200 g",
@@ -5216,7 +5216,7 @@ const BASE_RECIPES = [
     "category": "SANDWICHS",
     "ingredients": [
       "Crevettes avec coquille : 145 g",
-      "Calamar : 40 g",
+      "Calamar congelé : 120 g",
       "Sauce Biggy : 40 g",
       "Cheddar : 20 g",
       "Crème fraîche : 60 ml",
@@ -5396,8 +5396,8 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte : 330 g",
       "Mozzarella : 150 g",
-      "Calamar : 40 g",
-      "Crevette : 40 g",
+      "Calamar congelé : 120 g",
+      "Crevettes avec coquille : 145 g",
       "Viande : 40 g",
       "Poulet : 40 g",
       "Légumes : 60 g",
@@ -5434,7 +5434,7 @@ const BASE_RECIPES = [
       "Pâte : 330 g",
       "Mozzarella : 150 g",
       "Crevettes avec coquille : 145 g",
-      "Calamar : 40 g",
+      "Calamar congelé : 120 g",
       "Moules : 20 g",
       "Champignon : 40 g",
       "Sauce blanche : 100 g"
@@ -5489,7 +5489,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâtes : 60 g",
       "Crevettes avec coquille : 145 g",
-      "CALAMAR : 40 g",
+      "Calamar congelé : 120 g",
       "Parmesan : 15 g",
       "Huile : 30 g",
       "Pesto : 40 g",
@@ -5594,7 +5594,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâtes : 150 g",
       "Crevettes avec coquille : 145 g",
-      "Calamar : 40 g",
+      "Calamar congelé : 120 g",
       "Moules : 15 g",
       "Parmesan : 30 g",
       "Huile : 30 g",
@@ -5943,7 +5943,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte à crêpe : 1 p",
       "Crevettes avec coquille : 145 g",
-      "calamar : 40 g",
+      "Calamar congelé : 120 g",
       "Mozzarella : 40 g",
       "creme fraiche : 30 g"
     ]
@@ -8148,7 +8148,51 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "calamar": {
-    "cost": 0.165,
+    "cost": 0.058,
+    "unit": "g"
+  },
+  "calamars": {
+    "cost": 0.058,
+    "unit": "g"
+  },
+  "calamar congele": {
+    "cost": 0.058,
+    "unit": "g"
+  },
+  "calamars congeles": {
+    "cost": 0.058,
+    "unit": "g"
+  },
+  "calamar brut": {
+    "cost": 0.058,
+    "unit": "g"
+  },
+  "calamars brut": {
+    "cost": 0.058,
+    "unit": "g"
+  },
+  "calamar net": {
+    "cost": 0.174,
+    "unit": "g"
+  },
+  "calamars net": {
+    "cost": 0.174,
+    "unit": "g"
+  },
+  "calamar egoutte": {
+    "cost": 0.174,
+    "unit": "g"
+  },
+  "calamars egouttes": {
+    "cost": 0.174,
+    "unit": "g"
+  },
+  "calamar chair": {
+    "cost": 0.174,
+    "unit": "g"
+  },
+  "calamars chair": {
+    "cost": 0.174,
     "unit": "g"
   },
   "moules": {

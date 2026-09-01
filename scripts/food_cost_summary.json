@@ -3115,10 +3115,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "MQUILA-FRUITS DE MER",
     "sellPrice": 78,
-    "cost": 27.69,
-    "foodCostPct": 35.5,
-    "marginPct": 64.5,
-    "grossMarginDH": 50.31,
+    "cost": 23.99,
+    "foodCostPct": 30.8,
+    "marginPct": 69.2,
+    "grossMarginDH": 54.01,
     "details": [
       {
         "ingredient": "crevettes",
@@ -3128,7 +3128,7 @@
       {
         "ingredient": "calamars",
         "quantity": "100 g",
-        "cost": 9.5
+        "cost": 5.8
       },
       {
         "ingredient": "moules",
@@ -4947,10 +4947,10 @@
     "category": "PANINIS",
     "name": "FRUITS DE MER",
     "sellPrice": 64,
-    "cost": 22.74,
-    "foodCostPct": 35.5,
-    "marginPct": 64.5,
-    "grossMarginDH": 41.26,
+    "cost": 25.9,
+    "foodCostPct": 40.5,
+    "marginPct": 59.5,
+    "grossMarginDH": 38.1,
     "details": [
       {
         "ingredient": "Crevettes chair",
@@ -4958,9 +4958,9 @@
         "cost": 8.4
       },
       {
-        "ingredient": "Calamar",
-        "quantity": "40 g",
-        "cost": 3.8
+        "ingredient": "Calamar net",
+        "quantity": "40 g (soit 120 g brut)",
+        "cost": 6.96
       },
       {
         "ingredient": "Pesto",
@@ -5034,10 +5034,10 @@
     "category": "SANDWICHS",
     "name": "FRUITS DE MER",
     "sellPrice": 65,
-    "cost": 24.22,
-    "foodCostPct": 37.3,
-    "marginPct": 62.7,
-    "grossMarginDH": 40.78,
+    "cost": 27.38,
+    "foodCostPct": 42.1,
+    "marginPct": 57.9,
+    "grossMarginDH": 37.62,
     "details": [
       {
         "ingredient": "Crevettes chair",
@@ -5045,9 +5045,9 @@
         "cost": 8.4
       },
       {
-        "ingredient": "Calamar",
-        "quantity": "40 g",
-        "cost": 3.8
+        "ingredient": "Calamar net",
+        "quantity": "40 g (soit 120 g brut)",
+        "cost": 6.96
       },
       {
         "ingredient": "Sauce Biggy",
@@ -5593,10 +5593,10 @@
     "category": "PIZZA",
     "name": "4 SAISONS",
     "sellPrice": 88,
-    "cost": 26.55,
-    "foodCostPct": 30.2,
-    "marginPct": 69.8,
-    "grossMarginDH": 61.45,
+    "cost": 35.91,
+    "foodCostPct": 40.8,
+    "marginPct": 59.2,
+    "grossMarginDH": 52.09,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5609,14 +5609,14 @@
         "cost": 8.25
       },
       {
-        "ingredient": "Calamar",
-        "quantity": "40 g",
-        "cost": 3.8
+        "ingredient": "Calamar net",
+        "quantity": "40 g (soit 120 g brut)",
+        "cost": 6.96
       },
       {
-        "ingredient": "Crevette",
-        "quantity": "40 g",
-        "cost": 2.2
+        "ingredient": "Crevettes chair",
+        "quantity": "40 g (soit 145 g brut)",
+        "cost": 8.4
       },
       {
         "ingredient": "Viande",
@@ -5706,10 +5706,10 @@
     "category": "PIZZA",
     "name": "FRUITS DE MER",
     "sellPrice": 88,
-    "cost": 28.95,
-    "foodCostPct": 32.9,
-    "marginPct": 67.1,
-    "grossMarginDH": 59.05,
+    "cost": 32.11,
+    "foodCostPct": 36.5,
+    "marginPct": 63.5,
+    "grossMarginDH": 55.89,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5727,9 +5727,9 @@
         "cost": 8.4
       },
       {
-        "ingredient": "Calamar",
-        "quantity": "40 g",
-        "cost": 3.8
+        "ingredient": "Calamar net",
+        "quantity": "40 g (soit 120 g brut)",
+        "cost": 6.96
       },
       {
         "ingredient": "Moules",
@@ -5890,10 +5890,10 @@
     "category": "PÂTES",
     "name": "LASAGNE FRUITS DE MER",
     "sellPrice": 78,
-    "cost": 21.1,
-    "foodCostPct": 27.1,
-    "marginPct": 72.9,
-    "grossMarginDH": 56.9,
+    "cost": 24.26,
+    "foodCostPct": 31.1,
+    "marginPct": 68.9,
+    "grossMarginDH": 53.74,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -5906,9 +5906,9 @@
         "cost": 8.4
       },
       {
-        "ingredient": "CALAMAR",
-        "quantity": "40 g",
-        "cost": 3.8
+        "ingredient": "Calamar net",
+        "quantity": "40 g (soit 120 g brut)",
+        "cost": 6.96
       },
       {
         "ingredient": "Parmesan",
@@ -6247,10 +6247,10 @@
     "category": "PÂTES",
     "name": "FRUITS DE MER",
     "sellPrice": 88,
-    "cost": 25.79,
-    "foodCostPct": 29.3,
-    "marginPct": 70.7,
-    "grossMarginDH": 62.21,
+    "cost": 28.95,
+    "foodCostPct": 32.9,
+    "marginPct": 67.1,
+    "grossMarginDH": 59.05,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -6263,9 +6263,9 @@
         "cost": 8.4
       },
       {
-        "ingredient": "Calamar",
-        "quantity": "40 g",
-        "cost": 3.8
+        "ingredient": "Calamar net",
+        "quantity": "40 g (soit 120 g brut)",
+        "cost": 6.96
       },
       {
         "ingredient": "Moules",
@@ -6677,10 +6677,10 @@
     "category": "CRÊPES",
     "name": "CRÊPE PÊCHEUR",
     "sellPrice": 58,
-    "cost": 17.1,
-    "foodCostPct": 29.5,
-    "marginPct": 70.5,
-    "grossMarginDH": 40.9,
+    "cost": 20.26,
+    "foodCostPct": 34.9,
+    "marginPct": 65.1,
+    "grossMarginDH": 37.74,
     "details": [
       {
         "ingredient": "Pâte à crêpe",
@@ -6693,9 +6693,9 @@
         "cost": 8.4
       },
       {
-        "ingredient": "Calamar",
-        "quantity": "40 g",
-        "cost": 3.8
+        "ingredient": "Calamar net",
+        "quantity": "40 g (soit 120 g brut)",
+        "cost": 6.96
       },
       {
         "ingredient": "Mozzarella",
