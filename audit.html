@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Grey Corner — Audit Flash Manuel & Contrôle des Stocks</title>
+
+<!-- Librairies Externes -->
+<script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+
+<!-- Styles Modulaires -->
+<link rel="stylesheet" href="css/common.css" />
+<link rel="stylesheet" href="css/consommation.css" />
+
+<!-- Données Centralisées (SSOT) & Utilitaires -->
+<script src="recipes-data.js"></script>
+<script src="js/core-utils.js"></script>
+
+<style>
+  .audit-page-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 24px 20px 80px;
+  }
+  .audit-hero {
+    background: linear-gradient(135deg, rgba(2, 132, 199, 0.08) 0%, rgba(147, 51, 234, 0.05) 100%);
+    border: 1px solid rgba(2, 132, 199, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .audit-hero-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--text);
+    margin: 0 0 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .audit-hero-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0;
+    max-width: 700px;
+    line-height: 1.5;
+  }
+  .flash-layout-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 24px;
+    margin-bottom: 30px;
+  }
+  @media (max-width: 960px) {
+    .flash-layout-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .card-section-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+    margin: 0 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .input-label-hint {
+    font-size: 11px;
+    font-weight: normal;
+    color: var(--text-muted);
+    margin-left: 4px;
+  }
+  .table-responsive-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+  .table-header-bar {
+    padding: 16px 20px;
+    background: var(--thead-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .custom-select-wrap {
+    position: relative;
+    width: 100%;
+  }
+  .btn-quick-sync {
+    background: rgba(2, 132, 199, 0.1);
+    color: var(--accent);
+    border: 1px solid rgba(2, 132, 199, 0.3);
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+  .btn-quick-sync:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+
+  <!-- HEADER NAVIGATION -->
+  <header class="app-header">
+    <div class="header-content">
+      <div class="brand">
+        <span class="brand-logo">GC</span>
+        <div class="brand-text">
+          <h1>Grey Corner <span class="badge-dept">Audit Flash</span></h1>
+          <p>Contrôle Manuel des Stocks & Diagnostic des Écarts</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" onclick="toggleAppTheme()">🌓 Thème</button>
+        <a href="consommation.html" class="btn btn-primary" style="text-decoration:none;">📊 Déstockage & Ventes</a>
+        <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">🍽️ Fiches Cuisine</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="audit-page-container">
+
+    <!-- BANNIÈRE HERO -->
+    <div class="audit-hero">
+      <div>
+        <h2 class="audit-hero-title">⚡ Audit Flash Manuel de Stock</h2>
+        <p class="audit-hero-subtitle">
+          Sélectionnez un ingrédient stratégique (viandes, poissons, fromages, café...), saisissez vos stocks physiques et comparez-les immédiatement aux ventes théoriques avec calcul du coût réel des écarts.
+        </p>
+      </div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn btn-success" onclick="exportAuditHistoryToExcel()">📥 Exporter Rapport (.xlsx)</button>
+        <button class="btn btn-secondary" onclick="window.print()">🖨️ Imprimer</button>
+        <button class="btn" onclick="clearAuditHistory()" style="color:var(--danger); border-color:var(--danger);">🗑️ Réinitialiser</button>
+      </div>
+    </div>
+
+    <!-- GRILLE FORMULAIRE + RÉSULTAT FLASH -->
+    <div class="flash-layout-grid">
+
+      <!-- COLONNE 1 : FORMULAIRE DE SAISIE MANUELLE -->
+      <div class="flash-form-card">
+        <h3 class="card-section-title">📝 1. Saisie des Données de Contrôle</h3>
+
+        <!-- SÉLECTION DE L'INGRÉDIENT -->
+        <div class="form-group" style="margin-bottom:16px;">
+          <label for="flash-ing-select">Matière Première à Auditer :</label>
+          <div class="custom-select-wrap">
+            <select id="flash-ing-select" onchange="onAuditIngredientChange(this.value)" style="font-weight:700; font-size:14px; padding:10px 12px; border-radius:8px; width:100%;">
+              <option value="">-- Choisir une matière première --</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flash-grid-2">
+          <!-- 1. STOCK INITIAL M-1 -->
+          <div class="form-group">
+            <label for="flash-sinit">1. Stock Initial Début Période <span class="input-label-hint">(<span class="flash-unit-lbl">g</span>)</span> :</label>
+            <input type="number" id="flash-sinit" step="0.01" placeholder="0.00" value="0" oninput="calculateLiveAuditFlash()" />
+          </div>
+
+          <!-- 2. ACHATS & LIVRAISONS -->
+          <div class="form-group">
+            <label for="flash-achats">2. Achats & Livraisons Reçues <span class="input-label-hint">(<span class="flash-unit-lbl">g</span>)</span> :</label>
+            <input type="number" id="flash-achats" step="0.01" placeholder="0.00" value="0" oninput="calculateLiveAuditFlash()" />
+          </div>
+        </div>
+
+        <div class="flash-grid-2">
+          <!-- 3. STOCK FINAL M -->
+          <div class="form-group">
+            <label for="flash-sfinal">3. Stock Final Réel Compté <span class="input-label-hint">(<span class="flash-unit-lbl">g</span>)</span> :</label>
+            <input type="number" id="flash-sfinal" step="0.01" placeholder="0.00" value="0" oninput="calculateLiveAuditFlash()" />
+          </div>
+
+          <!-- 4. THÉORIE DES VENTES (RECETTES) -->
+          <div class="form-group">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label for="flash-theorique" style="margin:0;">4. Ventes Théoriques Recettes <span class="input-label-hint">(<span class="flash-unit-lbl">g</span>)</span> :</label>
+              <button class="btn-quick-sync" onclick="syncTheoriqueFromSales()" title="Charger la quantité théorique vendue du mois">⚡ Charger Ventes</button>
+            </div>
+            <input type="number" id="flash-theorique" class="theorique-field" step="0.01" placeholder="0.00" value="0" oninput="calculateLiveAuditFlash()" />
+          </div>
+        </div>
+
+        <div class="flash-grid-2">
+          <!-- 5. CASSE DÉCLARÉE -->
+          <div class="form-group">
+            <label for="flash-casse">5. Casse / Pertes Déclarées <span class="input-label-hint">(<span class="flash-unit-lbl">g</span>)</span> :</label>
+            <input type="number" id="flash-casse" step="0.01" placeholder="0.00" value="0" oninput="calculateLiveAuditFlash()" />
+          </div>
+
+          <!-- 6. PRIX UNITAIRE -->
+          <div class="form-group">
+            <label for="flash-prix">6. Prix Unitaire Moyen HT <span class="input-label-hint">(DH / <span class="flash-unit-lbl">kg</span>)</span> :</label>
+            <input type="number" id="flash-prix" class="price-field" step="0.01" placeholder="0.00" value="50" oninput="calculateLiveAuditFlash()" />
+          </div>
+        </div>
+
+        <div style="margin-top:16px; display:flex; gap:10px;">
+          <button class="btn btn-primary flash-calc-btn" onclick="saveCurrentAuditToHistory()" style="flex:1; font-weight:800;">
+            💾 Enregistrer cet Ingrédient dans le Tableau
+          </button>
+          <button class="btn" onclick="resetFlashInputs()" style="padding:10px 14px;">
+            🔄 Réinitialiser
+          </button>
+        </div>
+      </div>
+
+      <!-- COLONNE 2 : DIAGNOSTIC & RÉSULTATS FLASH EN DIRECT -->
+      <div id="flash-result-box" class="flash-form-card" style="border-top: 4px solid var(--accent); display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:8px;">
+            <h3 class="card-section-title" style="margin:0; border:none; padding:0;" id="flash-res-title">📊 Synthèse de l'Audit Flash</h3>
+            <div id="flash-status-badge" class="status-badge ok">✅ CONFORME</div>
+          </div>
+
+          <div class="audit-kpi-grid" style="grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:16px;">
+            <div class="audit-kpi-card" style="padding:12px;">
+              <div class="audit-kpi-label">Consommation Réelle</div>
+              <div class="audit-kpi-val" id="flash-kpi-reel">0.00</div>
+              <div class="audit-kpi-sub">(Stock Init + Achats) - Final</div>
+            </div>
+            <div class="audit-kpi-card" style="padding:12px;">
+              <div class="audit-kpi-label">Conso Attendue</div>
+              <div class="audit-kpi-val" id="flash-kpi-attendu">0.00</div>
+              <div class="audit-kpi-sub">Théorie Ventes + Casse</div>
+            </div>
+            <div class="audit-kpi-card" style="padding:12px;">
+              <div class="audit-kpi-label">Écart Matière (Qté)</div>
+              <div class="audit-kpi-val" id="flash-kpi-ecart">0.00</div>
+              <div class="audit-kpi-sub" id="flash-kpi-ecart-pct">0.0% vs Attendu</div>
+            </div>
+            <div class="audit-kpi-card" style="padding:12px;">
+              <div class="audit-kpi-label">Impact Financier Net</div>
+              <div class="audit-kpi-val" id="flash-kpi-impact">0.00 DH</div>
+              <div class="audit-kpi-sub">Valorisation monétaire</div>
+            </div>
+          </div>
+
+          <!-- DIAGNOSTIC MANAGÉRIAL -->
+          <div id="flash-diagnostic-box" style="background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:16px; font-size:13.5px; line-height:1.6; color:var(--text);">
+            Sélectionnez une matière première pour afficher le diagnostic d'audit en direct.
+          </div>
+        </div>
+
+        <div style="margin-top:16px; font-size:12px; color:var(--text-muted); text-align:center;">
+          💡 <strong>Formule :</strong> <code>Écart Net = [(Stock Initial + Achats) - Stock Final] - (Théorie Recettes + Casse)</code>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECTION 3 : TABLEAU RÉCAPITULATIF DES AUDITS ENREGISTRÉS -->
+    <div class="table-responsive-card">
+      <div class="table-header-bar">
+        <div>
+          <h3 style="font-size:16px; font-weight:800; margin:0; color:var(--text);">📋 Tableau des Matières Premières Auditées (<span id="audit-history-count">0</span>)</h3>
+          <span style="font-size:12px; color:var(--text-muted);">Synthèse consolidée des contrôles physiques manuels</span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span id="audit-history-total-dh" style="font-weight:900; font-size:16px; color:var(--accent);">Écart Total : 0.00 DH</span>
+        </div>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table class="destock-table" id="audit-history-table">
+          <thead>
+            <tr>
+              <th style="min-width:180px;">Matière Première</th>
+              <th style="text-align:center;">Catégorie</th>
+              <th style="text-align:center;">Unité</th>
+              <th style="text-align:right;">Stock M-1</th>
+              <th style="text-align:right;">Achats M</th>
+              <th style="text-align:right;">Stock M</th>
+              <th style="text-align:right;">Conso Réelle</th>
+              <th style="text-align:right;">Théorie Ventes</th>
+              <th style="text-align:right;">Casse</th>
+              <th style="text-align:right;">Écart (Qté)</th>
+              <th style="text-align:center;">Statut</th>
+              <th style="text-align:right;">P.U (DH)</th>
+              <th style="text-align:right;">Impact (DH)</th>
+              <th style="text-align:center;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="audit-history-tbody">
+            <tr>
+              <td colspan="14" style="text-align:center; padding:30px; color:var(--text-muted);">
+                Aucun audit enregistré pour le moment. Remplissez le formulaire ci-dessus et cliquez sur <strong>"Enregistrer cet Ingrédient"</strong>.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="js/audit-flash-page.js"></script>
+</body>
+</html>
