@@ -2382,11 +2382,10 @@ async function autoScanVentesFolder(showUserAlert = false) {
     return null;
   }
 
-  // Map unifiée pour collecter les fichiers : Map<filename, downloadUrl|null>
+  // Map unifiée pour collecter les fichiers : Map<relPath, downloadUrl|null>
   const filesToProcess = new Map();
 
-  // 1. SOURCE DYNAMIQUE EN TEMPS RÉEL : API GitHub
-  // Détecte instantanément TOUT fichier poussé sur le dépôt, même sans manifest.json !
+  // 1. SOURCE DYNAMIQUE EN TEMPS RÉEL : API GitHub (avec scan récursif des sous-dossiers par mois)
   try {
     const ghResp = await fetch('https://api.github.com/repos/hichamatlas75-del/Fiche-technique/contents/ventes?t=' + Date.now(), {
       headers: { 'Accept': 'application/vnd.github.v3+json' },
@@ -2395,14 +2394,39 @@ async function autoScanVentesFolder(showUserAlert = false) {
     if (ghResp.ok) {
       const ghItems = await ghResp.json();
       if (Array.isArray(ghItems)) {
-        ghItems.forEach(item => {
-          if (item && item.name) {
+        for (const item of ghItems) {
+          if (!item) continue;
+          if (item.type === 'file' && item.name) {
             const low = item.name.toLowerCase();
             if (low.endsWith('.xls') || low.endsWith('.xlsx')) {
               filesToProcess.set(item.name, item.download_url || null);
             }
+          } else if (item.type === 'dir' && item.url) {
+            // Sous-dossier mensuel (ex: 2026-08)
+            try {
+              const subResp = await fetch(item.url + (item.url.includes('?') ? '&' : '?') + 't=' + Date.now(), {
+                headers: { 'Accept': 'application/vnd.github.v3+json' },
+                cache: 'no-store'
+              });
+              if (subResp.ok) {
+                const subItems = await subResp.json();
+                if (Array.isArray(subItems)) {
+                  subItems.forEach(subItem => {
+                    if (subItem && subItem.name) {
+                      const low = subItem.name.toLowerCase();
+                      if (low.endsWith('.xls') || low.endsWith('.xlsx')) {
+                        const rel = item.name + '/' + subItem.name;
+                        filesToProcess.set(rel, subItem.download_url || null);
+                      }
+                    }
+                  });
+                }
+              }
+            } catch (errSub) {
+              console.warn('[Auto-sync GitHub subfolder]', errSub);
+            }
           }
-        });
+        }
       }
     }
   } catch (e) {
@@ -2442,10 +2466,12 @@ async function autoScanVentesFolder(showUserAlert = false) {
         const compactDate = `${yearStr}${monthStr}${dayStr}`;
 
         const candidateNames = [
+          `${ym}/Fin_Journée_${compactDate}.xls`,
+          `${ym}/Fin_Journee_${compactDate}.xls`,
+          `${ym}/Fin_Journée_${compactDate}.xlsx`,
+          `${ym}/Fin_Journee_${compactDate}.xlsx`,
           `Fin_Journée_${compactDate}.xls`,
-          `Fin_Journee_${compactDate}.xls`,
-          `Fin_Journée_${compactDate}.xlsx`,
-          `Fin_Journee_${compactDate}.xlsx`
+          `Fin_Journee_${compactDate}.xls`
         ];
 
         candidateNames.forEach(cName => {
@@ -2463,7 +2489,8 @@ async function autoScanVentesFolder(showUserAlert = false) {
     if (!dKey) continue;
 
     try {
-      const resp = await fetchFile('ventes/' + encodeURIComponent(fname), downloadUrl);
+      const pathSegments = fname.split('/').map(seg => encodeURIComponent(seg)).join('/');
+      const resp = await fetchFile('ventes/' + pathSegments, downloadUrl);
       if (resp) {
         const buf = await resp.arrayBuffer();
         const wb = XLSX.read(new Uint8Array(buf), { type: 'array' });
