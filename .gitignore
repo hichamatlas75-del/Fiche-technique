@@ -1,0 +1,16 @@
+# Node & logs
+node_modules/
+npm-debug.log*
+
+# OS & Editors
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.tmp
+*.bak
+
+# Temporary Excel locks
+~$*.xlsx
+~$*.xls

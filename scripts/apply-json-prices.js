@@ -219,18 +219,15 @@ if (dataStartIndex === -1) {
   process.exit(1);
 }
 
-const section2Marker = "// 2. Base plate";
+const section2Marker = "const BASE_RECIPES = ";
 const dataEndIndex = recipesCode.indexOf(section2Marker);
 if (dataEndIndex === -1) {
   console.error("Section 2 marker not found");
   process.exit(1);
 }
 
-// Extract exact array substring
-const arraySubstring = recipesCode.slice(dataStartIndex + prefix.length, dataEndIndex).trim().replace(/;$/, '');
-
-// Parse it
-const DATA = eval(arraySubstring);
+eval(recipesCode);
+const DATA = globalThis.DATA;
 
 let updateCount = 0;
 

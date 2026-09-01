@@ -407,8 +407,12 @@ const ingredientCosts = {
 const recipesDataPath = path.resolve('./recipes-data.js');
 let recipesCode = fs.readFileSync(recipesDataPath, 'utf-8');
 
-const dataMatch = recipesCode.match(/const DATA = (\[[\s\S]*?\]);\s*\/\/\s*2\./);
-const DATA = eval(dataMatch[1]);
+eval(recipesCode);
+const DATA = globalThis.DATA;
+if (!DATA || !Array.isArray(DATA)) {
+  console.error("DATA not found in recipes-data.js");
+  process.exit(1);
+}
 
 let allStats = [];
 
@@ -506,11 +510,16 @@ console.log(`SYNTHÈSE DU CALCUL DU FOOD COST PARFAITEMENT ÉTALONNÉ (${allStat
 console.log(`======================================================\n`);
 
 const formattedDATA = JSON.stringify(DATA, null, 2);
-const section2Marker = "// 2. Base plate";
+const section2Marker = "const BASE_RECIPES = ";
 const dataStartIndex = recipesCode.indexOf("const DATA = ");
 const dataEndIndex = recipesCode.indexOf(section2Marker);
 
-const newFullCode = recipesCode.slice(0, dataStartIndex + "const DATA = ".length) + formattedDATA + ";\n\n" + recipesCode.slice(dataEndIndex);
-fs.writeFileSync(recipesDataPath, newFullCode, 'utf-8');
-console.log("\nFichier recipes-data.js mis à jour avec les coûts matières et marges !");
+if (dataStartIndex !== -1 && dataEndIndex !== -1) {
+  const newFullCode = recipesCode.slice(0, dataStartIndex + "const DATA = ".length) + formattedDATA + ";\n\n" + recipesCode.slice(dataEndIndex);
+  fs.writeFileSync(recipesDataPath, newFullCode, 'utf-8');
+  console.log("\nFichier recipes-data.js mis à jour avec les coûts matières et marges !");
+} else {
+  console.error("Erreur: Impossible de localiser DATA ou BASE_RECIPES dans recipes-data.js");
+  process.exit(1);
+}
 fs.writeFileSync('scripts/food_cost_summary.json', JSON.stringify(allStats, null, 2), 'utf-8');

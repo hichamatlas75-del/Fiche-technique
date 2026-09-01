@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Grey Corner — Comparateur Fiches Techniques & Étalonnage "Juste Milieu"</title>
+
+<!-- Librairies Externes -->
+<script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+
+<!-- Styles Modulaires -->
+<link rel="stylesheet" href="css/common.css" />
+<link rel="stylesheet" href="css/comparateur.css" />
+
+<!-- Données Centralisées (SSOT), Standards Proposés & Utilitaires -->
+<script src="recipes-data.js"></script>
+<script src="js/core-utils.js"></script>
+<script src="js/proposed-standards.js"></script>
+</head>
+<body>
+
+  <!-- HEADER NAVIGATION -->
+  <header class="app-header" style="background:var(--header-bg); border-bottom:1px solid var(--border); padding:12px 20px; position:sticky; top:0; z-index:100; backdrop-filter:blur(8px);">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; max-width:1400px; margin:0 auto; flex-wrap:wrap; gap:12px;">
+      <div class="brand" style="display:flex; align-items:center; gap:12px;">
+        <img class="logo" src="images/logo.png" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\' fill=\'%230284c7\'%3E%3Cpath d=\'M50 15 L85 80 L15 80 Z\'/%3E%3Ctext x=\'50\' y=\'65\' font-size=\'32\' font-weight=\'bold\' fill=\'%23ffffff\' text-anchor=\'middle\'%3EGC%3C/text%3E%3C/svg%3E';" alt="GC" style="height:36px; width:auto;">
+        <div>
+          <div style="font-size:18px; font-weight:900; color:var(--text); line-height:1.2;">Grey Corner <span style="color:var(--accent); font-size:14px; font-weight:700;">⚖️ Comparateur & Juste Milieu</span></div>
+          <div style="font-size:11px; color:var(--text-muted);">Étalonnage Intelligent des Fiches Techniques & Food Cost</div>
+        </div>
+      </div>
+      <div class="header-actions" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+        <button id="theme-toggle" class="btn btn-secondary" onclick="window.toggleAppTheme ? window.toggleAppTheme() : document.body.classList.toggle('dark-theme')" title="Basculer le thème" style="padding:6px 12px; font-size:13px; font-weight:700;">🌓 Thème</button>
+        <a href="index.html" class="btn btn-secondary" style="text-decoration:none; padding:6px 12px; font-size:13px; font-weight:700;">🍽️ Fiches Cuisine</a>
+        <a href="audit.html" class="btn btn-secondary" style="text-decoration:none; padding:6px 12px; font-size:13px; font-weight:700;">⚡ Audit Flash</a>
+        <a href="consommation.html" class="btn btn-secondary" style="text-decoration:none; padding:6px 12px; font-size:13px; font-weight:700;">📊 Déstockage</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="comp-page-container">
+
+    <!-- HERO BANNER -->
+    <div class="comp-hero">
+      <div>
+        <h2 class="comp-hero-title">⚖️ Comparateur & Étalonnage "Juste Milieu"</h2>
+        <p class="comp-hero-subtitle">
+          Comparez votre <strong>Fiche Technique Initiale (très généreuse)</strong> avec le <strong>Standard International Hôtelier</strong>. Ajustez manuellement les curseurs de votre <em>"Juste Milieu"</em> en direct pour maximiser vos marges tout en préservant l'attachement de vos clients fidèles.
+        </p>
+      </div>
+      <div class="comp-hero-actions">
+        <button class="btn btn-success" id="btn-save-all" style="background:#16a34a; color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:800; cursor:pointer; box-shadow:0 4px 10px rgba(22,163,74,0.3);">
+          💾 Sauvegarder Mon Juste Milieu
+        </button>
+        <button class="btn btn-secondary" onclick="window.exportComparisonToExcel()" style="padding:10px 14px; font-weight:700; border-radius:10px; border:1px solid var(--border); background:var(--paper); color:var(--text); cursor:pointer;">
+          📥 Exporter Comparatif (.xlsx)
+        </button>
+        <button class="btn btn-secondary" onclick="window.exportUpdatedRecipesDataJS()" style="padding:10px 14px; font-weight:700; border-radius:10px; border:1px solid var(--border); background:var(--paper); color:var(--text); cursor:pointer;" title="Télécharger le fichier JS prêt à remplacer recipes-data.js">
+          📤 Exporter Configuration JS
+        </button>
+      </div>
+    </div>
+
+    <!-- BANDEAU KPIS SYNTHÈSE -->
+    <div class="kpis-grid" id="summary-kpis"></div>
+
+    <!-- TOOLBAR : RECHERCHE & FILTRES CATÉGORIES -->
+    <div class="comp-toolbar">
+      <div class="toolbar-row-top">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="search" id="search-comparator" class="search-input" placeholder="Rechercher une pizza, un plat, une crêpe, des pâtes ou un ingrédient..." />
+        </div>
+        <button id="btn-filter-gains" class="btn" style="padding:8px 16px; font-size:13px; font-weight:700; border-radius:10px; border:1px solid var(--border); background:var(--bg); color:var(--text); cursor:pointer;">
+          💰 Afficher uniquement les gains > 3 DH
+        </button>
+      </div>
+
+      <!-- BARRE DES CATÉGORIES DÉFILABLE -->
+      <div class="cat-pill-bar" id="category-filter-bar"></div>
+    </div>
+
+    <!-- LISTE DES CARTES COMPARATIVES -->
+    <div class="recipes-list" id="recipes-comparator-container"></div>
+
+  </main>
+
+  <!-- Script du Comparateur -->
+  <script src="js/comparateur.js"></script>
+
+  <script>
+    // Gestion du thème sombre/clair
+    function toggleAppTheme() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      try { localStorage.setItem('gc_theme', isDark ? 'light' : 'dark'); } catch(e){}
+    }
+    (function initTheme() {
+      try {
+        const saved = localStorage.getItem('gc_theme');
+        if (saved) document.documentElement.setAttribute('data-theme', saved);
+      } catch(e){}
+    })();
+  </script>
+
+</body>
+</html>

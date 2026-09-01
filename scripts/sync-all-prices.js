@@ -9,13 +9,12 @@ const menuData = menuDataModule.menuData;
 const recipesDataPath = path.resolve('./recipes-data.js');
 let recipesCode = fs.readFileSync(recipesDataPath, 'utf-8');
 
-const dataMatch = recipesCode.match(/const DATA = (\[[\s\S]*?\]);\s*\/\/\s*2\./);
-if (!dataMatch) {
+eval(recipesCode);
+const DATA = globalThis.DATA;
+if (!DATA || !Array.isArray(DATA)) {
   console.error("DATA not found in recipes-data.js");
   process.exit(1);
 }
-
-const DATA = eval(dataMatch[1]);
 
 function normalize(str) {
   return (str || '')
@@ -83,11 +82,12 @@ const itemOverrides = {
   "VEGETARIENNE": "VEGETARIENNE",
 
   // Pâtes
-  "5 FROMAGES": "5 FROMAGE",
+  "PÂTES:5 FROMAGES": "5 FROMAGE",
   "RIGATONI RICOTTA": "REGATONI RICOTTA",
   "POULET CHAMPIGNON / ÉPINARD": "POULET CHAMPIGNON / EPINARD",
   "LASAGNE POULET": "LASAGNE POULET CHAMPIGNON ",
   "LASAGNE BOLOGNAISE": "LASAGNE BOLOGNAISE ",
+  "LASAGNE FRUITS DE MER": "LASAGNE FRUIT DE MER ",
   "SPAGHETTIS NOIRS (suppl.)": "SPAGHETTIS NOIRS",
 
   // Crêpes
@@ -201,8 +201,9 @@ DATA.forEach(cat => {
     let match = null;
 
     // 1. Explicit override
-    if (itemOverrides[rName]) {
-      const overrideTarget = normalize(itemOverrides[rName]);
+    const overrideVal = itemOverrides[`${rCatName}:${rName}`] || itemOverrides[rName];
+    if (overrideVal) {
+      const overrideTarget = normalize(overrideVal);
       match = candidateMenuItems.find(m => normalize(m.name) === overrideTarget);
       if (!match) {
         match = allMenuItems.find(m => normalize(m.name) === overrideTarget);

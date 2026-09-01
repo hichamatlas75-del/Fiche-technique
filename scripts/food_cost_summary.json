@@ -2331,10 +2331,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "BRUNCH GREYCORNER",
     "sellPrice": 85,
-    "cost": 41.67,
-    "foodCostPct": 49,
-    "marginPct": 51,
-    "grossMarginDH": 43.33,
+    "cost": 39.92,
+    "foodCostPct": 47,
+    "marginPct": 53,
+    "grossMarginDH": 45.08,
     "details": [
       {
         "ingredient": "Saucisses",
@@ -2342,9 +2342,9 @@
         "cost": 10.5
       },
       {
-        "ingredient": "Omelette",
-        "quantity": "3 œufs",
-        "cost": 0.06
+        "ingredient": "OEUFS",
+        "quantity": "3 P",
+        "cost": 3.81
       },
       {
         "ingredient": "Fromage",
@@ -2353,13 +2353,13 @@
       },
       {
         "ingredient": "Toast hollandais",
-        "quantity": "2 p",
-        "cost": 5
+        "quantity": "1 p",
+        "cost": 2.5
       },
       {
         "ingredient": "Croquettes fromage",
-        "quantity": "2 p",
-        "cost": 6
+        "quantity": "1 p",
+        "cost": 3
       },
       {
         "ingredient": "Charcuteries",
@@ -2412,15 +2412,15 @@
     "category": "PETIT DÉJEUNER",
     "name": "BRUNCH DUO",
     "sellPrice": 144,
-    "cost": 48.06,
-    "foodCostPct": 33.4,
-    "marginPct": 66.6,
-    "grossMarginDH": 95.94,
+    "cost": 48.33,
+    "foodCostPct": 33.6,
+    "marginPct": 66.4,
+    "grossMarginDH": 95.67,
     "details": [
       {
         "ingredient": "Poulet pané",
-        "quantity": "120 g",
-        "cost": 8.16
+        "quantity": "60 g",
+        "cost": 4.08
       },
       {
         "ingredient": "Croquettes",
@@ -2433,9 +2433,9 @@
         "cost": 6.5
       },
       {
-        "ingredient": "Omelette fromage",
-        "quantity": "2 œufs",
-        "cost": 0.19
+        "ingredient": "œufs",
+        "quantity": "2 p",
+        "cost": 2.54
       },
       {
         "ingredient": "Charcuterie",
@@ -2478,9 +2478,9 @@
         "cost": 0.01
       },
       {
-        "ingredient": "Boissons chaudes",
+        "ingredient": "THE A LA MENTHE",
         "quantity": "2 p",
-        "cost": 2
+        "cost": 4
       },
       {
         "ingredient": "Desserts",
@@ -3683,57 +3683,6 @@
     ]
   },
   {
-    "category": "ENTRÉES FROIDES",
-    "name": "Salade Burrata",
-    "sellPrice": 98,
-    "cost": 33.69,
-    "foodCostPct": 34.4,
-    "marginPct": 65.6,
-    "grossMarginDH": 64.31,
-    "details": [
-      {
-        "ingredient": "Burrata",
-        "quantity": "184 g",
-        "cost": 27.97
-      },
-      {
-        "ingredient": "Noix",
-        "quantity": "30 g",
-        "cost": 2.25
-      },
-      {
-        "ingredient": "Roquette",
-        "quantity": "30 g",
-        "cost": 0.45
-      },
-      {
-        "ingredient": "Pesto",
-        "quantity": "15 g",
-        "cost": 0.68
-      },
-      {
-        "ingredient": "Balsamique",
-        "quantity": "10 g",
-        "cost": 0.15
-      },
-      {
-        "ingredient": "Fruits Rouges",
-        "quantity": "40 g",
-        "cost": 1.72
-      },
-      {
-        "ingredient": "Radis",
-        "quantity": "10 g",
-        "cost": 0.1
-      },
-      {
-        "ingredient": "Tomate Cerise",
-        "quantity": "25 g",
-        "cost": 0.38
-      }
-    ]
-  },
-  {
     "category": "ENTRÉES CHAUDES",
     "name": "BOULETTE DE POULET AU FROMAGE",
     "sellPrice": 52,
@@ -3809,15 +3758,15 @@
     "category": "ENTRÉES CHAUDES",
     "name": "PIL PIL ESPAGNOL",
     "sellPrice": 68,
-    "cost": 52.62,
-    "foodCostPct": 77.4,
-    "marginPct": 22.6,
-    "grossMarginDH": 15.38,
+    "cost": 63.42,
+    "foodCostPct": 93.3,
+    "marginPct": 6.7,
+    "grossMarginDH": 4.58,
     "details": [
       {
         "ingredient": "Gambas",
-        "quantity": "260 g",
-        "cost": 46.8
+        "quantity": "330 g",
+        "cost": 59.4
       },
       {
         "ingredient": "Tomate cerise",
@@ -3848,11 +3797,6 @@
         "ingredient": "Sauce tomate",
         "quantity": "120 g",
         "cost": 1.05
-      },
-      {
-        "ingredient": "Bouteille Eau Minérale 33cl",
-        "quantity": "1 p",
-        "cost": 1.8
       }
     ]
   },
@@ -3901,10 +3845,10 @@
     "category": "PLATS",
     "name": "EMINCE DE POULET",
     "sellPrice": 88,
-    "cost": 32.53,
-    "foodCostPct": 37,
-    "marginPct": 63,
-    "grossMarginDH": 55.47,
+    "cost": 30.53,
+    "foodCostPct": 34.7,
+    "marginPct": 65.3,
+    "grossMarginDH": 57.47,
     "details": [
       {
         "ingredient": "Poulet",
@@ -3940,11 +3884,6 @@
         "ingredient": "Frites",
         "quantity": "200 g",
         "cost": 3.5
-      },
-      {
-        "ingredient": "Pain",
-        "quantity": "1 p",
-        "cost": 2
       },
       {
         "ingredient": "Huile",
@@ -4140,15 +4079,15 @@
     "category": "PLATS",
     "name": "EMINCE DE BŒUF",
     "sellPrice": 103,
-    "cost": 22.24,
-    "foodCostPct": 21.6,
-    "marginPct": 78.4,
-    "grossMarginDH": 80.76,
+    "cost": 39.74,
+    "foodCostPct": 38.6,
+    "marginPct": 61.4,
+    "grossMarginDH": 63.26,
     "details": [
       {
-        "ingredient": "Bœuf",
+        "ingredient": "FILET DE Bœuf",
         "quantity": "150 g",
-        "cost": 3
+        "cost": 22.5
       },
       {
         "ingredient": "Champignons",
@@ -4181,11 +4120,6 @@
         "cost": 3.5
       },
       {
-        "ingredient": "Pain",
-        "quantity": "1 p",
-        "cost": 2
-      },
-      {
         "ingredient": "Huile",
         "quantity": "60 ml",
         "cost": 0.94
@@ -4196,10 +4130,10 @@
     "category": "PLATS",
     "name": "FILET DE BŒUF",
     "sellPrice": 135,
-    "cost": 45.85,
-    "foodCostPct": 34,
-    "marginPct": 66,
-    "grossMarginDH": 89.15,
+    "cost": 43.85,
+    "foodCostPct": 32.5,
+    "marginPct": 67.5,
+    "grossMarginDH": 91.15,
     "details": [
       {
         "ingredient": "Filet",
@@ -4235,11 +4169,6 @@
         "ingredient": "Frites",
         "quantity": "200 g",
         "cost": 3.5
-      },
-      {
-        "ingredient": "Pain",
-        "quantity": "1 p",
-        "cost": 2
       }
     ]
   },
@@ -5736,10 +5665,10 @@
     "category": "PIZZA",
     "name": "BURRATA",
     "sellPrice": 110,
-    "cost": 22.75,
-    "foodCostPct": 20.7,
-    "marginPct": 79.3,
-    "grossMarginDH": 87.25,
+    "cost": 25.03,
+    "foodCostPct": 22.8,
+    "marginPct": 77.2,
+    "grossMarginDH": 84.97,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5758,8 +5687,8 @@
       },
       {
         "ingredient": "Burrata",
-        "quantity": "35 g",
-        "cost": 5.32
+        "quantity": "1 P",
+        "cost": 7.6
       },
       {
         "ingredient": "Noix",
