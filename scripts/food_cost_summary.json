@@ -4793,10 +4793,10 @@
     "category": "PANINIS",
     "name": "CHARCUTERIE",
     "sellPrice": 40,
-    "cost": 19.84,
-    "foodCostPct": 49.6,
-    "marginPct": 50.4,
-    "grossMarginDH": 20.16,
+    "cost": 18.74,
+    "foodCostPct": 46.9,
+    "marginPct": 53.2,
+    "grossMarginDH": 21.26,
     "details": [
       {
         "ingredient": "Charcuterie",
@@ -4805,8 +4805,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "60 g",
-        "cost": 3.3
+        "quantity": "40 g",
+        "cost": 2.2
       },
       {
         "ingredient": "Frites + sauce",
@@ -4829,10 +4829,10 @@
     "category": "PANINIS",
     "name": "POULET",
     "sellPrice": 44,
-    "cost": 14.19,
-    "foodCostPct": 32.3,
-    "marginPct": 67.8,
-    "grossMarginDH": 29.81,
+    "cost": 13.09,
+    "foodCostPct": 29.8,
+    "marginPct": 70.3,
+    "grossMarginDH": 30.91,
     "details": [
       {
         "ingredient": "Poulet",
@@ -4841,8 +4841,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "60 g",
-        "cost": 3.3
+        "quantity": "40 g",
+        "cost": 2.2
       },
       {
         "ingredient": "Frites + sauce",
@@ -4865,10 +4865,10 @@
     "category": "PANINIS",
     "name": "VIANDE HACHÉE",
     "sellPrice": 54,
-    "cost": 19.64,
-    "foodCostPct": 36.4,
-    "marginPct": 63.6,
-    "grossMarginDH": 34.36,
+    "cost": 18.54,
+    "foodCostPct": 34.3,
+    "marginPct": 65.7,
+    "grossMarginDH": 35.46,
     "details": [
       {
         "ingredient": "Viande",
@@ -4877,8 +4877,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "60 g",
-        "cost": 3.3
+        "quantity": "40 g",
+        "cost": 2.2
       },
       {
         "ingredient": "Frites + sauce",
@@ -4901,10 +4901,10 @@
     "category": "PANINIS",
     "name": "GOURMAND",
     "sellPrice": 64,
-    "cost": 22.14,
-    "foodCostPct": 34.6,
-    "marginPct": 65.4,
-    "grossMarginDH": 41.86,
+    "cost": 21.04,
+    "foodCostPct": 32.9,
+    "marginPct": 67.1,
+    "grossMarginDH": 42.96,
     "details": [
       {
         "ingredient": "Viande",
@@ -4923,8 +4923,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "60 g",
-        "cost": 3.3
+        "quantity": "40 g",
+        "cost": 2.2
       },
       {
         "ingredient": "Frites + sauce",
@@ -4947,10 +4947,10 @@
     "category": "PANINIS",
     "name": "FRUITS DE MER",
     "sellPrice": 64,
-    "cost": 25.9,
-    "foodCostPct": 40.5,
-    "marginPct": 59.5,
-    "grossMarginDH": 38.1,
+    "cost": 24.8,
+    "foodCostPct": 38.8,
+    "marginPct": 61.3,
+    "grossMarginDH": 39.2,
     "details": [
       {
         "ingredient": "Crevettes chair",
@@ -4969,8 +4969,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "60 g",
-        "cost": 3.3
+        "quantity": "40 g",
+        "cost": 2.2
       },
       {
         "ingredient": "Frites + sauce",
@@ -4993,10 +4993,10 @@
     "category": "PANINIS",
     "name": "SAUMON",
     "sellPrice": 64,
-    "cost": 21.34,
-    "foodCostPct": 33.3,
-    "marginPct": 66.7,
-    "grossMarginDH": 42.66,
+    "cost": 20.24,
+    "foodCostPct": 31.6,
+    "marginPct": 68.4,
+    "grossMarginDH": 43.76,
     "details": [
       {
         "ingredient": "Saumon",
@@ -5010,8 +5010,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "60 g",
-        "cost": 3.3
+        "quantity": "40 g",
+        "cost": 2.2
       },
       {
         "ingredient": "Frites + sauce",
@@ -6548,10 +6548,10 @@
     "category": "CRÊPES",
     "name": "CRÊPE FROMAGE",
     "sellPrice": 45,
-    "cost": 8.1,
-    "foodCostPct": 18,
-    "marginPct": 82,
-    "grossMarginDH": 36.9,
+    "cost": 7.55,
+    "foodCostPct": 16.8,
+    "marginPct": 83.2,
+    "grossMarginDH": 37.45,
     "details": [
       {
         "ingredient": "Pâte à crêpe",
@@ -6560,8 +6560,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "50 g",
-        "cost": 2.75
+        "quantity": "40 g",
+        "cost": 2.2
       },
       {
         "ingredient": "Fromage rouge",

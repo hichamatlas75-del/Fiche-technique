@@ -2368,17 +2368,17 @@ const DATA = [
         "prepTime": 8,
         "tech": [
           "Charcuterie : 120 g",
-          "Mozzarella : 60 g",
+          "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "price": "40 DH",
-        "cost": 19.84,
+        "cost": 18.74,
         "sellPrice": 40,
-        "foodCost": 49.6,
-        "margin": 50.4,
-        "grossMarginDH": 20.16
+        "foodCost": 46.9,
+        "margin": 53.2,
+        "grossMarginDH": 21.26
       },
       {
         "name": "POULET",
@@ -2386,17 +2386,17 @@ const DATA = [
         "prepTime": 8,
         "tech": [
           "Poulet : 70 g",
-          "Mozzarella : 60 g",
+          "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "price": "44 DH",
-        "cost": 14.19,
+        "cost": 13.09,
         "sellPrice": 44,
-        "foodCost": 32.3,
-        "margin": 67.8,
-        "grossMarginDH": 29.81
+        "foodCost": 29.8,
+        "margin": 70.3,
+        "grossMarginDH": 30.91
       },
       {
         "name": "VIANDE HACHÉE",
@@ -2404,17 +2404,17 @@ const DATA = [
         "prepTime": 8,
         "tech": [
           "Viande : 100 g",
-          "Mozzarella : 60 g",
+          "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "price": "54 DH",
-        "cost": 19.64,
+        "cost": 18.54,
         "sellPrice": 54,
-        "foodCost": 36.4,
-        "margin": 63.6,
-        "grossMarginDH": 34.36
+        "foodCost": 34.3,
+        "margin": 65.7,
+        "grossMarginDH": 35.46
       },
       {
         "name": "GOURMAND",
@@ -2424,17 +2424,17 @@ const DATA = [
           "Viande : 50 g",
           "Poulet : 50 g",
           "Charcuterie : 50 g",
-          "Mozzarella : 60 g",
+          "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "price": "64 DH",
-        "cost": 22.14,
+        "cost": 21.04,
         "sellPrice": 64,
-        "foodCost": 34.6,
-        "margin": 65.4,
-        "grossMarginDH": 41.86
+        "foodCost": 32.9,
+        "margin": 67.1,
+        "grossMarginDH": 42.96
       },
       {
         "name": "FRUITS DE MER",
@@ -2444,17 +2444,17 @@ const DATA = [
           "Crevettes chair : 40 g (soit 145 g brut)",
           "Calamar net : 40 g (soit 120 g brut)",
           "Pesto : 20 g",
-          "Mozzarella : 60 g",
+          "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "price": "64 DH",
-        "cost": 25.9,
+        "cost": 24.8,
         "sellPrice": 64,
-        "foodCost": 40.5,
-        "margin": 59.5,
-        "grossMarginDH": 38.1
+        "foodCost": 38.8,
+        "margin": 61.3,
+        "grossMarginDH": 39.2
       },
       {
         "name": "SAUMON",
@@ -2463,17 +2463,17 @@ const DATA = [
         "tech": [
           "Saumon : 90 g",
           "Pesto : 20 g",
-          "Mozzarella : 60 g",
+          "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "price": "64 DH",
-        "cost": 21.34,
+        "cost": 20.24,
         "sellPrice": 64,
-        "foodCost": 33.3,
-        "margin": 66.7,
-        "grossMarginDH": 42.66
+        "foodCost": 31.6,
+        "margin": 68.4,
+        "grossMarginDH": 43.76
       }
     ]
   },
@@ -3231,16 +3231,16 @@ const DATA = [
         "prepTime": 8,
         "tech": [
           "Pâte à crêpe : 1 p",
-          "Mozzarella : 50 g",
+          "Mozzarella : 40 g",
           "Fromage rouge : 30 g",
           "Fromage blanc : 20 g"
         ],
         "price": "45 DH",
-        "cost": 8.1,
+        "cost": 7.55,
         "sellPrice": 45,
-        "foodCost": 18,
-        "margin": 82,
-        "grossMarginDH": 36.9
+        "foodCost": 16.8,
+        "margin": 83.2,
+        "grossMarginDH": 37.45
       },
       {
         "name": "CRÊPE POULET CHAMPIGNON",
@@ -5139,7 +5139,7 @@ const BASE_RECIPES = [
     "category": "PANINIS",
     "ingredients": [
       "Charcuterie : 120 g",
-      "Mozzarella : 60 g",
+      "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -5151,7 +5151,7 @@ const BASE_RECIPES = [
     "category": "PANINIS",
     "ingredients": [
       "Poulet : 70 g",
-      "Mozzarella : 60 g",
+      "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -5163,7 +5163,7 @@ const BASE_RECIPES = [
     "category": "PANINIS",
     "ingredients": [
       "Viande : 100 g",
-      "Mozzarella : 60 g",
+      "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -5177,7 +5177,7 @@ const BASE_RECIPES = [
       "Viande : 50 g",
       "Poulet : 50 g",
       "Charcuterie : 50 g",
-      "Mozzarella : 60 g",
+      "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -5191,7 +5191,7 @@ const BASE_RECIPES = [
       "Crevettes avec coquille : 145 g",
       "Calamar congelé : 120 g",
       "Pesto : 20 g",
-      "Mozzarella : 60 g",
+      "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -5204,7 +5204,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Saumon : 90 g",
       "Pesto : 20 g",
-      "Mozzarella : 60 g",
+      "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -5705,7 +5705,7 @@ const BASE_RECIPES = [
     "category": "CRÊPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "Mozzarella : 50 g",
+      "Mozzarella : 40 g",
       "Fromage rouge : 30 g",
       "Fromage blanc : 20 g"
     ]
@@ -5955,7 +5955,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte à crêpe : 1 p",
       "VIANDE HACHEE :100 g",
-      "Mozzarella : 60 g",
+      "Mozzarella : 40 g",
       "SAUCE TOMATE : 50 g"
     ]
   },
@@ -5968,7 +5968,7 @@ const BASE_RECIPES = [
       "VIANDE HACHEE : 50 g",
       "CHARCUTERIE : 50 g",
       "poulet : 50 g",
-      "Mozzarella : 60 g",
+      "Mozzarella : 40 g",
       "Fromage : 20 g"
     ]
   },
