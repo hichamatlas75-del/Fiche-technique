@@ -3533,10 +3533,10 @@
     "category": "ENTRÉES FROIDES",
     "name": "Salade Quinoa",
     "sellPrice": 68,
-    "cost": 37.21,
-    "foodCostPct": 54.7,
-    "marginPct": 45.3,
-    "grossMarginDH": 30.79,
+    "cost": 32.83,
+    "foodCostPct": 48.3,
+    "marginPct": 51.7,
+    "grossMarginDH": 35.17,
     "details": [
       {
         "ingredient": "Quinoa",
@@ -3546,12 +3546,12 @@
       {
         "ingredient": "Gambas Pané",
         "quantity": "60 g",
-        "cost": 10.8
+        "cost": 3.9
       },
       {
         "ingredient": "Gambas Poché",
         "quantity": "80 g",
-        "cost": 14.4
+        "cost": 16.92
       },
       {
         "ingredient": "Fruits",
@@ -3589,10 +3589,10 @@
     "category": "ENTRÉES FROIDES",
     "name": "Salade Terre & Mer",
     "sellPrice": 78,
-    "cost": 29.49,
-    "foodCostPct": 37.8,
-    "marginPct": 62.2,
-    "grossMarginDH": 48.51,
+    "cost": 28.34,
+    "foodCostPct": 36.3,
+    "marginPct": 63.7,
+    "grossMarginDH": 49.66,
     "details": [
       {
         "ingredient": "Poulet Pané",
@@ -3617,12 +3617,12 @@
       {
         "ingredient": "Gambas Poché",
         "quantity": "73 g",
-        "cost": 13.14
+        "cost": 15.44
       },
       {
         "ingredient": "Gambas Pané",
         "quantity": "30 g",
-        "cost": 5.4
+        "cost": 1.95
       },
       {
         "ingredient": "Avocat",
@@ -3717,15 +3717,15 @@
     "category": "ENTRÉES CHAUDES",
     "name": "CROUSTILLON GAMBAS",
     "sellPrice": 68,
-    "cost": 59.35,
-    "foodCostPct": 87.3,
-    "marginPct": 12.7,
-    "grossMarginDH": 8.65,
+    "cost": 29.45,
+    "foodCostPct": 43.3,
+    "marginPct": 56.7,
+    "grossMarginDH": 38.55,
     "details": [
       {
         "ingredient": "Gambas panées",
         "quantity": "260 g",
-        "cost": 46.8
+        "cost": 16.9
       },
       {
         "ingredient": "Purée",
@@ -3758,15 +3758,15 @@
     "category": "ENTRÉES CHAUDES",
     "name": "PIL PIL ESPAGNOL",
     "sellPrice": 68,
-    "cost": 63.42,
-    "foodCostPct": 93.3,
-    "marginPct": 6.7,
-    "grossMarginDH": 4.58,
+    "cost": 22.17,
+    "foodCostPct": 32.6,
+    "marginPct": 67.4,
+    "grossMarginDH": 45.83,
     "details": [
       {
         "ingredient": "Gambas",
         "quantity": "330 g",
-        "cost": 59.4
+        "cost": 18.15
       },
       {
         "ingredient": "Tomate cerise",

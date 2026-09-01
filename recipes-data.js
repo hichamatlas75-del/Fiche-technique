@@ -1821,11 +1821,11 @@ const DATA = [
           "Framboise : 17 g"
         ],
         "price": "68 DH",
-        "cost": 37.21,
+        "cost": 32.83,
         "sellPrice": 68,
-        "foodCost": 54.7,
-        "margin": 45.3,
-        "grossMarginDH": 30.79
+        "foodCost": 48.3,
+        "margin": 51.7,
+        "grossMarginDH": 35.17
       },
       {
         "name": "Salade Terre & Mer",
@@ -1845,11 +1845,11 @@ const DATA = [
           "Agrumes : 15 g"
         ],
         "price": "78 DH",
-        "cost": 29.49,
+        "cost": 28.34,
         "sellPrice": 78,
-        "foodCost": 37.8,
-        "margin": 62.2,
-        "grossMarginDH": 48.51
+        "foodCost": 36.3,
+        "margin": 63.7,
+        "grossMarginDH": 49.66
       },
       {
         "name": "TARTARE SAUMON",
@@ -1905,11 +1905,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "68 DH",
-        "cost": 59.35,
+        "cost": 29.45,
         "sellPrice": 68,
-        "foodCost": 87.3,
-        "margin": 12.7,
-        "grossMarginDH": 8.65
+        "foodCost": 43.3,
+        "margin": 56.7,
+        "grossMarginDH": 38.55
       },
       {
         "name": "PIL PIL ESPAGNOL",
@@ -1925,11 +1925,11 @@ const DATA = [
           "Sauce tomate : 120 g"
         ],
         "price": "68 DH",
-        "cost": 63.42,
+        "cost": 22.17,
         "sellPrice": 68,
-        "foodCost": 93.3,
-        "margin": 6.7,
-        "grossMarginDH": 4.58
+        "foodCost": 32.6,
+        "margin": 67.4,
+        "grossMarginDH": 45.83
       }
     ]
   },
@@ -8046,11 +8046,31 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "gambas": {
-    "cost": 0.065,
+    "cost": 0.055,
+    "unit": "g"
+  },
+  "gambas avec coquille": {
+    "cost": 0.055,
     "unit": "g"
   },
   "gambas panees": {
     "cost": 0.065,
+    "unit": "g"
+  },
+  "gambas pane": {
+    "cost": 0.065,
+    "unit": "g"
+  },
+  "gambas poche": {
+    "cost": 0.2115,
+    "unit": "g"
+  },
+  "gambas pochee": {
+    "cost": 0.2115,
+    "unit": "g"
+  },
+  "gambas decortiquees": {
+    "cost": 0.2115,
     "unit": "g"
   },
   "calamar": {
