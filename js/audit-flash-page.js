@@ -135,11 +135,15 @@ function onAuditIngredientChange(name) {
 
   const ing = allIngredientsCatalog.find(x => cleanTextLocal(x.name) === cleanTextLocal(name));
   const unit = ing ? ing.unit : 'g';
-  const displayUnit = unit === 'g' ? 'kg' : (unit === 'ml' ? 'L' : 'p');
+  let priceUnitStr = 'DH / kg';
+  if (unit === 'ml' || unit === 'l' || unit === 'L') priceUnitStr = 'DH / L';
+  else if (unit === 'p' || unit === 'pcs' || unit === 'piece' || unit === 'canette' || unit === 'btl') priceUnitStr = 'DH / pièce';
 
   document.querySelectorAll('.flash-unit-lbl').forEach(el => el.textContent = unit);
+  const priceLbl = document.getElementById('flash-price-unit-lbl');
+  if (priceLbl) priceLbl.textContent = priceUnitStr;
 
-  // Prix unitaire par défaut
+  // Prix unitaire par défaut (en DH / kg, DH / L ou DH / pièce)
   let defaultPrice = 50;
   const costMap = window.INGREDIENT_UNIT_COSTS || {};
   const norm = cleanTextLocal(name);
@@ -371,6 +375,10 @@ function renderAuditHistoryTable() {
     else if (item.ecartPct > 8) badgeHtml = '<span class="status-badge danger">🚨 CRITIQUE</span>';
     else badgeHtml = '<span class="status-badge under">📉 SOUS-DOSAGE</span>';
 
+    let pUnit = 'DH/kg';
+    if (item.unit === 'ml' || item.unit === 'l' || item.unit === 'L') pUnit = 'DH/L';
+    else if (item.unit === 'p' || item.unit === 'pcs' || item.unit === 'piece') pUnit = 'DH/u';
+
     return `<tr>
       <td style="font-weight:800; min-width:180px;">${item.name}</td>
       <td style="text-align:center;"><span class="cat-chip ${cat}">${cat.toUpperCase()}</span></td>
@@ -383,7 +391,7 @@ function renderAuditHistoryTable() {
       <td style="text-align:right;">${item.casse.toFixed(2)}</td>
       <td style="text-align:right; font-weight:900; color:${item.ecart > 0 ? 'var(--danger)' : 'var(--success)'};">${sign}${item.ecart.toFixed(2)}</td>
       <td style="text-align:center;">${badgeHtml}</td>
-      <td style="text-align:right;">${item.prix.toFixed(2)}</td>
+      <td style="text-align:right; font-weight:700;">${item.prix.toFixed(2)} <span style="font-size:11px; color:var(--muted);">${pUnit}</span></td>
       <td style="text-align:right; font-weight:900; color:${item.impactDH > 0 ? 'var(--danger)' : 'var(--success)'};">${sign}${item.impactDH.toFixed(2)} DH</td>
       <td style="text-align:center;">
         <button class="btn-del-row" onclick="removeAuditFromHistory(${idx})" title="Supprimer">✕</button>
@@ -404,21 +412,27 @@ function exportAuditHistoryToExcel() {
     return;
   }
 
-  const exportData = auditFlashHistory.map(item => ({
-    'Matière Première': item.name,
-    'Catégorie': categorizeIngredientLocal(item.name).toUpperCase(),
-    'Unité': item.unit,
-    'Stock Initial M-1': item.sInit,
-    'Achats & Livraisons M': item.achats,
-    'Stock Final Réel M': item.sFinal,
-    'Consommation Réelle': item.consReelle,
-    'Théorie Ventes': item.theo,
-    'Casse Déclarée': item.casse,
-    'Écart Quantité': item.ecart,
-    'Écart %': item.ecartPct.toFixed(1) + '%',
-    'Prix Unitaire (DH)': item.prix,
-    'Impact Financier (DH)': item.impactDH
-  }));
+  const exportData = auditFlashHistory.map(item => {
+    let pUnit = 'DH/kg';
+    if (item.unit === 'ml' || item.unit === 'l' || item.unit === 'L') pUnit = 'DH/L';
+    else if (item.unit === 'p' || item.unit === 'pcs' || item.unit === 'piece') pUnit = 'DH/u';
+
+    return {
+      'Matière Première': item.name,
+      'Catégorie': categorizeIngredientLocal(item.name).toUpperCase(),
+      'Unité': item.unit,
+      'Stock Initial M-1': item.sInit,
+      'Achats & Livraisons M': item.achats,
+      'Stock Final Réel M': item.sFinal,
+      'Consommation Réelle': item.consReelle,
+      'Théorie Ventes': item.theo,
+      'Casse Déclarée': item.casse,
+      'Écart Quantité': item.ecart,
+      'Écart %': item.ecartPct.toFixed(1) + '%',
+      'Prix Unitaire': `${item.prix.toFixed(2)} ${pUnit}`,
+      'Impact Financier (DH)': item.impactDH
+    };
+  });
 
   const ws = XLSX.utils.json_to_sheet(exportData);
   const wb = XLSX.utils.book_new();
