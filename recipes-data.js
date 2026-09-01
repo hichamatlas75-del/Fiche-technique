@@ -642,11 +642,11 @@ const DATA = [
           "Lait ou Jus d'orange : 100 ml"
         ],
         "price": "28 DH",
-        "cost": 4.7,
+        "cost": 4.28,
         "sellPrice": 28,
-        "foodCost": 16.8,
-        "margin": 83.2,
-        "grossMarginDH": 23.3
+        "foodCost": 15.3,
+        "margin": 84.7,
+        "grossMarginDH": 23.72
       },
       {
         "name": "JUS D'AVOCAT AU LAIT",
@@ -675,11 +675,11 @@ const DATA = [
           "Amandes, Noix, Raisins secs : 40 g"
         ],
         "price": "38 DH",
-        "cost": 7.87,
+        "cost": 9.27,
         "sellPrice": 38,
-        "foodCost": 20.7,
-        "margin": 79.3,
-        "grossMarginDH": 30.13
+        "foodCost": 24.4,
+        "margin": 75.6,
+        "grossMarginDH": 28.73
       },
       {
         "name": "JUS PANACHÉ FRUITS FRAIS",
@@ -1369,11 +1369,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 2 p"
         ],
         "price": "144 DH",
-        "cost": 48.33,
+        "cost": 47.18,
         "sellPrice": 144,
-        "foodCost": 33.6,
-        "margin": 66.4,
-        "grossMarginDH": 95.67
+        "foodCost": 32.8,
+        "margin": 67.2,
+        "grossMarginDH": 96.82
       },
       {
         "name": "BELDI",
@@ -1435,11 +1435,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 10.29,
+        "cost": 8.56,
         "sellPrice": 52,
-        "foodCost": 19.8,
-        "margin": 80.2,
-        "grossMarginDH": 41.71
+        "foodCost": 16.5,
+        "margin": 83.5,
+        "grossMarginDH": 43.44
       },
       {
         "name": "BERBÈRE",
@@ -1517,11 +1517,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 17.99,
+        "cost": 16.26,
         "sellPrice": 52,
-        "foodCost": 34.6,
-        "margin": 65.4,
-        "grossMarginDH": 34.01
+        "foodCost": 31.3,
+        "margin": 68.7,
+        "grossMarginDH": 35.74
       },
       {
         "name": "OMELETTE FROMAGE",
@@ -1537,11 +1537,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 12.89,
+        "cost": 11.16,
         "sellPrice": 52,
-        "foodCost": 24.8,
-        "margin": 75.2,
-        "grossMarginDH": 39.11
+        "foodCost": 21.5,
+        "margin": 78.5,
+        "grossMarginDH": 40.84
       },
       {
         "name": "OMELETTE NATURE",
@@ -1556,11 +1556,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "42 DH",
-        "cost": 9.09,
+        "cost": 7.36,
         "sellPrice": 42,
-        "foodCost": 21.6,
-        "margin": 78.4,
-        "grossMarginDH": 32.91
+        "foodCost": 17.5,
+        "margin": 82.5,
+        "grossMarginDH": 34.64
       },
       {
         "name": "OMELETTE DU CHEF",
@@ -1577,11 +1577,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "58 DH",
-        "cost": 12.79,
+        "cost": 11.06,
         "sellPrice": 58,
-        "foodCost": 22.1,
-        "margin": 77.9,
-        "grossMarginDH": 45.21
+        "foodCost": 19.1,
+        "margin": 80.9,
+        "grossMarginDH": 46.94
       },
       {
         "name": "ESPAGNOL",
@@ -1622,11 +1622,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 20.94,
+        "cost": 19.79,
         "sellPrice": 64,
-        "foodCost": 32.7,
-        "margin": 67.3,
-        "grossMarginDH": 43.06
+        "foodCost": 30.9,
+        "margin": 69.1,
+        "grossMarginDH": 44.21
       },
       {
         "name": "MQUILA-FRUITS DE MER",
@@ -1643,11 +1643,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "78 DH",
-        "cost": 36.34,
+        "cost": 27.69,
         "sellPrice": 78,
-        "foodCost": 46.6,
-        "margin": 53.4,
-        "grossMarginDH": 41.66
+        "foodCost": 35.5,
+        "margin": 64.5,
+        "grossMarginDH": 50.31
       },
       {
         "name": "NORVÉGIEN",
@@ -1720,11 +1720,11 @@ const DATA = [
           "Lait chocolat : 200 ml"
         ],
         "price": "40 DH",
-        "cost": 4.85,
+        "cost": 15.02,
         "sellPrice": 40,
-        "foodCost": 12.1,
-        "margin": 87.9,
-        "grossMarginDH": 35.15
+        "foodCost": 37.6,
+        "margin": 62.5,
+        "grossMarginDH": 24.98
       }
     ]
   },
@@ -1821,11 +1821,11 @@ const DATA = [
           "Framboise : 17 g"
         ],
         "price": "68 DH",
-        "cost": 39.61,
+        "cost": 42.58,
         "sellPrice": 68,
-        "foodCost": 58.3,
-        "margin": 41.8,
-        "grossMarginDH": 28.39
+        "foodCost": 62.6,
+        "margin": 37.4,
+        "grossMarginDH": 25.42
       },
       {
         "name": "Salade Terre & Mer",
@@ -1862,11 +1862,11 @@ const DATA = [
           "SAUCE TARTARE : 24 g"
         ],
         "price": "88 DH",
-        "cost": 21.67,
+        "cost": 25.67,
         "sellPrice": 88,
-        "foodCost": 24.6,
-        "margin": 75.4,
-        "grossMarginDH": 66.33
+        "foodCost": 29.2,
+        "margin": 70.8,
+        "grossMarginDH": 62.33
       }
     ]
   },
@@ -1897,7 +1897,7 @@ const DATA = [
         "images": "images/entree-croustillon.jpg,images/entree-croustillon2.jpg,images/entree-croustillon3.jpg",
         "prepTime": 12,
         "tech": [
-          "Gambas chair pure : 100 g",
+          "Gambas chair pure : 100 g (soit 330 g brut)",
           "Chapelure : 30 g",
           "Purée : 200 g",
           "Radis : 15 g",
@@ -1916,7 +1916,7 @@ const DATA = [
         "images": "images/entree-pilpil.jpg,images/entree-pilpil2.jpg",
         "prepTime": 14,
         "tech": [
-          "Gambas chair pure : 100 g",
+          "Gambas chair pure : 100 g (soit 330 g brut)",
           "Tomate cerise : 60 g",
           "Pesto : 22 g",
           "Huile d’olive : 30 g",
@@ -2020,11 +2020,11 @@ const DATA = [
           "Beurre : 40 g"
         ],
         "price": "98 DH",
-        "cost": 36.01,
+        "cost": 36.51,
         "sellPrice": 98,
-        "foodCost": 36.7,
-        "margin": 63.3,
-        "grossMarginDH": 61.99
+        "foodCost": 37.3,
+        "margin": 62.7,
+        "grossMarginDH": 61.49
       },
       {
         "name": "ESCALOPE A LA MILANAISE",
@@ -2104,11 +2104,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "145 DH",
-        "cost": 51,
+        "cost": 45,
         "sellPrice": 145,
-        "foodCost": 35.2,
-        "margin": 64.8,
-        "grossMarginDH": 94
+        "foodCost": 31,
+        "margin": 69,
+        "grossMarginDH": 100
       },
       {
         "name": "MENU ENFANT (PLAT)",
@@ -2174,11 +2174,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "50 DH",
-        "cost": 19.33,
+        "cost": 19.29,
         "sellPrice": 50,
-        "foodCost": 38.7,
-        "margin": 61.3,
-        "grossMarginDH": 30.67
+        "foodCost": 38.6,
+        "margin": 61.4,
+        "grossMarginDH": 30.71
       },
       {
         "name": "CHEESE BURGER",
@@ -2195,11 +2195,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "54 DH",
-        "cost": 20.75,
+        "cost": 19.28,
         "sellPrice": 54,
-        "foodCost": 38.4,
-        "margin": 61.6,
-        "grossMarginDH": 33.25
+        "foodCost": 35.7,
+        "margin": 64.3,
+        "grossMarginDH": 34.72
       },
       {
         "name": "AVOCADO FORESTIER",
@@ -2217,11 +2217,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "54 DH",
-        "cost": 25.42,
+        "cost": 23.78,
         "sellPrice": 54,
-        "foodCost": 47.1,
-        "margin": 52.9,
-        "grossMarginDH": 28.58
+        "foodCost": 44,
+        "margin": 56,
+        "grossMarginDH": 30.22
       },
       {
         "name": "EGG ET CHEESEBURGER",
@@ -2238,11 +2238,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "56 DH",
-        "cost": 24.37,
+        "cost": 24.83,
         "sellPrice": 56,
-        "foodCost": 43.5,
-        "margin": 56.5,
-        "grossMarginDH": 31.63
+        "foodCost": 44.3,
+        "margin": 55.7,
+        "grossMarginDH": 31.17
       },
       {
         "name": "BIG BURGER",
@@ -2257,11 +2257,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "68 DH",
-        "cost": 18.32,
+        "cost": 18.28,
         "sellPrice": 68,
         "foodCost": 26.9,
         "margin": 73.1,
-        "grossMarginDH": 49.68
+        "grossMarginDH": 49.72
       },
       {
         "name": "BURGER ROYAL",
@@ -2279,11 +2279,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "70 DH",
-        "cost": 31.63,
+        "cost": 32.09,
         "sellPrice": 70,
-        "foodCost": 45.2,
-        "margin": 54.8,
-        "grossMarginDH": 38.37
+        "foodCost": 45.8,
+        "margin": 54.2,
+        "grossMarginDH": 37.91
       }
     ]
   },
@@ -2307,11 +2307,11 @@ const DATA = [
           "Sauce burger : 60 ml"
         ],
         "price": "58 DH",
-        "cost": 25.39,
+        "cost": 23.79,
         "sellPrice": 58,
-        "foodCost": 43.8,
-        "margin": 56.2,
-        "grossMarginDH": 32.61
+        "foodCost": 41,
+        "margin": 59,
+        "grossMarginDH": 34.21
       },
       {
         "name": "WRAP VIANDE HACHÉE",
@@ -2327,11 +2327,11 @@ const DATA = [
           "Sauce burger : 60 ml"
         ],
         "price": "62 DH",
-        "cost": 26.59,
+        "cost": 24.99,
         "sellPrice": 62,
-        "foodCost": 42.9,
-        "margin": 57.1,
-        "grossMarginDH": 35.41
+        "foodCost": 40.3,
+        "margin": 59.7,
+        "grossMarginDH": 37.01
       },
       {
         "name": "WRAP GOURMAND",
@@ -2349,11 +2349,11 @@ const DATA = [
           "Sauce burger : 60 ml"
         ],
         "price": "64 DH",
-        "cost": 28.79,
+        "cost": 27.19,
         "sellPrice": 64,
-        "foodCost": 45,
-        "margin": 55,
-        "grossMarginDH": 35.21
+        "foodCost": 42.5,
+        "margin": 57.5,
+        "grossMarginDH": 36.81
       }
     ]
   },
@@ -2374,11 +2374,11 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "price": "40 DH",
-        "cost": 21.94,
+        "cost": 19.84,
         "sellPrice": 40,
-        "foodCost": 54.9,
-        "margin": 45.1,
-        "grossMarginDH": 18.06
+        "foodCost": 49.6,
+        "margin": 50.4,
+        "grossMarginDH": 20.16
       },
       {
         "name": "POULET",
@@ -2392,11 +2392,11 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "price": "44 DH",
-        "cost": 16.29,
+        "cost": 14.19,
         "sellPrice": 44,
-        "foodCost": 37,
-        "margin": 63,
-        "grossMarginDH": 27.71
+        "foodCost": 32.3,
+        "margin": 67.8,
+        "grossMarginDH": 29.81
       },
       {
         "name": "VIANDE HACHÉE",
@@ -2410,11 +2410,11 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "price": "54 DH",
-        "cost": 21.74,
+        "cost": 19.64,
         "sellPrice": 54,
-        "foodCost": 40.3,
-        "margin": 59.7,
-        "grossMarginDH": 32.26
+        "foodCost": 36.4,
+        "margin": 63.6,
+        "grossMarginDH": 34.36
       },
       {
         "name": "GOURMAND",
@@ -2430,18 +2430,18 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "price": "64 DH",
-        "cost": 24.24,
+        "cost": 22.14,
         "sellPrice": 64,
-        "foodCost": 37.9,
-        "margin": 62.1,
-        "grossMarginDH": 39.76
+        "foodCost": 34.6,
+        "margin": 65.4,
+        "grossMarginDH": 41.86
       },
       {
         "name": "FRUITS DE MER",
         "image": "images/panini-fruitsmer.jpg",
         "prepTime": 10,
         "tech": [
-          "Crevettes : 40 g",
+          "Crevettes chair : 40 g (soit 145 g brut)",
           "Calamar : 40 g",
           "Pesto : 20 g",
           "Mozzarella : 60 g",
@@ -2450,11 +2450,11 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "price": "64 DH",
-        "cost": 21.64,
+        "cost": 22.74,
         "sellPrice": 64,
-        "foodCost": 33.8,
-        "margin": 66.2,
-        "grossMarginDH": 42.36
+        "foodCost": 35.5,
+        "margin": 64.5,
+        "grossMarginDH": 41.26
       },
       {
         "name": "SAUMON",
@@ -2469,11 +2469,11 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "price": "64 DH",
-        "cost": 23.44,
+        "cost": 21.34,
         "sellPrice": 64,
-        "foodCost": 36.6,
-        "margin": 63.4,
-        "grossMarginDH": 40.56
+        "foodCost": 33.3,
+        "margin": 66.7,
+        "grossMarginDH": 42.66
       }
     ]
   },
@@ -2487,7 +2487,7 @@ const DATA = [
         "image": "images/sand-fruitsmer.jpg",
         "prepTime": 14,
         "tech": [
-          "Crevette : 40 g",
+          "Crevettes chair : 40 g (soit 145 g brut)",
           "Calamar : 40 g",
           "Sauce Biggy : 40 g",
           "Cheddar : 20 g",
@@ -2497,11 +2497,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "65 DH",
-        "cost": 19.68,
+        "cost": 24.22,
         "sellPrice": 65,
-        "foodCost": 30.3,
-        "margin": 69.7,
-        "grossMarginDH": 45.32
+        "foodCost": 37.3,
+        "margin": 62.7,
+        "grossMarginDH": 40.78
       },
       {
         "name": "THON",
@@ -2555,11 +2555,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "58 DH",
-        "cost": 21.18,
+        "cost": 21.68,
         "sellPrice": 58,
-        "foodCost": 36.5,
-        "margin": 63.5,
-        "grossMarginDH": 36.82
+        "foodCost": 37.4,
+        "margin": 62.6,
+        "grossMarginDH": 36.32
       },
       {
         "name": "CHEESE STEAK",
@@ -2767,11 +2767,11 @@ const DATA = [
           "Champignon : 60 g"
         ],
         "price": "88 DH",
-        "cost": 29.55,
+        "cost": 26.55,
         "sellPrice": 88,
-        "foodCost": 33.6,
-        "margin": 66.4,
-        "grossMarginDH": 58.45
+        "foodCost": 30.2,
+        "margin": 69.8,
+        "grossMarginDH": 61.45
       },
       {
         "name": "MOITIÉ MOITIÉ",
@@ -2814,18 +2814,18 @@ const DATA = [
         "tech": [
           "Pâte : 330 g",
           "Mozzarella : 150 g",
-          "Crevette : 40 g",
+          "Crevettes chair : 40 g (soit 145 g brut)",
           "Calamar : 40 g",
           "Moules : 20 g",
           "Champignon : 40 g",
           "Sauce blanche : 100 g"
         ],
         "price": "88 DH",
-        "cost": 25.75,
+        "cost": 28.95,
         "sellPrice": 88,
-        "foodCost": 29.3,
-        "margin": 70.7,
-        "grossMarginDH": 62.25
+        "foodCost": 32.9,
+        "margin": 67.1,
+        "grossMarginDH": 59.05
       },
       {
         "name": "SAUMON",
@@ -2900,7 +2900,7 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "Pâtes : 60 g",
-          "Crevette : 40 g",
+          "Crevettes chair : 40 g (soit 145 g brut)",
           "CALAMAR : 40 g",
           "Parmesan : 15 g",
           "Huile : 30 g",
@@ -2909,11 +2909,11 @@ const DATA = [
           "Oignon/Ail : 50 g"
         ],
         "price": "78 DH",
-        "cost": 17.9,
+        "cost": 21.1,
         "sellPrice": 78,
-        "foodCost": 22.9,
-        "margin": 77.1,
-        "grossMarginDH": 60.1
+        "foodCost": 27.1,
+        "margin": 72.9,
+        "grossMarginDH": 56.9
       },
       {
         "name": "VÉGÉTARIEN",
@@ -3047,7 +3047,7 @@ const DATA = [
         "prepTime": 18,
         "tech": [
           "Pâtes : 150 g",
-          "Crevettes : 40 g",
+          "Crevettes chair : 40 g (soit 145 g brut)",
           "Calamar : 40 g",
           "Moules : 15 g",
           "Parmesan : 30 g",
@@ -3057,11 +3057,11 @@ const DATA = [
           "Oignon/Ail : 50 g"
         ],
         "price": "88 DH",
-        "cost": 22.59,
+        "cost": 25.79,
         "sellPrice": 88,
-        "foodCost": 25.7,
-        "margin": 74.3,
-        "grossMarginDH": 65.41
+        "foodCost": 29.3,
+        "margin": 70.7,
+        "grossMarginDH": 62.21
       },
       {
         "name": "SAUMON",
@@ -3091,11 +3091,11 @@ const DATA = [
           "Supplément pâtes noires à l'encre de seiche"
         ],
         "price": "5 DH",
-        "cost": 0.45,
+        "cost": 0.9,
         "sellPrice": 5,
-        "foodCost": 9,
-        "margin": 91,
-        "grossMarginDH": 4.55
+        "foodCost": 18,
+        "margin": 82,
+        "grossMarginDH": 4.1
       }
     ]
   },
@@ -3127,11 +3127,11 @@ const DATA = [
           "Sucre glace : 5 g"
         ],
         "price": "40 DH",
-        "cost": 11.05,
+        "cost": 15.25,
         "sellPrice": 40,
-        "foodCost": 27.6,
-        "margin": 72.4,
-        "grossMarginDH": 28.95
+        "foodCost": 38.1,
+        "margin": 61.9,
+        "grossMarginDH": 24.75
       },
       {
         "name": "CHEESECAKE CHOCOLAT",
@@ -3204,11 +3204,11 @@ const DATA = [
           "Banane ou Amandes : 20 g"
         ],
         "price": "38 DH",
-        "cost": 6.82,
+        "cost": 8.14,
         "sellPrice": 38,
-        "foodCost": 17.9,
-        "margin": 82.1,
-        "grossMarginDH": 31.18
+        "foodCost": 21.4,
+        "margin": 78.6,
+        "grossMarginDH": 29.86
       },
       {
         "name": "CRÊPE KUNAFA PISTACHE",
@@ -3296,17 +3296,17 @@ const DATA = [
         "prepTime": 10,
         "tech": [
           "Pâte à crêpe : 1 p",
-          "Crevettes : 40 g",
+          "Crevettes chair : 40 g (soit 145 g brut)",
           "Calamar : 40 g",
           "Mozzarella : 40 g",
           "Crème fraîche : 30 ml"
         ],
         "price": "58 DH",
-        "cost": 13.9,
+        "cost": 17.1,
         "sellPrice": 58,
-        "foodCost": 24,
-        "margin": 76,
-        "grossMarginDH": 44.1
+        "foodCost": 29.5,
+        "margin": 70.5,
+        "grossMarginDH": 40.9
       }
     ]
   },
@@ -3337,11 +3337,11 @@ const DATA = [
           "Beurre : 15 g"
         ],
         "price": "18 DH",
-        "cost": 5.58,
+        "cost": 2.95,
         "sellPrice": 18,
-        "foodCost": 31,
-        "margin": 69,
-        "grossMarginDH": 12.42
+        "foodCost": 16.4,
+        "margin": 83.6,
+        "grossMarginDH": 15.05
       },
       {
         "name": "SUPPLÉMENT POTATOS",
@@ -3351,11 +3351,11 @@ const DATA = [
           "Sauce : 30 g"
         ],
         "price": "18 DH",
-        "cost": 6.24,
+        "cost": 2.24,
         "sellPrice": 18,
-        "foodCost": 34.7,
-        "margin": 65.3,
-        "grossMarginDH": 11.76
+        "foodCost": 12.4,
+        "margin": 87.6,
+        "grossMarginDH": 15.76
       },
       {
         "name": "SUPPLÉMENT MIEL",
@@ -3505,27 +3505,27 @@ const DATA = [
       {
         "name": "OMLETTE FROMAGE (A LA CARTE)",
         "sellPrice": 38,
-        "cost": 7.97,
-        "margin": 79,
+        "cost": 6.24,
+        "margin": 83.6,
         "tech": [
           "Œufs : 3 p",
           "Fromage : 40 g",
           "Mesclun : 30 g"
         ],
-        "foodCost": 21,
-        "grossMarginDH": 30.03
+        "foodCost": 16.4,
+        "grossMarginDH": 31.76
       },
       {
         "name": "OMLETTE NATURE (A LA CARTE)",
         "sellPrice": 32,
-        "cost": 4.17,
-        "margin": 87,
+        "cost": 2.44,
+        "margin": 92.4,
         "tech": [
           "Œufs : 3 p",
           "Mesclun : 30 g"
         ],
-        "foodCost": 13,
-        "grossMarginDH": 27.83
+        "foodCost": 7.6,
+        "grossMarginDH": 29.56
       }
     ]
   }
@@ -4823,7 +4823,7 @@ const BASE_RECIPES = [
     "name": "CROUSTILLON GAMBAS",
     "category": "ENTRÉES CHAUDES",
     "ingredients": [
-      "Gambas chair pure : 100 g",
+      "Gambas avec coquille : 330 g",
       "Chapelure : 30 g",
       "Purée : 200 g",
       "Radis : 15 g",
@@ -4836,7 +4836,7 @@ const BASE_RECIPES = [
     "name": "PIL PIL ESPAGNOL",
     "category": "ENTRÉES CHAUDES",
     "ingredients": [
-      "Gambas chair pure : 100 g",
+      "Gambas avec coquille : 330 g",
       "Tomate cerise : 60 g",
       "Pesto : 22 g",
       "Huile d’olive : 30 g",
@@ -5188,7 +5188,7 @@ const BASE_RECIPES = [
     "name": "PANINI FRUITS DE MER",
     "category": "PANINIS",
     "ingredients": [
-      "Crevettes : 40 g",
+      "Crevettes avec coquille : 145 g",
       "Calamar : 40 g",
       "Pesto : 20 g",
       "Mozzarella : 60 g",
@@ -5215,7 +5215,7 @@ const BASE_RECIPES = [
     "name": "FRUITS DE MER",
     "category": "SANDWICHS",
     "ingredients": [
-      "Crevette : 40 g",
+      "Crevettes avec coquille : 145 g",
       "Calamar : 40 g",
       "Sauce Biggy : 40 g",
       "Cheddar : 20 g",
@@ -5433,7 +5433,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte : 330 g",
       "Mozzarella : 150 g",
-      "Crevette : 40 g",
+      "Crevettes avec coquille : 145 g",
       "Calamar : 40 g",
       "Moules : 20 g",
       "Champignon : 40 g",
@@ -5488,7 +5488,7 @@ const BASE_RECIPES = [
     "category": "PÂTES",
     "ingredients": [
       "Pâtes : 60 g",
-      "Crevette : 40 g",
+      "Crevettes avec coquille : 145 g",
       "CALAMAR : 40 g",
       "Parmesan : 15 g",
       "Huile : 30 g",
@@ -5593,7 +5593,7 @@ const BASE_RECIPES = [
     "category": "PÂTES",
     "ingredients": [
       "Pâtes : 150 g",
-      "Crevettes : 40 g",
+      "Crevettes avec coquille : 145 g",
       "Calamar : 40 g",
       "Moules : 15 g",
       "Parmesan : 30 g",
@@ -5942,7 +5942,7 @@ const BASE_RECIPES = [
     "category": "CREPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "crevette : 40 g",
+      "Crevettes avec coquille : 145 g",
       "calamar : 40 g",
       "Mozzarella : 40 g",
       "creme fraiche : 30 g"
@@ -8063,6 +8063,46 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 0.055,
     "unit": "g"
   },
+  "crevette avec coquille": {
+    "cost": 0.055,
+    "unit": "g"
+  },
+  "crevettes avec coquille": {
+    "cost": 0.055,
+    "unit": "g"
+  },
+  "crevette brut": {
+    "cost": 0.055,
+    "unit": "g"
+  },
+  "crevettes brut": {
+    "cost": 0.055,
+    "unit": "g"
+  },
+  "crevette chair": {
+    "cost": 0.210,
+    "unit": "g"
+  },
+  "crevettes chair": {
+    "cost": 0.210,
+    "unit": "g"
+  },
+  "crevette chair pure": {
+    "cost": 0.210,
+    "unit": "g"
+  },
+  "crevettes chair pure": {
+    "cost": 0.210,
+    "unit": "g"
+  },
+  "crevette chair pur": {
+    "cost": 0.210,
+    "unit": "g"
+  },
+  "crevettes chair pur": {
+    "cost": 0.210,
+    "unit": "g"
+  },
   "gambas": {
     "cost": 0.055,
     "unit": "g"
@@ -8071,23 +8111,19 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 0.055,
     "unit": "g"
   },
-  "gambas chair pure": {
-    "cost": 0.210,
-    "unit": "g"
-  },
-  "gambas chair pur": {
-    "cost": 0.210,
+  "gambas brut": {
+    "cost": 0.055,
     "unit": "g"
   },
   "gambas chair": {
     "cost": 0.210,
     "unit": "g"
   },
-  "crevette chair pure": {
+  "gambas chair pure": {
     "cost": 0.210,
     "unit": "g"
   },
-  "crevette chair pur": {
+  "gambas chair pur": {
     "cost": 0.210,
     "unit": "g"
   },
@@ -9214,13 +9250,13 @@ const INGREDIENT_UNIT_COSTS = {
 };
 
 function calculateRecipeFoodCost(ingredients, sellPrice) {
-  if (typeof window.calculateRecipeFoodCost === 'function' && window.calculateRecipeFoodCost !== calculateRecipeFoodCost) {
+  if (typeof window !== 'undefined' && typeof window.calculateRecipeFoodCost === 'function' && window.calculateRecipeFoodCost !== calculateRecipeFoodCost) {
     return window.calculateRecipeFoodCost(ingredients, sellPrice);
   }
   let totalCost = 0;
   const breakdown = [];
   const validSellPrice = typeof sellPrice === 'number' && sellPrice > 0 ? sellPrice : parseFloat(String(sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
-  const costMap = window.INGREDIENT_UNIT_COSTS || INGREDIENT_UNIT_COSTS;
+  const costMap = (typeof window !== 'undefined' && window.INGREDIENT_UNIT_COSTS) || INGREDIENT_UNIT_COSTS;
 
   (ingredients || []).forEach(line => {
     if (!line || typeof line !== 'string') return;
@@ -9232,9 +9268,10 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
     let ingDef = costMap[normIng];
 
     if (!ingDef) {
-      for (const [k, v] of Object.entries(costMap)) {
-        if (normIng === k || normIng.includes(k) || k.includes(normIng)) {
-          ingDef = v;
+      const sortedKeys = Object.keys(costMap).sort((a, b) => b.length - a.length);
+      for (const k of sortedKeys) {
+        if (normIng.includes(k) || k.includes(normIng)) {
+          ingDef = costMap[k];
           break;
         }
       }

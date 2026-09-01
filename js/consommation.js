@@ -25,9 +25,10 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
     let ingDef = costMap[normIng];
 
     if (!ingDef) {
-      for (const [k, v] of Object.entries(costMap)) {
-        if (normIng === k || normIng.includes(k) || k.includes(normIng)) {
-          ingDef = v;
+      const sortedKeys = Object.keys(costMap).sort((a, b) => b.length - a.length);
+      for (const k of sortedKeys) {
+        if (normIng.includes(k) || k.includes(normIng)) {
+          ingDef = costMap[k];
           break;
         }
       }

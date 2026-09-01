@@ -157,15 +157,24 @@ const ingredientCosts = {
   "saumon": { cost: 0.120, unit: "g" },
   "saumon frais": { cost: 0.120, unit: "g" },
   "saumon fume": { cost: 0.280, unit: "g" },
-  "crevette": { cost: 0.130, unit: "g" },
-  "crevettes": { cost: 0.130, unit: "g" },
+  "crevette": { cost: 0.055, unit: "g" },
+  "crevettes": { cost: 0.055, unit: "g" },
+  "crevette avec coquille": { cost: 0.055, unit: "g" },
+  "crevettes avec coquille": { cost: 0.055, unit: "g" },
+  "crevette brut": { cost: 0.055, unit: "g" },
+  "crevettes brut": { cost: 0.055, unit: "g" },
+  "crevette chair": { cost: 0.210, unit: "g" },
+  "crevettes chair": { cost: 0.210, unit: "g" },
+  "crevette chair pure": { cost: 0.210, unit: "g" },
+  "crevettes chair pure": { cost: 0.210, unit: "g" },
+  "crevette chair pur": { cost: 0.210, unit: "g" },
+  "crevettes chair pur": { cost: 0.210, unit: "g" },
   "gambas": { cost: 0.055, unit: "g" },
   "gambas avec coquille": { cost: 0.055, unit: "g" },
+  "gambas brut": { cost: 0.055, unit: "g" },
+  "gambas chair": { cost: 0.210, unit: "g" },
   "gambas chair pure": { cost: 0.210, unit: "g" },
   "gambas chair pur": { cost: 0.210, unit: "g" },
-  "gambas chair": { cost: 0.210, unit: "g" },
-  "crevette chair pure": { cost: 0.210, unit: "g" },
-  "crevette chair pur": { cost: 0.210, unit: "g" },
   "gambas panees": { cost: 0.180, unit: "g" },
   "gambas pane": { cost: 0.180, unit: "g" },
   "gambas poche": { cost: 0.210, unit: "g" },
@@ -440,9 +449,10 @@ DATA.forEach(cat => {
       let ingDef = ingredientCosts[normIng];
 
       if (!ingDef) {
-        for (const [k, v] of Object.entries(ingredientCosts)) {
-          if (normIng === k || normIng.includes(k) || k.includes(normIng)) {
-            ingDef = v;
+        const sortedKeys = Object.keys(ingredientCosts).sort((a, b) => b.length - a.length);
+        for (const k of sortedKeys) {
+          if (normIng.includes(k) || k.includes(normIng)) {
+            ingDef = ingredientCosts[k];
             break;
           }
         }
