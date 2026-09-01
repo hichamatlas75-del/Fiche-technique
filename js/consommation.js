@@ -2866,53 +2866,70 @@ async function extractDataFromPDF(file) {
 
 function parseTextLinesToAudit(lines) {
   const result = [];
+  const validUnits = 'kg|g|gr|l|litre|litres|cl|ml|p|pcs|pc|piece|pieces|paquet|paquets|boite|boites|boîte|boîtes|carton|cartons|btl|bouteille|bouteilles|unite|unites';
   const categoryWords = ['barman', 'personnel', 'petit-dejeuner', 'petit-déjeuner', 'cuisine', 'economat', 'épicerie', 'epicerie', 'boissons'];
 
   lines.forEach(line => {
     line = line.trim();
-    if (!line || line.startsWith('Position') || line.startsWith('Rapport') || line.startsWith('Période') || line.startsWith('Consommation') || line.startsWith('Détails')) return;
+    if (!line) return;
+    if (line.startsWith('Position') || line.startsWith('Rapport') || line.startsWith('Période') || line.startsWith('Consommation') || line.startsWith('Détails') || line.startsWith('DÉSIGNATION') || line.startsWith('DESIGNATION') || line.startsWith('BILAN') || line.startsWith('Total') || line.startsWith('Articles') || line.startsWith('Grey Corner') || line.startsWith('#') || line.startsWith('Coût Total') || line.startsWith('SOMME TOTALE')) return;
+    if (line.includes('Casse physique:') || line.includes('Cuisine:') || line.includes('Barman:') || line.includes('Péremption:') || line.includes('Autre:')) return;
 
-    let matched = false;
-    let cleanLine = line.replace(/^\d+\s+/, '');
+    let cleanLine = line.replace(/^\d+\s+/, '').trim();
 
-    // Pattern 1: Multi-column report (Position + Product + Category + Qty + Unit + TotalDH)
-    const catRegex = new RegExp('\\s+(' + categoryWords.join('|') + ')\\s+([0-9]+[.,]?[0-9]*)\\s*(kg|g|l|cl|ml|p|pcs|piece|pieces|paquet|boite|carton|btl|unite|unites)?(?:\\s+([0-9]+[.,]?[0-9]*))?$', 'i');
-    const catMatch = cleanLine.match(catRegex);
-
-    if (catMatch) {
-      const rawName = cleanLine.substring(0, cleanLine.indexOf(catMatch[0])).trim();
-      let qty = parseFloat(catMatch[2].replace(',', '.'));
-      let unit = (catMatch[3] || 'g').toLowerCase();
-      let valTotal = catMatch[4] ? parseFloat(catMatch[4].replace(',', '.')) : 0;
-      let unitPrice = (qty > 0 && valTotal > 0) ? (valTotal / qty) : 0;
-
-      // Normalisation de l'unité
-      if (unit === 'kg') { qty = qty * 1000; unit = 'g'; }
-      else if (unit === 'l' || unit === 'litre') { qty = qty * 1000; unit = 'ml'; }
-      else if (unit === 'cl') { qty = qty * 10; unit = 'ml'; }
-
+    // FORMAT 1: [DÉSIGNATION] [CATÉGORIE] [QTÉ] [UNITÉ] [TOTAL DH] (Rapport Achats / Conso Exhaustive)
+    const catRegex = new RegExp('\\s+(' + categoryWords.join('|') + ')\\s+([0-9]+[.,]?[0-9]*)\\s*(' + validUnits + ')?(?:\\s+([0-9]+[.,]?[0-9]*))?$', 'i');
+    let m = cleanLine.match(catRegex);
+    if (m) {
+      const rawName = cleanLine.substring(0, cleanLine.indexOf(m[0])).trim();
+      const qty = parseFloat(m[2].replace(',', '.'));
+      const unit = (m[3] || 'g').toLowerCase().trim();
+      const valTotal = m[4] ? parseFloat(m[4].replace(',', '.')) : 0;
+      const unitPrice = (qty > 0 && valTotal > 0) ? (valTotal / qty) : 0;
       if (rawName.length >= 2 && !isNaN(qty)) {
         result.push({ name: rawName, qty, unit, price: unitPrice });
-        matched = true;
+        return;
       }
     }
 
-    if (!matched) {
-      // Pattern 2: Standard Line (Product + Qty + Unit + Price)
-      const match = cleanLine.match(/^(.+?)\s+([0-9]+[.,]?[0-9]*)\s*(kg|g|l|cl|ml|p|unite|unites|pcs|btl|paquet|boite)?(?:\s+([0-9]+[.,]?[0-9]*))?$/i);
-      if (match) {
-        const rawName = match[1].replace(/^[0-9\-_.]+\s*/, '').trim();
-        let qty = parseFloat(match[2].replace(',', '.'));
-        let unit = (match[3] || 'g').toLowerCase();
-        let price = match[4] ? parseFloat(match[4].replace(',', '.')) : 0;
+    // FORMAT 2: [DÉSIGNATION] [QTÉ] [UNITÉ] [P.U DH] [TOTAL DH] [FICHES] (Rapport Casse)
+    const casseRegex = new RegExp('^(.+?)\\s+([0-9]+[.,]?[0-9]*)\\s*(' + validUnits + ')?\\s+([0-9]+[.,]?[0-9]*)\\s*(?:dh)?\\s+([0-9]+[.,]?[0-9]*)\\s*(?:dh)?', 'i');
+    m = cleanLine.match(casseRegex);
+    if (m) {
+      const rawName = m[1].trim();
+      const qty = parseFloat(m[2].replace(',', '.'));
+      const unit = (m[3] || 'g').toLowerCase().trim();
+      const price = parseFloat(m[4].replace(',', '.'));
+      if (rawName.length >= 2 && !isNaN(qty)) {
+        result.push({ name: rawName, qty, unit, price });
+        return;
+      }
+    }
 
-        if (unit === 'kg') { qty = qty * 1000; unit = 'g'; }
-        else if (unit === 'l' || unit === 'litre') { qty = qty * 1000; unit = 'ml'; }
-        else if (unit === 'cl') { qty = qty * 10; unit = 'ml'; }
+    // FORMAT 3: [DÉSIGNATION] [UNITÉ] [QTÉ] (Rapport Inventaire Physique Grey Corner)
+    // Ex: "Amande Kg 0.1", "COCA 33CL Paquet 0.5", "BLANC POULET KG Kg 16.063", "CREM FRAICHE 1 L L 4"
+    const unitFirstRegex = new RegExp('^(.+?)\\s+(' + validUnits + ')\\s+([0-9]+[.,]?[0-9]*)$', 'i');
+    m = cleanLine.match(unitFirstRegex);
+    if (m) {
+      const rawName = m[1].trim();
+      const unit = m[2].toLowerCase().trim();
+      const qty = parseFloat(m[3].replace(',', '.'));
+      if (rawName.length >= 2 && !isNaN(qty)) {
+        result.push({ name: rawName, qty, unit, price: 0 });
+        return;
+      }
+    }
 
-        if (rawName.length >= 2 && !isNaN(qty)) {
-          result.push({ name: rawName, qty, unit, price });
-        }
+    // FORMAT 4: Standard [DÉSIGNATION] [QTÉ] [UNITÉ] [PRIX?]
+    const stdRegex = new RegExp('^(.+?)\\s+([0-9]+[.,]?[0-9]*)\\s*(' + validUnits + ')?(?:\\s+([0-9]+[.,]?[0-9]*))?$', 'i');
+    m = cleanLine.match(stdRegex);
+    if (m) {
+      const rawName = m[1].replace(/^[0-9\-_.]+\s*/, '').trim();
+      const qty = parseFloat(m[2].replace(',', '.'));
+      const unit = (m[3] || 'g').toLowerCase().trim();
+      const price = m[4] ? parseFloat(m[4].replace(',', '.')) : 0;
+      if (rawName.length >= 2 && !isNaN(qty)) {
+        result.push({ name: rawName, qty, unit, price });
       }
     }
   });
