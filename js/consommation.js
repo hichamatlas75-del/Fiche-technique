@@ -2802,7 +2802,13 @@ async function handleAuditFileUpload(event, targetType) {
 
     if (file.name.endsWith('.pdf')) {
       try {
-        const extractedRows = await extractDataFromPDF(file);
+        if (status) {
+          status.textContent = `⏳ Analyse du fichier ${i + 1}/${fileList.length} (${file.name})...`;
+          status.style.display = 'block';
+        }
+        const extractedRows = await extractDataFromPDF(file, (msg) => {
+          if (status) status.textContent = `⏳ ${file.name} : ${msg}`;
+        });
         applyExtractedDataToAudit(extractedRows, targetType, i === 0);
         totalExtractedCount += extractedRows.length;
       } catch (err) {
@@ -2810,6 +2816,10 @@ async function handleAuditFileUpload(event, targetType) {
       }
     } else if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls') || file.name.endsWith('.csv')) {
       try {
+        if (status) {
+          status.textContent = `⏳ Analyse du fichier Excel ${i + 1}/${fileList.length}...`;
+          status.style.display = 'block';
+        }
         const buffer = await file.arrayBuffer();
         const data = new Uint8Array(buffer);
         const wb = XLSX.read(data, { type: 'array' });
@@ -2831,7 +2841,7 @@ async function handleAuditFileUpload(event, targetType) {
   }
 }
 
-async function extractDataFromPDF(file) {
+async function extractDataFromPDF(file, onProgress) {
   if (typeof pdfjsLib === 'undefined') {
     throw new Error('PDF.js non chargé');
   }
@@ -2859,6 +2869,33 @@ async function extractDataFromPDF(file) {
       const lineStr = linesMap.get(y).join(' ').trim();
       if (lineStr.length > 2) fullTextLines.push(lineStr);
     });
+  }
+
+  // Si le PDF est une image scannée sans flux texte (0 caractère extrait), utiliser l'OCR Tesseract.js
+  if (fullTextLines.length === 0 && typeof Tesseract !== 'undefined') {
+    try {
+      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+        if (onProgress) onProgress(`Numérisation OCR Page ${pageNum}/${pdf.numPages}...`);
+        const page = await pdf.getPage(pageNum);
+        const viewport = page.getViewport({ scale: 2.0 });
+        const canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        const ctx = canvas.getContext('2d');
+        await page.render({ canvasContext: ctx, viewport }).promise;
+
+        const worker = await Tesseract.createWorker('fra');
+        const ret = await worker.recognize(canvas);
+        await worker.terminate();
+
+        if (ret && ret.data && ret.data.text) {
+          const ocrLines = ret.data.text.split('\n').map(l => l.trim()).filter(l => l.length > 2);
+          fullTextLines.push(...ocrLines);
+        }
+      }
+    } catch (ocrErr) {
+      console.warn('OCR non exécuté ou erreur:', ocrErr);
+    }
   }
 
   return parseTextLinesToAudit(fullTextLines);
