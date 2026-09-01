@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Grey Corner — Comparateur Fiches Techniques & Étalonnage "Juste Milieu"</title>
+<title>Grey Corner — Fiches Techniques vs Normes Internationales</title>
 
 <!-- Librairies Externes -->
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
@@ -13,10 +13,10 @@
 <link rel="stylesheet" href="css/comparateur.css" />
 
 <!-- Données Centralisées (SSOT), Standards Proposés & Utilitaires -->
-<script src="recipes-data.js?v=5.3"></script>
-<script src="js/core-utils.js?v=5.3"></script>
-<script src="js/proposed-standards.js?v=5.3"></script>
-<script src="js/comparateur.js?v=5.3"></script>
+<script src="recipes-data.js?v=5.4"></script>
+<script src="js/core-utils.js?v=5.4"></script>
+<script src="js/proposed-standards.js?v=5.4"></script>
+<script src="js/comparateur.js?v=5.4"></script>
 </head>
 <body>
 
@@ -26,8 +26,8 @@
       <div class="brand" style="display:flex; align-items:center; gap:12px;">
         <img class="logo" src="images/logo.png" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\' fill=\'%230284c7\'%3E%3Cpath d=\'M50 15 L85 80 L15 80 Z\'/%3E%3Ctext x=\'50\' y=\'65\' font-size=\'32\' font-weight=\'bold\' fill=\'%23ffffff\' text-anchor=\'middle\'%3EGC%3C/text%3E%3C/svg%3E';" alt="GC" style="height:36px; width:auto;">
         <div>
-          <div style="font-size:18px; font-weight:900; color:var(--text); line-height:1.2;">Grey Corner <span style="color:var(--accent); font-size:14px; font-weight:700;">⚖️ Comparateur & Juste Milieu</span></div>
-          <div style="font-size:11px; color:var(--text-muted);">Étalonnage Intelligent des Fiches Techniques & Food Cost</div>
+          <div style="font-size:18px; font-weight:900; color:var(--text); line-height:1.2;">Grey Corner <span style="color:var(--accent); font-size:14px; font-weight:700;">⚖️ Fiches Techniques vs Normes Int.</span></div>
+          <div style="font-size:11px; color:var(--text-muted);">Gestion Opérationnelle & Comparatif des Standards F&B</div>
         </div>
       </div>
       <div class="header-actions" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
@@ -44,20 +44,20 @@
     <!-- HERO BANNER -->
     <div class="comp-hero">
       <div>
-        <h2 class="comp-hero-title">⚖️ Comparateur & Étalonnage "Juste Milieu"</h2>
+        <h2 class="comp-hero-title">⚖️ Fiches Techniques Grey Corner vs Normes Internationales</h2>
         <p class="comp-hero-subtitle">
-          Comparez votre <strong>Fiche Technique Initiale (très généreuse)</strong> avec le <strong>Standard International Hôtelier</strong>. Ajustez manuellement les curseurs de votre <em>"Juste Milieu"</em> en direct pour maximiser vos marges tout en préservant l'attachement de vos clients fidèles.
+          Consultez et modifiez en direct votre <strong>Fiche Technique Grey Corner</strong> (enregistrable directement dans <code>recipes-data.js</code>) tout en comparant avec le <strong>Standard International Métier</strong> à titre indicatif et comparatif.
         </p>
       </div>
       <div class="comp-hero-actions">
-        <button class="btn btn-success" id="btn-save-all" style="background:#16a34a; color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:800; cursor:pointer; box-shadow:0 4px 10px rgba(22,163,74,0.3);">
-          💾 Sauvegarder Mon Juste Milieu
+        <button class="btn btn-success" id="btn-save-all" style="background:#0284c7; color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:800; cursor:pointer; box-shadow:0 4px 10px rgba(2,132,199,0.3);" title="Sauvegarder les fiches techniques modifiées">
+          💾 Enregistrer les Fiches
+        </button>
+        <button class="btn btn-secondary" onclick="window.exportUpdatedRecipesDataJS()" style="padding:10px 14px; font-weight:700; border-radius:10px; border:1px solid var(--border); background:var(--paper); color:var(--text); cursor:pointer;" title="Télécharger le fichier JS prêt à remplacer recipes-data.js">
+          📁 Exporter recipes-data.js
         </button>
         <button class="btn btn-secondary" onclick="window.exportComparisonToExcel()" style="padding:10px 14px; font-weight:700; border-radius:10px; border:1px solid var(--border); background:var(--paper); color:var(--text); cursor:pointer;">
           📥 Exporter Comparatif (.xlsx)
-        </button>
-        <button class="btn btn-secondary" onclick="window.exportUpdatedRecipesDataJS()" style="padding:10px 14px; font-weight:700; border-radius:10px; border:1px solid var(--border); background:var(--paper); color:var(--text); cursor:pointer;" title="Télécharger le fichier JS prêt à remplacer recipes-data.js">
-          📤 Exporter Configuration JS
         </button>
       </div>
     </div>

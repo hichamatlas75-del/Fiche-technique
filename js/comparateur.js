@@ -1,6 +1,8 @@
 /**
- * GREY CORNER — Logique du Comparateur & Optimiseur "Juste Milieu"
- * Comparaison côte-à-côte : Fiche Initiale vs Standard International vs Réglage Juste Milieu
+ * GREY CORNER — Comparateur de Fiches Techniques & Benchmark International
+ * Comparaison directe côte-à-côte :
+ * 1. Fiche Technique Grey Corner (Opérationnelle, Modifiable & Enregistrable dans recipes-data.js)
+ * 2. Norme Internationale & Standard Métier (À titre indicatif et comparatif)
  */
 
 (function() {
@@ -8,38 +10,39 @@
 
   // État local de l'application
   let allRecipes = [];
-  let customAdjustments = {}; // Clé: nomRecette -> { tech: [...], customCost: X, customFC: Y, customMargin: Z }
+  let editedRecipes = {}; // Clé: nomRecette -> { tech: [...] }
   let currentCategory = 'ALL';
   let searchQuery = '';
   let onlyGainsFilter = false;
 
-  const STORAGE_KEY = 'grey_corner_juste_milieu_v1';
+  const STORAGE_KEY = 'grey_corner_custom_recipes_v5';
 
-  // Chargement des ajustements sauvegardés
-  function loadSavedAdjustments() {
+  // Chargement des modifications enregistrées localement
+  function loadSavedEdits() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        customAdjustments = JSON.parse(saved);
+        editedRecipes = JSON.parse(saved);
       }
     } catch (e) {
-      console.warn("Impossible de charger les ajustements sauvegardés", e);
+      console.warn("Impossible de charger les fiches sauvegardées", e);
     }
   }
 
-  // Sauvegarde des ajustements
-  function saveAdjustments() {
+  // Sauvegarde des modifications
+  function saveEdits() {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(customAdjustments));
-      showToast("💾 Ajustements 'Juste Milieu' sauvegardés avec succès !");
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(editedRecipes));
+      showToast("💾 Fiches techniques Grey Corner enregistrées avec succès !");
     } catch (e) {
       console.error("Erreur lors de la sauvegarde", e);
+      showToast("❌ Erreur lors de la sauvegarde locale");
     }
   }
 
   // Initialisation des données
   function initData() {
-    loadSavedAdjustments();
+    loadSavedEdits();
     allRecipes = [];
 
     const data = window.CATEGORIES_DATA || window.DATA || [];
@@ -49,59 +52,44 @@
         const initialTech = item.tech || [];
         const sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
         
-        // 1. Calcul Fiche Initiale (Actuelle)
-        const initialCostObj = window.calculateRecipeFoodCost(initialTech, sellPrice);
+        // 1. Fiche Grey Corner (Modifiable ou initiale)
+        const currentTech = (editedRecipes[item.name] && editedRecipes[item.name].tech) 
+          ? editedRecipes[item.name].tech 
+          : JSON.parse(JSON.stringify(initialTech));
 
-        // 2. Fiche Proposée (Standard International)
-        const proposedObj = window.getProposedStandard(item.name, { category: catName, tech: initialTech });
-        const proposedTech = proposedObj ? proposedObj.tech : initialTech;
-        const proposedCostObj = window.calculateRecipeFoodCost(proposedTech, sellPrice);
-        const rationale = proposedObj ? proposedObj.rationale : "Portion standardisée selon les ratios F&B internationaux.";
+        const gcCostObj = window.calculateRecipeFoodCost(currentTech, sellPrice);
 
-        // 3. Fiche "Juste Milieu" (Personnalisée ou 50/50 par défaut)
-        let customTech;
-        if (customAdjustments[item.name] && customAdjustments[item.name].tech) {
-          customTech = customAdjustments[item.name].tech;
-        } else {
-          // Créer le 50/50 par défaut entre Initial et Proposé
-          customTech = createMiddleGroundTech(initialTech, proposedTech);
-          customAdjustments[item.name] = {
-            tech: customTech
-          };
-        }
-        const customCostObj = window.calculateRecipeFoodCost(customTech, sellPrice);
+        // 2. Norme Internationale & Standard Métier (À titre comparatif)
+        const standardObj = window.getProposedStandard(item.name, { category: catName, tech: initialTech });
+        const standardTech = standardObj ? standardObj.tech : initialTech;
+        const standardCostObj = window.calculateRecipeFoodCost(standardTech, sellPrice);
+        const rationale = standardObj ? standardObj.rationale : "Portion standardisée selon les ratios F&B internationaux.";
+
+        const diffDH = Math.round((gcCostObj.cost - standardCostObj.cost) * 100) / 100;
 
         allRecipes.push({
           category: catName,
           name: item.name,
           image: item.image || (item.images ? item.images.split(',')[0] : null),
           sellPrice: sellPrice,
-          initial: {
-            tech: initialTech,
-            cost: initialCostObj.cost,
-            foodCost: initialCostObj.foodCost,
-            margin: initialCostObj.margin,
-            grossMarginDH: initialCostObj.grossMarginDH,
-            breakdown: initialCostObj.breakdown
+          initialTech: initialTech,
+          greyCorner: {
+            tech: currentTech,
+            cost: gcCostObj.cost,
+            foodCost: gcCostObj.foodCost,
+            margin: gcCostObj.margin,
+            grossMarginDH: gcCostObj.grossMarginDH,
+            breakdown: gcCostObj.breakdown
           },
-          proposed: {
-            tech: proposedTech,
+          standard: {
+            tech: standardTech,
             rationale: rationale,
-            cost: proposedCostObj.cost,
-            foodCost: proposedCostObj.foodCost,
-            margin: proposedCostObj.margin,
-            grossMarginDH: proposedCostObj.grossMarginDH,
-            breakdown: proposedCostObj.breakdown,
-            savingsDH: Math.round((initialCostObj.cost - proposedCostObj.cost) * 100) / 100
-          },
-          custom: {
-            tech: customTech,
-            cost: customCostObj.cost,
-            foodCost: customCostObj.foodCost,
-            margin: customCostObj.margin,
-            grossMarginDH: customCostObj.grossMarginDH,
-            breakdown: customCostObj.breakdown,
-            savingsDH: Math.round((initialCostObj.cost - customCostObj.cost) * 100) / 100
+            cost: standardCostObj.cost,
+            foodCost: standardCostObj.foodCost,
+            margin: standardCostObj.margin,
+            grossMarginDH: standardCostObj.grossMarginDH,
+            breakdown: standardCostObj.breakdown,
+            diffDH: diffDH
           }
         });
       });
@@ -110,55 +98,6 @@
     renderCategoriesBar();
     renderSummaryKPIs();
     renderRecipeCards();
-  }
-
-  /**
-   * Crée un compromis "Juste Milieu" à 50% entre la fiche initiale et la fiche proposée
-   */
-  function createMiddleGroundTech(initialTech, proposedTech) {
-    const result = [];
-    const propMap = {};
-
-    proposedTech.forEach(line => {
-      const parts = line.split(':');
-      const ing = parts[0].trim();
-      const qtyStr = parts.length > 1 ? parts.slice(1).join(':').trim() : '1 p';
-      propMap[ing.toLowerCase()] = { orig: line, ing: ing, qtyStr: qtyStr };
-    });
-
-    initialTech.forEach(line => {
-      const parts = line.split(':');
-      const ing = parts[0].trim();
-      const qtyStr = parts.length > 1 ? parts.slice(1).join(':').trim() : '1 p';
-      const propMatch = propMap[ing.toLowerCase()];
-
-      if (propMatch) {
-        // Calculer la moyenne
-        const gMatch1 = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*g\b/i);
-        const gMatch2 = propMatch.qtyStr.match(/(\d+(?:[.,]\d+)?)\s*g\b/i);
-
-        const mlMatch1 = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*ml\b/i);
-        const mlMatch2 = propMatch.qtyStr.match(/(\d+(?:[.,]\d+)?)\s*ml\b/i);
-
-        if (gMatch1 && gMatch2) {
-          const v1 = parseFloat(gMatch1[1].replace(',', '.'));
-          const v2 = parseFloat(gMatch2[1].replace(',', '.'));
-          const avg = Math.round((v1 + v2) / 2);
-          result.push(`${ing} : ${avg} g`);
-        } else if (mlMatch1 && mlMatch2) {
-          const v1 = parseFloat(mlMatch1[1].replace(',', '.'));
-          const v2 = parseFloat(mlMatch2[1].replace(',', '.'));
-          const avg = Math.round((v1 + v2) / 2);
-          result.push(`${ing} : ${avg} ml`);
-        } else {
-          result.push(line);
-        }
-      } else {
-        result.push(line);
-      }
-    });
-
-    return result;
   }
 
   // Rendu de la barre des catégories
@@ -198,55 +137,42 @@
   // Rendu du bandeau KPI global
   function renderSummaryKPIs() {
     const totalItems = allRecipes.length;
-    let sumInitialCost = 0;
-    let sumProposedCost = 0;
-    let sumCustomCost = 0;
+    let sumGcCost = 0;
+    let sumStdCost = 0;
     let sumPrice = 0;
 
     allRecipes.forEach(r => {
-      sumInitialCost += r.initial.cost;
-      sumProposedCost += r.proposed.cost;
-      sumCustomCost += r.custom.cost;
+      sumGcCost += r.greyCorner.cost;
+      sumStdCost += r.standard.cost;
       sumPrice += r.sellPrice;
     });
 
-    const avgInitialFC = sumPrice > 0 ? (sumInitialCost / sumPrice * 100).toFixed(1) : 0;
-    const avgProposedFC = sumPrice > 0 ? (sumProposedCost / sumPrice * 100).toFixed(1) : 0;
-    const avgCustomFC = sumPrice > 0 ? (sumCustomCost / sumPrice * 100).toFixed(1) : 0;
-
-    const avgProposedGain = totalItems > 0 ? ((sumInitialCost - sumProposedCost) / totalItems).toFixed(2) : 0;
-    const avgCustomGain = totalItems > 0 ? ((sumInitialCost - sumCustomCost) / totalItems).toFixed(2) : 0;
-
-    // Projection mensuelle estimée (sur base 3000 couverts/mois moyenne)
-    const monthlyCustomEstimate = Math.round((sumInitialCost - sumCustomCost) / (totalItems || 1) * 3500);
+    const avgGcFC = sumPrice > 0 ? (sumGcCost / sumPrice * 100).toFixed(1) : 0;
+    const avgStdFC = sumPrice > 0 ? (sumStdCost / sumPrice * 100).toFixed(1) : 0;
+    const totalDiffDH = totalItems > 0 ? ((sumGcCost - sumStdCost) / totalItems).toFixed(2) : 0;
 
     const kpiEl = document.getElementById('summary-kpis');
     if (kpiEl) {
       kpiEl.innerHTML = `
         <div class="kpi-card">
-          <div class="kpi-label">Plats Analysés</div>
+          <div class="kpi-label">Plats au Menu</div>
           <div class="kpi-value text-accent">${totalItems}</div>
           <div class="kpi-sub">Fiches techniques actives</div>
         </div>
         <div class="kpi-card initial-theme">
-          <div class="kpi-label">Food Cost Moyen Actuel</div>
-          <div class="kpi-value text-danger">${avgInitialFC} %</div>
-          <div class="kpi-sub">Portions très généreuses</div>
+          <div class="kpi-label">Food Cost Moyen Grey Corner</div>
+          <div class="kpi-value text-accent" style="color:#0284c7;">${avgGcFC} %</div>
+          <div class="kpi-sub">Fiches opérationnelles actuelles</div>
         </div>
         <div class="kpi-card standard-theme">
           <div class="kpi-label">Food Cost Standard Int.</div>
-          <div class="kpi-value text-success">${avgProposedFC} %</div>
-          <div class="kpi-sub">Gain brut : +${avgProposedGain} DH / plat</div>
-        </div>
-        <div class="kpi-card custom-theme">
-          <div class="kpi-label">Food Cost "Juste Milieu"</div>
-          <div class="kpi-value text-purple">${avgCustomFC} %</div>
-          <div class="kpi-sub">Gain brut : +${avgCustomGain} DH / plat</div>
+          <div class="kpi-value text-success">${avgStdFC} %</div>
+          <div class="kpi-sub">Référence métier hôtelière</div>
         </div>
         <div class="kpi-card gain-theme">
-          <div class="kpi-label">Économie Mensuelle Estimée</div>
-          <div class="kpi-value text-gold">+${monthlyCustomEstimate.toLocaleString('fr-FR')} DH</div>
-          <div class="kpi-sub">Sans impacter la satisfaction client</div>
+          <div class="kpi-label">Écart Moyen vs Standard</div>
+          <div class="kpi-value ${totalDiffDH > 0 ? 'text-gold' : 'text-success'}">${totalDiffDH > 0 ? '+' + totalDiffDH : totalDiffDH} DH</div>
+          <div class="kpi-sub">Différentiel de matière / portion</div>
         </div>
       `;
     }
@@ -262,8 +188,8 @@
       const matchSearch = !searchQuery || 
         r.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
         r.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        r.initial.tech.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
-      const matchGains = !onlyGainsFilter || r.proposed.savingsDH >= 3.0;
+        r.greyCorner.tech.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+      const matchGains = !onlyGainsFilter || r.standard.diffDH >= 3.0;
       return matchCat && matchSearch && matchGains;
     });
 
@@ -283,15 +209,14 @@
     }).join('');
   }
 
-  // Génération du code HTML d'une carte comparative 3-colonnes
+  // Génération du code HTML d'une carte comparative 2-colonnes
   function createRecipeComparativeCardHTML(recipe, idx) {
-    const initFCClass = recipe.initial.foodCost <= 25 ? 'badge-ok' : (recipe.initial.foodCost <= 35 ? 'badge-warn' : 'badge-danger');
-    const propFCClass = recipe.proposed.foodCost <= 25 ? 'badge-ok' : (recipe.proposed.foodCost <= 35 ? 'badge-warn' : 'badge-danger');
-    const custFCClass = recipe.custom.foodCost <= 25 ? 'badge-ok' : (recipe.custom.foodCost <= 35 ? 'badge-warn' : 'badge-danger');
+    const gcFCClass = recipe.greyCorner.foodCost <= 28 ? 'badge-ok' : (recipe.greyCorner.foodCost <= 38 ? 'badge-warn' : 'badge-danger');
+    const stdFCClass = recipe.standard.foodCost <= 28 ? 'badge-ok' : (recipe.standard.foodCost <= 38 ? 'badge-warn' : 'badge-danger');
 
-    const gainBadge = recipe.custom.savingsDH > 0 
-      ? `<span class="badge-gain">+${recipe.custom.savingsDH.toFixed(2)} DH / portion d'économie</span>`
-      : `<span class="badge-neutral">Marge équivalente</span>`;
+    const diffBadge = recipe.standard.diffDH > 0 
+      ? `<span class="badge-gain" style="background:rgba(2, 132, 199, 0.1); color:#0284c7; border-color:rgba(2, 132, 199, 0.3);">Écart vs Standard : +${recipe.standard.diffDH.toFixed(2)} DH</span>`
+      : `<span class="badge-neutral">Marge conforme au standard</span>`;
 
     return `
       <div class="comparative-card" id="card-${idx}" data-recipe-name="${escapeHtml(recipe.name)}">
@@ -302,103 +227,77 @@
             <h3 class="dish-title">${recipe.name}</h3>
           </div>
           <div class="card-price-group">
-            <span class="sell-price-tag">${recipe.sellPrice} DH</span>
-            ${gainBadge}
+            <span class="sell-price-tag">Prix Vente : ${recipe.sellPrice} DH</span>
+            ${diffBadge}
           </div>
         </div>
 
-        <!-- GRILLE COMPARATIVE 3 COLONNES -->
-        <div class="comparison-tri-grid">
+        <!-- GRILLE COMPARATIVE 2 COLONNES -->
+        <div class="comparison-dual-grid">
           
-          <!-- COLONNE 1 : INITIALE (ACTUELLE) -->
-          <div class="col-box col-initial">
+          <!-- COLONNE 1 : FICHE GREY CORNER (OPÉRATIONNELLE & MODIFIABLE) -->
+          <div class="col-box col-greycorner">
             <div class="col-header">
-              <span class="col-dot dot-red"></span>
-              <h4>1. Fiche Initiale (Généreuse)</h4>
+              <span class="col-dot dot-blue"></span>
+              <h4>1. Fiche Technique Grey Corner (Modifiable)</h4>
             </div>
-            
-            <ul class="tech-list">
-              ${recipe.initial.tech.map(line => `<li>${escapeHtml(line)}</li>`).join('')}
-            </ul>
 
-            <div class="col-finances">
+            <!-- ÉDITEUR D'INGRÉDIENTS EN DIRECT -->
+            <div class="custom-ingredients-editor" id="editor-${idx}">
+              ${renderIngredientsEditorHTML(recipe.greyCorner.tech, recipe.name, idx)}
+            </div>
+
+            <!-- BOUTONS D'ACTION SUR LA RECETTE -->
+            <div class="quick-preset-actions" style="margin-top:12px;">
+              <button class="btn-preset" title="Ajouter un ingrédient à la fiche" onclick="window.addIngredientToRecipe('${escapeHtml(recipe.name)}', ${idx})">➕ Ajouter ingrédient</button>
+              <button class="btn-preset text-success" title="Appliquer le standard international sur la fiche Grey Corner" onclick="window.copyStandardToRecipe('${escapeHtml(recipe.name)}', ${idx})">🟢 Copier Standard Int.</button>
+              <button class="btn-preset text-danger" title="Rétablir la fiche d'origine" onclick="window.resetRecipeToInitial('${escapeHtml(recipe.name)}', ${idx})">🔄 Rétablir d'origine</button>
+            </div>
+
+            <!-- RÉSULTAT FINANCIER DE LA FICHE GREY CORNER -->
+            <div class="col-finances fin-custom" style="margin-top:14px;">
               <div class="fin-row">
-                <span>Coût Portion :</span>
-                <strong>${recipe.initial.cost.toFixed(2)} DH</strong>
+                <span>Coût Portion Réel :</span>
+                <strong id="gc-cost-${idx}" class="text-accent" style="color:#0284c7; font-size:16px;">${recipe.greyCorner.cost.toFixed(2)} DH</strong>
               </div>
               <div class="fin-row">
                 <span>Food Cost :</span>
-                <span class="badge ${initFCClass}">${recipe.initial.foodCost.toFixed(1)} %</span>
+                <span id="gc-fc-${idx}" class="badge ${gcFCClass}">${recipe.greyCorner.foodCost.toFixed(1)} %</span>
               </div>
               <div class="fin-row">
                 <span>Marge Brute :</span>
-                <strong>${recipe.initial.grossMarginDH.toFixed(2)} DH</strong>
+                <strong id="gc-margin-${idx}" class="text-success" style="font-size:16px;">+${recipe.greyCorner.grossMarginDH.toFixed(2)} DH</strong>
               </div>
             </div>
           </div>
 
-          <!-- COLONNE 2 : PROPOSÉE (STANDARD INT.) -->
-          <div class="col-box col-proposed">
+          <!-- COLONNE 2 : NORME INTERNATIONALE (À TITRE COMPARATIF) -->
+          <div class="col-box col-standard">
             <div class="col-header">
               <span class="col-dot dot-green"></span>
-              <h4>2. Standard International</h4>
+              <h4>2. Norme Internationale & Standard F&B <span style="font-size:11px; font-weight:600; color:var(--text-muted);">(À titre comparatif)</span></h4>
             </div>
 
-            <ul class="tech-list">
-              ${recipe.proposed.tech.map(line => `<li>${escapeHtml(line)}</li>`).join('')}
+            <ul class="tech-list" style="margin-bottom:12px;">
+              ${recipe.standard.tech.map(line => `<li>${escapeHtml(line)}</li>`).join('')}
             </ul>
 
             <div class="rationale-box">
-              💡 <em>${escapeHtml(recipe.proposed.rationale)}</em>
+              💡 <strong>Standard Métier :</strong> <em>${escapeHtml(recipe.standard.rationale)}</em>
             </div>
 
-            <div class="col-finances">
+            <div class="col-finances" style="margin-top:auto;">
               <div class="fin-row">
-                <span>Coût Portion :</span>
-                <strong class="text-success">${recipe.proposed.cost.toFixed(2)} DH</strong>
+                <span>Coût Portion Standard :</span>
+                <strong class="text-success">${recipe.standard.cost.toFixed(2)} DH</strong>
               </div>
               <div class="fin-row">
-                <span>Food Cost :</span>
-                <span class="badge ${propFCClass}">${recipe.proposed.foodCost.toFixed(1)} %</span>
+                <span>Food Cost Standard :</span>
+                <span class="badge ${stdFCClass}">${recipe.standard.foodCost.toFixed(1)} %</span>
               </div>
               <div class="fin-row">
-                <span>Gain / Plat :</span>
-                <strong class="text-success">+${recipe.proposed.savingsDH.toFixed(2)} DH</strong>
-              </div>
-            </div>
-          </div>
-
-          <!-- COLONNE 3 : JUSTE MILIEU (INTERACTIF & MODIFIABLE) -->
-          <div class="col-box col-custom">
-            <div class="col-header">
-              <span class="col-dot dot-purple"></span>
-              <h4>3. ⚖️ Votre "Juste Milieu"</h4>
-            </div>
-
-            <!-- FORMULAIRE INTERACTIF DES INGRÉDIENTS -->
-            <div class="custom-ingredients-editor" id="editor-${idx}">
-              ${renderCustomInputsHTML(recipe.custom.tech, recipe.name, idx)}
-            </div>
-
-            <!-- BOUTONS D'ACTION RAPIDE -->
-            <div class="quick-preset-actions">
-              <button class="btn-preset" title="Mettre la moyenne exacte 50/50" onclick="window.applyMiddleGroundPreset('${escapeHtml(recipe.name)}', ${idx})">⚡ 50/50</button>
-              <button class="btn-preset" title="Copier la fiche internationale" onclick="window.copyStandardPreset('${escapeHtml(recipe.name)}', ${idx})">🟢 Standard</button>
-              <button class="btn-preset" title="Rétablir la fiche initiale" onclick="window.copyInitialPreset('${escapeHtml(recipe.name)}', ${idx})">🔴 Actuel</button>
-            </div>
-
-            <div class="col-finances fin-custom">
-              <div class="fin-row">
-                <span>Coût Portion :</span>
-                <strong id="cust-cost-${idx}" class="text-purple">${recipe.custom.cost.toFixed(2)} DH</strong>
-              </div>
-              <div class="fin-row">
-                <span>Food Cost :</span>
-                <span id="cust-fc-${idx}" class="badge ${custFCClass}">${recipe.custom.foodCost.toFixed(1)} %</span>
-              </div>
-              <div class="fin-row">
-                <span>Gain vs Actuel :</span>
-                <strong id="cust-gain-${idx}" class="text-success">+${recipe.custom.savingsDH.toFixed(2)} DH</strong>
+                <span>Écart vs Grey Corner :</span>
+                <strong class="${recipe.standard.diffDH > 0 ? 'text-gold' : 'text-success'}">${recipe.standard.diffDH > 0 ? '+' + recipe.standard.diffDH.toFixed(2) : recipe.standard.diffDH.toFixed(2)} DH</strong>
               </div>
             </div>
           </div>
@@ -409,7 +308,7 @@
   }
 
   // Génération des champs de saisie pour chaque ingrédient
-  function renderCustomInputsHTML(techArray, recipeName, idx) {
+  function renderIngredientsEditorHTML(techArray, recipeName, idx) {
     return techArray.map((line, ingIdx) => {
       const parts = line.split(':');
       const ing = parts[0].trim();
@@ -417,10 +316,11 @@
 
       const gMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*g\b/i);
       const mlMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*ml\b/i);
+      const clMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*cl\b/i);
       const pMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*(?:p|piece|tranche|part|boule|sachet|portion|tr)\b/i);
 
       let numVal = 1;
-      let unit = 'p';
+      let unit = 'g';
 
       if (gMatch) {
         numVal = parseFloat(gMatch[1].replace(',', '.'));
@@ -428,6 +328,9 @@
       } else if (mlMatch) {
         numVal = parseFloat(mlMatch[1].replace(',', '.'));
         unit = 'ml';
+      } else if (clMatch) {
+        numVal = parseFloat(clMatch[1].replace(',', '.'));
+        unit = 'cl';
       } else if (pMatch) {
         numVal = parseFloat(pMatch[1].replace(',', '.'));
         unit = 'p';
@@ -439,7 +342,7 @@
 
       return `
         <div class="ing-edit-row">
-          <label class="ing-label" title="${escapeHtml(ing)}">${escapeHtml(ing)}</label>
+          <input type="text" class="ing-name-input" value="${escapeHtml(ing)}" data-recipe="${escapeHtml(recipeName)}" data-idx="${idx}" data-ing-idx="${ingIdx}" onchange="window.updateIngredientName('${escapeHtml(recipeName)}', ${idx}, ${ingIdx}, this.value)" />
           <div class="ing-input-wrap">
             <button type="button" class="btn-step" onclick="window.stepIngredientVal('${escapeHtml(recipeName)}', ${idx}, ${ingIdx}, -${step})">-</button>
             <input type="number" 
@@ -447,122 +350,204 @@
                    value="${numVal}" 
                    step="${step}" 
                    min="0"
-                   data-ing-name="${escapeHtml(ing)}"
-                   data-ing-unit="${unit}"
-                   oninput="window.onCustomIngredientChange('${escapeHtml(recipeName)}', ${idx})" />
-            <span class="unit-tag">${unit}</span>
-            <button type="button" class="btn-step" onclick="window.stepIngredientVal('${escapeHtml(recipeName)}', ${idx}, ${ingIdx}, ${step})">+</button>
+                   data-recipe="${escapeHtml(recipeName)}"
+                   data-idx="${idx}"
+                   data-ing-idx="${ingIdx}"
+                   data-unit="${unit}"
+                   oninput="window.onIngredientInputChange('${escapeHtml(recipeName)}', ${idx}, ${ingIdx}, this.value, '${unit}')" />
+            <button type="button" class="btn-step" onclick="window.stepIngredientVal('${escapeHtml(recipeName)}', ${idx}, ${ingIdx}, +${step})">+</button>
+            <span class="ing-unit-tag">${unit}</span>
+            <button type="button" class="btn-del-ing" title="Supprimer cet ingrédient" onclick="window.removeIngredientFromRecipe('${escapeHtml(recipeName)}', ${idx}, ${ingIdx})">✕</button>
           </div>
         </div>
       `;
     }).join('');
   }
 
-  // Échappement HTML sécurisé
-  function escapeHtml(str) {
-    if (!str) return '';
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
-  }
-
-  // Mise à jour de la valeur d'un ingrédient (+ / -)
-  window.stepIngredientVal = function(recipeName, cardIdx, ingIdx, delta) {
-    const editor = document.getElementById(`editor-${cardIdx}`);
-    if (!editor) return;
-    const inputs = editor.querySelectorAll('.ing-num-input');
-    if (inputs[ingIdx]) {
-      let currentVal = parseFloat(inputs[ingIdx].value) || 0;
-      currentVal = Math.max(0, currentVal + delta);
-      inputs[ingIdx].value = currentVal;
-      window.onCustomIngredientChange(recipeName, cardIdx);
-    }
-  };
-
-  // Gestion du changement de valeur en direct
-  window.onCustomIngredientChange = function(recipeName, cardIdx) {
+  // Mise à jour de la valeur d'un ingrédient
+  window.onIngredientInputChange = function(recipeName, cardIdx, ingIdx, newVal, unit) {
     const recipe = allRecipes.find(r => r.name === recipeName);
     if (!recipe) return;
 
-    const editor = document.getElementById(`editor-${cardIdx}`);
-    if (!editor) return;
+    const val = parseFloat(newVal) || 0;
+    const oldLine = recipe.greyCorner.tech[ingIdx];
+    if (!oldLine) return;
 
-    const inputs = editor.querySelectorAll('.ing-num-input');
-    const newTech = [];
+    const parts = oldLine.split(':');
+    const ingName = parts[0].trim();
+    recipe.greyCorner.tech[ingIdx] = `${ingName} : ${val} ${unit}`;
 
-    inputs.forEach(inp => {
-      const ing = inp.getAttribute('data-ing-name');
-      const unit = inp.getAttribute('data-ing-unit');
-      const val = parseFloat(inp.value) || 0;
-      newTech.push(`${ing} : ${val} ${unit}`);
-    });
+    // Enregistrer dans editedRecipes
+    editedRecipes[recipeName] = {
+      tech: recipe.greyCorner.tech
+    };
 
     // Recalculer le coût
-    const customCostObj = window.calculateRecipeFoodCost(newTech, recipe.sellPrice);
-    recipe.custom = {
-      tech: newTech,
-      cost: customCostObj.cost,
-      foodCost: customCostObj.foodCost,
-      margin: customCostObj.margin,
-      grossMarginDH: customCostObj.grossMarginDH,
-      breakdown: customCostObj.breakdown,
-      savingsDH: Math.round((recipe.initial.cost - customCostObj.cost) * 100) / 100
-    };
+    const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
+    recipe.greyCorner.cost = costObj.cost;
+    recipe.greyCorner.foodCost = costObj.foodCost;
+    recipe.greyCorner.margin = costObj.margin;
+    recipe.greyCorner.grossMarginDH = costObj.grossMarginDH;
+    recipe.greyCorner.breakdown = costObj.breakdown;
 
-    // Mémoriser dans l'état
-    customAdjustments[recipeName] = {
-      tech: newTech
-    };
+    // Recalculer l'écart vs standard
+    recipe.standard.diffDH = Math.round((recipe.greyCorner.cost - recipe.standard.cost) * 100) / 100;
 
-    // Mettre à jour l'affichage financier de la carte
-    const costEl = document.getElementById(`cust-cost-${cardIdx}`);
-    const fcEl = document.getElementById(`cust-fc-${cardIdx}`);
-    const gainEl = document.getElementById(`cust-gain-${cardIdx}`);
-
-    if (costEl) costEl.textContent = `${recipe.custom.cost.toFixed(2)} DH`;
-    if (fcEl) {
-      fcEl.textContent = `${recipe.custom.foodCost.toFixed(1)} %`;
-      const custFCClass = recipe.custom.foodCost <= 25 ? 'badge-ok' : (recipe.custom.foodCost <= 35 ? 'badge-warn' : 'badge-danger');
-      fcEl.className = `badge ${custFCClass}`;
-    }
-    if (gainEl) {
-      const isPositive = recipe.custom.savingsDH >= 0;
-      gainEl.textContent = `${isPositive ? '+' : ''}${recipe.custom.savingsDH.toFixed(2)} DH`;
-      gainEl.className = isPositive ? 'text-success' : 'text-danger';
-    }
-
+    // Mettre à jour l'affichage de la carte
+    updateCardMetrics(cardIdx, recipe);
     renderSummaryKPIs();
   };
 
-  // Presets
-  window.applyMiddleGroundPreset = function(recipeName, cardIdx) {
+  // Mise à jour du nom d'un ingrédient
+  window.updateIngredientName = function(recipeName, cardIdx, ingIdx, newName) {
     const recipe = allRecipes.find(r => r.name === recipeName);
     if (!recipe) return;
-    const midTech = createMiddleGroundTech(recipe.initial.tech, recipe.proposed.tech);
-    updateCardWithNewTech(recipe, cardIdx, midTech);
+
+    const oldLine = recipe.greyCorner.tech[ingIdx];
+    if (!oldLine) return;
+
+    const parts = oldLine.split(':');
+    const qtyStr = parts.length > 1 ? parts.slice(1).join(':').trim() : '1 p';
+    recipe.greyCorner.tech[ingIdx] = `${newName.trim()} : ${qtyStr}`;
+
+    editedRecipes[recipeName] = {
+      tech: recipe.greyCorner.tech
+    };
+
+    const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
+    recipe.greyCorner.cost = costObj.cost;
+    recipe.greyCorner.foodCost = costObj.foodCost;
+    recipe.greyCorner.margin = costObj.margin;
+    recipe.greyCorner.grossMarginDH = costObj.grossMarginDH;
+
+    updateCardMetrics(cardIdx, recipe);
+    renderSummaryKPIs();
   };
 
-  window.copyStandardPreset = function(recipeName, cardIdx) {
-    const recipe = allRecipes.find(r => r.name === recipeName);
-    if (!recipe) return;
-    updateCardWithNewTech(recipe, cardIdx, [...recipe.proposed.tech]);
-  };
-
-  window.copyInitialPreset = function(recipeName, cardIdx) {
-    const recipe = allRecipes.find(r => r.name === recipeName);
-    if (!recipe) return;
-    updateCardWithNewTech(recipe, cardIdx, [...recipe.initial.tech]);
-  };
-
-  function updateCardWithNewTech(recipe, cardIdx, newTech) {
+  // Pas d'incrément (+ / -)
+  window.stepIngredientVal = function(recipeName, cardIdx, ingIdx, delta) {
     const editor = document.getElementById(`editor-${cardIdx}`);
     if (!editor) return;
 
-    editor.innerHTML = renderCustomInputsHTML(newTech, recipe.name, cardIdx);
-    window.onCustomIngredientChange(recipe.name, cardIdx);
+    const input = editor.querySelectorAll('.ing-num-input')[ingIdx];
+    if (!input) return;
+
+    let current = parseFloat(input.value) || 0;
+    let next = Math.max(0, Math.round((current + delta) * 10) / 10);
+    input.value = next;
+    const unit = input.getAttribute('data-unit') || 'g';
+    window.onIngredientInputChange(recipeName, cardIdx, ingIdx, next, unit);
+  };
+
+  // Ajouter un ingrédient
+  window.addIngredientToRecipe = function(recipeName, cardIdx) {
+    const recipe = allRecipes.find(r => r.name === recipeName);
+    if (!recipe) return;
+
+    const ingName = prompt("Nom du nouvel ingrédient :", "Nouvel Ingrédient");
+    if (!ingName || !ingName.trim()) return;
+
+    const qty = prompt("Quantité (ex: 50 g, 100 ml, 1 p) :", "50 g");
+    if (!qty || !qty.trim()) return;
+
+    recipe.greyCorner.tech.push(`${ingName.trim()} : ${qty.trim()}`);
+    editedRecipes[recipeName] = {
+      tech: recipe.greyCorner.tech
+    };
+
+    const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
+    recipe.greyCorner.cost = costObj.cost;
+    recipe.greyCorner.foodCost = costObj.foodCost;
+    recipe.greyCorner.margin = costObj.margin;
+    recipe.greyCorner.grossMarginDH = costObj.grossMarginDH;
+    recipe.standard.diffDH = Math.round((recipe.greyCorner.cost - recipe.standard.cost) * 100) / 100;
+
+    renderRecipeCards();
+    renderSummaryKPIs();
+    showToast(`➕ Ingrédient ajouté à ${recipeName}`);
+  };
+
+  // Supprimer un ingrédient
+  window.removeIngredientFromRecipe = function(recipeName, cardIdx, ingIdx) {
+    const recipe = allRecipes.find(r => r.name === recipeName);
+    if (!recipe) return;
+
+    if (recipe.greyCorner.tech.length <= 1) {
+      alert("Une recette doit contenir au moins un ingrédient.");
+      return;
+    }
+
+    recipe.greyCorner.tech.splice(ingIdx, 1);
+    editedRecipes[recipeName] = {
+      tech: recipe.greyCorner.tech
+    };
+
+    const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
+    recipe.greyCorner.cost = costObj.cost;
+    recipe.greyCorner.foodCost = costObj.foodCost;
+    recipe.greyCorner.margin = costObj.margin;
+    recipe.greyCorner.grossMarginDH = costObj.grossMarginDH;
+    recipe.standard.diffDH = Math.round((recipe.greyCorner.cost - recipe.standard.cost) * 100) / 100;
+
+    renderRecipeCards();
+    renderSummaryKPIs();
+    showToast(`🗑️ Ingrédient supprimé de ${recipeName}`);
+  };
+
+  // Copier le standard international
+  window.copyStandardToRecipe = function(recipeName, cardIdx) {
+    const recipe = allRecipes.find(r => r.name === recipeName);
+    if (!recipe) return;
+
+    recipe.greyCorner.tech = JSON.parse(JSON.stringify(recipe.standard.tech));
+    editedRecipes[recipeName] = {
+      tech: recipe.greyCorner.tech
+    };
+
+    const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
+    recipe.greyCorner.cost = costObj.cost;
+    recipe.greyCorner.foodCost = costObj.foodCost;
+    recipe.greyCorner.margin = costObj.margin;
+    recipe.greyCorner.grossMarginDH = costObj.grossMarginDH;
+    recipe.standard.diffDH = 0;
+
+    renderRecipeCards();
+    renderSummaryKPIs();
+    showToast(`🟢 Standard international copié sur ${recipeName}`);
+  };
+
+  // Rétablir la fiche d'origine
+  window.resetRecipeToInitial = function(recipeName, cardIdx) {
+    const recipe = allRecipes.find(r => r.name === recipeName);
+    if (!recipe) return;
+
+    delete editedRecipes[recipeName];
+    recipe.greyCorner.tech = JSON.parse(JSON.stringify(recipe.initialTech));
+
+    const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
+    recipe.greyCorner.cost = costObj.cost;
+    recipe.greyCorner.foodCost = costObj.foodCost;
+    recipe.greyCorner.margin = costObj.margin;
+    recipe.greyCorner.grossMarginDH = costObj.grossMarginDH;
+    recipe.standard.diffDH = Math.round((recipe.greyCorner.cost - recipe.standard.cost) * 100) / 100;
+
+    renderRecipeCards();
+    renderSummaryKPIs();
+    showToast(`🔄 Fiche d'origine rétablie pour ${recipeName}`);
+  };
+
+  // Mise à jour ciblée des chiffres d'une carte
+  function updateCardMetrics(cardIdx, recipe) {
+    const costEl = document.getElementById(`gc-cost-${cardIdx}`);
+    const fcEl = document.getElementById(`gc-fc-${cardIdx}`);
+    const marginEl = document.getElementById(`gc-margin-${cardIdx}`);
+
+    if (costEl) costEl.textContent = `${recipe.greyCorner.cost.toFixed(2)} DH`;
+    if (fcEl) {
+      fcEl.textContent = `${recipe.greyCorner.foodCost.toFixed(1)} %`;
+      fcEl.className = `badge ${recipe.greyCorner.foodCost <= 28 ? 'badge-ok' : (recipe.greyCorner.foodCost <= 38 ? 'badge-warn' : 'badge-danger')}`;
+    }
+    if (marginEl) marginEl.textContent = `+${recipe.greyCorner.grossMarginDH.toFixed(2)} DH`;
   }
 
   // Filtrage par catégorie
@@ -572,61 +557,72 @@
     renderRecipeCards();
   };
 
-  // Toast notification
+  // Toast Notification
   function showToast(msg) {
     let toast = document.getElementById('comp-toast');
     if (!toast) {
       toast = document.createElement('div');
       toast.id = 'comp-toast';
-      toast.className = 'comp-toast';
+      toast.style.cssText = 'position:fixed; bottom:24px; right:24px; background:#0f172a; color:#fff; padding:14px 22px; border-radius:12px; font-weight:700; font-size:14px; box-shadow:0 8px 24px rgba(0,0,0,0.3); z-index:9999; display:flex; align-items:center; gap:10px; transition:all 0.3s ease; border:1px solid #334155;';
       document.body.appendChild(toast);
     }
     toast.textContent = msg;
-    toast.classList.add('show');
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateY(0)';
     setTimeout(() => {
-      toast.classList.remove('show');
-    }, 3500);
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(10px)';
+    }, 3200);
   }
 
-  // Export Excel / CSV de la comparaison
+  // Exporter le tableau comparatif en Excel (.xlsx)
   window.exportComparisonToExcel = function() {
     if (typeof XLSX === 'undefined') {
-      alert("La librairie SheetJS n'est pas encore chargée.");
+      alert("La librairie Excel est en cours de chargement. Veuillez réessayer.");
       return;
     }
 
-    const rows = [];
-    rows.push([
-      "Catégorie", "Nom du Plat", "Prix de Vente (DH)",
-      "Coût Actuel (DH)", "Food Cost Actuel (%)", "Marge Actuelle (DH)", "Fiche Initiale (Ingrédients)",
-      "Coût Standard (DH)", "Food Cost Standard (%)", "Gain Standard / Plat (DH)", "Fiche Standard (Ingrédients)",
-      "Coût Juste Milieu (DH)", "Food Cost Juste Milieu (%)", "Gain Juste Milieu / Plat (DH)", "Fiche Juste Milieu (Ingrédients)"
-    ]);
+    const rows = [
+      ["GREY CORNER — COMPARATIF FICHES TECHNIQUES vs STANDARDS INTERNATIONAUX"],
+      ["Date d'export : " + new Date().toLocaleDateString('fr-FR')],
+      [],
+      [
+        "Catégorie",
+        "Nom du Plat",
+        "Prix Vente (DH)",
+        "Fiche Grey Corner (Ingrédients)",
+        "Coût Grey Corner (DH)",
+        "Food Cost Grey Corner (%)",
+        "Marge Brute (DH)",
+        "Standard International (Ingrédients)",
+        "Coût Standard (DH)",
+        "Food Cost Standard (%)",
+        "Écart vs Standard (DH)",
+        "Justification Métier / Rationale"
+      ]
+    ];
 
     allRecipes.forEach(r => {
       rows.push([
         r.category,
         r.name,
         r.sellPrice,
-        r.initial.cost,
-        r.initial.foodCost,
-        r.initial.grossMarginDH,
-        r.initial.tech.join(' | '),
-        r.proposed.cost,
-        r.proposed.foodCost,
-        r.proposed.savingsDH,
-        r.proposed.tech.join(' | '),
-        r.custom.cost,
-        r.custom.foodCost,
-        r.custom.savingsDH,
-        r.custom.tech.join(' | ')
+        r.greyCorner.tech.join(' | '),
+        r.greyCorner.cost,
+        r.greyCorner.foodCost,
+        r.greyCorner.grossMarginDH,
+        r.standard.tech.join(' | '),
+        r.standard.cost,
+        r.standard.foodCost,
+        r.standard.diffDH,
+        r.standard.rationale
       ]);
     });
 
     const wb = XLSX.utils.book_new();
     const ws = XLSX.utils.aoa_to_sheet(rows);
     XLSX.utils.book_append_sheet(wb, ws, "Comparatif Fiches Techniques");
-    XLSX.writeFile(wb, `GreyCorner_Comparatif_Juste_Milieu_${new Date().toISOString().slice(0,10)}.xlsx`);
+    XLSX.writeFile(wb, `GreyCorner_Comparatif_Fiches_Standards_${new Date().toISOString().slice(0,10)}.xlsx`);
     showToast("📥 Export Excel généré avec succès !");
   };
 
@@ -637,8 +633,8 @@
 
     cloned.forEach(cat => {
       (cat.items || []).forEach(item => {
-        if (customAdjustments[item.name] && customAdjustments[item.name].tech) {
-          item.tech = customAdjustments[item.name].tech;
+        if (editedRecipes[item.name] && editedRecipes[item.name].tech) {
+          item.tech = editedRecipes[item.name].tech;
           const sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
           const costObj = window.calculateRecipeFoodCost(item.tech, sellPrice);
           item.cost = costObj.cost;
@@ -649,18 +645,19 @@
       });
     });
 
-    const blob = new Blob([
-      "// Fichier exporté avec les fiches techniques ajustées 'Juste Milieu'\n",
-      "const JUSTE_MILIEU_DATA = " + JSON.stringify(cloned, null, 2) + ";\n"
-    ], { type: 'application/javascript;charset=utf-8' });
+    // Sauvegarder aussi en local
+    saveEdits();
 
+    const jsContent = `// ========================================================\n// GREY CORNER — FICHES TECHNIQUES CENTRALISÉES (DATA)\n// Mis à jour le ${new Date().toLocaleString('fr-FR')}\n// ========================================================\n\nconst DATA = ${JSON.stringify(cloned, null, 2)};\n\nif (typeof window !== 'undefined') {\n  window.DATA = DATA;\n  window.CATEGORIES_DATA = DATA;\n}\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = { DATA };\n}\n`;
+
+    const blob = new Blob([jsContent], { type: 'application/javascript;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `recipes-data-juste-milieu-${new Date().toISOString().slice(0,10)}.js`;
+    a.download = `recipes-data-updated-${new Date().toISOString().slice(0,10)}.js`;
     a.click();
     URL.revokeObjectURL(url);
-    showToast("📤 Fichier JavaScript 'Juste Milieu' exporté !");
+    showToast("📁 Fichier JavaScript prêt pour recipes-data.js téléchargé !");
   };
 
   // Initialisation au chargement
@@ -689,11 +686,10 @@
     // Bouton de sauvegarde globale
     const saveAllBtn = document.getElementById('btn-save-all');
     if (saveAllBtn) {
-      saveAllBtn.addEventListener('click', saveAdjustments);
+      saveAllBtn.addEventListener('click', saveEdits);
     }
   });
 
   // Export pour scripts
-  window.saveComparatorAdjustments = saveAdjustments;
 
 })();

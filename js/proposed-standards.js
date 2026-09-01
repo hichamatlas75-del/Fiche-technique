@@ -1,7 +1,7 @@
 /**
  * GREY CORNER — Base des Fiches Techniques Proposées (Normes Internationales)
  * Fiches calibrées selon les standards hôteliers internationaux (Portioning, Yield & Cost Control)
- * Utilisé conjointement avec recipes-data.js pour la comparaison et l'étalonnage "Juste Milieu"
+ * Utilisé conjointement avec recipes-data.js pour la comparaison avec les normes internationales F&B
  */
 
 (function(global) {
