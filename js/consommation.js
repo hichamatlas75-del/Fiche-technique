@@ -2979,51 +2979,106 @@ function parseExcelRowsToAuditData(rows) {
   if (!rows || rows.length === 0) return result;
 
   let headerIndex = -1;
-  let nameCol = 0, qtyCol = 1, unitCol = 2, priceCol = 3, totalCol = -1;
+  let nameCol = -1, qtyCol = -1, unitCol = -1, priceCol = -1, totalCol = -1;
 
-  for (let i = 0; i < Math.min(rows.length, 5); i++) {
-    const rowStr = rows[i].map(x => String(x || '').toLowerCase()).join(' ');
-    if (rowStr.includes('produit') || rowStr.includes('désignation') || rowStr.includes('designation') || rowStr.includes('article') || rowStr.includes('quantité') || rowStr.includes('quantite')) {
+  // 1. Chercher la ligne d'en-tête sur les 30 premières lignes
+  for (let i = 0; i < Math.min(rows.length, 30); i++) {
+    if (!Array.isArray(rows[i])) continue;
+    const rowCells = rows[i].map(x => String(x || '').toLowerCase().trim());
+    const rowStr = rowCells.join(' ');
+
+    const hasName = rowCells.some(c => c.includes('désignation') || c.includes('designation') || c.includes('produit') || c.includes('article') || c.includes('nom') || c.includes('libelle') || c.includes('libellé') || c.includes('matiere') || c.includes('matière'));
+    const hasQty = rowCells.some(c => c.includes('quantité') || c.includes('quantite') || c.includes('qte') || c.includes('qté') || c.includes('réel') || c.includes('reel') || c.includes('stock') || c.includes('compté') || c.includes('compte') || c.includes('somme') || c.includes('conso'));
+
+    if (hasName && (hasQty || rowStr.includes('unité') || rowStr.includes('unite') || rowStr.includes('prix') || rowStr.includes('valeur'))) {
       headerIndex = i;
       rows[i].forEach((cell, colIdx) => {
         const c = String(cell || '').toLowerCase().trim();
-        if (c.includes('produit') || c.includes('designation') || c.includes('désignation') || c.includes('article') || c.includes('nom')) nameCol = colIdx;
-        else if (c.includes('quantité') || c.includes('quantite') || c.includes('qte') || c.includes('conso') || c.includes('reel') || c.includes('réel')) qtyCol = colIdx;
-        else if (c.includes('unite') || c.includes('unité') || c.includes('u')) unitCol = colIdx;
-        else if (c.includes('prix') || c.includes('p.u') || c.includes('pu')) priceCol = colIdx;
-        else if (c.includes('valeur') || c.includes('total') || c.includes('montant')) totalCol = colIdx;
+        if (nameCol === -1 && (c.includes('désignation') || c.includes('designation') || c.includes('produit') || c.includes('article') || c.includes('nom') || c.includes('libelle') || c.includes('libellé') || c.includes('matiere') || c.includes('matière'))) {
+          nameCol = colIdx;
+        } else if (qtyCol === -1 && (c.includes('quantité') || c.includes('quantite') || c.includes('qte') || c.includes('qté') || c.includes('réel') || c.includes('reel') || c.includes('stock') || c.includes('compté') || c.includes('compte') || c.includes('somme') || c.includes('conso'))) {
+          qtyCol = colIdx;
+        } else if (unitCol === -1 && (c.includes('unité') || c.includes('unite') || c === 'u' || c === 'un')) {
+          unitCol = colIdx;
+        } else if (priceCol === -1 && (c.includes('p.u') || c.includes('pu') || c.includes('prix') || c.includes('cout') || c.includes('coût'))) {
+          priceCol = colIdx;
+        } else if (totalCol === -1 && (c.includes('total') || c.includes('valeur') || c.includes('montant'))) {
+          totalCol = colIdx;
+        }
       });
       break;
     }
   }
 
+  // 2. Si aucun en-tête explicite trouvé, heuristique par structure de données
+  if (headerIndex === -1) {
+    for (let i = 0; i < rows.length; i++) {
+      const r = rows[i];
+      if (!Array.isArray(r) || r.length < 2) continue;
+      const c0 = String(r[0] || '').trim();
+      const c1 = String(r[1] || '').trim();
+      const c2 = String(r[2] || '').trim();
+      if (c0.length > 1 && !isNaN(parseFloat(c1.replace(',', '.')))) {
+        headerIndex = i - 1;
+        nameCol = 0; qtyCol = 1; unitCol = 2;
+        break;
+      } else if (c0.length > 1 && (c1.toLowerCase() === 'kg' || c1.toLowerCase() === 'g' || c1.toLowerCase() === 'l' || c1.toLowerCase() === 'pcs' || c1.toLowerCase() === 'paquet') && !isNaN(parseFloat(c2.replace(',', '.')))) {
+        headerIndex = i - 1;
+        nameCol = 0; unitCol = 1; qtyCol = 2;
+        break;
+      }
+    }
+  }
+
+  if (nameCol === -1) nameCol = 0;
+  if (qtyCol === -1) qtyCol = 1;
+  if (unitCol === -1) unitCol = 2;
+
   const startRow = headerIndex >= 0 ? headerIndex + 1 : 0;
 
   for (let i = startRow; i < rows.length; i++) {
     const row = rows[i];
-    if (!row || row.length === 0) continue;
+    if (!Array.isArray(row) || row.length === 0) continue;
 
-    let name = String(row[nameCol] || '').trim();
-    if (!name || name.length < 2 || name.toLowerCase().includes('total')) continue;
+    let rawName = String(row[nameCol] || '').trim();
+    if (!rawName || rawName.length < 2) continue;
+    const lowerName = rawName.toLowerCase();
+    if (lowerName.includes('total') || lowerName.includes('synthèse') || lowerName.includes('synthese') || lowerName.includes('rapport') || lowerName.includes('grey corner') || lowerName.includes('détails') || lowerName.includes('details') || lowerName.includes('articles comptés')) continue;
 
-    name = name.replace(/^\d+\s+/, '');
+    rawName = rawName.replace(/^\d+\s+/, '').trim();
 
-    let qty = parseFloat(String(row[qtyCol] || 0).replace(',', '.'));
-    let unit = String(row[unitCol] || 'g').trim();
-    let price = priceCol >= 0 ? parseFloat(String(row[priceCol] || 0).replace(',', '.')) : 0;
+    let rawQtyStr = String(row[qtyCol] !== undefined && row[qtyCol] !== null ? row[qtyCol] : '').trim();
+    let qty = parseFloat(rawQtyStr.replace(',', '.'));
 
+    let rawUnit = unitCol >= 0 && row[unitCol] !== undefined && row[unitCol] !== null ? String(row[unitCol]).trim().toLowerCase() : 'g';
+
+    // Si qty n'est pas un nombre mais unitCol contient un nombre (colonnes inversées)
+    if (isNaN(qty) && unitCol >= 0) {
+      const altQty = parseFloat(String(row[unitCol]).replace(',', '.'));
+      if (!isNaN(altQty)) {
+        qty = altQty;
+        rawUnit = String(row[qtyCol]).trim().toLowerCase();
+      }
+    }
+
+    if (isNaN(qty)) continue;
+
+    let price = priceCol >= 0 && row[priceCol] !== undefined ? parseFloat(String(row[priceCol]).replace(',', '.')) : 0;
     if (isNaN(price) || price === 0) {
-      if (totalCol >= 0) {
-        const valTotal = parseFloat(String(row[totalCol] || 0).replace(',', '.'));
+      if (totalCol >= 0 && row[totalCol] !== undefined) {
+        const valTotal = parseFloat(String(row[totalCol]).replace(',', '.'));
         if (qty > 0 && !isNaN(valTotal) && valTotal > 0) {
           price = valTotal / qty;
         }
       }
     }
 
-    if (name && !isNaN(qty)) {
-      result.push({ name, qty, unit, price });
-    }
+    result.push({
+      name: rawName,
+      qty: qty,
+      unit: rawUnit || 'g',
+      price: !isNaN(price) ? price : 0
+    });
   }
 
   return result;
