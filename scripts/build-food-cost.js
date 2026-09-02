@@ -154,9 +154,12 @@ const ingredientCosts = {
   "nuggets": { cost: 0.053, unit: "g" },
 
   // --- POISSONS & FRUITS DE MER (DH / g) ---
-  "saumon": { cost: 0.120, unit: "g" },
-  "saumon frais": { cost: 0.120, unit: "g" },
+  "saumon": { cost: 0.180, unit: "g" },
+  "saumon frais": { cost: 0.180, unit: "g" },
+  "saumon sans carcasse": { cost: 0.180, unit: "g" },
+  "saumon avec carcasse": { cost: 0.130, unit: "g" },
   "saumon fume": { cost: 0.280, unit: "g" },
+  "saumon fumee": { cost: 0.280, unit: "g" },
   "crevette": { cost: 0.055, unit: "g" },
   "crevettes": { cost: 0.055, unit: "g" },
   "crevette avec coquille": { cost: 0.055, unit: "g" },

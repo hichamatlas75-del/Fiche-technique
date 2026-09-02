@@ -1664,11 +1664,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "68 DH",
-        "cost": 18.93,
+        "cost": 22.53,
         "sellPrice": 68,
-        "foodCost": 27.8,
-        "margin": 72.2,
-        "grossMarginDH": 49.07
+        "foodCost": 33.1,
+        "margin": 66.9,
+        "grossMarginDH": 45.47
       },
       {
         "name": "LIGHT",
@@ -1862,11 +1862,11 @@ const DATA = [
           "SAUCE TARTARE : 24 g"
         ],
         "price": "88 DH",
-        "cost": 25.67,
+        "cost": 31.07,
         "sellPrice": 88,
-        "foodCost": 29.2,
-        "margin": 70.8,
-        "grossMarginDH": 62.33
+        "foodCost": 35.3,
+        "margin": 64.7,
+        "grossMarginDH": 56.93
       }
     ]
   },
@@ -2104,11 +2104,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "145 DH",
-        "cost": 45,
+        "cost": 55.8,
         "sellPrice": 145,
-        "foodCost": 31,
-        "margin": 69,
-        "grossMarginDH": 100
+        "foodCost": 38.5,
+        "margin": 61.5,
+        "grossMarginDH": 89.2
       },
       {
         "name": "MENU ENFANT (PLAT)",
@@ -2469,11 +2469,11 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "price": "64 DH",
-        "cost": 20.24,
+        "cost": 25.64,
         "sellPrice": 64,
-        "foodCost": 31.6,
-        "margin": 68.4,
-        "grossMarginDH": 43.76
+        "foodCost": 40.1,
+        "margin": 59.9,
+        "grossMarginDH": 38.36
       }
     ]
   },
@@ -2782,11 +2782,11 @@ const DATA = [
           "Garnitures 2 moitiés (hors fruits de mer/saumon)"
         ],
         "price": "88 DH",
-        "cost": 9,
+        "cost": 12,
         "sellPrice": 88,
-        "foodCost": 10.2,
-        "margin": 89.8,
-        "grossMarginDH": 79
+        "foodCost": 13.6,
+        "margin": 86.4,
+        "grossMarginDH": 76
       },
       {
         "name": "BURRATA",
@@ -2839,11 +2839,11 @@ const DATA = [
           "Câpres : 15 g"
         ],
         "price": "94 DH",
-        "cost": 25.5,
+        "cost": 30.9,
         "sellPrice": 94,
-        "foodCost": 27.1,
-        "margin": 72.9,
-        "grossMarginDH": 68.5
+        "foodCost": 32.9,
+        "margin": 67.1,
+        "grossMarginDH": 63.1
       }
     ]
   },
@@ -3077,11 +3077,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "98 DH",
-        "cost": 30.01,
+        "cost": 35.41,
         "sellPrice": 98,
-        "foodCost": 30.6,
-        "margin": 69.4,
-        "grossMarginDH": 67.99
+        "foodCost": 36.1,
+        "margin": 63.9,
+        "grossMarginDH": 62.59
       },
       {
         "name": "SPAGHETTIS NOIRS (suppl.)",
@@ -8044,14 +8044,26 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "saumon": {
-    "cost": 0.135,
+    "cost": 0.180,
     "unit": "g"
   },
   "saumon frais": {
-    "cost": 0.135,
+    "cost": 0.180,
+    "unit": "g"
+  },
+  "saumon sans carcasse": {
+    "cost": 0.180,
+    "unit": "g"
+  },
+  "saumon avec carcasse": {
+    "cost": 0.130,
     "unit": "g"
   },
   "saumon fume": {
+    "cost": 0.28,
+    "unit": "g"
+  },
+  "saumon fumee": {
     "cost": 0.28,
     "unit": "g"
   },

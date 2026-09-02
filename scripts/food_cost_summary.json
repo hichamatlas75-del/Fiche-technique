@@ -3166,15 +3166,15 @@
     "category": "PETIT DÉJEUNER",
     "name": "NORVÉGIEN",
     "sellPrice": 68,
-    "cost": 18.93,
-    "foodCostPct": 27.8,
-    "marginPct": 72.2,
-    "grossMarginDH": 49.07,
+    "cost": 22.53,
+    "foodCostPct": 33.1,
+    "marginPct": 66.9,
+    "grossMarginDH": 45.47,
     "details": [
       {
         "ingredient": "Saumon",
         "quantity": "60 g",
-        "cost": 7.2
+        "cost": 10.8
       },
       {
         "ingredient": "Avocat",
@@ -3655,15 +3655,15 @@
     "category": "ENTRÉES FROIDES",
     "name": "TARTARE SAUMON",
     "sellPrice": 88,
-    "cost": 25.67,
-    "foodCostPct": 29.2,
-    "marginPct": 70.8,
-    "grossMarginDH": 62.33,
+    "cost": 31.07,
+    "foodCostPct": 35.3,
+    "marginPct": 64.7,
+    "grossMarginDH": 56.93,
     "details": [
       {
         "ingredient": "saumon frais",
         "quantity": "90 g",
-        "cost": 10.8
+        "cost": 16.2
       },
       {
         "ingredient": "SAUMON FUMEE",
@@ -4176,15 +4176,15 @@
     "category": "PLATS",
     "name": "PAVÉ DE SAUMON",
     "sellPrice": 145,
-    "cost": 45,
-    "foodCostPct": 31,
-    "marginPct": 69,
-    "grossMarginDH": 100,
+    "cost": 55.8,
+    "foodCostPct": 38.5,
+    "marginPct": 61.5,
+    "grossMarginDH": 89.2,
     "details": [
       {
         "ingredient": "Saumon",
         "quantity": "180 g",
-        "cost": 21.6
+        "cost": 32.4
       },
       {
         "ingredient": "Crevette",
@@ -4993,15 +4993,15 @@
     "category": "PANINIS",
     "name": "SAUMON",
     "sellPrice": 64,
-    "cost": 20.24,
-    "foodCostPct": 31.6,
-    "marginPct": 68.4,
-    "grossMarginDH": 43.76,
+    "cost": 25.64,
+    "foodCostPct": 40.1,
+    "marginPct": 59.9,
+    "grossMarginDH": 38.36,
     "details": [
       {
         "ingredient": "Saumon",
         "quantity": "90 g",
-        "cost": 10.8
+        "cost": 16.2
       },
       {
         "ingredient": "Pesto",
@@ -5644,10 +5644,10 @@
     "category": "PIZZA",
     "name": "MOITIÉ MOITIÉ",
     "sellPrice": 88,
-    "cost": 9,
-    "foodCostPct": 10.2,
-    "marginPct": 89.8,
-    "grossMarginDH": 79,
+    "cost": 12,
+    "foodCostPct": 13.6,
+    "marginPct": 86.4,
+    "grossMarginDH": 76,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5657,7 +5657,7 @@
       {
         "ingredient": "Garnitures 2 moitiés (hors fruits de mer/saumon)",
         "quantity": "1 p",
-        "cost": 6
+        "cost": 9
       }
     ]
   },
@@ -5752,10 +5752,10 @@
     "category": "PIZZA",
     "name": "SAUMON",
     "sellPrice": 94,
-    "cost": 25.5,
-    "foodCostPct": 27.1,
-    "marginPct": 72.9,
-    "grossMarginDH": 68.5,
+    "cost": 30.9,
+    "foodCostPct": 32.9,
+    "marginPct": 67.1,
+    "grossMarginDH": 63.1,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5770,7 +5770,7 @@
       {
         "ingredient": "Saumon",
         "quantity": "90 g",
-        "cost": 10.8
+        "cost": 16.2
       },
       {
         "ingredient": "Sauce blanche",
@@ -6303,10 +6303,10 @@
     "category": "PÂTES",
     "name": "SAUMON",
     "sellPrice": 98,
-    "cost": 30.01,
-    "foodCostPct": 30.6,
-    "marginPct": 69.4,
-    "grossMarginDH": 67.99,
+    "cost": 35.41,
+    "foodCostPct": 36.1,
+    "marginPct": 63.9,
+    "grossMarginDH": 62.59,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -6316,7 +6316,7 @@
       {
         "ingredient": "Saumon",
         "quantity": "90 g",
-        "cost": 10.8
+        "cost": 16.2
       },
       {
         "ingredient": "Parmesan",
