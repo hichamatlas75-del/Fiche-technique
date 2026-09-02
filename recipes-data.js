@@ -1654,7 +1654,7 @@ const DATA = [
         "image": "images/petit-dej-norvegien.jpg",
         "prepTime": 10,
         "tech": [
-          "Saumon : 60 g",
+          "Saumon fumé : 60 g",
           "Avocat : 50 g",
           "Fromage : 30 g",
           "Pain céréales : 2 tr",
@@ -1664,11 +1664,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "68 DH",
-        "cost": 22.53,
+        "cost": 29.13,
         "sellPrice": 68,
-        "foodCost": 33.1,
-        "margin": 66.9,
-        "grossMarginDH": 45.47
+        "foodCost": 42.8,
+        "margin": 57.2,
+        "grossMarginDH": 38.87
       },
       {
         "name": "LIGHT",
@@ -1862,11 +1862,11 @@ const DATA = [
           "SAUCE TARTARE : 24 g"
         ],
         "price": "88 DH",
-        "cost": 31.07,
+        "cost": 31.32,
         "sellPrice": 88,
-        "foodCost": 35.3,
-        "margin": 64.7,
-        "grossMarginDH": 56.93
+        "foodCost": 35.6,
+        "margin": 64.4,
+        "grossMarginDH": 56.68
       }
     ]
   },
@@ -3285,11 +3285,11 @@ const DATA = [
           "Fromage : 30 g"
         ],
         "price": "58 DH",
-        "cost": 22.65,
+        "cost": 23.25,
         "sellPrice": 58,
-        "foodCost": 39.1,
-        "margin": 60.9,
-        "grossMarginDH": 35.35
+        "foodCost": 40.1,
+        "margin": 59.9,
+        "grossMarginDH": 34.75
       },
       {
         "name": "CRÊPE PÊCHEUR",
@@ -4660,7 +4660,7 @@ const BASE_RECIPES = [
     "name": "NORVÉGIEN",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "Saumon : 60 g",
+      "Saumon fumé : 60 g",
       "Avocat : 50 g",
       "Fromage : 30 g",
       "Pain céréales : 2 tr",
@@ -8060,11 +8060,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "saumon fume": {
-    "cost": 0.28,
+    "cost": 0.29,
     "unit": "g"
   },
   "saumon fumee": {
-    "cost": 0.28,
+    "cost": 0.29,
     "unit": "g"
   },
   "crevette": {

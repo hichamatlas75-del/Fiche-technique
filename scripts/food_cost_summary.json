@@ -3166,15 +3166,15 @@
     "category": "PETIT DÉJEUNER",
     "name": "NORVÉGIEN",
     "sellPrice": 68,
-    "cost": 22.53,
-    "foodCostPct": 33.1,
-    "marginPct": 66.9,
-    "grossMarginDH": 45.47,
+    "cost": 29.13,
+    "foodCostPct": 42.8,
+    "marginPct": 57.2,
+    "grossMarginDH": 38.87,
     "details": [
       {
-        "ingredient": "Saumon",
+        "ingredient": "Saumon fumé",
         "quantity": "60 g",
-        "cost": 10.8
+        "cost": 17.4
       },
       {
         "ingredient": "Avocat",
@@ -3655,10 +3655,10 @@
     "category": "ENTRÉES FROIDES",
     "name": "TARTARE SAUMON",
     "sellPrice": 88,
-    "cost": 31.07,
-    "foodCostPct": 35.3,
-    "marginPct": 64.7,
-    "grossMarginDH": 56.93,
+    "cost": 31.32,
+    "foodCostPct": 35.6,
+    "marginPct": 64.4,
+    "grossMarginDH": 56.68,
     "details": [
       {
         "ingredient": "saumon frais",
@@ -3668,7 +3668,7 @@
       {
         "ingredient": "SAUMON FUMEE",
         "quantity": "25 g",
-        "cost": 7
+        "cost": 7.25
       },
       {
         "ingredient": "Avocat",
@@ -6646,10 +6646,10 @@
     "category": "CRÊPES",
     "name": "CRÊPE NORVÉGIENNE",
     "sellPrice": 58,
-    "cost": 22.65,
-    "foodCostPct": 39.1,
-    "marginPct": 60.9,
-    "grossMarginDH": 35.35,
+    "cost": 23.25,
+    "foodCostPct": 40.1,
+    "marginPct": 59.9,
+    "grossMarginDH": 34.75,
     "details": [
       {
         "ingredient": "Pâte à crêpe",
@@ -6659,7 +6659,7 @@
       {
         "ingredient": "Saumon fumé",
         "quantity": "60 g",
-        "cost": 16.8
+        "cost": 17.4
       },
       {
         "ingredient": "Crème fraîche",
