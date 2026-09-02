@@ -40,8 +40,23 @@
     }
   }
 
+  // Chargement des prix personnalisés des matières premières
+  function loadCustomIngredientPrices() {
+    try {
+      const saved = localStorage.getItem('gc_ingredient_prices_v1');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (!window.INGREDIENT_UNIT_COSTS) window.INGREDIENT_UNIT_COSTS = {};
+        Object.assign(window.INGREDIENT_UNIT_COSTS, parsed);
+      }
+    } catch (e) {
+      console.warn("Erreur chargement prix personnalisés", e);
+    }
+  }
+
   // Initialisation des données
   function initData() {
+    loadCustomIngredientPrices();
     loadSavedEdits();
     allRecipes = [];
 
@@ -626,39 +641,267 @@
     showToast("📥 Export Excel généré avec succès !");
   };
 
-  // Exporter la configuration mise à jour pour recipes-data.js
-  window.exportUpdatedRecipesDataJS = function() {
-    const rawData = window.CATEGORIES_DATA || window.DATA || [];
-    const cloned = JSON.parse(JSON.stringify(rawData));
+  // ========================================================
+  // GESTION MERCURIALE & PRIX D'ACHAT DES MATIÈRES PREMIÈRES
+  // ========================================================
 
-    cloned.forEach(cat => {
-      (cat.items || []).forEach(item => {
-        if (editedRecipes[item.name] && editedRecipes[item.name].tech) {
-          item.tech = editedRecipes[item.name].tech;
+  function openPricesModal() {
+    loadCustomIngredientPrices();
+    const modal = document.getElementById('prices-modal');
+    if (modal) modal.classList.add('visible');
+    renderPricesTable();
+  }
+
+  function closePricesModal() {
+    const modal = document.getElementById('prices-modal');
+    if (modal) modal.classList.remove('visible');
+  }
+
+  function renderPricesTable() {
+    const container = document.getElementById('prices-table-body');
+    if (!container) return;
+
+    const searchInput = document.getElementById('search-prices-input');
+    const search = (searchInput ? searchInput.value : '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+    const costMap = window.INGREDIENT_UNIT_COSTS || {};
+
+    const entries = Object.entries(costMap);
+    const filtered = entries.filter(([k, v]) => {
+      if (!search) return true;
+      const label = v.label || k;
+      const normLabel = label.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const normKey = k.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      return normLabel.includes(search) || normKey.includes(search);
+    });
+
+    const badge = document.getElementById('prices-count-badge');
+    if (badge) badge.textContent = `${entries.length} matières (${filtered.length} affichées)`;
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <tr>
+          <td colspan="4" style="text-align:center; padding:30px; color:var(--text-muted);">
+            Aucune matière première trouvée pour votre recherche.
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    container.innerHTML = filtered.map(([key, item]) => {
+      const label = item.label || (key.charAt(0).toUpperCase() + key.slice(1));
+      const unit = item.unit || 'g';
+
+      let displayUnit = 'kg';
+      let purchasePrice = (item.cost || 0) * 1000;
+      let unitDesc = `${(item.cost || 0).toFixed(4)} DH/g`;
+
+      if (unit === 'ml' || unit === 'l') {
+        displayUnit = 'L';
+        purchasePrice = (item.cost || 0) * 1000;
+        unitDesc = `${(item.cost || 0).toFixed(4)} DH/ml`;
+      } else if (unit === 'piece' || unit === 'p') {
+        displayUnit = 'Pièce / Unité';
+        purchasePrice = item.cost || 0;
+        unitDesc = `${(item.cost || 0).toFixed(2)} DH/p`;
+      }
+
+      purchasePrice = Math.round(purchasePrice * 100) / 100;
+
+      return `
+        <tr>
+          <td style="padding:10px 14px; font-weight:700; color:var(--text);">
+            ${escapeHtml(label)}
+            <span style="font-size:10px; color:var(--text-muted); display:block; font-weight:normal;">Réf: ${escapeHtml(key)}</span>
+          </td>
+          <td style="padding:10px; text-align:center;">
+            <span class="unit-chip">
+              ${displayUnit}
+            </span>
+          </td>
+          <td style="padding:8px 14px; text-align:right;">
+            <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px;">
+              <input type="number" step="0.1" min="0" 
+                class="price-edit-input" 
+                data-key="${escapeHtml(key)}" 
+                data-unit="${unit}" 
+                value="${purchasePrice}" 
+                style="width:95px; padding:6px 8px; text-align:right; font-weight:800; font-size:13px; border-radius:7px; border:1.5px solid var(--border); background:var(--bg); color:var(--accent);"
+              />
+              <span style="font-size:12px; font-weight:700; color:var(--text-muted);">DH</span>
+            </div>
+          </td>
+          <td style="padding:10px 14px; text-align:right; font-weight:700; color:var(--text-muted); font-size:12px;">
+            ${unitDesc}
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function showAddNewPriceForm() {
+    const box = document.getElementById('add-price-form-box');
+    if (box) box.style.display = 'block';
+    const nameInp = document.getElementById('new-price-name');
+    if (nameInp) nameInp.focus();
+  }
+
+  function hideAddNewPriceForm() {
+    const box = document.getElementById('add-price-form-box');
+    if (box) box.style.display = 'none';
+  }
+
+  function confirmAddIngredientPrice() {
+    const name = document.getElementById('new-price-name').value.trim();
+    const unit = document.getElementById('new-price-unit').value;
+    const priceVal = parseFloat(document.getElementById('new-price-val').value) || 0;
+
+    if (!name) {
+      alert("Veuillez saisir le nom de la matière première.");
+      return;
+    }
+    if (priceVal <= 0) {
+      alert("Veuillez spécifier un prix d'achat valide supérieur à 0.");
+      return;
+    }
+
+    const key = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+    let baseUnit = 'g';
+    let unitCost = priceVal / 1000;
+
+    if (unit === 'l') {
+      baseUnit = 'ml';
+      unitCost = priceVal / 1000;
+    } else if (unit === 'p') {
+      baseUnit = 'piece';
+      unitCost = priceVal;
+    }
+
+    if (!window.INGREDIENT_UNIT_COSTS) window.INGREDIENT_UNIT_COSTS = {};
+    window.INGREDIENT_UNIT_COSTS[key] = {
+      cost: unitCost,
+      unit: baseUnit,
+      label: name
+    };
+
+    saveAllIngredientPricesFromModal();
+
+    document.getElementById('new-price-name').value = '';
+    document.getElementById('new-price-val').value = '';
+    hideAddNewPriceForm();
+    renderPricesTable();
+  }
+
+  function saveAllIngredientPricesFromModal() {
+    const inputs = document.querySelectorAll('.price-edit-input');
+    if (!window.INGREDIENT_UNIT_COSTS) window.INGREDIENT_UNIT_COSTS = {};
+
+    inputs.forEach(inp => {
+      const key = inp.dataset.key;
+      const unit = inp.dataset.unit;
+      const val = parseFloat(inp.value) || 0;
+
+      let unitCost = val / 1000;
+      if (unit === 'piece' || unit === 'p') {
+        unitCost = val;
+      }
+
+      if (window.INGREDIENT_UNIT_COSTS[key]) {
+        window.INGREDIENT_UNIT_COSTS[key].cost = unitCost;
+      } else {
+        window.INGREDIENT_UNIT_COSTS[key] = {
+          cost: unitCost,
+          unit: unit,
+          label: key
+        };
+      }
+    });
+
+    try {
+      localStorage.setItem('gc_ingredient_prices_v1', JSON.stringify(window.INGREDIENT_UNIT_COSTS));
+    } catch (e) {
+      console.error('Erreur sauvegarde prix localStorage:', e);
+    }
+
+    // Recalculer toutes les recettes dans le comparateur
+    initData();
+    renderSummaryKpis();
+    renderRecipeCards();
+
+    showToast("✅ Prix des matières enregistrés ! Food costs et marges recalculés en direct.");
+  }
+
+  // Exporter le fichier complet recipes-data.js
+  function downloadUpdatedRecipesDataJs() {
+    try {
+      // 1. Cloner DATA et appliquer les fiches éditées
+      const rawData = window.CATEGORIES_DATA || window.DATA || [];
+      const clonedData = JSON.parse(JSON.stringify(rawData));
+
+      clonedData.forEach(cat => {
+        (cat.items || []).forEach(item => {
+          if (editedRecipes[item.name] && editedRecipes[item.name].tech) {
+            item.tech = editedRecipes[item.name].tech;
+          }
           const sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
           const costObj = window.calculateRecipeFoodCost(item.tech, sellPrice);
           item.cost = costObj.cost;
           item.foodCost = costObj.foodCost;
           item.margin = costObj.margin;
           item.grossMarginDH = costObj.grossMarginDH;
+        });
+      });
+
+      // 2. Base recipes
+      const rawBase = window.BASE_RECIPES || [];
+      const clonedBase = JSON.parse(JSON.stringify(rawBase));
+      clonedBase.forEach(r => {
+        if (editedRecipes[r.name] && editedRecipes[r.name].tech) {
+          r.ingredients = editedRecipes[r.name].tech;
         }
       });
-    });
 
-    // Sauvegarder aussi en local
-    saveEdits();
+      // 3. Objets complémentaires
+      const aliasObj = window.ALIAS_MAP || {};
+      const catObj = window.INGREDIENT_CATEGORIES || {};
+      const unitCostsObj = window.INGREDIENT_UNIT_COSTS || {};
+      const fnStr = (window.calculateRecipeFoodCost || calculateRecipeFoodCost).toString();
 
-    const jsContent = `// ========================================================\n// GREY CORNER — FICHES TECHNIQUES CENTRALISÉES (DATA)\n// Mis à jour le ${new Date().toLocaleString('fr-FR')}\n// ========================================================\n\nconst DATA = ${JSON.stringify(cloned, null, 2)};\n\nif (typeof window !== 'undefined') {\n  window.DATA = DATA;\n  window.CATEGORIES_DATA = DATA;\n}\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = { DATA };\n}\n`;
+      let content = `/**\n * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes\n * Source Unique de Vérité (SSOT) mise à jour automatiquement le ${new Date().toISOString()}\n */\n\n(function(global) {\n`;
+      content += `const DATA = ${JSON.stringify(clonedData, null, 2)};\n\n`;
+      content += `const BASE_RECIPES = ${JSON.stringify(clonedBase, null, 2)};\n\n`;
+      content += `const ALIAS_MAP = ${JSON.stringify(aliasObj, null, 2)};\n\n`;
+      content += `const INGREDIENT_CATEGORIES = ${JSON.stringify(catObj, null, 2)};\n\n`;
+      content += `const INGREDIENT_UNIT_COSTS = ${JSON.stringify(unitCostsObj, null, 2)};\n\n`;
+      content += `${fnStr}\n\n`;
+      content += `global.CATEGORIES_DATA = DATA;\nglobal.DATA = DATA;\nglobal.BASE_RECIPES = BASE_RECIPES;\nglobal.ALIAS_MAP = ALIAS_MAP;\nglobal.INGREDIENT_CATEGORIES = INGREDIENT_CATEGORIES;\nglobal.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\nglobal.calculateRecipeFoodCost = calculateRecipeFoodCost;\nif (typeof window !== 'undefined') {\n  window.calculateRecipeFoodCost = calculateRecipeFoodCost;\n  window.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\n  window.DATA = DATA;\n  window.CATEGORIES_DATA = DATA;\n  window.BASE_RECIPES = BASE_RECIPES;\n}\n})(typeof window !== 'undefined' ? window : globalThis);\n`;
 
-    const blob = new Blob([jsContent], { type: 'application/javascript;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `recipes-data-updated-${new Date().toISOString().slice(0,10)}.js`;
-    a.click();
-    URL.revokeObjectURL(url);
-    showToast("📁 Fichier JavaScript prêt pour recipes-data.js téléchargé !");
-  };
+      const blob = new Blob([content], { type: "application/javascript;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "recipes-data.js";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      showToast("📁 Fichier recipes-data.js complet mis à jour et téléchargé !");
+    } catch (err) {
+      alert("Erreur lors de l'exportation de recipes-data.js : " + err.message);
+    }
+  }
+
+  // Rétrocompatibilité
+  window.exportUpdatedRecipesDataJS = downloadUpdatedRecipesDataJs;
+  window.downloadUpdatedRecipesDataJs = downloadUpdatedRecipesDataJs;
+  window.openPricesModal = openPricesModal;
+  window.closePricesModal = closePricesModal;
+  window.renderPricesTable = renderPricesTable;
+  window.showAddNewPriceForm = showAddNewPriceForm;
+  window.hideAddNewPriceForm = hideAddNewPriceForm;
+  window.confirmAddIngredientPrice = confirmAddIngredientPrice;
+  window.saveAllIngredientPricesFromModal = saveAllIngredientPricesFromModal;
 
   // Initialisation au chargement
   document.addEventListener('DOMContentLoaded', () => {
