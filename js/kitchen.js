@@ -120,7 +120,7 @@ function renderAll() {
       Object.assign(window.INGREDIENT_UNIT_COSTS, JSON.parse(savedCustomPrices));
     }
 
-    const savedCustomRecipes = localStorage.getItem('gc_recipes_db_v4');
+    const savedCustomRecipes = localStorage.getItem('gc_recipes_db_v5') || localStorage.getItem('gc_recipes_db_v4');
     const customMap = new Map();
     if (savedCustomRecipes) {
       const customList = JSON.parse(savedCustomRecipes);
@@ -128,6 +128,19 @@ function renderAll() {
         if (r && r.name) {
           const norm = r.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
           customMap.set(norm, r);
+        }
+      });
+    }
+
+    // Synchronisation avec les modifications du comparateur
+    const savedCompRecipes = localStorage.getItem('grey_corner_custom_recipes_v5');
+    if (savedCompRecipes) {
+      const compEdits = JSON.parse(savedCompRecipes);
+      Object.keys(compEdits).forEach(name => {
+        const norm = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+        if (compEdits[name] && compEdits[name].tech) {
+          const prev = customMap.get(norm) || {};
+          customMap.set(norm, Object.assign(prev, { ingredients: compEdits[name].tech, tech: compEdits[name].tech }));
         }
       });
     }
@@ -144,8 +157,8 @@ function renderAll() {
       cat.items.forEach(it => {
         const norm = (it.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
         const match = customMap.get(norm);
-        if (match && Array.isArray(match.ingredients) && match.ingredients.length > 0) {
-          it.tech = match.ingredients;
+        if (match && ((Array.isArray(match.ingredients) && match.ingredients.length > 0) || (Array.isArray(match.tech) && match.tech.length > 0))) {
+          it.tech = match.ingredients || match.tech;
         }
         if (typeof calculateRecipeFoodCost === 'function' && it.tech) {
           const sellP = (match && match.sellPrice) || parseFloat(String(it.price || it.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;

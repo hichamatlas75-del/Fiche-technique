@@ -24,6 +24,15 @@
       if (saved) {
         editedRecipes = JSON.parse(saved);
       }
+      const v5Saved = localStorage.getItem('gc_recipes_db_v5');
+      if (v5Saved) {
+        const parsed = JSON.parse(v5Saved);
+        parsed.forEach(r => {
+          if (r && r.name && (r.tech || r.ingredients) && !editedRecipes[r.name]) {
+            editedRecipes[r.name] = { tech: r.tech || r.ingredients };
+          }
+        });
+      }
     } catch (e) {
       console.warn("Impossible de charger les fiches sauvegardées", e);
     }
@@ -33,6 +42,17 @@
   function saveEdits() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(editedRecipes));
+      const rawV5 = localStorage.getItem('gc_recipes_db_v5');
+      if (rawV5) {
+        const listV5 = JSON.parse(rawV5);
+        listV5.forEach(r => {
+          if (r && r.name && editedRecipes[r.name] && editedRecipes[r.name].tech) {
+            r.tech = editedRecipes[r.name].tech;
+            r.ingredients = editedRecipes[r.name].tech;
+          }
+        });
+        localStorage.setItem('gc_recipes_db_v5', JSON.stringify(listV5));
+      }
       showToast("💾 Fiches techniques Grey Corner enregistrées avec succès !");
     } catch (e) {
       console.error("Erreur lors de la sauvegarde", e);
@@ -264,9 +284,9 @@
 
             <!-- BOUTONS D'ACTION SUR LA RECETTE -->
             <div class="quick-preset-actions" style="margin-top:12px;">
-              <button class="btn-preset" title="Ajouter un ingrédient à la fiche" onclick="window.addIngredientToRecipe('${escapeHtml(recipe.name)}', ${idx})">➕ Ajouter ingrédient</button>
-              <button class="btn-preset text-success" title="Appliquer le standard international sur la fiche Grey Corner" onclick="window.copyStandardToRecipe('${escapeHtml(recipe.name)}', ${idx})">🟢 Copier Standard Int.</button>
-              <button class="btn-preset text-danger" title="Rétablir la fiche d'origine" onclick="window.resetRecipeToInitial('${escapeHtml(recipe.name)}', ${idx})">🔄 Rétablir d'origine</button>
+              <button class="btn-preset" title="Ajouter un ingrédient à la fiche" onclick="window.addIngredientToRecipe(${idx})">➕ Ajouter ingrédient</button>
+              <button class="btn-preset text-success" title="Appliquer le standard international sur la fiche Grey Corner" onclick="window.copyStandardToRecipe(${idx})">🟢 Copier Standard Int.</button>
+              <button class="btn-preset text-danger" title="Rétablir la fiche d'origine" onclick="window.resetRecipeToInitial(${idx})">🔄 Rétablir d'origine</button>
             </div>
 
             <!-- RÉSULTAT FINANCIER DE LA FICHE GREY CORNER -->
@@ -357,9 +377,9 @@
 
       return `
         <div class="ing-edit-row">
-          <input type="text" class="ing-name-input" value="${escapeHtml(ing)}" data-recipe="${escapeHtml(recipeName)}" data-idx="${idx}" data-ing-idx="${ingIdx}" onchange="window.updateIngredientName('${escapeHtml(recipeName)}', ${idx}, ${ingIdx}, this.value)" />
+          <input type="text" class="ing-name-input" value="${escapeHtml(ing)}" data-recipe="${escapeHtml(recipeName)}" data-idx="${idx}" data-ing-idx="${ingIdx}" onchange="window.updateIngredientName(${idx}, ${ingIdx}, this.value)" />
           <div class="ing-input-wrap">
-            <button type="button" class="btn-step" onclick="window.stepIngredientVal('${escapeHtml(recipeName)}', ${idx}, ${ingIdx}, -${step})">-</button>
+            <button type="button" class="btn-step" onclick="window.stepIngredientVal(${idx}, ${ingIdx}, -${step})">-</button>
             <input type="number" 
                    class="ing-num-input" 
                    value="${numVal}" 
@@ -369,19 +389,39 @@
                    data-idx="${idx}"
                    data-ing-idx="${ingIdx}"
                    data-unit="${unit}"
-                   oninput="window.onIngredientInputChange('${escapeHtml(recipeName)}', ${idx}, ${ingIdx}, this.value, '${unit}')" />
-            <button type="button" class="btn-step" onclick="window.stepIngredientVal('${escapeHtml(recipeName)}', ${idx}, ${ingIdx}, +${step})">+</button>
+                   oninput="window.onIngredientInputChange(${idx}, ${ingIdx}, this.value, '${unit}')" />
+            <button type="button" class="btn-step" onclick="window.stepIngredientVal(${idx}, ${ingIdx}, +${step})">+</button>
             <span class="ing-unit-tag">${unit}</span>
-            <button type="button" class="btn-del-ing" title="Supprimer cet ingrédient" onclick="window.removeIngredientFromRecipe('${escapeHtml(recipeName)}', ${idx}, ${ingIdx})">✕</button>
+            <button type="button" class="btn-del-ing" title="Supprimer cet ingrédient" onclick="window.removeIngredientFromRecipe(${idx}, ${ingIdx})">✕</button>
           </div>
         </div>
       `;
     }).join('');
   }
 
+  // Résolution robuste de la recette (par index de carte ou par nom)
+  function resolveRecipe(p1, p2) {
+    if (typeof p1 === 'number') {
+      const card = document.getElementById(`card-${p1}`);
+      const recipeName = card ? card.getAttribute('data-recipe-name') : (allRecipes[p1] ? allRecipes[p1].name : null);
+      const recipe = allRecipes.find(r => r.name === recipeName) || allRecipes[p1];
+      return { recipe, cardIdx: p1, recipeName: recipe ? recipe.name : recipeName };
+    } else {
+      const recipe = allRecipes.find(r => r.name === p1);
+      return { recipe, cardIdx: p2, recipeName: p1 };
+    }
+  }
+
   // Mise à jour de la valeur d'un ingrédient
-  window.onIngredientInputChange = function(recipeName, cardIdx, ingIdx, newVal, unit) {
-    const recipe = allRecipes.find(r => r.name === recipeName);
+  window.onIngredientInputChange = function(p1, p2, p3, p4, p5) {
+    let recipe, cardIdx, ingIdx, newVal, unit;
+    if (typeof p1 === 'number') {
+      ({ recipe, cardIdx } = resolveRecipe(p1));
+      ingIdx = p2; newVal = p3; unit = p4;
+    } else {
+      ({ recipe, cardIdx } = resolveRecipe(p1, p2));
+      ingIdx = p3; newVal = p4; unit = p5;
+    }
     if (!recipe) return;
 
     const val = parseFloat(newVal) || 0;
@@ -393,7 +433,7 @@
     recipe.greyCorner.tech[ingIdx] = `${ingName} : ${val} ${unit}`;
 
     // Enregistrer dans editedRecipes
-    editedRecipes[recipeName] = {
+    editedRecipes[recipe.name] = {
       tech: recipe.greyCorner.tech
     };
 
@@ -414,8 +454,15 @@
   };
 
   // Mise à jour du nom d'un ingrédient
-  window.updateIngredientName = function(recipeName, cardIdx, ingIdx, newName) {
-    const recipe = allRecipes.find(r => r.name === recipeName);
+  window.updateIngredientName = function(p1, p2, p3, p4) {
+    let recipe, cardIdx, ingIdx, newName;
+    if (typeof p1 === 'number') {
+      ({ recipe, cardIdx } = resolveRecipe(p1));
+      ingIdx = p2; newName = p3;
+    } else {
+      ({ recipe, cardIdx } = resolveRecipe(p1, p2));
+      ingIdx = p3; newName = p4;
+    }
     if (!recipe) return;
 
     const oldLine = recipe.greyCorner.tech[ingIdx];
@@ -423,9 +470,9 @@
 
     const parts = oldLine.split(':');
     const qtyStr = parts.length > 1 ? parts.slice(1).join(':').trim() : '1 p';
-    recipe.greyCorner.tech[ingIdx] = `${newName.trim()} : ${qtyStr}`;
+    recipe.greyCorner.tech[ingIdx] = `${(newName || '').trim()} : ${qtyStr}`;
 
-    editedRecipes[recipeName] = {
+    editedRecipes[recipe.name] = {
       tech: recipe.greyCorner.tech
     };
 
@@ -440,7 +487,13 @@
   };
 
   // Pas d'incrément (+ / -)
-  window.stepIngredientVal = function(recipeName, cardIdx, ingIdx, delta) {
+  window.stepIngredientVal = function(p1, p2, p3, p4) {
+    let cardIdx, ingIdx, delta;
+    if (typeof p1 === 'number') {
+      cardIdx = p1; ingIdx = p2; delta = p3;
+    } else {
+      cardIdx = p2; ingIdx = p3; delta = p4;
+    }
     const editor = document.getElementById(`editor-${cardIdx}`);
     if (!editor) return;
 
@@ -451,12 +504,12 @@
     let next = Math.max(0, Math.round((current + delta) * 10) / 10);
     input.value = next;
     const unit = input.getAttribute('data-unit') || 'g';
-    window.onIngredientInputChange(recipeName, cardIdx, ingIdx, next, unit);
+    window.onIngredientInputChange(cardIdx, ingIdx, next, unit);
   };
 
   // Ajouter un ingrédient
-  window.addIngredientToRecipe = function(recipeName, cardIdx) {
-    const recipe = allRecipes.find(r => r.name === recipeName);
+  window.addIngredientToRecipe = function(p1, p2) {
+    const { recipe, cardIdx, recipeName } = resolveRecipe(p1, p2);
     if (!recipe) return;
 
     const ingName = prompt("Nom du nouvel ingrédient :", "Nouvel Ingrédient");
@@ -466,7 +519,7 @@
     if (!qty || !qty.trim()) return;
 
     recipe.greyCorner.tech.push(`${ingName.trim()} : ${qty.trim()}`);
-    editedRecipes[recipeName] = {
+    editedRecipes[recipe.name] = {
       tech: recipe.greyCorner.tech
     };
 
@@ -479,12 +532,19 @@
 
     renderRecipeCards();
     renderSummaryKPIs();
-    showToast(`➕ Ingrédient ajouté à ${recipeName}`);
+    showToast(`➕ Ingrédient ajouté à ${recipe.name}`);
   };
 
   // Supprimer un ingrédient
-  window.removeIngredientFromRecipe = function(recipeName, cardIdx, ingIdx) {
-    const recipe = allRecipes.find(r => r.name === recipeName);
+  window.removeIngredientFromRecipe = function(p1, p2, p3) {
+    let recipe, cardIdx, ingIdx;
+    if (typeof p1 === 'number') {
+      ({ recipe, cardIdx } = resolveRecipe(p1));
+      ingIdx = p2;
+    } else {
+      ({ recipe, cardIdx } = resolveRecipe(p1, p2));
+      ingIdx = p3;
+    }
     if (!recipe) return;
 
     if (recipe.greyCorner.tech.length <= 1) {
@@ -493,7 +553,7 @@
     }
 
     recipe.greyCorner.tech.splice(ingIdx, 1);
-    editedRecipes[recipeName] = {
+    editedRecipes[recipe.name] = {
       tech: recipe.greyCorner.tech
     };
 
@@ -506,16 +566,16 @@
 
     renderRecipeCards();
     renderSummaryKPIs();
-    showToast(`🗑️ Ingrédient supprimé de ${recipeName}`);
+    showToast(`🗑️ Ingrédient supprimé de ${recipe.name}`);
   };
 
   // Copier le standard international
-  window.copyStandardToRecipe = function(recipeName, cardIdx) {
-    const recipe = allRecipes.find(r => r.name === recipeName);
+  window.copyStandardToRecipe = function(p1, p2) {
+    const { recipe, cardIdx } = resolveRecipe(p1, p2);
     if (!recipe) return;
 
     recipe.greyCorner.tech = JSON.parse(JSON.stringify(recipe.standard.tech));
-    editedRecipes[recipeName] = {
+    editedRecipes[recipe.name] = {
       tech: recipe.greyCorner.tech
     };
 
@@ -528,15 +588,15 @@
 
     renderRecipeCards();
     renderSummaryKPIs();
-    showToast(`🟢 Standard international copié sur ${recipeName}`);
+    showToast(`🟢 Standard international copié sur ${recipe.name}`);
   };
 
   // Rétablir la fiche d'origine
-  window.resetRecipeToInitial = function(recipeName, cardIdx) {
-    const recipe = allRecipes.find(r => r.name === recipeName);
+  window.resetRecipeToInitial = function(p1, p2) {
+    const { recipe, cardIdx } = resolveRecipe(p1, p2);
     if (!recipe) return;
 
-    delete editedRecipes[recipeName];
+    delete editedRecipes[recipe.name];
     recipe.greyCorner.tech = JSON.parse(JSON.stringify(recipe.initialTech));
 
     const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
@@ -548,7 +608,7 @@
 
     renderRecipeCards();
     renderSummaryKPIs();
-    showToast(`🔄 Fiche d'origine rétablie pour ${recipeName}`);
+    showToast(`🔄 Fiche d'origine rétablie pour ${recipe.name}`);
   };
 
   // Mise à jour ciblée des chiffres d'une carte

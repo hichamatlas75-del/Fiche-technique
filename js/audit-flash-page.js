@@ -40,7 +40,7 @@
     const current = document.documentElement.getAttribute('data-theme') || 'light';
     const next = current === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
+    localStorage.setItem('gc_theme', next);
   }
 
   // Chargement du catalogue d'ingrédients
@@ -145,13 +145,17 @@
     const priceLbl = document.getElementById('flash-price-unit-lbl');
     if (priceLbl) priceLbl.textContent = priceUnit;
 
-    // Déterminer le prix indicatif
-    let defaultPrice = 50;
+    // Déterminer le prix indicatif (converti en DH/kg ou DH/L pour g/ml)
+    let defaultPrice = unit === 'p' ? 5 : 50;
     const costMap = window.INGREDIENT_UNIT_COSTS || {};
     const key = cleanTextLocal(selectedName);
     for (const [k, v] of Object.entries(costMap)) {
       if (key.includes(cleanTextLocal(k)) || cleanTextLocal(k).includes(key)) {
-        defaultPrice = v.cost || defaultPrice;
+        if (unit === 'g' || unit === 'ml') {
+          defaultPrice = Math.round((v.cost * 1000) * 100) / 100;
+        } else {
+          defaultPrice = Math.round((v.cost) * 100) / 100;
+        }
         break;
       }
     }
@@ -181,14 +185,79 @@
 
     const ingName = sel.value;
     const cleanIng = cleanTextLocal(ingName);
+    const found = allIngredientsCatalog.find(i => cleanTextLocal(i.name) === cleanIng);
+    const unit = found ? found.unit : (document.querySelector('.flash-unit-lbl')?.textContent || 'g');
     let totalTheo = 0;
 
-    // Essayer de lire depuis localStorage
+    // Essayer de lire depuis la base de ventes mensuelle (gc_monthly_sales_db_v3) ou legacy
     try {
+      const monthlyRaw = localStorage.getItem('gc_monthly_sales_db_v3');
       const salesRaw = localStorage.getItem('gc_pos_sales_v4') || localStorage.getItem('gc_pos_sales');
-      if (salesRaw) {
+      const data = window.CATEGORIES_DATA || window.DATA || [];
+
+      if (monthlyRaw) {
+        const db = JSON.parse(monthlyRaw);
+        const sessionDate = document.getElementById('session-date')?.value || '';
+        let salesRows = [];
+        if (sessionDate && db[sessionDate]) {
+          salesRows = db[sessionDate];
+        } else {
+          const ym = sessionDate ? sessionDate.slice(0, 7) : '';
+          Object.keys(db).forEach(d => {
+            if (!ym || d.startsWith(ym)) {
+              salesRows = salesRows.concat(db[d] || []);
+            }
+          });
+        }
+
+        const salesMap = {};
+        salesRows.forEach(r => {
+          if (r && r.product) {
+            const p = cleanTextLocal(r.product);
+            salesMap[p] = (salesMap[p] || 0) + (parseFloat(r.qty) || 0);
+          }
+        });
+
+        data.forEach(cat => {
+          (cat.items || []).forEach(item => {
+            const itemClean = cleanTextLocal(item.name);
+            const count = salesMap[itemClean] || 0;
+            if (count > 0 && Array.isArray(item.tech)) {
+              item.tech.forEach(line => {
+                const parts = line.split(':');
+                const techIng = cleanTextLocal(parts[0]);
+                if (techIng.includes(cleanIng) || cleanIng.includes(techIng)) {
+                  const qtyStr = parts.length > 1 ? parts.slice(1).join(':').trim() : '1 p';
+                  let q = 1;
+                  const gMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*g\b/i);
+                  const kgMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*kg\b/i);
+                  const mlMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*ml\b/i);
+                  const clMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*cl\b/i);
+                  const lMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*l\b/i);
+                  const pMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*(?:p|piece|tranche|part|boule|sachet|portion|tr)\b/i);
+
+                  if (unit === 'g') {
+                    if (gMatch) q = parseFloat(gMatch[1].replace(',', '.'));
+                    else if (kgMatch) q = parseFloat(kgMatch[1].replace(',', '.')) * 1000;
+                    else if (pMatch) q = parseFloat(pMatch[1].replace(',', '.')) * 50;
+                    else q = parseFloat(qtyStr.replace(',', '.')) || 1;
+                  } else if (unit === 'ml') {
+                    if (mlMatch) q = parseFloat(mlMatch[1].replace(',', '.'));
+                    else if (clMatch) q = parseFloat(clMatch[1].replace(',', '.')) * 10;
+                    else if (lMatch) q = parseFloat(lMatch[1].replace(',', '.')) * 1000;
+                    else q = parseFloat(qtyStr.replace(',', '.')) || 100;
+                  } else {
+                    if (pMatch) q = parseFloat(pMatch[1].replace(',', '.'));
+                    else q = parseFloat(qtyStr.replace(',', '.')) || 1;
+                  }
+                  totalTheo += q * count;
+                }
+              });
+            }
+          });
+        });
+      } else if (salesRaw) {
         const sales = JSON.parse(salesRaw);
-        const data = window.CATEGORIES_DATA || window.DATA || [];
         data.forEach(cat => {
           (cat.items || []).forEach(item => {
             const count = sales[item.name] || 0;
@@ -210,7 +279,7 @@
     if (totalTheo > 0) {
       document.getElementById('flash-theorique').value = totalTheo.toFixed(2);
       calculateLiveAuditFlash();
-      alert(`⚡ ${totalTheo.toFixed(2)} ${document.querySelector('.flash-unit-lbl')?.textContent || 'g'} chargés depuis les ventes enregistrées !`);
+      alert(`⚡ ${totalTheo.toFixed(2)} ${unit} chargés depuis les ventes enregistrées !`);
     } else {
       alert("Aucune vente enregistrée trouvée pour cet ingrédient dans le module de déstockage. Vous pouvez saisir la quantité manuellement.");
     }
@@ -790,7 +859,7 @@
 
   // Initialisation automatique au chargement
   document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = localStorage.getItem('gc_theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
 
     const dateInput = document.getElementById('session-date');

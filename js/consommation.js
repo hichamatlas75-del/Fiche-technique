@@ -15,19 +15,25 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
   const validSellPrice = typeof sellPrice === 'number' && sellPrice > 0 ? sellPrice : parseFloat(String(sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
   const costMap = window.INGREDIENT_UNIT_COSTS || INGREDIENT_UNIT_COSTS;
 
+  const cleanStr = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+  const stripPlural = (s) => s.split(' ').map(w => w.endsWith('s') && w.length > 3 ? w.slice(0, -1) : w).join(' ');
+
   (ingredients || []).forEach(line => {
     if (!line || typeof line !== 'string') return;
     const parts = line.split(':');
     const ingName = parts[0].trim();
     const qtyStr = parts.length > 1 ? parts.slice(1).join(':').trim() : '1 p';
 
-    const normIng = (ingName || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
-    let ingDef = costMap[normIng];
+    const normIng = cleanStr(ingName);
+    const normIngSingular = stripPlural(normIng);
+    let ingDef = costMap[normIng] || costMap[normIngSingular];
 
     if (!ingDef) {
       const sortedKeys = Object.keys(costMap).sort((a, b) => b.length - a.length);
       for (const k of sortedKeys) {
-        if (normIng.includes(k) || k.includes(normIng)) {
+        const normK = cleanStr(k);
+        const normKSingular = stripPlural(normK);
+        if (normIng === normK || normIngSingular === normKSingular || normIng.includes(normK) || normK.includes(normIng) || normIngSingular.includes(normKSingular) || normKSingular.includes(normIngSingular)) {
           ingDef = costMap[k];
           break;
         }
@@ -3542,7 +3548,8 @@ function recalculateMonthlyAudit() {
     const consAttendue = item.theorique + item.casse;
     const ecart = consReelle - consAttendue;
     const ecartPct = consAttendue > 0 ? (ecart / consAttendue) * 100 : (ecart !== 0 ? Infinity : 0);
-    const impactDH = ecart * item.prix;
+    const unitMult = (item.unit === 'g' || item.unit === 'ml') ? 0.001 : 1;
+    const impactDH = ecart * unitMult * item.prix;
 
     item.consReelle = consReelle;
     item.consAttendue = consAttendue;
@@ -3550,10 +3557,10 @@ function recalculateMonthlyAudit() {
     item.ecartPct = ecartPct;
     item.impactDH = impactDH;
 
-    totTheoDH += item.theorique * item.prix;
-    totReelDH += consReelle * item.prix;
+    totTheoDH += item.theorique * unitMult * item.prix;
+    totReelDH += consReelle * unitMult * item.prix;
     totEcartDH += impactDH;
-    totCasseDH += item.casse * item.prix;
+    totCasseDH += item.casse * unitMult * item.prix;
 
     if (ecartPct > 8) alertCount++;
   });

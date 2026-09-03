@@ -172,13 +172,20 @@
     // Gestion du thème sombre/clair
     function toggleAppTheme() {
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-      try { localStorage.setItem('gc_theme', isDark ? 'light' : 'dark'); } catch(e){}
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        try { localStorage.setItem('gc_theme', 'light'); } catch(e){}
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        try { localStorage.setItem('gc_theme', 'dark'); } catch(e){}
+      }
     }
+    window.toggleAppTheme = toggleAppTheme;
     (function initTheme() {
       try {
         const saved = localStorage.getItem('gc_theme');
-        if (saved) document.documentElement.setAttribute('data-theme', saved);
+        if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+        else document.documentElement.removeAttribute('data-theme');
       } catch(e){}
     })();
   </script>

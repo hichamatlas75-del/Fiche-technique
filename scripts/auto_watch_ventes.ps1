@@ -34,10 +34,11 @@ $syncAction = {
         
         Set-Location $repoDir
         
-        # 1. Mise à jour automatique de manifest.json
-        $excelFiles = Get-ChildItem -Path $ventesDir -File | Where-Object { ($_.Extension -eq '.xls' -or $_.Extension -eq '.xlsx') -and $_.Name -ne 'manifest.json' } | Select-Object -ExpandProperty Name | Sort-Object
-        $manifestObj = @{ files = $excelFiles; lastUpdated = (Get-Date -Format 'yyyy-MM-dd') }
-        ($manifestObj | ConvertTo-Json -Depth 4) | Set-Content -Path (Join-Path $ventesDir 'manifest.json') -Encoding UTF8
+        # 1. Classement par mois et mise à jour complète et récursive de manifest.json
+        $orgScript = Join-Path $PSScriptRoot "organize_and_update_manifest.ps1"
+        if (Test-Path $orgScript) {
+            & $orgScript
+        }
         
         # 2. Ajout des fichiers et commit
         git add ventes/

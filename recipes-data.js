@@ -9302,6 +9302,21 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 0.055,
     "unit": "g",
     "label": "Quinoa Noir"
+  },
+  "croutons": {
+    "cost": 0.035,
+    "unit": "g",
+    "label": "Croûtons"
+  },
+  "crouton": {
+    "cost": 0.035,
+    "unit": "g",
+    "label": "Croûtons"
+  },
+  "olive noire": {
+    "cost": 0.045,
+    "unit": "g",
+    "label": "Olives Noires"
   }
 };
 
@@ -9314,19 +9329,25 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
   const validSellPrice = typeof sellPrice === 'number' && sellPrice > 0 ? sellPrice : parseFloat(String(sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
   const costMap = (typeof window !== 'undefined' && window.INGREDIENT_UNIT_COSTS) || INGREDIENT_UNIT_COSTS;
 
+  const cleanStr = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+  const stripPlural = (s) => s.split(' ').map(w => w.endsWith('s') && w.length > 3 ? w.slice(0, -1) : w).join(' ');
+
   (ingredients || []).forEach(line => {
     if (!line || typeof line !== 'string') return;
     const parts = line.split(':');
     const ingName = parts[0].trim();
     const qtyStr = parts.length > 1 ? parts.slice(1).join(':').trim() : '1 p';
 
-    const normIng = (ingName || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
-    let ingDef = costMap[normIng];
+    const normIng = cleanStr(ingName);
+    const normIngSingular = stripPlural(normIng);
+    let ingDef = costMap[normIng] || costMap[normIngSingular];
 
     if (!ingDef) {
       const sortedKeys = Object.keys(costMap).sort((a, b) => b.length - a.length);
       for (const k of sortedKeys) {
-        if (normIng.includes(k) || k.includes(normIng)) {
+        const normK = cleanStr(k);
+        const normKSingular = stripPlural(normK);
+        if (normIng === normK || normIngSingular === normKSingular || normIng.includes(normK) || normK.includes(normIng) || normIngSingular.includes(normKSingular) || normKSingular.includes(normIngSingular)) {
           ingDef = costMap[k];
           break;
         }
