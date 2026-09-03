@@ -213,8 +213,108 @@
     }
   }
 
+  let isComparatorTableView = false;
+
+  window.toggleComparatorViewMode = function() {
+    isComparatorTableView = !isComparatorTableView;
+    const cardsContainer = document.getElementById('recipes-comparator-container');
+    const tableContainer = document.getElementById('comparator-table-container');
+    const btn = document.getElementById('btn-toggle-comp-view');
+
+    if (btn) {
+      btn.innerHTML = isComparatorTableView ? '📋 Vue : Cartes Comparatives' : '📊 Vue : Tableau Synthétique';
+    }
+
+    if (cardsContainer) cardsContainer.style.display = isComparatorTableView ? 'none' : 'grid';
+    if (tableContainer) tableContainer.style.display = isComparatorTableView ? 'block' : 'none';
+
+    if (isComparatorTableView) {
+      renderComparatorTable();
+    } else {
+      renderRecipeCards();
+    }
+  };
+
+  function renderComparatorTable() {
+    const container = document.getElementById('comparator-table-container');
+    if (!container) return;
+
+    let filtered = allRecipes.filter(r => {
+      const matchCat = currentCategory === 'ALL' || r.category === currentCategory;
+      const matchSearch = !searchQuery || 
+        r.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        r.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        r.greyCorner.tech.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+      const matchGains = !onlyGainsFilter || r.standard.diffDH >= 3.0;
+      return matchCat && matchSearch && matchGains;
+    });
+
+    if (filtered.length === 0) {
+      container.innerHTML = '<div style="padding:40px; text-align:center; color:var(--text-muted);">Aucun plat trouvé dans cette vue.</div>';
+      return;
+    }
+
+    let rowsHTML = filtered.map((recipe, idx) => {
+      const gcFCColor = recipe.greyCorner.foodCost <= 28 ? '#16a34a' : (recipe.greyCorner.foodCost <= 35 ? '#d97706' : '#dc2626');
+      const stdFCColor = recipe.standard.foodCost <= 28 ? '#16a34a' : (recipe.standard.foodCost <= 35 ? '#d97706' : '#dc2626');
+      const diffColor = recipe.standard.diffDH > 0 ? '#0284c7' : '#64748b';
+
+      return `
+        <tr style="border-bottom:1px solid var(--border); transition:background 0.15s;">
+          <td style="padding:12px 14px; font-weight:800; color:var(--text);">${escapeHtml(recipe.name)}</td>
+          <td style="padding:12px 14px; color:var(--text-muted); font-size:12px;">${escapeHtml(recipe.category)}</td>
+          <td style="padding:12px 14px; text-align:right; font-weight:700;">${recipe.sellPrice.toFixed(2)} DH</td>
+          <td style="padding:12px 14px; text-align:right; font-weight:800;">
+            ${recipe.greyCorner.cost.toFixed(2)} DH
+            <span style="display:inline-block; font-size:11px; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:800; background:rgba(${recipe.greyCorner.foodCost <= 28 ? '22,163,74,0.12' : (recipe.greyCorner.foodCost <= 35 ? '217,119,6,0.12' : '220,38,38,0.12')}); color:${gcFCColor};">
+              ${recipe.greyCorner.foodCost}%
+            </span>
+          </td>
+          <td style="padding:12px 14px; text-align:right; font-weight:700; color:var(--text-muted);">
+            ${recipe.standard.cost.toFixed(2)} DH
+            <span style="display:inline-block; font-size:11px; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700; color:${stdFCColor};">
+              ${recipe.standard.foodCost}%
+            </span>
+          </td>
+          <td style="padding:12px 14px; text-align:right; font-weight:800; color:${diffColor};">
+            ${recipe.standard.diffDH > 0 ? '+' : ''}${recipe.standard.diffDH.toFixed(2)} DH
+          </td>
+          <td style="padding:12px 14px; text-align:center;">
+            <button class="btn btn-secondary" style="padding:5px 10px; font-size:11.5px; font-weight:700; border-radius:6px; cursor:pointer;" onclick="window.copyStandardToRecipe(${idx})">
+              🟢 Standard Int.
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    container.innerHTML = `
+      <table style="width:100%; border-collapse:collapse; font-size:13px;">
+        <thead>
+          <tr style="background:var(--thead-bg, #f8fafc); border-bottom:1.5px solid var(--border); text-transform:uppercase; font-size:11px; font-weight:800; color:var(--text-muted);">
+            <th style="padding:12px 14px; text-align:left;">Plat / Recette</th>
+            <th style="padding:12px 14px; text-align:left;">Catégorie</th>
+            <th style="padding:12px 14px; text-align:right;">Prix Vente</th>
+            <th style="padding:12px 14px; text-align:right;">Coût Grey Corner</th>
+            <th style="padding:12px 14px; text-align:right;">Coût Standard Int.</th>
+            <th style="padding:12px 14px; text-align:right;">Écart DH</th>
+            <th style="padding:12px 14px; text-align:center;">Action Rapide</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rowsHTML}
+        </tbody>
+      </table>
+    `;
+  }
+
   // Filtrage et Rendu des cartes de recettes
   function renderRecipeCards() {
+    if (isComparatorTableView) {
+      renderComparatorTable();
+      return;
+    }
+
     const container = document.getElementById('recipes-comparator-container');
     if (!container) return;
 
@@ -952,16 +1052,11 @@
     }
   }
 
-  // Rétrocompatibilité
+  // Rétrocompatibilité & Délégation vers GC_PricesModal
   window.exportUpdatedRecipesDataJS = downloadUpdatedRecipesDataJs;
   window.downloadUpdatedRecipesDataJs = downloadUpdatedRecipesDataJs;
-  window.openPricesModal = openPricesModal;
-  window.closePricesModal = closePricesModal;
-  window.renderPricesTable = renderPricesTable;
-  window.showAddNewPriceForm = showAddNewPriceForm;
-  window.hideAddNewPriceForm = hideAddNewPriceForm;
-  window.confirmAddIngredientPrice = confirmAddIngredientPrice;
-  window.saveAllIngredientPricesFromModal = saveAllIngredientPricesFromModal;
+  window.openPricesModal = () => window.GC_PricesModal ? window.GC_PricesModal.open() : openPricesModal();
+  window.closePricesModal = () => window.GC_PricesModal ? window.GC_PricesModal.close() : closePricesModal();
 
   // Initialisation au chargement
   document.addEventListener('DOMContentLoaded', () => {
@@ -991,8 +1086,13 @@
     if (saveAllBtn) {
       saveAllBtn.addEventListener('click', saveEdits);
     }
-  });
 
-  // Export pour scripts
+    // Écoute de mise à jour des prix d'achat
+    if (window.GC_PricesModal) {
+      window.GC_PricesModal.onUpdate(() => {
+        initData();
+      });
+    }
+  });
 
 })();

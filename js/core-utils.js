@@ -107,6 +107,122 @@
     }
   }
 
+  /**
+   * GREY CORNER — Gestionnaire de données unifié (Single Source of Truth)
+   */
+  const GC_Store = {
+    // Thème
+    getTheme: () => localStorage.getItem('gc_theme') || 'light',
+    setTheme: (t) => {
+      if (t === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+      localStorage.setItem('gc_theme', t);
+    },
+
+    // Recettes personnalisées
+    getCustomRecipes: () => {
+      try {
+        const raw = localStorage.getItem('gc_recipes_db_v5') || localStorage.getItem('gc_recipes_db_v4');
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        console.warn('[GC_Store] Erreur lecture recettes:', e);
+        return [];
+      }
+    },
+    saveCustomRecipes: (recipes) => {
+      try {
+        localStorage.setItem('gc_recipes_db_v5', JSON.stringify(recipes));
+        localStorage.removeItem('gc_recipes_db_v4');
+      } catch (e) {
+        console.error('[GC_Store] Erreur sauvegarde recettes:', e);
+      }
+    },
+
+    // Prix d'achat personnalisés
+    getCustomPrices: () => {
+      try {
+        const raw = localStorage.getItem('gc_ingredient_prices_v1');
+        return raw ? JSON.parse(raw) : {};
+      } catch (e) {
+        console.warn('[GC_Store] Erreur lecture prix:', e);
+        return {};
+      }
+    },
+    saveCustomPrices: (prices) => {
+      try {
+        localStorage.setItem('gc_ingredient_prices_v1', JSON.stringify(prices));
+        if (typeof window !== 'undefined' && window.INGREDIENT_UNIT_COSTS) {
+          Object.assign(window.INGREDIENT_UNIT_COSTS, prices);
+        }
+      } catch (e) {
+        console.error('[GC_Store] Erreur sauvegarde prix:', e);
+      }
+    },
+
+    // Ventes mensuelles
+    getMonthlySales: () => {
+      try {
+        const raw = localStorage.getItem('gc_monthly_sales_db_v3');
+        return raw ? JSON.parse(raw) : {};
+      } catch (e) {
+        console.warn('[GC_Store] Erreur lecture ventes:', e);
+        return {};
+      }
+    },
+    saveMonthlySales: (salesDB) => {
+      try {
+        localStorage.setItem('gc_monthly_sales_db_v3', JSON.stringify(salesDB));
+      } catch (e) {
+        console.error('[GC_Store] Erreur sauvegarde ventes:', e);
+      }
+    }
+  };
+
+  /**
+   * GREY CORNER — Gestionnaire de mise en veille (Screen Wake Lock API)
+   */
+  let wakeLockSentinel = null;
+  const GC_WakeLock = {
+    isSupported: () => 'wakeLock' in navigator,
+    isActive: () => !!wakeLockSentinel,
+    request: async (onStatusChange) => {
+      if (!('wakeLock' in navigator)) return false;
+      try {
+        wakeLockSentinel = await navigator.wakeLock.request('screen');
+        wakeLockSentinel.addEventListener('release', () => {
+          wakeLockSentinel = null;
+          if (typeof onStatusChange === 'function') onStatusChange(false);
+        });
+        if (typeof onStatusChange === 'function') onStatusChange(true);
+        return true;
+      } catch (err) {
+        console.warn('[WakeLock] Impossible d\'activer le wake lock:', err);
+        if (typeof onStatusChange === 'function') onStatusChange(false);
+        return false;
+      }
+    },
+    release: async (onStatusChange) => {
+      if (wakeLockSentinel) {
+        try {
+          await wakeLockSentinel.release();
+        } catch (e) {}
+        wakeLockSentinel = null;
+      }
+      if (typeof onStatusChange === 'function') onStatusChange(false);
+    },
+    toggle: async (onStatusChange) => {
+      if (wakeLockSentinel) {
+        await GC_WakeLock.release(onStatusChange);
+        return false;
+      } else {
+        return await GC_WakeLock.request(onStatusChange);
+      }
+    }
+  };
+
   global.cleanText = cleanText;
   global.escapeHtml = escapeHtml;
   global.formatMoney = formatMoney;
@@ -114,4 +230,6 @@
   global.formatDateFR = formatDateFR;
   global.formatMonthFR = formatMonthFR;
   global.initThemeManager = initThemeManager;
+  global.GC_Store = GC_Store;
+  global.GC_WakeLock = GC_WakeLock;
 })(typeof window !== 'undefined' ? window : globalThis);

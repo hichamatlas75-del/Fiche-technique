@@ -515,3 +515,40 @@
     .prev { left: 2%; }
     .next { right: 2%; }
   }
+
+  /* Quick Filters & WakeLock Toolbar */
+  .kitchen-quick-filters {
+    display: flex;
+    gap: 8px;
+    margin: 10px 0 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .quick-filter-btn {
+    background: var(--paper, #fff);
+    border: 1px solid var(--border, #e2e8f0);
+    color: var(--text-muted, #64748b);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .quick-filter-btn:hover {
+    border-color: var(--accent, #0284c7);
+    color: var(--accent, #0284c7);
+  }
+  .quick-filter-btn.active {
+    background: var(--accent, #0284c7);
+    border-color: var(--accent, #0284c7);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+  }
+  .btn-wakelock-active {
+    background: #eab308 !important;
+    border-color: #ca8a04 !important;
+    color: #0f172a !important;
+    font-weight: 800 !important;
+    box-shadow: 0 0 10px rgba(234, 179, 8, 0.5) !important;
+  }

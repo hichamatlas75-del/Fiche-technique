@@ -248,6 +248,7 @@ function renderAll() {
   initTabBehavior();
   initCardsBehavior();
   initSearch();
+  initQuickFilters();
   restoreSavedTimers();
 }
 
@@ -593,12 +594,83 @@ lbNext.onclick = (e) => {
 lb.onclick = (e) => {
   if (e.target === lb) lb.classList.remove('visible');
 };
+
+// Support tactile Swipe pour le carrousel photo (tablettes cuisine)
+let touchStartX = 0;
+let touchEndX = 0;
+lb.addEventListener('touchstart', (e) => {
+  if (e.changedTouches && e.changedTouches[0]) {
+    touchStartX = e.changedTouches[0].screenX;
+  }
+}, { passive: true });
+lb.addEventListener('touchend', (e) => {
+  if (e.changedTouches && e.changedTouches[0]) {
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchEndX < touchStartX - 50) lbNext.click();
+    else if (touchEndX > touchStartX + 50) lbPrev.click();
+  }
+}, { passive: true });
+
 document.addEventListener('keydown', (e) => {
   if (!lb.classList.contains('visible')) return;
   if (e.key === 'Escape') lb.classList.remove('visible');
   if (e.key === 'ArrowLeft') lbPrev.click();
   if (e.key === 'ArrowRight') lbNext.click();
 });
+
+// WakeLock : Maintien de l'écran allumé en cuisine
+window.toggleKitchenWakeLock = async function() {
+  const btn = document.getElementById('btn-wakelock');
+  if (!window.GC_WakeLock || !window.GC_WakeLock.isSupported()) {
+    alert("Votre navigateur ou appareil ne supporte pas l'API Screen Wake Lock.");
+    return;
+  }
+  await window.GC_WakeLock.toggle((isActive) => {
+    if (btn) {
+      btn.classList.toggle('btn-wakelock-active', isActive);
+      btn.innerHTML = isActive ? '💡 Écran Actif (ON)' : '💡 Écran Allumé';
+    }
+  });
+};
+
+// Filtres Rapides Cuisine
+let activeQuickFilter = 'all';
+function initQuickFilters() {
+  const filterBtns = document.querySelectorAll('.quick-filter-btn');
+  filterBtns.forEach(btn => {
+    btn.onclick = () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeQuickFilter = btn.dataset.filter || 'all';
+      applyQuickFilter();
+    };
+  });
+}
+
+function applyQuickFilter() {
+  const sections = document.querySelectorAll('.section-wrap');
+  sections.forEach(sec => {
+    let visibleInSec = 0;
+    const cards = sec.querySelectorAll('.card');
+    cards.forEach(c => {
+      let match = true;
+      if (activeQuickFilter === 'express') {
+        const timeChip = c.querySelector('.chip.mins');
+        const minutes = timeChip ? parseInt(timeChip.textContent.replace(/[^0-9]/g, ''), 10) : 99;
+        match = minutes <= 10;
+      } else if (activeQuickFilter === 'photos') {
+        const hero = c.querySelector('img.hero');
+        match = hero && !hero.src.startsWith('data:image/svg+xml');
+      } else if (activeQuickFilter === 'vege') {
+        const txt = (c.dataset.search || '').toLowerCase();
+        match = txt.includes('salade') || txt.includes('burrata') || txt.includes('avocat') || txt.includes('fromage') || txt.includes('vegetarien');
+      }
+      c.style.display = match ? '' : 'none';
+      if (match) visibleInSec++;
+    });
+    sec.style.display = visibleInSec > 0 ? '' : 'none';
+  });
+}
 
 // Gestion du Thème Clair / Sombre
 const themeToggleBtn = document.getElementById('theme-toggle');
@@ -628,6 +700,13 @@ function applyTheme(t) {
     }
   }
   localStorage.setItem('gc_theme', t);
+}
+
+// Mise à jour dynamique lorsque les prix matières sont modifiés
+if (window.GC_PricesModal) {
+  window.GC_PricesModal.onUpdate(() => {
+    renderAll();
+  });
 }
 
 // Lancement initial

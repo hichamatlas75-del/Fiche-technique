@@ -9,9 +9,10 @@
 <link rel="stylesheet" href="css/common.css?v=5.5" />
 <link rel="stylesheet" href="css/kitchen.css?v=5.5" />
 
-<!-- Données Centralisées (SSOT) & Utilitaires -->
+<!-- Données Centralisées (SSOT), Utilitaires & Composants -->
 <script src="recipes-data.js?v=5.5"></script>
 <script src="js/core-utils.js?v=5.5"></script>
+<script src="js/prices-modal.js?v=5.5"></script>
 </head>
 <body>
 
@@ -26,6 +27,8 @@
       <button id="search-clear" class="search-clear" title="Effacer la recherche">✕</button>
     </div>
     <div class="header-actions">
+      <button id="btn-wakelock" class="btn btn-secondary" title="Empêcher l'écran de la tablette de se mettre en veille en cuisine" onclick="window.toggleKitchenWakeLock()">💡 Écran Allumé</button>
+      <button class="btn btn-secondary" onclick="window.openPricesModal()" title="Consulter et modifier la mercuriale des prix">💲 Prix Matières</button>
       <button id="theme-toggle" class="btn btn-secondary" title="Basculer le thème">🌓 Thème</button>
       <a href="consommation.html" class="btn btn-primary" style="text-decoration:none;">📊 Déstockage</a>
       <a href="audit.html" class="btn btn-secondary" style="text-decoration:none;">⚡ Audit Flash</a>
@@ -34,7 +37,18 @@
   </div>
 </header>
 
-<nav><div class="container"><div id="tabs" class="tabs"></div></div></nav>
+<nav>
+  <div class="container">
+    <!-- FILTRES RAPIDES EN CUISINE -->
+    <div class="kitchen-quick-filters" id="kitchen-quick-filters">
+      <button class="quick-filter-btn active" data-filter="all">🌟 Tous les plats</button>
+      <button class="quick-filter-btn" data-filter="express">⏱️ Express (&le; 10 min)</button>
+      <button class="quick-filter-btn" data-filter="photos">📸 Avec Photos</button>
+      <button class="quick-filter-btn" data-filter="vege">🥗 Frais & Salades</button>
+    </div>
+    <div id="tabs" class="tabs"></div>
+  </div>
+</nav>
 
 <main id="main" class="container">
   <div id="search-info" class="search-info"></div>

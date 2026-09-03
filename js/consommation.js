@@ -1139,6 +1139,16 @@ function getCategoryBadge(cat) {
   return map[cat] || map.epicerie;
 }
 
+let isIngredientsCompactView = false;
+window.toggleIngredientsViewMode = function() {
+  isIngredientsCompactView = !isIngredientsCompactView;
+  const btn = document.getElementById('btn-toggle-ing-view');
+  if (btn) {
+    btn.innerHTML = isIngredientsCompactView ? '👁️ Vue : Synthétique (Active)' : '👁️ Vue : Détaillée (Active)';
+  }
+  renderSummaryTable();
+};
+
 function renderSummaryTable() {
   renderSummaryTopIngredientsPodium();
   const tbody = document.getElementById('tbody-ingredients');
@@ -1163,16 +1173,23 @@ function renderSummaryTable() {
   }
 
   tbody.innerHTML = filtered.map(ing => {
-    const dishesHtml = ing.dishes.map(d => {
-      let unitStr = d.unit;
-      return `<span class="dish-pill" title="${d.portions} portions × ${d.unitQty} ${unitStr}">
-        ${d.dish} : <span>${d.lineTotal} ${unitStr}</span>
-      </span>`;
-    }).join(' ');
+    let dishesHtml = '';
+    if (isIngredientsCompactView) {
+      const topDishes = ing.dishes.slice(0, 3).map(d => `${escapeHtml(d.dish)} (${d.lineTotal} ${d.unit})`).join(', ');
+      const more = ing.dishes.length > 3 ? ` <span style="color:var(--muted); font-size:11px; font-weight:700;">+${ing.dishes.length - 3} autres</span>` : '';
+      dishesHtml = `<span style="font-size:12px; color:var(--text);">${topDishes}${more}</span>`;
+    } else {
+      dishesHtml = ing.dishes.map(d => {
+        let unitStr = d.unit;
+        return `<span class="dish-pill" title="${d.portions} portions × ${d.unitQty} ${unitStr}">
+          ${escapeHtml(d.dish)} : <span>${d.lineTotal} ${unitStr}</span>
+        </span>`;
+      }).join(' ');
+    }
 
     return `
       <tr>
-        <td><strong>${ing.name}</strong></td>
+        <td><strong>${escapeHtml(ing.name)}</strong></td>
         <td>${getCategoryBadge(ing.category)}</td>
         <td>${formatIngQuantity(ing.totalQty, ing.unit, ing.name)}</td>
         <td><div class="dishes-pill-list">${dishesHtml}</div></td>
@@ -2022,13 +2039,27 @@ function loadCustomIngredientPrices() {
 }
 
 function openPricesModal() {
-  loadCustomIngredientPrices();
-  document.getElementById('prices-modal').classList.add('visible');
-  renderPricesTable();
+  if (window.GC_PricesModal) {
+    window.GC_PricesModal.open();
+  } else {
+    document.getElementById('prices-modal')?.classList.add('visible');
+  }
 }
 
 function closePricesModal() {
-  document.getElementById('prices-modal').classList.remove('visible');
+  if (window.GC_PricesModal) {
+    window.GC_PricesModal.close();
+  } else {
+    document.getElementById('prices-modal')?.classList.remove('visible');
+  }
+}
+
+if (window.GC_PricesModal) {
+  window.GC_PricesModal.onUpdate(() => {
+    recalculateMonthlyAudit();
+    renderSummaryTable();
+    if (typeof renderMenuEngineering === 'function') renderMenuEngineering();
+  });
 }
 
 function renderPricesTable() {

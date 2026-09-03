@@ -12,9 +12,10 @@
 <link rel="stylesheet" href="css/common.css?v=5.5" />
 <link rel="stylesheet" href="css/consommation.css?v=5.5" />
 
-<!-- Données Centralisées (SSOT) & Utilitaires -->
+<!-- Données Centralisées (SSOT), Utilitaires & Composants -->
 <script src="recipes-data.js?v=5.5"></script>
 <script src="js/core-utils.js?v=5.5"></script>
+<script src="js/prices-modal.js?v=5.5"></script>
 
 <style>
   .audit-page-container {
@@ -129,8 +130,9 @@
         </div>
       </div>
       <div class="header-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="window.GC_PricesModal.open()" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
         <button class="btn btn-secondary" onclick="toggleAppTheme()" title="Basculer le thème">🌓 Thème</button>
-        <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">🍽️ Fiches Cuisine</a>
+        <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">🍽️ Cuisine</a>
         <a href="consommation.html" class="btn btn-secondary" style="text-decoration:none;">📊 Déstockage</a>
         <a href="comparateur.html" class="btn btn-secondary" style="text-decoration:none;">⚖️ Normes & Comparateur</a>
       </div>
