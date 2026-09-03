@@ -9,15 +9,15 @@
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 
 <!-- Styles Modulaires -->
-<link rel="stylesheet" href="css/common.css?v=7.0" />
-<link rel="stylesheet" href="css/comparateur.css?v=7.0" />
+<link rel="stylesheet" href="css/common.css?v=7.1" />
+<link rel="stylesheet" href="css/comparateur.css?v=7.1" />
 
 <!-- Données Centralisées (SSOT), Standards Proposés, Composants & Utilitaires -->
-<script src="recipes-data.js?v=7.0"></script>
-<script src="js/core-utils.js?v=7.0"></script>
-<script src="js/prices-modal.js?v=7.0"></script>
-<script src="js/proposed-standards.js?v=7.0"></script>
-<script src="js/comparateur.js?v=7.0" defer></script>
+<script src="recipes-data.js?v=7.1"></script>
+<script src="js/core-utils.js?v=7.1"></script>
+<script src="js/prices-modal.js?v=7.1"></script>
+<script src="js/proposed-standards.js?v=7.1"></script>
+<script src="js/comparateur.js?v=7.1" defer></script>
 </head>
 <body>
 
@@ -55,7 +55,7 @@
         <button class="btn btn-primary" onclick="openPricesModal()" style="background:#0284c7; color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:800; cursor:pointer; box-shadow:0 4px 10px rgba(2,132,199,0.3);" title="Consulter, modifier et exporter les prix d'achat des matières premières">
           💲 Prix d'Achat Matières Premières
         </button>
-        <button class="btn btn-success" id="btn-save-all" style="background:#16a34a; color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:800; cursor:pointer; box-shadow:0 4px 10px rgba(22,163,74,0.3);" title="Sauvegarder les fiches techniques modifiées">
+        <button class="btn btn-success" id="btn-save-all" onclick="window.saveAllEdits ? window.saveAllEdits() : (window.saveEdits ? window.saveEdits() : null)" style="background:#16a34a; color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:800; cursor:pointer; box-shadow:0 4px 10px rgba(22,163,74,0.3);" title="Sauvegarder les fiches techniques modifiées">
           💾 Enregistrer les Fiches
         </button>
         <button class="btn btn-secondary" onclick="window.downloadUpdatedRecipesDataJs ? window.downloadUpdatedRecipesDataJs() : window.exportUpdatedRecipesDataJS()" style="padding:10px 14px; font-weight:700; border-radius:10px; border:1px solid var(--border); background:var(--paper); color:var(--text); cursor:pointer;" title="Télécharger le fichier JS complet prêt à remplacer recipes-data.js">

@@ -133,6 +133,27 @@ function loadRecipes() {
   } catch (e) {
     activeRecipes = JSON.parse(JSON.stringify(BASE_RECIPES));
   }
+
+  // Synchronisation avec les modifications de fiches du comparateur
+  try {
+    const savedComp = localStorage.getItem('grey_corner_custom_recipes_v5');
+    if (savedComp) {
+      const compEdits = JSON.parse(savedComp);
+      const tempIndex = new Map();
+      activeRecipes.forEach(r => tempIndex.set(cleanText(r.name), r));
+      Object.keys(compEdits).forEach(name => {
+        const cName = cleanText(name);
+        const r = tempIndex.get(cName) || tempIndex.get(cName.replace(/^(?:pizza|pasta|plat|sandwich|panini)\s+/, ''));
+        if (r && compEdits[name] && Array.isArray(compEdits[name].tech) && compEdits[name].tech.length > 0) {
+          r.ingredients = compEdits[name].tech.slice();
+          r.tech = compEdits[name].tech.slice();
+        }
+      });
+    }
+  } catch (err) {
+    console.warn("Erreur synchronisation recettes comparateur:", err);
+  }
+
   // Build recipe index for O(1) lookups
   window.recipeNameIndex = new Map();
   activeRecipes.forEach(r => {

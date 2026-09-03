@@ -17,6 +17,11 @@
 
   const STORAGE_KEY = 'grey_corner_custom_recipes_v5';
 
+  function cleanText(str) {
+    if (!str) return '';
+    return str.toString().toLowerCase().replace(/œ/g, 'oe').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+
   // Chargement des modifications enregistrées localement
   function loadSavedEdits() {
     try {
@@ -24,41 +29,86 @@
       if (saved) {
         editedRecipes = JSON.parse(saved);
       }
-      const v5Saved = localStorage.getItem('gc_recipes_db_v5');
-      if (v5Saved) {
-        const parsed = JSON.parse(v5Saved);
-        parsed.forEach(r => {
-          if (r && r.name && (r.tech || r.ingredients) && !editedRecipes[r.name]) {
-            editedRecipes[r.name] = { tech: r.tech || r.ingredients };
-          }
-        });
-      }
     } catch (e) {
       console.warn("Impossible de charger les fiches sauvegardées", e);
     }
   }
 
-  // Sauvegarde des modifications
-  function saveEdits() {
+  // Sauvegarde globale & synchronisation universelle
+  function saveEdits(isManualSave = true) {
     try {
+      // 1. Sauvegarder dans STORAGE_KEY (mémoire locale du comparateur)
       localStorage.setItem(STORAGE_KEY, JSON.stringify(editedRecipes));
+
+      // 2. Synchroniser dans gc_recipes_db_v5 (utilisé par Cuisine et Déstockage)
+      let baseList = [];
       const rawV5 = localStorage.getItem('gc_recipes_db_v5');
       if (rawV5) {
-        const listV5 = JSON.parse(rawV5);
-        listV5.forEach(r => {
-          if (r && r.name && editedRecipes[r.name] && editedRecipes[r.name].tech) {
-            r.tech = editedRecipes[r.name].tech;
-            r.ingredients = editedRecipes[r.name].tech;
+        try { baseList = JSON.parse(rawV5); } catch(e) {}
+      }
+      if (!baseList || baseList.length === 0) {
+        baseList = JSON.parse(JSON.stringify(window.BASE_RECIPES || []));
+      }
+
+      const cleanMap = new Map();
+      baseList.forEach(r => {
+        if (r && r.name) cleanMap.set(cleanText(r.name), r);
+      });
+
+      Object.keys(editedRecipes).forEach(name => {
+        const item = editedRecipes[name];
+        if (!item || !Array.isArray(item.tech)) return;
+        const cName = cleanText(name);
+        let r = cleanMap.get(cName);
+        if (!r) {
+          const simp = cName.replace(/^(?:pizza|pasta|plat|sandwich|panini)\s+/, '').trim();
+          r = cleanMap.get(simp);
+        }
+        if (r) {
+          r.tech = item.tech.slice();
+          r.ingredients = item.tech.slice();
+        }
+      });
+
+      localStorage.setItem('gc_recipes_db_v5', JSON.stringify(baseList));
+
+      // 3. Mettre à jour window.DATA et window.CATEGORIES_DATA en mémoire
+      const allData = window.CATEGORIES_DATA || window.DATA || [];
+      allData.forEach(cat => {
+        (cat.items || []).forEach(it => {
+          if (it && it.name) {
+            const userEdit = editedRecipes[it.name] || editedRecipes[cleanText(it.name)];
+            if (userEdit && Array.isArray(userEdit.tech)) {
+              it.tech = userEdit.tech.slice();
+            }
           }
         });
-        localStorage.setItem('gc_recipes_db_v5', JSON.stringify(listV5));
+      });
+
+      if (isManualSave) {
+        showToast("💾 Fiches techniques enregistrées avec succès !");
+        const btn = document.getElementById('btn-save-all');
+        if (btn) {
+          const origHTML = btn.innerHTML;
+          btn.innerHTML = "✅ Fiches Enregistrées !";
+          btn.style.background = "#059669";
+          setTimeout(() => {
+            btn.innerHTML = origHTML;
+            btn.style.background = "#16a34a";
+          }, 3000);
+        }
       }
-      showToast("💾 Fiches techniques Grey Corner enregistrées avec succès !");
     } catch (e) {
-      console.error("Erreur lors de la sauvegarde", e);
-      showToast("❌ Erreur lors de la sauvegarde locale");
+      console.error("Erreur lors de la sauvegarde locale", e);
+      if (isManualSave) {
+        showToast("❌ Erreur de sauvegarde : " + e.message);
+      }
     }
   }
+
+  // Exposer globalement pour exécution directe
+  window.saveEdits = () => saveEdits(true);
+  window.saveAllEdits = () => saveEdits(true);
 
   // Chargement des prix personnalisés des matières premières
   function loadCustomIngredientPrices() {
@@ -82,6 +132,12 @@
     loadSavedEdits();
     allRecipes = [];
 
+    // Créer un index normalisé des modifications enregistrées
+    const cleanEditsMap = new Map();
+    Object.keys(editedRecipes).forEach(k => {
+      cleanEditsMap.set(cleanText(k), editedRecipes[k]);
+    });
+
     const data = window.CATEGORIES_DATA || window.DATA || [];
     data.forEach(cat => {
       const catName = cat.category || 'AUTRE';
@@ -90,8 +146,9 @@
         const sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
         
         // 1. Fiche Grey Corner (Modifiable ou initiale)
-        const currentTech = (editedRecipes[item.name] && editedRecipes[item.name].tech) 
-          ? editedRecipes[item.name].tech 
+        const userEdit = editedRecipes[item.name] || cleanEditsMap.get(cleanText(item.name));
+        const currentTech = (userEdit && Array.isArray(userEdit.tech)) 
+          ? userEdit.tech.slice() 
           : JSON.parse(JSON.stringify(initialTech));
 
         const gcCostObj = window.calculateRecipeFoodCost(currentTech, sellPrice);
@@ -682,8 +739,10 @@
 
     // Enregistrer dans editedRecipes
     editedRecipes[recipe.name] = {
-      tech: recipe.greyCorner.tech
+      tech: recipe.greyCorner.tech,
+      updatedAt: Date.now()
     };
+    saveEdits(false);
 
     // Recalculer le coût
     const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
@@ -721,8 +780,10 @@
     recipe.greyCorner.tech[ingIdx] = `${(newName || '').trim()} : ${qtyStr}`;
 
     editedRecipes[recipe.name] = {
-      tech: recipe.greyCorner.tech
+      tech: recipe.greyCorner.tech,
+      updatedAt: Date.now()
     };
+    saveEdits(false);
 
     const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
     recipe.greyCorner.cost = costObj.cost;
@@ -768,8 +829,10 @@
 
     recipe.greyCorner.tech.push(`${ingName.trim()} : ${qty.trim()}`);
     editedRecipes[recipe.name] = {
-      tech: recipe.greyCorner.tech
+      tech: recipe.greyCorner.tech,
+      updatedAt: Date.now()
     };
+    saveEdits(false);
 
     const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
     recipe.greyCorner.cost = costObj.cost;
@@ -802,8 +865,10 @@
 
     recipe.greyCorner.tech.splice(ingIdx, 1);
     editedRecipes[recipe.name] = {
-      tech: recipe.greyCorner.tech
+      tech: recipe.greyCorner.tech,
+      updatedAt: Date.now()
     };
+    saveEdits(false);
 
     const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
     recipe.greyCorner.cost = costObj.cost;
@@ -824,8 +889,10 @@
 
     recipe.greyCorner.tech = JSON.parse(JSON.stringify(recipe.standard.tech));
     editedRecipes[recipe.name] = {
-      tech: recipe.greyCorner.tech
+      tech: recipe.greyCorner.tech,
+      updatedAt: Date.now()
     };
+    saveEdits(false);
 
     const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
     recipe.greyCorner.cost = costObj.cost;
@@ -845,6 +912,7 @@
     if (!recipe) return;
 
     delete editedRecipes[recipe.name];
+    saveEdits(false);
     recipe.greyCorner.tech = JSON.parse(JSON.stringify(recipe.initialTech));
 
     const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
@@ -891,15 +959,15 @@
     if (!toast) {
       toast = document.createElement('div');
       toast.id = 'comp-toast';
-      toast.style.cssText = 'position:fixed; bottom:24px; right:24px; background:#0f172a; color:#fff; padding:14px 22px; border-radius:12px; font-weight:700; font-size:14px; box-shadow:0 8px 24px rgba(0,0,0,0.3); z-index:9999; display:flex; align-items:center; gap:10px; transition:all 0.3s ease; border:1px solid #334155;';
+      toast.style.cssText = 'position:fixed; top:18px; left:50%; transform:translateX(-50%); background:#0f172a; color:#fff; padding:12px 20px; border-radius:12px; font-weight:800; font-size:13.5px; box-shadow:0 10px 30px rgba(0,0,0,0.4); z-index:999999; display:flex; align-items:center; gap:8px; transition:all 0.3s cubic-bezier(0.16, 1, 0.3, 1); border:1.5px solid #0284c7; max-width:92vw; text-align:center; pointer-events:none;';
       document.body.appendChild(toast);
     }
     toast.textContent = msg;
     toast.style.opacity = '1';
-    toast.style.transform = 'translateY(0)';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
     setTimeout(() => {
       toast.style.opacity = '0';
-      toast.style.transform = 'translateY(10px)';
+      toast.style.transform = 'translateX(-50%) translateY(-12px)';
     }, 3200);
   }
 
