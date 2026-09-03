@@ -67,6 +67,10 @@
         if (r) {
           r.tech = item.tech.slice();
           r.ingredients = item.tech.slice();
+          if (typeof item.sellPrice === 'number' && item.sellPrice > 0) {
+            r.sellPrice = item.sellPrice;
+            r.price = item.sellPrice + ' DH';
+          }
         }
       });
 
@@ -78,8 +82,12 @@
         (cat.items || []).forEach(it => {
           if (it && it.name) {
             const userEdit = editedRecipes[it.name] || editedRecipes[cleanText(it.name)];
-            if (userEdit && Array.isArray(userEdit.tech)) {
-              it.tech = userEdit.tech.slice();
+            if (userEdit) {
+              if (Array.isArray(userEdit.tech)) it.tech = userEdit.tech.slice();
+              if (typeof userEdit.sellPrice === 'number' && userEdit.sellPrice > 0) {
+                it.sellPrice = userEdit.sellPrice;
+                it.price = userEdit.sellPrice + ' DH';
+              }
             }
           }
         });
@@ -149,11 +157,14 @@
       const catName = cat.category || 'AUTRE';
       (cat.items || []).forEach(item => {
         const initialTech = JSON.parse(JSON.stringify(item.tech || []));
-        const sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
+        let sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
         
         // 1. Fiche Grey Corner (Modifiable ou initiale)
         const cTarget = cleanText(item.name);
         const userEdit = editedRecipes[item.name] || cleanEditsMap.get(cTarget);
+        if (userEdit && typeof userEdit.sellPrice === 'number' && userEdit.sellPrice > 0) {
+          sellPrice = userEdit.sellPrice;
+        }
         const currentTech = (userEdit && Array.isArray(userEdit.tech)) 
           ? userEdit.tech.slice() 
           : JSON.parse(JSON.stringify(initialTech));
@@ -451,7 +462,18 @@
             <h3 class="dish-title">${recipe.name}</h3>
           </div>
           <div class="card-price-group">
-            <span class="sell-price-tag">Prix Vente : ${recipe.sellPrice} DH</span>
+            <span class="sell-price-tag" style="display:inline-flex; align-items:center; gap:6px;">
+              Prix Vente : 
+              <input type="number" 
+                     class="sell-price-input" 
+                     value="${recipe.sellPrice}" 
+                     step="0.5" 
+                     min="0" 
+                     placeholder="0" 
+                     title="Saisir ou modifier le prix de vente du plat" 
+                     oninput="window.updateRecipeSellPrice(${idx}, this.value)" 
+                     style="width:70px; padding:2px 6px; font-weight:800; border:1.5px solid #0284c7; border-radius:6px; background:#fff; text-align:center; font-size:13px; color:#0f172a;" /> DH
+            </span>
             ${diffBadge}
           </div>
         </div>
@@ -752,6 +774,49 @@
 
     return { recipe, cardIdx: (cardIdx !== null ? cardIdx : 0), recipeName: (recipe ? recipe.name : recipeName) };
   }
+
+  // Mise à jour du prix de vente d'un plat
+  window.updateRecipeSellPrice = function(p1, p2, p3) {
+    let recipe, cardIdx, newSellPrice;
+    if (arguments.length >= 3) {
+      ({ recipe, cardIdx } = resolveRecipe(p1, p2));
+      newSellPrice = parseFloat(p3) || 0;
+    } else {
+      ({ recipe, cardIdx } = resolveRecipe(p1));
+      newSellPrice = parseFloat(p2) || 0;
+    }
+    if (!recipe) return;
+
+    recipe.sellPrice = newSellPrice;
+
+    // Enregistrer dans editedRecipes
+    if (!editedRecipes[recipe.name]) {
+      editedRecipes[recipe.name] = { tech: recipe.greyCorner.tech.slice(), updatedAt: Date.now() };
+    }
+    editedRecipes[recipe.name].sellPrice = newSellPrice;
+    editedRecipes[recipe.name].updatedAt = Date.now();
+    saveEdits(false);
+
+    // Recalculer le coût et la marge Grey Corner
+    const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
+    recipe.greyCorner.cost = costObj.cost;
+    recipe.greyCorner.foodCost = costObj.foodCost;
+    recipe.greyCorner.margin = costObj.margin;
+    recipe.greyCorner.grossMarginDH = costObj.grossMarginDH;
+    recipe.greyCorner.breakdown = costObj.breakdown;
+
+    // Recalculer le standard comparatif
+    const standardCostObj = window.calculateRecipeFoodCost(recipe.standard.tech, recipe.sellPrice);
+    recipe.standard.cost = standardCostObj.cost;
+    recipe.standard.foodCost = standardCostObj.foodCost;
+    recipe.standard.margin = standardCostObj.margin;
+    recipe.standard.grossMarginDH = standardCostObj.grossMarginDH;
+    recipe.standard.diffDH = Math.round((recipe.greyCorner.cost - recipe.standard.cost) * 100) / 100;
+
+    // Mettre à jour l'affichage de la carte
+    updateCardMetrics(cardIdx, recipe);
+    renderSummaryKPIs();
+  };
 
   // Mise à jour de la valeur d'un ingrédient
   window.onIngredientInputChange = function(p1, p2, p3, p4, p5) {
@@ -1271,8 +1336,13 @@
 
       clonedData.forEach(cat => {
         (cat.items || []).forEach(item => {
-          if (editedRecipes[item.name] && editedRecipes[item.name].tech) {
-            item.tech = editedRecipes[item.name].tech;
+          const edit = editedRecipes[item.name] || editedRecipes[cleanText(item.name)];
+          if (edit) {
+            if (edit.tech) item.tech = edit.tech;
+            if (typeof edit.sellPrice === 'number' && edit.sellPrice > 0) {
+              item.sellPrice = edit.sellPrice;
+              item.price = edit.sellPrice + ' DH';
+            }
           }
           const sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
           const costObj = window.calculateRecipeFoodCost(item.tech, sellPrice);
@@ -1287,8 +1357,13 @@
       const rawBase = window.BASE_RECIPES || [];
       const clonedBase = JSON.parse(JSON.stringify(rawBase));
       clonedBase.forEach(r => {
-        if (editedRecipes[r.name] && editedRecipes[r.name].tech) {
-          r.ingredients = editedRecipes[r.name].tech;
+        const edit = editedRecipes[r.name] || editedRecipes[cleanText(r.name)];
+        if (edit) {
+          if (edit.tech) r.ingredients = edit.tech;
+          if (typeof edit.sellPrice === 'number' && edit.sellPrice > 0) {
+            r.sellPrice = edit.sellPrice;
+            r.price = edit.sellPrice + ' DH';
+          }
         }
       });
 
