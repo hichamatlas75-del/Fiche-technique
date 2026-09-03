@@ -771,10 +771,13 @@
   /* Cartes comparatives */
   .recipes-list {
     gap: 16px;
+    width: 100%;
   }
 
   .comparative-card {
     border-radius: 14px;
+    width: 100%;
+    overflow: hidden;
   }
 
   .card-top-bar {
@@ -786,6 +789,7 @@
 
   .card-title-group {
     justify-content: space-between;
+    width: 100%;
   }
 
   .dish-title {
@@ -795,6 +799,8 @@
   .card-price-group {
     justify-content: space-between;
     width: 100%;
+    flex-wrap: wrap;
+    gap: 6px;
   }
 
   .sell-price-tag {
@@ -803,7 +809,9 @@
   }
 
   .col-box {
-    padding: 14px 12px;
+    padding: 12px 10px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .col-header h4 {
@@ -812,12 +820,135 @@
 
   .tech-list {
     font-size: 12.5px;
+    width: 100%;
+  }
+
+  /* ÉDITEUR D'INGRÉDIENTS MOBILE : Organisation verticale sans débordement */
+  .custom-ingredients-editor {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .ing-edit-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 6px !important;
+    padding: 8px 10px !important;
+    background: var(--bg) !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .ing-name-input {
+    width: 100% !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    padding: 6px 8px !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    background: var(--paper) !important;
+    box-sizing: border-box !important;
+    min-height: 36px !important;
+  }
+
+  .ing-input-wrap {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 6px !important;
+  }
+
+  .btn-step {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    font-size: 18px !important;
+    border-radius: 8px !important;
+    background: var(--paper) !important;
+  }
+
+  .ing-num-input {
+    flex: 1 !important;
+    max-width: 90px !important;
+    min-height: 36px !important;
+    font-size: 16px !important;
+    text-align: center !important;
+    border-radius: 8px !important;
+  }
+
+  .ing-unit-tag {
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    min-width: 24px !important;
+    text-align: center !important;
+  }
+
+  .btn-del-ing {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    font-size: 16px !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Actions rapides sous la recette */
+  .quick-preset-actions {
+    flex-direction: column !important;
+    gap: 6px !important;
+    width: 100% !important;
+  }
+
+  .btn-preset {
+    width: 100% !important;
+    min-height: 38px !important;
+    font-size: 12px !important;
+    justify-content: center !important;
+  }
+
+  /* Bloc financier Grey Corner */
+  .col-finances {
+    padding: 10px 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .fin-row {
+    font-size: 12.5px !important;
+    width: 100% !important;
+  }
+
+  .fin-row strong {
+    font-size: 14px !important;
+  }
+
+  /* Tiroir accordéon détails coût de portion */
+  .portion-drawer-wrapper {
+    width: 100% !important;
   }
 
   .btn-drawer-toggle {
-    min-height: 42px;
-    padding: 10px 12px;
-    font-size: 12px;
+    width: 100% !important;
+    min-height: 42px !important;
+    padding: 10px 12px !important;
+    font-size: 12px !important;
+  }
+
+  .portion-drawer-panel {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .drawer-inner-box {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 
   .drawer-cost-table {
@@ -836,5 +967,6 @@
     grid-template-columns: 1fr;
   }
 }
+
 
 

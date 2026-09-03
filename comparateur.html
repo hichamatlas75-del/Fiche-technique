@@ -9,29 +9,29 @@
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 
 <!-- Styles Modulaires -->
-<link rel="stylesheet" href="css/common.css?v=5.5" />
-<link rel="stylesheet" href="css/comparateur.css?v=5.5" />
+<link rel="stylesheet" href="css/common.css?v=7.0" />
+<link rel="stylesheet" href="css/comparateur.css?v=7.0" />
 
 <!-- Données Centralisées (SSOT), Standards Proposés, Composants & Utilitaires -->
-<script src="recipes-data.js?v=5.6"></script>
-<script src="js/core-utils.js?v=5.6"></script>
-<script src="js/prices-modal.js?v=5.6"></script>
-<script src="js/proposed-standards.js?v=5.6"></script>
-<script src="js/comparateur.js?v=5.6" defer></script>
+<script src="recipes-data.js?v=7.0"></script>
+<script src="js/core-utils.js?v=7.0"></script>
+<script src="js/prices-modal.js?v=7.0"></script>
+<script src="js/proposed-standards.js?v=7.0"></script>
+<script src="js/comparateur.js?v=7.0" defer></script>
 </head>
 <body>
 
   <!-- HEADER NAVIGATION -->
   <header class="app-header">
-    <div class="container head" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-      <div class="brand" style="display:flex; align-items:center; gap:12px;">
-        <div class="logo-badge" style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg, #0284c7, #38bdf8); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:17px; color:#fff;">GC</div>
+    <div class="container head">
+      <div class="brand">
+        <div class="logo-badge">GC</div>
         <div class="ttl-group">
-          <div class="ttl">Grey Corner <span style="color:var(--accent);">⚖️ Fiches Techniques vs Normes Int.</span></div>
-          <div class="sub-ttl" style="font-size:11px; color:var(--text-muted); font-weight:600;">Gestion Opérationnelle & Comparatif des Standards F&B</div>
+          <div class="ttl">Grey Corner <span>⚖️ Fiches Techniques vs Normes Int.</span></div>
+          <div class="sub-ttl">Gestion Opérationnelle & Comparatif des Standards F&B</div>
         </div>
       </div>
-      <div class="header-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+      <div class="header-actions">
         <button class="btn btn-primary" onclick="window.GC_PricesModal.open()" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
         <button id="theme-toggle" class="btn btn-secondary" onclick="window.toggleAppTheme ? window.toggleAppTheme() : document.body.classList.toggle('dark-theme')" title="Basculer le thème">🌓 Thème</button>
         <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">🍽️ Cuisine</a>
