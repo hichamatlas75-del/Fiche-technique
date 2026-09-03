@@ -581,3 +581,93 @@
   border: 1px dashed var(--border);
   color: var(--text-muted);
 }
+
+/* TIROIR ACCORDÉON DÉTAILS COÛT DE PORTION */
+.portion-drawer-wrapper {
+  margin-top: 12px;
+  border-radius: 10px;
+}
+
+.btn-drawer-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-drawer-toggle:hover {
+  background: var(--paper-hover);
+  border-color: var(--accent);
+}
+
+.btn-drawer-toggle.gc-drawer-btn {
+  background: rgba(2, 132, 199, 0.06);
+  border-color: rgba(2, 132, 199, 0.25);
+  color: #0284c7;
+}
+
+.btn-drawer-toggle.gc-drawer-btn:hover {
+  background: rgba(2, 132, 199, 0.12);
+  border-color: #0284c7;
+}
+
+.btn-drawer-toggle.std-drawer-btn {
+  background: rgba(22, 163, 74, 0.06);
+  border-color: rgba(22, 163, 74, 0.25);
+  color: #16a34a;
+}
+
+.btn-drawer-toggle.std-drawer-btn:hover {
+  background: rgba(22, 163, 74, 0.12);
+  border-color: #16a34a;
+}
+
+.btn-drawer-toggle.drawer-open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: transparent;
+}
+
+.drawer-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.drawer-icon {
+  font-size: 10px;
+  transition: transform 0.2s ease;
+}
+
+.portion-drawer-panel {
+  border: 1px solid var(--border);
+  border-top: none;
+  background: var(--bg-subtle, rgba(0, 0, 0, 0.02));
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 8px 10px;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.drawer-inner-box {
+  overflow-x: auto;
+}
+
+.drawer-cost-table td, .drawer-cost-table th {
+  padding: 6px 8px;
+}
+

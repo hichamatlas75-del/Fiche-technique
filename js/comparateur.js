@@ -280,9 +280,32 @@
             ${recipe.standard.diffDH > 0 ? '+' : ''}${recipe.standard.diffDH.toFixed(2)} DH
           </td>
           <td style="padding:12px 14px; text-align:center;">
-            <button class="btn btn-secondary" style="padding:5px 10px; font-size:11.5px; font-weight:700; border-radius:6px; cursor:pointer;" onclick="window.copyStandardToRecipe(${idx})">
-              🟢 Standard Int.
-            </button>
+            <div style="display:flex; gap:6px; justify-content:center; align-items:center;">
+              <button class="btn btn-secondary" id="btn-table-drawer-${idx}" style="padding:5px 8px; font-size:11.5px; font-weight:700; border-radius:6px; cursor:pointer;" onclick="window.toggleTableRowDrawer(${idx})">
+                📂 Détails
+              </button>
+              <button class="btn btn-secondary" style="padding:5px 8px; font-size:11.5px; font-weight:700; border-radius:6px; cursor:pointer;" onclick="window.copyStandardToRecipe(${idx})">
+                🟢 Standard
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr id="table-row-drawer-${idx}" style="display:none; background:var(--bg-subtle, rgba(0,0,0,0.02)); border-bottom:2px solid var(--border);">
+          <td colspan="7" style="padding:14px 18px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <div style="background:var(--paper); padding:12px; border-radius:8px; border:1px solid var(--border);">
+                <div style="font-weight:800; font-size:12.5px; color:#0284c7; margin-bottom:6px;">
+                  🔵 Détail Coût Grey Corner (${recipe.greyCorner.cost.toFixed(2)} DH)
+                </div>
+                ${renderPortionCostBreakdownHTML(recipe.greyCorner.tech, recipe.sellPrice, 'gc', idx)}
+              </div>
+              <div style="background:var(--paper); padding:12px; border-radius:8px; border:1px solid var(--border);">
+                <div style="font-weight:800; font-size:12.5px; color:#16a34a; margin-bottom:6px;">
+                  🟢 Détail Coût Standard Int. (${recipe.standard.cost.toFixed(2)} DH)
+                </div>
+                ${renderPortionCostBreakdownHTML(recipe.standard.tech, recipe.sellPrice, 'std', idx)}
+              </div>
+            </div>
           </td>
         </tr>
       `;
@@ -404,6 +427,17 @@
                 <strong id="gc-margin-${idx}" class="text-success" style="font-size:16px;">+${recipe.greyCorner.grossMarginDH.toFixed(2)} DH</strong>
               </div>
             </div>
+
+            <!-- TIROIR ACCORDÉON : DÉTAILS DU COÛT DE PORTION GREY CORNER -->
+            <div class="portion-drawer-wrapper">
+              <button type="button" class="btn-drawer-toggle gc-drawer-btn" id="btn-drawer-gc-${idx}" onclick="window.togglePortionCostDrawer(${idx}, 'gc')" title="Déplier / replier le détail du coût par ingrédient">
+                <span class="drawer-title">📂 Détails Coût Portion (Tiroir)</span>
+                <span class="drawer-icon" id="icon-drawer-gc-${idx}">▼</span>
+              </button>
+              <div class="portion-drawer-panel" id="drawer-panel-gc-${idx}" style="display:none;">
+                ${renderPortionCostBreakdownHTML(recipe.greyCorner.tech, recipe.sellPrice, 'gc', idx)}
+              </div>
+            </div>
           </div>
 
           <!-- COLONNE 2 : NORME INTERNATIONALE (À TITRE COMPARATIF) -->
@@ -435,12 +469,124 @@
                 <strong class="${recipe.standard.diffDH > 0 ? 'text-gold' : 'text-success'}">${recipe.standard.diffDH > 0 ? '+' + recipe.standard.diffDH.toFixed(2) : recipe.standard.diffDH.toFixed(2)} DH</strong>
               </div>
             </div>
+
+            <!-- TIROIR ACCORDÉON : DÉTAILS DU COÛT DE PORTION STANDARD -->
+            <div class="portion-drawer-wrapper">
+              <button type="button" class="btn-drawer-toggle std-drawer-btn" id="btn-drawer-std-${idx}" onclick="window.togglePortionCostDrawer(${idx}, 'std')" title="Déplier / replier le détail du coût standard par ingrédient">
+                <span class="drawer-title">📂 Détails Coût Standard (Tiroir)</span>
+                <span class="drawer-icon" id="icon-drawer-std-${idx}">▼</span>
+              </button>
+              <div class="portion-drawer-panel" id="drawer-panel-std-${idx}" style="display:none;">
+                ${renderPortionCostBreakdownHTML(recipe.standard.tech, recipe.sellPrice, 'std', idx)}
+              </div>
+            </div>
           </div>
 
         </div>
       </div>
     `;
   }
+
+  // Rendu du tiroir détaillé de coût de portion (décomposition par ingrédient)
+  function renderPortionCostBreakdownHTML(techArray, sellPrice, type, cardIdx) {
+    const calcFn = (typeof window !== 'undefined' && window.calculateRecipeFoodCost) ? window.calculateRecipeFoodCost : (typeof calculateRecipeFoodCost === 'function' ? calculateRecipeFoodCost : () => ({ cost: 0, breakdown: [] }));
+    const costObj = calcFn(techArray, sellPrice || 0);
+    const breakdown = costObj.breakdown || [];
+    const totalCost = costObj.cost || 0;
+
+    if (breakdown.length === 0) {
+      return `<div style="padding:10px; font-size:12px; color:var(--text-muted); text-align:center;">Aucun détail d'ingrédient disponible.</div>`;
+    }
+
+    const rows = breakdown.map(item => {
+      let unitLbl = item.unit === 'g' ? 'DH/kg' : (item.unit === 'ml' ? 'DH/L' : 'DH/u');
+      let displayPrice = (item.unit === 'g' || item.unit === 'ml') ? (item.unitPrice * 1000) : item.unitPrice;
+      let pctOfPortion = totalCost > 0 ? Math.round((item.cost / totalCost) * 1000) / 10 : 0;
+      let barColor = type === 'gc' ? '#0284c7' : '#16a34a';
+
+      return `
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:5px 7px; font-weight:700; color:var(--text); font-size:12px;">
+            ${escapeHtml(item.ingredient)}
+          </td>
+          <td style="padding:5px 7px; text-align:center; color:var(--text-muted); font-size:11.5px; white-space:nowrap;">
+            ${escapeHtml(item.quantity)}
+          </td>
+          <td style="padding:5px 7px; text-align:right; color:var(--text-muted); font-size:11px; white-space:nowrap;">
+            ${displayPrice.toFixed(2)} <span style="font-size:9.5px;">${unitLbl}</span>
+          </td>
+          <td style="padding:5px 7px; text-align:right; font-weight:800; color:var(--text); font-size:12px; white-space:nowrap;">
+            ${item.cost.toFixed(2)} DH
+          </td>
+          <td style="padding:5px 7px; text-align:right; width:75px;">
+            <div style="display:flex; align-items:center; justify-content:flex-end; gap:5px;">
+              <span style="font-size:11px; font-weight:700; color:${barColor}; min-width:32px;">${pctOfPortion}%</span>
+              <div style="width:26px; height:5px; background:var(--border); border-radius:3px; overflow:hidden;">
+                <div style="width:${Math.min(100, pctOfPortion)}%; height:100%; background:${barColor};"></div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    return `
+      <div class="drawer-inner-box">
+        <table class="drawer-cost-table" style="width:100%; border-collapse:collapse; font-size:12px;">
+          <thead>
+            <tr style="border-bottom:1.5px solid var(--border); font-size:10.5px; text-transform:uppercase; color:var(--text-muted); background:var(--thead-bg, rgba(0,0,0,0.02));">
+              <th style="padding:6px 7px; text-align:left;">Ingrédient</th>
+              <th style="padding:6px 7px; text-align:center;">Dose</th>
+              <th style="padding:6px 7px; text-align:right;">P.U. Achat</th>
+              <th style="padding:6px 7px; text-align:right;">Coût</th>
+              <th style="padding:6px 7px; text-align:right;">Part</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+          </tbody>
+          <tfoot>
+            <tr style="border-top:1.5px solid var(--border); font-weight:900; background:rgba(0,0,0,0.03);">
+              <td colspan="3" style="padding:7px; text-align:left; font-size:11.5px;">TOTAL COÛT DE PORTION</td>
+              <td style="padding:7px; text-align:right; color:${type === 'gc' ? '#0284c7' : '#16a34a'}; font-size:12.5px; font-weight:900;">
+                ${totalCost.toFixed(2)} DH
+              </td>
+              <td style="padding:7px; text-align:right; font-size:11px; color:var(--text-muted);">100%</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    `;
+  }
+
+  // Fonction de bascule (ouverture/fermeture) du tiroir
+  window.togglePortionCostDrawer = function(idx, type) {
+    const panel = document.getElementById(`drawer-panel-${type}-${idx}`);
+    const btn = document.getElementById(`btn-drawer-${type}-${idx}`);
+    const icon = document.getElementById(`icon-drawer-${type}-${idx}`);
+    if (!panel) return;
+
+    const isOpen = panel.style.display !== 'none';
+    if (isOpen) {
+      panel.style.display = 'none';
+      if (icon) icon.textContent = '▼';
+      if (btn) btn.classList.remove('drawer-open');
+    } else {
+      panel.style.display = 'block';
+      if (icon) icon.textContent = '▲';
+      if (btn) btn.classList.add('drawer-open');
+    }
+  };
+
+  // Bascule du tiroir dans le tableau synthétique
+  window.toggleTableRowDrawer = function(idx) {
+    const row = document.getElementById(`table-row-drawer-${idx}`);
+    const btn = document.getElementById(`btn-table-drawer-${idx}`);
+    if (!row) return;
+    const isOpen = row.style.display !== 'none';
+    row.style.display = isOpen ? 'none' : 'table-row';
+    if (btn) btn.innerHTML = isOpen ? '📂 Détails' : '🔼 Masquer';
+  };
 
   // Génération des champs de saisie pour chaque ingrédient
   function renderIngredientsEditorHTML(techArray, recipeName, idx) {
@@ -723,6 +869,11 @@
       fcEl.className = `badge ${recipe.greyCorner.foodCost <= 28 ? 'badge-ok' : (recipe.greyCorner.foodCost <= 38 ? 'badge-warn' : 'badge-danger')}`;
     }
     if (marginEl) marginEl.textContent = `+${recipe.greyCorner.grossMarginDH.toFixed(2)} DH`;
+
+    const drawerPanel = document.getElementById(`drawer-panel-gc-${cardIdx}`);
+    if (drawerPanel) {
+      drawerPanel.innerHTML = renderPortionCostBreakdownHTML(recipe.greyCorner.tech, recipe.sellPrice, 'gc', cardIdx);
+    }
   }
 
   // Filtrage par catégorie
