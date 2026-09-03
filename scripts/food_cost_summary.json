@@ -972,10 +972,10 @@
     "category": "JUS FRAIS PRESSÉS & ROYAUX",
     "name": "JUS DE FRAISE",
     "sellPrice": 30,
-    "cost": 4.67,
-    "foodCostPct": 15.6,
-    "marginPct": 84.4,
-    "grossMarginDH": 25.33,
+    "cost": 5.07,
+    "foodCostPct": 16.9,
+    "marginPct": 83.1,
+    "grossMarginDH": 24.93,
     "details": [
       {
         "ingredient": "Fraises fraîches",
@@ -985,7 +985,7 @@
       {
         "ingredient": "Jus d'orange frais",
         "quantity": "80 ml",
-        "cost": 0.4
+        "cost": 0.8
       },
       {
         "ingredient": "Sirop de sucre",
@@ -998,10 +998,10 @@
     "category": "JUS FRAIS PRESSÉS & ROYAUX",
     "name": "JUS DE FRAMBOISE",
     "sellPrice": 35,
-    "cost": 8.1,
-    "foodCostPct": 23.1,
-    "marginPct": 76.9,
-    "grossMarginDH": 26.9,
+    "cost": 8.5,
+    "foodCostPct": 24.3,
+    "marginPct": 75.7,
+    "grossMarginDH": 26.5,
     "details": [
       {
         "ingredient": "Framboises fraîches",
@@ -1011,7 +1011,7 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "80 ml",
-        "cost": 0.4
+        "cost": 0.8
       },
       {
         "ingredient": "Sirop de sucre",
@@ -1024,10 +1024,10 @@
     "category": "JUS FRAIS PRESSÉS & ROYAUX",
     "name": "JUS DE MANGUE",
     "sellPrice": 30,
-    "cost": 7.22,
-    "foodCostPct": 24.1,
-    "marginPct": 75.9,
-    "grossMarginDH": 22.78,
+    "cost": 7.62,
+    "foodCostPct": 25.4,
+    "marginPct": 74.6,
+    "grossMarginDH": 22.38,
     "details": [
       {
         "ingredient": "Mangue fraîche",
@@ -1037,7 +1037,7 @@
       {
         "ingredient": "Jus d'orange frais",
         "quantity": "80 ml",
-        "cost": 0.4
+        "cost": 0.8
       },
       {
         "ingredient": "Glaçons",
@@ -1071,10 +1071,10 @@
     "category": "JUS FRAIS PRESSÉS & ROYAUX",
     "name": "JUS DE PÊCHE",
     "sellPrice": 30,
-    "cost": 7,
-    "foodCostPct": 23.3,
-    "marginPct": 76.7,
-    "grossMarginDH": 23,
+    "cost": 7.4,
+    "foodCostPct": 24.7,
+    "marginPct": 75.3,
+    "grossMarginDH": 22.6,
     "details": [
       {
         "ingredient": "Pêche fraîche",
@@ -1084,7 +1084,7 @@
       {
         "ingredient": "Jus d'orange frais",
         "quantity": "80 ml",
-        "cost": 0.4
+        "cost": 0.8
       },
       {
         "ingredient": "Glaçons",
@@ -1097,10 +1097,10 @@
     "category": "JUS FRAIS PRESSÉS & ROYAUX",
     "name": "JUS DE CAROTTE",
     "sellPrice": 25,
-    "cost": 2.35,
-    "foodCostPct": 9.4,
-    "marginPct": 90.6,
-    "grossMarginDH": 22.65,
+    "cost": 2.6,
+    "foodCostPct": 10.4,
+    "marginPct": 89.6,
+    "grossMarginDH": 22.4,
     "details": [
       {
         "ingredient": "Carottes fraîches",
@@ -1110,7 +1110,7 @@
       {
         "ingredient": "Jus d'orange frais",
         "quantity": "50 ml",
-        "cost": 0.25
+        "cost": 0.5
       }
     ]
   },
@@ -1118,10 +1118,10 @@
     "category": "JUS FRAIS PRESSÉS & ROYAUX",
     "name": "JUS POMME & BANANE",
     "sellPrice": 28,
-    "cost": 4.28,
-    "foodCostPct": 15.3,
-    "marginPct": 84.7,
-    "grossMarginDH": 23.72,
+    "cost": 4.78,
+    "foodCostPct": 17.1,
+    "marginPct": 82.9,
+    "grossMarginDH": 23.22,
     "details": [
       {
         "ingredient": "Pomme fraîche",
@@ -1136,7 +1136,7 @@
       {
         "ingredient": "Lait ou Jus d'orange",
         "quantity": "100 ml",
-        "cost": 0.5
+        "cost": 1
       }
     ]
   },
@@ -1201,15 +1201,15 @@
     "category": "JUS FRAIS PRESSÉS & ROYAUX",
     "name": "JUS PANACHÉ FRUITS FRAIS",
     "sellPrice": 38,
-    "cost": 4.44,
-    "foodCostPct": 11.7,
-    "marginPct": 88.3,
-    "grossMarginDH": 33.56,
+    "cost": 4.94,
+    "foodCostPct": 13,
+    "marginPct": 87,
+    "grossMarginDH": 33.06,
     "details": [
       {
         "ingredient": "Jus d'orange",
         "quantity": "100 ml",
-        "cost": 0.5
+        "cost": 1
       },
       {
         "ingredient": "Banane",
@@ -1237,15 +1237,15 @@
     "category": "JUS FRAIS PRESSÉS & ROYAUX",
     "name": "COCKTAIL À BASE D'ORANGE",
     "sellPrice": 42,
-    "cost": 3.11,
-    "foodCostPct": 7.4,
-    "marginPct": 92.6,
-    "grossMarginDH": 38.89,
+    "cost": 4.01,
+    "foodCostPct": 9.5,
+    "marginPct": 90.5,
+    "grossMarginDH": 37.99,
     "details": [
       {
         "ingredient": "Jus d'orange frais",
         "quantity": "180 ml",
-        "cost": 0.9
+        "cost": 1.8
       },
       {
         "ingredient": "Sirop de grenadine",
@@ -1268,10 +1268,10 @@
     "category": "JUS FRAIS PRESSÉS & ROYAUX",
     "name": "ZA3ZA3 ROYAL GREY CORNER",
     "sellPrice": 46,
-    "cost": 16.28,
-    "foodCostPct": 35.4,
-    "marginPct": 64.6,
-    "grossMarginDH": 29.72,
+    "cost": 18.33,
+    "foodCostPct": 39.8,
+    "marginPct": 60.2,
+    "grossMarginDH": 27.67,
     "details": [
       {
         "ingredient": "Avocat",
@@ -1286,7 +1286,7 @@
       {
         "ingredient": "Chocolat KitKat / Snickers",
         "quantity": "1 p",
-        "cost": 3.25
+        "cost": 4.5
       },
       {
         "ingredient": "Fruits secs variés",
@@ -1296,7 +1296,7 @@
       {
         "ingredient": "Biscuits Oreo",
         "quantity": "2 p",
-        "cost": 2
+        "cost": 2.8
       },
       {
         "ingredient": "Crème chantilly",
@@ -1314,15 +1314,15 @@
     "category": "COCKTAILS & MOCKTAILS",
     "name": "SIGNATURE GREY CORNER",
     "sellPrice": 48,
-    "cost": 5.67,
-    "foodCostPct": 11.8,
-    "marginPct": 88.2,
-    "grossMarginDH": 42.33,
+    "cost": 5.37,
+    "foodCostPct": 11.2,
+    "marginPct": 88.8,
+    "grossMarginDH": 42.63,
     "details": [
       {
         "ingredient": "Jus d'ananas",
         "quantity": "100 ml",
-        "cost": 1.8
+        "cost": 1.5
       },
       {
         "ingredient": "Jus de mangue",
@@ -1355,15 +1355,15 @@
     "category": "COCKTAILS & MOCKTAILS",
     "name": "VIRGIN PIÑA COLADA",
     "sellPrice": 42,
-    "cost": 7.14,
-    "foodCostPct": 17,
-    "marginPct": 83,
-    "grossMarginDH": 34.86,
+    "cost": 6.6,
+    "foodCostPct": 15.7,
+    "marginPct": 84.3,
+    "grossMarginDH": 35.4,
     "details": [
       {
         "ingredient": "Jus d'ananas frais",
         "quantity": "180 ml",
-        "cost": 3.24
+        "cost": 2.7
       },
       {
         "ingredient": "Crème de coco",
@@ -1391,10 +1391,10 @@
     "category": "COCKTAILS & MOCKTAILS",
     "name": "COCKTAIL TROPICAL",
     "sellPrice": 42,
-    "cost": 3.52,
-    "foodCostPct": 8.4,
-    "marginPct": 91.6,
-    "grossMarginDH": 38.48,
+    "cost": 3.59,
+    "foodCostPct": 8.5,
+    "marginPct": 91.5,
+    "grossMarginDH": 38.41,
     "details": [
       {
         "ingredient": "Jus de mangue",
@@ -1404,12 +1404,12 @@
       {
         "ingredient": "Jus d'ananas",
         "quantity": "80 ml",
-        "cost": 1.44
+        "cost": 1.2
       },
       {
         "ingredient": "Jus d'orange",
         "quantity": "60 ml",
-        "cost": 0.3
+        "cost": 0.6
       },
       {
         "ingredient": "Sirop de grenadine",
@@ -1499,15 +1499,15 @@
     "category": "COCKTAILS & MOCKTAILS",
     "name": "COCKTAIL SANS ALCOOL SPÉCIAL",
     "sellPrice": 34,
-    "cost": 11.5,
-    "foodCostPct": 33.8,
-    "marginPct": 66.2,
-    "grossMarginDH": 22.5,
+    "cost": 12,
+    "foodCostPct": 35.3,
+    "marginPct": 64.7,
+    "grossMarginDH": 22,
     "details": [
       {
         "ingredient": "Jus d'orange",
         "quantity": "100 ml",
-        "cost": 0.5
+        "cost": 1
       },
       {
         "ingredient": "Jus de pêche",
@@ -1674,10 +1674,10 @@
     "category": "SMOOTHIES & BOWLS",
     "name": "SMOOTHIE ÉNERGÉTIQUE",
     "sellPrice": 42,
-    "cost": 7.13,
-    "foodCostPct": 17,
-    "marginPct": 83,
-    "grossMarginDH": 34.87,
+    "cost": 19.88,
+    "foodCostPct": 47.3,
+    "marginPct": 52.7,
+    "grossMarginDH": 22.12,
     "details": [
       {
         "ingredient": "Banane",
@@ -1697,7 +1697,7 @@
       {
         "ingredient": "Lait d'amande",
         "quantity": "180 ml",
-        "cost": 1.65
+        "cost": 14.4
       },
       {
         "ingredient": "Beurre de cacahuète",
@@ -1710,10 +1710,10 @@
     "category": "SMOOTHIES & BOWLS",
     "name": "SMOOTHIE HAWAÏ",
     "sellPrice": 42,
-    "cost": 6.65,
-    "foodCostPct": 15.8,
-    "marginPct": 84.2,
-    "grossMarginDH": 35.35,
+    "cost": 7.05,
+    "foodCostPct": 16.8,
+    "marginPct": 83.2,
+    "grossMarginDH": 34.95,
     "details": [
       {
         "ingredient": "Mangue fraîche",
@@ -1733,7 +1733,7 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "80 ml",
-        "cost": 0.4
+        "cost": 0.8
       },
       {
         "ingredient": "Glaçons",
@@ -1746,15 +1746,15 @@
     "category": "SMOOTHIES & BOWLS",
     "name": "SMOOTHIE MULTIVITAMINÉ",
     "sellPrice": 42,
-    "cost": 2.25,
-    "foodCostPct": 5.4,
-    "marginPct": 94.6,
-    "grossMarginDH": 39.75,
+    "cost": 2.75,
+    "foodCostPct": 6.5,
+    "marginPct": 93.5,
+    "grossMarginDH": 39.25,
     "details": [
       {
         "ingredient": "Jus d'orange frais",
         "quantity": "100 ml",
-        "cost": 0.5
+        "cost": 1
       },
       {
         "ingredient": "Carotte",
@@ -1813,10 +1813,10 @@
     "category": "SMOOTHIES & BOWLS",
     "name": "SMOOTHIE TRIPLE FRUITS",
     "sellPrice": 48,
-    "cost": 5.02,
-    "foodCostPct": 10.5,
-    "marginPct": 89.5,
-    "grossMarginDH": 42.98,
+    "cost": 5.42,
+    "foodCostPct": 11.3,
+    "marginPct": 88.7,
+    "grossMarginDH": 42.58,
     "details": [
       {
         "ingredient": "Fraise",
@@ -1836,7 +1836,7 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "80 ml",
-        "cost": 0.4
+        "cost": 0.8
       },
       {
         "ingredient": "Glaçons",
@@ -1885,15 +1885,15 @@
     "category": "SMOOTHIES & BOWLS",
     "name": "SMOOTHIE BOWL ULTRA BOOST",
     "sellPrice": 48,
-    "cost": 15.6,
-    "foodCostPct": 32.5,
-    "marginPct": 67.5,
-    "grossMarginDH": 32.4,
+    "cost": 16.1,
+    "foodCostPct": 33.5,
+    "marginPct": 66.5,
+    "grossMarginDH": 31.9,
     "details": [
       {
         "ingredient": "Base mixée Açaï/Fruits rouges",
         "quantity": "250 g",
-        "cost": 10.75
+        "cost": 11.25
       },
       {
         "ingredient": "Banane",
@@ -1926,15 +1926,15 @@
     "category": "SODAS & BOISSONS FRAÎCHES",
     "name": "COCA-COLA 33CL",
     "sellPrice": 17,
-    "cost": 1.5,
-    "foodCostPct": 8.8,
-    "marginPct": 91.2,
-    "grossMarginDH": 15.5,
+    "cost": 8.05,
+    "foodCostPct": 47.4,
+    "marginPct": 52.6,
+    "grossMarginDH": 8.95,
     "details": [
       {
         "ingredient": "Coca-Cola (Canette 33cl)",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 7.55
       },
       {
         "ingredient": "Tranche de citron",
@@ -1952,15 +1952,15 @@
     "category": "SODAS & BOISSONS FRAÎCHES",
     "name": "COCA-COLA ZÉRO 33CL",
     "sellPrice": 17,
-    "cost": 1.5,
-    "foodCostPct": 8.8,
-    "marginPct": 91.2,
-    "grossMarginDH": 15.5,
+    "cost": 8.05,
+    "foodCostPct": 47.4,
+    "marginPct": 52.6,
+    "grossMarginDH": 8.95,
     "details": [
       {
         "ingredient": "Coca-Cola Zéro (Canette 33cl)",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 7.55
       },
       {
         "ingredient": "Tranche de citron",
@@ -1978,15 +1978,15 @@
     "category": "SODAS & BOISSONS FRAÎCHES",
     "name": "SPRITE 33CL",
     "sellPrice": 17,
-    "cost": 1.5,
-    "foodCostPct": 8.8,
-    "marginPct": 91.2,
-    "grossMarginDH": 15.5,
+    "cost": 8.05,
+    "foodCostPct": 47.4,
+    "marginPct": 52.6,
+    "grossMarginDH": 8.95,
     "details": [
       {
         "ingredient": "Sprite (Canette 33cl)",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 7.55
       },
       {
         "ingredient": "Tranche de citron",
@@ -2167,15 +2167,15 @@
     "category": "EAUX MINÉRALES & GAZEUSES",
     "name": "OULMÈS EAU GAZEUSE 33CL / 50CL",
     "sellPrice": 16,
-    "cost": 1.5,
-    "foodCostPct": 9.4,
-    "marginPct": 90.6,
-    "grossMarginDH": 14.5,
+    "cost": 4.5,
+    "foodCostPct": 28.1,
+    "marginPct": 71.9,
+    "grossMarginDH": 11.5,
     "details": [
       {
         "ingredient": "Bouteille Oulmès 33/50cl",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 4
       },
       {
         "ingredient": "Tranche de citron",
@@ -2209,10 +2209,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "COMPAGNARD",
     "sellPrice": 52,
-    "cost": 20.17,
-    "foodCostPct": 38.8,
-    "marginPct": 61.2,
-    "grossMarginDH": 31.83,
+    "cost": 44.11,
+    "foodCostPct": 84.8,
+    "marginPct": 15.2,
+    "grossMarginDH": 7.89,
     "details": [
       {
         "ingredient": "pain cake",
@@ -2222,7 +2222,7 @@
       {
         "ingredient": "Omelette",
         "quantity": "3 œufs",
-        "cost": 0.06
+        "cost": 13.5
       },
       {
         "ingredient": "Fromage",
@@ -2247,17 +2247,17 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "200 ml",
-        "cost": 1
+        "cost": 2
       },
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -2270,10 +2270,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "PETIT DÉJEUNER AMÉRICAIN",
     "sellPrice": 68,
-    "cost": 21.49,
-    "foodCostPct": 31.6,
-    "marginPct": 68.4,
-    "grossMarginDH": 46.51,
+    "cost": 40.95,
+    "foodCostPct": 60.2,
+    "marginPct": 39.8,
+    "grossMarginDH": 27.05,
     "details": [
       {
         "ingredient": "Bacon",
@@ -2283,7 +2283,7 @@
       {
         "ingredient": "Omelette",
         "quantity": "2 œufs",
-        "cost": 0.04
+        "cost": 9
       },
       {
         "ingredient": "Fromage",
@@ -2308,17 +2308,17 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "200 ml",
-        "cost": 1
+        "cost": 2
       },
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -2331,10 +2331,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "BRUNCH GREYCORNER",
     "sellPrice": 85,
-    "cost": 39.92,
-    "foodCostPct": 47,
-    "marginPct": 53,
-    "grossMarginDH": 45.08,
+    "cost": 50.42,
+    "foodCostPct": 59.3,
+    "marginPct": 40.7,
+    "grossMarginDH": 34.58,
     "details": [
       {
         "ingredient": "Saucisses",
@@ -2389,17 +2389,17 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "200 ml",
-        "cost": 1
+        "cost": 2
       },
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -2412,10 +2412,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "BRUNCH DUO",
     "sellPrice": 144,
-    "cost": 47.18,
-    "foodCostPct": 32.8,
-    "marginPct": 67.2,
-    "grossMarginDH": 96.82,
+    "cost": 73.13,
+    "foodCostPct": 50.8,
+    "marginPct": 49.2,
+    "grossMarginDH": 70.87,
     "details": [
       {
         "ingredient": "Poulet pané",
@@ -2455,7 +2455,7 @@
       {
         "ingredient": "Beldi",
         "quantity": "2 mlaoui + 2 harcha",
-        "cost": 0.04
+        "cost": 10
       },
       {
         "ingredient": "Mesclun",
@@ -2475,7 +2475,7 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "2×200 ml",
-        "cost": 0.01
+        "cost": 2
       },
       {
         "ingredient": "THE A LA MENTHE",
@@ -2485,7 +2485,7 @@
       {
         "ingredient": "Desserts",
         "quantity": "2 p",
-        "cost": 2
+        "cost": 16
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -2498,10 +2498,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "BELDI",
     "sellPrice": 45,
-    "cost": 14.43,
-    "foodCostPct": 32.1,
-    "marginPct": 67.9,
-    "grossMarginDH": 30.57,
+    "cost": 25.42,
+    "foodCostPct": 56.5,
+    "marginPct": 43.5,
+    "grossMarginDH": 19.58,
     "details": [
       {
         "ingredient": "Mlaoui",
@@ -2526,7 +2526,7 @@
       {
         "ingredient": "Huile d’olive",
         "quantity": "20 ml",
-        "cost": 0.31
+        "cost": 0.8
       },
       {
         "ingredient": "Miel",
@@ -2541,17 +2541,17 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "200 ml",
-        "cost": 1
+        "cost": 2
       },
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -2564,10 +2564,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "HOLLANDAIS",
     "sellPrice": 52,
-    "cost": 16.42,
-    "foodCostPct": 31.6,
-    "marginPct": 68.4,
-    "grossMarginDH": 35.58,
+    "cost": 26.92,
+    "foodCostPct": 51.8,
+    "marginPct": 48.2,
+    "grossMarginDH": 25.08,
     "details": [
       {
         "ingredient": "Pain mie complet",
@@ -2597,17 +2597,17 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "200 ml",
-        "cost": 1
+        "cost": 2
       },
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -2620,10 +2620,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "OMELETTE VÉGÉTARIENNE",
     "sellPrice": 52,
-    "cost": 8.56,
-    "foodCostPct": 16.5,
-    "marginPct": 83.5,
-    "grossMarginDH": 43.44,
+    "cost": 19.06,
+    "foodCostPct": 36.7,
+    "marginPct": 63.3,
+    "grossMarginDH": 32.94,
     "details": [
       {
         "ingredient": "Œufs",
@@ -2643,17 +2643,17 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "200 ml",
-        "cost": 1
+        "cost": 2
       },
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -2666,10 +2666,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "BERBÈRE",
     "sellPrice": 54,
-    "cost": 13.42,
-    "foodCostPct": 24.9,
-    "marginPct": 75.1,
-    "grossMarginDH": 40.58,
+    "cost": 23.92,
+    "foodCostPct": 44.3,
+    "marginPct": 55.7,
+    "grossMarginDH": 30.08,
     "details": [
       {
         "ingredient": "Baghrir",
@@ -2704,17 +2704,17 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "200 ml",
-        "cost": 1
+        "cost": 2
       },
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -2727,10 +2727,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "CROQUE",
     "sellPrice": 50,
-    "cost": 11.78,
-    "foodCostPct": 23.6,
-    "marginPct": 76.4,
-    "grossMarginDH": 38.22,
+    "cost": 22.28,
+    "foodCostPct": 44.6,
+    "marginPct": 55.4,
+    "grossMarginDH": 27.72,
     "details": [
       {
         "ingredient": "Croque maison",
@@ -2745,17 +2745,17 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "200 ml",
-        "cost": 1
+        "cost": 2
       },
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -2768,10 +2768,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "FASSI",
     "sellPrice": 55,
-    "cost": 19.61,
-    "foodCostPct": 35.7,
-    "marginPct": 64.3,
-    "grossMarginDH": 35.39,
+    "cost": 30.11,
+    "foodCostPct": 54.7,
+    "marginPct": 45.3,
+    "grossMarginDH": 24.89,
     "details": [
       {
         "ingredient": "Khli3",
@@ -2786,17 +2786,17 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "200 ml",
-        "cost": 1
+        "cost": 2
       },
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -2809,10 +2809,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "OMELETTE CONTINENTAL",
     "sellPrice": 52,
-    "cost": 16.26,
-    "foodCostPct": 31.3,
-    "marginPct": 68.7,
-    "grossMarginDH": 35.74,
+    "cost": 26.76,
+    "foodCostPct": 51.5,
+    "marginPct": 48.5,
+    "grossMarginDH": 25.24,
     "details": [
       {
         "ingredient": "Œufs",
@@ -2837,17 +2837,17 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "200 ml",
-        "cost": 1
+        "cost": 2
       },
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -2860,10 +2860,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "OMELETTE FROMAGE",
     "sellPrice": 52,
-    "cost": 11.16,
-    "foodCostPct": 21.5,
-    "marginPct": 78.5,
-    "grossMarginDH": 40.84,
+    "cost": 21.66,
+    "foodCostPct": 41.7,
+    "marginPct": 58.3,
+    "grossMarginDH": 30.34,
     "details": [
       {
         "ingredient": "Œufs",
@@ -2883,17 +2883,17 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "200 ml",
-        "cost": 1
+        "cost": 2
       },
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -2906,10 +2906,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "OMELETTE NATURE",
     "sellPrice": 42,
-    "cost": 7.36,
-    "foodCostPct": 17.5,
-    "marginPct": 82.5,
-    "grossMarginDH": 34.64,
+    "cost": 17.86,
+    "foodCostPct": 42.5,
+    "marginPct": 57.5,
+    "grossMarginDH": 24.14,
     "details": [
       {
         "ingredient": "Œufs",
@@ -2924,17 +2924,17 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "200 ml",
-        "cost": 1
+        "cost": 2
       },
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -2947,10 +2947,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "OMELETTE DU CHEF",
     "sellPrice": 58,
-    "cost": 11.06,
-    "foodCostPct": 19.1,
-    "marginPct": 80.9,
-    "grossMarginDH": 46.94,
+    "cost": 14.56,
+    "foodCostPct": 25.1,
+    "marginPct": 74.9,
+    "grossMarginDH": 43.44,
     "details": [
       {
         "ingredient": "Œufs",
@@ -2980,12 +2980,12 @@
       {
         "ingredient": "Jus d'orange",
         "quantity": "200 ml",
-        "cost": 1
+        "cost": 2
       },
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -2998,10 +2998,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "ESPAGNOL",
     "sellPrice": 64,
-    "cost": 22.85,
-    "foodCostPct": 35.7,
-    "marginPct": 64.3,
-    "grossMarginDH": 41.15,
+    "cost": 32.35,
+    "foodCostPct": 50.5,
+    "marginPct": 49.5,
+    "grossMarginDH": 31.65,
     "details": [
       {
         "ingredient": "Tortilla",
@@ -3051,12 +3051,12 @@
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -3069,10 +3069,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "MQUILA-MERGUEZ",
     "sellPrice": 64,
-    "cost": 19.79,
-    "foodCostPct": 30.9,
-    "marginPct": 69.1,
-    "grossMarginDH": 44.21,
+    "cost": 29.29,
+    "foodCostPct": 45.8,
+    "marginPct": 54.2,
+    "grossMarginDH": 34.71,
     "details": [
       {
         "ingredient": "Merguez",
@@ -3097,12 +3097,12 @@
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -3115,10 +3115,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "MQUILA-FRUITS DE MER",
     "sellPrice": 78,
-    "cost": 23.99,
-    "foodCostPct": 30.8,
-    "marginPct": 69.2,
-    "grossMarginDH": 54.01,
+    "cost": 33.49,
+    "foodCostPct": 42.9,
+    "marginPct": 57.1,
+    "grossMarginDH": 44.51,
     "details": [
       {
         "ingredient": "crevettes",
@@ -3148,12 +3148,12 @@
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -3166,10 +3166,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "NORVÉGIEN",
     "sellPrice": 68,
-    "cost": 29.13,
-    "foodCostPct": 42.8,
-    "marginPct": 57.2,
-    "grossMarginDH": 38.87,
+    "cost": 38.63,
+    "foodCostPct": 56.8,
+    "marginPct": 43.2,
+    "grossMarginDH": 29.37,
     "details": [
       {
         "ingredient": "Saumon fumé",
@@ -3199,12 +3199,12 @@
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -3217,10 +3217,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "LIGHT",
     "sellPrice": 42,
-    "cost": 11.57,
-    "foodCostPct": 27.5,
-    "marginPct": 72.5,
-    "grossMarginDH": 30.43,
+    "cost": 21.56,
+    "foodCostPct": 51.3,
+    "marginPct": 48.7,
+    "grossMarginDH": 20.44,
     "details": [
       {
         "ingredient": "Pain complet",
@@ -3235,7 +3235,7 @@
       {
         "ingredient": "Huile d’olive",
         "quantity": "20 ml",
-        "cost": 0.31
+        "cost": 0.8
       },
       {
         "ingredient": "Amlou",
@@ -3255,12 +3255,12 @@
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -3273,10 +3273,10 @@
     "category": "PETIT DÉJEUNER",
     "name": "EXPRESS",
     "sellPrice": 44,
-    "cost": 13.8,
-    "foodCostPct": 31.4,
-    "marginPct": 68.6,
-    "grossMarginDH": 30.2,
+    "cost": 23.3,
+    "foodCostPct": 53,
+    "marginPct": 47,
+    "grossMarginDH": 20.7,
     "details": [
       {
         "ingredient": "Viennoiseries",
@@ -3291,12 +3291,12 @@
       {
         "ingredient": "Boisson chaude",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 3.5
       },
       {
         "ingredient": "Dessert",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 8
       },
       {
         "ingredient": "Bouteille Eau Minérale 33cl",
@@ -3487,10 +3487,10 @@
     "category": "ENTRÉES FROIDES",
     "name": "Salade César",
     "sellPrice": 65,
-    "cost": 18.65,
-    "foodCostPct": 28.7,
-    "marginPct": 71.3,
-    "grossMarginDH": 46.35,
+    "cost": 19.1,
+    "foodCostPct": 29.4,
+    "marginPct": 70.6,
+    "grossMarginDH": 45.9,
     "details": [
       {
         "ingredient": "Salade Romaine",
@@ -3510,7 +3510,7 @@
       {
         "ingredient": "Croûtons",
         "quantity": "30 g",
-        "cost": 0.6
+        "cost": 1.05
       },
       {
         "ingredient": "Tomate Cerise",
@@ -3758,10 +3758,10 @@
     "category": "ENTRÉES CHAUDES",
     "name": "PIL PIL ESPAGNOL",
     "sellPrice": 68,
-    "cost": 25.02,
-    "foodCostPct": 36.8,
-    "marginPct": 63.2,
-    "grossMarginDH": 42.98,
+    "cost": 25.75,
+    "foodCostPct": 37.9,
+    "marginPct": 62.1,
+    "grossMarginDH": 42.25,
     "details": [
       {
         "ingredient": "Gambas chair pure",
@@ -3781,7 +3781,7 @@
       {
         "ingredient": "Huile d’olive",
         "quantity": "30 g",
-        "cost": 0.47
+        "cost": 1.2
       },
       {
         "ingredient": "Oignon",
@@ -3804,10 +3804,10 @@
     "category": "PLATS",
     "name": "BROCHETTES DE POULET",
     "sellPrice": 84,
-    "cost": 20.84,
-    "foodCostPct": 24.8,
-    "marginPct": 75.2,
-    "grossMarginDH": 63.16,
+    "cost": 24.84,
+    "foodCostPct": 29.6,
+    "marginPct": 70.4,
+    "grossMarginDH": 59.16,
     "details": [
       {
         "ingredient": "Blanc de poulet",
@@ -3827,7 +3827,7 @@
       {
         "ingredient": "Accompagnements — 2 au choix",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 5
       },
       {
         "ingredient": "Frites",
@@ -4232,15 +4232,15 @@
     "category": "PLATS",
     "name": "MENU ENFANT (PLAT)",
     "sellPrice": 58,
-    "cost": 3.65,
-    "foodCostPct": 6.3,
-    "marginPct": 93.7,
-    "grossMarginDH": 54.35,
+    "cost": 14.65,
+    "foodCostPct": 25.3,
+    "marginPct": 74.7,
+    "grossMarginDH": 43.35,
     "details": [
       {
         "ingredient": "Pasta nature ou Mini pizza + boisson",
         "quantity": "1 p",
-        "cost": 1
+        "cost": 12
       },
       {
         "ingredient": "OU Burger / nuggets + frites + boisson",
@@ -4253,10 +4253,10 @@
     "category": "PLATS",
     "name": "ROULADE DE BŒUF VH",
     "sellPrice": 120,
-    "cost": 40.88,
-    "foodCostPct": 34.1,
-    "marginPct": 65.9,
-    "grossMarginDH": 79.12,
+    "cost": 42.28,
+    "foodCostPct": 35.2,
+    "marginPct": 64.8,
+    "grossMarginDH": 77.72,
     "details": [
       {
         "ingredient": "Viande hachée",
@@ -4281,7 +4281,7 @@
       {
         "ingredient": "Fromage bleu",
         "quantity": "20 g",
-        "cost": 1.9
+        "cost": 1.8
       },
       {
         "ingredient": "Crème fraîche",
@@ -4311,7 +4311,7 @@
       {
         "ingredient": "Olive noire",
         "quantity": "60 g",
-        "cost": 1.2
+        "cost": 2.7
       },
       {
         "ingredient": "Fokacha",
@@ -4339,10 +4339,10 @@
     "category": "BURGERS",
     "name": "CHICKEN BURGER",
     "sellPrice": 50,
-    "cost": 19.29,
-    "foodCostPct": 38.6,
-    "marginPct": 61.4,
-    "grossMarginDH": 30.71,
+    "cost": 19.23,
+    "foodCostPct": 38.5,
+    "marginPct": 61.5,
+    "grossMarginDH": 30.77,
     "details": [
       {
         "ingredient": "poulet",
@@ -4367,7 +4367,7 @@
       {
         "ingredient": "Tomate/Laitue",
         "quantity": "30 g",
-        "cost": 0.24
+        "cost": 0.18
       },
       {
         "ingredient": "Frites",
@@ -4436,10 +4436,10 @@
     "category": "BURGERS",
     "name": "AVOCADO FORESTIER",
     "sellPrice": 54,
-    "cost": 23.78,
-    "foodCostPct": 44,
-    "marginPct": 56,
-    "grossMarginDH": 30.22,
+    "cost": 23.72,
+    "foodCostPct": 43.9,
+    "marginPct": 56.1,
+    "grossMarginDH": 30.28,
     "details": [
       {
         "ingredient": "Poulet",
@@ -4454,7 +4454,7 @@
       {
         "ingredient": "Tomate/Laitue",
         "quantity": "30 g",
-        "cost": 0.24
+        "cost": 0.18
       },
       {
         "ingredient": "Œuf",
@@ -4492,10 +4492,10 @@
     "category": "BURGERS",
     "name": "EGG ET CHEESEBURGER",
     "sellPrice": 56,
-    "cost": 24.83,
-    "foodCostPct": 44.3,
-    "marginPct": 55.7,
-    "grossMarginDH": 31.17,
+    "cost": 24.77,
+    "foodCostPct": 44.2,
+    "marginPct": 55.8,
+    "grossMarginDH": 31.23,
     "details": [
       {
         "ingredient": "Viande",
@@ -4520,7 +4520,7 @@
       {
         "ingredient": "Tomate/Laitue",
         "quantity": "30 g",
-        "cost": 0.24
+        "cost": 0.18
       },
       {
         "ingredient": "Sauce Bigy",
@@ -4543,10 +4543,10 @@
     "category": "BURGERS",
     "name": "BIG BURGER",
     "sellPrice": 68,
-    "cost": 18.28,
-    "foodCostPct": 26.9,
-    "marginPct": 73.1,
-    "grossMarginDH": 49.72,
+    "cost": 18.22,
+    "foodCostPct": 26.8,
+    "marginPct": 73.2,
+    "grossMarginDH": 49.78,
     "details": [
       {
         "ingredient": "Viande",
@@ -4561,7 +4561,7 @@
       {
         "ingredient": "Tomate/Laitue",
         "quantity": "30 g",
-        "cost": 0.24
+        "cost": 0.18
       },
       {
         "ingredient": "Sauce du chef",
@@ -4584,10 +4584,10 @@
     "category": "BURGERS",
     "name": "BURGER ROYAL",
     "sellPrice": 70,
-    "cost": 32.09,
+    "cost": 32.03,
     "foodCostPct": 45.8,
     "marginPct": 54.2,
-    "grossMarginDH": 37.91,
+    "grossMarginDH": 37.97,
     "details": [
       {
         "ingredient": "Viande",
@@ -4617,7 +4617,7 @@
       {
         "ingredient": "Laitue/Tomate",
         "quantity": "30 g",
-        "cost": 0.24
+        "cost": 0.18
       },
       {
         "ingredient": "Sauce spéciale",
@@ -5034,10 +5034,10 @@
     "category": "SANDWICHS",
     "name": "FRUITS DE MER",
     "sellPrice": 65,
-    "cost": 27.38,
-    "foodCostPct": 42.1,
-    "marginPct": 57.9,
-    "grossMarginDH": 37.62,
+    "cost": 27.28,
+    "foodCostPct": 42,
+    "marginPct": 58,
+    "grossMarginDH": 37.72,
     "details": [
       {
         "ingredient": "Crevettes chair",
@@ -5067,7 +5067,7 @@
       {
         "ingredient": "Sauce fromagère",
         "quantity": "20 g",
-        "cost": 1.9
+        "cost": 1.8
       },
       {
         "ingredient": "Frites",
@@ -5300,10 +5300,10 @@
     "category": "PIZZA",
     "name": "MARGARITA",
     "sellPrice": 52,
-    "cost": 12.65,
-    "foodCostPct": 24.3,
-    "marginPct": 75.7,
-    "grossMarginDH": 39.35,
+    "cost": 12.71,
+    "foodCostPct": 24.4,
+    "marginPct": 75.6,
+    "grossMarginDH": 39.29,
     "details": [
       {
         "ingredient": "Pâte",
@@ -5323,7 +5323,7 @@
       {
         "ingredient": "Olives noires",
         "quantity": "13 g",
-        "cost": 0.52
+        "cost": 0.59
       }
     ]
   },
@@ -5788,10 +5788,10 @@
     "category": "PÂTES",
     "name": "LASAGNE POULET",
     "sellPrice": 60,
-    "cost": 17.79,
-    "foodCostPct": 29.7,
-    "marginPct": 70.4,
-    "grossMarginDH": 42.21,
+    "cost": 17.93,
+    "foodCostPct": 29.9,
+    "marginPct": 70.1,
+    "grossMarginDH": 42.07,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -5831,7 +5831,7 @@
       {
         "ingredient": "Oignon/Ail",
         "quantity": "70 g",
-        "cost": 0.42
+        "cost": 0.56
       }
     ]
   },
@@ -5839,10 +5839,10 @@
     "category": "PÂTES",
     "name": "LASAGNE BOLOGNAISE",
     "sellPrice": 72,
-    "cost": 19.29,
-    "foodCostPct": 26.8,
-    "marginPct": 73.2,
-    "grossMarginDH": 52.71,
+    "cost": 19.43,
+    "foodCostPct": 27,
+    "marginPct": 73,
+    "grossMarginDH": 52.57,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -5882,7 +5882,7 @@
       {
         "ingredient": "Oignon/Ail",
         "quantity": "70 g",
-        "cost": 0.42
+        "cost": 0.56
       }
     ]
   },
@@ -5890,10 +5890,10 @@
     "category": "PÂTES",
     "name": "LASAGNE FRUITS DE MER",
     "sellPrice": 78,
-    "cost": 24.26,
-    "foodCostPct": 31.1,
-    "marginPct": 68.9,
-    "grossMarginDH": 53.74,
+    "cost": 24.36,
+    "foodCostPct": 31.2,
+    "marginPct": 68.8,
+    "grossMarginDH": 53.64,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -5933,7 +5933,7 @@
       {
         "ingredient": "Oignon/Ail",
         "quantity": "50 g",
-        "cost": 0.3
+        "cost": 0.4
       }
     ]
   },
@@ -5941,10 +5941,10 @@
     "category": "PÂTES",
     "name": "VÉGÉTARIEN",
     "sellPrice": 60,
-    "cost": 21.4,
-    "foodCostPct": 35.7,
-    "marginPct": 64.3,
-    "grossMarginDH": 38.6,
+    "cost": 22.86,
+    "foodCostPct": 38.1,
+    "marginPct": 61.9,
+    "grossMarginDH": 37.14,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -5964,7 +5964,7 @@
       {
         "ingredient": "Huile d'olive",
         "quantity": "60 g",
-        "cost": 0.94
+        "cost": 2.4
       },
       {
         "ingredient": "Crème",
@@ -5992,10 +5992,10 @@
     "category": "PÂTES",
     "name": "CARBONARA",
     "sellPrice": 65,
-    "cost": 22.86,
-    "foodCostPct": 35.2,
-    "marginPct": 64.8,
-    "grossMarginDH": 42.14,
+    "cost": 23,
+    "foodCostPct": 35.4,
+    "marginPct": 64.6,
+    "grossMarginDH": 42,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -6025,7 +6025,7 @@
       {
         "ingredient": "Oignon/Ail",
         "quantity": "70 g",
-        "cost": 0.42
+        "cost": 0.56
       }
     ]
   },
@@ -6033,10 +6033,10 @@
     "category": "PÂTES",
     "name": "5 FROMAGES",
     "sellPrice": 70,
-    "cost": 19.41,
-    "foodCostPct": 27.7,
-    "marginPct": 72.3,
-    "grossMarginDH": 50.59,
+    "cost": 19.55,
+    "foodCostPct": 27.9,
+    "marginPct": 72.1,
+    "grossMarginDH": 50.45,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -6081,7 +6081,7 @@
       {
         "ingredient": "Oignon/Ail",
         "quantity": "70 g",
-        "cost": 0.42
+        "cost": 0.56
       }
     ]
   },
@@ -6089,10 +6089,10 @@
     "category": "PÂTES",
     "name": "RIGATONI RICOTTA",
     "sellPrice": 68,
-    "cost": 21.61,
-    "foodCostPct": 31.8,
-    "marginPct": 68.2,
-    "grossMarginDH": 46.39,
+    "cost": 21.75,
+    "foodCostPct": 32,
+    "marginPct": 68,
+    "grossMarginDH": 46.25,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -6132,7 +6132,7 @@
       {
         "ingredient": "Oignon/Ail",
         "quantity": "70 g",
-        "cost": 0.42
+        "cost": 0.56
       }
     ]
   },
@@ -6140,10 +6140,10 @@
     "category": "PÂTES",
     "name": "BOLOGNAISE",
     "sellPrice": 75,
-    "cost": 27.66,
-    "foodCostPct": 36.9,
-    "marginPct": 63.1,
-    "grossMarginDH": 47.34,
+    "cost": 27.8,
+    "foodCostPct": 37.1,
+    "marginPct": 62.9,
+    "grossMarginDH": 47.2,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -6183,7 +6183,7 @@
       {
         "ingredient": "Oignon/Ail",
         "quantity": "70 g",
-        "cost": 0.42
+        "cost": 0.56
       }
     ]
   },
@@ -6191,10 +6191,10 @@
     "category": "PÂTES",
     "name": "POULET CHAMPIGNON / ÉPINARD",
     "sellPrice": 75,
-    "cost": 27.31,
-    "foodCostPct": 36.4,
-    "marginPct": 63.6,
-    "grossMarginDH": 47.69,
+    "cost": 27.45,
+    "foodCostPct": 36.6,
+    "marginPct": 63.4,
+    "grossMarginDH": 47.55,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -6239,7 +6239,7 @@
       {
         "ingredient": "Oignon/Ail",
         "quantity": "70 g",
-        "cost": 0.42
+        "cost": 0.56
       }
     ]
   },
@@ -6247,10 +6247,10 @@
     "category": "PÂTES",
     "name": "FRUITS DE MER",
     "sellPrice": 88,
-    "cost": 28.95,
-    "foodCostPct": 32.9,
-    "marginPct": 67.1,
-    "grossMarginDH": 59.05,
+    "cost": 29.05,
+    "foodCostPct": 33,
+    "marginPct": 67,
+    "grossMarginDH": 58.95,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -6295,7 +6295,7 @@
       {
         "ingredient": "Oignon/Ail",
         "quantity": "50 g",
-        "cost": 0.3
+        "cost": 0.4
       }
     ]
   },
@@ -6303,10 +6303,10 @@
     "category": "PÂTES",
     "name": "SAUMON",
     "sellPrice": 98,
-    "cost": 35.41,
-    "foodCostPct": 36.1,
-    "marginPct": 63.9,
-    "grossMarginDH": 62.59,
+    "cost": 35.55,
+    "foodCostPct": 36.3,
+    "marginPct": 63.7,
+    "grossMarginDH": 62.45,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -6341,7 +6341,7 @@
       {
         "ingredient": "Oignon/Ail",
         "quantity": "70 g",
-        "cost": 0.42
+        "cost": 0.56
       }
     ]
   },
@@ -6871,15 +6871,15 @@
     "category": "SUPPLÉMENTS & EXTRAS",
     "name": "DIVERS CUISINE / FOOD",
     "sellPrice": 10,
-    "cost": 1,
-    "foodCostPct": 10,
-    "marginPct": 90,
-    "grossMarginDH": 9,
+    "cost": 10,
+    "foodCostPct": 100,
+    "marginPct": 0,
+    "grossMarginDH": 0,
     "details": [
       {
         "ingredient": "Ingrédients cuisine divers",
         "quantity": "1 portion",
-        "cost": 1
+        "cost": 10
       }
     ]
   },
@@ -6887,15 +6887,15 @@
     "category": "SUPPLÉMENTS & EXTRAS",
     "name": "DIVERS BAR / BOISSONS",
     "sellPrice": 10,
-    "cost": 1,
-    "foodCostPct": 10,
-    "marginPct": 90,
-    "grossMarginDH": 9,
+    "cost": 5,
+    "foodCostPct": 50,
+    "marginPct": 50,
+    "grossMarginDH": 5,
     "details": [
       {
         "ingredient": "Ingrédients bar divers",
         "quantity": "1 portion",
-        "cost": 1
+        "cost": 5
       }
     ]
   },

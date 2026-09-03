@@ -84,9 +84,11 @@
       const key = cleanTextLocal(k);
       const def = costMap[k];
       if (!setMap.has(key)) {
+        let u = def.unit || 'g';
+        if (u === 'piece') u = 'p';
         setMap.set(key, {
           name: k.charAt(0).toUpperCase() + k.slice(1),
-          unit: def.unit || 'g',
+          unit: u,
           category: categorizeIngredientLocal(k),
           theorique: 0
         });
@@ -135,18 +137,19 @@
     }
 
     const found = allIngredientsCatalog.find(i => cleanTextLocal(i.name) === cleanTextLocal(selectedName));
-    const unit = found ? found.unit : 'g';
+    let unit = found ? found.unit : 'g';
+    if (unit === 'piece') unit = 'p';
 
     document.querySelectorAll('.flash-unit-lbl').forEach(el => el.textContent = unit);
 
     let priceUnit = 'DH / kg';
     if (unit === 'ml') priceUnit = 'DH / L';
-    else if (unit === 'p') priceUnit = 'DH / pièce';
+    else if (unit === 'p' || unit === 'piece') priceUnit = 'DH / pièce';
     const priceLbl = document.getElementById('flash-price-unit-lbl');
     if (priceLbl) priceLbl.textContent = priceUnit;
 
     // Déterminer le prix indicatif (converti en DH/kg ou DH/L pour g/ml)
-    let defaultPrice = unit === 'p' ? 5 : 50;
+    let defaultPrice = (unit === 'p' || unit === 'piece') ? 5 : 50;
     const costMap = window.INGREDIENT_UNIT_COSTS || {};
     const key = cleanTextLocal(selectedName);
     for (const [k, v] of Object.entries(costMap)) {
@@ -211,10 +214,16 @@
         }
 
         const salesMap = {};
+        const aliasMap = window.ALIAS_MAP || {};
         salesRows.forEach(r => {
           if (r && r.product) {
-            const p = cleanTextLocal(r.product);
+            const aliasTarget = aliasMap[r.product] || r.product;
+            const p = cleanTextLocal(aliasTarget);
             salesMap[p] = (salesMap[p] || 0) + (parseFloat(r.qty) || 0);
+            const directClean = cleanTextLocal(r.product);
+            if (directClean !== p) {
+              salesMap[directClean] = (salesMap[directClean] || 0) + (parseFloat(r.qty) || 0);
+            }
           }
         });
 

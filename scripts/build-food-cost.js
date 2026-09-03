@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
 function normalize(str) {
   return (str || '')
@@ -9,6 +9,10 @@ function normalize(str) {
     .replace(/[^a-z0-9]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+function stripPlural(s) {
+  return s.split(' ').map(w => (w.length > 3 && w.endsWith('s')) ? w.slice(0, -1) : w).join(' ');
 }
 
 // Master Unit Costs (DH per gram for solid, DH per ml for liquid, DH per piece for discrete)
@@ -433,7 +437,19 @@ const ingredientCosts = {
   "sel": { cost: 0.005, unit: "g" },
   "poivre": { cost: 0.09, unit: "g" },
   "paprika": { cost: 0.038, unit: "g" },
-  "origan": { cost: 0.078, unit: "g" }
+  "origan": { cost: 0.078, unit: "g" },
+  "croutons": { cost: 0.035, unit: "g" },
+  "crouton": { cost: 0.035, unit: "g" },
+  "olive noire": { cost: 0.045, unit: "g" },
+  "olives noires": { cost: 0.045, unit: "g" },
+  "omelette": { cost: 4.50, unit: "piece" },
+  "boisson chaude": { cost: 3.50, unit: "piece" },
+  "dessert": { cost: 8.00, unit: "piece" },
+  "beldi": { cost: 5.00, unit: "piece" },
+  "accompagnements": { cost: 5.00, unit: "piece" },
+  "pasta nature ou mini pizza + boisson": { cost: 12.00, unit: "piece" },
+  "ingredients cuisine divers": { cost: 10.00, unit: "piece" },
+  "ingredients bar divers": { cost: 5.00, unit: "piece" }
 };
 
 const recipesDataPath = path.resolve('./recipes-data.js');
@@ -459,12 +475,15 @@ DATA.forEach(cat => {
       let qtyStr = parts.length > 1 ? parts.slice(1).join(':').trim() : '1 p';
 
       const normIng = normalize(ingName);
+      const normIngNoPlural = stripPlural(normIng);
       let ingDef = ingredientCosts[normIng];
 
       if (!ingDef) {
         const sortedKeys = Object.keys(ingredientCosts).sort((a, b) => b.length - a.length);
         for (const k of sortedKeys) {
-          if (normIng.includes(k) || k.includes(normIng)) {
+          const normK = normalize(k);
+          const normKNoPlural = stripPlural(normK);
+          if (normIng === normK || normIngNoPlural === normKNoPlural || normIng.includes(normK) || normK.includes(normIng) || normIngNoPlural.includes(normKNoPlural) || normKNoPlural.includes(normIngNoPlural)) {
             ingDef = ingredientCosts[k];
             break;
           }
