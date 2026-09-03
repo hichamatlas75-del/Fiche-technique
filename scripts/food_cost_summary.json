@@ -5825,35 +5825,40 @@
     "category": "PANINIS",
     "name": "VIANDE HACHÉE",
     "sellPrice": 54,
-    "cost": 22.7,
-    "foodCostPct": 42,
-    "marginPct": 58,
-    "grossMarginDH": 31.3,
+    "cost": 18.22,
+    "foodCostPct": 33.7,
+    "marginPct": 66.3,
+    "grossMarginDH": 35.78,
     "details": [
-      {
-        "ingredient": "Pâte",
-        "quantity": "330 g",
-        "cost": 2.97
-      },
-      {
-        "ingredient": "Mozzarella",
-        "quantity": "150 g",
-        "cost": 8.25
-      },
-      {
-        "ingredient": "Sauce tomate",
-        "quantity": "100 g",
-        "cost": 0.88
-      },
       {
         "ingredient": "Viande",
         "quantity": "100 g",
         "cost": 10
       },
       {
-        "ingredient": "Tomate cerise",
-        "quantity": "40 g",
-        "cost": 0.6
+        "ingredient": "Tomate",
+        "quantity": "30 g",
+        "cost": 0.18
+      },
+      {
+        "ingredient": "Sauce spéciale",
+        "quantity": "30 g",
+        "cost": 0.84
+      },
+      {
+        "ingredient": "Cheddar",
+        "quantity": "20 g",
+        "cost": 1.7
+      },
+      {
+        "ingredient": "Frites",
+        "quantity": "200 g",
+        "cost": 3.5
+      },
+      {
+        "ingredient": "Pain",
+        "quantity": "1 p",
+        "cost": 2
       }
     ]
   },
@@ -5907,55 +5912,35 @@
     "category": "PANINIS",
     "name": "FRUITS DE MER",
     "sellPrice": 64,
-    "cost": 27.93,
-    "foodCostPct": 43.6,
-    "marginPct": 56.4,
-    "grossMarginDH": 36.07,
+    "cost": 26.98,
+    "foodCostPct": 42.2,
+    "marginPct": 57.8,
+    "grossMarginDH": 37.02,
     "details": [
       {
-        "ingredient": "Pain",
-        "quantity": "1 p",
-        "cost": 2
+        "ingredient": "Sauce Biggy",
+        "quantity": "40 g",
+        "cost": 1.12
       },
       {
-        "ingredient": "Crevettes avec coquille",
-        "quantity": "145 g",
-        "cost": 7.98
+        "ingredient": "Crème fraîche",
+        "quantity": "200 ml",
+        "cost": 6
       },
       {
-        "ingredient": "Calamar congelé",
-        "quantity": "120 g",
-        "cost": 6.96
-      },
-      {
-        "ingredient": "Moules",
-        "quantity": "15 g",
-        "cost": 0.83
-      },
-      {
-        "ingredient": "Parmesan",
+        "ingredient": "parmesan",
         "quantity": "30 g",
         "cost": 4.5
       },
       {
-        "ingredient": "Huile",
-        "quantity": "30 g",
-        "cost": 0.47
-      },
-      {
-        "ingredient": "Crème",
-        "quantity": "100 g",
-        "cost": 3
-      },
-      {
-        "ingredient": "Pesto",
+        "ingredient": "Crevette chair",
         "quantity": "40 g",
-        "cost": 1.8
+        "cost": 8.4
       },
       {
-        "ingredient": "Oignon/Ail",
-        "quantity": "50 g",
-        "cost": 0.4
+        "ingredient": "calamar chair",
+        "quantity": "40 g",
+        "cost": 6.96
       }
     ]
   },
@@ -5963,15 +5948,15 @@
     "category": "PANINIS",
     "name": "SAUMON",
     "sellPrice": 64,
-    "cost": 34.85,
-    "foodCostPct": 54.5,
-    "marginPct": 45.5,
-    "grossMarginDH": 29.15,
+    "cost": 28.28,
+    "foodCostPct": 44.2,
+    "marginPct": 55.8,
+    "grossMarginDH": 35.72,
     "details": [
       {
-        "ingredient": "Pain",
-        "quantity": "1 p",
-        "cost": 2
+        "ingredient": "Pâte",
+        "quantity": "125 g",
+        "cost": 1.13
       },
       {
         "ingredient": "Saumon",
@@ -5979,29 +5964,19 @@
         "cost": 16.2
       },
       {
-        "ingredient": "Parmesan",
-        "quantity": "60 g",
-        "cost": 9
+        "ingredient": "Sauce blanche",
+        "quantity": "200 g",
+        "cost": 6
       },
       {
-        "ingredient": "Huile",
-        "quantity": "60 g",
-        "cost": 0.94
+        "ingredient": "Câpres",
+        "quantity": "15 g",
+        "cost": 0.45
       },
       {
-        "ingredient": "Crème",
-        "quantity": "100 g",
-        "cost": 3
-      },
-      {
-        "ingredient": "Pesto",
-        "quantity": "70 g",
-        "cost": 3.15
-      },
-      {
-        "ingredient": "Oignon/Ail",
-        "quantity": "70 g",
-        "cost": 0.56
+        "ingredient": "parmesan",
+        "quantity": "30 g",
+        "cost": 4.5
       }
     ]
   },
@@ -6250,55 +6225,35 @@
     "category": "SANDWICHS",
     "name": "FRUITS DE MER",
     "sellPrice": 65,
-    "cost": 27.93,
-    "foodCostPct": 43,
-    "marginPct": 57,
-    "grossMarginDH": 37.07,
+    "cost": 26.98,
+    "foodCostPct": 41.5,
+    "marginPct": 58.5,
+    "grossMarginDH": 38.02,
     "details": [
       {
-        "ingredient": "Pain",
-        "quantity": "1 p",
-        "cost": 2
+        "ingredient": "Sauce Biggy",
+        "quantity": "40 g",
+        "cost": 1.12
       },
       {
-        "ingredient": "Crevettes avec coquille",
-        "quantity": "145 g",
-        "cost": 7.98
+        "ingredient": "Crème fraîche",
+        "quantity": "200 ml",
+        "cost": 6
       },
       {
-        "ingredient": "Calamar congelé",
-        "quantity": "120 g",
-        "cost": 6.96
-      },
-      {
-        "ingredient": "Moules",
-        "quantity": "15 g",
-        "cost": 0.83
-      },
-      {
-        "ingredient": "Parmesan",
+        "ingredient": "parmesan",
         "quantity": "30 g",
         "cost": 4.5
       },
       {
-        "ingredient": "Huile",
-        "quantity": "30 g",
-        "cost": 0.47
-      },
-      {
-        "ingredient": "Crème",
-        "quantity": "100 g",
-        "cost": 3
-      },
-      {
-        "ingredient": "Pesto",
+        "ingredient": "Crevette chair",
         "quantity": "40 g",
-        "cost": 1.8
+        "cost": 8.4
       },
       {
-        "ingredient": "Oignon/Ail",
-        "quantity": "50 g",
-        "cost": 0.4
+        "ingredient": "calamar chair",
+        "quantity": "40 g",
+        "cost": 6.96
       }
     ]
   },
@@ -6306,38 +6261,38 @@
     "category": "SANDWICHS",
     "name": "THON",
     "sellPrice": 48,
-    "cost": 20.16,
-    "foodCostPct": 42,
-    "marginPct": 58,
-    "grossMarginDH": 27.84,
+    "cost": 15.49,
+    "foodCostPct": 32.3,
+    "marginPct": 67.7,
+    "grossMarginDH": 32.51,
     "details": [
       {
-        "ingredient": "Pâte",
-        "quantity": "330 g",
-        "cost": 2.97
-      },
-      {
-        "ingredient": "Mozzarella",
-        "quantity": "150 g",
-        "cost": 8.25
-      },
-      {
-        "ingredient": "Sauce tomate",
-        "quantity": "100 g",
-        "cost": 0.88
-      },
-      {
         "ingredient": "Thon",
-        "quantity": "100 g",
-        "cost": 5.83
+        "quantity": "120 g",
+        "cost": 6.99
       },
       {
-        "ingredient": "Oignons",
-        "quantity": "40 g",
-        "cost": 0.24
+        "ingredient": "Tomate",
+        "quantity": "30 g",
+        "cost": 0.18
       },
       {
-        "ingredient": "Olives",
+        "ingredient": "Sauce burger",
+        "quantity": "40 ml",
+        "cost": 1.12
+      },
+      {
+        "ingredient": "Cheddar",
+        "quantity": "20 g",
+        "cost": 1.7
+      },
+      {
+        "ingredient": "Frites",
+        "quantity": "200 g",
+        "cost": 3.5
+      },
+      {
+        "ingredient": "Pain",
         "quantity": "1 p",
         "cost": 2
       }
@@ -6480,35 +6435,40 @@
     "category": "SANDWICHS",
     "name": "VIANDE HACHÉE",
     "sellPrice": 54,
-    "cost": 22.7,
-    "foodCostPct": 42,
-    "marginPct": 58,
-    "grossMarginDH": 31.3,
+    "cost": 18.22,
+    "foodCostPct": 33.7,
+    "marginPct": 66.3,
+    "grossMarginDH": 35.78,
     "details": [
-      {
-        "ingredient": "Pâte",
-        "quantity": "330 g",
-        "cost": 2.97
-      },
-      {
-        "ingredient": "Mozzarella",
-        "quantity": "150 g",
-        "cost": 8.25
-      },
-      {
-        "ingredient": "Sauce tomate",
-        "quantity": "100 g",
-        "cost": 0.88
-      },
       {
         "ingredient": "Viande",
         "quantity": "100 g",
         "cost": 10
       },
       {
-        "ingredient": "Tomate cerise",
-        "quantity": "40 g",
-        "cost": 0.6
+        "ingredient": "Tomate",
+        "quantity": "30 g",
+        "cost": 0.18
+      },
+      {
+        "ingredient": "Sauce spéciale",
+        "quantity": "30 g",
+        "cost": 0.84
+      },
+      {
+        "ingredient": "Cheddar",
+        "quantity": "20 g",
+        "cost": 1.7
+      },
+      {
+        "ingredient": "Frites",
+        "quantity": "200 g",
+        "cost": 3.5
+      },
+      {
+        "ingredient": "Pain",
+        "quantity": "1 p",
+        "cost": 2
       }
     ]
   },
@@ -6560,12 +6520,12 @@
   },
   {
     "category": "PIZZA",
-    "name": "MARGARITA",
+    "name": "PIZZA MARGARITA",
     "sellPrice": 52,
-    "cost": 12.68,
-    "foodCostPct": 24.4,
-    "marginPct": 75.6,
-    "grossMarginDH": 39.32,
+    "cost": 12.87,
+    "foodCostPct": 24.8,
+    "marginPct": 75.3,
+    "grossMarginDH": 39.13,
     "details": [
       {
         "ingredient": "Pâte",
@@ -6584,19 +6544,24 @@
       },
       {
         "ingredient": "Olives noires",
-        "quantity": "13 g",
-        "cost": 0.59
+        "quantity": "15 g",
+        "cost": 0.68
+      },
+      {
+        "ingredient": "Basilic",
+        "quantity": "5 g",
+        "cost": 0.1
       }
     ]
   },
   {
     "category": "PIZZA",
-    "name": "THON",
+    "name": "PIZZA THON",
     "sellPrice": 65,
-    "cost": 20.16,
-    "foodCostPct": 31,
-    "marginPct": 69,
-    "grossMarginDH": 44.84,
+    "cost": 18.77,
+    "foodCostPct": 28.9,
+    "marginPct": 71.1,
+    "grossMarginDH": 46.23,
     "details": [
       {
         "ingredient": "Pâte",
@@ -6619,20 +6584,20 @@
         "cost": 5.83
       },
       {
-        "ingredient": "Oignons",
-        "quantity": "40 g",
-        "cost": 0.24
+        "ingredient": "Oignon",
+        "quantity": "30 g",
+        "cost": 0.18
       },
       {
-        "ingredient": "Olives",
-        "quantity": "1 p",
-        "cost": 2
+        "ingredient": "Olives noires",
+        "quantity": "15 g",
+        "cost": 0.68
       }
     ]
   },
   {
     "category": "PIZZA",
-    "name": "VÉGÉTARIENNE",
+    "name": "PIZZA VÉGÉTARIENNE",
     "sellPrice": 62,
     "cost": 16.4,
     "foodCostPct": 26.5,
@@ -6668,7 +6633,7 @@
   },
   {
     "category": "PIZZA",
-    "name": "REGINA",
+    "name": "PIZZA DINDE FUMÉE (REGINA)",
     "sellPrice": 68,
     "cost": 18.32,
     "foodCostPct": 26.9,
@@ -6704,12 +6669,12 @@
   },
   {
     "category": "PIZZA",
-    "name": "5 FROMAGES",
+    "name": "PIZZA 5 FROMAGES",
     "sellPrice": 78,
-    "cost": 19.82,
-    "foodCostPct": 25.4,
-    "marginPct": 74.6,
-    "grossMarginDH": 58.18,
+    "cost": 28.82,
+    "foodCostPct": 36.9,
+    "marginPct": 63.1,
+    "grossMarginDH": 49.18,
     "details": [
       {
         "ingredient": "Pâte",
@@ -6717,55 +6682,45 @@
         "cost": 2.97
       },
       {
-        "ingredient": "Brie",
-        "quantity": "25 g",
+        "ingredient": "Mozzarella",
+        "quantity": "50 g",
         "cost": 2.75
       },
       {
-        "ingredient": "Parmesan",
-        "quantity": "25 g",
-        "cost": 3.75
+        "ingredient": "Brie",
+        "quantity": "50 g",
+        "cost": 5.5
       },
       {
         "ingredient": "Bleu",
+        "quantity": "40 g",
+        "cost": 4.8
+      },
+      {
+        "ingredient": "Sauce blanche",
+        "quantity": "200 g",
+        "cost": 6
+      },
+      {
+        "ingredient": "Parmesan",
         "quantity": "20 g",
-        "cost": 2.4
-      },
-      {
-        "ingredient": "Mozzarella",
-        "quantity": "30 g",
-        "cost": 1.65
-      },
-      {
-        "ingredient": "Edam",
-        "quantity": "20 g",
-        "cost": 1.8
-      },
-      {
-        "ingredient": "Huile",
-        "quantity": "60 g",
-        "cost": 0.94
-      },
-      {
-        "ingredient": "Crème",
-        "quantity": "100 g",
         "cost": 3
       },
       {
-        "ingredient": "Oignon/Ail",
-        "quantity": "70 g",
-        "cost": 0.56
+        "ingredient": "Fromage rouge",
+        "quantity": "40 g",
+        "cost": 3.8
       }
     ]
   },
   {
     "category": "PIZZA",
-    "name": "VIANDE HACHÉE",
+    "name": "PIZZA VIANDE HACHÉE",
     "sellPrice": 78,
-    "cost": 22.7,
-    "foodCostPct": 29.1,
-    "marginPct": 70.9,
-    "grossMarginDH": 55.3,
+    "cost": 22.55,
+    "foodCostPct": 28.9,
+    "marginPct": 71.1,
+    "grossMarginDH": 55.45,
     "details": [
       {
         "ingredient": "Pâte",
@@ -6783,25 +6738,25 @@
         "cost": 0.88
       },
       {
-        "ingredient": "Viande",
+        "ingredient": "Viande hachée",
         "quantity": "100 g",
         "cost": 10
       },
       {
         "ingredient": "Tomate cerise",
-        "quantity": "40 g",
-        "cost": 0.6
+        "quantity": "30 g",
+        "cost": 0.45
       }
     ]
   },
   {
     "category": "PIZZA",
-    "name": "PEPPERONI",
+    "name": "PIZZA PEPPERONI",
     "sellPrice": 74,
-    "cost": 16.9,
-    "foodCostPct": 22.8,
-    "marginPct": 77.2,
-    "grossMarginDH": 57.1,
+    "cost": 21.7,
+    "foodCostPct": 29.3,
+    "marginPct": 70.7,
+    "grossMarginDH": 52.3,
     "details": [
       {
         "ingredient": "Pâte",
@@ -6820,19 +6775,19 @@
       },
       {
         "ingredient": "Pepperoni",
-        "quantity": "40 g",
-        "cost": 4.8
+        "quantity": "80 g",
+        "cost": 9.6
       }
     ]
   },
   {
     "category": "PIZZA",
-    "name": "POULET SAUCE BLANCHE",
+    "name": "PIZZA POULET (SAUCE BLANCHE)",
     "sellPrice": 78,
-    "cost": 26.07,
-    "foodCostPct": 33.4,
-    "marginPct": 66.6,
-    "grossMarginDH": 51.93,
+    "cost": 22.47,
+    "foodCostPct": 28.8,
+    "marginPct": 71.2,
+    "grossMarginDH": 55.53,
     "details": [
       {
         "ingredient": "Pâte",
@@ -6843,32 +6798,32 @@
         "ingredient": "Mozzarella",
         "quantity": "150 g",
         "cost": 8.25
-      },
-      {
-        "ingredient": "Poulet",
-        "quantity": "150 g",
-        "cost": 9.75
-      },
-      {
-        "ingredient": "Champignon",
-        "quantity": "60 g",
-        "cost": 2.1
       },
       {
         "ingredient": "Sauce blanche",
         "quantity": "100 g",
         "cost": 3
+      },
+      {
+        "ingredient": "Poulet",
+        "quantity": "100 g",
+        "cost": 6.5
+      },
+      {
+        "ingredient": "Champignons",
+        "quantity": "50 g",
+        "cost": 1.75
       }
     ]
   },
   {
     "category": "PIZZA",
-    "name": "4 SAISONS",
+    "name": "PIZZA 4 SAISONS",
     "sellPrice": 88,
-    "cost": 35.46,
-    "foodCostPct": 40.3,
-    "marginPct": 59.7,
-    "grossMarginDH": 52.54,
+    "cost": 29.35,
+    "foodCostPct": 33.4,
+    "marginPct": 66.6,
+    "grossMarginDH": 58.65,
     "details": [
       {
         "ingredient": "Pâte",
@@ -6881,66 +6836,40 @@
         "cost": 8.25
       },
       {
-        "ingredient": "Calamar congelé",
-        "quantity": "120 g",
-        "cost": 6.96
+        "ingredient": "Sauce tomate",
+        "quantity": "100 g",
+        "cost": 0.88
       },
       {
-        "ingredient": "Crevettes avec coquille",
-        "quantity": "145 g",
-        "cost": 7.98
+        "ingredient": "Crevette chair",
+        "quantity": "40 g",
+        "cost": 8.4
       },
       {
         "ingredient": "Viande",
-        "quantity": "40 g",
-        "cost": 4
+        "quantity": "50 g",
+        "cost": 5
       },
       {
         "ingredient": "Poulet",
-        "quantity": "40 g",
-        "cost": 2.6
+        "quantity": "50 g",
+        "cost": 3.25
       },
       {
         "ingredient": "Légumes",
         "quantity": "60 g",
         "cost": 0.6
-      },
-      {
-        "ingredient": "Champignon",
-        "quantity": "60 g",
-        "cost": 2.1
       }
     ]
   },
   {
     "category": "PIZZA",
-    "name": "MOITIÉ MOITIÉ",
+    "name": "PIZZA MOITIÉ MOITIÉ",
     "sellPrice": 88,
-    "cost": 11.97,
-    "foodCostPct": 13.6,
-    "marginPct": 86.4,
-    "grossMarginDH": 76.03,
-    "details": [
-      {
-        "ingredient": "Pâte",
-        "quantity": "330 g",
-        "cost": 2.97
-      },
-      {
-        "ingredient": "Garnitures 2 moitiés (hors fruits de mer/saumon)",
-        "quantity": "1 p",
-        "cost": 9
-      }
-    ]
-  },
-  {
-    "category": "PIZZA",
-    "name": "BURRATA",
-    "sellPrice": 110,
-    "cost": 22.25,
-    "foodCostPct": 20.2,
-    "marginPct": 79.8,
-    "grossMarginDH": 87.75,
+    "cost": 12.1,
+    "foodCostPct": 13.7,
+    "marginPct": 86.3,
+    "grossMarginDH": 75.9,
     "details": [
       {
         "ingredient": "Pâte",
@@ -6951,6 +6880,32 @@
         "ingredient": "Mozzarella",
         "quantity": "150 g",
         "cost": 8.25
+      },
+      {
+        "ingredient": "Sauce tomate",
+        "quantity": "100 g",
+        "cost": 0.88
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "PIZZA BURRATA",
+    "sellPrice": 110,
+    "cost": 30.82,
+    "foodCostPct": 28,
+    "marginPct": 72,
+    "grossMarginDH": 79.18,
+    "details": [
+      {
+        "ingredient": "Pâte",
+        "quantity": "330 g",
+        "cost": 2.97
+      },
+      {
+        "ingredient": "Mozzarella",
+        "quantity": "100 g",
+        "cost": 5.5
       },
       {
         "ingredient": "Sauce tomate",
@@ -6959,134 +6914,42 @@
       },
       {
         "ingredient": "Burrata",
-        "quantity": "1 P",
-        "cost": 7.6
-      },
-      {
-        "ingredient": "Noix",
-        "quantity": "30 g",
-        "cost": 2.25
+        "quantity": "125 g",
+        "cost": 19
       },
       {
         "ingredient": "Tomate cerise",
-        "quantity": "20 g",
-        "cost": 0.3
-      }
-    ]
-  },
-  {
-    "category": "PIZZA",
-    "name": "FRUITS DE MER",
-    "sellPrice": 88,
-    "cost": 28.9,
-    "foodCostPct": 32.8,
-    "marginPct": 67.2,
-    "grossMarginDH": 59.1,
-    "details": [
-      {
-        "ingredient": "Pâte",
-        "quantity": "330 g",
-        "cost": 2.97
-      },
-      {
-        "ingredient": "Crevettes avec coquille",
-        "quantity": "145 g",
-        "cost": 7.98
-      },
-      {
-        "ingredient": "Calamar congelé",
-        "quantity": "120 g",
-        "cost": 6.96
-      },
-      {
-        "ingredient": "Moules",
-        "quantity": "15 g",
-        "cost": 0.83
-      },
-      {
-        "ingredient": "Parmesan",
-        "quantity": "30 g",
-        "cost": 4.5
-      },
-      {
-        "ingredient": "Huile",
-        "quantity": "30 g",
-        "cost": 0.47
-      },
-      {
-        "ingredient": "Crème",
-        "quantity": "100 g",
-        "cost": 3
-      },
-      {
-        "ingredient": "Pesto",
-        "quantity": "40 g",
-        "cost": 1.8
-      },
-      {
-        "ingredient": "Oignon/Ail",
         "quantity": "50 g",
-        "cost": 0.4
+        "cost": 0.75
+      },
+      {
+        "ingredient": "Roquette",
+        "quantity": "30 g",
+        "cost": 0.45
+      },
+      {
+        "ingredient": "Vinaigre balsamique",
+        "quantity": "10 ml",
+        "cost": 0.15
+      },
+      {
+        "ingredient": "Noix",
+        "quantity": "15 g",
+        "cost": 1.13
       }
     ]
   },
   {
     "category": "PIZZA",
-    "name": "SAUMON",
-    "sellPrice": 94,
-    "cost": 35.82,
-    "foodCostPct": 38.1,
-    "marginPct": 61.9,
-    "grossMarginDH": 58.18,
+    "name": "PIZZA FRUITS DE MER",
+    "sellPrice": 88,
+    "cost": 35.92,
+    "foodCostPct": 40.8,
+    "marginPct": 59.2,
+    "grossMarginDH": 52.08,
     "details": [
       {
         "ingredient": "Pâte",
-        "quantity": "330 g",
-        "cost": 2.97
-      },
-      {
-        "ingredient": "Saumon",
-        "quantity": "90 g",
-        "cost": 16.2
-      },
-      {
-        "ingredient": "Parmesan",
-        "quantity": "60 g",
-        "cost": 9
-      },
-      {
-        "ingredient": "Huile",
-        "quantity": "60 g",
-        "cost": 0.94
-      },
-      {
-        "ingredient": "Crème",
-        "quantity": "100 g",
-        "cost": 3
-      },
-      {
-        "ingredient": "Pesto",
-        "quantity": "70 g",
-        "cost": 3.15
-      },
-      {
-        "ingredient": "Oignon/Ail",
-        "quantity": "70 g",
-        "cost": 0.56
-      }
-    ]
-  },
-  {
-    "category": "PIZZA",
-    "name": "PIZZA VEGETARIENNE",
-    "sellPrice": 0,
-    "cost": 14.27,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
-    "details": [
-      {
-        "ingredient": "Pâte à pizza",
         "quantity": "330 g",
         "cost": 2.97
       },
@@ -7096,30 +6959,81 @@
         "cost": 8.25
       },
       {
-        "ingredient": "Sauce tomate",
+        "ingredient": "Sauce blanche",
         "quantity": "100 g",
-        "cost": 0.88
+        "cost": 3
       },
       {
-        "ingredient": "Olives noires",
-        "quantity": "15 g",
-        "cost": 0.68
+        "ingredient": "Crevette chair",
+        "quantity": "50 g",
+        "cost": 10.5
       },
       {
-        "ingredient": "Légumes grillés",
+        "ingredient": "Calamar chair",
+        "quantity": "50 g",
+        "cost": 8.7
+      },
+      {
+        "ingredient": "Moules",
+        "quantity": "20 g",
+        "cost": 1.1
+      },
+      {
+        "ingredient": "Champignons",
+        "quantity": "40 g",
+        "cost": 1.4
+      }
+    ]
+  },
+  {
+    "category": "PIZZA",
+    "name": "PIZZA SAUMON",
+    "sellPrice": 94,
+    "cost": 38.37,
+    "foodCostPct": 40.8,
+    "marginPct": 59.2,
+    "grossMarginDH": 55.63,
+    "details": [
+      {
+        "ingredient": "Pâte",
+        "quantity": "330 g",
+        "cost": 2.97
+      },
+      {
+        "ingredient": "Mozzarella",
         "quantity": "150 g",
-        "cost": 1.5
+        "cost": 8.25
+      },
+      {
+        "ingredient": "Sauce blanche",
+        "quantity": "200 g",
+        "cost": 6
+      },
+      {
+        "ingredient": "Saumon",
+        "quantity": "90 g",
+        "cost": 16.2
+      },
+      {
+        "ingredient": "Câpres",
+        "quantity": "15 g",
+        "cost": 0.45
+      },
+      {
+        "ingredient": "parmesan",
+        "quantity": "30 g",
+        "cost": 4.5
       }
     ]
   },
   {
     "category": "PIZZA",
     "name": "MENU ENFANT PIZZA",
-    "sellPrice": 0,
+    "sellPrice": 55,
     "cost": 16.49,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 30,
+    "marginPct": 70,
+    "grossMarginDH": 38.51,
     "details": [
       {
         "ingredient": "Pâte",
@@ -7145,42 +7059,6 @@
         "ingredient": "COCA",
         "quantity": "1 p",
         "cost": 7.55
-      }
-    ]
-  },
-  {
-    "category": "PIZZA",
-    "name": "REGINA DINDE FUMEE",
-    "sellPrice": 0,
-    "cost": 15.44,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
-    "details": [
-      {
-        "ingredient": "Pâte à pizza",
-        "quantity": "330 g",
-        "cost": 2.97
-      },
-      {
-        "ingredient": "Mozzarella",
-        "quantity": "150 g",
-        "cost": 8.25
-      },
-      {
-        "ingredient": "Sauce tomate",
-        "quantity": "100 g",
-        "cost": 0.88
-      },
-      {
-        "ingredient": "Dinde fumée",
-        "quantity": "80 g",
-        "cost": 1.6
-      },
-      {
-        "ingredient": "Champignon",
-        "quantity": "50 g",
-        "cost": 1.75
       }
     ]
   },
@@ -7239,10 +7117,10 @@
     "category": "PÂTES",
     "name": "LASAGNE BOLOGNAISE",
     "sellPrice": 72,
-    "cost": 20.27,
-    "foodCostPct": 28.2,
-    "marginPct": 71.8,
-    "grossMarginDH": 51.73,
+    "cost": 18.27,
+    "foodCostPct": 25.4,
+    "marginPct": 74.6,
+    "grossMarginDH": 53.73,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -7251,8 +7129,8 @@
       },
       {
         "ingredient": "Viande",
-        "quantity": "100 g",
-        "cost": 10
+        "quantity": "80 g",
+        "cost": 8
       },
       {
         "ingredient": "Parmesan",
@@ -7341,10 +7219,10 @@
     "category": "PÂTES",
     "name": "VÉGÉTARIEN",
     "sellPrice": 60,
-    "cost": 21.16,
-    "foodCostPct": 35.3,
-    "marginPct": 64.7,
-    "grossMarginDH": 38.84,
+    "cost": 16.66,
+    "foodCostPct": 27.8,
+    "marginPct": 72.2,
+    "grossMarginDH": 43.34,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -7358,8 +7236,8 @@
       },
       {
         "ingredient": "Parmesan",
-        "quantity": "60 g",
-        "cost": 9
+        "quantity": "30 g",
+        "cost": 4.5
       },
       {
         "ingredient": "Huile d'olive",
@@ -7387,10 +7265,10 @@
     "category": "PÂTES",
     "name": "CARBONARA",
     "sellPrice": 65,
-    "cost": 27.3,
-    "foodCostPct": 42,
-    "marginPct": 58,
-    "grossMarginDH": 37.7,
+    "cost": 22.8,
+    "foodCostPct": 35.1,
+    "marginPct": 64.9,
+    "grossMarginDH": 42.2,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -7404,8 +7282,8 @@
       },
       {
         "ingredient": "Parmesan",
-        "quantity": "60 g",
-        "cost": 9
+        "quantity": "30 g",
+        "cost": 4.5
       },
       {
         "ingredient": "Huile",
@@ -7428,10 +7306,10 @@
     "category": "PÂTES",
     "name": "5 FROMAGES",
     "sellPrice": 70,
-    "cost": 23.85,
-    "foodCostPct": 34.1,
-    "marginPct": 65.9,
-    "grossMarginDH": 46.15,
+    "cost": 29.85,
+    "foodCostPct": 42.6,
+    "marginPct": 57.4,
+    "grossMarginDH": 40.15,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -7439,44 +7317,34 @@
         "cost": 4
       },
       {
-        "ingredient": "Brie",
-        "quantity": "25 g",
+        "ingredient": "Mozzarella",
+        "quantity": "50 g",
         "cost": 2.75
       },
       {
-        "ingredient": "Parmesan",
-        "quantity": "25 g",
-        "cost": 3.75
+        "ingredient": "Brie",
+        "quantity": "50 g",
+        "cost": 5.5
       },
       {
         "ingredient": "Bleu",
-        "quantity": "20 g",
-        "cost": 2.4
+        "quantity": "40 g",
+        "cost": 4.8
       },
       {
-        "ingredient": "Mozzarella",
-        "quantity": "30 g",
-        "cost": 1.65
-      },
-      {
-        "ingredient": "Edam",
-        "quantity": "20 g",
-        "cost": 1.8
-      },
-      {
-        "ingredient": "Huile",
-        "quantity": "60 g",
-        "cost": 0.94
-      },
-      {
-        "ingredient": "Crème",
+        "ingredient": "Sauce blanche",
         "quantity": "200 g",
         "cost": 6
       },
       {
-        "ingredient": "Oignon/Ail",
-        "quantity": "70 g",
-        "cost": 0.56
+        "ingredient": "Parmesan",
+        "quantity": "20 g",
+        "cost": 3
+      },
+      {
+        "ingredient": "Fromage rouge",
+        "quantity": "40 g",
+        "cost": 3.8
       }
     ]
   },
@@ -7535,10 +7403,10 @@
     "category": "PÂTES",
     "name": "BOLOGNAISE",
     "sellPrice": 75,
-    "cost": 29.1,
-    "foodCostPct": 38.8,
-    "marginPct": 61.2,
-    "grossMarginDH": 45.9,
+    "cost": 22.6,
+    "foodCostPct": 30.1,
+    "marginPct": 69.9,
+    "grossMarginDH": 52.4,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -7547,13 +7415,13 @@
       },
       {
         "ingredient": "Viande",
-        "quantity": "100 g",
-        "cost": 10
+        "quantity": "80 g",
+        "cost": 8
       },
       {
         "ingredient": "Parmesan",
-        "quantity": "60 g",
-        "cost": 9
+        "quantity": "30 g",
+        "cost": 4.5
       },
       {
         "ingredient": "Huile",
@@ -7586,10 +7454,10 @@
     "category": "PÂTES",
     "name": "POULET CHAMPIGNON / ÉPINARD",
     "sellPrice": 75,
-    "cost": 31.75,
-    "foodCostPct": 42.3,
-    "marginPct": 57.7,
-    "grossMarginDH": 43.25,
+    "cost": 27.25,
+    "foodCostPct": 36.3,
+    "marginPct": 63.7,
+    "grossMarginDH": 47.75,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -7603,8 +7471,8 @@
       },
       {
         "ingredient": "Parmesan",
-        "quantity": "60 g",
-        "cost": 9
+        "quantity": "30 g",
+        "cost": 4.5
       },
       {
         "ingredient": "Huile",
@@ -7758,53 +7626,12 @@
   },
   {
     "category": "PÂTES",
-    "name": "PASTA 5 FROMAGE",
-    "sellPrice": 0,
-    "cost": 27.1,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
-    "details": [
-      {
-        "ingredient": "Pâtes",
-        "quantity": "125 g",
-        "cost": 4
-      },
-      {
-        "ingredient": "Brie",
-        "quantity": "50 g",
-        "cost": 5.5
-      },
-      {
-        "ingredient": "Bleu",
-        "quantity": "40 g",
-        "cost": 4.8
-      },
-      {
-        "ingredient": "Sauce blanche",
-        "quantity": "200 g",
-        "cost": 6
-      },
-      {
-        "ingredient": "Parmesan",
-        "quantity": "20 g",
-        "cost": 3
-      },
-      {
-        "ingredient": "Fromage rouge",
-        "quantity": "40 g",
-        "cost": 3.8
-      }
-    ]
-  },
-  {
-    "category": "PÂTES",
     "name": "PASTA NATURE",
-    "sellPrice": 0,
-    "cost": 19.1,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "sellPrice": 50,
+    "cost": 14.6,
+    "foodCostPct": 29.2,
+    "marginPct": 70.8,
+    "grossMarginDH": 35.4,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -7813,8 +7640,8 @@
       },
       {
         "ingredient": "Parmesan",
-        "quantity": "60 g",
-        "cost": 9
+        "quantity": "30 g",
+        "cost": 4.5
       },
       {
         "ingredient": "Huile",
@@ -7845,55 +7672,9 @@
   },
   {
     "category": "PÂTES",
-    "name": "PASTA REGATONI RICOTTA",
-    "sellPrice": 0,
-    "cost": 22.4,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
-    "details": [
-      {
-        "ingredient": "Pâtes",
-        "quantity": "125 g",
-        "cost": 4
-      },
-      {
-        "ingredient": "FR RICOTTA",
-        "quantity": "100 g",
-        "cost": 4
-      },
-      {
-        "ingredient": "Parmesan",
-        "quantity": "60 g",
-        "cost": 9
-      },
-      {
-        "ingredient": "Huile",
-        "quantity": "60 g",
-        "cost": 0.94
-      },
-      {
-        "ingredient": "Tomate cerise",
-        "quantity": "50 g",
-        "cost": 0.75
-      },
-      {
-        "ingredient": "Pesto",
-        "quantity": "70 g",
-        "cost": 3.15
-      },
-      {
-        "ingredient": "Oignon/Ail",
-        "quantity": "70 g",
-        "cost": 0.56
-      }
-    ]
-  },
-  {
-    "category": "PÂTES",
     "name": "MENU ENFANT PASTA NATURE",
     "sellPrice": 0,
-    "cost": 7.78,
+    "cost": 12.53,
     "foodCostPct": 0,
     "marginPct": 0,
     "grossMarginDH": 0,
@@ -7910,13 +7691,13 @@
       },
       {
         "ingredient": "Parmesan",
-        "quantity": "15 g",
-        "cost": 2.25
+        "quantity": "30 g",
+        "cost": 4.5
       },
       {
         "ingredient": "Canette Soda",
-        "quantity": "1 p",
-        "cost": 1
+        "quantity": "3.5 p",
+        "cost": 3.5
       }
     ]
   },

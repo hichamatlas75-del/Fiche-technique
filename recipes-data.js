@@ -21,11 +21,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "16 DH",
-        "cost": 3.49,
+        "cost": 3.24,
         "sellPrice": 16,
-        "foodCost": 21.8,
-        "margin": 78.2,
-        "grossMarginDH": 12.51,
+        "foodCost": 20.3,
+        "margin": 79.8,
+        "grossMarginDH": 12.76,
         "__key": "bc",
         "__images": [
           "images/boisson-cafe.webp"
@@ -42,11 +42,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "17 DH",
-        "cost": 3.49,
+        "cost": 3.24,
         "sellPrice": 17,
-        "foodCost": 20.5,
-        "margin": 79.5,
-        "grossMarginDH": 13.51,
+        "foodCost": 19.1,
+        "margin": 80.9,
+        "grossMarginDH": 13.76,
         "__key": "bc",
         "__images": [
           "images/boisson-americano.webp"
@@ -63,11 +63,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "19 DH",
-        "cost": 4.59,
+        "cost": 4.34,
         "sellPrice": 19,
-        "foodCost": 24.2,
-        "margin": 75.8,
-        "grossMarginDH": 14.41,
+        "foodCost": 22.8,
+        "margin": 77.2,
+        "grossMarginDH": 14.66,
         "__key": "bc",
         "__images": [
           "images/boisson-cafelait.webp"
@@ -85,11 +85,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "19 DH",
-        "cost": 5.42,
+        "cost": 5.17,
         "sellPrice": 19,
-        "foodCost": 28.5,
-        "margin": 71.5,
-        "grossMarginDH": 13.58,
+        "foodCost": 27.2,
+        "margin": 72.8,
+        "grossMarginDH": 13.83,
         "__key": "bc",
         "__images": [
           "images/boisson-cafelatte.webp"
@@ -108,11 +108,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "19 DH",
-        "cost": 5.08,
+        "cost": 4.83,
         "sellPrice": 19,
-        "foodCost": 26.7,
-        "margin": 73.3,
-        "grossMarginDH": 13.92,
+        "foodCost": 25.4,
+        "margin": 74.6,
+        "grossMarginDH": 14.17,
         "__key": "bc",
         "__images": [
           "images/boisson-cappu.webp"
@@ -131,11 +131,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "22 DH",
-        "cost": 5.52,
+        "cost": 5.27,
         "sellPrice": 22,
-        "foodCost": 25.1,
-        "margin": 74.9,
-        "grossMarginDH": 16.48,
+        "foodCost": 24,
+        "margin": 76,
+        "grossMarginDH": 16.73,
         "__key": "bc",
         "__images": [
           "images/boisson-cappu-chant.webp"
@@ -388,11 +388,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "19 DH",
-        "cost": 4.87,
+        "cost": 4.62,
         "sellPrice": 19,
-        "foodCost": 25.6,
-        "margin": 74.4,
-        "grossMarginDH": 14.13,
+        "foodCost": 24.3,
+        "margin": 75.7,
+        "grossMarginDH": 14.38,
         "__key": "bc",
         "__images": [
           "images/boisson-cafelait.webp"
@@ -409,11 +409,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "24 DH",
-        "cost": 4.41,
+        "cost": 4.16,
         "sellPrice": 24,
-        "foodCost": 18.4,
-        "margin": 81.6,
-        "grossMarginDH": 19.59,
+        "foodCost": 17.3,
+        "margin": 82.7,
+        "grossMarginDH": 19.84,
         "__key": "bc",
         "__images": [
           "images/boisson-cafelait.webp"
@@ -430,11 +430,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "19 DH",
-        "cost": 4.22,
+        "cost": 3.97,
         "sellPrice": 19,
-        "foodCost": 22.2,
-        "margin": 77.8,
-        "grossMarginDH": 14.78,
+        "foodCost": 20.9,
+        "margin": 79.1,
+        "grossMarginDH": 15.03,
         "__key": "bc",
         "__images": [
           "images/boisson-cafelait.webp"
@@ -452,7 +452,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 3.22,
+        "cost": 2.97,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -513,7 +513,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 1.93,
+        "cost": 1.68,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -534,7 +534,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 3.1,
+        "cost": 2.65,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -603,11 +603,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "20 DH",
-        "cost": 4.82,
+        "cost": 4.57,
         "sellPrice": 20,
-        "foodCost": 24.1,
-        "margin": 75.9,
-        "grossMarginDH": 15.18,
+        "foodCost": 22.9,
+        "margin": 77.2,
+        "grossMarginDH": 15.43,
         "__key": "fg",
         "__images": [
           "images/icecoffee-class.webp"
@@ -625,11 +625,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "23 DH",
-        "cost": 5.18,
+        "cost": 4.93,
         "sellPrice": 23,
-        "foodCost": 22.5,
-        "margin": 77.5,
-        "grossMarginDH": 17.82,
+        "foodCost": 21.4,
+        "margin": 78.6,
+        "grossMarginDH": 18.07,
         "__key": "fg",
         "__images": [
           "images/icecoffee-arom.webp"
@@ -647,11 +647,11 @@ const DATA = [
           "Crème chantilly : 30 g"
         ],
         "price": "25 DH",
-        "cost": 4.53,
+        "cost": 4.28,
         "sellPrice": 25,
-        "foodCost": 18.1,
-        "margin": 81.9,
-        "grossMarginDH": 20.47,
+        "foodCost": 17.1,
+        "margin": 82.9,
+        "grossMarginDH": 20.72,
         "__key": "fg",
         "__images": [
           "images/frappu-class.webp"
@@ -669,11 +669,11 @@ const DATA = [
           "Chantilly & Nappage : 35 g"
         ],
         "price": "28 DH",
-        "cost": 4.6,
+        "cost": 4.35,
         "sellPrice": 28,
-        "foodCost": 16.4,
-        "margin": 83.6,
-        "grossMarginDH": 23.4,
+        "foodCost": 15.5,
+        "margin": 84.5,
+        "grossMarginDH": 23.65,
         "__key": "fg",
         "__images": [
           "images/frappu-arom.webp"
@@ -1776,7 +1776,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 11.5,
+        "cost": 6.55,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -2219,11 +2219,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 2 p"
         ],
         "price": "144 DH",
-        "cost": 72.22,
+        "cost": 73.13,
         "sellPrice": 144,
-        "foodCost": 50.2,
-        "margin": 49.8,
-        "grossMarginDH": 71.78,
+        "foodCost": 50.8,
+        "margin": 49.2,
+        "grossMarginDH": 70.87,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-duo.jpg"
@@ -2273,11 +2273,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 29.52,
+        "cost": 26.92,
         "sellPrice": 52,
-        "foodCost": 56.8,
-        "margin": 43.2,
-        "grossMarginDH": 22.48,
+        "foodCost": 51.8,
+        "margin": 48.2,
+        "grossMarginDH": 25.08,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-hollandais.jpg"
@@ -2297,11 +2297,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 19.05,
+        "cost": 19.06,
         "sellPrice": 52,
-        "foodCost": 36.6,
-        "margin": 63.4,
-        "grossMarginDH": 32.95,
+        "foodCost": 36.7,
+        "margin": 63.3,
+        "grossMarginDH": 32.94,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-veg.jpg"
@@ -2395,11 +2395,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 26.75,
+        "cost": 26.76,
         "sellPrice": 52,
-        "foodCost": 51.4,
-        "margin": 48.6,
-        "grossMarginDH": 25.25,
+        "foodCost": 51.5,
+        "margin": 48.5,
+        "grossMarginDH": 25.24,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-cont.jpg"
@@ -2419,11 +2419,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 21.65,
+        "cost": 21.66,
         "sellPrice": 52,
-        "foodCost": 41.6,
-        "margin": 58.4,
-        "grossMarginDH": 30.35,
+        "foodCost": 41.7,
+        "margin": 58.3,
+        "grossMarginDH": 30.34,
         "__key": "pdj",
         "__images": [
           "images/omelette-fromage.jpg"
@@ -2442,11 +2442,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "42 DH",
-        "cost": 17.85,
+        "cost": 17.86,
         "sellPrice": 42,
         "foodCost": 42.5,
         "margin": 57.5,
-        "grossMarginDH": 24.15,
+        "grossMarginDH": 24.14,
         "__key": "pdj",
         "__images": [
           "images/omelette-nature.jpg"
@@ -2467,11 +2467,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "58 DH",
-        "cost": 14.55,
+        "cost": 14.56,
         "sellPrice": 58,
         "foodCost": 25.1,
         "margin": 74.9,
-        "grossMarginDH": 43.45,
+        "grossMarginDH": 43.44,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-chef.jpg"
@@ -2496,11 +2496,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 33.25,
+        "cost": 32.35,
         "sellPrice": 64,
-        "foodCost": 52,
-        "margin": 48,
-        "grossMarginDH": 30.75,
+        "foodCost": 50.5,
+        "margin": 49.5,
+        "grossMarginDH": 31.65,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-espagnol.jpg"
@@ -2520,11 +2520,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 29.28,
+        "cost": 29.29,
         "sellPrice": 64,
         "foodCost": 45.8,
-        "margin": 54.3,
-        "grossMarginDH": 34.72,
+        "margin": 54.2,
+        "grossMarginDH": 34.71,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-mquila.jpg"
@@ -2545,11 +2545,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "78 DH",
-        "cost": 33.48,
+        "cost": 33.49,
         "sellPrice": 78,
         "foodCost": 42.9,
         "margin": 57.1,
-        "grossMarginDH": 44.52,
+        "grossMarginDH": 44.51,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_mquilafruitdemer.jpeg"
@@ -2638,11 +2638,11 @@ const DATA = [
           "Lait chocolat : 200 ml"
         ],
         "price": "40 DH",
-        "cost": 14.24,
+        "cost": 15.02,
         "sellPrice": 40,
-        "foodCost": 35.6,
-        "margin": 64.4,
-        "grossMarginDH": 25.76,
+        "foodCost": 37.6,
+        "margin": 62.5,
+        "grossMarginDH": 24.98,
         "__key": "pdj",
         "__images": [
           "images/menu-enfant-pdj.jpg"
@@ -2660,7 +2660,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 13.98,
+        "cost": 13.99,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -2696,11 +2696,11 @@ const DATA = [
           "Poivron : 50 g"
         ],
         "price": "48 DH",
-        "cost": 16.48,
+        "cost": 16.49,
         "sellPrice": 48,
-        "foodCost": 34.3,
-        "margin": 65.7,
-        "grossMarginDH": 31.52,
+        "foodCost": 34.4,
+        "margin": 65.6,
+        "grossMarginDH": 31.51,
         "__key": "ef",
         "__images": [
           "images/entree-veggi.jpg"
@@ -2726,11 +2726,11 @@ const DATA = [
           "Concombre : 10 g"
         ],
         "price": "54 DH",
-        "cost": 19.04,
+        "cost": 19.8,
         "sellPrice": 54,
-        "foodCost": 35.3,
-        "margin": 64.7,
-        "grossMarginDH": 34.96,
+        "foodCost": 36.7,
+        "margin": 63.3,
+        "grossMarginDH": 34.2,
         "__key": "ef",
         "__images": [
           "images/entree-russe.jpg"
@@ -2750,11 +2750,11 @@ const DATA = [
           "Parmesan : 30 g"
         ],
         "price": "65 DH",
-        "cost": 17.15,
+        "cost": 19.1,
         "sellPrice": 65,
-        "foodCost": 26.4,
-        "margin": 73.6,
-        "grossMarginDH": 47.85,
+        "foodCost": 29.4,
+        "margin": 70.6,
+        "grossMarginDH": 45.9,
         "__key": "ef",
         "__images": [
           "images/entree-caesar.jpg",
@@ -2777,11 +2777,11 @@ const DATA = [
           "Framboise : 17 g"
         ],
         "price": "68 DH",
-        "cost": 43.98,
+        "cost": 42.58,
         "sellPrice": 68,
-        "foodCost": 64.7,
-        "margin": 35.3,
-        "grossMarginDH": 24.02,
+        "foodCost": 62.6,
+        "margin": 37.4,
+        "grossMarginDH": 25.42,
         "__key": "ef",
         "__images": [
           "images/entree-quinoa.jpg"
@@ -2805,11 +2805,11 @@ const DATA = [
           "Agrumes : 15 g"
         ],
         "price": "78 DH",
-        "cost": 30.86,
+        "cost": 31.68,
         "sellPrice": 78,
-        "foodCost": 39.6,
-        "margin": 60.4,
-        "grossMarginDH": 47.14,
+        "foodCost": 40.6,
+        "margin": 59.4,
+        "grossMarginDH": 46.32,
         "__key": "ef",
         "__images": [
           "images/entree-terremer.jpg"
@@ -2826,11 +2826,11 @@ const DATA = [
           "SAUCE TARTARE : 24 g"
         ],
         "price": "88 DH",
-        "cost": 31.07,
+        "cost": 31.32,
         "sellPrice": 88,
-        "foodCost": 35.3,
-        "margin": 64.7,
-        "grossMarginDH": 56.93,
+        "foodCost": 35.6,
+        "margin": 64.4,
+        "grossMarginDH": 56.68,
         "__key": "ef",
         "__images": [
           "images/entree-tartare.jpeg"
@@ -2858,7 +2858,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 12.28,
+        "cost": 13.49,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -2881,7 +2881,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 27.96,
+        "cost": 10.56,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -2905,7 +2905,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 6.16,
+        "cost": 6.91,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -2932,11 +2932,11 @@ const DATA = [
           "Edam : 25 g"
         ],
         "price": "52 DH",
-        "cost": 13.75,
+        "cost": 18.25,
         "sellPrice": 52,
-        "foodCost": 26.4,
-        "margin": 73.6,
-        "grossMarginDH": 38.25,
+        "foodCost": 35.1,
+        "margin": 64.9,
+        "grossMarginDH": 33.75,
         "__key": "ec",
         "__images": [
           "images/entree-boulette-poulet.webp"
@@ -2955,11 +2955,11 @@ const DATA = [
           "Crème fraîche : 50 g"
         ],
         "price": "68 DH",
-        "cost": 25.94,
+        "cost": 26,
         "sellPrice": 68,
-        "foodCost": 38.1,
-        "margin": 61.9,
-        "grossMarginDH": 42.06,
+        "foodCost": 38.2,
+        "margin": 61.8,
+        "grossMarginDH": 42,
         "__key": "ec",
         "__images": [
           "images/entree-croustillon.jpg",
@@ -3005,7 +3005,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 15.44,
+        "cost": 18.44,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -3055,11 +3055,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "84 DH",
-        "cost": 21.84,
+        "cost": 24.84,
         "sellPrice": 84,
-        "foodCost": 26,
-        "margin": 74,
-        "grossMarginDH": 62.16,
+        "foodCost": 29.6,
+        "margin": 70.4,
+        "grossMarginDH": 59.16,
         "__key": "pl",
         "__images": [
           "images/plat-brochette.jpg",
@@ -3082,11 +3082,11 @@ const DATA = [
           "Huile : 50 ml"
         ],
         "price": "88 DH",
-        "cost": 26.93,
+        "cost": 30.53,
         "sellPrice": 88,
-        "foodCost": 30.6,
-        "margin": 69.4,
-        "grossMarginDH": 61.07,
+        "foodCost": 34.7,
+        "margin": 65.3,
+        "grossMarginDH": 57.47,
         "__key": "pl",
         "__images": [
           "images/plat-emincepoulet.jpg",
@@ -3110,11 +3110,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "94 DH",
-        "cost": 33.4,
+        "cost": 37.15,
         "sellPrice": 94,
-        "foodCost": 35.5,
-        "margin": 64.5,
-        "grossMarginDH": 60.6,
+        "foodCost": 39.5,
+        "margin": 60.5,
+        "grossMarginDH": 56.85,
         "__key": "pl",
         "__images": [
           "images/plat-ballotine.jpg",
@@ -3142,11 +3142,11 @@ const DATA = [
           "Beurre : 40 g"
         ],
         "price": "98 DH",
-        "cost": 33.31,
+        "cost": 36.51,
         "sellPrice": 98,
-        "foodCost": 34,
-        "margin": 66,
-        "grossMarginDH": 64.69,
+        "foodCost": 37.3,
+        "margin": 62.7,
+        "grossMarginDH": 61.49,
         "__key": "pl",
         "__images": [
           "images/plat-supreme.webp"
@@ -3167,11 +3167,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "85 DH",
-        "cost": 21.42,
+        "cost": 23.32,
         "sellPrice": 85,
-        "foodCost": 25.2,
-        "margin": 74.8,
-        "grossMarginDH": 63.58,
+        "foodCost": 27.4,
+        "margin": 72.6,
+        "grossMarginDH": 61.68,
         "__key": "pl",
         "__images": [
           "images/plat-milanaise.jpg",
@@ -3194,11 +3194,11 @@ const DATA = [
           "Huile : 60 ml"
         ],
         "price": "103 DH",
-        "cost": 43.04,
+        "cost": 39.74,
         "sellPrice": 103,
-        "foodCost": 41.8,
-        "margin": 58.2,
-        "grossMarginDH": 59.96,
+        "foodCost": 38.6,
+        "margin": 61.4,
+        "grossMarginDH": 63.26,
         "__key": "pl",
         "__images": [
           "images/plat-eminceboeuf.jpg",
@@ -3220,11 +3220,11 @@ const DATA = [
           "Frites : 200 g"
         ],
         "price": "135 DH",
-        "cost": 48.05,
+        "cost": 43.85,
         "sellPrice": 135,
-        "foodCost": 35.6,
-        "margin": 64.4,
-        "grossMarginDH": 86.95,
+        "foodCost": 32.5,
+        "margin": 67.5,
+        "grossMarginDH": 91.15,
         "__key": "pl",
         "__images": [
           "images/plat-filet.jpg",
@@ -3247,11 +3247,11 @@ const DATA = [
           "Frites : 200 g"
         ],
         "price": "145 DH",
-        "cost": 52.6,
+        "cost": 53.8,
         "sellPrice": 145,
-        "foodCost": 36.3,
-        "margin": 63.7,
-        "grossMarginDH": 92.4,
+        "foodCost": 37.1,
+        "margin": 62.9,
+        "grossMarginDH": 91.2,
         "__key": "pl",
         "__images": [
           "images/plat-saumon.jpg",
@@ -3268,11 +3268,11 @@ const DATA = [
           "OU Burger / nuggets + frites + boisson"
         ],
         "price": "58 DH",
-        "cost": 2.85,
+        "cost": 3.1,
         "sellPrice": 58,
-        "foodCost": 4.9,
-        "margin": 95.1,
-        "grossMarginDH": 55.15,
+        "foodCost": 5.3,
+        "margin": 94.7,
+        "grossMarginDH": 54.9,
         "__key": "pl",
         "__images": [
           "images/menu-enfant-plat.jpg",
@@ -3302,11 +3302,11 @@ const DATA = [
           "Huile de table : 30 ml"
         ],
         "price": "120 DH",
-        "cost": 41.08,
+        "cost": 42.28,
         "sellPrice": 120,
-        "foodCost": 34.2,
-        "margin": 65.8,
-        "grossMarginDH": 78.92,
+        "foodCost": 35.2,
+        "margin": 64.8,
+        "grossMarginDH": 77.72,
         "__key": "pl",
         "__images": [
           "images/plat-rouladeboeuf.webp"
@@ -3325,7 +3325,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 19.34,
+        "cost": 22.34,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -3355,11 +3355,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "50 DH",
-        "cost": 16.98,
+        "cost": 19.23,
         "sellPrice": 50,
-        "foodCost": 34,
-        "margin": 66,
-        "grossMarginDH": 33.02,
+        "foodCost": 38.5,
+        "margin": 61.5,
+        "grossMarginDH": 30.77,
         "__key": "bg",
         "__images": [
           "images/burger-cheese.jpg"
@@ -3406,11 +3406,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "54 DH",
-        "cost": 21.82,
+        "cost": 23.72,
         "sellPrice": 54,
-        "foodCost": 40.4,
-        "margin": 59.6,
-        "grossMarginDH": 32.18,
+        "foodCost": 43.9,
+        "margin": 56.1,
+        "grossMarginDH": 30.28,
         "__key": "bg",
         "__images": [
           "images/burger-avocado.jpg"
@@ -3480,11 +3480,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "70 DH",
-        "cost": 30.23,
+        "cost": 32.03,
         "sellPrice": 70,
-        "foodCost": 43.2,
-        "margin": 56.8,
-        "grossMarginDH": 39.77,
+        "foodCost": 45.8,
+        "margin": 54.2,
+        "grossMarginDH": 37.97,
         "__key": "bg",
         "__images": [
           "images/burger-royal.jpg"
@@ -3539,11 +3539,11 @@ const DATA = [
           "Sauce burger : 60 ml"
         ],
         "price": "58 DH",
-        "cost": 21.89,
+        "cost": 23.79,
         "sellPrice": 58,
-        "foodCost": 37.7,
-        "margin": 62.3,
-        "grossMarginDH": 36.11,
+        "foodCost": 41,
+        "margin": 59,
+        "grossMarginDH": 34.21,
         "__key": "wr",
         "__images": [
           "images/Wrap-poulet.jpg"
@@ -3589,11 +3589,11 @@ const DATA = [
           "Sauce burger : 60 ml"
         ],
         "price": "64 DH",
-        "cost": 25.29,
+        "cost": 27.19,
         "sellPrice": 64,
-        "foodCost": 39.5,
-        "margin": 60.5,
-        "grossMarginDH": 38.71,
+        "foodCost": 42.5,
+        "margin": 57.5,
+        "grossMarginDH": 36.81,
         "__key": "wr",
         "__images": [
           "images/Wrap-gourmand.jpg"
@@ -3641,11 +3641,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "44 DH",
-        "cost": 14.5,
+        "cost": 16.3,
         "sellPrice": 44,
-        "foodCost": 33,
-        "margin": 67,
-        "grossMarginDH": 29.5,
+        "foodCost": 37,
+        "margin": 63,
+        "grossMarginDH": 27.7,
         "__key": "pa",
         "__images": [
           "images/panini-poulet.jpg"
@@ -3688,11 +3688,11 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "price": "64 DH",
-        "cost": 20.29,
+        "cost": 21.04,
         "sellPrice": 64,
-        "foodCost": 31.7,
-        "margin": 68.3,
-        "grossMarginDH": 43.71,
+        "foodCost": 32.9,
+        "margin": 67.1,
+        "grossMarginDH": 42.96,
         "__key": "pa",
         "__images": [
           "images/panini-mixte.jpg"
@@ -3732,11 +3732,11 @@ const DATA = [
           "parmesan : 30 g"
         ],
         "price": "64 DH",
-        "cost": 27.65,
+        "cost": 28.28,
         "sellPrice": 64,
-        "foodCost": 43.2,
-        "margin": 56.8,
-        "grossMarginDH": 36.35,
+        "foodCost": 44.2,
+        "margin": 55.8,
+        "grossMarginDH": 35.72,
         "__key": "pa",
         "__images": [
           "images/panini-saumon.jpg"
@@ -3779,7 +3779,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 13.14,
+        "cost": 14.19,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -3827,7 +3827,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 21.39,
+        "cost": 22.14,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -3950,11 +3950,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "48 DH",
-        "cost": 14.5,
+        "cost": 16.3,
         "sellPrice": 48,
-        "foodCost": 30.2,
-        "margin": 69.8,
-        "grossMarginDH": 33.5,
+        "foodCost": 34,
+        "margin": 66,
+        "grossMarginDH": 31.7,
         "__key": "sw",
         "__images": [
           "images/sand-poulet.jpg"
@@ -3974,11 +3974,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "58 DH",
-        "cost": 19.78,
+        "cost": 21.68,
         "sellPrice": 58,
-        "foodCost": 34.1,
-        "margin": 65.9,
-        "grossMarginDH": 38.22,
+        "foodCost": 37.4,
+        "margin": 62.6,
+        "grossMarginDH": 36.32,
         "__key": "sw",
         "__images": [
           "images/sand-crunchy.jpg"
@@ -3998,11 +3998,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "65 DH",
-        "cost": 24.55,
+        "cost": 22.45,
         "sellPrice": 65,
-        "foodCost": 37.8,
-        "margin": 62.2,
-        "grossMarginDH": 40.45,
+        "foodCost": 34.5,
+        "margin": 65.5,
+        "grossMarginDH": 42.55,
         "__key": "sw",
         "__images": [
           "images/sand-cheesesteak.jpg"
@@ -4047,7 +4047,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 15.45,
+        "cost": 16.5,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -4064,51 +4064,52 @@ const DATA = [
     "color": "#eab308",
     "items": [
       {
-        "name": "MARGARITA",
+        "name": "PIZZA MARGARITA",
         "image": "images/pizza-margherita.jpg",
         "prepTime": 14,
         "tech": [
           "Pâte : 330 g",
           "Mozzarella : 150 g",
           "Sauce tomate : 100 g",
-          "Olives noires : 13 g"
+          "Olives noires : 15 g",
+          "Basilic : 5 g"
         ],
         "price": "52 DH",
-        "cost": 11.03,
+        "cost": 12.87,
         "sellPrice": 52,
-        "foodCost": 21.2,
-        "margin": 78.8,
-        "grossMarginDH": 40.97,
+        "foodCost": 24.8,
+        "margin": 75.3,
+        "grossMarginDH": 39.13,
         "__key": "pz",
         "__images": [
           "images/pizza-margherita.jpg"
         ]
       },
       {
-        "name": "THON",
+        "name": "PIZZA THON",
         "image": "images/pizza-thon.jpg",
         "prepTime": 15,
         "tech": [
-          "Thon : 120 g",
-          "Tomate : 30 g",
-          "Sauce burger : 40 ml",
-          "Cheddar : 20 g",
-          "Frites : 200 g",
-          "Pain : 1 p"
+          "Pâte : 330 g",
+          "Mozzarella : 150 g",
+          "Sauce tomate : 100 g",
+          "Thon : 100 g",
+          "Oignon : 30 g",
+          "Olives noires : 15 g"
         ],
         "price": "65 DH",
-        "cost": 15.49,
+        "cost": 18.77,
         "sellPrice": 65,
-        "foodCost": 23.8,
-        "margin": 76.2,
-        "grossMarginDH": 49.51,
+        "foodCost": 28.9,
+        "margin": 71.1,
+        "grossMarginDH": 46.23,
         "__key": "pz",
         "__images": [
           "images/pizza-thon.jpg"
         ]
       },
       {
-        "name": "VÉGÉTARIENNE",
+        "name": "PIZZA VÉGÉTARIENNE",
         "image": "images/pizza-veggie.jpg",
         "prepTime": 15,
         "tech": [
@@ -4119,18 +4120,18 @@ const DATA = [
           "Légumes : 220 g"
         ],
         "price": "62 DH",
-        "cost": 14.75,
+        "cost": 16.4,
         "sellPrice": 62,
-        "foodCost": 23.8,
-        "margin": 76.2,
-        "grossMarginDH": 47.25,
+        "foodCost": 26.5,
+        "margin": 73.5,
+        "grossMarginDH": 45.6,
         "__key": "pz",
         "__images": [
           "images/pizza-veggie.jpg"
         ]
       },
       {
-        "name": "REGINA",
+        "name": "PIZZA DINDE FUMÉE (REGINA)",
         "image": "images/pizza-regina.jpg",
         "prepTime": 16,
         "tech": [
@@ -4141,22 +4142,22 @@ const DATA = [
           "Sauce blanche : 100 g"
         ],
         "price": "68 DH",
-        "cost": 23.17,
+        "cost": 18.32,
         "sellPrice": 68,
-        "foodCost": 34.1,
-        "margin": 65.9,
-        "grossMarginDH": 44.83,
+        "foodCost": 26.9,
+        "margin": 73.1,
+        "grossMarginDH": 49.68,
         "__key": "pz",
         "__images": [
           "images/pizza-regina.jpg"
         ]
       },
       {
-        "name": "5 FROMAGES",
+        "name": "PIZZA 5 FROMAGES",
         "image": "images/pizza-5fromages.jpg",
         "prepTime": 16,
         "tech": [
-          "Pâte : 125 g",
+          "Pâte : 330 g",
           "Mozzarella : 50 g",
           "Brie : 50 g",
           "Bleu : 40 g",
@@ -4165,214 +4166,195 @@ const DATA = [
           "Fromage rouge : 40 g"
         ],
         "price": "78 DH",
-        "cost": 26.35,
+        "cost": 28.82,
         "sellPrice": 78,
-        "foodCost": 33.8,
-        "margin": 66.2,
-        "grossMarginDH": 51.65,
+        "foodCost": 36.9,
+        "margin": 63.1,
+        "grossMarginDH": 49.18,
         "__key": "pz",
         "__images": [
           "images/pizza-5fromages.jpg"
         ]
       },
       {
-        "name": "VIANDE HACHÉE",
+        "name": "PIZZA VIANDE HACHÉE",
         "image": "images/pizza-hache.jpg",
         "prepTime": 16,
         "tech": [
-          "Viande : 100 g",
-          "Tomate : 30 g",
-          "Sauce spéciale : 30 g",
-          "Cheddar : 20 g",
-          "Frites : 200 g",
-          "Pain : 1 p"
+          "Pâte : 330 g",
+          "Mozzarella : 150 g",
+          "Sauce tomate : 100 g",
+          "Viande hachée : 100 g",
+          "Tomate cerise : 30 g"
         ],
         "price": "78 DH",
-        "cost": 18.22,
+        "cost": 22.55,
         "sellPrice": 78,
-        "foodCost": 23.4,
-        "margin": 76.6,
-        "grossMarginDH": 59.78,
+        "foodCost": 28.9,
+        "margin": 71.1,
+        "grossMarginDH": 55.45,
         "__key": "pz",
         "__images": [
           "images/pizza-hache.jpg"
         ]
       },
       {
-        "name": "PEPPERONI",
+        "name": "PIZZA PEPPERONI",
         "image": "images/pizza-pepperoni.jpg",
         "prepTime": 15,
         "tech": [
           "Pâte : 330 g",
           "Mozzarella : 150 g",
           "Sauce tomate : 100 g",
-          "Pepperoni : 40 g"
+          "Pepperoni : 80 g"
         ],
         "price": "74 DH",
-        "cost": 15.25,
+        "cost": 21.7,
         "sellPrice": 74,
-        "foodCost": 20.6,
-        "margin": 79.4,
-        "grossMarginDH": 58.75,
+        "foodCost": 29.3,
+        "margin": 70.7,
+        "grossMarginDH": 52.3,
         "__key": "pz",
         "__images": [
           "images/pizza-pepperoni.jpg"
         ]
       },
       {
-        "name": "POULET SAUCE BLANCHE",
+        "name": "PIZZA POULET (SAUCE BLANCHE)",
         "image": "images/pizza-pouletblanche.jpg",
         "prepTime": 16,
         "tech": [
           "Pâte : 330 g",
           "Mozzarella : 150 g",
-          "Poulet : 150 g",
-          "Champignon : 60 g",
-          "Sauce blanche : 100 g"
+          "Sauce blanche : 100 g",
+          "Poulet : 100 g",
+          "Champignons : 50 g"
         ],
         "price": "78 DH",
-        "cost": 22.17,
+        "cost": 22.47,
         "sellPrice": 78,
-        "foodCost": 28.4,
-        "margin": 71.6,
-        "grossMarginDH": 55.83,
+        "foodCost": 28.8,
+        "margin": 71.2,
+        "grossMarginDH": 55.53,
         "__key": "pz",
         "__images": [
           "images/pizza-pouletblanche.jpg"
         ]
       },
       {
-        "name": "4 SAISONS",
+        "name": "PIZZA 4 SAISONS",
         "image": "images/pizza-4saisons.jpg",
         "prepTime": 18,
         "tech": [
           "Pâte : 330 g",
           "Mozzarella : 150 g",
-          "Calamar congelé : 120 g",
-          "Crevettes avec coquille : 145 g",
-          "Viande : 40 g",
-          "Poulet : 40 g",
-          "Légumes : 60 g",
-          "Champignon : 60 g"
+          "Sauce tomate : 100 g",
+          "Crevette chair : 40 g",
+          "Viande : 50 g",
+          "Poulet : 50 g",
+          "Légumes : 60 g"
         ],
         "price": "88 DH",
-        "cost": 33.21,
+        "cost": 29.35,
         "sellPrice": 88,
-        "foodCost": 37.7,
-        "margin": 62.3,
-        "grossMarginDH": 54.79,
+        "foodCost": 33.4,
+        "margin": 66.6,
+        "grossMarginDH": 58.65,
         "__key": "pz",
         "__images": [
           "images/pizza-4saisons.jpg"
         ]
       },
       {
-        "name": "MOITIÉ MOITIÉ",
+        "name": "PIZZA MOITIÉ MOITIÉ",
         "image": "images/pizza-moitiemoitie.jpg",
         "prepTime": 18,
         "tech": [
           "Pâte : 330 g",
-          "Garnitures 2 moitiés (hors fruits de mer/saumon)"
+          "Mozzarella : 150 g",
+          "Sauce tomate : 100 g"
         ],
         "price": "88 DH",
-        "cost": 10.32,
+        "cost": 12.1,
         "sellPrice": 88,
-        "foodCost": 11.7,
-        "margin": 88.3,
-        "grossMarginDH": 77.68,
+        "foodCost": 13.7,
+        "margin": 86.3,
+        "grossMarginDH": 75.9,
         "__key": "pz",
         "__images": [
           "images/pizza-moitiemoitie.jpg"
         ]
       },
       {
-        "name": "BURRATA",
+        "name": "PIZZA BURRATA",
         "image": "images/pizza-burrata.jpg",
         "prepTime": 15,
         "tech": [
           "Pâte : 330 g",
-          "Mozzarella : 150 g",
+          "Mozzarella : 100 g",
           "Sauce tomate : 100 g",
-          "Burrata : 1 P",
-          "Noix : 30 g",
-          "Tomate cerise : 20 g"
+          "Burrata : 125 g",
+          "Tomate cerise : 50 g",
+          "Roquette : 30 g",
+          "Vinaigre balsamique : 10 ml",
+          "Noix : 15 g"
         ],
         "price": "110 DH",
-        "cost": 37.99,
+        "cost": 30.82,
         "sellPrice": 110,
-        "foodCost": 34.5,
-        "margin": 65.5,
-        "grossMarginDH": 72.01,
+        "foodCost": 28,
+        "margin": 72,
+        "grossMarginDH": 79.18,
         "__key": "pz",
         "__images": [
           "images/pizza-burrata.jpg"
         ]
       },
       {
-        "name": "FRUITS DE MER",
+        "name": "PIZZA FRUITS DE MER",
         "image": "images/pizza-fruitsmer.jpg",
         "prepTime": 18,
         "tech": [
-          "Sauce Biggy : 40 g",
-          "Crème fraîche : 200 ml",
-          "parmesan : 30 g",
-          "Crevette chair : 40 g",
-          "calamar chair : 40 g"
+          "Pâte : 330 g",
+          "Mozzarella : 150 g",
+          "Sauce blanche : 100 g",
+          "Crevette chair : 50 g",
+          "Calamar chair : 50 g",
+          "Moules : 20 g",
+          "Champignons : 40 g"
         ],
         "price": "88 DH",
-        "cost": 26.98,
+        "cost": 35.92,
         "sellPrice": 88,
-        "foodCost": 30.7,
-        "margin": 69.3,
-        "grossMarginDH": 61.02,
+        "foodCost": 40.8,
+        "margin": 59.2,
+        "grossMarginDH": 52.08,
         "__key": "pz",
         "__images": [
           "images/pizza-fruitsmer.jpg"
         ]
       },
       {
-        "name": "SAUMON",
+        "name": "PIZZA SAUMON",
         "image": "images/pizza-saumon.jpg",
         "prepTime": 18,
         "tech": [
-          "Pâte : 125 g",
-          "Saumon : 90 g",
+          "Pâte : 330 g",
+          "Mozzarella : 150 g",
           "Sauce blanche : 200 g",
+          "Saumon : 90 g",
           "Câpres : 15 g",
           "parmesan : 30 g"
         ],
         "price": "94 DH",
-        "cost": 27.65,
+        "cost": 38.37,
         "sellPrice": 94,
-        "foodCost": 29.4,
-        "margin": 70.6,
-        "grossMarginDH": 66.35,
+        "foodCost": 40.8,
+        "margin": 59.2,
+        "grossMarginDH": 55.63,
         "__key": "pz",
         "__images": [
           "images/pizza-saumon.jpg"
-        ]
-      },
-      {
-        "id": "rec_1788198223698",
-        "name": "PIZZA VEGETARIENNE",
-        "image": "images/placeholder.svg",
-        "prepTime": 5,
-        "tech": [
-          "Pâte à pizza : 330 g",
-          "Mozzarella : 150 g",
-          "Sauce tomate : 100 g",
-          "Olives noires : 15 g",
-          "Légumes grillés : 150 g"
-        ],
-        "price": "",
-        "sellPrice": 0,
-        "cost": 13.82,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
-        "__key": "pz",
-        "__images": [
-          "images/placeholder.svg"
         ]
       },
       {
@@ -4387,35 +4369,12 @@ const DATA = [
           "Olives noires : 13 g",
           "COCA : 1 p"
         ],
-        "price": "",
-        "sellPrice": 0,
-        "cost": 15.39,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
-        "__key": "pz",
-        "__images": [
-          "images/placeholder.svg"
-        ]
-      },
-      {
-        "id": "pz_regina_dinde",
-        "name": "REGINA DINDE FUMEE",
-        "image": "images/placeholder.svg",
-        "prepTime": 5,
-        "tech": [
-          "Pâte à pizza : 330 g",
-          "Mozzarella : 150 g",
-          "Sauce tomate : 100 g",
-          "Dinde fumée : 80 g",
-          "Champignon : 50 g"
-        ],
-        "price": "",
-        "sellPrice": 0,
-        "cost": 19,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "price": "55 DH",
+        "sellPrice": 55,
+        "cost": 16.49,
+        "foodCost": 30,
+        "margin": 70,
+        "grossMarginDH": 38.51,
         "__key": "pz",
         "__images": [
           "images/placeholder.svg"
@@ -4439,15 +4398,15 @@ const DATA = [
           "Huile : 60 g",
           "champignon : 50 g",
           "Pesto : 70 g",
-          "Sauce blanche : 100 g",
+          "Sauce blanche : 200 g",
           "Oignon/Ail : 70 g"
         ],
         "price": "60 DH",
-        "cost": 17.57,
+        "cost": 21.77,
         "sellPrice": 60,
-        "foodCost": 29.3,
-        "margin": 70.7,
-        "grossMarginDH": 42.43,
+        "foodCost": 36.3,
+        "margin": 63.7,
+        "grossMarginDH": 38.23,
         "__key": "pae",
         "__images": [
           "images/lasagne-poulet.jpeg"
@@ -4489,15 +4448,15 @@ const DATA = [
           "Parmesan : 15 g",
           "Huile : 30 g",
           "Pesto : 40 g",
-          "Sauce blanche : 100 g",
+          "Sauce blanche : 200 g",
           "Oignon/Ail : 50 g"
         ],
         "price": "78 DH",
-        "cost": 24.77,
+        "cost": 27.77,
         "sellPrice": 78,
-        "foodCost": 31.8,
-        "margin": 68.2,
-        "grossMarginDH": 53.23,
+        "foodCost": 35.6,
+        "margin": 64.4,
+        "grossMarginDH": 50.23,
         "__key": "pae",
         "__images": [
           "images/lasagne-fruitdemer.jpeg"
@@ -4512,17 +4471,16 @@ const DATA = [
           "Sauce pesto : 70 g",
           "Parmesan : 30 g",
           "Huile d'olive : 60 g",
-          "Crème : 200 g",
           "Oignon : 60 g",
           "Tomate cerise : 50 g",
           "Légumes : 150 g"
         ],
         "price": "60 DH",
-        "cost": 22.66,
+        "cost": 16.66,
         "sellPrice": 60,
-        "foodCost": 37.8,
-        "margin": 62.2,
-        "grossMarginDH": 37.34,
+        "foodCost": 27.8,
+        "margin": 72.2,
+        "grossMarginDH": 43.34,
         "__key": "pae",
         "__images": [
           "images/pasta-veg.jpg"
@@ -4556,7 +4514,7 @@ const DATA = [
         "image": "images/pasta-5fromages.jpg",
         "prepTime": 14,
         "tech": [
-          "Pâte : 125 g",
+          "Pâtes : 125 g",
           "Mozzarella : 50 g",
           "Brie : 50 g",
           "Bleu : 40 g",
@@ -4565,11 +4523,11 @@ const DATA = [
           "Fromage rouge : 40 g"
         ],
         "price": "70 DH",
-        "cost": 26.35,
+        "cost": 29.85,
         "sellPrice": 70,
-        "foodCost": 37.6,
-        "margin": 62.4,
-        "grossMarginDH": 43.65,
+        "foodCost": 42.6,
+        "margin": 57.4,
+        "grossMarginDH": 40.15,
         "__key": "pae",
         "__images": [
           "images/pasta-5fromages.jpg"
@@ -4641,11 +4599,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "75 DH",
-        "cost": 26.05,
+        "cost": 27.25,
         "sellPrice": 75,
-        "foodCost": 34.7,
-        "margin": 65.3,
-        "grossMarginDH": 48.95,
+        "foodCost": 36.3,
+        "margin": 63.7,
+        "grossMarginDH": 47.75,
         "__key": "pae",
         "__images": [
           "images/pasta-poulet.jpg"
@@ -4656,18 +4614,22 @@ const DATA = [
         "image": "images/pasta-fruitsmer.jpg",
         "prepTime": 18,
         "tech": [
-          "Sauce Biggy : 40 g",
-          "Crème fraîche : 200 ml",
-          "parmesan : 30 g",
-          "Crevette chair : 40 g",
-          "calamar chair : 40 g"
+          "Pâtes : 125 g",
+          "Crevettes avec coquille : 145 g",
+          "Calamar congelé : 120 g",
+          "Moules : 15 g",
+          "Parmesan : 30 g",
+          "Huile : 30 g",
+          "Crème : 200 g",
+          "Pesto : 40 g",
+          "Oignon/Ail : 50 g"
         ],
         "price": "88 DH",
-        "cost": 26.98,
+        "cost": 32.93,
         "sellPrice": 88,
-        "foodCost": 30.7,
-        "margin": 69.3,
-        "grossMarginDH": 61.02,
+        "foodCost": 37.4,
+        "margin": 62.6,
+        "grossMarginDH": 55.07,
         "__key": "pae",
         "__images": [
           "images/pasta-fruitsmer.jpg"
@@ -4678,18 +4640,20 @@ const DATA = [
         "image": "images/pasta-saumon.jpg",
         "prepTime": 18,
         "tech": [
-          "Pâte : 125 g",
+          "Pâtes : 125 g",
           "Saumon : 90 g",
-          "Sauce blanche : 200 g",
-          "Câpres : 15 g",
-          "parmesan : 30 g"
+          "Parmesan : 60 g",
+          "Huile : 60 g",
+          "Crème : 200 g",
+          "Pesto : 70 g",
+          "Oignon/Ail : 70 g"
         ],
         "price": "98 DH",
-        "cost": 27.65,
+        "cost": 39.85,
         "sellPrice": 98,
-        "foodCost": 28.2,
-        "margin": 71.8,
-        "grossMarginDH": 70.35,
+        "foodCost": 40.7,
+        "margin": 59.3,
+        "grossMarginDH": 58.15,
         "__key": "pae",
         "__images": [
           "images/pasta-saumon.jpg"
@@ -4714,30 +4678,6 @@ const DATA = [
         ]
       },
       {
-        "id": "rec_1788200443790",
-        "name": "PASTA 5 FROMAGE",
-        "image": "images/placeholder.svg",
-        "prepTime": 5,
-        "tech": [
-          "PATES : 125 g",
-          "Brie : 50 g",
-          "Bleu : 40 g",
-          "Sauce blanche : 200 g",
-          "Parmesan : 20 g",
-          "Fromage rouge : 40 g"
-        ],
-        "price": "",
-        "sellPrice": 0,
-        "cost": 27.1,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
-        "__key": "pae",
-        "__images": [
-          "images/placeholder.svg"
-        ]
-      },
-      {
         "id": "rec_1788200577957",
         "name": "PASTA NATURE",
         "image": "images/placeholder.svg",
@@ -4751,37 +4691,12 @@ const DATA = [
           "Sauce tomate : 80 g",
           "Oignon/Ail : 70 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "50 DH",
+        "sellPrice": 50,
         "cost": 14.6,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
-        "__key": "pae",
-        "__images": [
-          "images/placeholder.svg"
-        ]
-      },
-      {
-        "id": "rec_1788200694469",
-        "name": "PASTA REGATONI RICOTTA",
-        "image": "images/placeholder.svg",
-        "prepTime": 5,
-        "tech": [
-          "Pâtes : 125 g",
-          "FR RICOTTA : 100 g",
-          "Parmesan : 30 g",
-          "Huile : 60 g",
-          "Tomate cerise : 50 g",
-          "Pesto : 70 g",
-          "Oignon/Ail : 70 g"
-        ],
-        "price": "",
-        "sellPrice": 0,
-        "cost": 17.9,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 29.2,
+        "margin": 70.8,
+        "grossMarginDH": 35.4,
         "__key": "pae",
         "__images": [
           "images/placeholder.svg"
@@ -4793,14 +4708,14 @@ const DATA = [
         "image": "images/placeholder.svg",
         "prepTime": 5,
         "tech": [
-          "Pâtes : 100 g",
+          "Pâtes : 125 g",
           "Sauce tomate : 60 g",
           "Parmesan : 30 g",
           "Canette Soda : 3.5 p"
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 11.73,
+        "cost": 12.53,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -4968,7 +4883,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 7.75,
+        "cost": 7.3,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5054,7 +4969,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 10.65,
+        "cost": 9.45,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5120,7 +5035,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 14.65,
+        "cost": 13.15,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5142,7 +5057,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 10.45,
+        "cost": 9.93,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5224,7 +5139,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 6.87,
+        "cost": 6.57,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5325,11 +5240,11 @@ const DATA = [
           "Crème fraîche : 40 ml"
         ],
         "price": "48 DH",
-        "cost": 10.1,
+        "cost": 11.15,
         "sellPrice": 48,
-        "foodCost": 21,
-        "margin": 79,
-        "grossMarginDH": 37.9,
+        "foodCost": 23.2,
+        "margin": 76.8,
+        "grossMarginDH": 36.85,
         "__key": "cr",
         "__images": []
       },
@@ -5361,11 +5276,11 @@ const DATA = [
           "Fromage : 30 g"
         ],
         "price": "58 DH",
-        "cost": 22.65,
+        "cost": 23.25,
         "sellPrice": 58,
-        "foodCost": 39.1,
-        "margin": 60.9,
-        "grossMarginDH": 35.35,
+        "foodCost": 40.1,
+        "margin": 59.9,
+        "grossMarginDH": 34.75,
         "__key": "cr",
         "__images": []
       },
@@ -5425,7 +5340,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 18.75,
+        "cost": 19.5,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5486,7 +5401,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 11.04,
+        "cost": 7.59,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5548,7 +5463,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 3.6,
+        "cost": 3.08,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5568,7 +5483,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 6.54,
+        "cost": 7.74,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5589,7 +5504,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 7.66,
+        "cost": 8.86,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5611,7 +5526,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 11.9,
+        "cost": 13.1,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5632,7 +5547,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 6.56,
+        "cost": 7.76,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5653,7 +5568,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 11.04,
+        "cost": 8.79,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5674,7 +5589,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 4.44,
+        "cost": 5.12,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5694,7 +5609,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 1.89,
+        "cost": 3.09,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5828,11 +5743,11 @@ const DATA = [
           "Garniture composée : 150 g"
         ],
         "price": "85 DH",
-        "cost": 15.45,
+        "cost": 17.1,
         "sellPrice": 85,
-        "foodCost": 18.2,
-        "margin": 81.8,
-        "grossMarginDH": 69.55,
+        "foodCost": 20.1,
+        "margin": 79.9,
+        "grossMarginDH": 67.9,
         "__key": "sup",
         "__images": []
       },
@@ -5879,7 +5794,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 15.86,
+        "cost": 18.86,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5938,7 +5853,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 4,
+        "cost": 5.2,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -6058,7 +5973,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 2.52,
+        "cost": 1.72,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -6096,7 +6011,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 2.4,
+        "cost": 9,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -6249,7 +6164,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 3,
+        "cost": 5,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -6320,7 +6235,7 @@ const DATA = [
       {
         "name": "OMLETTE FROMAGE (A LA CARTE)",
         "sellPrice": 38,
-        "cost": 6.23,
+        "cost": 6.24,
         "margin": 83.6,
         "tech": [
           "Œufs : 3 p",
@@ -6328,21 +6243,21 @@ const DATA = [
           "Mesclun : 30 g"
         ],
         "foodCost": 16.4,
-        "grossMarginDH": 31.77,
+        "grossMarginDH": 31.76,
         "__key": "alc",
         "__images": []
       },
       {
         "name": "OMLETTE NATURE (A LA CARTE)",
         "sellPrice": 32,
-        "cost": 2.43,
+        "cost": 2.44,
         "margin": 92.4,
         "tech": [
           "Œufs : 3 p",
           "Mesclun : 30 g"
         ],
         "foodCost": 7.6,
-        "grossMarginDH": 29.57,
+        "grossMarginDH": 29.56,
         "__key": "alc",
         "__images": []
       },
@@ -6456,7 +6371,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 6.77,
+        "cost": 6.78,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -6476,7 +6391,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 6.3,
+        "cost": 2.3,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -6514,7 +6429,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 1.6,
+        "cost": 4,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -6535,7 +6450,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 10.62,
+        "cost": 2.63,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -6555,7 +6470,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 4.76,
+        "cost": 7.16,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -6574,7 +6489,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 1.2,
+        "cost": 0.8,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -8347,31 +8262,36 @@ const BASE_RECIPES = [
   },
   {
     "id": "pz_margarita",
-    "name": "MARGARITA",
+    "name": "PIZZA MARGARITA",
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
       "Mozzarella : 150 g",
       "Sauce tomate : 100 g",
-      "Olives noires : 13 g"
-    ]
+      "Olives noires : 15 g",
+      "Basilic : 5 g"
+    ],
+    "price": "52 DH",
+    "sellPrice": 52
   },
   {
     "id": "pz_thon",
-    "name": "THON",
+    "name": "PIZZA THON",
     "category": "PIZZA",
     "ingredients": [
-      "Thon : 120 g",
-      "Tomate : 30 g",
-      "Sauce burger : 40 ml",
-      "Cheddar : 20 g",
-      "Frites : 200 g",
-      "Pain : 1 p"
-    ]
+      "Pâte : 330 g",
+      "Mozzarella : 150 g",
+      "Sauce tomate : 100 g",
+      "Thon : 100 g",
+      "Oignon : 30 g",
+      "Olives noires : 15 g"
+    ],
+    "price": "65 DH",
+    "sellPrice": 65
   },
   {
     "id": "pz_vegetarienne",
-    "name": "VÉGÉTARIENNE",
+    "name": "PIZZA VÉGÉTARIENNE",
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
@@ -8379,11 +8299,13 @@ const BASE_RECIPES = [
       "Sauce tomate : 100 g",
       "Champignons : 60 g",
       "Légumes : 220 g"
-    ]
+    ],
+    "price": "62 DH",
+    "sellPrice": 62
   },
   {
     "id": "pz_regina",
-    "name": "REGINA",
+    "name": "PIZZA DINDE FUMÉE (REGINA)",
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
@@ -8391,118 +8313,142 @@ const BASE_RECIPES = [
       "Dinde fumée : 100 g",
       "Champignons : 60 g",
       "Sauce blanche : 100 g"
-    ]
+    ],
+    "price": "68 DH",
+    "sellPrice": 68
   },
   {
     "id": "pz_5_fromages",
-    "name": "5 FROMAGES",
+    "name": "PIZZA 5 FROMAGES",
     "category": "PIZZA",
     "ingredients": [
-      "Pâte : 125 g",
+      "Pâte : 330 g",
       "Mozzarella : 50 g",
       "Brie : 50 g",
       "Bleu : 40 g",
       "Sauce blanche : 200 g",
       "Parmesan : 20 g",
       "Fromage rouge : 40 g"
-    ]
+    ],
+    "price": "78 DH",
+    "sellPrice": 78
   },
   {
     "id": "pz_viande_hachee",
-    "name": "VIANDE HACHÉE",
+    "name": "PIZZA VIANDE HACHÉE",
     "category": "PIZZA",
     "ingredients": [
-      "Viande : 100 g",
-      "Tomate : 30 g",
-      "Sauce spéciale : 30 g",
-      "Cheddar : 20 g",
-      "Frites : 200 g",
-      "Pain : 1 p"
-    ]
+      "Pâte : 330 g",
+      "Mozzarella : 150 g",
+      "Sauce tomate : 100 g",
+      "Viande hachée : 100 g",
+      "Tomate cerise : 30 g"
+    ],
+    "price": "78 DH",
+    "sellPrice": 78
   },
   {
     "id": "pz_pepperoni",
-    "name": "PEPPERONI",
+    "name": "PIZZA PEPPERONI",
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
       "Mozzarella : 150 g",
       "Sauce tomate : 100 g",
-      "Pepperoni : 40 g"
-    ]
+      "Pepperoni : 80 g"
+    ],
+    "price": "74 DH",
+    "sellPrice": 74
   },
   {
     "id": "pz_poulet_sauce_blanche",
-    "name": "POULET SAUCE BLANCHE",
+    "name": "PIZZA POULET (SAUCE BLANCHE)",
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
       "Mozzarella : 150 g",
-      "Poulet : 150 g",
-      "Champignon : 60 g",
-      "Sauce blanche : 100 g"
-    ]
+      "Sauce blanche : 100 g",
+      "Poulet : 100 g",
+      "Champignons : 50 g"
+    ],
+    "price": "78 DH",
+    "sellPrice": 78
   },
   {
     "id": "pz_4_saisons",
-    "name": "4 SAISONS",
-    "category": "PIZZA",
-    "ingredients": [
-      "Pâte : 330 g",
-      "Mozzarella : 150 g",
-      "Calamar congelé : 120 g",
-      "Crevettes avec coquille : 145 g",
-      "Viande : 40 g",
-      "Poulet : 40 g",
-      "Légumes : 60 g",
-      "Champignon : 60 g"
-    ]
-  },
-  {
-    "id": "pz_moitie_moitie",
-    "name": "MOITIÉ MOITIÉ",
-    "category": "PIZZA",
-    "ingredients": [
-      "Pâte : 330 g",
-      "Garnitures 2 moitiés (hors fruits de mer/saumon)"
-    ]
-  },
-  {
-    "id": "pz_burrata",
-    "name": "BURRATA",
+    "name": "PIZZA 4 SAISONS",
     "category": "PIZZA",
     "ingredients": [
       "Pâte : 330 g",
       "Mozzarella : 150 g",
       "Sauce tomate : 100 g",
-      "Burrata : 1 P",
-      "Noix : 30 g",
-      "Tomate cerise : 20 g"
-    ]
+      "Crevette chair : 40 g",
+      "Viande : 50 g",
+      "Poulet : 50 g",
+      "Légumes : 60 g"
+    ],
+    "price": "88 DH",
+    "sellPrice": 88
+  },
+  {
+    "id": "pz_moitie_moitie",
+    "name": "PIZZA MOITIÉ MOITIÉ",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 150 g",
+      "Sauce tomate : 100 g"
+    ],
+    "price": "88 DH",
+    "sellPrice": 88
+  },
+  {
+    "id": "pz_burrata",
+    "name": "PIZZA BURRATA",
+    "category": "PIZZA",
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 100 g",
+      "Sauce tomate : 100 g",
+      "Burrata : 125 g",
+      "Tomate cerise : 50 g",
+      "Roquette : 30 g",
+      "Vinaigre balsamique : 10 ml",
+      "Noix : 15 g"
+    ],
+    "price": "110 DH",
+    "sellPrice": 110
   },
   {
     "id": "pz_fruits_de_mer",
-    "name": "FRUITS DE MER",
+    "name": "PIZZA FRUITS DE MER",
     "category": "PIZZA",
     "ingredients": [
-      "Sauce Biggy : 40 g",
-      "Crème fraîche : 200 ml",
-      "parmesan : 30 g",
-      "Crevette chair : 40 g",
-      "calamar chair : 40 g"
-    ]
+      "Pâte : 330 g",
+      "Mozzarella : 150 g",
+      "Sauce blanche : 100 g",
+      "Crevette chair : 50 g",
+      "Calamar chair : 50 g",
+      "Moules : 20 g",
+      "Champignons : 40 g"
+    ],
+    "price": "88 DH",
+    "sellPrice": 88
   },
   {
     "id": "pz_saumon",
-    "name": "SAUMON",
+    "name": "PIZZA SAUMON",
     "category": "PIZZA",
     "ingredients": [
-      "Pâte : 125 g",
-      "Saumon : 90 g",
+      "Pâte : 330 g",
+      "Mozzarella : 150 g",
       "Sauce blanche : 200 g",
+      "Saumon : 90 g",
       "Câpres : 15 g",
       "parmesan : 30 g"
-    ]
+    ],
+    "price": "94 DH",
+    "sellPrice": 94
   },
   {
     "id": "pae_lasagne_poulet",
@@ -8558,7 +8504,6 @@ const BASE_RECIPES = [
       "Sauce pesto : 70 g",
       "Parmesan : 30 g",
       "Huile d'olive : 60 g",
-      "Crème : 200 g",
       "Oignon : 60 g",
       "Tomate cerise : 50 g",
       "Légumes : 150 g"
@@ -8642,11 +8587,15 @@ const BASE_RECIPES = [
     "name": "FRUITS DE MER",
     "category": "PÂTES",
     "ingredients": [
-      "Sauce Biggy : 40 g",
-      "Crème fraîche : 200 ml",
-      "parmesan : 30 g",
-      "Crevette chair : 40 g",
-      "calamar chair : 40 g"
+      "Pâtes : 125 g",
+      "Crevettes avec coquille : 145 g",
+      "Calamar congelé : 120 g",
+      "Moules : 15 g",
+      "Parmesan : 30 g",
+      "Huile : 30 g",
+      "Crème : 200 g",
+      "Pesto : 40 g",
+      "Oignon/Ail : 50 g"
     ]
   },
   {
@@ -8654,11 +8603,13 @@ const BASE_RECIPES = [
     "name": "SAUMON",
     "category": "PÂTES",
     "ingredients": [
-      "Pâte : 125 g",
+      "Pâtes : 125 g",
       "Saumon : 90 g",
-      "Sauce blanche : 200 g",
-      "Câpres : 15 g",
-      "parmesan : 30 g"
+      "Parmesan : 60 g",
+      "Huile : 60 g",
+      "Crème : 200 g",
+      "Pesto : 70 g",
+      "Oignon/Ail : 70 g"
     ]
   },
   {
@@ -8953,18 +8904,6 @@ const BASE_RECIPES = [
     ]
   },
   {
-    "id": "rec_1788198223698",
-    "name": "PIZZA VEGETARIENNE",
-    "category": "PIZZA",
-    "ingredients": [
-      "Pâte à pizza : 330 g",
-      "Mozzarella : 150 g",
-      "Sauce tomate : 100 g",
-      "Olives noires : 15 g",
-      "Légumes grillés : 150 g"
-    ]
-  },
-  {
     "id": "rec_1788198656162",
     "name": "EGG BURGER",
     "category": "BURGERS",
@@ -9106,19 +9045,6 @@ const BASE_RECIPES = [
     ]
   },
   {
-    "id": "rec_1788200443790",
-    "name": "PASTA 5 FROMAGE",
-    "category": "PÂTES",
-    "ingredients": [
-      "PATES : 125 g",
-      "Brie : 50 g",
-      "Bleu : 40 g",
-      "Sauce blanche : 200 g",
-      "Parmesan : 20 g",
-      "Fromage rouge : 40 g"
-    ]
-  },
-  {
     "id": "rec_1788200577957",
     "name": "PASTA NATURE",
     "category": "PÂTES",
@@ -9130,21 +9056,9 @@ const BASE_RECIPES = [
       "Pesto : 70 g",
       "Sauce tomate : 80 g",
       "Oignon/Ail : 70 g"
-    ]
-  },
-  {
-    "id": "rec_1788200694469",
-    "name": "PASTA REGATONI RICOTTA",
-    "category": "PÂTES",
-    "ingredients": [
-      "Pâtes : 125 g",
-      "FR RICOTTA : 100 g",
-      "Parmesan : 30 g",
-      "Huile : 60 g",
-      "Tomate cerise : 50 g",
-      "Pesto : 70 g",
-      "Oignon/Ail : 70 g"
-    ]
+    ],
+    "price": "50 DH",
+    "sellPrice": 50
   },
   {
     "id": "rec_1788200961049",
@@ -9156,7 +9070,9 @@ const BASE_RECIPES = [
       "Sauce tomate : 100 g",
       "Olives noires : 13 g",
       "COCA : 1 p"
-    ]
+    ],
+    "price": "55 DH",
+    "sellPrice": 55
   },
   {
     "id": "rec_1788201140701",
@@ -9858,18 +9774,6 @@ const BASE_RECIPES = [
     ]
   },
   {
-    "id": "pz_regina_dinde",
-    "name": "REGINA DINDE FUMEE",
-    "category": "PIZZA",
-    "ingredients": [
-      "Pâte à pizza : 330 g",
-      "Mozzarella : 150 g",
-      "Sauce tomate : 100 g",
-      "Dinde fumée : 80 g",
-      "Champignon : 50 g"
-    ]
-  },
-  {
     "id": "me_pasta_nature",
     "name": "MENU ENFANT PASTA NATURE",
     "category": "PÂTES",
@@ -10111,12 +10015,12 @@ const ALIAS_MAP = {
   "wrap viande hachée": "wr_wrap_viande_hachee",
   "wrap gourmand": "wr_wrap_gourmand",
   "charcuterie": "pa_charcuterie",
-  "poulet": "sw_poulet",
+  "poulet": "pz_poulet_sauce_blanche",
   "viande hachee": "pz_viande_hachee",
   "viande hachée": "pz_viande_hachee",
   "gourmand": "pa_gourmand",
-  "fruits de mer": "pae_fruits_de_mer",
-  "saumon": "pae_saumon",
+  "fruits de mer": "pz_fruits_de_mer",
+  "saumon": "pz_saumon",
   "thon": "pz_thon",
   "poulet crunchy": "sw_poulet_crunchy",
   "cheese steak": "sw_cheese_steak",
@@ -10124,7 +10028,7 @@ const ALIAS_MAP = {
   "vegetarienne": "pz_vegetarienne",
   "végétarienne": "pz_vegetarienne",
   "regina": "pz_regina",
-  "5 fromages": "pae_5_fromages",
+  "5 fromages": "pz_5_fromages",
   "pepperoni": "pz_pepperoni",
   "poulet sauce blanche": "pz_poulet_sauce_blanche",
   "4 saisons": "pz_4_saisons",
@@ -10345,7 +10249,7 @@ const ALIAS_MAP = {
   "pizza burrata": "pz_burrata",
   "pizza margarita": "pz_margarita",
   "pizza 5 fromages": "pz_5_fromages",
-  "pizza vegetarienne": "rec_1788198223698",
+  "pizza vegetarienne": "pz_vegetarienne",
   "pizza saumon": "pz_saumon",
   "pizza regina": "pz_regina",
   "pasta 5 fromages": "pae_5_fromages",
@@ -10374,7 +10278,7 @@ const ALIAS_MAP = {
   "gingembre": "ck_gingembre",
   "gauffre nutella": "cr_gaufre_nutella",
   "gaufre nutella": "cr_gaufre_nutella",
-  "regina dinde fumee": "pz_regina_dinde",
+  "regina dinde fumee": "pz_regina",
   "lait chaud": "bc_lait_chaud",
   "lait froid": "bc_lait_froid",
   "fraicheur": "ck_fraicheur",
@@ -10449,7 +10353,35 @@ const ALIAS_MAP = {
   "jus de bettrave": "jf_bettrave",
   "toast nutella": "alc_toast_nutella",
   "pain cake grey corner": "des_pain_cake_gc",
-  "pizza veget arienne": "rec_1788198223698"
+  "pizza veget arienne": "pz_vegetarienne",
+  "regina dinde fumée": "pz_regina",
+  "pizza regina dinde fumee": "pz_regina",
+  "pizza regina dinde fumée": "pz_regina",
+  "pizza dinde fumee": "pz_regina",
+  "pizza dinde fumée": "pz_regina",
+  "dinde fumee": "pz_regina",
+  "dinde fumée": "pz_regina",
+  "pizza dinde": "pz_regina",
+  "pizza dinde fumee regina": "pz_regina",
+  "pizza dinde fumée regina": "pz_regina",
+  "pizza végétarienne": "pz_vegetarienne",
+  "pizza végét arienne": "pz_vegetarienne",
+  "veget arienne": "pz_vegetarienne",
+  "végét arienne": "pz_vegetarienne",
+  "vege": "pz_vegetarienne",
+  "pizza vege": "pz_vegetarienne",
+  "pizza viande hachée": "pz_viande_hachee",
+  "pizza moitie moitie": "pz_moitie_moitie",
+  "pizza moitié moitié": "pz_moitie_moitie",
+  "menu enfant pizza": "rec_1788200961049",
+  "panini fruit de mer": "pa_fruits_de_mer",
+  "couscous vainde avec petit lait": "plat_couscous_viande",
+  "couscous viande avec petit lait": "plat_couscous_viande",
+  "couscous viande": "plat_couscous_viande",
+  "harcha nature": "alc_harcha",
+  "harcha ch3ir": "alc_harcha",
+  "jelly almond": "sm_smoothie_jelly_fruit",
+  "fromage": "alc_omlette_fromage"
 };
 
 const INGREDIENT_CATEGORIES = {
@@ -11302,19 +11234,21 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece"
   },
   "pate a pizza": {
-    "cost": 0.004,
-    "unit": "g"
+    "cost": 0.009,
+    "unit": "g",
+    "label": "Pâte à Pizza"
   },
   "pate": {
+    "cost": 0.009,
+    "unit": "g",
+    "label": "Pâte à Pizza"
+  },
+  "spaghetti": {
     "cost": 0.032,
     "unit": "g"
   },
-  "spaghetti": {
-    "cost": 0.018,
-    "unit": "g"
-  },
   "spaghettis": {
-    "cost": 0.018,
+    "cost": 0.032,
     "unit": "g"
   },
   "pates": {
@@ -11327,27 +11261,27 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "Pâtes / Pasta (Sèche)"
   },
   "pates lasagne": {
-    "cost": 0.03,
+    "cost": 0.032,
     "unit": "g"
   },
   "tagliatelle": {
-    "cost": 0.044,
+    "cost": 0.032,
     "unit": "g"
   },
   "tagliatelles": {
-    "cost": 0.044,
+    "cost": 0.032,
     "unit": "g"
   },
   "linguine": {
-    "cost": 0.036,
+    "cost": 0.032,
     "unit": "g"
   },
   "linguines": {
-    "cost": 0.036,
+    "cost": 0.032,
     "unit": "g"
   },
   "rigatoni": {
-    "cost": 0.036,
+    "cost": 0.032,
     "unit": "g"
   },
   "spaghettis noirs": {
@@ -12264,6 +12198,11 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 5,
     "unit": "piece",
     "label": "Ingrédients Bar Divers"
+  },
+  "penne": {
+    "cost": 0.032,
+    "unit": "g",
+    "label": "penne"
   }
 };
 
