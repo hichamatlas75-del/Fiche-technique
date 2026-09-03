@@ -341,6 +341,213 @@
         "Mozzarella : 35 g"
       ]
     },
+    "PASTA CARBONARA": {
+      category: "PÂTES",
+      standardPortionWeight: "370 g",
+      rationale: "Pâtes 110g + Dinde fumée 60g + Crème fraîche 120ml + Parmesan 20g.",
+      tech: [
+        "Pâtes : 110 g",
+        "Dinde fumée : 60 g",
+        "Crème fraîche : 120 ml",
+        "Parmesan : 20 g"
+      ]
+    },
+    "PASTA VÉGÉTARIENNE": {
+      category: "PÂTES",
+      standardPortionWeight: "380 g",
+      rationale: "Pâtes 110g + Légumes de saison 120g + Sauce tomate 80g + Huile d'olive 10ml + Parmesan 15g. Sans crème.",
+      tech: [
+        "Pâtes : 110 g",
+        "Légumes : 120 g",
+        "Sauce tomate : 80 g",
+        "Huile d'olive : 10 ml",
+        "Parmesan : 15 g"
+      ]
+    },
+    "PASTA SAUMON": {
+      category: "PÂTES",
+      standardPortionWeight: "380 g",
+      rationale: "Pâtes 110g + Saumon 80g + Sauce blanche 120ml + Parmesan 20g.",
+      tech: [
+        "Pâtes : 110 g",
+        "Saumon : 80 g",
+        "Sauce blanche : 120 ml",
+        "Parmesan : 20 g"
+      ]
+    },
+    "PASTA FRUITS DE MER": {
+      category: "PÂTES",
+      standardPortionWeight: "390 g",
+      rationale: "Pâtes 110g + Crevettes décortiquées 60g + Calamars 60g + Tomates cerises / Ail persillé + Huile d'olive 15ml.",
+      tech: [
+        "Pâtes : 110 g",
+        "Crevettes : 60 g",
+        "Calamar : 60 g",
+        "Sauce tomate : 60 g",
+        "Ail & Persil : 5 g",
+        "Huile d'olive : 15 ml"
+      ]
+    },
+    "PASTA BOLOGNAISE": {
+      category: "PÂTES",
+      standardPortionWeight: "380 g",
+      rationale: "Pâtes sèches crues 110g + Sauce bolognaise maison (100g bœuf haché + 80g sauce tomate) + Parmesan 15g.",
+      tech: [
+        "Pâtes : 110 g",
+        "Viande hachée : 100 g",
+        "Sauce tomate : 80 g",
+        "Parmesan : 15 g",
+        "Huile d'olive : 10 ml"
+      ]
+    },
+    "PASTA 5 FROMAGES": {
+      category: "PÂTES",
+      standardPortionWeight: "370 g",
+      rationale: "Pâtes 110g + Sauce onctueuse aux 5 fromages totalisant 75g + 80ml crème.",
+      tech: [
+        "Pâtes : 110 g",
+        "Mozzarella : 25 g",
+        "Fromage bleu : 15 g",
+        "Gouda : 15 g",
+        "Chèvre : 10 g",
+        "Parmesan : 15 g",
+        "Crème fraîche : 80 ml"
+      ]
+    },
+    "PASTA POULET CHAMPIGNON / ÉPINARD": {
+      category: "PÂTES",
+      standardPortionWeight: "380 g",
+      rationale: "Pâtes 110g + Poulet 90g + Champignons 40g + Crème 120ml + Parmesan 15g.",
+      tech: [
+        "Pâtes : 110 g",
+        "Poulet : 90 g",
+        "Champignons : 40 g",
+        "Crème fraîche : 120 ml",
+        "Parmesan : 15 g",
+        "Beurre : 10 g"
+      ]
+    },
+
+    // ==========================================
+    // 🥪 3b. SANDWICHS & PANINIS
+    // ==========================================
+    "SANDWICH FRUITS DE MER": {
+      category: "SANDWICHS",
+      standardPortionWeight: "320 g",
+      rationale: "Pain ciabatta 120g + Crevettes 50g + Calamar 50g + Sauce cocktail 30g + Salade 20g.",
+      tech: [
+        "Pain : 1 p",
+        "Crevettes : 50 g",
+        "Calamar : 50 g",
+        "Sauce cocktail : 30 g",
+        "Salade : 20 g"
+      ]
+    },
+    "SANDWICH THON": {
+      category: "SANDWICHS",
+      standardPortionWeight: "300 g",
+      rationale: "Pain ciabatta 120g + Thon égoutté 80g + Mayonnaise 25g + Tomate 30g + Salade 20g.",
+      tech: [
+        "Pain : 1 p",
+        "Thon : 80 g",
+        "Mayonnaise : 25 g",
+        "Tomate : 30 g",
+        "Salade : 20 g"
+      ]
+    },
+    "SANDWICH POULET": {
+      category: "SANDWICHS",
+      standardPortionWeight: "310 g",
+      rationale: "Pain 120g + Poulet mariné grillé 100g + Sauce 30g + Tomate 30g + Salade 20g.",
+      tech: [
+        "Pain : 1 p",
+        "Poulet : 100 g",
+        "Sauce spéciale : 30 g",
+        "Tomate : 30 g",
+        "Salade : 20 g"
+      ]
+    },
+    "SANDWICH VIANDE HACHÉE": {
+      category: "SANDWICHS",
+      standardPortionWeight: "310 g",
+      rationale: "Pain 120g + Bœuf haché assaisonné 100g + Fromage cheddar 25g + Oignons caramélisés 25g + Sauce 30g.",
+      tech: [
+        "Pain : 1 p",
+        "Viande : 100 g",
+        "Cheddar : 25 g",
+        "Sauce spéciale : 30 g",
+        "Tomate : 30 g"
+      ]
+    },
+    "PANINI CHARCUTERIE": {
+      category: "PANINIS",
+      standardPortionWeight: "260 g",
+      rationale: "Pain panini 110g + Charcuterie 70g + Mozzarella 50g + Sauce 20g.",
+      tech: [
+        "Pain : 1 p",
+        "Charcuterie : 70 g",
+        "Mozzarella : 50 g",
+        "Sauce spéciale : 20 g"
+      ]
+    },
+    "PANINI POULET": {
+      category: "PANINIS",
+      standardPortionWeight: "280 g",
+      rationale: "Pain panini 110g + Poulet émincé 90g + Mozzarella 50g + Sauce 20g.",
+      tech: [
+        "Pain : 1 p",
+        "Poulet : 90 g",
+        "Mozzarella : 50 g",
+        "Sauce spéciale : 20 g"
+      ]
+    },
+    "PANINI VIANDE HACHÉE": {
+      category: "PANINIS",
+      standardPortionWeight: "280 g",
+      rationale: "Pain panini 110g + Bœuf haché 90g + Mozzarella 50g + Sauce 20g.",
+      tech: [
+        "Pain : 1 p",
+        "Viande : 90 g",
+        "Mozzarella : 50 g",
+        "Sauce spéciale : 20 g"
+      ]
+    },
+    "PANINI GOURMAND": {
+      category: "PANINIS",
+      standardPortionWeight: "300 g",
+      rationale: "Pain panini 110g + Poulet 50g + Viande 50g + Mozzarella 50g + Sauce 25g.",
+      tech: [
+        "Pain : 1 p",
+        "Poulet : 50 g",
+        "Viande : 50 g",
+        "Mozzarella : 50 g",
+        "Sauce spéciale : 25 g"
+      ]
+    },
+    "PANINI FRUITS DE MER": {
+      category: "PANINIS",
+      standardPortionWeight: "280 g",
+      rationale: "Pain panini 110g + Crevettes 45g + Calamar 45g + Mozzarella 50g + Sauce blanche 25g.",
+      tech: [
+        "Pain : 1 p",
+        "Crevettes : 45 g",
+        "Calamar : 45 g",
+        "Mozzarella : 50 g",
+        "Sauce blanche : 25 g"
+      ]
+    },
+    "PANINI SAUMON": {
+      category: "PANINIS",
+      standardPortionWeight: "270 g",
+      rationale: "Pain panini 110g + Saumon 70g + Mozzarella 50g + Sauce blanche 25g.",
+      tech: [
+        "Pain : 1 p",
+        "Saumon : 70 g",
+        "Mozzarella : 50 g",
+        "Sauce blanche : 25 g"
+      ]
+    },
+
 
     // ==========================================
     // 🥞 4. CRÊPES (Standard Diamètre 35cm)
@@ -499,23 +706,35 @@
    * Retourne la fiche technique proposée pour un nom de recette donné.
    * Si pas de fiche explicite, génère automatiquement une version standard optimisée.
    */
-  function getProposedStandard(recipeName, currentItem) {
+    function getProposedStandard(recipeName, currentItem) {
     if (!recipeName) return null;
     const cleanName = recipeName.trim().toUpperCase();
+    const itemCat = (currentItem && currentItem.category) ? currentItem.category.toUpperCase() : null;
 
     // 1. Recherche exacte dans la table des standards
     if (PROPOSED_STANDARDS[cleanName]) {
       return PROPOSED_STANDARDS[cleanName];
     }
 
-    // 2. Recherche partielle
+    // 2. Recherche avec même catégorie en priorité absolue
+    if (itemCat) {
+      for (const [key, val] of Object.entries(PROPOSED_STANDARDS)) {
+        if (val.category && val.category.toUpperCase() === itemCat) {
+          if (cleanName === key || cleanName.includes(key) || key.includes(cleanName)) {
+            return val;
+          }
+        }
+      }
+    }
+
+    // 3. Recherche partielle globale (si pas de catégorie spécifiée)
     for (const [key, val] of Object.entries(PROPOSED_STANDARDS)) {
       if (cleanName.includes(key) || key.includes(cleanName)) {
         return val;
       }
     }
 
-    // 3. Si non trouvé, générer une proposition intelligente basée sur la catégorie et les ingrédients actuels
+    // 4. Si non trouvé, générer une proposition intelligente basée sur la catégorie et les ingrédients actuels
     if (currentItem && currentItem.tech && currentItem.tech.length > 0) {
       const generatedTech = currentItem.tech.map(line => {
         const parts = line.split(':');

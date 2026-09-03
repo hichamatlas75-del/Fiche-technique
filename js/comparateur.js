@@ -132,6 +132,12 @@
     loadSavedEdits();
     allRecipes = [];
 
+    // Nettoyage automatique des anciennes clés ambiguës non préfixées
+    const legacyAmbiguousKeys = ['FRUITS DE MER', 'SAUMON', 'THON', 'POULET', 'VIANDE HACHÉE', '5 FROMAGES', 'CARBONARA', 'BOLOGNAISE', 'VÉGÉTARIEN', 'VÉGÉTARIENNE'];
+    legacyAmbiguousKeys.forEach(k => {
+      if (editedRecipes[k]) delete editedRecipes[k];
+    });
+
     // Créer un index normalisé des modifications enregistrées
     const cleanEditsMap = new Map();
     Object.keys(editedRecipes).forEach(k => {
@@ -147,7 +153,7 @@
         
         // 1. Fiche Grey Corner (Modifiable ou initiale)
         const cTarget = cleanText(item.name);
-        const userEdit = editedRecipes[item.name] || cleanEditsMap.get(cTarget) || cleanEditsMap.get(cTarget.replace(/^(?:pizza|pasta|plat|sandwich|panini)\s+/, ''));
+        const userEdit = editedRecipes[item.name] || cleanEditsMap.get(cTarget);
         const currentTech = (userEdit && Array.isArray(userEdit.tech)) 
           ? userEdit.tech.slice() 
           : JSON.parse(JSON.stringify(initialTech));
@@ -437,7 +443,7 @@
       : `<span id="badge-diff-${idx}" class="badge-neutral">Marge conforme au standard</span>`;
 
     return `
-      <div class="comparative-card" id="card-${idx}" data-recipe-name="${escapeHtml(recipe.name)}">
+      <div class="comparative-card" id="card-${idx}" data-recipe-name="${escapeHtml(recipe.name)}" data-category="${escapeHtml(recipe.category)}">
         <!-- HEADER DU PLAT -->
         <div class="card-top-bar">
           <div class="card-title-group">
@@ -709,6 +715,7 @@
   function resolveRecipe(p1, p2) {
     let cardIdx = null;
     let recipeName = null;
+    let cardCat = null;
 
     const isNum1 = (typeof p1 === 'number') || (typeof p1 === 'string' && /^\d+$/.test(String(p1).trim()));
     const isNum2 = (typeof p2 === 'number') || (typeof p2 === 'string' && /^\d+$/.test(String(p2).trim()));
@@ -717,6 +724,7 @@
       cardIdx = parseInt(p1, 10);
       const card = document.getElementById(`card-${cardIdx}`);
       recipeName = card ? card.getAttribute('data-recipe-name') : (allRecipes[cardIdx] ? allRecipes[cardIdx].name : null);
+      if (card && card.getAttribute('data-category')) cardCat = card.getAttribute('data-category');
     } else if (typeof p1 === 'string') {
       recipeName = p1;
       if (isNum2) cardIdx = parseInt(p2, 10);
@@ -725,9 +733,16 @@
     let recipe = null;
     if (recipeName) {
       const cTarget = cleanText(recipeName);
-      recipe = allRecipes.find(r => r.name === recipeName) ||
-               allRecipes.find(r => cleanText(r.name) === cTarget) ||
-               allRecipes.find(r => cleanText(r.name).replace(/^(?:pizza|pasta|plat|sandwich|panini)\s+/, '') === cTarget.replace(/^(?:pizza|pasta|plat|sandwich|panini)\s+/, ''));
+      // 1. Recherche exacte par nom
+      recipe = allRecipes.find(r => r.name === recipeName);
+      // 2. Recherche par nom normalisé
+      if (!recipe) {
+        recipe = allRecipes.find(r => cleanText(r.name) === cTarget);
+      }
+      // 3. Recherche contextuelle dans la même catégorie si disponible
+      if (!recipe && cardCat) {
+        recipe = allRecipes.find(r => r.category === cardCat && (cleanText(r.name).includes(cTarget) || cTarget.includes(cleanText(r.name))));
+      }
     }
 
     if (!recipe && cardIdx !== null && allRecipes[cardIdx]) {

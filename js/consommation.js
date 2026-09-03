@@ -260,13 +260,43 @@ function findRecipeForProduct(rawName, rawFamille = '') {
     if (cName.includes('pizza') || cFam.includes('pizza')) return activeRecipes.find(x => x.id === 'sup_pizza_composee_au_choix');
     return activeRecipes.find(x => x.id === 'sal_composee_au_choix');
   }
-  if (cName.includes('panini')) {
+  // Détection contextuelle par mot-clé et famille de vente
+  if (cName.includes('panini') || cFam.includes('panini')) {
     if (cName.includes('poulet')) return activeRecipes.find(x => x.id === 'pa_poulet');
     if (cName.includes('charcuterie')) return activeRecipes.find(x => x.id === 'pa_charcuterie');
     if (cName.includes('viande') || cName.includes('hache')) return activeRecipes.find(x => x.id === 'pa_viande_hachee');
     if (cName.includes('mix') || cName.includes('gourmand')) return activeRecipes.find(x => x.id === 'pa_gourmand');
     if (cName.includes('saumon')) return activeRecipes.find(x => x.id === 'pa_saumon');
     if (cName.includes('mer') || cName.includes('fruit')) return activeRecipes.find(x => x.id === 'pa_fruits_de_mer');
+  }
+
+  if (cFam.includes('pasta') || cFam.includes('pate') || cName.includes('pasta') || cName.includes('pate')) {
+    if (cName.includes('fruit') || cName.includes('mer')) return activeRecipes.find(x => x.id === 'pae_fruits_de_mer');
+    if (cName.includes('saumon')) return activeRecipes.find(x => x.id === 'pae_saumon');
+    if (cName.includes('carbonara')) return activeRecipes.find(x => x.id === 'pae_carbonara');
+    if (cName.includes('bolognaise')) return activeRecipes.find(x => x.id === 'pae_bolognaise');
+    if (cName.includes('5 fromage') || cName.includes('fromages')) return activeRecipes.find(x => x.id === 'pae_5_fromages');
+    if (cName.includes('vegetarien') || cName.includes('vegetarienne')) return activeRecipes.find(x => x.id === 'pae_vegetarien');
+    if (cName.includes('poulet')) return activeRecipes.find(x => x.id === 'pae_poulet_champignon_epinard');
+  }
+
+  if (cFam.includes('sandwich') || cFam.includes('ciabatta') || cName.includes('sandwich') || cName.includes('ciabatta')) {
+    if (cName.includes('fruit') || cName.includes('mer')) return activeRecipes.find(x => x.id === 'sw_fruits_de_mer');
+    if (cName.includes('thon')) return activeRecipes.find(x => x.id === 'sw_thon');
+    if (cName.includes('poulet') && cName.includes('crunchy')) return activeRecipes.find(x => x.id === 'sw_poulet_crunchy');
+    if (cName.includes('poulet')) return activeRecipes.find(x => x.id === 'sw_poulet');
+    if (cName.includes('cheese') || cName.includes('steak')) return activeRecipes.find(x => x.id === 'sw_cheese_steak');
+    if (cName.includes('viande') || cName.includes('hache')) return activeRecipes.find(x => x.id === 'sw_viande_hachee');
+  }
+
+  if (cFam.includes('pizza') || cName.includes('pizza')) {
+    if (cName.includes('fruit') || cName.includes('mer')) return activeRecipes.find(x => x.id === 'pz_fruits_de_mer');
+    if (cName.includes('saumon')) return activeRecipes.find(x => x.id === 'pz_saumon');
+    if (cName.includes('thon')) return activeRecipes.find(x => x.id === 'pz_thon');
+    if (cName.includes('viande') || cName.includes('hache')) return activeRecipes.find(x => x.id === 'pz_viande_hachee');
+    if (cName.includes('5 fromage') || cName.includes('fromages')) return activeRecipes.find(x => x.id === 'pz_5_fromages');
+    if (cName.includes('vegetarien') || cName.includes('vegetarienne')) return activeRecipes.find(x => x.id === 'pz_vegetarienne');
+    if (cName.includes('poulet')) return activeRecipes.find(x => x.id === 'pz_poulet_sauce_blanche');
   }
 
   // Traitement spécifique des produits "A LA CARTE" (Boulangerie, Viennoiseries, Omelettes seules sans formule pdj)
