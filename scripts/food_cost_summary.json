@@ -5788,15 +5788,15 @@
     "category": "PÂTES",
     "name": "LASAGNE POULET",
     "sellPrice": 60,
-    "cost": 17.93,
-    "foodCostPct": 29.9,
-    "marginPct": 70.1,
-    "grossMarginDH": 42.07,
+    "cost": 17.39,
+    "foodCostPct": 29,
+    "marginPct": 71,
+    "grossMarginDH": 42.61,
     "details": [
       {
         "ingredient": "Pâtes",
         "quantity": "60 g",
-        "cost": 1.08
+        "cost": 0.55
       },
       {
         "ingredient": "poulet",
@@ -5839,15 +5839,15 @@
     "category": "PÂTES",
     "name": "LASAGNE BOLOGNAISE",
     "sellPrice": 72,
-    "cost": 19.43,
-    "foodCostPct": 27,
-    "marginPct": 73,
-    "grossMarginDH": 52.57,
+    "cost": 18.89,
+    "foodCostPct": 26.2,
+    "marginPct": 73.8,
+    "grossMarginDH": 53.11,
     "details": [
       {
         "ingredient": "Pâtes",
         "quantity": "60 g",
-        "cost": 1.08
+        "cost": 0.55
       },
       {
         "ingredient": "Viande",
@@ -5890,15 +5890,15 @@
     "category": "PÂTES",
     "name": "LASAGNE FRUITS DE MER",
     "sellPrice": 78,
-    "cost": 24.36,
-    "foodCostPct": 31.2,
-    "marginPct": 68.8,
-    "grossMarginDH": 53.64,
+    "cost": 23.82,
+    "foodCostPct": 30.5,
+    "marginPct": 69.5,
+    "grossMarginDH": 54.18,
     "details": [
       {
         "ingredient": "Pâtes",
         "quantity": "60 g",
-        "cost": 1.08
+        "cost": 0.55
       },
       {
         "ingredient": "Crevettes chair",
@@ -5941,15 +5941,15 @@
     "category": "PÂTES",
     "name": "VÉGÉTARIEN",
     "sellPrice": 60,
-    "cost": 22.86,
-    "foodCostPct": 38.1,
-    "marginPct": 61.9,
-    "grossMarginDH": 37.14,
+    "cost": 21.52,
+    "foodCostPct": 35.9,
+    "marginPct": 64.1,
+    "grossMarginDH": 38.48,
     "details": [
       {
         "ingredient": "Pâtes",
         "quantity": "150 g",
-        "cost": 2.7
+        "cost": 1.36
       },
       {
         "ingredient": "Sauce pesto",
@@ -5992,15 +5992,15 @@
     "category": "PÂTES",
     "name": "CARBONARA",
     "sellPrice": 65,
-    "cost": 23,
-    "foodCostPct": 35.4,
-    "marginPct": 64.6,
-    "grossMarginDH": 42,
+    "cost": 21.66,
+    "foodCostPct": 33.3,
+    "marginPct": 66.7,
+    "grossMarginDH": 43.34,
     "details": [
       {
         "ingredient": "Pâtes",
         "quantity": "150 g",
-        "cost": 2.7
+        "cost": 1.36
       },
       {
         "ingredient": "Jambon de dinde",
@@ -6033,15 +6033,15 @@
     "category": "PÂTES",
     "name": "5 FROMAGES",
     "sellPrice": 70,
-    "cost": 19.55,
-    "foodCostPct": 27.9,
-    "marginPct": 72.1,
-    "grossMarginDH": 50.45,
+    "cost": 18.21,
+    "foodCostPct": 26,
+    "marginPct": 74,
+    "grossMarginDH": 51.79,
     "details": [
       {
         "ingredient": "Pâtes",
         "quantity": "150 g",
-        "cost": 2.7
+        "cost": 1.36
       },
       {
         "ingredient": "Brie",
@@ -6089,15 +6089,15 @@
     "category": "PÂTES",
     "name": "RIGATONI RICOTTA",
     "sellPrice": 68,
-    "cost": 21.75,
-    "foodCostPct": 32,
-    "marginPct": 68,
-    "grossMarginDH": 46.25,
+    "cost": 20.41,
+    "foodCostPct": 30,
+    "marginPct": 70,
+    "grossMarginDH": 47.59,
     "details": [
       {
         "ingredient": "Pâtes",
         "quantity": "150 g",
-        "cost": 2.7
+        "cost": 1.36
       },
       {
         "ingredient": "Ricotta",
@@ -6140,15 +6140,15 @@
     "category": "PÂTES",
     "name": "BOLOGNAISE",
     "sellPrice": 75,
-    "cost": 27.8,
-    "foodCostPct": 37.1,
-    "marginPct": 62.9,
-    "grossMarginDH": 47.2,
+    "cost": 26.46,
+    "foodCostPct": 35.3,
+    "marginPct": 64.7,
+    "grossMarginDH": 48.54,
     "details": [
       {
         "ingredient": "Pâtes",
         "quantity": "150 g",
-        "cost": 2.7
+        "cost": 1.36
       },
       {
         "ingredient": "Viande",
@@ -6191,15 +6191,15 @@
     "category": "PÂTES",
     "name": "POULET CHAMPIGNON / ÉPINARD",
     "sellPrice": 75,
-    "cost": 27.45,
-    "foodCostPct": 36.6,
-    "marginPct": 63.4,
-    "grossMarginDH": 47.55,
+    "cost": 26.11,
+    "foodCostPct": 34.8,
+    "marginPct": 65.2,
+    "grossMarginDH": 48.89,
     "details": [
       {
         "ingredient": "Pâtes",
         "quantity": "150 g",
-        "cost": 2.7
+        "cost": 1.36
       },
       {
         "ingredient": "Poulet",
@@ -6247,15 +6247,15 @@
     "category": "PÂTES",
     "name": "FRUITS DE MER",
     "sellPrice": 88,
-    "cost": 29.05,
-    "foodCostPct": 33,
-    "marginPct": 67,
-    "grossMarginDH": 58.95,
+    "cost": 27.72,
+    "foodCostPct": 31.5,
+    "marginPct": 68.5,
+    "grossMarginDH": 60.28,
     "details": [
       {
         "ingredient": "Pâtes",
         "quantity": "150 g",
-        "cost": 2.7
+        "cost": 1.36
       },
       {
         "ingredient": "Crevettes chair",
@@ -6303,15 +6303,15 @@
     "category": "PÂTES",
     "name": "SAUMON",
     "sellPrice": 98,
-    "cost": 35.55,
-    "foodCostPct": 36.3,
-    "marginPct": 63.7,
-    "grossMarginDH": 62.45,
+    "cost": 34.21,
+    "foodCostPct": 34.9,
+    "marginPct": 65.1,
+    "grossMarginDH": 63.79,
     "details": [
       {
         "ingredient": "Pâtes",
         "quantity": "150 g",
-        "cost": 2.7
+        "cost": 1.36
       },
       {
         "ingredient": "Saumon",

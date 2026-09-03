@@ -2867,11 +2867,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "60 DH",
-        "cost": 17.93,
+        "cost": 17.39,
         "sellPrice": 60,
-        "foodCost": 29.9,
-        "margin": 70.1,
-        "grossMarginDH": 42.07
+        "foodCost": 29,
+        "margin": 71,
+        "grossMarginDH": 42.61
       },
       {
         "name": "LASAGNE BOLOGNAISE",
@@ -2888,11 +2888,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "72 DH",
-        "cost": 19.43,
+        "cost": 18.89,
         "sellPrice": 72,
-        "foodCost": 27,
-        "margin": 73,
-        "grossMarginDH": 52.57
+        "foodCost": 26.2,
+        "margin": 73.8,
+        "grossMarginDH": 53.11
       },
       {
         "name": "LASAGNE FRUITS DE MER",
@@ -2909,11 +2909,11 @@ const DATA = [
           "Oignon/Ail : 50 g"
         ],
         "price": "78 DH",
-        "cost": 24.36,
+        "cost": 23.82,
         "sellPrice": 78,
-        "foodCost": 31.2,
-        "margin": 68.8,
-        "grossMarginDH": 53.64
+        "foodCost": 30.5,
+        "margin": 69.5,
+        "grossMarginDH": 54.18
       },
       {
         "name": "VÉGÉTARIEN",
@@ -2930,11 +2930,11 @@ const DATA = [
           "Légumes : 150 g"
         ],
         "price": "60 DH",
-        "cost": 22.86,
+        "cost": 21.52,
         "sellPrice": 60,
-        "foodCost": 38.1,
-        "margin": 61.9,
-        "grossMarginDH": 37.14
+        "foodCost": 35.9,
+        "margin": 64.1,
+        "grossMarginDH": 38.48
       },
       {
         "name": "CARBONARA",
@@ -2949,11 +2949,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "65 DH",
-        "cost": 23,
+        "cost": 21.66,
         "sellPrice": 65,
-        "foodCost": 35.4,
-        "margin": 64.6,
-        "grossMarginDH": 42
+        "foodCost": 33.3,
+        "margin": 66.7,
+        "grossMarginDH": 43.34
       },
       {
         "name": "5 FROMAGES",
@@ -2971,11 +2971,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "70 DH",
-        "cost": 19.55,
+        "cost": 18.21,
         "sellPrice": 70,
-        "foodCost": 27.9,
-        "margin": 72.1,
-        "grossMarginDH": 50.45
+        "foodCost": 26,
+        "margin": 74,
+        "grossMarginDH": 51.79
       },
       {
         "name": "RIGATONI RICOTTA",
@@ -2992,11 +2992,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "68 DH",
-        "cost": 21.75,
+        "cost": 20.41,
         "sellPrice": 68,
-        "foodCost": 32,
-        "margin": 68,
-        "grossMarginDH": 46.25
+        "foodCost": 30,
+        "margin": 70,
+        "grossMarginDH": 47.59
       },
       {
         "name": "BOLOGNAISE",
@@ -3013,11 +3013,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "75 DH",
-        "cost": 27.8,
+        "cost": 26.46,
         "sellPrice": 75,
-        "foodCost": 37.1,
-        "margin": 62.9,
-        "grossMarginDH": 47.2
+        "foodCost": 35.3,
+        "margin": 64.7,
+        "grossMarginDH": 48.54
       },
       {
         "name": "POULET CHAMPIGNON / ÉPINARD",
@@ -3035,11 +3035,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "75 DH",
-        "cost": 27.45,
+        "cost": 26.11,
         "sellPrice": 75,
-        "foodCost": 36.6,
-        "margin": 63.4,
-        "grossMarginDH": 47.55
+        "foodCost": 34.8,
+        "margin": 65.2,
+        "grossMarginDH": 48.89
       },
       {
         "name": "FRUITS DE MER",
@@ -3057,11 +3057,11 @@ const DATA = [
           "Oignon/Ail : 50 g"
         ],
         "price": "88 DH",
-        "cost": 29.05,
+        "cost": 27.72,
         "sellPrice": 88,
-        "foodCost": 33,
-        "margin": 67,
-        "grossMarginDH": 58.95
+        "foodCost": 31.5,
+        "margin": 68.5,
+        "grossMarginDH": 60.28
       },
       {
         "name": "SAUMON",
@@ -3077,11 +3077,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "98 DH",
-        "cost": 35.55,
+        "cost": 34.21,
         "sellPrice": 98,
-        "foodCost": 36.3,
-        "margin": 63.7,
-        "grossMarginDH": 62.45
+        "foodCost": 34.9,
+        "margin": 65.1,
+        "grossMarginDH": 63.79
       },
       {
         "name": "SPAGHETTIS NOIRS (suppl.)",
@@ -8043,169 +8043,62 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 0.053,
     "unit": "g"
   },
-  "saumon": {
-    "cost": 0.180,
-    "unit": "g"
-  },
-  "saumon frais": {
-    "cost": 0.180,
-    "unit": "g"
-  },
-  "saumon sans carcasse": {
-    "cost": 0.180,
-    "unit": "g"
-  },
-  "saumon avec carcasse": {
+  // --- SAUMON (PRODUITS DISTINCTS : BRUT VS FRAIS NET VS FUMÉ) ---
+  "saumon brut": {
     "cost": 0.130,
-    "unit": "g"
+    "unit": "g",
+    "label": "Saumon Brut (Avec carcasse)"
+  },
+  "saumon frais net": {
+    "cost": 0.180,
+    "unit": "g",
+    "label": "Saumon Frais Net (Pavé / Filet)"
   },
   "saumon fume": {
-    "cost": 0.29,
-    "unit": "g"
+    "cost": 0.290,
+    "unit": "g",
+    "label": "Saumon Fumé"
   },
-  "saumon fumee": {
-    "cost": 0.29,
-    "unit": "g"
-  },
-  "crevette": {
-    "cost": 0.055,
-    "unit": "g"
-  },
-  "crevettes": {
-    "cost": 0.055,
-    "unit": "g"
-  },
-  "crevette avec coquille": {
-    "cost": 0.055,
-    "unit": "g"
-  },
-  "crevettes avec coquille": {
-    "cost": 0.055,
-    "unit": "g"
-  },
-  "crevette brut": {
-    "cost": 0.055,
-    "unit": "g"
-  },
+
+  // --- CREVETTES (PRODUITS DISTINCTS : BRUT VS NET CHAIR) ---
   "crevettes brut": {
     "cost": 0.055,
-    "unit": "g"
+    "unit": "g",
+    "label": "Crevettes Brut (Avec coquille / Réception)"
   },
-  "crevette chair": {
+  "crevettes net": {
     "cost": 0.210,
-    "unit": "g"
+    "unit": "g",
+    "label": "Crevettes Net (Chair décortiquée)"
   },
-  "crevettes chair": {
-    "cost": 0.210,
-    "unit": "g"
-  },
-  "crevette chair pure": {
-    "cost": 0.210,
-    "unit": "g"
-  },
-  "crevettes chair pure": {
-    "cost": 0.210,
-    "unit": "g"
-  },
-  "crevette chair pur": {
-    "cost": 0.210,
-    "unit": "g"
-  },
-  "crevettes chair pur": {
-    "cost": 0.210,
-    "unit": "g"
-  },
-  "gambas": {
-    "cost": 0.055,
-    "unit": "g"
-  },
-  "gambas avec coquille": {
-    "cost": 0.055,
-    "unit": "g"
-  },
+
+  // --- GAMBAS (PRODUITS DISTINCTS : BRUT VS NET CHAIR VS PANÉ) ---
   "gambas brut": {
     "cost": 0.055,
-    "unit": "g"
+    "unit": "g",
+    "label": "Gambas Brut (Avec coquille)"
   },
-  "gambas chair": {
+  "gambas net": {
     "cost": 0.210,
-    "unit": "g"
-  },
-  "gambas chair pure": {
-    "cost": 0.210,
-    "unit": "g"
-  },
-  "gambas chair pur": {
-    "cost": 0.210,
-    "unit": "g"
-  },
-  "gambas panees": {
-    "cost": 0.180,
-    "unit": "g"
+    "unit": "g",
+    "label": "Gambas Net (Chair décortiquée / Pochée)"
   },
   "gambas pane": {
     "cost": 0.180,
-    "unit": "g"
+    "unit": "g",
+    "label": "Gambas Pané"
   },
-  "gambas poche": {
-    "cost": 0.210,
-    "unit": "g"
-  },
-  "gambas pochee": {
-    "cost": 0.210,
-    "unit": "g"
-  },
-  "gambas decortiquees": {
-    "cost": 0.210,
-    "unit": "g"
-  },
-  "calamar": {
-    "cost": 0.058,
-    "unit": "g"
-  },
-  "calamars": {
-    "cost": 0.058,
-    "unit": "g"
-  },
-  "calamar congele": {
-    "cost": 0.058,
-    "unit": "g"
-  },
-  "calamars congeles": {
-    "cost": 0.058,
-    "unit": "g"
-  },
+
+  // --- CALAMAR (PRODUITS DISTINCTS : BRUT 58 DH VS NET 174 DH) ---
   "calamar brut": {
     "cost": 0.058,
-    "unit": "g"
-  },
-  "calamars brut": {
-    "cost": 0.058,
-    "unit": "g"
+    "unit": "g",
+    "label": "Calamar Brut (Congelé / Réception)"
   },
   "calamar net": {
     "cost": 0.174,
-    "unit": "g"
-  },
-  "calamars net": {
-    "cost": 0.174,
-    "unit": "g"
-  },
-  "calamar egoutte": {
-    "cost": 0.174,
-    "unit": "g"
-  },
-  "calamars egouttes": {
-    "cost": 0.174,
-    "unit": "g"
-  },
-  "calamar chair": {
-    "cost": 0.174,
-    "unit": "g"
-  },
-  "calamars chair": {
-    "cost": 0.174,
-    "unit": "g"
+    "unit": "g",
+    "label": "Calamar Net (Chair / Égoutté)"
   },
   "moules": {
     "cost": 0.055,
@@ -9380,7 +9273,24 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
 
     const normIng = cleanStr(ingName);
     const normIngSingular = stripPlural(normIng);
-    let ingDef = costMap[normIng] || costMap[normIngSingular];
+
+    // Résolution ciblée des produits à double statut (Brut vs Net)
+    let lookupKey = normIngSingular;
+    if (normIng.includes('calamar')) {
+      lookupKey = (normIng.includes('net') || normIng.includes('chair') || normIng.includes('egoutt')) ? 'calamar net' : 'calamar brut';
+    } else if (normIng.includes('crevette')) {
+      lookupKey = (normIng.includes('chair') || normIng.includes('decortiqu') || normIng.includes('net') || normIng.includes('pur')) ? 'crevettes net' : 'crevettes brut';
+    } else if (normIng.includes('gamba')) {
+      if (normIng.includes('pane')) lookupKey = 'gambas pane';
+      else if (normIng.includes('chair') || normIng.includes('poche') || normIng.includes('decortiqu') || normIng.includes('net')) lookupKey = 'gambas net';
+      else lookupKey = 'gambas brut';
+    } else if (normIng.includes('saumon')) {
+      if (normIng.includes('fume')) lookupKey = 'saumon fume';
+      else if (normIng.includes('carcasse') && !normIng.includes('sans')) lookupKey = 'saumon brut';
+      else lookupKey = 'saumon frais net';
+    }
+
+    let ingDef = costMap[lookupKey] || costMap[normIng] || costMap[normIngSingular];
 
     if (!ingDef) {
       const sortedKeys = Object.keys(costMap).sort((a, b) => b.length - a.length);

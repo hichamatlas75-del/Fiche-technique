@@ -157,47 +157,17 @@ const ingredientCosts = {
   "peperoni": { cost: 0.120, unit: "g" },
   "nuggets": { cost: 0.053, unit: "g" },
 
-  // --- POISSONS & FRUITS DE MER (DH / g) ---
-  "saumon": { cost: 0.180, unit: "g" },
-  "saumon frais": { cost: 0.180, unit: "g" },
-  "saumon sans carcasse": { cost: 0.180, unit: "g" },
-  "saumon avec carcasse": { cost: 0.130, unit: "g" },
+  // --- POISSONS & FRUITS DE MER (DH / g - PRODUITS DISTINCTS BRUT VS NET) ---
+  "saumon brut": { cost: 0.130, unit: "g" },
+  "saumon frais net": { cost: 0.180, unit: "g" },
   "saumon fume": { cost: 0.290, unit: "g" },
-  "saumon fumee": { cost: 0.290, unit: "g" },
-  "crevette": { cost: 0.055, unit: "g" },
-  "crevettes": { cost: 0.055, unit: "g" },
-  "crevette avec coquille": { cost: 0.055, unit: "g" },
-  "crevettes avec coquille": { cost: 0.055, unit: "g" },
-  "crevette brut": { cost: 0.055, unit: "g" },
   "crevettes brut": { cost: 0.055, unit: "g" },
-  "crevette chair": { cost: 0.210, unit: "g" },
-  "crevettes chair": { cost: 0.210, unit: "g" },
-  "crevette chair pure": { cost: 0.210, unit: "g" },
-  "crevettes chair pure": { cost: 0.210, unit: "g" },
-  "crevette chair pur": { cost: 0.210, unit: "g" },
-  "crevettes chair pur": { cost: 0.210, unit: "g" },
-  "gambas": { cost: 0.055, unit: "g" },
-  "gambas avec coquille": { cost: 0.055, unit: "g" },
+  "crevettes net": { cost: 0.210, unit: "g" },
   "gambas brut": { cost: 0.055, unit: "g" },
-  "gambas chair": { cost: 0.210, unit: "g" },
-  "gambas chair pure": { cost: 0.210, unit: "g" },
-  "gambas chair pur": { cost: 0.210, unit: "g" },
-  "gambas panees": { cost: 0.180, unit: "g" },
+  "gambas net": { cost: 0.210, unit: "g" },
   "gambas pane": { cost: 0.180, unit: "g" },
-  "gambas poche": { cost: 0.210, unit: "g" },
-  "gambas pochee": { cost: 0.210, unit: "g" },
-  "calamar": { cost: 0.058, unit: "g" },
-  "calamars": { cost: 0.058, unit: "g" },
-  "calamar congele": { cost: 0.058, unit: "g" },
-  "calamars congeles": { cost: 0.058, unit: "g" },
   "calamar brut": { cost: 0.058, unit: "g" },
-  "calamars brut": { cost: 0.058, unit: "g" },
   "calamar net": { cost: 0.174, unit: "g" },
-  "calamars net": { cost: 0.174, unit: "g" },
-  "calamar egoutte": { cost: 0.174, unit: "g" },
-  "calamars egouttes": { cost: 0.174, unit: "g" },
-  "calamar chair": { cost: 0.174, unit: "g" },
-  "calamars chair": { cost: 0.174, unit: "g" },
   "moules": { cost: 0.055, unit: "g" },
   "palourde": { cost: 0.075, unit: "g" },
   "thon": { cost: 0.05825, unit: "g" },
@@ -476,7 +446,24 @@ DATA.forEach(cat => {
 
       const normIng = normalize(ingName);
       const normIngNoPlural = stripPlural(normIng);
-      let ingDef = ingredientCosts[normIng];
+
+      // Résolution intelligente Brut vs Net
+      let lookupKey = normIngNoPlural;
+      if (normIng.includes('calamar')) {
+        lookupKey = (normIng.includes('net') || normIng.includes('chair') || normIng.includes('egoutt')) ? 'calamar net' : 'calamar brut';
+      } else if (normIng.includes('crevette')) {
+        lookupKey = (normIng.includes('chair') || normIng.includes('decortiqu') || normIng.includes('net') || normIng.includes('pur')) ? 'crevettes net' : 'crevettes brut';
+      } else if (normIng.includes('gamba')) {
+        if (normIng.includes('pane')) lookupKey = 'gambas pane';
+        else if (normIng.includes('chair') || normIng.includes('poche') || normIng.includes('decortiqu') || normIng.includes('net')) lookupKey = 'gambas net';
+        else lookupKey = 'gambas brut';
+      } else if (normIng.includes('saumon')) {
+        if (normIng.includes('fume')) lookupKey = 'saumon fume';
+        else if (normIng.includes('carcasse') && !normIng.includes('sans')) lookupKey = 'saumon brut';
+        else lookupKey = 'saumon frais net';
+      }
+
+      let ingDef = ingredientCosts[lookupKey] || ingredientCosts[normIng] || ingredientCosts[normIngNoPlural];
 
       if (!ingDef) {
         const sortedKeys = Object.keys(ingredientCosts).sort((a, b) => b.length - a.length);
