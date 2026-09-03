@@ -552,6 +552,24 @@
     // ==========================================
     // 🥞 4. CRÊPES (Standard Diamètre 35cm)
     // ==========================================
+    
+    // ==========================================
+    // 🍔 3. BIS. BURGERS
+    // ==========================================
+    "EGG AND CHEESEBURGER": {
+      category: "BURGERS",
+      standardPortionWeight: "350 g",
+      rationale: "Steak haché pur bœuf 100g, œuf au plat 1p, tranche de cheddar fondu 20g, pain brioché 1p, garniture fraîche tomate/laitue et sauce burger.",
+      tech: [
+        "Viande : 100 g",
+        "Œuf : 1 p",
+        "Cheddar : 20 g",
+        "Tomate/Laitue : 30 g",
+        "Sauce Bigy : 30 g",
+        "Frites : 200 g",
+        "Pain : 1 p"
+      ]
+    },
     "CRÊPE NUTELLA": {
       category: "CRÊPES",
       standardPortionWeight: "160 g",

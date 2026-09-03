@@ -242,6 +242,17 @@ function findRecipeForProduct(rawName, rawFamille = '') {
   if (cName.includes('roulade')) {
     return activeRecipes.find(x => x.id === 'pl_roulade_de_boeuf_vh');
   }
+  if (cName.includes('burger') || cFam.includes('burger')) {
+    if (cName.includes('egg') || cName.includes('oeuf')) return activeRecipes.find(x => x.id === 'bg_egg_et_cheeseburger');
+    if (cName.includes('chicken') || cName.includes('poulet')) return activeRecipes.find(x => x.id === 'bg_chicken_burger');
+    if (cName.includes('royal')) return activeRecipes.find(x => x.id === 'bg_burger_royal');
+    if (cName.includes('big')) return activeRecipes.find(x => x.id === 'bg_big_burger');
+    if (cName.includes('avocado') || cName.includes('forestier')) return activeRecipes.find(x => x.id === 'bg_avocado_forestier');
+    if (cName.includes('cheese')) return activeRecipes.find(x => x.id === 'bg_cheese_burger');
+  }
+  if (cName.includes('egg') && (cName.includes('cheese') || cName.includes('burger'))) {
+    return activeRecipes.find(x => x.id === 'bg_egg_et_cheeseburger');
+  }
   if (/\boeufs?\b/i.test(cName) && !cName.includes('boeuf')) {
     if (cName.includes('beldi')) return activeRecipes.find(x => x.id === 'alc_oeufs_beldi');
     if (cName.includes('fromage')) return activeRecipes.find(x => x.id === 'alc_omlette_fromage');
