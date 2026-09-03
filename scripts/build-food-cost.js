@@ -216,17 +216,19 @@ const ingredientCosts = {
   "pain panini": { cost: 2.00, unit: "piece" },
   "pain": { cost: 2.00, unit: "piece" },
   "tortilla": { cost: 1.80, unit: "piece" },
-  "pate a pizza": { cost: 3.00 / 330, unit: "g" },
-  "pate": { cost: 3.00 / 330, unit: "g" },
-  "spaghetti": { cost: 0.018, unit: "g" },
-  "spaghettis": { cost: 0.018, unit: "g" },
-  "pates": { cost: 0.018, unit: "g" },
-  "pates lasagne": { cost: 0.030, unit: "g" },
-  "tagliatelle": { cost: 0.044, unit: "g" },
-  "tagliatelles": { cost: 0.044, unit: "g" },
-  "linguine": { cost: 0.036, unit: "g" },
-  "linguines": { cost: 0.036, unit: "g" },
-  "rigatoni": { cost: 0.036, unit: "g" },
+  "pate a pizza": { cost: 0.009, unit: "g" },
+  "pate": { cost: 0.009, unit: "g" },
+  "pates": { cost: 0.032, unit: "g" },
+  "pasta": { cost: 0.032, unit: "g" },
+  "spaghetti": { cost: 0.032, unit: "g" },
+  "spaghettis": { cost: 0.032, unit: "g" },
+  "pates lasagne": { cost: 0.032, unit: "g" },
+  "tagliatelle": { cost: 0.032, unit: "g" },
+  "tagliatelles": { cost: 0.032, unit: "g" },
+  "linguine": { cost: 0.032, unit: "g" },
+  "linguines": { cost: 0.032, unit: "g" },
+  "penne": { cost: 0.032, unit: "g" },
+  "rigatoni": { cost: 0.032, unit: "g" },
   "spaghettis noirs": { cost: 0.070, unit: "g" },
   "frites": { cost: 0.0175, unit: "g" },
   "potatos": { cost: 0.027, unit: "g" },
@@ -461,6 +463,12 @@ DATA.forEach(cat => {
         if (normIng.includes('fume')) lookupKey = 'saumon fume';
         else if (normIng.includes('carcasse') && !normIng.includes('sans')) lookupKey = 'saumon brut';
         else lookupKey = 'saumon frais net';
+      } else if (normIng.includes('pizza') || normIng === 'pate' || normIng === 'pate pizza' || normIng === 'pate a pizza') {
+        lookupKey = 'pate a pizza';
+      } else if (normIng.includes('pate') || normIng.includes('pasta') || normIng.includes('spaghetti') || normIng.includes('tagliatelle') || normIng.includes('linguine') || normIng.includes('penne') || normIng.includes('rigatoni')) {
+        if (!normIng.includes('crepe') && !normIng.includes('gaufre') && !normIng.includes('pistache')) {
+          lookupKey = 'pates';
+        }
       }
 
       let ingDef = ingredientCosts[lookupKey] || ingredientCosts[normIng] || ingredientCosts[normIngNoPlural];
