@@ -671,3 +671,170 @@
   padding: 6px 8px;
 }
 
+/* ========================================================
+   OPTIMISATIONS MOBILES — COMPARATEUR & NORMES
+======================================================== */
+@media (max-width: 768px) {
+  .comp-page-container {
+    padding: 12px 8px 60px;
+  }
+
+  .comp-hero {
+    padding: 16px 14px;
+    border-radius: 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .comp-hero-title {
+    font-size: 18px;
+  }
+
+  .comp-hero-subtitle {
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+
+  .comp-hero-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .comp-hero-actions button,
+  .comp-hero-actions a {
+    width: 100%;
+    justify-content: center;
+    min-height: 40px;
+  }
+
+  /* Grille des KPIs en 2 colonnes tactiles */
+  .kpis-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .kpi-card {
+    padding: 12px 10px;
+    border-radius: 10px;
+  }
+
+  .kpi-label {
+    font-size: 10px;
+    margin-bottom: 4px;
+  }
+
+  .kpi-value {
+    font-size: 19px;
+  }
+
+  .kpi-sub {
+    font-size: 9.5px;
+  }
+
+  /* Barre de recherche et catégories */
+  .comp-toolbar {
+    padding: 12px 10px;
+    border-radius: 12px;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .search-wrap {
+    min-width: 100%;
+  }
+
+  .search-input {
+    font-size: 16px;
+    min-height: 42px;
+  }
+
+  .cat-pill-bar {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+
+  .cat-pill-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cat-pill {
+    padding: 6px 12px;
+    font-size: 12px;
+    min-height: 36px;
+  }
+
+  /* Cartes comparatives */
+  .recipes-list {
+    gap: 16px;
+  }
+
+  .comparative-card {
+    border-radius: 14px;
+  }
+
+  .card-top-bar {
+    padding: 12px 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .card-title-group {
+    justify-content: space-between;
+  }
+
+  .dish-title {
+    font-size: 16px;
+  }
+
+  .card-price-group {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .sell-price-tag {
+    font-size: 14px;
+    padding: 3px 10px;
+  }
+
+  .col-box {
+    padding: 14px 12px;
+  }
+
+  .col-header h4 {
+    font-size: 13px;
+  }
+
+  .tech-list {
+    font-size: 12.5px;
+  }
+
+  .btn-drawer-toggle {
+    min-height: 42px;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .drawer-cost-table {
+    font-size: 11px;
+    min-width: 320px;
+  }
+
+  .drawer-cost-table td, 
+  .drawer-cost-table th {
+    padding: 5px 6px;
+  }
+}
+
+@media (max-width: 380px) {
+  .kpis-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+

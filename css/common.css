@@ -619,3 +619,144 @@ button {
   to { transform: translateY(0) scale(1); opacity: 1; }
 }
 
+/* ========================================================
+   OPTIMISATIONS MOBILES UNIVERSELLES (SMARTPHONES & TABLETTES)
+   Adaptabilité tactile, lisibilité F&B et zéro débordement
+======================================================== */
+@media (max-width: 768px) {
+  /* Conteneur principal compact */
+  .container {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* Éviter l'auto-zoom intrusif sur iOS lors de la saisie */
+  input[type="text"],
+  input[type="search"],
+  input[type="number"],
+  input[type="date"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Barres d'actions tactiles avec défilement fluide */
+  .header-actions,
+  .nav-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 6px !important;
+    scrollbar-width: none !important;
+  }
+
+  .header-actions::-webkit-scrollbar,
+  .nav-actions::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-success,
+  .btn-danger,
+  .btn-theme,
+  .btn-nav-destock {
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+    min-height: 40px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    border-radius: 8px !important;
+  }
+
+  /* Modales universelles adaptatives (Bottom Sheet / Plein écran souple) */
+  .modal-overlay {
+    padding: 10px !important;
+    align-items: flex-end !important;
+  }
+
+  .modal-box {
+    max-width: 100% !important;
+    width: 100% !important;
+    max-height: 94vh !important;
+    border-radius: 18px 18px 8px 8px !important;
+  }
+
+  .modal-head {
+    padding: 14px 16px !important;
+  }
+
+  .modal-title {
+    font-size: 15px !important;
+  }
+
+  .modal-body {
+    padding: 14px 16px !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .modal-foot {
+    padding: 12px 16px !important;
+    flex-direction: column-reverse !important;
+    gap: 8px !important;
+  }
+
+  .modal-foot button,
+  .modal-foot .btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Conteneur défilable universel pour les tables */
+  .table-responsive,
+  .destock-table-wrap {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border-radius: 10px !important;
+    border: 1px solid var(--border) !important;
+    margin-bottom: 14px !important;
+  }
+
+  .destock-table th,
+  .destock-table td {
+    padding: 9px 10px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+  }
+
+  /* Cartes et boîtes compactes */
+  .card-box {
+    padding: 14px 12px !important;
+    border-radius: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Écrans de smartphones compacts (< 480px) */
+  .ttl {
+    font-size: 16px !important;
+  }
+
+  .sub-ttl {
+    font-size: 11px !important;
+  }
+
+  .badge,
+  .status-badge {
+    font-size: 11px !important;
+    padding: 2.5px 6px !important;
+  }
+
+  .cat-chip,
+  .unit-chip {
+    font-size: 10.5px !important;
+    padding: 2px 6px !important;
+  }
+}
+
+

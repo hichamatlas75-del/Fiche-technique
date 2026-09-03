@@ -19,30 +19,30 @@
     if (document.getElementById('gc-prices-modal-root')) return;
 
     const modalHTML = `
-    <div id="gc-prices-modal-root" class="modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(4px);">
-      <div class="modal-box" style="max-width:900px; width:95%; max-height:90vh; display:flex; flex-direction:column; background:var(--paper, #fff); color:var(--text, #0f172a); border-radius:16px; border:1px solid var(--border, #e2e8f0); box-shadow:0 20px 25px -5px rgba(0,0,0,0.3); overflow:hidden;">
+    <div id="gc-prices-modal-root" class="modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(4px); padding:10px;">
+      <div class="modal-box gc-prices-modal-box" style="max-width:900px; width:100%; max-height:92vh; display:flex; flex-direction:column; background:var(--paper, #fff); color:var(--text, #0f172a); border-radius:16px; border:1px solid var(--border, #e2e8f0); box-shadow:0 20px 25px -5px rgba(0,0,0,0.3); overflow:hidden;">
         
         <!-- EN-TÊTE DE LA MODALE -->
-        <div style="padding:16px 20px; border-bottom:1px solid var(--border, #e2e8f0); display:flex; justify-content:space-between; align-items:center; background:var(--thead-bg, #f8fafc);">
+        <div style="padding:14px 18px; border-bottom:1px solid var(--border, #e2e8f0); display:flex; justify-content:space-between; align-items:center; background:var(--thead-bg, #f8fafc);">
           <div style="display:flex; align-items:center; gap:10px;">
             <span style="font-size:20px;">💲</span>
             <div>
-              <h3 style="margin:0; font-size:16px; font-weight:800; color:var(--text, #0f172a);">Mercuriale & Prix d'Achat Matières Premières</h3>
+              <h3 style="margin:0; font-size:15px; font-weight:800; color:var(--text, #0f172a);">Mercuriale & Prix d'Achat Matières</h3>
               <span id="gc-prices-count-badge" style="font-size:11px; color:var(--muted, #64748b); font-weight:600;">Chargement des matières...</span>
             </div>
           </div>
-          <button type="button" style="background:none; border:none; font-size:20px; color:var(--muted, #64748b); cursor:pointer; padding:4px 8px;" onclick="window.GC_PricesModal.close()">✕</button>
+          <button type="button" style="background:none; border:none; font-size:22px; color:var(--muted, #64748b); cursor:pointer; padding:4px 8px; min-height:40px; min-width:40px; display:flex; align-items:center; justify-content:center;" onclick="window.GC_PricesModal.close()">✕</button>
         </div>
 
         <!-- CORPS DE LA MODALE -->
-        <div style="padding:16px 20px; overflow-y:auto; flex:1;">
+        <div style="padding:14px 16px; overflow-y:auto; flex:1; -webkit-overflow-scrolling:touch;">
           
           <!-- TOOLBAR : RECHERCHE & AJOUT -->
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap;">
-            <div style="flex:1; min-width:240px; position:relative;">
-              <input type="search" id="gc-prices-search" placeholder="🔍 Rechercher une matière (poulet, huile, saumon, avocat...)" style="width:100%; padding:9px 12px; border-radius:8px; border:1px solid var(--border, #e2e8f0); background:var(--bg, #f8fafc); color:var(--text, #0f172a); font-size:13px;" oninput="window.GC_PricesModal.filterTable()" />
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:200px; position:relative;">
+              <input type="search" id="gc-prices-search" placeholder="🔍 Rechercher (poulet, huile, avocat...)" style="width:100%; padding:9px 12px; border-radius:8px; border:1px solid var(--border, #e2e8f0); background:var(--bg, #f8fafc); color:var(--text, #0f172a); font-size:16px;" oninput="window.GC_PricesModal.filterTable()" />
             </div>
-            <button type="button" class="btn btn-primary" style="padding:8px 14px; font-size:12.5px; font-weight:700; background:#0284c7; color:#fff; border:none; border-radius:8px; cursor:pointer;" onclick="window.GC_PricesModal.toggleAddForm()">
+            <button type="button" class="btn btn-primary" style="padding:8px 14px; font-size:13px; font-weight:700; background:#0284c7; color:#fff; border:none; border-radius:8px; cursor:pointer; min-height:40px;" onclick="window.GC_PricesModal.toggleAddForm()">
               ➕ Ajouter une Matière
             </button>
           </div>
@@ -50,39 +50,39 @@
           <!-- FORMULAIRE NOUVELLE MATIÈRE -->
           <div id="gc-prices-add-form" style="display:none; background:rgba(2, 132, 199, 0.05); border:1px solid rgba(2, 132, 199, 0.25); border-radius:10px; padding:14px; margin-bottom:14px;">
             <h4 style="margin:0 0 10px 0; font-size:13px; font-weight:800; color:#0284c7;">Ajouter un nouvel ingrédient à la mercuriale</h4>
-            <div style="display:grid; grid-template-columns: 2fr 1fr 1fr auto; gap:10px; align-items:end;">
-              <div>
+            <div class="gc-prices-add-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:10px; align-items:end;">
+              <div style="grid-column: span 1;">
                 <label style="font-size:11px; font-weight:700; color:var(--muted, #64748b); display:block; margin-bottom:3px;">Nom Ingrédient</label>
-                <input type="text" id="gc-new-price-name" placeholder="Ex: Avocat Hass, Truffe..." style="width:100%; padding:7px 10px; border-radius:6px; border:1px solid var(--border, #e2e8f0); background:var(--paper, #fff); color:var(--text, #0f172a);" />
+                <input type="text" id="gc-new-price-name" placeholder="Ex: Avocat Hass..." style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border, #e2e8f0); background:var(--paper, #fff); color:var(--text, #0f172a); font-size:16px;" />
               </div>
               <div>
                 <label style="font-size:11px; font-weight:700; color:var(--muted, #64748b); display:block; margin-bottom:3px;">Unité d'achat</label>
-                <select id="gc-new-price-unit" style="width:100%; padding:7px 10px; border-radius:6px; border:1px solid var(--border, #e2e8f0); background:var(--paper, #fff); color:var(--text, #0f172a);">
+                <select id="gc-new-price-unit" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border, #e2e8f0); background:var(--paper, #fff); color:var(--text, #0f172a); font-size:16px;">
                   <option value="kg">kg (Kilo)</option>
                   <option value="l">L (Litre)</option>
-                  <option value="p">p (Pièce / Btl / Canette)</option>
+                  <option value="p">p (Pièce / Btl)</option>
                 </select>
               </div>
               <div>
                 <label style="font-size:11px; font-weight:700; color:var(--muted, #64748b); display:block; margin-bottom:3px;">Prix Achat HT (DH)</label>
-                <input type="number" step="0.1" id="gc-new-price-val" placeholder="Ex: 55.00" style="width:100%; padding:7px 10px; border-radius:6px; border:1px solid var(--border, #e2e8f0); background:var(--paper, #fff); color:var(--text, #0f172a); font-weight:800;" />
+                <input type="number" step="0.1" id="gc-new-price-val" placeholder="Ex: 55.00" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border, #e2e8f0); background:var(--paper, #fff); color:var(--text, #0f172a); font-weight:800; font-size:16px;" />
               </div>
               <div style="display:flex; gap:6px;">
-                <button type="button" class="btn btn-success" style="padding:7px 14px; background:#16a34a; color:#fff; border:none; border-radius:6px; font-weight:800; cursor:pointer;" onclick="window.GC_PricesModal.confirmAdd()">Valider</button>
-                <button type="button" class="btn" style="padding:7px 10px; border-radius:6px; cursor:pointer;" onclick="window.GC_PricesModal.toggleAddForm()">✕</button>
+                <button type="button" class="btn btn-success" style="padding:8px 14px; background:#16a34a; color:#fff; border:none; border-radius:6px; font-weight:800; cursor:pointer; min-height:40px; flex:1;" onclick="window.GC_PricesModal.confirmAdd()">Valider</button>
+                <button type="button" class="btn" style="padding:8px 12px; border-radius:6px; cursor:pointer; min-height:40px;" onclick="window.GC_PricesModal.toggleAddForm()">✕</button>
               </div>
             </div>
           </div>
 
           <!-- TABLEAU DÉFILABLE DES PRIX -->
-          <div style="max-height:450px; overflow-y:auto; border:1px solid var(--border, #e2e8f0); border-radius:10px;">
-            <table style="width:100%; border-collapse:collapse; font-size:12.5px;">
+          <div style="max-height:450px; overflow:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--border, #e2e8f0); border-radius:10px;">
+            <table style="width:100%; border-collapse:collapse; font-size:12.5px; min-width:480px;">
               <thead>
                 <tr style="background:var(--thead-bg, #f8fafc); position:sticky; top:0; z-index:2; border-bottom:1.5px solid var(--border, #e2e8f0);">
-                  <th style="padding:10px 14px; text-align:left; color:var(--muted, #64748b); font-weight:800; font-size:11px; text-transform:uppercase;">Matière Première</th>
-                  <th style="padding:10px 14px; text-align:center; color:var(--muted, #64748b); font-weight:800; font-size:11px; text-transform:uppercase; width:130px;">Unité d'Achat</th>
-                  <th style="padding:10px 14px; text-align:right; color:var(--muted, #64748b); font-weight:800; font-size:11px; text-transform:uppercase; width:180px;">Prix d'Achat HT (DH)</th>
-                  <th style="padding:10px 14px; text-align:right; color:var(--muted, #64748b); font-weight:800; font-size:11px; text-transform:uppercase; width:140px;">Coût Unitaire (g/ml)</th>
+                  <th style="padding:10px 12px; text-align:left; color:var(--muted, #64748b); font-weight:800; font-size:11px; text-transform:uppercase;">Matière Première</th>
+                  <th style="padding:10px 10px; text-align:center; color:var(--muted, #64748b); font-weight:800; font-size:11px; text-transform:uppercase; width:100px;">Unité</th>
+                  <th style="padding:10px 12px; text-align:right; color:var(--muted, #64748b); font-weight:800; font-size:11px; text-transform:uppercase; width:130px;">Prix Achat HT</th>
+                  <th style="padding:10px 12px; text-align:right; color:var(--muted, #64748b); font-weight:800; font-size:11px; text-transform:uppercase; width:120px;">Coût Unitaire</th>
                 </tr>
               </thead>
               <tbody id="gc-prices-table-tbody">
@@ -93,13 +93,13 @@
         </div>
 
         <!-- PIED DE LA MODALE -->
-        <div style="padding:14px 20px; border-top:1px solid var(--border, #e2e8f0); display:flex; justify-content:space-between; align-items:center; background:var(--thead-bg, #f8fafc);">
-          <button type="button" class="btn btn-secondary" style="padding:8px 14px; border-radius:8px; cursor:pointer;" onclick="window.GC_PricesModal.close()">Fermer</button>
-          <div style="display:flex; gap:8px;">
-            <button type="button" class="btn" style="background:#0284c7; color:#fff; border:none; padding:8px 14px; border-radius:8px; font-weight:700; cursor:pointer;" onclick="window.GC_PricesModal.downloadRecipesDataJS()" title="Télécharger le fichier recipes-data.js mis à jour pour le commit Git">
-              📁 Télécharger recipes-data.js
+        <div style="padding:12px 16px; border-top:1px solid var(--border, #e2e8f0); display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:8px; background:var(--thead-bg, #f8fafc);">
+          <button type="button" class="btn btn-secondary" style="padding:8px 14px; border-radius:8px; cursor:pointer; min-height:40px;" onclick="window.GC_PricesModal.close()">Fermer</button>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="btn" style="background:#0284c7; color:#fff; border:none; padding:8px 14px; border-radius:8px; font-weight:700; cursor:pointer; min-height:40px;" onclick="window.GC_PricesModal.downloadRecipesDataJS()" title="Télécharger le fichier recipes-data.js mis à jour pour le commit Git">
+              📁 Télécharger .js
             </button>
-            <button type="button" class="btn btn-primary" style="background:#16a34a; color:#fff; border:none; padding:8px 18px; border-radius:8px; font-weight:800; cursor:pointer;" onclick="window.GC_PricesModal.saveAll()">
+            <button type="button" class="btn btn-primary" style="background:#16a34a; color:#fff; border:none; padding:8px 18px; border-radius:8px; font-weight:800; cursor:pointer; min-height:40px;" onclick="window.GC_PricesModal.saveAll()">
               💾 Enregistrer les Prix
             </button>
           </div>

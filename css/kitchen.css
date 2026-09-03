@@ -510,10 +510,91 @@
   }
 
   @media (max-width: 768px) {
-    .head { flex-direction: column; align-items: stretch; }
-    .search-box { min-width: 100%; }
+    .head { 
+      flex-direction: column; 
+      align-items: stretch; 
+      gap: 10px;
+    }
+    .brand {
+      justify-content: flex-start;
+    }
+    .search-box { 
+      min-width: 100%; 
+      max-width: 100%;
+      min-height: 42px;
+    }
+    .search-box input {
+      font-size: 16px;
+    }
+    
+    /* Navigation collante précise sur mobile */
+    nav {
+      top: 0 !important;
+      position: sticky;
+      z-index: 99;
+      background: var(--paper);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .tabs {
+      padding: 0 4px;
+      gap: 2px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tab {
+      padding: 12px 10px;
+      font-size: 13px;
+      min-height: 44px;
+    }
+
+    /* Grille de cartes adaptée aux petits écrans */
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding-bottom: 24px;
+    }
+
+    .hero-wrap {
+      height: 180px;
+    }
+
+    .body {
+      padding: 12px 10px;
+    }
+
+    .name {
+      font-size: 16px;
+    }
+
+    .price {
+      font-size: 13.5px;
+      padding: 3px 10px;
+    }
+
+    .financial-row {
+      padding: 6px 4px;
+      gap: 4px;
+    }
+    .fin-label {
+      font-size: 8.5px;
+    }
+    .fin-val {
+      font-size: 12px;
+    }
+
     .prev { left: 2%; }
     .next { right: 2%; }
+    .close {
+      top: 12px;
+      right: 12px;
+      padding: 6px 12px;
+      font-size: 20px;
+    }
+  }
+
+  @media (min-width: 540px) and (max-width: 860px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   /* Quick Filters & WakeLock Toolbar */
@@ -523,6 +604,23 @@
     margin: 10px 0 16px;
     flex-wrap: wrap;
     align-items: center;
+  }
+  @media (max-width: 768px) {
+    .kitchen-quick-filters {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px;
+      scrollbar-width: none;
+    }
+    .kitchen-quick-filters::-webkit-scrollbar {
+      display: none;
+    }
+    .quick-filter-btn {
+      flex-shrink: 0;
+      min-height: 36px;
+      padding: 7px 12px;
+    }
   }
   .quick-filter-btn {
     background: var(--paper, #fff);
