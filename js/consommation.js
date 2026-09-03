@@ -1932,20 +1932,30 @@ function saveRecipeFromModal() {
     activeRecipes.push(recipeObj);
   }
 
-  // 1. Sauvegarde dans localStorage (persistant)
+  // 1. Sauvegarde dans localStorage (persistant gc_recipes_db_v5)
   saveRecipes();
 
-  // 2. Mettre à jour l'index en mémoire
+  // 2. Synchronisation avec le comparateur (grey_corner_custom_recipes_v5)
+  try {
+    const savedComp = localStorage.getItem('grey_corner_custom_recipes_v5');
+    const compEdits = savedComp ? JSON.parse(savedComp) : {};
+    compEdits[name] = { tech: ingredients.slice(), updatedAt: Date.now() };
+    localStorage.setItem('grey_corner_custom_recipes_v5', JSON.stringify(compEdits));
+  } catch (e) {
+    console.warn("Erreur sauvegarde grey_corner_custom_recipes_v5", e);
+  }
+
+  // 3. Mettre à jour l'index en mémoire
   if (window.recipeNameIndex) {
     window.recipeNameIndex.set(cleanText(name), recipeObj);
   }
 
-  // 3. Mettre à jour DATA (pour index.html et cohérence globale)
+  // 4. Mettre à jour DATA (pour index.html et cohérence globale)
   if (typeof DATA !== 'undefined' && Array.isArray(DATA)) {
     DATA.forEach(cat => {
       (cat.items || []).forEach(it => {
         if (cleanText(it.name) === cleanText(name)) {
-          it.tech = ingredients;
+          it.tech = ingredients.slice();
           it.sellPrice = sellPrice;
           it.cost = fcCalc.cost;
           it.foodCost = fcCalc.foodCost;
@@ -1960,7 +1970,7 @@ function saveRecipeFromModal() {
   renderRecipeList();
   recalculateCurrentView();
 
-  console.log(`[Fiche Technique] Enregistrée avec succès : "${name}" | Coût=${fcCalc.cost} DH | Food Cost=${fcCalc.foodCost}%`);
+  alert(`✅ Fiche technique "${name}" enregistrée avec succès !\n\nCoût Matière : ${fcCalc.cost.toFixed(2)} DH | Food Cost : ${fcCalc.foodCost.toFixed(1)}% | Marge : ${fcCalc.margin.toFixed(1)}%`);
 }
 
 function downloadUpdatedRecipesDataJs() {

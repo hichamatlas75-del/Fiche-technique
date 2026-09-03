@@ -142,11 +142,12 @@
     data.forEach(cat => {
       const catName = cat.category || 'AUTRE';
       (cat.items || []).forEach(item => {
-        const initialTech = item.tech || [];
+        const initialTech = JSON.parse(JSON.stringify(item.tech || []));
         const sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
         
         // 1. Fiche Grey Corner (Modifiable ou initiale)
-        const userEdit = editedRecipes[item.name] || cleanEditsMap.get(cleanText(item.name));
+        const cTarget = cleanText(item.name);
+        const userEdit = editedRecipes[item.name] || cleanEditsMap.get(cTarget) || cleanEditsMap.get(cTarget.replace(/^(?:pizza|pasta|plat|sandwich|panini)\s+/, ''));
         const currentTech = (userEdit && Array.isArray(userEdit.tech)) 
           ? userEdit.tech.slice() 
           : JSON.parse(JSON.stringify(initialTech));
@@ -432,8 +433,8 @@
     const stdFCClass = recipe.standard.foodCost <= 28 ? 'badge-ok' : (recipe.standard.foodCost <= 38 ? 'badge-warn' : 'badge-danger');
 
     const diffBadge = recipe.standard.diffDH > 0 
-      ? `<span class="badge-gain" style="background:rgba(2, 132, 199, 0.1); color:#0284c7; border-color:rgba(2, 132, 199, 0.3);">Écart vs Standard : +${recipe.standard.diffDH.toFixed(2)} DH</span>`
-      : `<span class="badge-neutral">Marge conforme au standard</span>`;
+      ? `<span id="badge-diff-${idx}" class="badge-gain" style="background:rgba(2, 132, 199, 0.1); color:#0284c7; border-color:rgba(2, 132, 199, 0.3);">Écart vs Standard : +${recipe.standard.diffDH.toFixed(2)} DH</span>`
+      : `<span id="badge-diff-${idx}" class="badge-neutral">Marge conforme au standard</span>`;
 
     return `
       <div class="comparative-card" id="card-${idx}" data-recipe-name="${escapeHtml(recipe.name)}">
@@ -682,7 +683,7 @@
 
       return `
         <div class="ing-edit-row">
-          <input type="text" class="ing-name-input" value="${escapeHtml(ing)}" data-recipe="${escapeHtml(recipeName)}" data-idx="${idx}" data-ing-idx="${ingIdx}" onchange="window.updateIngredientName(${idx}, ${ingIdx}, this.value)" />
+          <input type="text" class="ing-name-input" value="${escapeHtml(ing)}" data-recipe="${escapeHtml(recipeName)}" data-idx="${idx}" data-ing-idx="${ingIdx}" oninput="window.updateIngredientName(${idx}, ${ingIdx}, this.value)" onchange="window.updateIngredientName(${idx}, ${ingIdx}, this.value)" />
           <div class="ing-input-wrap">
             <button type="button" class="btn-step" onclick="window.stepIngredientVal(${idx}, ${ingIdx}, -${step})">-</button>
             <input type="number" 
@@ -706,28 +707,48 @@
 
   // Résolution robuste de la recette (par index de carte ou par nom)
   function resolveRecipe(p1, p2) {
-    if (typeof p1 === 'number') {
-      const card = document.getElementById(`card-${p1}`);
-      const recipeName = card ? card.getAttribute('data-recipe-name') : (allRecipes[p1] ? allRecipes[p1].name : null);
-      const recipe = allRecipes.find(r => r.name === recipeName) || allRecipes[p1];
-      return { recipe, cardIdx: p1, recipeName: recipe ? recipe.name : recipeName };
-    } else {
-      const recipe = allRecipes.find(r => r.name === p1);
-      return { recipe, cardIdx: p2, recipeName: p1 };
+    let cardIdx = null;
+    let recipeName = null;
+
+    const isNum1 = (typeof p1 === 'number') || (typeof p1 === 'string' && /^\d+$/.test(String(p1).trim()));
+    const isNum2 = (typeof p2 === 'number') || (typeof p2 === 'string' && /^\d+$/.test(String(p2).trim()));
+
+    if (isNum1) {
+      cardIdx = parseInt(p1, 10);
+      const card = document.getElementById(`card-${cardIdx}`);
+      recipeName = card ? card.getAttribute('data-recipe-name') : (allRecipes[cardIdx] ? allRecipes[cardIdx].name : null);
+    } else if (typeof p1 === 'string') {
+      recipeName = p1;
+      if (isNum2) cardIdx = parseInt(p2, 10);
     }
+
+    let recipe = null;
+    if (recipeName) {
+      const cTarget = cleanText(recipeName);
+      recipe = allRecipes.find(r => r.name === recipeName) ||
+               allRecipes.find(r => cleanText(r.name) === cTarget) ||
+               allRecipes.find(r => cleanText(r.name).replace(/^(?:pizza|pasta|plat|sandwich|panini)\s+/, '') === cTarget.replace(/^(?:pizza|pasta|plat|sandwich|panini)\s+/, ''));
+    }
+
+    if (!recipe && cardIdx !== null && allRecipes[cardIdx]) {
+      recipe = allRecipes[cardIdx];
+      recipeName = recipe.name;
+    }
+
+    return { recipe, cardIdx: (cardIdx !== null ? cardIdx : 0), recipeName: (recipe ? recipe.name : recipeName) };
   }
 
   // Mise à jour de la valeur d'un ingrédient
   window.onIngredientInputChange = function(p1, p2, p3, p4, p5) {
     let recipe, cardIdx, ingIdx, newVal, unit;
-    if (typeof p1 === 'number') {
-      ({ recipe, cardIdx } = resolveRecipe(p1));
-      ingIdx = p2; newVal = p3; unit = p4;
-    } else {
+    if (arguments.length >= 5) {
       ({ recipe, cardIdx } = resolveRecipe(p1, p2));
-      ingIdx = p3; newVal = p4; unit = p5;
+      ingIdx = parseInt(p3, 10); newVal = p4; unit = p5;
+    } else {
+      ({ recipe, cardIdx } = resolveRecipe(p1));
+      ingIdx = parseInt(p2, 10); newVal = p3; unit = p4;
     }
-    if (!recipe) return;
+    if (!recipe || isNaN(ingIdx)) return;
 
     const val = parseFloat(newVal) || 0;
     const oldLine = recipe.greyCorner.tech[ingIdx];
@@ -735,11 +756,11 @@
 
     const parts = oldLine.split(':');
     const ingName = parts[0].trim();
-    recipe.greyCorner.tech[ingIdx] = `${ingName} : ${val} ${unit}`;
+    recipe.greyCorner.tech[ingIdx] = `${ingName} : ${val} ${unit || 'g'}`;
 
     // Enregistrer dans editedRecipes
     editedRecipes[recipe.name] = {
-      tech: recipe.greyCorner.tech,
+      tech: recipe.greyCorner.tech.slice(),
       updatedAt: Date.now()
     };
     saveEdits(false);
@@ -763,14 +784,14 @@
   // Mise à jour du nom d'un ingrédient
   window.updateIngredientName = function(p1, p2, p3, p4) {
     let recipe, cardIdx, ingIdx, newName;
-    if (typeof p1 === 'number') {
-      ({ recipe, cardIdx } = resolveRecipe(p1));
-      ingIdx = p2; newName = p3;
-    } else {
+    if (arguments.length >= 4) {
       ({ recipe, cardIdx } = resolveRecipe(p1, p2));
-      ingIdx = p3; newName = p4;
+      ingIdx = parseInt(p3, 10); newName = p4;
+    } else {
+      ({ recipe, cardIdx } = resolveRecipe(p1));
+      ingIdx = parseInt(p2, 10); newName = p3;
     }
-    if (!recipe) return;
+    if (!recipe || isNaN(ingIdx)) return;
 
     const oldLine = recipe.greyCorner.tech[ingIdx];
     if (!oldLine) return;
@@ -780,7 +801,7 @@
     recipe.greyCorner.tech[ingIdx] = `${(newName || '').trim()} : ${qtyStr}`;
 
     editedRecipes[recipe.name] = {
-      tech: recipe.greyCorner.tech,
+      tech: recipe.greyCorner.tech.slice(),
       updatedAt: Date.now()
     };
     saveEdits(false);
@@ -798,15 +819,16 @@
   // Pas d'incrément (+ / -)
   window.stepIngredientVal = function(p1, p2, p3, p4) {
     let cardIdx, ingIdx, delta;
-    if (typeof p1 === 'number') {
-      cardIdx = p1; ingIdx = p2; delta = p3;
+    if (arguments.length >= 4) {
+      cardIdx = parseInt(p2, 10); ingIdx = parseInt(p3, 10); delta = parseFloat(p4) || 0;
     } else {
-      cardIdx = p2; ingIdx = p3; delta = p4;
+      cardIdx = parseInt(p1, 10); ingIdx = parseInt(p2, 10); delta = parseFloat(p3) || 0;
     }
     const editor = document.getElementById(`editor-${cardIdx}`);
     if (!editor) return;
 
-    const input = editor.querySelectorAll('.ing-num-input')[ingIdx];
+    const inputs = editor.querySelectorAll('.ing-num-input');
+    const input = inputs[ingIdx];
     if (!input) return;
 
     let current = parseFloat(input.value) || 0;
@@ -829,7 +851,7 @@
 
     recipe.greyCorner.tech.push(`${ingName.trim()} : ${qty.trim()}`);
     editedRecipes[recipe.name] = {
-      tech: recipe.greyCorner.tech,
+      tech: recipe.greyCorner.tech.slice(),
       updatedAt: Date.now()
     };
     saveEdits(false);
@@ -849,14 +871,14 @@
   // Supprimer un ingrédient
   window.removeIngredientFromRecipe = function(p1, p2, p3) {
     let recipe, cardIdx, ingIdx;
-    if (typeof p1 === 'number') {
-      ({ recipe, cardIdx } = resolveRecipe(p1));
-      ingIdx = p2;
-    } else {
+    if (arguments.length >= 3) {
       ({ recipe, cardIdx } = resolveRecipe(p1, p2));
-      ingIdx = p3;
+      ingIdx = parseInt(p3, 10);
+    } else {
+      ({ recipe, cardIdx } = resolveRecipe(p1));
+      ingIdx = parseInt(p2, 10);
     }
-    if (!recipe) return;
+    if (!recipe || isNaN(ingIdx)) return;
 
     if (recipe.greyCorner.tech.length <= 1) {
       alert("Une recette doit contenir au moins un ingrédient.");
@@ -865,7 +887,7 @@
 
     recipe.greyCorner.tech.splice(ingIdx, 1);
     editedRecipes[recipe.name] = {
-      tech: recipe.greyCorner.tech,
+      tech: recipe.greyCorner.tech.slice(),
       updatedAt: Date.now()
     };
     saveEdits(false);
@@ -889,7 +911,7 @@
 
     recipe.greyCorner.tech = JSON.parse(JSON.stringify(recipe.standard.tech));
     editedRecipes[recipe.name] = {
-      tech: recipe.greyCorner.tech,
+      tech: recipe.greyCorner.tech.slice(),
       updatedAt: Date.now()
     };
     saveEdits(false);
@@ -932,6 +954,7 @@
     const costEl = document.getElementById(`gc-cost-${cardIdx}`);
     const fcEl = document.getElementById(`gc-fc-${cardIdx}`);
     const marginEl = document.getElementById(`gc-margin-${cardIdx}`);
+    const diffBadgeEl = document.getElementById(`badge-diff-${cardIdx}`);
 
     if (costEl) costEl.textContent = `${recipe.greyCorner.cost.toFixed(2)} DH`;
     if (fcEl) {
@@ -939,6 +962,18 @@
       fcEl.className = `badge ${recipe.greyCorner.foodCost <= 28 ? 'badge-ok' : (recipe.greyCorner.foodCost <= 38 ? 'badge-warn' : 'badge-danger')}`;
     }
     if (marginEl) marginEl.textContent = `+${recipe.greyCorner.grossMarginDH.toFixed(2)} DH`;
+
+    if (diffBadgeEl) {
+      if (recipe.standard.diffDH > 0) {
+        diffBadgeEl.className = 'badge-gain';
+        diffBadgeEl.style.cssText = 'background:rgba(2, 132, 199, 0.1); color:#0284c7; border-color:rgba(2, 132, 199, 0.3);';
+        diffBadgeEl.textContent = `Écart vs Standard : +${recipe.standard.diffDH.toFixed(2)} DH`;
+      } else {
+        diffBadgeEl.className = 'badge-neutral';
+        diffBadgeEl.style.cssText = '';
+        diffBadgeEl.textContent = `Marge conforme au standard`;
+      }
+    }
 
     const drawerPanel = document.getElementById(`drawer-panel-gc-${cardIdx}`);
     if (drawerPanel) {
@@ -1280,7 +1315,7 @@
   window.closePricesModal = () => window.GC_PricesModal ? window.GC_PricesModal.close() : closePricesModal();
 
   // Initialisation au chargement
-  document.addEventListener('DOMContentLoaded', () => {
+  function initComparatorApp() {
     initData();
 
     // Recherche
@@ -1305,7 +1340,7 @@
     // Bouton de sauvegarde globale
     const saveAllBtn = document.getElementById('btn-save-all');
     if (saveAllBtn) {
-      saveAllBtn.addEventListener('click', saveEdits);
+      saveAllBtn.addEventListener('click', () => saveEdits(true));
     }
 
     // Écoute de mise à jour des prix d'achat
@@ -1314,6 +1349,12 @@
         initData();
       });
     }
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initComparatorApp);
+  } else {
+    initComparatorApp();
+  }
 
 })();
