@@ -112,16 +112,6 @@
     modalEl = document.getElementById('gc-prices-modal-root');
   }
 
-  const OBSOLETE_DUPLICATE_KEYS = new Set([
-    'calamar', 'calamars', 'calamar congele', 'calamars congeles', 'calamars brut',
-    'calamars net', 'calamar egoutte', 'calamars egouttes', 'calamar chair', 'calamars chair',
-    'crevette', 'crevettes', 'crevette avec coquille', 'crevettes avec coquille', 'crevette brut',
-    'crevette chair', 'crevettes chair', 'crevette chair pure', 'crevettes chair pure', 'crevette chair pur', 'crevettes chair pur',
-    'gambas', 'gambas avec coquille', 'gambas chair', 'gambas chair pure', 'gambas chair pur',
-    'gambas panees', 'gambas poche', 'gambas pochee', 'gambas decortiquees',
-    'saumon', 'saumon frais', 'saumon sans carcasse', 'saumon avec carcasse', 'saumon fumee'
-  ]);
-
   function renderTable(filterQuery = '') {
     const tbody = document.getElementById('gc-prices-table-tbody');
     const countBadge = document.getElementById('gc-prices-count-badge');

@@ -279,7 +279,7 @@ function renderAll() {
     DATA.forEach(cat => renderData.push({ cat, items: [...(cat.items || [])] }));
   }
 
-  renderData.forEach(({ cat, items }) => {
+  renderData.forEach(({ cat, items }, index) => {
     // Enrichissement des images (sur copie locale)
     items.forEach(it => {
       it.__key = cat.key;
@@ -294,7 +294,7 @@ function renderAll() {
     t.dataset.cat = cat.key;
     t.textContent = `${cat.category} (${items.length})`;
     tabs.appendChild(t);
-    if (tabs.children.length === 1) t.classList.add('active');
+    if (index === 0) t.classList.add('active');
 
     // Section container
     const sec = document.createElement('section');
@@ -360,13 +360,20 @@ function normalizeText(s) {
 let cachedCards = null;
 let cachedSections = null;
 let searchDebounceTimer = null;
+let isSearchInitialized = false;
 
 function initSearch() {
   // Cache DOM references after render
   cachedCards = document.querySelectorAll('.card');
   cachedSections = document.querySelectorAll('.section-wrap');
 
+  if (isSearchInitialized) return;
+  isSearchInitialized = true;
+
+  if (!searchInput) return;
+
   searchInput.addEventListener('input', (e) => {
+
     const raw = e.target.value.trim();
     const q = normalizeText(raw);
     searchClear.classList.toggle('visible', raw.length > 0);

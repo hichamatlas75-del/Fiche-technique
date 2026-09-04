@@ -93,6 +93,7 @@
   gap: 8px;
   align-items: center;
   flex-wrap: wrap;
+  overscroll-behavior-x: contain;
 }
 
 .quick-filter-btn {
@@ -134,9 +135,11 @@ nav.kitchen-nav {
   border-bottom: 1px solid var(--border);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   overflow-x: auto;
+  overscroll-behavior-x: contain;
   white-space: nowrap;
   scrollbar-width: thin;
 }
+
 
 .tabs {
   display: flex;
