@@ -213,6 +213,7 @@
     const buyPrice = parseFloat(valInput?.value) || 0;
 
     if (!name) {
+      // Validation : garder alert() car requiert interaction utilisateur
       alert("Veuillez saisir le nom de l'ingrédient.");
       return;
     }
@@ -252,7 +253,12 @@
     toggleAddForm();
     renderTable();
     notifyCallbacks();
-    alert(`✅ Ingrédient "${name}" ajouté à la mercuriale avec succès !`);
+    // AM-02 FIX : Toast non bloquant au lieu de alert()
+    if (window.GC_Toast) {
+      window.GC_Toast.show(`Ingrédient "${name}" ajouté à la mercuriale !`, 'success');
+    } else {
+      alert(`✅ Ingrédient "${name}" ajouté à la mercuriale avec succès !`);
+    }
   }
 
   function saveAll() {
@@ -273,8 +279,9 @@
       }
     });
 
-    // Élimination définitive de tous les doublons obsolètes
-    OBSOLETE_DUPLICATE_KEYS.forEach(k => {
+    // Élimination définitive de tous les doublons obsolètes (BUG-04 FIX : liste centralisée)
+    const obsoleteKeys = window.OBSOLETE_INGREDIENT_KEYS || new Set();
+    obsoleteKeys.forEach(k => {
       delete window.INGREDIENT_UNIT_COSTS[k];
     });
 
@@ -285,9 +292,16 @@
     }
 
     notifyCallbacks();
-    alert("💾 Prix des matières premières enregistrés ! Les Food Costs et marges ont été recalculés en direct.");
-    close();
+    // AM-02 FIX : Toast non bloquant
+    if (window.GC_Toast) {
+      window.GC_Toast.show('Prix des matières enregistrés ! Food Costs recalculés.', 'success');
+    } else {
+      alert("💾 Prix des matières premières enregistrés ! Les Food Costs et marges ont été recalculés en direct.");
+    }
+    // BUG-03 FIX : close() résolvait vers window.close() natif dans l'IIFE — fermeture explicite
+    if (modalEl) modalEl.style.display = 'none';
   }
+
 
   function notifyCallbacks() {
     onUpdateCallbacks.forEach(cb => {

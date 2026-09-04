@@ -32,10 +32,12 @@ function makeItemKey(catKey, itemName) {
   return 'item_' + catKey + '_' + itemName.toLowerCase().replace(/[^a-z0-9]/g, '_');
 }
 
+// BUG-01 FIX : délégation à window.escapeHtml (core-utils.js) — protège les attributs HTML
 function escapeHtml(str) {
-  const d = document.createElement('div');
-  d.textContent = str;
-  return d.innerHTML;
+  return (typeof window.escapeHtml === 'function' ? window.escapeHtml : function(s) {
+    if (!s) return '';
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+  })(str);
 }
 
 function createCard(item, catKey, categoryColor) {
@@ -114,12 +116,16 @@ function renderAll() {
   sectionsContainer.innerHTML = '';
 
   // Synchronisation dynamique avec la mercuriale des prix et fiches personnalisées (localStorage)
+  // BUG-02 FIX : on travaille sur des COPIES locales — jamais de mutation de DATA (objet partagé)
+  const renderData = [];
+
   try {
     const savedCustomPrices = localStorage.getItem('gc_ingredient_prices_v1');
     if (savedCustomPrices && window.INGREDIENT_UNIT_COSTS) {
       const parsed = JSON.parse(savedCustomPrices);
-      const obsolete = ['calamar', 'calamars', 'calamar congele', 'calamars congeles', 'calamars brut', 'calamars net', 'calamar egoutte', 'calamars egouttes', 'calamar chair', 'calamars chair', 'crevette', 'crevettes', 'crevette avec coquille', 'crevettes avec coquille', 'crevette brut', 'crevette chair', 'crevettes chair', 'crevette chair pure', 'crevettes chair pure', 'crevette chair pur', 'crevettes chair pur', 'gambas', 'gambas avec coquille', 'gambas chair', 'gambas chair pure', 'gambas chair pur', 'gambas panees', 'gambas poche', 'gambas pochee', 'gambas decortiquees', 'saumon', 'saumon frais', 'saumon sans carcasse', 'saumon avec carcasse', 'saumon fumee'];
-      obsolete.forEach(k => { delete parsed[k]; delete window.INGREDIENT_UNIT_COSTS[k]; });
+      // BUG-04 FIX : utiliser la liste centralisée depuis core-utils.js
+      const obsoleteKeys = window.OBSOLETE_INGREDIENT_KEYS || new Set(['calamar', 'calamars', 'crevette', 'crevettes', 'gambas', 'saumon']);
+      obsoleteKeys.forEach(k => { delete parsed[k]; delete window.INGREDIENT_UNIT_COSTS[k]; });
       Object.assign(window.INGREDIENT_UNIT_COSTS, parsed);
     }
 
@@ -151,33 +157,40 @@ function renderAll() {
     const deletedList = JSON.parse(localStorage.getItem('gc_deleted_recipes_v1') || '[]');
     const deletedSet = new Set(deletedList.map(x => String(x).toLowerCase().trim()));
 
+    // BUG-02 FIX : construire renderData comme copies sans toucher DATA original
     DATA.forEach(cat => {
-      cat.items = (cat.items || []).filter(it => {
+      // Filtre sur une copie sans modifier cat.items
+      const visibleItems = (cat.items || []).filter(it => {
         const norm = (it.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
         return !deletedSet.has(norm) && !deletedSet.has(it.id);
       });
 
-      cat.items.forEach(it => {
-        const norm = (it.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+      // Enrichissement des items (copie superficielle pour ne pas muter les originaux)
+      const enrichedItems = visibleItems.map(it => {
+        const clone = Object.assign({}, it); // copie sans mutation
+        const norm = (clone.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
         const match = customMap.get(norm);
         if (match && ((Array.isArray(match.ingredients) && match.ingredients.length > 0) || (Array.isArray(match.tech) && match.tech.length > 0))) {
-          it.tech = match.ingredients || match.tech;
+          clone.tech = match.ingredients || match.tech;
         }
-        if (typeof calculateRecipeFoodCost === 'function' && it.tech) {
-          const sellP = (match && match.sellPrice) || parseFloat(String(it.price || it.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
-          const calc = calculateRecipeFoodCost(it.tech, sellP);
-          it.cost = calc.cost;
-          it.foodCost = calc.foodCost;
-          it.margin = calc.margin;
-          it.grossMarginDH = calc.grossMarginDH;
+        if (typeof calculateRecipeFoodCost === 'function' && clone.tech) {
+          const sellP = (match && match.sellPrice) || parseFloat(String(clone.price || clone.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
+          const calc = calculateRecipeFoodCost(clone.tech, sellP);
+          clone.cost = calc.cost;
+          clone.foodCost = calc.foodCost;
+          clone.margin = calc.margin;
+          clone.grossMarginDH = calc.grossMarginDH;
         }
+        return clone;
       });
+
+      renderData.push({ cat, items: enrichedItems });
     });
 
-    // Insérer dynamiquement les nouvelles fiches créées dans consommation.html
+    // Insérer dynamiquement les nouvelles fiches créées (non présentes dans DATA)
     const existingNorms = new Set();
-    DATA.forEach(cat => {
-      (cat.items || []).forEach(it => {
+    renderData.forEach(({ items }) => {
+      items.forEach(it => {
         const norm = (it.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
         existingNorms.add(norm);
       });
@@ -186,16 +199,16 @@ function renderAll() {
     customMap.forEach((r, norm) => {
       if (!existingNorms.has(norm) && !deletedSet.has(norm) && !deletedSet.has(r.id)) {
         const rCatNorm = (r.category || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
-        let targetCat = DATA.find(c => {
-          const cNorm = (c.category || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+        let targetEntry = renderData.find(e => {
+          const cNorm = (e.cat.category || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
           return cNorm.includes(rCatNorm) || rCatNorm.includes(cNorm);
         });
-        if (!targetCat) {
-          targetCat = DATA.find(c => c.key === 'sup') || DATA[DATA.length - 1];
+        if (!targetEntry) {
+          targetEntry = renderData.find(e => e.cat.key === 'sup') || renderData[renderData.length - 1];
         }
         const sellP = parseFloat(r.sellPrice) || 0;
         const calc = typeof calculateRecipeFoodCost === 'function' ? calculateRecipeFoodCost(r.ingredients || [], sellP) : { cost: 0, foodCost: 0, margin: 0, grossMarginDH: 0 };
-        targetCat.items.push({
+        targetEntry.items.push({
           id: r.id,
           name: r.name,
           image: r.image || 'images/placeholder.svg',
@@ -213,10 +226,13 @@ function renderAll() {
     });
   } catch (e) {
     console.warn('[LocalStorage] Erreur overlay prix et recettes personnalisées:', e);
+    // Fallback : utiliser DATA tel quel
+    DATA.forEach(cat => renderData.push({ cat, items: [...(cat.items || [])] }));
   }
 
-  DATA.forEach(cat => {
-    cat.items.forEach(it => {
+  renderData.forEach(({ cat, items }) => {
+    // Enrichissement des images (sur copie locale)
+    items.forEach(it => {
       it.__key = cat.key;
       it.__images = normalizeImagesField(it.images || (it.image ? [it.image] : []));
     });
@@ -227,7 +243,7 @@ function renderAll() {
     t.className = 'tab';
     t.dataset.color = cat.color;
     t.dataset.cat = cat.key;
-    t.textContent = `${cat.category} (${cat.items.length})`;
+    t.textContent = `${cat.category} (${items.length})`;
     tabs.appendChild(t);
     if (tabs.children.length === 1) t.classList.add('active');
 
@@ -239,10 +255,10 @@ function renderAll() {
     sec.innerHTML = `
       <h2 class="section-title" style="color:${cat.color}">
         ${cat.category}
-        <span class="section-count">${cat.items.length} fiches</span>
+        <span class="section-count">${items.length} fiches</span>
       </h2>
       <div class="grid">
-        ${cat.items.map(it => createCard(it, cat.key, cat.color)).join('')}
+        ${items.map(it => createCard(it, cat.key, cat.color)).join('')}
       </div>
     `;
     sectionsContainer.appendChild(sec);
@@ -254,6 +270,7 @@ function renderAll() {
   initQuickFilters();
   restoreSavedTimers();
 }
+
 
 /* ===============================
    GESTION DES ONGLETS
@@ -324,7 +341,7 @@ function initSearch() {
         sec.style.display = secMatches > 0 ? '' : 'none';
       });
 
-      searchInfo.innerHTML = `Résultat pour "<strong>${raw}</strong>" : <strong>${matchesCount}</strong> fiche(s) trouvée(s).`;
+      searchInfo.innerHTML = `Résultat pour "<strong>${escapeHtml(raw)}</strong>" : <strong>${matchesCount}</strong> fiche(s) trouvée(s).`;
       searchInfo.classList.add('visible');
     }, 150);
   });
@@ -665,8 +682,12 @@ function applyQuickFilter() {
         const hero = c.querySelector('img.hero');
         match = hero && !hero.src.startsWith('data:image/svg+xml');
       } else if (activeQuickFilter === 'vege') {
+        // AM-04 FIX : mots-clés enrichis pour le filtre Frais & Salades
         const txt = (c.dataset.search || '').toLowerCase();
-        match = txt.includes('salade') || txt.includes('burrata') || txt.includes('avocat') || txt.includes('fromage') || txt.includes('vegetarien');
+        match = txt.includes('salade') || txt.includes('burrata') || txt.includes('avocat')
+             || txt.includes('fromage') || txt.includes('vegetarien') || txt.includes('vegeta')
+             || txt.includes('roquette') || txt.includes('mesclun') || txt.includes('caprese')
+             || txt.includes('bruschetta') || txt.includes('mozzarella') || txt.includes('tomate');
       }
       c.style.display = match ? '' : 'none';
       if (match) visibleInSec++;
@@ -675,34 +696,32 @@ function applyQuickFilter() {
   });
 }
 
-// Gestion du Thème Clair / Sombre
-const themeToggleBtn = document.getElementById('theme-toggle');
-const savedTheme = localStorage.getItem('gc_theme') || 'light';
-applyTheme(savedTheme);
-
-if (themeToggleBtn) {
-  themeToggleBtn.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    const next = current === 'dark' ? 'light' : 'dark';
-    applyTheme(next);
-  });
-}
-
-function applyTheme(t) {
-  if (t === 'dark') {
+// BUG-07 FIX : Gestion du thème déléguée à window.initThemeManager() (core-utils.js)
+// Plus de duplication — initThemeManager gère l'init, le bouton et le localStorage
+if (typeof window.initThemeManager === 'function') {
+  window.initThemeManager('theme-toggle');
+} else {
+  // Fallback de sécurité si core-utils non chargé
+  const _btn = document.getElementById('theme-toggle');
+  const _saved = localStorage.getItem('gc_theme') || 'light';
+  if (_saved === 'dark') {
     document.documentElement.setAttribute('data-theme', 'dark');
-    if (themeToggleBtn) {
-      themeToggleBtn.textContent = '☀️ Mode Clair';
-      themeToggleBtn.title = 'Passer au mode clair';
-    }
-  } else {
-    document.documentElement.removeAttribute('data-theme');
-    if (themeToggleBtn) {
-      themeToggleBtn.textContent = '🌙 Mode Sombre';
-      themeToggleBtn.title = 'Passer au mode sombre';
-    }
+    if (_btn) { _btn.textContent = '☀️ Mode Clair'; _btn.title = 'Passer au mode clair'; }
   }
-  localStorage.setItem('gc_theme', t);
+  if (_btn) {
+    _btn.addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const nxt = cur === 'dark' ? 'light' : 'dark';
+      if (nxt === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        _btn.textContent = '☀️ Mode Clair';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        _btn.textContent = '🌙 Mode Sombre';
+      }
+      localStorage.setItem('gc_theme', nxt);
+    });
+  }
 }
 
 // Mise à jour dynamique lorsque les prix matières sont modifiés
@@ -711,6 +730,7 @@ if (window.GC_PricesModal) {
     renderAll();
   });
 }
+
 
 // Lancement initial
 renderAll();

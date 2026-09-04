@@ -182,6 +182,7 @@
   function syncTheoriqueFromSales() {
     const sel = document.getElementById('flash-ing-select');
     if (!sel || !sel.value) {
+      // Validation : garder alert() car requiert une action utilisateur explicite
       alert("Veuillez d'abord sélectionner une matière première.");
       return;
     }
@@ -288,11 +289,13 @@
     if (totalTheo > 0) {
       document.getElementById('flash-theorique').value = totalTheo.toFixed(2);
       calculateLiveAuditFlash();
-      alert(`⚡ ${totalTheo.toFixed(2)} ${unit} chargés depuis les ventes enregistrées !`);
+      // AM-02 FIX : Toast non bloquant au lieu d'alert()
+      showToast(`⚡ ${totalTheo.toFixed(2)} ${unit} chargés depuis les ventes enregistrées !`);
     } else {
-      alert("Aucune vente enregistrée trouvée pour cet ingrédient dans le module de déstockage. Vous pouvez saisir la quantité manuellement.");
+      showToast("Aucune vente enregistrée trouvée pour cet ingrédient. Saisissez la quantité manuellement.");
     }
   }
+
 
   // Calcul en direct du diagnostic d'audit
   function calculateLiveAuditFlash() {
@@ -437,9 +440,11 @@
   // Clôturer et archiver la session d'audit actuelle
   function closeAndSaveCurrentSession() {
     if (currentSessionItems.length === 0) {
+      // Validation : garder alert() car exige une action corrective de l'utilisateur
       alert("La session active ne contient aucun ingrédient. Auditez et ajoutez au moins un ingrédient avant de clôturer.");
       return;
     }
+
 
     const dateVal = document.getElementById('session-date')?.value || new Date().toISOString().slice(0, 10);
     const serviceVal = document.getElementById('session-service')?.value || 'Service Soir';

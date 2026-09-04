@@ -14,8 +14,17 @@
   let currentCategory = 'ALL';
   let searchQuery = '';
   let onlyGainsFilter = false;
+  let hasUnsavedChanges = false; // AM-03: suivi des modifications non sauvegardées
 
   const STORAGE_KEY = 'grey_corner_custom_recipes_v5';
+
+  // AM-03 FIX : Avertissement avant fermeture si modifications non sauvegardées
+  window.addEventListener('beforeunload', (e) => {
+    if (hasUnsavedChanges) {
+      e.preventDefault();
+      e.returnValue = 'Des modifications non sauvegardées seront perdues. Continuer ?';
+    }
+  });
 
   function cleanText(str) {
     if (!str) return '';
@@ -28,6 +37,7 @@
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         editedRecipes = JSON.parse(saved);
+        hasUnsavedChanges = false; // données chargées = pas de modifications pendantes
       }
     } catch (e) {
       console.warn("Impossible de charger les fiches sauvegardées", e);
@@ -36,6 +46,8 @@
 
   // Sauvegarde globale & synchronisation universelle
   function saveEdits(isManualSave = true) {
+    // AM-03: marquer comme modifié si auto-save (pas encore confirmé par l'utilisateur)
+    if (!isManualSave) hasUnsavedChanges = true;
     try {
       // 1. Sauvegarder dans STORAGE_KEY (mémoire locale du comparateur)
       localStorage.setItem(STORAGE_KEY, JSON.stringify(editedRecipes));
@@ -93,8 +105,16 @@
         });
       });
 
+      // AM-03: marquer comme sauvegardé
+      hasUnsavedChanges = false;
+
       if (isManualSave) {
-        showToast("💾 Fiches techniques enregistrées avec succès !");
+        // AM-02 FIX : Toast non bloquant
+        if (window.GC_Toast) {
+          window.GC_Toast.show('Fiches techniques enregistrées avec succès !', 'success');
+        } else {
+          showToast("💾 Fiches techniques enregistrées avec succès !");
+        }
         const btn = document.getElementById('btn-save-all');
         if (btn) {
           const origHTML = btn.innerHTML;
@@ -109,7 +129,11 @@
     } catch (e) {
       console.error("Erreur lors de la sauvegarde locale", e);
       if (isManualSave) {
-        showToast("❌ Erreur de sauvegarde : " + e.message);
+        if (window.GC_Toast) {
+          window.GC_Toast.show("Erreur de sauvegarde : " + e.message, 'error');
+        } else {
+          showToast("❌ Erreur de sauvegarde : " + e.message);
+        }
       }
     }
   }
@@ -124,7 +148,8 @@
       const saved = localStorage.getItem('gc_ingredient_prices_v1');
       if (saved) {
         const parsed = JSON.parse(saved);
-        const obsolete = ['calamar', 'calamars', 'calamar congele', 'calamars congeles', 'calamars brut', 'calamars net', 'calamar egoutte', 'calamars egouttes', 'calamar chair', 'calamars chair', 'crevette', 'crevettes', 'crevette avec coquille', 'crevettes avec coquille', 'crevette brut', 'crevette chair', 'crevettes chair', 'crevette chair pure', 'crevettes chair pure', 'crevette chair pur', 'crevettes chair pur', 'gambas', 'gambas avec coquille', 'gambas chair', 'gambas chair pure', 'gambas chair pur', 'gambas panees', 'gambas poche', 'gambas pochee', 'gambas decortiquees', 'saumon', 'saumon frais', 'saumon sans carcasse', 'saumon avec carcasse', 'saumon fumee'];
+        // BUG-04 FIX : utiliser la liste centralisée depuis core-utils.js
+        const obsolete = window.OBSOLETE_INGREDIENT_KEYS || new Set(['calamar', 'calamars', 'crevette', 'crevettes', 'gambas', 'saumon']);
         obsolete.forEach(k => { delete parsed[k]; if (window.INGREDIENT_UNIT_COSTS) delete window.INGREDIENT_UNIT_COSTS[k]; });
         if (!window.INGREDIENT_UNIT_COSTS) window.INGREDIENT_UNIT_COSTS = {};
         Object.assign(window.INGREDIENT_UNIT_COSTS, parsed);

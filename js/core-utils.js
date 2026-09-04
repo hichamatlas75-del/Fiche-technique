@@ -5,19 +5,49 @@
 (function(global) {
   const APP_DATA_VERSION = 'v7.7_merguez_compagnard_20260904';
 
+  // ─────────────────────────────────────────────────────────────
+  // CLÉS LOCALSTORAGE CENTRALISÉES (Single Source of Truth)
+  // ─────────────────────────────────────────────────────────────
+  const GC_STORAGE_KEYS = {
+    RECIPES:     'gc_recipes_db_v5',
+    RECIPES_OLD: 'gc_recipes_db_v4',
+    RECIPES_VER: 'gc_recipes_db_version',
+    PRICES:      'gc_ingredient_prices_v1',
+    SALES:       'gc_monthly_sales_db_v3',
+    COMP_EDITS:  'grey_corner_custom_recipes_v5',
+    DELETED:     'gc_deleted_recipes_v1',
+    THEME:       'gc_theme',
+    APP_VER:     'gc_app_data_version',
+    KITCHEN:     'gc_kitchen_state',
+    AUDIT:       'gc_audit_sessions_v1',
+  };
+
+  // ─────────────────────────────────────────────────────────────
+  // CLÉS D'INGRÉDIENTS OBSOLÈTES (centralisées ici, utilisées partout)
+  // ─────────────────────────────────────────────────────────────
+  const OBSOLETE_INGREDIENT_KEYS = new Set([
+    'calamar', 'calamars', 'calamar congele', 'calamars congeles', 'calamars brut',
+    'calamars net', 'calamar egoutte', 'calamars egouttes', 'calamar chair', 'calamars chair',
+    'crevette', 'crevettes', 'crevette avec coquille', 'crevettes avec coquille', 'crevette brut',
+    'crevette chair', 'crevettes chair', 'crevette chair pure', 'crevettes chair pure',
+    'crevette chair pur', 'crevettes chair pur',
+    'gambas', 'gambas avec coquille', 'gambas chair', 'gambas chair pure', 'gambas chair pur',
+    'gambas panees', 'gambas poche', 'gambas pochee', 'gambas decortiquees',
+    'saumon', 'saumon frais', 'saumon sans carcasse', 'saumon avec carcasse', 'saumon fumee'
+  ]);
+
   // Invalidation automatique et forcée du cache local lors d'un déploiement
   try {
-    const currentVer = typeof localStorage !== 'undefined' ? localStorage.getItem('gc_app_data_version') : null;
+    const currentVer = typeof localStorage !== 'undefined' ? localStorage.getItem(GC_STORAGE_KEYS.APP_VER) : null;
     if (currentVer !== APP_DATA_VERSION && typeof localStorage !== 'undefined') {
       console.log('[Cache-Buster] Nouvelle version ' + APP_DATA_VERSION + ' détectée : purge du cache obsolète...');
-      localStorage.removeItem('gc_recipes_db_v4');
-      localStorage.removeItem('gc_recipes_db_v5');
-      localStorage.removeItem('gc_recipes_db_version');
-      localStorage.removeItem('grey_corner_custom_recipes_v5');
-      localStorage.removeItem('gc_ingredient_prices_v1');
-      localStorage.removeItem('gc_comparateur_edits_v1');
-      localStorage.removeItem('gc_deleted_recipes_v1');
-      localStorage.setItem('gc_app_data_version', APP_DATA_VERSION);
+      localStorage.removeItem(GC_STORAGE_KEYS.RECIPES_OLD);
+      localStorage.removeItem(GC_STORAGE_KEYS.RECIPES);
+      localStorage.removeItem(GC_STORAGE_KEYS.RECIPES_VER);
+      localStorage.removeItem(GC_STORAGE_KEYS.COMP_EDITS);
+      localStorage.removeItem(GC_STORAGE_KEYS.PRICES);
+      localStorage.removeItem(GC_STORAGE_KEYS.DELETED);
+      localStorage.setItem(GC_STORAGE_KEYS.APP_VER, APP_DATA_VERSION);
     }
   } catch(e) {
     console.warn('[Cache-Buster] Erreur nettoyage cache local:', e);
@@ -26,15 +56,13 @@
   function forceCacheRefresh() {
     try {
       if (typeof localStorage !== 'undefined') {
-        const theme = localStorage.getItem('gc_theme');
-        localStorage.removeItem('gc_recipes_db_v4');
-        localStorage.removeItem('gc_recipes_db_v5');
-        localStorage.removeItem('gc_recipes_db_version');
-        localStorage.removeItem('grey_corner_custom_recipes_v5');
-        localStorage.removeItem('gc_ingredient_prices_v1');
-        localStorage.removeItem('gc_comparateur_edits_v1');
-        localStorage.removeItem('gc_deleted_recipes_v1');
-        localStorage.setItem('gc_app_data_version', APP_DATA_VERSION);
+        localStorage.removeItem(GC_STORAGE_KEYS.RECIPES_OLD);
+        localStorage.removeItem(GC_STORAGE_KEYS.RECIPES);
+        localStorage.removeItem(GC_STORAGE_KEYS.RECIPES_VER);
+        localStorage.removeItem(GC_STORAGE_KEYS.COMP_EDITS);
+        localStorage.removeItem(GC_STORAGE_KEYS.PRICES);
+        localStorage.removeItem(GC_STORAGE_KEYS.DELETED);
+        localStorage.setItem(GC_STORAGE_KEYS.APP_VER, APP_DATA_VERSION);
       }
       if (typeof sessionStorage !== 'undefined') sessionStorage.clear();
       if ('caches' in window) {
@@ -53,14 +81,17 @@
 
   /**
    * Normalisation de texte (sans accents, minuscules, espaces superflus)
+   * PARTAGÉE — exposée via window.cleanText
    */
   function cleanText(str) {
     return (str || '')
+      .toString()
       .toLowerCase()
       .replace(/œ/g, 'oe')
+      .replace(/Œ/g, 'oe')
       .replace(/æ/g, 'ae')
       .normalize('NFD')
-      .replace(/[̀-ͯ]/g, '')
+      .replace(/[\u0300-\u036f]/g, '')
       .replace(/[^a-z0-9]/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
@@ -124,58 +155,117 @@
   }
 
   /**
-   * Gestionnaire de thème Clair / Sombre
+   * Gestionnaire de thème Clair / Sombre (centralisé)
    */
-  function initThemeManager(toggleBtnId = 'theme-toggle', storageKey = 'gc_theme') {
+  function initThemeManager(toggleBtnId = 'theme-toggle', storageKey = GC_STORAGE_KEYS.THEME) {
     const themeToggleBtn = document.getElementById(toggleBtnId);
     const savedTheme = localStorage.getItem(storageKey) || 'light';
-    applyTheme(savedTheme);
+    applyTheme(savedTheme, themeToggleBtn, storageKey);
 
     if (themeToggleBtn) {
       themeToggleBtn.addEventListener('click', () => {
         const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
         const next = current === 'dark' ? 'light' : 'dark';
-        applyTheme(next);
+        applyTheme(next, themeToggleBtn, storageKey);
       });
     }
-
-    function applyTheme(t) {
-      if (t === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        if (themeToggleBtn) {
-          themeToggleBtn.textContent = '☀️ Mode Clair';
-          themeToggleBtn.title = 'Passer au mode clair';
-        }
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-        if (themeToggleBtn) {
-          themeToggleBtn.textContent = '🌙 Mode Sombre';
-          themeToggleBtn.title = 'Passer au mode sombre';
-        }
-      }
-      localStorage.setItem(storageKey, t);
-    }
   }
+
+  function applyTheme(t, btn, storageKey) {
+    const key = storageKey || GC_STORAGE_KEYS.THEME;
+    if (t === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      if (btn) {
+        btn.textContent = '☀️ Mode Clair';
+        btn.title = 'Passer au mode clair';
+      }
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      if (btn) {
+        btn.textContent = '🌙 Mode Sombre';
+        btn.title = 'Passer au mode sombre';
+      }
+    }
+    localStorage.setItem(key, t);
+  }
+
+  /**
+   * COMPOSANT TOAST PARTAGÉ — remplace les alert() bloquants
+   */
+  const GC_Toast = (function() {
+    let toastEl = null;
+    let hideTimer = null;
+
+    function ensureEl() {
+      if (toastEl && document.body.contains(toastEl)) return toastEl;
+      toastEl = document.createElement('div');
+      toastEl.id = 'gc-shared-toast';
+      toastEl.setAttribute('role', 'status');
+      toastEl.setAttribute('aria-live', 'polite');
+      toastEl.style.cssText = [
+        'position:fixed', 'bottom:24px', 'right:24px',
+        'padding:14px 20px', 'border-radius:12px',
+        'font-weight:700', 'font-size:14px',
+        'box-shadow:0 8px 24px rgba(0,0,0,0.25)',
+        'z-index:99999', 'max-width:420px',
+        'display:flex', 'align-items:center', 'gap:10px',
+        'transition:opacity 0.3s ease, transform 0.3s ease',
+        'opacity:0', 'transform:translateY(12px)',
+        'pointer-events:none', 'border:1px solid rgba(255,255,255,0.12)'
+      ].join(';');
+      document.body.appendChild(toastEl);
+      return toastEl;
+    }
+
+    function show(msg, type) {
+      const el = ensureEl();
+      const colors = {
+        success: { bg: '#0f172a', border: '#22c55e', icon: '✅' },
+        error:   { bg: '#450a0a', border: '#ef4444', icon: '❌' },
+        warning: { bg: '#431407', border: '#f97316', icon: '⚠️' },
+        info:    { bg: '#0c1a2e', border: '#38bdf8', icon: 'ℹ️' },
+      };
+      const c = colors[type] || colors.success;
+
+      el.style.background = c.bg;
+      el.style.borderColor = c.border;
+      el.style.color = '#f8fafc';
+      el.textContent = c.icon + ' ' + msg;
+
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+      el.style.pointerEvents = 'auto';
+
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(12px)';
+        el.style.pointerEvents = 'none';
+      }, 3500);
+    }
+
+    return { show };
+  })();
 
   /**
    * GREY CORNER — Gestionnaire de données unifié (Single Source of Truth)
    */
   const GC_Store = {
     // Thème
-    getTheme: () => localStorage.getItem('gc_theme') || 'light',
+    getTheme: () => localStorage.getItem(GC_STORAGE_KEYS.THEME) || 'light',
     setTheme: (t) => {
       if (t === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
       } else {
         document.documentElement.removeAttribute('data-theme');
       }
-      localStorage.setItem('gc_theme', t);
+      localStorage.setItem(GC_STORAGE_KEYS.THEME, t);
     },
 
     // Recettes personnalisées
     getCustomRecipes: () => {
       try {
-        const raw = localStorage.getItem('gc_recipes_db_v5') || localStorage.getItem('gc_recipes_db_v4');
+        const raw = localStorage.getItem(GC_STORAGE_KEYS.RECIPES) || localStorage.getItem(GC_STORAGE_KEYS.RECIPES_OLD);
         return raw ? JSON.parse(raw) : [];
       } catch (e) {
         console.warn('[GC_Store] Erreur lecture recettes:', e);
@@ -184,8 +274,8 @@
     },
     saveCustomRecipes: (recipes) => {
       try {
-        localStorage.setItem('gc_recipes_db_v5', JSON.stringify(recipes));
-        localStorage.removeItem('gc_recipes_db_v4');
+        localStorage.setItem(GC_STORAGE_KEYS.RECIPES, JSON.stringify(recipes));
+        localStorage.removeItem(GC_STORAGE_KEYS.RECIPES_OLD);
       } catch (e) {
         console.error('[GC_Store] Erreur sauvegarde recettes:', e);
       }
@@ -194,7 +284,7 @@
     // Prix d'achat personnalisés
     getCustomPrices: () => {
       try {
-        const raw = localStorage.getItem('gc_ingredient_prices_v1');
+        const raw = localStorage.getItem(GC_STORAGE_KEYS.PRICES);
         return raw ? JSON.parse(raw) : {};
       } catch (e) {
         console.warn('[GC_Store] Erreur lecture prix:', e);
@@ -203,7 +293,7 @@
     },
     saveCustomPrices: (prices) => {
       try {
-        localStorage.setItem('gc_ingredient_prices_v1', JSON.stringify(prices));
+        localStorage.setItem(GC_STORAGE_KEYS.PRICES, JSON.stringify(prices));
         if (typeof window !== 'undefined' && window.INGREDIENT_UNIT_COSTS) {
           Object.assign(window.INGREDIENT_UNIT_COSTS, prices);
         }
@@ -215,7 +305,7 @@
     // Ventes mensuelles
     getMonthlySales: () => {
       try {
-        const raw = localStorage.getItem('gc_monthly_sales_db_v3');
+        const raw = localStorage.getItem(GC_STORAGE_KEYS.SALES);
         return raw ? JSON.parse(raw) : {};
       } catch (e) {
         console.warn('[GC_Store] Erreur lecture ventes:', e);
@@ -224,7 +314,7 @@
     },
     saveMonthlySales: (salesDB) => {
       try {
-        localStorage.setItem('gc_monthly_sales_db_v3', JSON.stringify(salesDB));
+        localStorage.setItem(GC_STORAGE_KEYS.SALES, JSON.stringify(salesDB));
       } catch (e) {
         console.error('[GC_Store] Erreur sauvegarde ventes:', e);
       }
@@ -275,6 +365,7 @@
 
   global.cleanText = cleanText;
   global.escapeHtml = escapeHtml;
+  global.applyTheme = applyTheme;
   global.formatMoney = formatMoney;
   global.formatNumber = formatNumber;
   global.formatDateFR = formatDateFR;
@@ -282,6 +373,9 @@
   global.initThemeManager = initThemeManager;
   global.GC_Store = GC_Store;
   global.GC_WakeLock = GC_WakeLock;
+  global.GC_Toast = GC_Toast;
+  global.GC_STORAGE_KEYS = GC_STORAGE_KEYS;
+  global.OBSOLETE_INGREDIENT_KEYS = OBSOLETE_INGREDIENT_KEYS;
   global.forceCacheRefresh = forceCacheRefresh;
   global.APP_DATA_VERSION = APP_DATA_VERSION;
 })(typeof window !== 'undefined' ? window : globalThis);

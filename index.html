@@ -13,9 +13,10 @@
 <link rel="stylesheet" href="css/kitchen.css?v=7.7" />
 
 <!-- Données Centralisées (SSOT), Utilitaires & Composants -->
-<script src="recipes-data.js?v=7.7"></script>
-<script src="js/core-utils.js?v=7.7"></script>
-<script src="js/prices-modal.js?v=7.7"></script>
+<!-- PERF-02 FIX : defer évite le blocage du rendu initial par ces gros fichiers -->
+<script src="recipes-data.js?v=7.7" defer></script>
+<script src="js/core-utils.js?v=7.7" defer></script>
+<script src="js/prices-modal.js?v=7.7" defer></script>
 </head>
 <body>
 
@@ -36,7 +37,7 @@
       <button id="theme-toggle" class="btn btn-secondary" title="Basculer le thème">🌓 Thème</button>
       <a href="consommation.html" class="btn btn-primary" style="text-decoration:none;">📊 Déstockage</a>
       <a href="audit.html" class="btn btn-secondary" style="text-decoration:none;">⚡ Audit Flash</a>
-      <a href="comparateur.html" class="btn btn-secondary" style="text-decoration:none;">⚖️ Normes & Comparateur</a>
+      <a href="comparateur.html" class="btn btn-secondary" style="text-decoration:none;">⚖️ Normes &amp; Comparateur</a>
     </div>
   </div>
 </header>
@@ -48,7 +49,7 @@
       <button class="quick-filter-btn active" data-filter="all">🌟 Tous les plats</button>
       <button class="quick-filter-btn" data-filter="express">⏱️ Express (&le; 10 min)</button>
       <button class="quick-filter-btn" data-filter="photos">📸 Avec Photos</button>
-      <button class="quick-filter-btn" data-filter="vege">🥗 Frais & Salades</button>
+      <button class="quick-filter-btn" data-filter="vege">🥗 Frais &amp; Salades</button>
     </div>
     <div id="tabs" class="tabs"></div>
   </div>
@@ -59,13 +60,17 @@
   <div id="sections-container"></div>
 </main>
 
-<!-- Lightbox -->
-<div id="lightbox" class="lightbox">
-  <button id="lb-close" class="lb-btn close" title="Fermer">✕</button>
-  <button id="lb-prev" class="lb-btn prev" title="Précédent">❮</button>
+<!-- AM-05 FIX : Attributs ARIA pour l'accessibilité (lecteurs d'écran, tablettes) -->
+<div id="lightbox" class="lightbox"
+     role="dialog"
+     aria-modal="true"
+     aria-label="Galerie photo du plat"
+     aria-live="polite">
+  <button id="lb-close" class="lb-btn close" title="Fermer" aria-label="Fermer la galerie">✕</button>
+  <button id="lb-prev" class="lb-btn prev" title="Précédent" aria-label="Photo précédente">❮</button>
   <img id="lightbox-img" alt="Zoom plat" />
-  <div id="lb-counter" class="lb-counter"></div>
-  <button id="lb-next" class="lb-btn next" title="Suivant">❯</button>
+  <div id="lb-counter" class="lb-counter" aria-live="polite"></div>
+  <button id="lb-next" class="lb-btn next" title="Suivant" aria-label="Photo suivante">❯</button>
 </div>
 
 <!-- Audio elements -->
@@ -73,6 +78,6 @@
 <audio id="snd-done" preload="auto" src="sounds/DONE.mp3"></audio>
 
 <!-- Logique Métier Écran Cuisine -->
-<script src="js/kitchen.js?v=7.7"></script>
+<script src="js/kitchen.js?v=7.7" defer></script>
 </body>
 </html>
