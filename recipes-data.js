@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-04T10:36:24.206Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-04T18:31:04.351Z
  */
 
 (function(global) {
@@ -3194,11 +3194,11 @@ const DATA = [
           "Huile : 60 ml"
         ],
         "price": "103 DH",
-        "cost": 42.69,
+        "cost": 44.19,
         "sellPrice": 103,
-        "foodCost": 41.4,
-        "margin": 58.6,
-        "grossMarginDH": 60.31,
+        "foodCost": 42.9,
+        "margin": 57.1,
+        "grossMarginDH": 58.81,
         "__key": "pl",
         "__images": [
           "images/plat-eminceboeuf.jpg",
@@ -3220,11 +3220,11 @@ const DATA = [
           "Frites : 200 g"
         ],
         "price": "135 DH",
-        "cost": 48.05,
+        "cost": 49.85,
         "sellPrice": 135,
-        "foodCost": 35.6,
-        "margin": 64.4,
-        "grossMarginDH": 86.95,
+        "foodCost": 36.9,
+        "margin": 63.1,
+        "grossMarginDH": 85.15,
         "__key": "pl",
         "__images": [
           "images/plat-filet.jpg",
@@ -3797,11 +3797,11 @@ const DATA = [
           "FRITTES : 200 g"
         ],
         "price": "65 DH",
-        "cost": 27.34,
+        "cost": 28.24,
         "sellPrice": 65,
-        "foodCost": 42.1,
-        "margin": 57.9,
-        "grossMarginDH": 37.66,
+        "foodCost": 43.4,
+        "margin": 56.6,
+        "grossMarginDH": 36.76,
         "__key": "sw",
         "__images": [
           "images/sand-cheesesteak.jpg"
@@ -10733,11 +10733,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "filet de boeuf": {
-    "cost": 0.18,
+    "cost": 0.19,
     "unit": "g"
   },
   "filet": {
-    "cost": 0.18,
+    "cost": 0.19,
     "unit": "g"
   },
   "viande tajine": {
