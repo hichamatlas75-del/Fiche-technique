@@ -118,15 +118,17 @@
     if (!tbody) return;
 
     const costs = window.INGREDIENT_UNIT_COSTS || {};
-    // Assainissement systématique des doublons obsolètes
-    OBSOLETE_DUPLICATE_KEYS.forEach(k => { delete costs[k]; });
+    // Assainissement systématique des doublons obsolètes (centralisé dans core-utils)
+    const obsoleteKeys = window.OBSOLETE_INGREDIENT_KEYS || new Set();
+    obsoleteKeys.forEach(k => { delete costs[k]; });
 
-    const keys = Object.keys(costs).filter(k => !OBSOLETE_DUPLICATE_KEYS.has(k)).sort((a, b) => a.localeCompare(b, 'fr'));
+    const keys = Object.keys(costs).filter(k => !obsoleteKeys.has(k)).sort((a, b) => a.localeCompare(b, 'fr'));
     const q = (filterQuery || '').toLowerCase().trim();
 
     let matched = 0;
     const rowsHTML = keys.map(k => {
       const def = costs[k];
+      if (!def || typeof def.cost !== 'number') return '';
       const label = def.label || (k.charAt(0).toUpperCase() + k.slice(1));
       if (q && !k.toLowerCase().includes(q) && !label.toLowerCase().includes(q)) {
         return '';
