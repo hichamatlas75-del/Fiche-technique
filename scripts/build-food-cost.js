@@ -416,7 +416,7 @@ const ingredientCosts = {
   "olives noires": { cost: 0.045, unit: "g" },
   "omelette": { cost: 4.50, unit: "piece" },
   "boisson chaude": { cost: 3.50, unit: "piece" },
-  "dessert": { cost: 8.00, unit: "piece" },
+  "dessert": { cost: 1.00, unit: "piece" },
   "beldi": { cost: 5.00, unit: "piece" },
   "accompagnements": { cost: 5.00, unit: "piece" },
   "pasta nature ou mini pizza + boisson": { cost: 12.00, unit: "piece" },

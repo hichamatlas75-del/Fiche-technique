@@ -2118,7 +2118,7 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "pain cake : 2 p",
-          "Omelette : 3 œufs",
+          "Œufs : 3 p",
           "Fromage : 30 g",
           "Charcuteries : 60 g",
           "Pain seigle : 2 tr",
@@ -2129,11 +2129,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 44.11,
+        "cost": 27.42,
         "sellPrice": 52,
-        "foodCost": 84.8,
-        "margin": 15.2,
-        "grossMarginDH": 7.89,
+        "foodCost": 52.7,
+        "margin": 47.3,
+        "grossMarginDH": 24.58,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_compagnard.jpeg"
@@ -7145,7 +7145,7 @@ const BASE_RECIPES = [
     "category": "PETIT DÉJEUNER",
     "ingredients": [
       "pain cake : 2 p",
-      "Omelette : 3 œufs",
+      "Œufs : 3 p",
       "Fromage : 30 g",
       "Charcuteries : 60 g",
       "Pain seigle : 2 tr",
@@ -10956,6 +10956,14 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 1.27,
     "unit": "piece"
   },
+  "œuf": {
+    "cost": 1.27,
+    "unit": "piece"
+  },
+  "œufs": {
+    "cost": 1.27,
+    "unit": "piece"
+  },
   "oeufs frais": {
     "cost": 1.27,
     "unit": "piece"
@@ -11957,7 +11965,7 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "Boisson Chaude (Formule)"
   },
   "dessert": {
-    "cost": 8,
+    "cost": 1,
     "unit": "piece",
     "label": "Dessert (Formule)"
   },
@@ -12002,7 +12010,7 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
   const validSellPrice = typeof sellPrice === 'number' && sellPrice > 0 ? sellPrice : parseFloat(String(sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
   const costMap = (typeof window !== 'undefined' && window.INGREDIENT_UNIT_COSTS) || INGREDIENT_UNIT_COSTS;
 
-  const cleanStr = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+  const cleanStr = (s) => (s || '').toLowerCase().replace(/œ/g, 'oe').replace(/æ/g, 'ae').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
   const stripPlural = (s) => s.split(' ').map(w => w.endsWith('s') && w.length > 3 ? w.slice(0, -1) : w).join(' ');
 
   (ingredients || []).forEach(line => {
@@ -12034,6 +12042,8 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
       if (!normIng.includes('crepe') && !normIng.includes('gaufre') && !normIng.includes('pistache')) {
         lookupKey = 'pates';
       }
+    } else if (normIng === 'oeufs' || normIng === 'oeuf' || (normIng === 'omelette' && (qtyStr.includes('œuf') || qtyStr.includes('oeuf')))) {
+      lookupKey = 'oeufs';
     }
 
     let ingDef = costMap[lookupKey] || costMap[normIng] || costMap[normIngSingular];
@@ -12060,7 +12070,7 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
     const mlMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*ml\b/i);
     const clMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*cl\b/i);
     const lMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*l\b/i);
-    const pMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*(?:p|piece|tranche|part|boule|sachet|portion|tr)\b/i);
+    const pMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*(?:p|piece|tranche|part|boule|sachet|portion|tr|œufs|oeufs)\b/i);
 
     if (ingDef.unit === 'g') {
       if (gMatch) qty = parseFloat(gMatch[1].replace(',', '.'));
