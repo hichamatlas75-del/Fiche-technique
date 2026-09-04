@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-04T18:31:04.351Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-04T19:05:01.346Z
  */
 
 (function(global) {
@@ -2020,12 +2020,12 @@ const DATA = [
         "tech": [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
-        "price": "10 DH",
+        "price": "6 DH",
         "cost": 1.8,
-        "sellPrice": 10,
-        "foodCost": 18,
-        "margin": 82,
-        "grossMarginDH": 8.2,
+        "sellPrice": 6,
+        "foodCost": 30,
+        "margin": 70,
+        "grossMarginDH": 4.2,
         "__key": "ea",
         "__images": [
           "images/eau-33.webp"
@@ -7027,7 +7027,9 @@ const BASE_RECIPES = [
       "Coca-Cola (Canette 33cl) : 1 p",
       "Tranche de citron : 1 tr",
       "Glaçons"
-    ]
+    ],
+    "sellPrice": 17,
+    "price": "17 DH"
   },
   {
     "id": "sd_coca_cola_zero_33cl",
@@ -7085,7 +7087,9 @@ const BASE_RECIPES = [
       "Orangina (Canette 33cl) : 1 p",
       "Tranche d'orange : 1 tr",
       "Glaçons"
-    ]
+    ],
+    "sellPrice": 17,
+    "price": "17 DH"
   },
   {
     "id": "sd_red_bull_250ml",
@@ -7094,7 +7098,9 @@ const BASE_RECIPES = [
     "ingredients": [
       "Red Bull (Canette 250ml) : 1 p",
       "Glaçons"
-    ]
+    ],
+    "sellPrice": 28,
+    "price": "28 DH"
   },
   {
     "id": "ea_eau_minerale_33cl",
@@ -7102,7 +7108,9 @@ const BASE_RECIPES = [
     "category": "EAUX MINÉRALES & GAZEUSES",
     "ingredients": [
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 6,
+    "price": "6 DH"
   },
   {
     "id": "ea_eau_minerale_50cl",
@@ -7118,7 +7126,9 @@ const BASE_RECIPES = [
     "category": "EAUX MINÉRALES & GAZEUSES",
     "ingredients": [
       "Bouteille Eau Minérale 75cl : 1 p"
-    ]
+    ],
+    "sellPrice": 22,
+    "price": "22 DH"
   },
   {
     "id": "ea_oulmes_eau_gazeuse_33cl_50cl",
@@ -7136,7 +7146,9 @@ const BASE_RECIPES = [
     "ingredients": [
       "Bouteille Oulmès 75cl : 1 p",
       "Tranches de citron : 2 tr"
-    ]
+    ],
+    "sellPrice": 26,
+    "price": "26 DH"
   },
   {
     "id": "pdj_compagnard",
