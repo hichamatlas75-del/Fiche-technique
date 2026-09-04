@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-04T19:05:01.346Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-04T19:47:05.064Z
  */
 
 (function(global) {
@@ -4196,15 +4196,17 @@ const DATA = [
           "Huile : 60 g",
           "champignon : 50 g",
           "Pesto : 70 g",
-          "Sauce blanche : 100 g",
-          "Oignon/Ail : 70 g"
+          "Sauce blanche : 50 g",
+          "Oignon/Ail : 70 g",
+          "fromage rouge : 15 g",
+          "mozzarella : 40 g"
         ],
         "price": "60 DH",
-        "cost": 17.07,
+        "cost": 19.44,
         "sellPrice": 60,
-        "foodCost": 28.5,
-        "margin": 71.6,
-        "grossMarginDH": 42.93,
+        "foodCost": 32.4,
+        "margin": 67.6,
+        "grossMarginDH": 40.56,
         "__key": "pae",
         "__images": [
           "images/lasagne-poulet.jpeg"
@@ -4222,14 +4224,16 @@ const DATA = [
           "Tomate cerise : 50 g",
           "Pesto : 70 g",
           "Sauce tomate : 80 g",
-          "Oignon/Ail : 70 g"
+          "Oignon/Ail : 70 g",
+          "fromage rouge : 15 g",
+          "mozzarella : 40 g"
         ],
         "price": "72 DH",
-        "cost": 18.27,
+        "cost": 21.89,
         "sellPrice": 72,
-        "foodCost": 25.4,
-        "margin": 74.6,
-        "grossMarginDH": 53.73,
+        "foodCost": 30.4,
+        "margin": 69.6,
+        "grossMarginDH": 50.11,
         "__key": "pae",
         "__images": [
           "images/lasagne_bolognaise.jpeg"
@@ -4246,15 +4250,17 @@ const DATA = [
           "Parmesan : 15 g",
           "Huile : 30 g",
           "Pesto : 40 g",
-          "Sauce blanche : 100 g",
-          "Oignon/Ail : 50 g"
+          "Sauce blanche : 50 g",
+          "Oignon/Ail : 50 g",
+          "fromage rouge : 15 g",
+          "mozzarella : 40 g"
         ],
         "price": "78 DH",
-        "cost": 24.27,
+        "cost": 26.65,
         "sellPrice": 78,
-        "foodCost": 31.1,
-        "margin": 68.9,
-        "grossMarginDH": 53.73,
+        "foodCost": 34.2,
+        "margin": 65.8,
+        "grossMarginDH": 51.35,
         "__key": "pae",
         "__images": [
           "images/lasagne-fruitdemer.jpeg"
@@ -8256,8 +8262,10 @@ const BASE_RECIPES = [
       "Huile : 60 g",
       "champignon : 50 g",
       "Pesto : 70 g",
-      "Sauce blanche : 100 g",
-      "Oignon/Ail : 70 g"
+      "Sauce blanche : 50 g",
+      "Oignon/Ail : 70 g",
+      "fromage rouge : 15 g",
+      "mozzarella : 40 g"
     ]
   },
   {
@@ -8272,7 +8280,9 @@ const BASE_RECIPES = [
       "Tomate cerise : 50 g",
       "Pesto : 70 g",
       "Sauce tomate : 80 g",
-      "Oignon/Ail : 70 g"
+      "Oignon/Ail : 70 g",
+      "fromage rouge : 15 g",
+      "mozzarella : 40 g"
     ]
   },
   {
@@ -8286,8 +8296,10 @@ const BASE_RECIPES = [
       "Parmesan : 15 g",
       "Huile : 30 g",
       "Pesto : 40 g",
-      "Sauce blanche : 100 g",
-      "Oignon/Ail : 50 g"
+      "Sauce blanche : 50 g",
+      "Oignon/Ail : 50 g",
+      "fromage rouge : 15 g",
+      "mozzarella : 40 g"
     ]
   },
   {
