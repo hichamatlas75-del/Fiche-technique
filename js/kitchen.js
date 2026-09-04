@@ -52,13 +52,17 @@ function makeItemKey(catKey, itemName) {
   return 'item_' + catKey + '_' + itemName.toLowerCase().replace(/[^a-z0-9]/g, '_');
 }
 
-// BUG-01 FIX : délégation à window.escapeHtml (core-utils.js) — protège les attributs HTML
+// Protection contre les failles XSS et échappement complet (attributs inclus)
 function escapeHtml(str) {
-  return (typeof window.escapeHtml === 'function' ? window.escapeHtml : function(s) {
-    if (!s) return '';
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
-  })(str);
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
+
 
 function createCard(item, catKey, categoryColor, categoryName = '') {
   const itemKey = makeItemKey(catKey, item.name);
@@ -305,11 +309,19 @@ function renderAll() {
         <span class="section-count">${items.length} fiches</span>
       </h2>
       <div class="grid">
-        ${items.map(it => createCard(it, cat.key, cat.color, cat.category)).join('')}
+        ${items.map(it => {
+          try {
+            return createCard(it, cat.key, cat.color, cat.category);
+          } catch(err) {
+            console.error('[Cuisine] Erreur rendu fiche:', it && it.name, err);
+            return '';
+          }
+        }).join('')}
       </div>
     `;
     sectionsContainer.appendChild(sec);
   });
+
 
   initTabBehavior();
   initCardsBehavior();
