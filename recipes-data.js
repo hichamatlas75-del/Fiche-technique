@@ -2171,7 +2171,7 @@ const DATA = [
         "image": "images/petit-dej-gc.jpg",
         "prepTime": 15,
         "tech": [
-          "Saucisses : 2 p",
+          "Merguez : 65 g",
           "OEUFS : 3 P",
           "Fromage : 30 g",
           "Toast hollandais : 1 p",
@@ -2187,11 +2187,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "85 DH",
-        "cost": 41.92,
+        "cost": 37.6,
         "sellPrice": 85,
-        "foodCost": 49.3,
-        "margin": 50.7,
-        "grossMarginDH": 43.08,
+        "foodCost": 44.2,
+        "margin": 55.8,
+        "grossMarginDH": 47.4,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-gc.jpg"
@@ -2511,7 +2511,7 @@ const DATA = [
         "image": "images/petit-dej-mquila.jpg",
         "prepTime": 12,
         "tech": [
-          "Merguez : 120 g",
+          "Merguez : 65 g",
           "Poivrons/oignons : 120 g",
           "Œufs : 2 p",
           "Jus : 200 ml",
@@ -2520,11 +2520,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 23.44,
+        "cost": 18.22,
         "sellPrice": 64,
-        "foodCost": 36.6,
-        "margin": 63.4,
-        "grossMarginDH": 40.56,
+        "foodCost": 28.5,
+        "margin": 71.5,
+        "grossMarginDH": 45.78,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-mquila.jpg"
@@ -2654,13 +2654,13 @@ const DATA = [
         "image": "images/placeholder.svg",
         "prepTime": 5,
         "tech": [
-          "Merguez : 120 g",
+          "Merguez : 65 g",
           "Poivrons/oignons : 120 g",
           "Œufs : 2 p"
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 15.14,
+        "cost": 9.91,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -7177,7 +7177,7 @@ const BASE_RECIPES = [
     "name": "BRUNCH GREYCORNER",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "Saucisses : 2 p",
+      "Merguez : 65 g",
       "OEUFS : 3 P",
       "Fromage : 30 g",
       "Toast hollandais : 1 p",
@@ -7387,7 +7387,7 @@ const BASE_RECIPES = [
     "name": "MQUILA-MERGUEZ",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "Merguez : 120 g",
+      "Merguez : 65 g",
       "Poivrons/oignons : 120 g",
       "Œufs : 2 p",
       "Jus : 200 ml",
@@ -8779,7 +8779,7 @@ const BASE_RECIPES = [
     "name": "MQILA MERGUEZ",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "Merguez : 120 g",
+      "Merguez : 65 g",
       "Poivrons/oignons : 120 g",
       "Œufs : 2 p"
     ]
