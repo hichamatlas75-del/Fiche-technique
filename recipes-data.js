@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-03T22:25:08.522Z
+ * Mise à jour le 2026-09-04T09:05:41.662Z
  */
 
 (function(global) {
@@ -10371,7 +10371,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "sauce blanche": {
-    "cost": 0.03,
+    "cost": 0.025,
     "unit": "ml"
   },
   "sauce pesto": {
@@ -10763,15 +10763,15 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "charcuterie": {
-    "cost": 0.085,
+    "cost": 0.06,
     "unit": "g"
   },
   "charcuteries": {
-    "cost": 0.085,
+    "cost": 0.06,
     "unit": "g"
   },
   "charcuterie de dinde": {
-    "cost": 0.085,
+    "cost": 0.065,
     "unit": "g"
   },
   "jambon de dinde": {
@@ -11030,20 +11030,18 @@ const INGREDIENT_UNIT_COSTS = {
   },
   "pate a pizza": {
     "cost": 0.004,
-    "unit": "g",
-    "label": "Pâte à Pizza"
+    "unit": "g"
   },
   "pate": {
-    "cost": 0.004,
-    "unit": "g",
-    "label": "Pâte à Pizza"
-  },
-  "spaghetti": {
     "cost": 0.032,
     "unit": "g"
   },
+  "spaghetti": {
+    "cost": 0.018,
+    "unit": "g"
+  },
   "spaghettis": {
-    "cost": 0.032,
+    "cost": 0.018,
     "unit": "g"
   },
   "pates": {
@@ -11056,27 +11054,27 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "Pâtes / Pasta (Sèche)"
   },
   "pates lasagne": {
-    "cost": 0.032,
+    "cost": 0.03,
     "unit": "g"
   },
   "tagliatelle": {
-    "cost": 0.032,
+    "cost": 0.044,
     "unit": "g"
   },
   "tagliatelles": {
-    "cost": 0.032,
+    "cost": 0.044,
     "unit": "g"
   },
   "linguine": {
-    "cost": 0.032,
+    "cost": 0.036,
     "unit": "g"
   },
   "linguines": {
-    "cost": 0.032,
+    "cost": 0.036,
     "unit": "g"
   },
   "rigatoni": {
-    "cost": 0.032,
+    "cost": 0.036,
     "unit": "g"
   },
   "spaghettis noirs": {
