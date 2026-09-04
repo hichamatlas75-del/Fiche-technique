@@ -3,21 +3,24 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <title>Grey Corner — Fiches Techniques vs Normes Internationales</title>
 
 <!-- Librairies Externes -->
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 
 <!-- Styles Modulaires -->
-<link rel="stylesheet" href="css/common.css?v=7.5" />
-<link rel="stylesheet" href="css/comparateur.css?v=7.5" />
+<link rel="stylesheet" href="css/common.css?v=7.7" />
+<link rel="stylesheet" href="css/comparateur.css?v=7.7" />
 
 <!-- Données Centralisées (SSOT), Standards Proposés, Composants & Utilitaires -->
-<script src="recipes-data.js?v=7.5"></script>
-<script src="js/core-utils.js?v=7.5"></script>
-<script src="js/prices-modal.js?v=7.5"></script>
-<script src="js/proposed-standards.js?v=7.5"></script>
-<script src="js/comparateur.js?v=7.5" defer></script>
+<script src="recipes-data.js?v=7.7"></script>
+<script src="js/core-utils.js?v=7.7"></script>
+<script src="js/prices-modal.js?v=7.7"></script>
+<script src="js/proposed-standards.js?v=7.7"></script>
+<script src="js/comparateur.js?v=7.7" defer></script>
 </head>
 <body>
 
@@ -33,6 +36,7 @@
       </div>
       <div class="header-actions">
         <button class="btn btn-primary" onclick="window.GC_PricesModal.open()" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
+        <button class="btn btn-secondary" onclick="window.forceCacheRefresh()" title="Forcer la mise à jour et recharger les dernières données">🔄 Actualiser</button>
         <button id="theme-toggle" class="btn btn-secondary" onclick="window.toggleAppTheme ? window.toggleAppTheme() : document.body.classList.toggle('dark-theme')" title="Basculer le thème">🌓 Thème</button>
         <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">🍽️ Cuisine</a>
         <a href="consommation.html" class="btn btn-secondary" style="text-decoration:none;">📊 Déstockage</a>

@@ -3,16 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <title>Grey Corner — Fiches Techniques Cuisine</title>
 
 <!-- Styles Modulaires -->
-<link rel="stylesheet" href="css/common.css?v=7.5" />
-<link rel="stylesheet" href="css/kitchen.css?v=7.5" />
+<link rel="stylesheet" href="css/common.css?v=7.7" />
+<link rel="stylesheet" href="css/kitchen.css?v=7.7" />
 
 <!-- Données Centralisées (SSOT), Utilitaires & Composants -->
-<script src="recipes-data.js?v=7.5"></script>
-<script src="js/core-utils.js?v=7.5"></script>
-<script src="js/prices-modal.js?v=7.5"></script>
+<script src="recipes-data.js?v=7.7"></script>
+<script src="js/core-utils.js?v=7.7"></script>
+<script src="js/prices-modal.js?v=7.7"></script>
 </head>
 <body>
 
@@ -29,6 +32,7 @@
     <div class="header-actions">
       <button id="btn-wakelock" class="btn btn-secondary" title="Empêcher l'écran de la tablette de se mettre en veille en cuisine" onclick="window.toggleKitchenWakeLock()">💡 Écran Allumé</button>
       <button class="btn btn-secondary" onclick="window.openPricesModal()" title="Consulter et modifier la mercuriale des prix">💲 Prix Matières</button>
+      <button class="btn btn-secondary" onclick="window.forceCacheRefresh()" title="Forcer la mise à jour et recharger les dernières données">🔄 Actualiser</button>
       <button id="theme-toggle" class="btn btn-secondary" title="Basculer le thème">🌓 Thème</button>
       <a href="consommation.html" class="btn btn-primary" style="text-decoration:none;">📊 Déstockage</a>
       <a href="audit.html" class="btn btn-secondary" style="text-decoration:none;">⚡ Audit Flash</a>
@@ -69,6 +73,6 @@
 <audio id="snd-done" preload="auto" src="sounds/DONE.mp3"></audio>
 
 <!-- Logique Métier Écran Cuisine -->
-<script src="js/kitchen.js?v=7.5"></script>
+<script src="js/kitchen.js?v=7.7"></script>
 </body>
 </html>

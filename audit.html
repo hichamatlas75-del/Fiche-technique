@@ -3,19 +3,22 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <title>Grey Corner — Audit Flash Manuel & Contrôle des Stocks</title>
 
 <!-- Librairies Externes -->
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 
 <!-- Styles Modulaires -->
-<link rel="stylesheet" href="css/common.css?v=7.0" />
-<link rel="stylesheet" href="css/consommation.css?v=7.0" />
+<link rel="stylesheet" href="css/common.css?v=7.7" />
+<link rel="stylesheet" href="css/consommation.css?v=7.7" />
 
 <!-- Données Centralisées (SSOT), Utilitaires & Composants -->
-<script src="recipes-data.js?v=7.0"></script>
-<script src="js/core-utils.js?v=7.0"></script>
-<script src="js/prices-modal.js?v=7.0"></script>
+<script src="recipes-data.js?v=7.7"></script>
+<script src="js/core-utils.js?v=7.7"></script>
+<script src="js/prices-modal.js?v=7.7"></script>
 
 <style>
   .audit-page-container {
@@ -157,6 +160,7 @@
         </div>
       </div>
       <div class="header-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <button class="btn btn-secondary" onclick="window.forceCacheRefresh()" title="Forcer la mise à jour et recharger les dernières données">🔄 Actualiser</button>
         <button class="btn btn-primary" onclick="window.GC_PricesModal.open()" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
         <button class="btn btn-secondary" onclick="toggleAppTheme()" title="Basculer le thème">🌓 Thème</button>
         <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">🍽️ Cuisine</a>
@@ -417,6 +421,6 @@
 
   </main>
 
-  <script src="js/audit-flash-page.js?v=5.5"></script>
+  <script src="js/audit-flash-page.js?v=7.7"></script>
 </body>
 </html>

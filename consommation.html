@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <title>Grey Corner — Calcul Consommation Matières Premières & Déstockage</title>
 
 <!-- Librairies Externes (Excel, PDF & OCR) -->
@@ -16,13 +19,13 @@
 </script>
 
 <!-- Styles Modulaires -->
-<link rel="stylesheet" href="css/common.css?v=7.4" />
-<link rel="stylesheet" href="css/consommation.css?v=7.5" />
+<link rel="stylesheet" href="css/common.css?v=7.7" />
+<link rel="stylesheet" href="css/consommation.css?v=7.7" />
 
 <!-- Données Centralisées (SSOT), Utilitaires & Composants -->
-<script src="recipes-data.js?v=7.5"></script>
-<script src="js/core-utils.js?v=7.5"></script>
-<script src="js/prices-modal.js?v=7.5"></script>
+<script src="recipes-data.js?v=7.7"></script>
+<script src="js/core-utils.js?v=7.7"></script>
+<script src="js/prices-modal.js?v=7.7"></script>
 </head>
 <body>
 <header>
@@ -42,6 +45,7 @@
       <a href="audit.html" class="btn btn-secondary" title="Ouvrir la page dédiée à l'Audit Flash Manuel de Stock">⚡ Audit Flash</a>
       <a href="comparateur.html" class="btn btn-secondary" title="Comparateur Fiches Grey Corner vs Normes Internationales">⚖️ Normes & Comparateur</a>
       <button class="btn btn-primary" onclick="window.GC_PricesModal.open()" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
+      <button class="btn btn-secondary" onclick="window.forceCacheRefresh()" title="Forcer la mise à jour et recharger les dernières données">🔄 Actualiser</button>
       
       <!-- MENU DÉROULANT ACTIONS -->
       <div class="dropdown" style="position:relative; display:inline-block;">
@@ -50,7 +54,7 @@
           <button type="button" class="dropdown-item" style="width:100%; text-align:left; padding:8px 14px; background:none; border:none; color:var(--text, #0f172a); font-size:12.5px; font-weight:700; cursor:pointer;" onclick="document.getElementById('btn-export-excel')?.click(); document.getElementById('dropdown-actions-menu').style.display='none';">📥 Exporter Excel (.xlsx)</button>
           <button type="button" class="dropdown-item" style="width:100%; text-align:left; padding:8px 14px; background:none; border:none; color:var(--text, #0f172a); font-size:12.5px; font-weight:700; cursor:pointer;" onclick="window.print(); document.getElementById('dropdown-actions-menu').style.display='none';">🖨️ Imprimer le Rapport</button>
           <hr style="margin:4px 0; border:none; border-top:1px solid var(--border, #e2e8f0);" />
-          <button type="button" class="dropdown-item" style="width:100%; text-align:left; padding:8px 14px; background:none; border:none; color:#dc2626; font-size:12.5px; font-weight:700; cursor:pointer;" onclick="if(confirm('Voulez-vous réinitialiser le cache local ?')){localStorage.clear();location.reload();}">🔄 Vider le Cache Local</button>
+          <button type="button" class="dropdown-item" style="width:100%; text-align:left; padding:8px 14px; background:none; border:none; color:#dc2626; font-size:12.5px; font-weight:700; cursor:pointer;" onclick="if(confirm('Voulez-vous forcer l\'actualisation et réinitialiser les données ?')){window.forceCacheRefresh();}">🔄 Vider le Cache & Forcer l'Actualisation</button>
         </div>
       </div>
 
@@ -704,6 +708,6 @@
 </div>
 
 <!-- Logique Métier Déstockage & Contrôle de Gestion -->
-<script src="js/consommation.js?v=7.5"></script>
+<script src="js/consommation.js?v=7.7"></script>
 </body>
 </html>

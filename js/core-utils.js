@@ -3,6 +3,54 @@
  */
 
 (function(global) {
+  const APP_DATA_VERSION = 'v7.7_merguez_compagnard_20260904';
+
+  // Invalidation automatique et forcée du cache local lors d'un déploiement
+  try {
+    const currentVer = typeof localStorage !== 'undefined' ? localStorage.getItem('gc_app_data_version') : null;
+    if (currentVer !== APP_DATA_VERSION && typeof localStorage !== 'undefined') {
+      console.log('[Cache-Buster] Nouvelle version ' + APP_DATA_VERSION + ' détectée : purge du cache obsolète...');
+      localStorage.removeItem('gc_recipes_db_v4');
+      localStorage.removeItem('gc_recipes_db_v5');
+      localStorage.removeItem('gc_recipes_db_version');
+      localStorage.removeItem('grey_corner_custom_recipes_v5');
+      localStorage.removeItem('gc_ingredient_prices_v1');
+      localStorage.removeItem('gc_comparateur_edits_v1');
+      localStorage.removeItem('gc_deleted_recipes_v1');
+      localStorage.setItem('gc_app_data_version', APP_DATA_VERSION);
+    }
+  } catch(e) {
+    console.warn('[Cache-Buster] Erreur nettoyage cache local:', e);
+  }
+
+  function forceCacheRefresh() {
+    try {
+      if (typeof localStorage !== 'undefined') {
+        const theme = localStorage.getItem('gc_theme');
+        localStorage.removeItem('gc_recipes_db_v4');
+        localStorage.removeItem('gc_recipes_db_v5');
+        localStorage.removeItem('gc_recipes_db_version');
+        localStorage.removeItem('grey_corner_custom_recipes_v5');
+        localStorage.removeItem('gc_ingredient_prices_v1');
+        localStorage.removeItem('gc_comparateur_edits_v1');
+        localStorage.removeItem('gc_deleted_recipes_v1');
+        localStorage.setItem('gc_app_data_version', APP_DATA_VERSION);
+      }
+      if (typeof sessionStorage !== 'undefined') sessionStorage.clear();
+      if ('caches' in window) {
+        caches.keys().then(names => {
+          for (let name of names) caches.delete(name);
+        });
+      }
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(regs => {
+          for (const reg of regs) reg.unregister();
+        });
+      }
+    } catch(e) {}
+    window.location.href = window.location.pathname + '?reload=' + Date.now();
+  }
+
   /**
    * Normalisation de texte (sans accents, minuscules, espaces superflus)
    */
@@ -234,4 +282,6 @@
   global.initThemeManager = initThemeManager;
   global.GC_Store = GC_Store;
   global.GC_WakeLock = GC_WakeLock;
+  global.forceCacheRefresh = forceCacheRefresh;
+  global.APP_DATA_VERSION = APP_DATA_VERSION;
 })(typeof window !== 'undefined' ? window : globalThis);

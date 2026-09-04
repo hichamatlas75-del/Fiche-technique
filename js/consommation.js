@@ -114,7 +114,7 @@ let currentSalesData = [];
 let currentSalesFilter = 'all'; // 'all', 'matched', 'unmatched'
 let aggregatedIngredients = [];
 
-const RECIPES_DB_VERSION = 'v5.3_seafood_standards';
+const RECIPES_DB_VERSION = 'v7.7_merguez_compagnard_20260904';
 
 function loadRecipes() {
   try {
