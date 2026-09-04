@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Mise à jour le 2026-09-04T09:05:41.662Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-04T09:31:23.857Z
  */
 
 (function(global) {
@@ -2119,7 +2119,7 @@ const DATA = [
         "tech": [
           "pain cake : 2 p",
           "Œufs : 3 p",
-          "Fromage : 30 g",
+          "Fromage : 10 g",
           "Charcuteries : 60 g",
           "Pain seigle : 2 tr",
           "Mesclun : 40 g",
@@ -2129,11 +2129,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 27.42,
+        "cost": 24.02,
         "sellPrice": 52,
-        "foodCost": 52.7,
-        "margin": 47.3,
-        "grossMarginDH": 24.58,
+        "foodCost": 46.2,
+        "margin": 53.8,
+        "grossMarginDH": 27.98,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_compagnard.jpeg"
@@ -2156,11 +2156,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "68 DH",
-        "cost": 40.95,
+        "cost": 27.49,
         "sellPrice": 68,
-        "foodCost": 60.2,
-        "margin": 39.8,
-        "grossMarginDH": 27.05,
+        "foodCost": 40.4,
+        "margin": 59.6,
+        "grossMarginDH": 40.51,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_americain.jpeg"
@@ -2187,11 +2187,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "85 DH",
-        "cost": 50.42,
+        "cost": 41.92,
         "sellPrice": 85,
-        "foodCost": 59.3,
-        "margin": 40.7,
-        "grossMarginDH": 34.58,
+        "foodCost": 49.3,
+        "margin": 50.7,
+        "grossMarginDH": 43.08,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-gc.jpg"
@@ -2219,11 +2219,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 2 p"
         ],
         "price": "144 DH",
-        "cost": 72.22,
+        "cost": 57.38,
         "sellPrice": 144,
-        "foodCost": 50.2,
-        "margin": 49.8,
-        "grossMarginDH": 71.78,
+        "foodCost": 39.8,
+        "margin": 60.2,
+        "grossMarginDH": 86.62,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-duo.jpg"
@@ -2247,11 +2247,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "45 DH",
-        "cost": 25.42,
+        "cost": 18.42,
         "sellPrice": 45,
-        "foodCost": 56.5,
-        "margin": 43.5,
-        "grossMarginDH": 19.58,
+        "foodCost": 40.9,
+        "margin": 59.1,
+        "grossMarginDH": 26.58,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-beldi.jpg"
@@ -2273,11 +2273,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 29.52,
+        "cost": 22.52,
         "sellPrice": 52,
-        "foodCost": 56.8,
-        "margin": 43.2,
-        "grossMarginDH": 22.48,
+        "foodCost": 43.3,
+        "margin": 56.7,
+        "grossMarginDH": 29.48,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-hollandais.jpg"
@@ -2297,11 +2297,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 19.05,
+        "cost": 13.79,
         "sellPrice": 52,
-        "foodCost": 36.6,
-        "margin": 63.4,
-        "grossMarginDH": 32.95,
+        "foodCost": 26.5,
+        "margin": 73.5,
+        "grossMarginDH": 38.21,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-veg.jpg"
@@ -2324,11 +2324,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "54 DH",
-        "cost": 23.92,
+        "cost": 16.92,
         "sellPrice": 54,
-        "foodCost": 44.3,
-        "margin": 55.7,
-        "grossMarginDH": 30.08,
+        "foodCost": 31.3,
+        "margin": 68.7,
+        "grossMarginDH": 37.08,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-berbere.jpg"
@@ -2347,11 +2347,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "50 DH",
-        "cost": 22.28,
+        "cost": 15.28,
         "sellPrice": 50,
-        "foodCost": 44.6,
-        "margin": 55.4,
-        "grossMarginDH": 27.72,
+        "foodCost": 30.6,
+        "margin": 69.4,
+        "grossMarginDH": 34.72,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-croque.jpg"
@@ -2370,11 +2370,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "55 DH",
-        "cost": 30.11,
+        "cost": 23.11,
         "sellPrice": 55,
-        "foodCost": 54.7,
-        "margin": 45.3,
-        "grossMarginDH": 24.89,
+        "foodCost": 42,
+        "margin": 58,
+        "grossMarginDH": 31.89,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-fassi.jpg"
@@ -2395,11 +2395,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 26.75,
+        "cost": 19.99,
         "sellPrice": 52,
-        "foodCost": 51.4,
-        "margin": 48.6,
-        "grossMarginDH": 25.25,
+        "foodCost": 38.4,
+        "margin": 61.6,
+        "grossMarginDH": 32.01,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-cont.jpg"
@@ -2419,11 +2419,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 21.65,
+        "cost": 16.39,
         "sellPrice": 52,
-        "foodCost": 41.6,
-        "margin": 58.4,
-        "grossMarginDH": 30.35,
+        "foodCost": 31.5,
+        "margin": 68.5,
+        "grossMarginDH": 35.61,
         "__key": "pdj",
         "__images": [
           "images/omelette-fromage.jpg"
@@ -2442,11 +2442,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "42 DH",
-        "cost": 17.85,
+        "cost": 12.59,
         "sellPrice": 42,
-        "foodCost": 42.5,
-        "margin": 57.5,
-        "grossMarginDH": 24.15,
+        "foodCost": 30,
+        "margin": 70,
+        "grossMarginDH": 29.41,
         "__key": "pdj",
         "__images": [
           "images/omelette-nature.jpg"
@@ -2467,11 +2467,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "58 DH",
-        "cost": 14.55,
+        "cost": 16.29,
         "sellPrice": 58,
-        "foodCost": 25.1,
-        "margin": 74.9,
-        "grossMarginDH": 43.45,
+        "foodCost": 28.1,
+        "margin": 71.9,
+        "grossMarginDH": 41.71,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-chef.jpg"
@@ -2496,11 +2496,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 33.25,
+        "cost": 26.25,
         "sellPrice": 64,
-        "foodCost": 52,
-        "margin": 48,
-        "grossMarginDH": 30.75,
+        "foodCost": 41,
+        "margin": 59,
+        "grossMarginDH": 37.75,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-espagnol.jpg"
@@ -2520,11 +2520,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 29.28,
+        "cost": 23.44,
         "sellPrice": 64,
-        "foodCost": 45.8,
-        "margin": 54.3,
-        "grossMarginDH": 34.72,
+        "foodCost": 36.6,
+        "margin": 63.4,
+        "grossMarginDH": 40.56,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-mquila.jpg"
@@ -2545,11 +2545,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "78 DH",
-        "cost": 33.48,
+        "cost": 27.64,
         "sellPrice": 78,
-        "foodCost": 42.9,
-        "margin": 57.1,
-        "grossMarginDH": 44.52,
+        "foodCost": 35.4,
+        "margin": 64.6,
+        "grossMarginDH": 50.36,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_mquilafruitdemer.jpeg"
@@ -2570,11 +2570,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "68 DH",
-        "cost": 32.03,
+        "cost": 25.03,
         "sellPrice": 68,
-        "foodCost": 47.1,
-        "margin": 52.9,
-        "grossMarginDH": 35.97,
+        "foodCost": 36.8,
+        "margin": 63.2,
+        "grossMarginDH": 42.97,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-norvegien.jpg"
@@ -2596,11 +2596,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "42 DH",
-        "cost": 21.56,
+        "cost": 14.56,
         "sellPrice": 42,
-        "foodCost": 51.3,
-        "margin": 48.7,
-        "grossMarginDH": 20.44,
+        "foodCost": 34.7,
+        "margin": 65.3,
+        "grossMarginDH": 27.44,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-light.jpg"
@@ -2618,11 +2618,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "44 DH",
-        "cost": 23.3,
+        "cost": 16.3,
         "sellPrice": 44,
-        "foodCost": 53,
-        "margin": 47,
-        "grossMarginDH": 20.7,
+        "foodCost": 37,
+        "margin": 63,
+        "grossMarginDH": 27.7,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-express.jpg"
@@ -2660,7 +2660,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 13.98,
+        "cost": 15.14,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -3142,11 +3142,11 @@ const DATA = [
           "Beurre : 40 g"
         ],
         "price": "98 DH",
-        "cost": 32.96,
+        "cost": 28.73,
         "sellPrice": 98,
-        "foodCost": 33.6,
-        "margin": 66.4,
-        "grossMarginDH": 65.04,
+        "foodCost": 29.3,
+        "margin": 70.7,
+        "grossMarginDH": 69.27,
         "__key": "pl",
         "__images": [
           "images/plat-supreme.webp"
@@ -3355,11 +3355,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "50 DH",
-        "cost": 16.98,
+        "cost": 16.78,
         "sellPrice": 50,
-        "foodCost": 34,
-        "margin": 66,
-        "grossMarginDH": 33.02,
+        "foodCost": 33.6,
+        "margin": 66.4,
+        "grossMarginDH": 33.22,
         "__key": "bg",
         "__images": [
           "images/burger-cheese.jpg"
@@ -3406,11 +3406,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "54 DH",
-        "cost": 21.82,
+        "cost": 17.59,
         "sellPrice": 54,
-        "foodCost": 40.4,
-        "margin": 59.6,
-        "grossMarginDH": 32.18,
+        "foodCost": 32.6,
+        "margin": 67.4,
+        "grossMarginDH": 36.41,
         "__key": "bg",
         "__images": [
           "images/burger-avocado.jpg"
@@ -3430,11 +3430,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "56 DH",
-        "cost": 24.15,
+        "cost": 19.92,
         "sellPrice": 56,
-        "foodCost": 43.1,
-        "margin": 56.9,
-        "grossMarginDH": 31.85,
+        "foodCost": 35.6,
+        "margin": 64.4,
+        "grossMarginDH": 36.08,
         "__key": "bg",
         "__images": [
           "images/burger-eggcheese.jpg"
@@ -3479,11 +3479,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "70 DH",
-        "cost": 30.23,
+        "cost": 26,
         "sellPrice": 70,
-        "foodCost": 43.2,
-        "margin": 56.8,
-        "grossMarginDH": 39.77,
+        "foodCost": 37.1,
+        "margin": 62.9,
+        "grossMarginDH": 44,
         "__key": "bg",
         "__images": [
           "images/burger-royal.jpg"
@@ -3511,11 +3511,11 @@ const DATA = [
           "Sauce burger : 60 ml"
         ],
         "price": "58 DH",
-        "cost": 21.89,
+        "cost": 17.66,
         "sellPrice": 58,
-        "foodCost": 37.7,
-        "margin": 62.3,
-        "grossMarginDH": 36.11,
+        "foodCost": 30.4,
+        "margin": 69.6,
+        "grossMarginDH": 40.34,
         "__key": "wr",
         "__images": [
           "images/Wrap-poulet.jpg"
@@ -3535,11 +3535,11 @@ const DATA = [
           "Sauce burger : 60 ml"
         ],
         "price": "62 DH",
-        "cost": 24.99,
+        "cost": 20.76,
         "sellPrice": 62,
-        "foodCost": 40.3,
-        "margin": 59.7,
-        "grossMarginDH": 37.01,
+        "foodCost": 33.5,
+        "margin": 66.5,
+        "grossMarginDH": 41.24,
         "__key": "wr",
         "__images": [
           "images/Wrap-viande-hachee.jpg"
@@ -3561,11 +3561,11 @@ const DATA = [
           "Sauce burger : 60 ml"
         ],
         "price": "64 DH",
-        "cost": 25.29,
+        "cost": 20.06,
         "sellPrice": 64,
-        "foodCost": 39.5,
-        "margin": 60.5,
-        "grossMarginDH": 38.71,
+        "foodCost": 31.3,
+        "margin": 68.7,
+        "grossMarginDH": 43.94,
         "__key": "wr",
         "__images": [
           "images/Wrap-gourmand.jpg"
@@ -3590,10 +3590,10 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_charcuterie",
-        "cost": 17.04,
-        "foodCost": 42.6,
-        "margin": 57.4,
-        "grossMarginDH": 22.96
+        "cost": 14.54,
+        "foodCost": 36.4,
+        "margin": 63.7,
+        "grossMarginDH": 25.46
       },
       {
         "name": "PANINI POULET",
@@ -3643,10 +3643,10 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_gourmand",
-        "cost": 20.29,
-        "foodCost": 31.7,
-        "margin": 68.3,
-        "grossMarginDH": 43.71
+        "cost": 19.04,
+        "foodCost": 29.8,
+        "margin": 70.3,
+        "grossMarginDH": 44.96
       },
       {
         "name": "PANINI FRUITS DE MER",
@@ -3941,11 +3941,11 @@ const DATA = [
           "Sauce blanche : 40 g"
         ],
         "price": "68 DH",
-        "cost": 21.37,
+        "cost": 21.17,
         "sellPrice": 68,
-        "foodCost": 31.4,
-        "margin": 68.6,
-        "grossMarginDH": 46.63,
+        "foodCost": 31.1,
+        "margin": 68.9,
+        "grossMarginDH": 46.83,
         "__key": "pz",
         "__images": [
           "images/pizza-regina.jpg"
@@ -3965,11 +3965,11 @@ const DATA = [
           "Fromage rouge : 40 g"
         ],
         "price": "78 DH",
-        "cost": 27.87,
+        "cost": 27.67,
         "sellPrice": 78,
-        "foodCost": 35.7,
-        "margin": 64.3,
-        "grossMarginDH": 50.13,
+        "foodCost": 35.5,
+        "margin": 64.5,
+        "grossMarginDH": 50.33,
         "__key": "pz",
         "__images": [
           "images/pizza-5fromages.jpg"
@@ -4030,11 +4030,11 @@ const DATA = [
           "Sauce blanche : 40 g"
         ],
         "price": "78 DH",
-        "cost": 18.87,
+        "cost": 18.67,
         "sellPrice": 78,
-        "foodCost": 24.2,
-        "margin": 75.8,
-        "grossMarginDH": 59.13,
+        "foodCost": 23.9,
+        "margin": 76.1,
+        "grossMarginDH": 59.33,
         "__key": "pz",
         "__images": [
           "images/pizza-pouletblanche.jpg"
@@ -4146,11 +4146,11 @@ const DATA = [
           "MOZZARELLA : 150 g"
         ],
         "price": "94 DH",
-        "cost": 26.97,
+        "cost": 26.77,
         "sellPrice": 94,
-        "foodCost": 28.7,
-        "margin": 71.3,
-        "grossMarginDH": 67.03,
+        "foodCost": 28.5,
+        "margin": 71.5,
+        "grossMarginDH": 67.23,
         "__key": "pz",
         "__images": [
           "images/pizza-saumon.jpg"
@@ -4201,11 +4201,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "60 DH",
-        "cost": 17.57,
+        "cost": 17.07,
         "sellPrice": 60,
-        "foodCost": 29.3,
-        "margin": 70.7,
-        "grossMarginDH": 42.43,
+        "foodCost": 28.5,
+        "margin": 71.6,
+        "grossMarginDH": 42.93,
         "__key": "pae",
         "__images": [
           "images/lasagne-poulet.jpeg"
@@ -4251,11 +4251,11 @@ const DATA = [
           "Oignon/Ail : 50 g"
         ],
         "price": "78 DH",
-        "cost": 24.77,
+        "cost": 24.27,
         "sellPrice": 78,
-        "foodCost": 31.8,
-        "margin": 68.2,
-        "grossMarginDH": 53.23,
+        "foodCost": 31.1,
+        "margin": 68.9,
+        "grossMarginDH": 53.73,
         "__key": "pae",
         "__images": [
           "images/lasagne-fruitdemer.jpeg"
@@ -4297,11 +4297,11 @@ const DATA = [
           "Jaune d'œuf : 1 p"
         ],
         "price": "65 DH",
-        "cost": 21.3,
+        "cost": 21.57,
         "sellPrice": 65,
-        "foodCost": 32.8,
-        "margin": 67.2,
-        "grossMarginDH": 43.7,
+        "foodCost": 33.2,
+        "margin": 66.8,
+        "grossMarginDH": 43.43,
         "__key": "pae",
         "__images": [
           "images/pasta-carbonara.jpg"
@@ -4435,11 +4435,11 @@ const DATA = [
           "parmesan : 30 g"
         ],
         "price": "98 DH",
-        "cost": 30.7,
+        "cost": 29.7,
         "sellPrice": 98,
-        "foodCost": 31.3,
-        "margin": 68.7,
-        "grossMarginDH": 67.3,
+        "foodCost": 30.3,
+        "margin": 69.7,
+        "grossMarginDH": 68.3,
         "__key": "pae",
         "__images": [
           "images/pasta-saumon.jpg"
@@ -5044,11 +5044,11 @@ const DATA = [
           "Fromage : 20 g"
         ],
         "price": "45 DH",
-        "cost": 11,
+        "cost": 9.8,
         "sellPrice": 45,
-        "foodCost": 24.4,
-        "margin": 75.6,
-        "grossMarginDH": 34,
+        "foodCost": 21.8,
+        "margin": 78.2,
+        "grossMarginDH": 35.2,
         "__key": "cr",
         "__images": []
       },
@@ -5126,7 +5126,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 18.75,
+        "cost": 17.5,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -5599,7 +5599,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 4.25,
+        "cost": 3,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -6021,29 +6021,29 @@ const DATA = [
       {
         "name": "OMLETTE FROMAGE (A LA CARTE)",
         "sellPrice": 38,
-        "cost": 6.23,
-        "margin": 83.6,
+        "cost": 7.97,
+        "margin": 79,
         "tech": [
           "Œufs : 3 p",
           "Fromage : 40 g",
           "Mesclun : 30 g"
         ],
-        "foodCost": 16.4,
-        "grossMarginDH": 31.77,
+        "foodCost": 21,
+        "grossMarginDH": 30.03,
         "__key": "alc",
         "__images": []
       },
       {
         "name": "OMLETTE NATURE (A LA CARTE)",
         "sellPrice": 32,
-        "cost": 2.43,
-        "margin": 92.4,
+        "cost": 4.17,
+        "margin": 87,
         "tech": [
           "Œufs : 3 p",
           "Mesclun : 30 g"
         ],
-        "foodCost": 7.6,
-        "grossMarginDH": 29.57,
+        "foodCost": 13,
+        "grossMarginDH": 27.83,
         "__key": "alc",
         "__images": []
       },
@@ -6059,7 +6059,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 10.49,
+        "cost": 3.03,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -6157,7 +6157,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 6.77,
+        "cost": 8.51,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -6236,7 +6236,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 10.62,
+        "cost": 11.78,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -7146,7 +7146,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "pain cake : 2 p",
       "Œufs : 3 p",
-      "Fromage : 30 g",
+      "Fromage : 10 g",
       "Charcuteries : 60 g",
       "Pain seigle : 2 tr",
       "Mesclun : 40 g",
