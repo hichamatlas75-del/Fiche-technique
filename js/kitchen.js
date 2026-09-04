@@ -12,8 +12,28 @@ const searchInput = document.getElementById('search-input');
 const searchClear = document.getElementById('search-clear');
 const searchInfo = document.getElementById('search-info');
 
-// SVG Fallback image
-const PLACEHOLDER_SVG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 250' fill='%23161c24'%3E%3Crect width='400' height='250' fill='%2312161c'/%3E%3Ccircle cx='200' cy='110' r='45' fill='%231c232c'/%3E%3Cpath d='M175 110 Q200 80 225 110 Z' fill='%2338bdf8' opacity='0.7'/%3E%3Ctext x='200' y='180' fill='%2364748b' font-size='15' font-family='sans-serif' font-weight='bold' text-anchor='middle'%3EGrey Corner Kitchen%3C/text%3E%3C/svg%3E";
+// SVG Fallback image contextuel avec icône et nom du plat
+function makePlaceholderSvg(name = 'Plat Grey Corner', color = '#0284c7') {
+  const safeName = (name && name.length > 28) ? name.slice(0, 26) + '…' : (name || 'Grey Corner');
+  return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240' fill='%230f172a'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%231e293b'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='240' fill='url(%23g)'/%3E%3Ccircle cx='200' cy='95' r='44' fill='${encodeURIComponent(color)}' opacity='0.18'/%3E%3Ctext x='200' y='108' font-size='38' text-anchor='middle'%3E🍽️%3C/text%3E%3Ctext x='200' y='160' fill='%23f1f5f9' font-size='15' font-family='sans-serif' font-weight='800' text-anchor='middle'%3E${encodeURIComponent(safeName)}%3C/text%3E%3Ctext x='200' y='185' fill='%2364748b' font-size='11' font-family='sans-serif' font-weight='700' letter-spacing='1' text-anchor='middle'%3EGREY CORNER CUISINE%3C/text%3E%3C/svg%3E`;
+}
+
+const PLACEHOLDER_SVG = makePlaceholderSvg('Fiche Cuisine', '#0284c7');
+
+function getCategoryEmoji(catName, catKey) {
+  const n = (catName || '').toLowerCase();
+  if (n.includes('grill') || n.includes('viande') || n.includes('plat')) return '🥩';
+  if (n.includes('pizza')) return '🍕';
+  if (n.includes('pasta') || n.includes('pâte')) return '🍝';
+  if (n.includes('salad') || n.includes('frais')) return '🥗';
+  if (n.includes('wrap')) return '🌯';
+  if (n.includes('burger') || n.includes('sandwich') || n.includes('panini')) return '🍔';
+  if (n.includes('poisson') || n.includes('mer')) return '🐟';
+  if (n.includes('dessert') || n.includes('sucre')) return '🍨';
+  if (n.includes('boisson')) return '🥤';
+  if (n.includes('sauce') || n.includes('base') || n.includes('sup')) return '🥣';
+  return '🍽️';
+}
 
 function normalizeImagesField(raw) {
   if (!raw) return [];
@@ -40,19 +60,28 @@ function escapeHtml(str) {
   })(str);
 }
 
-function createCard(item, catKey, categoryColor) {
+function createCard(item, catKey, categoryColor, categoryName = '') {
   const itemKey = makeItemKey(catKey, item.name);
-  const gallery = item.__images && item.__images.length > 0 ? item.__images : [item.image || PLACEHOLDER_SVG];
-  const firstImg = gallery[0] || PLACEHOLDER_SVG;
+  const dishPlaceholder = makePlaceholderSvg(item.name, categoryColor);
+  const gallery = item.__images && item.__images.length > 0 ? item.__images : [item.image || dishPlaceholder];
+  const firstImg = gallery[0] || dishPlaceholder;
   const hasTimer = typeof item.prepTime === 'number' && item.prepTime > 0;
   const prepSeconds = hasTimer ? item.prepTime * 60 : 0;
   const timerInit = formatTime(prepSeconds);
   const priceDisplay = item.price || (item.sellPrice ? item.sellPrice + ' DH' : '');
 
+  // Formatage soigné des ingrédients avec différenciation nombre / unité (AM-UI-11)
   const techHtml = (item.tech || []).map(line => {
     const parts = line.split(':');
     if (parts.length > 1) {
-      return `<li><span>${escapeHtml(parts[0].trim())}</span> <span class="item-qty">${escapeHtml(parts.slice(1).join(':').trim())}</span></li>`;
+      const ingName = parts[0].trim();
+      const rawQty = parts.slice(1).join(':').trim();
+      const qtyMatch = rawQty.match(/^(\d+(?:[.,]\d+)?)\s*(.*)$/);
+      let qtyFormatted = escapeHtml(rawQty);
+      if (qtyMatch) {
+        qtyFormatted = `${qtyMatch[1]}<span class="item-qty-unit">${escapeHtml(qtyMatch[2])}</span>`;
+      }
+      return `<li><span>${escapeHtml(ingName)}</span> <span class="item-qty">${qtyFormatted}</span></li>`;
     }
     return `<li><span>${escapeHtml(line)}</span></li>`;
   }).join('');
@@ -61,6 +90,15 @@ function createCard(item, catKey, categoryColor) {
   const escapedName = escapeHtml(item.name);
   const escapedPrice = escapeHtml(priceDisplay);
 
+  // Pastille de catégorie sur la carte (DISP-03)
+  const catBadgeHtml = categoryName ? `
+    <div class="card-cat-badge">
+      <span class="card-cat-dot" style="background:${categoryColor}"></span>
+      ${escapeHtml(categoryName)}
+    </div>` : '';
+
+  // Timer avec classes sémantiques de durée (AM-UI-10)
+  const timeSpeedClass = (item.prepTime <= 10) ? 'fast' : (item.prepTime <= 20 ? 'medium' : 'long');
   const timerRowHtml = hasTimer ? `
         <div class="timer-row">
           <div class="timer" id="${itemKey}-timer" data-state="idle">
@@ -68,14 +106,17 @@ function createCard(item, catKey, categoryColor) {
             <span class="time" data-seconds="${prepSeconds}">${timerInit}</span>
           </div>
           <div class="meta">
-            <span class="chip mins">⏱️ ${item.prepTime} min</span>
+            <span class="chip-time ${timeSpeedClass}">⏱️ ${item.prepTime} min</span>
           </div>
         </div>` : '';
+
+  const techCount = (item.tech || []).length;
 
   return `
     <div class="card" data-key="${itemKey}" data-search="${(item.name + ' ' + (item.tech||[]).join(' ')).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')}">
       <div class="hero-wrap">
-        <img class="hero" src="${firstImg}" alt="${escapedName}" data-gallery="${gallery.join('|')}" style="border-bottom-color:${categoryColor}" onerror="this.onerror=null;this.src='${PLACEHOLDER_SVG}';">
+        ${catBadgeHtml}
+        <img class="hero" src="${firstImg}" alt="${escapedName}" data-gallery="${gallery.join('|')}" style="border-bottom-color:${categoryColor}" onerror="this.onerror=null;this.src='${dishPlaceholder}';">
         ${multiBadge}
       </div>
       <div class="body">
@@ -86,7 +127,7 @@ function createCard(item, catKey, categoryColor) {
 
         <div class="financial-row">
           <div class="fin-item cost" title="Coût matière première estimé">
-            <span class="fin-label">Coût</span>
+            <span class="fin-label">Coût Portion</span>
             <span class="fin-val">${item.cost !== undefined ? item.cost.toFixed(2) + ' DH' : '-'}</span>
           </div>
           <div class="fin-item ${item.foodCost <= 32 ? 'fc-low' : item.foodCost <= 42 ? 'fc-med' : 'fc-high'}" title="Ratio Food Cost (Coût / Prix Vente)">
@@ -103,13 +144,17 @@ function createCard(item, catKey, categoryColor) {
 
         <ul class="tech">${techHtml}</ul>
       </div>
-      <div class="footer">
-        <span class="chip">FT Standard</span>
-        <span class="badge todo" id="${itemKey}-badge" data-key="${itemKey}" data-status="to-do">À FAIRE</span>
+      <div class="card-footer">
+        <div class="footer-info">
+          <span>📋 ${techCount} ingr.</span>
+          ${hasTimer ? `<span>• ⏱️ ${item.prepTime}m</span>` : ''}
+        </div>
+        <button type="button" class="card-status-badge to-do" id="${itemKey}-badge" data-key="${itemKey}" data-status="to-do">⚪ À PRÉPARER</button>
       </div>
     </div>
   `;
 }
+
 
 function renderAll() {
   tabs.innerHTML = '';
@@ -252,13 +297,15 @@ function renderAll() {
     sec.id = cat.key;
     sec.className = 'section-wrap';
     sec.dataset.cat = cat.key;
+    const catEmoji = getCategoryEmoji(cat.category, cat.key);
     sec.innerHTML = `
-      <h2 class="section-title" style="color:${cat.color}">
-        ${cat.category}
+      <h2 class="section-title" style="border-left-color:${cat.color};">
+        <span>${catEmoji}</span>
+        <span>${escapeHtml(cat.category)}</span>
         <span class="section-count">${items.length} fiches</span>
       </h2>
       <div class="grid">
-        ${items.map(it => createCard(it, cat.key, cat.color)).join('')}
+        ${items.map(it => createCard(it, cat.key, cat.color, cat.category)).join('')}
       </div>
     `;
     sectionsContainer.appendChild(sec);
@@ -523,13 +570,14 @@ function stopTimer(key) {
 }
 
 function setBadge(el, status) {
-  el.className = 'badge ' + status;
+  const cssClass = status === 'prog' ? 'in-progress' : (status === 'ready' ? 'done' : 'to-do');
+  el.className = 'card-status-badge ' + cssClass;
   el.dataset.status = status;
-  el.textContent = status === 'to-do' ? 'À FAIRE' : status === 'prog' ? 'EN COURS' : 'PRÊT';
+  el.textContent = status === 'to-do' ? '⚪ À PRÉPARER' : status === 'prog' ? '⏳ EN COURS' : '✅ PRÊT';
 }
 
 function initCardsBehavior() {
-  document.querySelectorAll('.badge').forEach(btn => {
+  document.querySelectorAll('.card-status-badge, .badge').forEach(btn => {
     btn.addEventListener('click', () => {
       const key = btn.dataset.key;
       const status = btn.dataset.status;
@@ -577,6 +625,7 @@ function initCardsBehavior() {
 ================================= */
 const lb = document.getElementById('lightbox');
 const lbImg = document.getElementById('lightbox-img');
+const lbTitle = document.getElementById('lb-title');
 const lbCounter = document.getElementById('lb-counter');
 const lbClose = document.getElementById('lb-close');
 const lbPrev = document.getElementById('lb-prev');
@@ -590,6 +639,9 @@ function showLightbox() {
   lbImg.src = currentGallery[currentIndex];
   lbImg.alt = currentGalleryName || 'Photo du plat';
   lbImg.onerror = () => { lbImg.src = PLACEHOLDER_SVG; };
+  if (lbTitle) {
+    lbTitle.textContent = currentGalleryName || '';
+  }
   lb.classList.add('visible');
   const isMulti = currentGallery.length > 1;
   lbPrev.style.display = isMulti ? 'block' : 'none';
@@ -599,6 +651,7 @@ function showLightbox() {
     lbCounter.textContent = `${currentIndex + 1} / ${currentGallery.length}`;
   }
 }
+
 
 lbClose.onclick = () => lb.classList.remove('visible');
 lbPrev.onclick = (e) => {
@@ -675,7 +728,7 @@ function applyQuickFilter() {
     cards.forEach(c => {
       let match = true;
       if (activeQuickFilter === 'express') {
-        const timeChip = c.querySelector('.chip.mins');
+        const timeChip = c.querySelector('.chip-time') || c.querySelector('.chip.mins');
         const minutes = timeChip ? parseInt(timeChip.textContent.replace(/[^0-9]/g, ''), 10) : 99;
         match = minutes <= 10;
       } else if (activeQuickFilter === 'photos') {
@@ -724,6 +777,21 @@ if (typeof window.initThemeManager === 'function') {
   }
 }
 
+// Bouton Scroll to Top (AM-UI-08)
+const btnScrollTop = document.getElementById('btn-scroll-top');
+if (btnScrollTop) {
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 280) {
+      btnScrollTop.classList.add('visible');
+    } else {
+      btnScrollTop.classList.remove('visible');
+    }
+  }, { passive: true });
+  btnScrollTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
 // Mise à jour dynamique lorsque les prix matières sont modifiés
 if (window.GC_PricesModal) {
   window.GC_PricesModal.onUpdate(() => {
@@ -731,6 +799,5 @@ if (window.GC_PricesModal) {
   });
 }
 
-
 // Lancement initial
-renderAll();
+renderAll();

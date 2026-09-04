@@ -8,33 +8,43 @@
 <meta http-equiv="Expires" content="0" />
 <title>Grey Corner — Fiches Techniques Cuisine</title>
 
-<!-- Styles Modulaires -->
+<!-- Styles Modulaires du Design System -->
 <link rel="stylesheet" href="css/common.css?v=7.7" />
 <link rel="stylesheet" href="css/kitchen.css?v=7.7" />
 
 <!-- Données Centralisées (SSOT), Utilitaires & Composants -->
-<!-- PERF-02 FIX : defer évite le blocage du rendu initial par ces gros fichiers -->
 <script src="recipes-data.js?v=7.7" defer></script>
 <script src="js/core-utils.js?v=7.7" defer></script>
 <script src="js/prices-modal.js?v=7.7" defer></script>
 </head>
 <body>
 
-<header>
-  <div class="container head">
-    <div class="brand">
-      <img class="logo" src="images/logo.png" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\' fill=\'%230284c7\'%3E%3Cpath d=\'M50 15 L85 80 L15 80 Z\'/%3E%3Ctext x=\'50\' y=\'65\' font-size=\'32\' font-weight=\'bold\' fill=\'%23ffffff\' text-anchor=\'middle\'%3EGC%3C/text%3E%3C/svg%3E';" alt="GC">
-      <div class="ttl">Grey Corner <span>Fiches Techniques</span></div>
+<!-- HEADER UNIFIÉ (Design System Grey Corner) -->
+<header class="app-header">
+  <div class="container app-header-content">
+    <div class="app-brand">
+      <div class="brand-badge">GC</div>
+      <div class="brand-info">
+        <div class="brand-title">Grey Corner <span>Cuisine</span></div>
+        <div class="brand-subtitle">Fiches Techniques &amp; Standards Opérationnels</div>
+      </div>
     </div>
-    <div class="search-box">
-      <input id="search-input" type="search" placeholder="🔍 Rechercher un plat, ingrédient (poulet, wrap, burrata...)" autocomplete="off" />
-      <button id="search-clear" class="search-clear" title="Effacer la recherche">✕</button>
+
+    <!-- RECHERCHE INTÉGRÉE -->
+    <div class="kitchen-search-wrap">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input id="search-input" type="search" placeholder="Rechercher un plat, ingrédient (poulet, wrap, burrata...)" autocomplete="off" />
+        <button id="search-clear" class="search-clear" title="Effacer la recherche">✕</button>
+      </div>
     </div>
-    <div class="header-actions">
+
+    <!-- ACTIONS RAPIDES CUISINE -->
+    <div class="app-header-nav">
       <button id="btn-wakelock" class="btn btn-secondary" title="Empêcher l'écran de la tablette de se mettre en veille en cuisine" onclick="window.toggleKitchenWakeLock()">💡 Écran Allumé</button>
       <button class="btn btn-secondary" onclick="window.openPricesModal()" title="Consulter et modifier la mercuriale des prix">💲 Prix Matières</button>
       <button class="btn btn-secondary" onclick="window.forceCacheRefresh()" title="Forcer la mise à jour et recharger les dernières données">🔄 Actualiser</button>
-      <button id="theme-toggle" class="btn btn-secondary" title="Basculer le thème">🌓 Thème</button>
+      <button id="theme-toggle" class="btn btn-secondary" title="Basculer le mode sombre / clair">🌓 Thème</button>
       <a href="consommation.html" class="btn btn-primary" style="text-decoration:none;">📊 Déstockage</a>
       <a href="audit.html" class="btn btn-secondary" style="text-decoration:none;">⚡ Audit Flash</a>
       <a href="comparateur.html" class="btn btn-secondary" style="text-decoration:none;">⚖️ Normes &amp; Comparateur</a>
@@ -42,25 +52,64 @@
   </div>
 </header>
 
-<nav>
+<!-- BANDEAU FILTRES RAPIDES -->
+<div class="kitchen-filters-bar">
   <div class="container">
-    <!-- FILTRES RAPIDES EN CUISINE -->
     <div class="kitchen-quick-filters" id="kitchen-quick-filters">
       <button class="quick-filter-btn active" data-filter="all">🌟 Tous les plats</button>
       <button class="quick-filter-btn" data-filter="express">⏱️ Express (&le; 10 min)</button>
       <button class="quick-filter-btn" data-filter="photos">📸 Avec Photos</button>
       <button class="quick-filter-btn" data-filter="vege">🥗 Frais &amp; Salades</button>
     </div>
+  </div>
+</div>
+
+<!-- BARRE COLLANTE DES ONGLETS DE CATÉGORIES -->
+<nav class="kitchen-nav">
+  <div class="container">
     <div id="tabs" class="tabs"></div>
   </div>
 </nav>
 
+<!-- CONTENEUR PRINCIPAL -->
 <main id="main" class="container">
   <div id="search-info" class="search-info"></div>
-  <div id="sections-container"></div>
+
+  <!-- SECTIONS CONTENEUR AVEC SKELETON LOADER PAR DÉFAUT -->
+  <div id="sections-container">
+    <div class="skeleton-grid" id="initial-skeleton-loader">
+      <div class="skeleton-card">
+        <div class="skeleton-hero"></div>
+        <div class="skeleton-body">
+          <div class="skeleton-line title"></div>
+          <div class="skeleton-line pill"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+      </div>
+      <div class="skeleton-card">
+        <div class="skeleton-hero"></div>
+        <div class="skeleton-body">
+          <div class="skeleton-line title"></div>
+          <div class="skeleton-line pill"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+      </div>
+      <div class="skeleton-card">
+        <div class="skeleton-hero"></div>
+        <div class="skeleton-body">
+          <div class="skeleton-line title"></div>
+          <div class="skeleton-line pill"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 
-<!-- AM-05 FIX : Attributs ARIA pour l'accessibilité (lecteurs d'écran, tablettes) -->
+<!-- LIGHTBOX ACCESSIBLE (AM-05 / AM-UI-07) -->
 <div id="lightbox" class="lightbox"
      role="dialog"
      aria-modal="true"
@@ -69,15 +118,21 @@
   <button id="lb-close" class="lb-btn close" title="Fermer" aria-label="Fermer la galerie">✕</button>
   <button id="lb-prev" class="lb-btn prev" title="Précédent" aria-label="Photo précédente">❮</button>
   <img id="lightbox-img" alt="Zoom plat" />
-  <div id="lb-counter" class="lb-counter" aria-live="polite"></div>
+  <div class="lb-caption-bar">
+    <div id="lb-title" class="lb-title"></div>
+    <div id="lb-counter" class="lb-counter" aria-live="polite"></div>
+  </div>
   <button id="lb-next" class="lb-btn next" title="Suivant" aria-label="Photo suivante">❯</button>
 </div>
 
-<!-- Audio elements -->
+<!-- BOUTON FLOTTANT RETOUR EN HAUT (AM-UI-08) -->
+<button id="btn-scroll-top" class="btn-scroll-top" title="Retour en haut" aria-label="Retour en haut de page">↑</button>
+
+<!-- ÉLÉMENTS AUDIO CUISINE -->
 <audio id="snd-start" preload="auto" src="sounds/START.mp3"></audio>
 <audio id="snd-done" preload="auto" src="sounds/DONE.mp3"></audio>
 
-<!-- Logique Métier Écran Cuisine -->
+<!-- LOGIQUE MÉTIER ÉCRAN CUISINE -->
 <script src="js/kitchen.js?v=7.7" defer></script>
 </body>
 </html>
