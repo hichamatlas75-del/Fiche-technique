@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-04T09:31:23.857Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-04T10:36:24.206Z
  */
 
 (function(global) {
@@ -2118,9 +2118,9 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "pain cake : 2 p",
-          "Œufs : 3 p",
+          "Omelette : 3 œufs",
           "Fromage : 10 g",
-          "Charcuteries : 60 g",
+          "Charcuteries : 50 g",
           "Pain seigle : 2 tr",
           "Mesclun : 40 g",
           "Jus d'orange : 200 ml",
@@ -2129,11 +2129,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 24.02,
+        "cost": 23.42,
         "sellPrice": 52,
-        "foodCost": 46.2,
-        "margin": 53.8,
-        "grossMarginDH": 27.98,
+        "foodCost": 45,
+        "margin": 55,
+        "grossMarginDH": 28.58,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_compagnard.jpeg"
@@ -2146,21 +2146,21 @@ const DATA = [
         "tech": [
           "Bacon : 2 p",
           "Omelette : 2 œufs",
-          "Fromage : 30 g",
           "avocat : 60 g",
           "Pain seigle : 2 tr",
           "Mesclun : 40 g",
           "Jus d'orange : 200 ml",
           "Boisson chaude : 1 p",
           "Dessert : 1 p",
-          "Bouteille Eau Minérale 33cl : 1 p"
+          "Bouteille Eau Minérale 33cl : 1 p",
+          "JBEN : 50 g"
         ],
         "price": "68 DH",
-        "cost": 27.49,
+        "cost": 26.64,
         "sellPrice": 68,
-        "foodCost": 40.4,
-        "margin": 59.6,
-        "grossMarginDH": 40.51,
+        "foodCost": 39.2,
+        "margin": 60.8,
+        "grossMarginDH": 41.36,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_americain.jpeg"
@@ -3321,14 +3321,14 @@ const DATA = [
           "Poulet : 200 g",
           "Frites : 200 g",
           "Sauce : 30 g",
-          "legumes : 500 g"
+          "légumes : 400 g"
         ],
         "price": "84 DH",
         "sellPrice": 84,
-        "cost": 19.34,
-        "foodCost": 23,
-        "margin": 77,
-        "grossMarginDH": 64.66,
+        "cost": 18.34,
+        "foodCost": 21.8,
+        "margin": 78.2,
+        "grossMarginDH": 65.66,
         "__key": "pl",
         "__images": [
           "images/placeholder.svg"
@@ -3346,20 +3346,20 @@ const DATA = [
         "image": "images/burger-cheese.jpg",
         "prepTime": 18,
         "tech": [
-          "poulet : 150 g",
+          "poulet : 120 g",
           "Sauce blanche : 40 g",
           "Sauce pesto : 20 g",
-          "Cheddar : 20 g",
+          "Cheddar : 25 g",
           "Tomate/Laitue : 30 g",
           "Frites : 200 g",
           "Pain : 1 p"
         ],
         "price": "50 DH",
-        "cost": 16.78,
+        "cost": 15.71,
         "sellPrice": 50,
-        "foodCost": 33.6,
-        "margin": 66.4,
-        "grossMarginDH": 33.22,
+        "foodCost": 31.4,
+        "margin": 68.6,
+        "grossMarginDH": 34.29,
         "__key": "bg",
         "__images": [
           "images/burger-cheese.jpg"
@@ -3398,7 +3398,6 @@ const DATA = [
           "Poulet : 120 g",
           "Avocat : 50 g",
           "Tomate/Laitue : 30 g",
-          "Œuf : 1 p",
           "Chapelure : 50 g",
           "Cheddar : 20 g",
           "Sauce Bigy : 30 g",
@@ -3406,11 +3405,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "54 DH",
-        "cost": 17.59,
+        "cost": 16.32,
         "sellPrice": 54,
-        "foodCost": 32.6,
-        "margin": 67.4,
-        "grossMarginDH": 36.41,
+        "foodCost": 30.2,
+        "margin": 69.8,
+        "grossMarginDH": 37.68,
         "__key": "bg",
         "__images": [
           "images/burger-avocado.jpg"
@@ -3557,15 +3556,15 @@ const DATA = [
           "Cheddar : 25 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
-          "Tomate fraîche : 30 g",
+          "Tomate fraîche : 35 g",
           "Sauce burger : 60 ml"
         ],
         "price": "64 DH",
-        "cost": 20.06,
+        "cost": 20.09,
         "sellPrice": 64,
-        "foodCost": 31.3,
-        "margin": 68.7,
-        "grossMarginDH": 43.94,
+        "foodCost": 31.4,
+        "margin": 68.6,
+        "grossMarginDH": 43.91,
         "__key": "wr",
         "__images": [
           "images/Wrap-gourmand.jpg"
@@ -3583,34 +3582,34 @@ const DATA = [
         "price": "40 DH",
         "sellPrice": 40,
         "tech": [
-          "Charcuterie : 100 g",
-          "Mozzarella : 40 g",
+          "Charcuterie : 120 g",
+          "Mozzarella : 60 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_charcuterie",
-        "cost": 14.54,
-        "foodCost": 36.4,
-        "margin": 63.7,
-        "grossMarginDH": 25.46
+        "cost": 16.84,
+        "foodCost": 42.1,
+        "margin": 57.9,
+        "grossMarginDH": 23.16
       },
       {
         "name": "PANINI POULET",
         "price": "44 DH",
         "sellPrice": 44,
         "tech": [
-          "Poulet : 80 g",
-          "Mozzarella : 40 g",
+          "Poulet : 70 g",
+          "Mozzarella : 60 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_poulet",
-        "cost": 12.54,
-        "foodCost": 28.5,
-        "margin": 71.5,
-        "grossMarginDH": 31.46
+        "cost": 13.14,
+        "foodCost": 29.9,
+        "margin": 70.1,
+        "grossMarginDH": 30.86
       },
       {
         "name": "PANINI VIANDE HACHÉE",
@@ -3618,16 +3617,16 @@ const DATA = [
         "sellPrice": 54,
         "tech": [
           "Viande : 100 g",
-          "Mozzarella : 40 g",
+          "Mozzarella : 60 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_viande_hach_e",
-        "cost": 18.54,
-        "foodCost": 34.3,
-        "margin": 65.7,
-        "grossMarginDH": 35.46
+        "cost": 19.64,
+        "foodCost": 36.4,
+        "margin": 63.6,
+        "grossMarginDH": 34.36
       },
       {
         "name": "PANINI GOURMAND",
@@ -3637,16 +3636,16 @@ const DATA = [
           "Viande : 50 g",
           "Poulet : 50 g",
           "Charcuterie : 50 g",
-          "Mozzarella : 40 g",
+          "Mozzarella : 60 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_gourmand",
-        "cost": 19.04,
-        "foodCost": 29.8,
-        "margin": 70.3,
-        "grossMarginDH": 44.96
+        "cost": 20.14,
+        "foodCost": 31.5,
+        "margin": 68.5,
+        "grossMarginDH": 43.86
       },
       {
         "name": "PANINI FRUITS DE MER",
@@ -3674,16 +3673,16 @@ const DATA = [
         "tech": [
           "Saumon : 90 g",
           "Pesto : 20 g",
-          "Mozzarella : 40 g",
+          "Mozzarella : 60 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_saumon",
-        "cost": 25.64,
-        "foodCost": 40.1,
-        "margin": 59.9,
-        "grossMarginDH": 38.36
+        "cost": 26.74,
+        "foodCost": 41.8,
+        "margin": 58.2,
+        "grossMarginDH": 37.26
       }
     ]
   },
@@ -4217,7 +4216,7 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "Pâtes : 60 g",
-          "Viande : 100 g",
+          "Viande : 80 g",
           "Parmesan : 15 g",
           "Huile : 60 g",
           "Tomate cerise : 50 g",
@@ -4226,11 +4225,11 @@ const DATA = [
           "Oignon/Ail : 70 g"
         ],
         "price": "72 DH",
-        "cost": 20.27,
+        "cost": 18.27,
         "sellPrice": 72,
-        "foodCost": 28.2,
-        "margin": 71.8,
-        "grossMarginDH": 51.73,
+        "foodCost": 25.4,
+        "margin": 74.6,
+        "grossMarginDH": 53.73,
         "__key": "pae",
         "__images": [
           "images/lasagne_bolognaise.jpeg"
@@ -4496,12 +4495,12 @@ const DATA = [
         "tech": [
           "Pâtes : 100 g",
           "Sauce tomate : 60 g",
-          "Parmesan : 20 g",
+          "Parmesan : 30 g",
           "Canette Soda : 3.5 p"
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 10.23,
+        "cost": 11.73,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -6297,7 +6296,7 @@ const BASE_RECIPES = [
       "Poulet : 200 g",
       "Frites : 200 g",
       "Sauce : 30 g",
-      "legumes : 500 g"
+      "légumes : 400 g"
     ]
   },
   {
@@ -7145,9 +7144,9 @@ const BASE_RECIPES = [
     "category": "PETIT DÉJEUNER",
     "ingredients": [
       "pain cake : 2 p",
-      "Œufs : 3 p",
+      "Omelette : 3 œufs",
       "Fromage : 10 g",
-      "Charcuteries : 60 g",
+      "Charcuteries : 50 g",
       "Pain seigle : 2 tr",
       "Mesclun : 40 g",
       "Jus d'orange : 200 ml",
@@ -7163,14 +7162,14 @@ const BASE_RECIPES = [
     "ingredients": [
       "Bacon : 2 p",
       "Omelette : 2 œufs",
-      "Fromage : 30 g",
       "avocat : 60 g",
       "Pain seigle : 2 tr",
       "Mesclun : 40 g",
       "Jus d'orange : 200 ml",
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
-      "Bouteille Eau Minérale 33cl : 1 p"
+      "Bouteille Eau Minérale 33cl : 1 p",
+      "JBEN : 50 g"
     ]
   },
   {
@@ -7761,10 +7760,10 @@ const BASE_RECIPES = [
     "name": "CHICKEN BURGER",
     "category": "BURGERS",
     "ingredients": [
-      "poulet : 150 g",
+      "poulet : 120 g",
       "Sauce blanche : 40 g",
       "Sauce pesto : 20 g",
-      "Cheddar : 20 g",
+      "Cheddar : 25 g",
       "Tomate/Laitue : 30 g",
       "Frites : 200 g",
       "Pain : 1 p"
@@ -7793,7 +7792,6 @@ const BASE_RECIPES = [
       "Poulet : 120 g",
       "Avocat : 50 g",
       "Tomate/Laitue : 30 g",
-      "Œuf : 1 p",
       "Chapelure : 50 g",
       "Cheddar : 20 g",
       "Sauce Bigy : 30 g",
@@ -7885,7 +7883,7 @@ const BASE_RECIPES = [
       "Cheddar : 25 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
-      "Tomate fraîche : 30 g",
+      "Tomate fraîche : 35 g",
       "Sauce burger : 60 ml"
     ]
   },
@@ -7894,8 +7892,8 @@ const BASE_RECIPES = [
     "name": "PANINI CHARCUTERIE",
     "category": "PANINIS",
     "ingredients": [
-      "Charcuterie : 100 g",
-      "Mozzarella : 40 g",
+      "Charcuterie : 120 g",
+      "Mozzarella : 60 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -7906,8 +7904,8 @@ const BASE_RECIPES = [
     "name": "PANINI POULET",
     "category": "PANINIS",
     "ingredients": [
-      "Poulet : 80 g",
-      "Mozzarella : 40 g",
+      "Poulet : 70 g",
+      "Mozzarella : 60 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -7919,7 +7917,7 @@ const BASE_RECIPES = [
     "category": "PANINIS",
     "ingredients": [
       "Viande : 100 g",
-      "Mozzarella : 40 g",
+      "Mozzarella : 60 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -7933,7 +7931,7 @@ const BASE_RECIPES = [
       "Viande : 50 g",
       "Poulet : 50 g",
       "Charcuterie : 50 g",
-      "Mozzarella : 40 g",
+      "Mozzarella : 60 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -7960,7 +7958,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Saumon : 90 g",
       "Pesto : 20 g",
-      "Mozzarella : 40 g",
+      "Mozzarella : 60 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -8256,7 +8254,7 @@ const BASE_RECIPES = [
     "category": "PÂTES",
     "ingredients": [
       "Pâtes : 60 g",
-      "Viande : 100 g",
+      "Viande : 80 g",
       "Parmesan : 15 g",
       "Huile : 60 g",
       "Tomate cerise : 50 g",
@@ -9537,7 +9535,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâtes : 100 g",
       "Sauce tomate : 60 g",
-      "Parmesan : 20 g",
+      "Parmesan : 30 g",
       "Canette Soda : 3.5 p"
     ]
   }
