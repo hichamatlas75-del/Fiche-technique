@@ -20,7 +20,7 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
 ======================================================== */
 let activeRecipes = [];
 let monthlySalesDB = {}; // Format: { "YYYY-MM-DD": [ { family, product, price, qty, total }, ... ] }
-let currentViewMode = 'day'; // 'day' ou 'month'
+let currentViewMode = 'day'; // 'day', 'month' ou 'year'
 let selectedDate = new Date().toLocaleDateString('en-CA'); // 'YYYY-MM-DD' (local timezone)
 let selectedYearMonth = selectedDate.slice(0, 7); // 'YYYY-MM'
 
@@ -877,10 +877,87 @@ function renderCalendar() {
 
   container.innerHTML = html;
 
-  // Mettre à jour les statistiques globales du calendrier
-  document.getElementById('stat-cal-days-count').textContent = `${recordedDaysCount} / ${totalDaysInMonth} j.`;
-  document.getElementById('stat-cal-total-ca').textContent = `${monthTotalCA.toLocaleString('fr-FR')} DH`;
-  document.getElementById('stat-cal-total-qty').textContent = `${monthTotalQty.toLocaleString('fr-FR')}`;
+  // Calcul des totaux et rendu de la barre annuelle des 12 mois
+  const selectedYear = selectedYearMonth.slice(0, 4);
+  const yearMonthsBar = document.getElementById('cal-year-months-bar');
+
+  const monthTotalCAFormatted = Math.round(monthTotalCA).toLocaleString('fr-FR');
+  const monthTotalQtyFormatted = Math.round(monthTotalQty).toLocaleString('fr-FR');
+
+  let yearTotalCA = 0;
+  let yearTotalQty = 0;
+  let yearDaysCount = 0;
+  const monthNamesLong = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+  let yMonthsHtml = '';
+
+  for (let m = 1; m <= 12; m++) {
+    const mStr = String(m).padStart(2, '0');
+    const ymKey = `${selectedYear}-${mStr}`;
+    let mCA = 0;
+    let mQty = 0;
+    let mDays = 0;
+
+    Object.keys(monthlySalesDB).forEach(dKey => {
+      if (dKey.startsWith(ymKey) && monthlySalesDB[dKey] && monthlySalesDB[dKey].length > 0) {
+        mDays++;
+        monthlySalesDB[dKey].forEach(r => {
+          const q = parseFloat(r.qty) || 0;
+          const p = parseFloat(r.price) || 0;
+          const t = parseFloat(r.total) || (q * p);
+          mCA += t;
+          mQty += q;
+        });
+      }
+    });
+
+    yearTotalCA += mCA;
+    yearTotalQty += mQty;
+    yearDaysCount += mDays;
+
+    const hasMData = mDays > 0;
+    const isCurrentMonth = (selectedYearMonth === ymKey);
+    const caDisplay = mCA >= 1000 ? (mCA / 1000).toFixed(1) + 'k DH' : Math.round(mCA) + ' DH';
+
+    yMonthsHtml += `
+      <div class="cal-year-month-card ${hasMData ? 'has-data' : ''} ${isCurrentMonth ? 'is-current' : ''}" onclick="window.onSelectMonthFromYearBar('${ymKey}')" title="${monthNamesLong[m-1]} ${selectedYear} : ${Math.round(mCA).toLocaleString('fr-FR')} DH (${mDays} jours)">
+        <div class="cal-year-month-name">
+          <span>${monthNamesLong[m-1]}</span>
+          ${hasMData ? `<span class="cal-year-month-badge">✓ ${mDays}j</span>` : ''}
+        </div>
+        <div class="cal-year-month-ca">${hasMData ? caDisplay : '—'}</div>
+        <div class="cal-year-month-sub">${hasMData ? `${Math.round(mQty).toLocaleString('fr-FR')} art.` : 'Aucune vente'}</div>
+      </div>
+    `;
+  }
+
+  if (yearMonthsBar) {
+    yearMonthsBar.innerHTML = yMonthsHtml;
+    yearMonthsBar.style.display = (currentViewMode === 'year') ? 'grid' : 'none';
+  }
+
+  // Mettre à jour les statistiques globales du calendrier selon le mode
+  const labelDays = document.getElementById('label-stat-cal-days');
+  const labelCA = document.getElementById('label-stat-cal-ca');
+  const labelQty = document.getElementById('label-stat-cal-qty');
+  const elDays = document.getElementById('stat-cal-days-count');
+  const elCA = document.getElementById('stat-cal-total-ca');
+  const elQty = document.getElementById('stat-cal-total-qty');
+
+  if (currentViewMode === 'year') {
+    if (labelDays) labelDays.textContent = `Jours enregistrés (${selectedYear}) :`;
+    if (labelCA) labelCA.textContent = `CA Total Année ${selectedYear} :`;
+    if (labelQty) labelQty.textContent = `Articles Vendus (${selectedYear}) :`;
+    if (elDays) elDays.textContent = `${yearDaysCount} jours actifs`;
+    if (elCA) elCA.textContent = `${Math.round(yearTotalCA).toLocaleString('fr-FR')} DH`;
+    if (elQty) elQty.textContent = `${Math.round(yearTotalQty).toLocaleString('fr-FR')}`;
+  } else {
+    if (labelDays) labelDays.textContent = `Jours enregistrés :`;
+    if (labelCA) labelCA.textContent = `CA Total du Mois :`;
+    if (labelQty) labelQty.textContent = `Articles Vendus :`;
+    if (elDays) elDays.textContent = `${recordedDaysCount} / ${totalDaysInMonth} j.`;
+    if (elCA) elCA.textContent = `${monthTotalCAFormatted} DH`;
+    if (elQty) elQty.textContent = `${monthTotalQtyFormatted}`;
+  }
 
   const mInput = document.getElementById('cal-month-input');
   if (mInput) mInput.value = selectedYearMonth;
@@ -888,14 +965,42 @@ function renderCalendar() {
   // Libellés UI
   const dFormatted = formatDateFR(selectedDate);
   const targetLabel = document.getElementById('label-upload-target-date');
-  if (targetLabel) targetLabel.textContent = dFormatted;
+  if (targetLabel) {
+    if (currentViewMode === 'year') {
+      targetLabel.textContent = `Année ${selectedYear}`;
+    } else if (currentViewMode === 'month') {
+      targetLabel.textContent = formatMonthFR(selectedYearMonth);
+    } else {
+      targetLabel.textContent = dFormatted;
+    }
+  }
 
   const dayShortLabel = document.getElementById('label-selected-day-short');
   if (dayShortLabel) dayShortLabel.textContent = selectedDate.slice(8, 10) + '/' + selectedDate.slice(5, 7);
 
   const monthShortLabel = document.getElementById('label-selected-month-short');
   if (monthShortLabel) monthShortLabel.textContent = formatMonthFR(selectedYearMonth);
+
+  const yearShortLabel = document.getElementById('label-selected-year-short');
+  if (yearShortLabel) yearShortLabel.textContent = selectedYear;
+
+  const calTitle = document.getElementById('label-cal-title');
+  if (calTitle) {
+    if (currentViewMode === 'year') {
+      calTitle.innerHTML = `📈 Déstockage &amp; Ventes — <strong>Cumul Année ${selectedYear}</strong>`;
+    } else if (currentViewMode === 'month') {
+      calTitle.innerHTML = `📊 Déstockage &amp; Ventes — <strong>Cumul ${formatMonthFR(selectedYearMonth)}</strong>`;
+    } else {
+      calTitle.innerHTML = `📅 Calendrier &amp; Déstockage — <strong>${dFormatted}</strong>`;
+    }
+  }
 }
+
+window.onSelectMonthFromYearBar = function(ymKey) {
+  selectedYearMonth = ymKey;
+  selectedDate = `${ymKey}-01`;
+  setViewMode('month');
+};
 
 function formatDateFR(isoDateStr) {
   if (!isoDateStr) return '';
@@ -921,14 +1026,11 @@ function setViewMode(mode) {
   currentViewMode = mode;
   const btnDay = document.getElementById('btn-mode-day');
   const btnMonth = document.getElementById('btn-mode-month');
+  const btnYear = document.getElementById('btn-mode-year');
 
-  if (mode === 'day') {
-    if (btnDay) btnDay.classList.add('active');
-    if (btnMonth) btnMonth.classList.remove('active');
-  } else {
-    if (btnDay) btnDay.classList.remove('active');
-    if (btnMonth) btnMonth.classList.add('active');
-  }
+  if (btnDay) btnDay.classList.toggle('active', mode === 'day');
+  if (btnMonth) btnMonth.classList.toggle('active', mode === 'month');
+  if (btnYear) btnYear.classList.toggle('active', mode === 'year');
 
   renderCalendar();
   recalculateCurrentView();
@@ -936,6 +1038,13 @@ function setViewMode(mode) {
 
 function prevMonth() {
   const [y, m] = selectedYearMonth.split('-').map(Number);
+  if (currentViewMode === 'year') {
+    selectedYearMonth = `${y - 1}-${String(m).padStart(2, '0')}`;
+    selectedDate = `${selectedYearMonth}-01`;
+    renderCalendar();
+    recalculateCurrentView();
+    return;
+  }
   let newY = y;
   let newM = m - 1;
   if (newM < 1) { newM = 12; newY--; }
@@ -947,6 +1056,13 @@ function prevMonth() {
 
 function nextMonth() {
   const [y, m] = selectedYearMonth.split('-').map(Number);
+  if (currentViewMode === 'year') {
+    selectedYearMonth = `${y + 1}-${String(m).padStart(2, '0')}`;
+    selectedDate = `${selectedYearMonth}-01`;
+    renderCalendar();
+    recalculateCurrentView();
+    return;
+  }
   let newY = y;
   let newM = m + 1;
   if (newM > 12) { newM = 1; newY++; }
@@ -965,6 +1081,8 @@ function onMonthInputChange(val) {
 }
 
 function recalculateCurrentView() {
+  const selectedYear = selectedYearMonth.slice(0, 4);
+
   if (currentViewMode === 'day') {
     let rows = monthlySalesDB[selectedDate] || [];
     
@@ -978,6 +1096,22 @@ function recalculateCurrentView() {
     }
 
     processSalesAndCalculateStock(rows, `Ventes du ${formatDateFR(selectedDate)}`, false, [selectedDate]);
+  } else if (currentViewMode === 'year') {
+    // Mode Cumul Annuel : fusion de tous les jours de l'année sélectionnée
+    const allRows = [];
+    const activeDays = [];
+
+    Object.keys(monthlySalesDB).sort().forEach(dKey => {
+      if (dKey.startsWith(selectedYear)) {
+        const dRows = monthlySalesDB[dKey] || [];
+        if (dRows.length > 0) {
+          activeDays.push(dKey);
+          dRows.forEach(r => allRows.push(r));
+        }
+      }
+    });
+
+    processSalesAndCalculateStock(allRows, `Cumul Annuel — Année ${selectedYear}`, true, activeDays);
   } else {
     // Mode Cumul Mensuel : fusion de tous les jours du mois
     const allRows = [];
@@ -1065,7 +1199,13 @@ function renderDashboard({ totalCA, totalQty, salesLines, distinctProducts, matc
   
   const subCA = document.getElementById('stat-lines-count');
   if (subCA) {
-    subCA.textContent = isMonthly ? `${activeDaysCount} jours actifs (${salesLines} lignes)` : `${salesLines} lignes de vente (${periodTitle})`;
+    if (currentViewMode === 'year') {
+      subCA.textContent = `${activeDaysCount} jours actifs (${salesLines.toLocaleString('fr-FR')} lignes sur ${selectedYearMonth.slice(0, 4)})`;
+    } else if (isMonthly) {
+      subCA.textContent = `${activeDaysCount} jours actifs (${salesLines.toLocaleString('fr-FR')} lignes sur ${formatMonthFR(selectedYearMonth)})`;
+    } else {
+      subCA.textContent = `${salesLines} lignes de vente (${periodTitle})`;
+    }
   }
 
   document.getElementById('stat-products-count').textContent = `${distinctProducts} articles différents`;
@@ -1175,9 +1315,10 @@ function renderSummaryTable() {
 }
 
 function escapeHtml(str) {
+  if (str === undefined || str === null) return '';
   const d = document.createElement('div');
   d.textContent = str;
-  return d.innerHTML;
+  return d.innerHTML || String(str);
 }
 
 let salesSortColumn = 'qty';
@@ -2579,8 +2720,12 @@ function exportToExcel() {
     return;
   }
 
+  const isYearly = currentViewMode === 'year';
   const isMonthly = currentViewMode === 'month';
-  const periodLabel = isMonthly ? `Cumul Mensuel — ${formatMonthFR(selectedYearMonth)}` : `Journée du ${formatDateFR(selectedDate)}`;
+  const selectedYear = selectedYearMonth.slice(0, 4);
+  const periodLabel = isYearly
+    ? `Cumul Annuel — Année ${selectedYear}`
+    : (isMonthly ? `Cumul Mensuel — ${formatMonthFR(selectedYearMonth)}` : `Journée du ${formatDateFR(selectedDate)}`);
 
   // Feuille 1: Synthèse des Matières Premières Consommées
   const wsIngData = [
@@ -2622,11 +2767,77 @@ function exportToExcel() {
   const ws1 = XLSX.utils.aoa_to_sheet(wsIngData);
   const ws2 = XLSX.utils.aoa_to_sheet(wsSalesData);
 
-  XLSX.utils.book_append_sheet(wb, ws1, isMonthly ? "Synthèse Mensuelle" : "Matières Premières");
-  XLSX.utils.book_append_sheet(wb, ws2, isMonthly ? "Ventes du Mois" : "Ventes Journalières");
+  const sheet1Name = isYearly ? "Synthèse Annuelle" : (isMonthly ? "Synthèse Mensuelle" : "Matières Premières");
+  const sheet2Name = isYearly ? "Ventes de l'Année" : (isMonthly ? "Ventes du Mois" : "Ventes Journalières");
 
-  // Si Mensuel: on ajoute une Feuille 3 de Matrice Déstockage par Jour
-  if (isMonthly) {
+  XLSX.utils.book_append_sheet(wb, ws1, sheet1Name);
+  XLSX.utils.book_append_sheet(wb, ws2, sheet2Name);
+
+  // Si Annuel: on ajoute une Feuille 3 de Matrice Déstockage par Mois
+  if (isYearly) {
+    const monthShortNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
+    const activeMonths = [];
+    for (let m = 1; m <= 12; m++) {
+      const mStr = String(m).padStart(2, '0');
+      const mKey = `${selectedYear}-${mStr}`;
+      const hasMData = Object.keys(monthlySalesDB).some(d => d.startsWith(mKey) && monthlySalesDB[d] && monthlySalesDB[d].length > 0);
+      if (hasMData) {
+        activeMonths.push({ mKey, label: `${monthShortNames[m - 1]} ${selectedYear}` });
+      }
+    }
+
+    if (activeMonths.length > 0) {
+      const matrixHeaders = ["Ingrédient / Matière Première", "Catégorie", "Unité", `TOTAL ANNÉE ${selectedYear}`, ...activeMonths.map(am => am.label)];
+      const wsMatrixData = [
+        [`GREY CORNER — MATRICE MENSUELLE DU CUMUL ANNUEL (${selectedYear})`],
+        [],
+        matrixHeaders
+      ];
+
+      const monthlyIngMaps = {};
+      activeMonths.forEach(({ mKey }) => {
+        const mMap = {};
+        Object.keys(monthlySalesDB).forEach(dKey => {
+          if (dKey.startsWith(mKey)) {
+            const dRows = monthlySalesDB[dKey] || [];
+            dRows.forEach(row => {
+              const recipe = findRecipeForProduct(row.product, row.family);
+              if (recipe) {
+                (recipe.ingredients || []).forEach(ingLine => {
+                  const parsed = parseIngredientLine(ingLine);
+                  const totalQ = parsed.qty * (parseFloat(row.qty) || 0);
+                  const k = cleanText(parsed.name) + '_' + parsed.unit;
+                  mMap[k] = (mMap[k] || 0) + totalQ;
+                });
+              }
+            });
+          }
+        });
+        monthlyIngMaps[mKey] = mMap;
+      });
+
+      aggregatedIngredients.forEach(ing => {
+        const k = cleanText(ing.name) + '_' + ing.unit;
+        let totQ = ing.totalQty;
+        let uStr = ing.unit;
+        if (ing.unit === 'g' && ing.totalQty >= 1000) { totQ /= 1000; uStr = 'Kg'; }
+        else if (ing.unit === 'ml' && ing.totalQty >= 1000) { totQ /= 1000; uStr = 'Litres'; }
+
+        const rowCells = [ing.name, ing.category.toUpperCase(), uStr, totQ];
+        activeMonths.forEach(({ mKey }) => {
+          let mVal = monthlyIngMaps[mKey][k] || 0;
+          if (ing.unit === 'g' && ing.totalQty >= 1000) mVal /= 1000;
+          else if (ing.unit === 'ml' && ing.totalQty >= 1000) mVal /= 1000;
+          rowCells.push(mVal > 0 ? mVal : '');
+        });
+        wsMatrixData.push(rowCells);
+      });
+
+      const ws3 = XLSX.utils.aoa_to_sheet(wsMatrixData);
+      XLSX.utils.book_append_sheet(wb, ws3, "Matrice par Mois");
+    }
+  } else if (isMonthly) {
+    // Si Mensuel: on ajoute une Feuille 3 de Matrice Déstockage par Jour
     const activeDates = Object.keys(monthlySalesDB).filter(d => d.startsWith(selectedYearMonth) && monthlySalesDB[d].length > 0).sort();
     if (activeDates.length > 0) {
       const matrixHeaders = ["Ingrédient / Matière Première", "Catégorie", "Unité", "TOTAL MOIS", ...activeDates.map(d => d.slice(8, 10) + '/' + d.slice(5, 7))];
@@ -2677,7 +2888,9 @@ function exportToExcel() {
     }
   }
 
-  const fileName = isMonthly ? `GreyCorner_Destockage_Mensuel_${selectedYearMonth}.xlsx` : `GreyCorner_Destockage_${selectedDate}.xlsx`;
+  const fileName = isYearly
+    ? `GreyCorner_Destockage_Annuel_${selectedYear}.xlsx`
+    : (isMonthly ? `GreyCorner_Destockage_Mensuel_${selectedYearMonth}.xlsx` : `GreyCorner_Destockage_${selectedDate}.xlsx`);
   XLSX.writeFile(wb, fileName);
 }
 
@@ -4158,7 +4371,7 @@ function renderMenuEngineeringScatterPlot() {
   const canvas = document.getElementById('canvas-menu-eng-scatter');
   const container = document.getElementById('scatter-plot-wrapper');
   const tooltip = document.getElementById('scatter-tooltip');
-  if (!canvas || !container) return;
+  if (!canvas || !canvas.getContext || !container) return;
 
   const ctx = canvas.getContext('2d');
   const rect = container.getBoundingClientRect();

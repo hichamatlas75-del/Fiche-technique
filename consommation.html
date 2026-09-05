@@ -78,27 +78,35 @@
     <div class="cal-header">
       <div class="cal-nav-wrap">
         <div class="cal-title">
-          <span>📅 Calendrier & Déstockage Mensuel</span>
+          <span id="label-cal-title">📅 Calendrier &amp; Déstockage</span>
         </div>
         <div class="cal-month-nav">
-          <button class="cal-nav-btn" onclick="prevMonth()" title="Mois précédent" aria-label="Mois précédent">◀</button>
+          <button class="cal-nav-btn" onclick="prevMonth()" title="Mois / Année précédente" aria-label="Mois précédent">◀</button>
           <input type="month" id="cal-month-input" style="border:none; background:transparent; font-weight:800; font-size:13.5px; color:var(--text); outline:none; cursor:pointer;" onchange="onMonthInputChange(this.value)" />
-          <button class="cal-nav-btn" onclick="nextMonth()" title="Mois suivant" aria-label="Mois suivant">▶</button>
+          <button class="cal-nav-btn" onclick="nextMonth()" title="Mois / Année suivante" aria-label="Mois suivant">▶</button>
         </div>
       </div>
       
       <div class="cal-mode-selector">
         <button id="btn-mode-day" class="cal-mode-btn active" onclick="setViewMode('day')">
-          📅 Jour Sélectionné (<span id="label-selected-day-short">--/--</span>)
+          📅 Jour (<span id="label-selected-day-short">--/--</span>)
         </button>
         <button id="btn-mode-month" class="cal-mode-btn" onclick="setViewMode('month')">
-          📊 Cumul Mensuel (<span id="label-selected-month-short">Mois Entier</span>)
+          📊 Cumul Mensuel (<span id="label-selected-month-short">Mois</span>)
+        </button>
+        <button id="btn-mode-year" class="cal-mode-btn" onclick="setViewMode('year')">
+          📈 Cumul Année (<span id="label-selected-year-short">2026</span>)
         </button>
       </div>
     </div>
 
+    <!-- BANDEAU DES 12 MOIS DU CUMUL ANNUEL (Affiché en mode Cumul Année) -->
+    <div id="cal-year-months-bar" class="cal-year-months-grid" style="display:none;">
+      <!-- Rendu dynamique des 12 mois de l'année en JS -->
+    </div>
+
     <!-- GRILLE DU CALENDRIER -->
-    <div class="cal-grid-scroll-wrap">
+    <div class="cal-grid-scroll-wrap" id="cal-grid-scroll-wrap">
       <div class="cal-grid" id="cal-grid-container">
         <!-- Rendu dynamique des jours 1..31 en JS -->
       </div>
@@ -107,15 +115,15 @@
     <div class="cal-foot">
       <div class="cal-stats-summary">
         <div class="cal-stat-pill success">
-          <span>Jours enregistrés :</span>
+          <span id="label-stat-cal-days">Jours enregistrés :</span>
           <strong id="stat-cal-days-count">0 / 31 j.</strong>
         </div>
         <div class="cal-stat-pill">
-          <span>CA Total du Mois :</span>
+          <span id="label-stat-cal-ca">CA Total du Mois :</span>
           <strong id="stat-cal-total-ca">0 DH</strong>
         </div>
         <div class="cal-stat-pill">
-          <span>Articles Vendus :</span>
+          <span id="label-stat-cal-qty">Articles Vendus :</span>
           <strong id="stat-cal-total-qty">0</strong>
         </div>
       </div>

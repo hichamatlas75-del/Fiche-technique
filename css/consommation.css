@@ -232,6 +232,67 @@
     color: #ffffff;
     box-shadow: 0 2px 6px rgba(14,165,233,.25);
   }
+  .cal-year-months-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+    margin: 8px 0 16px 0;
+    padding: 12px;
+    background: var(--bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .cal-year-month-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: all .2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cal-year-month-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
+  }
+  .cal-year-month-card.has-data {
+    border-left: 4px solid #10b981;
+  }
+  .cal-year-month-card.is-current {
+    border-color: var(--accent);
+    background: rgba(14, 165, 233, 0.05);
+  }
+  .cal-year-month-name {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cal-year-month-badge {
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px;
+    background: rgba(16, 185, 129, 0.12);
+    color: #059669;
+  }
+  .cal-year-month-ca {
+    font-size: 14.5px;
+    font-weight: 900;
+    color: #059669;
+  }
+  .cal-year-month-sub {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+  }
   .cal-grid-scroll-wrap {
     width: 100%;
     overflow-x: auto;
@@ -391,7 +452,7 @@
     .cal-mode-selector {
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 4px;
     }
     .cal-mode-btn {

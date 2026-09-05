@@ -429,6 +429,7 @@
     } catch(e) {}
 
     const availableDates = rawDB ? Object.keys(rawDB).filter(d => Array.isArray(rawDB[d]) && rawDB[d].length > 0).sort().reverse() : [];
+    const availableYears = rawDB ? Array.from(new Set(availableDates.map(d => d.slice(0, 4)))).sort().reverse() : [];
     const todayISO = new Date().toLocaleDateString('en-CA');
 
     let effectiveDate = selectedAIDailyDate;
@@ -450,12 +451,26 @@
     } else if (effectiveDate === '__benchmark__') {
       isBenchmark = true;
       salesRows = BENCHMARK_DAILY_SALES;
+    } else if (effectiveDate.startsWith('__year_')) {
+      const yTarget = effectiveDate.replace('__year_', '');
+      const yRows = [];
+      availableDates.filter(d => d.startsWith(yTarget)).forEach(dKey => {
+        (rawDB[dKey] || []).forEach(r => yRows.push(r));
+      });
+      if (yRows.length > 0) {
+        salesRows = yRows;
+      } else {
+        effectiveDate = '__benchmark__';
+        salesRows = BENCHMARK_DAILY_SALES;
+        isBenchmark = true;
+      }
     } else {
       if (rawDB && rawDB[effectiveDate] && rawDB[effectiveDate].length > 0) {
         salesRows = rawDB[effectiveDate];
       } else {
-        isBenchmark = true;
+        effectiveDate = '__benchmark__';
         salesRows = BENCHMARK_DAILY_SALES;
+        isBenchmark = true;
       }
     }
 
@@ -463,6 +478,7 @@
       effectiveDate,
       isBenchmark,
       availableDates,
+      availableYears,
       salesRows
     };
   }
@@ -1197,9 +1213,10 @@
     const displayedItems = activeList.slice(0, 16);
     const collapseIcon = isAIAgentCollapsed ? '▸ Déplier l\'analyse' : '▾ Réduire';
 
-    // Options du sélecteur de dates journalières
+    // Options du sélecteur de dates journalières & cumul annuel
     const dateOptionsHTML = `
       <option value="__auto__" ${salesCtx.effectiveDate === '__auto__' ? 'selected' : ''}>📅 Dernier Jour Disponible</option>
+      ${(salesCtx.availableYears || []).map(y => `<option value="__year_${y}" ${salesCtx.effectiveDate === '__year_' + y ? 'selected' : ''}>📈 Cumul Année ${y} (YTD)</option>`).join('')}
       ${salesCtx.availableDates.map(d => `<option value="${d}" ${salesCtx.effectiveDate === d ? 'selected' : ''}>📅 ${d}</option>`).join('')}
       <option value="__benchmark__" ${salesCtx.effectiveDate === '__benchmark__' ? 'selected' : ''}>⭐ Journée Type (Benchmark 125 couverts)</option>
     `;
