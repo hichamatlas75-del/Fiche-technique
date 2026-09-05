@@ -531,6 +531,193 @@
     };
   }
 
+  // =================================================================
+  // ÉTUDE DE MARCHÉ FÈS — MODÈLE CAFÉ-RESTAURANT (BENCHMARK & PLAFONDS)
+  // =================================================================
+  // Positionnement : Café-Restaurant à Fès (ex: Champs de Course, Ville Nouvelle, Imouzzer, Narjiss)
+  // Spécificités Café-Restaurant :
+  //  1. Cible Food Cost Plats Salés = 32.0% (et non 27-28%) grâce à la péréquation des boissons (12-18%).
+  //  2. Forte sensibilité au prix (élasticité forte) : éviter impérativement la fuite de la clientèle.
+  //  3. Hausse progressive limitée à +18% max (ou +15 à +20 DH max par palier).
+  //  4. Plafonds psychologiques stricts par famille de produits observés sur le marché fassi.
+  // =================================================================
+  const FES_CAFE_RESTAURANT_MARKET = {
+    TARGET_FOOD_COST: 0.32, // 32.0%
+    MAX_BUMP_PCT: 0.18,     // +18% max d'augmentation en une seule fois
+    MAX_BUMP_DH: 20,        // +20 DH max d'augmentation par plat
+
+    getLimits: function(category, recipeName) {
+      const name = (recipeName || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const cat = (category || '').toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+      // 1. PIÈCES NOBLES (Filet de bœuf, Faux-filet, Pavé de saumon, Entrecôte)
+      if (name.includes('filet') || name.includes('boeuf') || name.includes('saumon') || name.includes('entrecote') || name.includes('faux filet')) {
+        return {
+          type: "Pièce noble (Bœuf / Saumon)",
+          marketRange: "130 – 150 DH",
+          softCeiling: 150,
+          hardCeiling: 160,
+          portionAdvice: "Privilégier le calibrage de la pièce à 160g-170g (au lieu de 180-200g) pour maintenir le tarif sous le seuil psychologique de 150 DH."
+        };
+      }
+
+      // 2. PLATS CHAUDS / VIANDES & VOLAILLES
+      if (cat.includes('PLAT')) {
+        if (name.includes('poulet') || name.includes('escalope') || name.includes('cordon') || name.includes('supreme')) {
+          return {
+            type: "Plat Volaille / Escalope",
+            marketRange: "65 – 85 DH",
+            softCeiling: 80,
+            hardCeiling: 90,
+            portionAdvice: "Calibrer le suprême/escalope à 140g pour stabiliser le Food Cost sous 32%."
+          };
+        }
+        return {
+          type: "Plat Viande / Émincé",
+          marketRange: "80 – 105 DH",
+          softCeiling: 105,
+          hardCeiling: 115,
+          portionAdvice: "Ajuster la garniture féculents/légumes et le grammage de sauce."
+        };
+      }
+
+      // 3. PIZZAS
+      if (cat.includes('PIZZA')) {
+        if (name.includes('fruit') || name.includes('mer') || name.includes('saumon') || name.includes('burrata') || name.includes('gambas')) {
+          return {
+            type: "Pizza Prestige (Fruits de mer / Burrata)",
+            marketRange: "75 – 90 DH",
+            softCeiling: 90,
+            hardCeiling: 95,
+            portionAdvice: "Doser les fruits de mer à 90g max (calamar/crevette) et mozzarella à 100g."
+          };
+        }
+        return {
+          type: "Pizza Classique",
+          marketRange: "50 – 75 DH",
+          softCeiling: 75,
+          hardCeiling: 80,
+          portionAdvice: "Contrôler le dosage de fromage (80-100g de mozzarella râpée)."
+        };
+      }
+
+      // 4. PÂTES & RISOTTOS
+      if (cat.includes('PATE') || cat.includes('PAST')) {
+        if (name.includes('fruit') || name.includes('mer') || name.includes('saumon') || name.includes('gambas')) {
+          return {
+            type: "Pâtes Fruits de Mer / Saumon",
+            marketRange: "75 – 85 DH",
+            softCeiling: 85,
+            hardCeiling: 95,
+            portionAdvice: "Standardiser la dose de fruits de mer à 80g net et crème à 80ml."
+          };
+        }
+        return {
+          type: "Pâtes Traditionnelles",
+          marketRange: "55 – 75 DH",
+          softCeiling: 75,
+          hardCeiling: 80,
+          portionAdvice: "Grammage pâtes sèches 100-110g + sauce 100g."
+        };
+      }
+
+      // 5. BURGERS
+      if (cat.includes('BURGER')) {
+        if (name.includes('double') || name.includes('royal') || name.includes('big') || name.includes('giant')) {
+          return {
+            type: "Burger Double / Gourmet",
+            marketRange: "65 – 80 DH",
+            softCeiling: 80,
+            hardCeiling: 85,
+            portionAdvice: "Calibrer les steaks à 2x80g ou 1x150g et frites à 150g."
+          };
+        }
+        return {
+          type: "Burger Standard",
+          marketRange: "45 – 65 DH",
+          softCeiling: 65,
+          hardCeiling: 70,
+          portionAdvice: "Steak calibré à 110g + cheddar 1 tranche (25g)."
+        };
+      }
+
+      // 6. TACOS / PANINIS / SANDWICHES
+      if (cat.includes('TACO') || cat.includes('PANINI') || cat.includes('SANDWICH')) {
+        return {
+          type: "Tacos / Sandwich / Panini",
+          marketRange: "38 – 55 DH",
+          softCeiling: 55,
+          hardCeiling: 60,
+          portionAdvice: "Doser la viande à 90g (sandwich simple) ou 130g (mixte)."
+        };
+      }
+
+      // 7. SALADES
+      if (cat.includes('SALAD')) {
+        return {
+          type: "Salade Repas",
+          marketRange: "45 – 65 DH",
+          softCeiling: 65,
+          hardCeiling: 75,
+          portionAdvice: "Équilibrer les protéines nobles (poulet/thon/crevette 60g) et les crudités de base."
+        };
+      }
+
+      // 8. POISSONS / FRITURES
+      if (cat.includes('POISSON')) {
+        return {
+          type: "Plat Poisson / Friture",
+          marketRange: "85 – 120 DH",
+          softCeiling: 120,
+          hardCeiling: 135,
+          portionAdvice: "Plafonner le mix friture à 220g brut nettoyé."
+        };
+      }
+
+      // 9. DESSERTS
+      if (cat.includes('DESSERT')) {
+        return {
+          type: "Dessert & Pâtisserie",
+          marketRange: "28 – 40 DH",
+          softCeiling: 40,
+          hardCeiling: 48,
+          portionAdvice: "Optimiser les toppings coulis et éclats de fruits secs."
+        };
+      }
+
+      // 10. JUS FRAIS & SMOOTHIES
+      if (cat.includes('JUS') || cat.includes('SMOOTHIE')) {
+        return {
+          type: "Jus Frais / Smoothie",
+          marketRange: "28 – 42 DH",
+          softCeiling: 42,
+          hardCeiling: 48,
+          portionAdvice: "Éviter le surdosage de fruits secs onéreux (amandes, pistaches, avocat)."
+        };
+      }
+
+      // 11. CAFÉS & BOISSONS CHAUDES
+      if (cat.includes('CAFE') || cat.includes('BOISSON')) {
+        return {
+          type: "Café / Boisson chaude",
+          marketRange: "15 – 22 DH",
+          softCeiling: 22,
+          hardCeiling: 26,
+          portionAdvice: "Standardiser la dose café à 7.5g et lait à 120ml."
+        };
+      }
+
+      // 12. DÉFAUT CAFÉ-RESTAURANT
+      return {
+        type: "Café-Restaurant Standard",
+        marketRange: "45 – 80 DH",
+        softCeiling: 80,
+        hardCeiling: 90,
+        portionAdvice: "Standardiser les portions d'ingrédients principaux."
+      };
+    }
+  };
+
   // Analyse structurelle globale du catalogue de fiches
   function analyzeDatasetForOptimizations() {
     const quickWins = [];
@@ -587,14 +774,60 @@
         });
       }
 
-      // 2. PRICING POWER (Food Cost > 33% & prix > 0)
-      if (gc.foodCost > 33 && price > 0) {
-        const targetPrice28 = Math.ceil((gc.cost / 0.28) / 5) * 5;
-        const deltaPrice = targetPrice28 - price;
+      // 2. PRICING POWER SOUPLE — ÉTUDE DE MARCHÉ CAFÉ-RESTAURANT FÈS
+      // Le Food Cost cible est ramené à 32% (et non 27-28%), avec protection anti-fuite client
+      if (gc.foodCost > 33.5 && price > 0) {
+        const market = FES_CAFE_RESTAURANT_MARKET.getLimits(recipe.category, recipe.name);
+        const targetFoodCost = FES_CAFE_RESTAURANT_MARKET.TARGET_FOOD_COST; // 32%
+
+        // Prix théorique brut pour atteindre exactement 32% de Food Cost
+        const rawTargetPrice32 = gc.cost / targetFoodCost;
+        const step = price < 30 ? 2 : 5; // Palier de 5 DH (ou 2 DH pour petites boissons)
+        let theoreticalPrice = Math.ceil(rawTargetPrice32 / step) * step;
+
+        // Souplesse : Limitation de la hausse pour éviter la fuite de la clientèle
+        // Hausse max par palier : +18% max ou +20 DH max
+        const maxAllowedBump = Math.max(step, Math.min(FES_CAFE_RESTAURANT_MARKET.MAX_BUMP_DH, Math.ceil((price * FES_CAFE_RESTAURANT_MARKET.MAX_BUMP_PCT) / step) * step));
+        const maxSoftPrice = price + maxAllowedBump;
+
+        // Respect des seuils de marché fassi :
+        // Si le plat est sous le softCeiling, on ne dépasse pas le softCeiling en une seule fois
+        let recommendedPrice = theoreticalPrice;
+        if (price < market.softCeiling) {
+          recommendedPrice = Math.min(recommendedPrice, market.softCeiling);
+        } else {
+          recommendedPrice = Math.min(recommendedPrice, market.hardCeiling);
+        }
+
+        let isCappedByFlexibility = false;
+        let isCappedByMarket = false;
+
+        if (theoreticalPrice > market.hardCeiling) {
+          isCappedByMarket = true;
+          recommendedPrice = Math.min(recommendedPrice, market.hardCeiling);
+        }
+
+        if (recommendedPrice > maxSoftPrice) {
+          isCappedByFlexibility = true;
+          recommendedPrice = maxSoftPrice;
+        }
+
+        const deltaPrice = recommendedPrice - price;
 
         if (deltaPrice >= 2) {
           const monthlyPricingBoost = Math.round(deltaPrice * 50);
           totalPotentialPricingRev += monthlyPricingBoost;
+          const newFC = Math.round((gc.cost / recommendedPrice) * 1000) / 10;
+          const cashMarginDH = Math.round((recommendedPrice - gc.cost) * 100) / 100;
+
+          let marketWarningText = '';
+          if (isCappedByMarket) {
+            marketWarningText = `⚠️ <strong>Plafond Marché Fès atteint (${market.hardCeiling} DH) :</strong> Augmenter davantage ferait fuir la clientèle café-restaurant. Le levier prioritaire n'est pas le prix : ${market.portionAdvice}`;
+          } else if (isCappedByFlexibility) {
+            marketWarningText = `🛡️ <strong>Souplesse Anti-Fuite Client :</strong> Hausse progressive limitée à +${deltaPrice} DH (marché Fès : ${market.marketRange}). ${market.portionAdvice}`;
+          } else {
+            marketWarningText = `✅ Prix conforme au marché Café-Restaurant Fès (${market.marketRange}). Marge brute en espèces générée : <strong>+${cashMarginDH.toFixed(2)} DH / portion</strong>.`;
+          }
 
           pricingOpportunities.push({
             recipeName: recipe.name,
@@ -604,15 +837,19 @@
             currentCost: gc.cost,
             currentFC: gc.foodCost,
             currentPrice: price,
-            targetPrice: targetPrice28,
-            newFC: Math.round((gc.cost / targetPrice28) * 1000) / 10,
+            targetPrice: recommendedPrice,
+            newFC: newFC,
             deltaPrice: deltaPrice,
             monthlyGain: monthlyPricingBoost,
-            title: `Rehausse de Prix : ${price} DH ➔ ${targetPrice28} DH (+${deltaPrice} DH)`,
-            desc: `Food Cost sous tension à <strong>${gc.foodCost}%</strong> (coût matière : ${gc.cost.toFixed(2)} DH). Ajuster le tarif à <strong>${targetPrice28} DH</strong> réaligne la marge brute et ramène le ratio à <strong>${Math.round((gc.cost / targetPrice28) * 1000) / 10}%</strong>.`,
+            cashMarginDH: cashMarginDH,
+            marketInfo: market,
+            isCappedByMarket: isCappedByMarket,
+            isCappedByFlexibility: isCappedByFlexibility,
+            title: `Ajustement Souple Fès : ${price} DH ➔ ${recommendedPrice} DH (+${deltaPrice} DH)`,
+            desc: `Food Cost sous tension à <strong>${gc.foodCost}%</strong> (coût matière : ${gc.cost.toFixed(2)} DH). En modèle Café-Restaurant, la cible de Food Cost est ramenée à <strong>32%</strong>. Le tarif passe à <strong>${recommendedPrice} DH</strong> (Food Cost : <strong>${newFC}%</strong>, marge brute : <strong>+${cashMarginDH.toFixed(2)} DH</strong>).<br><span style="display:inline-block; margin-top:5px; font-size:11.5px; color:var(--text);">${marketWarningText}</span>`,
             actionType: 'apply_price',
-            actionParam: targetPrice28,
-            actionLabel: `💡 Fixer le prix à ${targetPrice28} DH`,
+            actionParam: recommendedPrice,
+            actionLabel: `💡 Fixer le prix à ${recommendedPrice} DH`,
             financialImpact: `+${monthlyPricingBoost.toLocaleString('fr-FR')} DH / mois (base 50 ventes)`
           });
         }
@@ -722,10 +959,10 @@
           </div>
           <div>
             <h3 class="ai-agent-title">
-              🤖 Agent Intelligent — Analyse des Ventes Journalières &amp; Revenus
+              🤖 Agent Intelligent — Optimisation Revenus &amp; Marché Café-Resto Fès
             </h3>
             <p class="ai-agent-subtitle">
-              Audit permanent &bull; Journée analysée : <strong>${salesCtx.isBenchmark ? 'Journée Type (125 ventes)' : salesCtx.effectiveDate}</strong> &bull; Perte surdosage aujourd'hui : <span style="color:#dc2626; font-weight:900;">-${dailySales.totalDailyLostMargin.toFixed(2)} DH</span>
+              Audit permanent &bull; Modèle Café-Restaurant Fès (Food Cost cible : <strong>32%</strong>) &bull; Journée analysée : <strong>${salesCtx.isBenchmark ? 'Journée Type (125 ventes)' : salesCtx.effectiveDate}</strong> &bull; Perte surdosage aujourd'hui : <span style="color:#dc2626; font-weight:900;">-${dailySales.totalDailyLostMargin.toFixed(2)} DH</span>
             </p>
           </div>
         </div>
@@ -784,7 +1021,7 @@
               <div class="ai-stat-sub">Gains immédiats &ge; 3.00 DH / assiette</div>
             </div>
             <div class="ai-stat-card">
-              <div class="ai-stat-label">💡 Leviers de Prix (Pricing)</div>
+              <div class="ai-stat-label">💡 Leviers de Prix Souples (Fès)</div>
               <div class="ai-stat-value" style="color:#0284c7;">${stats.pricingCount} plats</div>
               <div class="ai-stat-sub">+${stats.totalPotentialPricingRev.toLocaleString('fr-FR')} DH de marge additionnelle</div>
             </div>
@@ -805,7 +1042,7 @@
             🔥 Quick Wins (Catalogue) <span class="ai-pill-count">${stats.quickWinsCount}</span>
           </button>
           <button class="ai-pill ${currentAITab === 'pricing' ? 'active' : ''}" onclick="window.setAITab('pricing')">
-            💡 Optimisation Prix &amp; Menu <span class="ai-pill-count">${stats.pricingCount}</span>
+            💡 Optimisation Prix (Marché Fès) <span class="ai-pill-count">${stats.pricingCount}</span>
           </button>
           <button class="ai-pill ${currentAITab === 'standards' ? 'active' : ''}" onclick="window.setAITab('standards')">
             ⚖️ Réalignement Standards <span class="ai-pill-count">${stats.standardsCount}</span>
@@ -891,7 +1128,11 @@
                     <span class="ai-dish-cat">${escapeHtml(item.category)}</span>
                     <h4 class="ai-dish-name">${escapeHtml(item.recipeName)}</h4>
                   </div>
-                  ${item.monthlyGain ? `<span class="ai-gain-chip">💰 +${item.monthlyGain} DH/m</span>` : ''}
+                  <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+                    ${item.monthlyGain ? `<span class="ai-gain-chip">💰 +${item.monthlyGain.toLocaleString('fr-FR')} DH/m</span>` : ''}
+                    ${item.marketInfo ? `<span class="ai-market-badge">📍 Fès : ${item.marketInfo.marketRange}</span>` : ''}
+                    ${item.cashMarginDH ? `<span class="ai-cash-margin-chip">💵 Marge : +${item.cashMarginDH.toFixed(2)} DH</span>` : ''}
+                  </div>
                 </div>
 
                 ${item.currentFC ? `
@@ -903,7 +1144,7 @@
                       </span>
                     </div>
                     <div class="ai-metric-col">
-                      <span class="ai-metric-title">Objectif Optimisé</span>
+                      <span class="ai-metric-title">Objectif Café-Resto Fès</span>
                       <span class="ai-metric-val text-success">
                         ${item.stdFC ? `FC ${item.stdFC}% (${item.stdCost.toFixed(2)} DH)` : (item.targetPrice ? `${item.targetPrice} DH (FC ${item.newFC}%)` : `Marge saine`)}
                       </span>
@@ -988,8 +1229,8 @@
     }
 
     let rowsHTML = filtered.map((recipe, idx) => {
-      const gcFCColor = recipe.greyCorner.foodCost <= 28 ? '#16a34a' : (recipe.greyCorner.foodCost <= 35 ? '#d97706' : '#dc2626');
-      const stdFCColor = recipe.standard.foodCost <= 28 ? '#16a34a' : (recipe.standard.foodCost <= 35 ? '#d97706' : '#dc2626');
+      const gcFCColor = recipe.greyCorner.foodCost <= 32 ? '#16a34a' : (recipe.greyCorner.foodCost <= 38 ? '#d97706' : '#dc2626');
+      const stdFCColor = recipe.standard.foodCost <= 32 ? '#16a34a' : (recipe.standard.foodCost <= 38 ? '#d97706' : '#dc2626');
       const diffColor = recipe.standard.diffDH > 0 ? '#0284c7' : '#64748b';
 
       return `
@@ -999,7 +1240,7 @@
           <td style="padding:12px 14px; text-align:right; font-weight:700;">${recipe.sellPrice.toFixed(2)} DH</td>
           <td style="padding:12px 14px; text-align:right; font-weight:800;">
             ${recipe.greyCorner.cost.toFixed(2)} DH
-            <span style="display:inline-block; font-size:11px; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:800; background:rgba(${recipe.greyCorner.foodCost <= 28 ? '22,163,74,0.12' : (recipe.greyCorner.foodCost <= 35 ? '217,119,6,0.12' : '220,38,38,0.12')}); color:${gcFCColor};">
+            <span style="display:inline-block; font-size:11px; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:800; background:rgba(${recipe.greyCorner.foodCost <= 32 ? '22,163,74,0.12' : (recipe.greyCorner.foodCost <= 38 ? '217,119,6,0.12' : '220,38,38,0.12')}); color:${gcFCColor};">
               ${recipe.greyCorner.foodCost}%
             </span>
           </td>
@@ -1102,8 +1343,8 @@
 
   // Génération du code HTML d'une carte comparative 2-colonnes
   function createRecipeComparativeCardHTML(recipe, idx) {
-    const gcFCClass = recipe.greyCorner.foodCost <= 28 ? 'badge-ok' : (recipe.greyCorner.foodCost <= 38 ? 'badge-warn' : 'badge-danger');
-    const stdFCClass = recipe.standard.foodCost <= 28 ? 'badge-ok' : (recipe.standard.foodCost <= 38 ? 'badge-warn' : 'badge-danger');
+    const gcFCClass = recipe.greyCorner.foodCost <= 32 ? 'badge-ok' : (recipe.greyCorner.foodCost <= 38 ? 'badge-warn' : 'badge-danger');
+    const stdFCClass = recipe.standard.foodCost <= 32 ? 'badge-ok' : (recipe.standard.foodCost <= 38 ? 'badge-warn' : 'badge-danger');
 
     const diffBadge = recipe.standard.diffDH > 0 
       ? `<span id="badge-diff-${idx}" class="badge-gain" style="background:rgba(2, 132, 199, 0.1); color:#0284c7; border-color:rgba(2, 132, 199, 0.3);">Écart vs Standard : +${recipe.standard.diffDH.toFixed(2)} DH</span>`
@@ -1695,7 +1936,7 @@
     if (costEl) costEl.textContent = `${recipe.greyCorner.cost.toFixed(2)} DH`;
     if (fcEl) {
       fcEl.textContent = `${recipe.greyCorner.foodCost.toFixed(1)} %`;
-      fcEl.className = `badge ${recipe.greyCorner.foodCost <= 28 ? 'badge-ok' : (recipe.greyCorner.foodCost <= 38 ? 'badge-warn' : 'badge-danger')}`;
+      fcEl.className = `badge ${recipe.greyCorner.foodCost <= 32 ? 'badge-ok' : (recipe.greyCorner.foodCost <= 38 ? 'badge-warn' : 'badge-danger')}`;
     }
     if (marginEl) marginEl.textContent = `+${recipe.greyCorner.grossMarginDH.toFixed(2)} DH`;
 
