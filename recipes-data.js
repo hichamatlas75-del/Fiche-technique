@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-05T22:06:05.318Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-05T22:14:35.033Z
  */
 
 (function(global) {
@@ -3099,22 +3099,21 @@ const DATA = [
         "images": "images/plat-ballotine.jpg,images/plat-ballotine2.jpg,images/plat-ballotine3.jpg",
         "prepTime": 20,
         "tech": [
-          "Poulet : 250 g",
+          "Poulet : 200 g",
           "Épinard : 40 g",
           "Crème fraîche : 70 ml",
           "Parmesan : 20 g",
           "Cheddar : 60 g",
           "Beurre : 30 g",
           "Légumes : 220 g",
-          "Frites : 200 g",
-          "Pain : 1 p"
+          "Frites : 200 g"
         ],
         "price": "94 DH",
-        "cost": 33.05,
+        "cost": 28.55,
         "sellPrice": 94,
-        "foodCost": 35.2,
-        "margin": 64.8,
-        "grossMarginDH": 60.95,
+        "foodCost": 30.4,
+        "margin": 69.6,
+        "grossMarginDH": 65.45,
         "__key": "pl",
         "__images": [
           "images/plat-ballotine.jpg",
@@ -7656,15 +7655,14 @@ const BASE_RECIPES = [
     "name": "BALLOTINE DE POULET",
     "category": "PLATS",
     "ingredients": [
-      "Poulet : 250 g",
+      "Poulet : 200 g",
       "Épinard : 40 g",
       "Crème fraîche : 70 ml",
       "Parmesan : 20 g",
       "Cheddar : 60 g",
       "Beurre : 30 g",
       "Légumes : 220 g",
-      "Frites : 200 g",
-      "Pain : 1 p"
+      "Frites : 200 g"
     ],
     "sellPrice": 94,
     "price": "94 DH"
