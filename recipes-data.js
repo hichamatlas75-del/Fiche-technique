@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-04T19:47:05.064Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-05T09:28:31.191Z
  */
 
 (function(global) {
@@ -3193,12 +3193,12 @@ const DATA = [
           "Frites : 200 g",
           "Huile : 60 ml"
         ],
-        "price": "103 DH",
+        "price": "115 DH",
         "cost": 44.19,
-        "sellPrice": 103,
-        "foodCost": 42.9,
-        "margin": 57.1,
-        "grossMarginDH": 58.81,
+        "sellPrice": 115,
+        "foodCost": 38.4,
+        "margin": 61.6,
+        "grossMarginDH": 70.81,
         "__key": "pl",
         "__images": [
           "images/plat-eminceboeuf.jpg",
@@ -7661,7 +7661,9 @@ const BASE_RECIPES = [
       "Légumes : 220 g",
       "Frites : 200 g",
       "Pain : 1 p"
-    ]
+    ],
+    "sellPrice": 94,
+    "price": "94 DH"
   },
   {
     "id": "pl_supreme_de_poulet",
@@ -7711,7 +7713,9 @@ const BASE_RECIPES = [
       "Fokacha : 150 g",
       "Frites : 200 g",
       "Huile : 60 ml"
-    ]
+    ],
+    "sellPrice": 115,
+    "price": "115 DH"
   },
   {
     "id": "pl_filet_de_boeuf",
