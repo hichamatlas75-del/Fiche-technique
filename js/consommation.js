@@ -6,100 +6,14 @@ const ALIAS_MAP = window.ALIAS_MAP || {};
 const DATA = window.DATA || window.CATEGORIES_DATA || [];
 const INGREDIENT_UNIT_COSTS = window.INGREDIENT_UNIT_COSTS || {};
 
+// BUG FIX: Déléguer au calculateur canonique centralisé (recipes-data.js) qui intègre
+// le routage intelligent des fruits de mer (calamar congelé/décongelé, crevettes, saumon)
 function calculateRecipeFoodCost(ingredients, sellPrice) {
-  if (typeof window.calculateRecipeFoodCost === 'function' && window.calculateRecipeFoodCost !== calculateRecipeFoodCost) {
+  if (typeof window !== 'undefined' && typeof window.calculateRecipeFoodCost === 'function' && window.calculateRecipeFoodCost !== calculateRecipeFoodCost) {
     return window.calculateRecipeFoodCost(ingredients, sellPrice);
   }
-  let totalCost = 0;
-  const breakdown = [];
-  const validSellPrice = typeof sellPrice === 'number' && sellPrice > 0 ? sellPrice : parseFloat(String(sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
-  const costMap = window.INGREDIENT_UNIT_COSTS || INGREDIENT_UNIT_COSTS;
-
-  const cleanStr = (s) => (s || '').toLowerCase().replace(/œ/g, 'oe').replace(/æ/g, 'ae').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
-  const stripPlural = (s) => s.split(' ').map(w => w.endsWith('s') && w.length > 3 ? w.slice(0, -1) : w).join(' ');
-
-  (ingredients || []).forEach(line => {
-    if (!line || typeof line !== 'string') return;
-    const parts = line.split(':');
-    const ingName = parts[0].trim();
-    const qtyStr = parts.length > 1 ? parts.slice(1).join(':').trim() : '1 p';
-
-    const normIng = cleanStr(ingName);
-    const normIngSingular = stripPlural(normIng);
-    let ingDef = costMap[normIng] || costMap[normIngSingular];
-
-    if (!ingDef) {
-      const sortedKeys = Object.keys(costMap).sort((a, b) => b.length - a.length);
-      for (const k of sortedKeys) {
-        const normK = cleanStr(k);
-        const normKSingular = stripPlural(normK);
-        if (normIng === normK || normIngSingular === normKSingular || normIng.includes(normK) || normK.includes(normIng) || normIngSingular.includes(normKSingular) || normKSingular.includes(normIngSingular)) {
-          ingDef = costMap[k];
-          break;
-        }
-      }
-    }
-
-    if (!ingDef) {
-      ingDef = { cost: 0.02, unit: "g" };
-    }
-
-    let qty = 1;
-    const gMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*g\b/i);
-    const kgMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*kg\b/i);
-    const mlMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*ml\b/i);
-    const clMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*cl\b/i);
-    const lMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*l\b/i);
-    const pMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*(?:p|piece|tranche|part|boule|sachet|portion|tr)\b/i);
-
-    if (ingDef.unit === 'g') {
-      if (gMatch) qty = parseFloat(gMatch[1].replace(',', '.'));
-      else if (kgMatch) qty = parseFloat(kgMatch[1].replace(',', '.')) * 1000;
-      else if (pMatch) qty = parseFloat(pMatch[1].replace(',', '.')) * 50;
-      else qty = parseFloat(qtyStr.replace(',', '.')) || 1;
-    } else if (ingDef.unit === 'ml') {
-      if (mlMatch) qty = parseFloat(mlMatch[1].replace(',', '.'));
-      else if (clMatch) qty = parseFloat(clMatch[1].replace(',', '.')) * 10;
-      else if (lMatch) qty = parseFloat(lMatch[1].replace(',', '.')) * 1000;
-      else qty = parseFloat(qtyStr.replace(',', '.')) || 100;
-    } else {
-      if (normIng.includes('canette') || normIng.includes('coca') || normIng.includes('sprite') || normIng.includes('hawai') || normIng.includes('poms') || normIng.includes('orangina') || normIng.includes('schweppes') || normIng.includes('red bull') || normIng.includes('bouteille')) {
-        qty = 1;
-      } else if (pMatch) {
-        qty = parseFloat(pMatch[1].replace(',', '.'));
-      } else {
-        qty = parseFloat(qtyStr.replace(',', '.')) || 1;
-      }
-    }
-
-    const lineCost = qty * ingDef.cost;
-    totalCost += lineCost;
-
-    breakdown.push({
-      ingredient: ingName,
-      quantity: qtyStr,
-      qtyNumber: qty,
-      unit: ingDef.unit,
-      unitPrice: ingDef.cost,
-      cost: Math.round(lineCost * 100) / 100
-    });
-  });
-
-  const finalCost = Math.round(totalCost * 100) / 100;
-  const foodCostPct = validSellPrice > 0 ? Math.round((finalCost / validSellPrice) * 1000) / 10 : 0;
-  const marginPct = validSellPrice > 0 ? Math.round(((validSellPrice - finalCost) / validSellPrice) * 1000) / 10 : 0;
-  const grossMarginDH = validSellPrice > 0 ? Math.round((validSellPrice - finalCost) * 100) / 100 : 0;
-
-  return {
-    cost: finalCost,
-    sellPrice: validSellPrice,
-    foodCost: foodCostPct,
-    margin: marginPct,
-    grossMarginDH: grossMarginDH,
-    breakdown: breakdown
-  };
+  return { cost: 0, sellPrice: 0, foodCost: 0, margin: 0, grossMarginDH: 0, breakdown: [] };
 }
-window.calculateRecipeFoodCost = calculateRecipeFoodCost;
 
 /* ========================================================
    3. GESTION DU STOCKAGE DES RECETTES & BASE DE VENTES MENSUELLE
@@ -2038,7 +1952,7 @@ function downloadUpdatedRecipesDataJs() {
     content += `const INGREDIENT_CATEGORIES = ${JSON.stringify(catObj, null, 2)};\n\n`;
     content += `const INGREDIENT_UNIT_COSTS = ${JSON.stringify(unitCostsObj, null, 2)};\n\n`;
     content += `${fnStr}\n\n`;
-    content += `global.CATEGORIES_DATA = DATA;\nglobal.DATA = DATA;\nglobal.BASE_RECIPES = BASE_RECIPES;\nglobal.ALIAS_MAP = ALIAS_MAP;\nglobal.INGREDIENT_CATEGORIES = INGREDIENT_CATEGORIES;\nglobal.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\nglobal.calculateRecipeFoodCost = calculateRecipeFoodCost;\nif (typeof window !== 'undefined') {\n  window.calculateRecipeFoodCost = calculateRecipeFoodCost;\n  window.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\n}\n})(typeof window !== 'undefined' ? window : globalThis);\n`;
+    content += `global.CATEGORIES_DATA = DATA;\nglobal.DATA = DATA;\nglobal.BASE_RECIPES = BASE_RECIPES;\nglobal.ALIAS_MAP = ALIAS_MAP;\nglobal.INGREDIENT_CATEGORIES = INGREDIENT_CATEGORIES;\nglobal.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\nglobal.calculateRecipeFoodCost = calculateRecipeFoodCost;\nif (typeof window !== 'undefined') {\n  window.calculateRecipeFoodCost = calculateRecipeFoodCost;\n  window.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\n  window.DATA = DATA;\n  window.CATEGORIES_DATA = DATA;\n  window.BASE_RECIPES = BASE_RECIPES;\n}\n})(typeof window !== 'undefined' ? window : globalThis);\n`;
 
     const blob = new Blob([content], { type: "application/javascript;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -2101,7 +2015,7 @@ function loadCustomIngredientPrices() {
     const saved = localStorage.getItem('gc_ingredient_prices_v1');
     if (saved) {
       const customPrices = JSON.parse(saved);
-      const obsolete = ['calamar', 'calamars', 'calamar congele', 'calamars congeles', 'calamars brut', 'calamars net', 'calamar egoutte', 'calamars egouttes', 'calamar chair', 'calamars chair', 'crevette', 'crevettes', 'crevette avec coquille', 'crevettes avec coquille', 'crevette brut', 'crevette chair', 'crevettes chair', 'crevette chair pure', 'crevettes chair pure', 'crevette chair pur', 'crevettes chair pur', 'gambas', 'gambas avec coquille', 'gambas chair', 'gambas chair pure', 'gambas chair pur', 'gambas panees', 'gambas poche', 'gambas pochee', 'gambas decortiquees', 'saumon', 'saumon frais', 'saumon sans carcasse', 'saumon avec carcasse', 'saumon fumee'];
+      const obsolete = window.OBSOLETE_INGREDIENT_KEYS ? Array.from(window.OBSOLETE_INGREDIENT_KEYS) : ['calamar', 'calamars', 'calamar congele', 'calamars congeles', 'calamars brut', 'calamars net', 'calamar egoutte', 'calamars egouttes', 'calamar chair', 'calamars chair', 'crevette', 'crevettes', 'crevette avec coquille', 'crevettes avec coquille', 'crevette brut', 'crevette chair', 'crevettes chair', 'crevette chair pure', 'crevettes chair pure', 'crevette chair pur', 'crevettes chair pur', 'gambas', 'gambas avec coquille', 'gambas chair', 'gambas chair pure', 'gambas chair pur', 'gambas panees', 'gambas poche', 'gambas pochee', 'gambas decortiquees', 'saumon', 'saumon frais', 'saumon sans carcasse', 'saumon avec carcasse', 'saumon fumee'];
       obsolete.forEach(k => { delete customPrices[k]; if (typeof window.INGREDIENT_UNIT_COSTS !== 'undefined') delete window.INGREDIENT_UNIT_COSTS[k]; });
       if (typeof window.INGREDIENT_UNIT_COSTS !== 'undefined') {
         Object.assign(window.INGREDIENT_UNIT_COSTS, customPrices);

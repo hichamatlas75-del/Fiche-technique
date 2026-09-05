@@ -28,23 +28,24 @@
 <script src="js/prices-modal.js?v=7.7"></script>
 </head>
 <body>
-<header>
-  <div class="container head">
-    <div class="brand">
-      <div class="logo-badge">GC</div>
-      <div class="ttl-group">
-        <div class="ttl">Grey Corner <span>Matières Premières</span></div>
-        <div class="sub-ttl">Déstockage Théorique, Food Cost & Contrôle de Gestion</div>
+<!-- HEADER UNIFIÉ (Design System Grey Corner) -->
+<header class="app-header">
+  <div class="container app-header-content">
+    <div class="app-brand">
+      <div class="brand-badge">GC</div>
+      <div class="brand-info">
+        <div class="brand-title">Grey Corner <span>Matières Premières</span></div>
+        <div class="brand-subtitle">Déstockage Théorique, Food Cost &amp; Contrôle de Gestion</div>
       </div>
     </div>
-    <div class="nav-actions">
+    <div class="app-header-nav">
       <span class="badge-status-sync" id="sync-status-badge" style="display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:800; background:rgba(22, 163, 74, 0.12); color:#16a34a; border:1px solid rgba(22, 163, 74, 0.3); padding:5px 10px; border-radius:20px;">
         🟢 Ventes Connectées
       </span>
       <a href="index.html" class="btn btn-secondary" title="Retourner aux fiches techniques cuisine">🍽️ Cuisine</a>
       <a href="audit.html" class="btn btn-secondary" title="Ouvrir la page dédiée à l'Audit Flash Manuel de Stock">⚡ Audit Flash</a>
-      <a href="comparateur.html" class="btn btn-secondary" title="Comparateur Fiches Grey Corner vs Normes Internationales">⚖️ Normes & Comparateur</a>
-      <button class="btn btn-primary" onclick="window.GC_PricesModal.open()" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
+      <a href="comparateur.html" class="btn btn-secondary" title="Comparateur Fiches Grey Corner vs Normes Internationales">⚖️ Normes &amp; Comparateur</a>
+      <button class="btn btn-secondary" onclick="window.GC_PricesModal ? window.GC_PricesModal.open() : (window.openPricesModal ? window.openPricesModal() : null)" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
       <button class="btn btn-secondary" onclick="window.forceCacheRefresh()" title="Forcer la mise à jour et recharger les dernières données">🔄 Actualiser</button>
       
       <!-- MENU DÉROULANT ACTIONS -->
@@ -54,7 +55,7 @@
           <button type="button" class="dropdown-item" style="width:100%; text-align:left; padding:8px 14px; background:none; border:none; color:var(--text, #0f172a); font-size:12.5px; font-weight:700; cursor:pointer;" onclick="document.getElementById('btn-export-excel')?.click(); document.getElementById('dropdown-actions-menu').style.display='none';">📥 Exporter Excel (.xlsx)</button>
           <button type="button" class="dropdown-item" style="width:100%; text-align:left; padding:8px 14px; background:none; border:none; color:var(--text, #0f172a); font-size:12.5px; font-weight:700; cursor:pointer;" onclick="window.print(); document.getElementById('dropdown-actions-menu').style.display='none';">🖨️ Imprimer le Rapport</button>
           <hr style="margin:4px 0; border:none; border-top:1px solid var(--border, #e2e8f0);" />
-          <button type="button" class="dropdown-item" style="width:100%; text-align:left; padding:8px 14px; background:none; border:none; color:#dc2626; font-size:12.5px; font-weight:700; cursor:pointer;" onclick="if(confirm('Voulez-vous forcer l\'actualisation et réinitialiser les données ?')){window.forceCacheRefresh();}">🔄 Vider le Cache & Forcer l'Actualisation</button>
+          <button type="button" class="dropdown-item" style="width:100%; text-align:left; padding:8px 14px; background:none; border:none; color:#dc2626; font-size:12.5px; font-weight:700; cursor:pointer;" onclick="if(confirm('Voulez-vous forcer l\'actualisation et réinitialiser les données ?')){window.forceCacheRefresh();}">🔄 Vider le Cache &amp; Forcer l'Actualisation</button>
         </div>
       </div>
 
@@ -709,5 +710,10 @@
 
 <!-- Logique Métier Déstockage & Contrôle de Gestion -->
 <script src="js/consommation.js?v=7.7"></script>
+<script>
+  if (typeof window.initThemeManager === 'function') {
+    window.initThemeManager('theme-toggle');
+  }
+</script>
 </body>
 </html>

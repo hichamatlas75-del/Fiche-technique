@@ -149,23 +149,23 @@
 </head>
 <body>
 
-  <!-- HEADER NAVIGATION -->
+  <!-- HEADER NAVIGATION UNIFIÉ -->
   <header class="app-header">
-    <div class="container head" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-      <div class="brand" style="display:flex; align-items:center; gap:12px;">
-        <div class="logo-badge" style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg, #0284c7, #38bdf8); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:17px; color:#fff;">GC</div>
-        <div class="ttl-group">
-          <div class="ttl">Grey Corner <span style="color:var(--accent);">⚡ Audit Flash</span></div>
-          <div class="sub-ttl" style="font-size:11px; color:var(--text-muted); font-weight:600;">Contrôle Manuel des Stocks & Diagnostic des Écarts</div>
+    <div class="container app-header-content">
+      <div class="app-brand">
+        <div class="brand-badge">GC</div>
+        <div class="brand-info">
+          <div class="brand-title">Grey Corner <span>⚡ Audit Flash</span></div>
+          <div class="brand-subtitle">Contrôle Manuel des Stocks &amp; Écarts</div>
         </div>
       </div>
-      <div class="header-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+      <div class="app-header-nav">
+        <button class="btn btn-secondary" onclick="window.GC_PricesModal ? window.GC_PricesModal.open() : (window.openPricesModal ? window.openPricesModal() : null)" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
         <button class="btn btn-secondary" onclick="window.forceCacheRefresh()" title="Forcer la mise à jour et recharger les dernières données">🔄 Actualiser</button>
-        <button class="btn btn-primary" onclick="window.GC_PricesModal.open()" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
-        <button class="btn btn-secondary" onclick="toggleAppTheme()" title="Basculer le thème">🌓 Thème</button>
+        <button id="theme-toggle" class="btn btn-secondary" title="Basculer le thème">🌓 Thème</button>
         <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">🍽️ Cuisine</a>
         <a href="consommation.html" class="btn btn-secondary" style="text-decoration:none;">📊 Déstockage</a>
-        <a href="comparateur.html" class="btn btn-secondary" style="text-decoration:none;">⚖️ Normes & Comparateur</a>
+        <a href="comparateur.html" class="btn btn-secondary" style="text-decoration:none;">⚖️ Normes &amp; Comparateur</a>
       </div>
     </div>
   </header>
@@ -422,5 +422,10 @@
   </main>
 
   <script src="js/audit-flash-page.js?v=7.7"></script>
+  <script>
+    if (typeof window.initThemeManager === 'function') {
+      window.initThemeManager('theme-toggle');
+    }
+  </script>
 </body>
 </html>

@@ -24,20 +24,20 @@
 </head>
 <body>
 
-  <!-- HEADER NAVIGATION -->
+  <!-- HEADER NAVIGATION UNIFIÉ -->
   <header class="app-header">
-    <div class="container head">
-      <div class="brand">
-        <div class="logo-badge">GC</div>
-        <div class="ttl-group">
-          <div class="ttl">Grey Corner <span>⚖️ Fiches Techniques vs Normes Int.</span></div>
-          <div class="sub-ttl">Gestion Opérationnelle & Comparatif des Standards F&B</div>
+    <div class="container app-header-content">
+      <div class="app-brand">
+        <div class="brand-badge">GC</div>
+        <div class="brand-info">
+          <div class="brand-title">Grey Corner <span>⚖️ Normes &amp; Comparateur</span></div>
+          <div class="brand-subtitle">Gestion Opérationnelle &amp; Standards F&amp;B</div>
         </div>
       </div>
-      <div class="header-actions">
-        <button class="btn btn-primary" onclick="window.GC_PricesModal.open()" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
+      <div class="app-header-nav">
+        <button class="btn btn-secondary" onclick="window.GC_PricesModal ? window.GC_PricesModal.open() : (window.openPricesModal ? window.openPricesModal() : null)" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
         <button class="btn btn-secondary" onclick="window.forceCacheRefresh()" title="Forcer la mise à jour et recharger les dernières données">🔄 Actualiser</button>
-        <button id="theme-toggle" class="btn btn-secondary" onclick="window.toggleAppTheme ? window.toggleAppTheme() : document.body.classList.toggle('dark-theme')" title="Basculer le thème">🌓 Thème</button>
+        <button id="theme-toggle" class="btn btn-secondary" title="Basculer le thème">🌓 Thème</button>
         <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">🍽️ Cuisine</a>
         <a href="consommation.html" class="btn btn-secondary" style="text-decoration:none;">📊 Déstockage</a>
         <a href="audit.html" class="btn btn-secondary" style="text-decoration:none;">⚡ Audit Flash</a>
@@ -105,25 +105,27 @@
   </main>
 
   <script>
-    // Gestion du thème sombre/clair
-    function toggleAppTheme() {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      if (isDark) {
-        document.documentElement.removeAttribute('data-theme');
-        try { localStorage.setItem('gc_theme', 'light'); } catch(e){}
-      } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        try { localStorage.setItem('gc_theme', 'dark'); } catch(e){}
+    if (typeof window.initThemeManager === 'function') {
+      window.initThemeManager('theme-toggle');
+    } else {
+      function toggleAppTheme() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+          document.documentElement.removeAttribute('data-theme');
+          try { localStorage.setItem('gc_theme', 'light'); } catch(e){}
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          try { localStorage.setItem('gc_theme', 'dark'); } catch(e){}
+        }
       }
-    }
-    window.toggleAppTheme = toggleAppTheme;
-    (function initTheme() {
+      window.toggleAppTheme = toggleAppTheme;
+      const btn = document.getElementById('theme-toggle');
+      if (btn) btn.addEventListener('click', toggleAppTheme);
       try {
         const saved = localStorage.getItem('gc_theme');
         if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-        else document.documentElement.removeAttribute('data-theme');
       } catch(e){}
-    })();
+    }
   </script>
 
 </body>

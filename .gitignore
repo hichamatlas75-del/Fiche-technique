@@ -14,3 +14,6 @@ Desktop.ini
 # Temporary Excel locks
 ~$*.xlsx
 ~$*.xls
+
+# OneDrive reparse point
+GitHub

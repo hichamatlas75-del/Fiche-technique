@@ -604,14 +604,14 @@
           service: 'Service Soir',
           auditor: 'Hicham (Manager)',
           itemsCount: 4,
-          totalImpactDH: 34.50,
+          totalImpactDH: 33.90,
           conformityRate: 75,
           status: '⚠️ Surconsommation Modérée',
           items: [
             { name: 'Mozzarella', unit: 'g', sInit: 10000, achats: 5000, sFinal: 6800, consReelle: 8200, theo: 8000, casse: 0, consAttendue: 8000, ecart: 200, ecartPct: 2.5, prix: 55, impactDH: 11.00, statusBadge: '✅ CONFORME', statusClass: 'ok' },
-            { name: 'Crevettes avec coquille', unit: 'g', sInit: 6000, achats: 4000, sFinal: 3200, consReelle: 6800, theo: 6400, casse: 100, consAttendue: 6500, ecart: 300, ecartPct: 4.6, prix: 58, impactDH: 17.40, statusBadge: '⚠️ SURDOSAGE MODÉRÉ', statusClass: 'warn' },
+            { name: 'Crevettes avec coquille', unit: 'g', sInit: 6000, achats: 4000, sFinal: 3200, consReelle: 6800, theo: 6400, casse: 100, consAttendue: 6500, ecart: 300, ecartPct: 4.6, prix: 55, impactDH: 16.50, statusBadge: '⚠️ SURDOSAGE MODÉRÉ', statusClass: 'warn' },
             { name: 'Viande hachée', unit: 'g', sInit: 8000, achats: 5000, sFinal: 5400, consReelle: 7600, theo: 7500, casse: 0, consAttendue: 7500, ecart: 100, ecartPct: 1.3, prix: 90, impactDH: 9.00, statusBadge: '✅ CONFORME', statusClass: 'ok' },
-            { name: 'Calamar congelé', unit: 'g', sInit: 5000, achats: 3000, sFinal: 4100, consReelle: 3900, theo: 3950, casse: 0, consAttendue: 3950, ecart: -50, ecartPct: -1.3, prix: 58, impactDH: -2.90, statusBadge: '📉 SOUS-DOSAGE', statusClass: 'under' }
+            { name: 'Calamar congelé', unit: 'g', sInit: 5000, achats: 3000, sFinal: 4100, consReelle: 3900, theo: 3950, casse: 0, consAttendue: 3950, ecart: -50, ecartPct: -1.3, prix: 52, impactDH: -2.60, statusBadge: '📉 SOUS-DOSAGE', statusClass: 'under' }
           ]
         }
       ];

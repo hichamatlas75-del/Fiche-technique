@@ -148,8 +148,12 @@
       const saved = localStorage.getItem('gc_ingredient_prices_v1');
       if (saved) {
         const parsed = JSON.parse(saved);
-        // BUG-04 FIX : utiliser la liste centralisée depuis core-utils.js
-        const obsolete = window.OBSOLETE_INGREDIENT_KEYS || new Set(['calamar', 'calamars', 'crevette', 'crevettes', 'gambas', 'saumon']);
+        const obsolete = window.OBSOLETE_INGREDIENT_KEYS || new Set([
+          'calamar', 'calamars', 'calamar congele', 'calamars congeles', 'calamars brut', 'calamars net', 'calamar egoutte', 'calamars egouttes', 'calamar chair', 'calamars chair',
+          'crevette', 'crevettes', 'crevette avec coquille', 'crevettes avec coquille', 'crevette brut', 'crevette chair', 'crevettes chair', 'crevette chair pure', 'crevettes chair pure', 'crevette chair pur', 'crevettes chair pur',
+          'gambas', 'gambas avec coquille', 'gambas chair', 'gambas chair pure', 'gambas chair pur', 'gambas panees', 'gambas poche', 'gambas pochee', 'gambas decortiquees',
+          'saumon', 'saumon frais', 'saumon sans carcasse', 'saumon avec carcasse', 'saumon fumee'
+        ]);
         obsolete.forEach(k => { delete parsed[k]; if (window.INGREDIENT_UNIT_COSTS) delete window.INGREDIENT_UNIT_COSTS[k]; });
         if (!window.INGREDIENT_UNIT_COSTS) window.INGREDIENT_UNIT_COSTS = {};
         Object.assign(window.INGREDIENT_UNIT_COSTS, parsed);
