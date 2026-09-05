@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-05T19:44:26.893Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-05T22:06:05.318Z
  */
 
 (function(global) {
@@ -3699,17 +3699,17 @@ const DATA = [
           "Pain : 1 p",
           "Crevette chair : 40 g",
           "calamar chair : 40 g",
-          "Sauce cocktail : 120 g",
+          "Sauce cocktail : 50 g",
           "Salade : 20 g",
           "Tomate : 20 g",
           "FRITTES : 200 g"
         ],
         "price": "65 DH",
-        "cost": 24.52,
+        "cost": 22.42,
         "sellPrice": 65,
-        "foodCost": 37.7,
-        "margin": 62.3,
-        "grossMarginDH": 40.48,
+        "foodCost": 34.5,
+        "margin": 65.5,
+        "grossMarginDH": 42.58,
         "__key": "sw",
         "__images": [
           "images/sand-fruitsmer.jpg"
@@ -8002,7 +8002,7 @@ const BASE_RECIPES = [
       "Pain : 1 p",
       "Crevette chair : 40 g",
       "calamar chair : 40 g",
-      "Sauce cocktail : 120 g",
+      "Sauce cocktail : 50 g",
       "Salade : 20 g",
       "Tomate : 20 g",
       "FRITTES : 200 g"
