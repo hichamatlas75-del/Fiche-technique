@@ -3885,6 +3885,20 @@ function renderMenuEngineeringMatrix() {
       return;
     }
 
+    // Exclusion métier stricte : Sodas, Eaux minérales & Suppléments/Extras cuisine
+    const checkExcludedME = typeof isExcludedFromMenuEngineering === 'function'
+      ? isExcludedFromMenuEngineering
+      : (typeof window !== 'undefined' && typeof window.isExcludedFromMenuEngineering === 'function' ? window.isExcludedFromMenuEngineering : null);
+
+    if (checkExcludedME) {
+      if (checkExcludedME(sale.product, recipe ? recipe.category : '', sale.family, recipe ? (recipe.__key || recipe.key) : '')) {
+        return;
+      }
+    } else {
+      if (famClean.includes('soda') || famClean.includes('eau') || famClean.includes('extra') || famClean.includes('supp')) return;
+      if (prodClean.includes('coca') || prodClean.includes('sidi ali') || prodClean.startsWith('supp') || prodClean.startsWith('extra')) return;
+    }
+
     distinctFamilies.add(family);
 
     const totalCA = sale.total || 0;

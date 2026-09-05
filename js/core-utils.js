@@ -363,6 +363,104 @@
     }
   };
 
+  /**
+   * Détermine si un article doit être exclu de l'analyse Menu Engineering (Kasavana & Smith)
+   * Règle d'exclusion métier :
+   * 1. Sodas (boîtes/canettes de revente préemballées : Coca, Sprite, Fanta, Hawaï, Poms, Schweppes, etc.)
+   * 2. Eaux minérales & gazeuses (Sidi Ali, Aïn Saïss, Oulmès, etc.)
+   * 3. Suppléments & Extras cuisine (Supp frites, supp fromage, supp sauce, extra steak, etc.)
+   * 4. Consommations personnel & Articles internes ("A la carte")
+   */
+  function isExcludedFromMenuEngineering(name, category, family, recipeKey) {
+    const p = cleanText(name || '');
+    const c = cleanText(category || '');
+    const f = cleanText(family || '');
+    const k = (recipeKey || '').toString().toLowerCase();
+
+    // Raccourci par clé de catégorie SSOT (recipes-data.js)
+    if (k === 'sd' || k === 'ea' || k === 'sup') {
+      return true;
+    }
+
+    // Protection des boissons artisanales préparées (Cocktails, Mocktails, Smoothies, Jus frais)
+    const isCraftBeverage = (
+      c.includes('cocktail') || c.includes('mocktail') ||
+      c.includes('smoothie') || c.includes('jus frais') ||
+      p.includes('mojito') || p.includes('smoothie')
+    );
+
+    // 1. EXCLUSION DES SODAS
+    if (!isCraftBeverage) {
+      if (
+        c.includes('soda') || c.includes('boissons fraiches') ||
+        f === 'soda' || f === 'sodas' || f.includes('soda')
+      ) {
+        return true;
+      }
+      const isSodaName = (
+        p.includes('coca') || p.includes('sprite') || p.includes('fanta') ||
+        p.includes('hawai') || p.includes('poms') || p.includes('schweppes') ||
+        p.includes('schwep') || p.includes('orangina') || p.includes('pepsi') ||
+        p.includes('7up') || p.includes('seven up') || p.includes('mirinda') ||
+        p.includes('canette') || p.startsWith('soda') || p === 'soda' ||
+        p.includes('red bull') || p.includes('redbull')
+      );
+      if (isSodaName) return true;
+    }
+
+    // 2. EXCLUSION DES EAUX MINÉRALES & GAZEUSES
+    if (
+      c.includes('eau minerale') || c.includes('eaux minerales') ||
+      c.includes('eau gazeuse') || c.includes('eaux gazeuses') ||
+      c === 'eaux' || c === 'eau' || c.startsWith('eaux ') || c.startsWith('eau ') ||
+      f === 'eau' || f === 'eaux' || f.includes('eau minerale') || f.includes('eau gazeuse')
+    ) {
+      return true;
+    }
+    const isWaterName = (
+      p.includes('sidi ali') || p.includes('ain saiss') || p.includes('oulmes') ||
+      p.includes('san pellegrino') || p.includes('pellegrino') || p.includes('evian') ||
+      p.includes('eau minerale') || p.includes('eau gazeuse') || p.includes('eau plate') ||
+      p.includes('bouteille d eau') || p.includes('bouteille eau') ||
+      p === 'eau' || p === 'eaux' || p.startsWith('eau ') || p.startsWith('eaux ') ||
+      p.includes('eau 33') || p.includes('eau 50') || p.includes('eau 75') || p.includes('eau 1l') || p.includes('eau 1 5')
+    );
+    if (isWaterName) return true;
+
+    // 3. EXCLUSION DES SUPPLÉMENTS & EXTRAS CUISINE
+    if (
+      c.includes('supplement') || c.includes('extra') ||
+      f.includes('supplement') || f.includes('extra') || f.startsWith('supp')
+    ) {
+      return true;
+    }
+    const isExtraName = (
+      p.startsWith('supp ') || p.startsWith('supplement ') ||
+      p.startsWith('extra ') || p.startsWith('extra-') ||
+      p.includes('supp cuisine') || p.includes('extra cuisine') ||
+      p.includes('supplement cuisine') ||
+      p.includes('supp frite') || p.includes('supp puree') || p.includes('supp potatos') ||
+      p.includes('supp fromage') || p.includes('supp cheese') || p.includes('supp cheddar') ||
+      p.includes('supp mozza') || p.includes('supp sauce') || p.includes('supp viande') ||
+      p.includes('supp steak') || p.includes('supp poulet') || p.includes('supp oeuf') ||
+      p.includes('supp pain') || p.includes('supp champignon') ||
+      p.includes('extra fromage') || p.includes('extra cheese') || p.includes('extra sauce') ||
+      p.includes('extra frite') || p.includes('extra viande') || p.includes('extra steak') ||
+      p.includes('extra poulet') || p.includes('extra oeuf')
+    );
+    if (isExtraName) return true;
+
+    // 4. EXCLUSION DES CONSOMMATIONS INTERNES / PERSONNEL / A LA CARTE
+    if (
+      c.includes('a la carte') || f.includes('a la carte') ||
+      c.includes('personnel') || f.includes('personnel') || p.includes('personnel')
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
   global.cleanText = cleanText;
   global.escapeHtml = escapeHtml;
   global.applyTheme = applyTheme;
@@ -378,4 +476,5 @@
   global.OBSOLETE_INGREDIENT_KEYS = OBSOLETE_INGREDIENT_KEYS;
   global.forceCacheRefresh = forceCacheRefresh;
   global.APP_DATA_VERSION = APP_DATA_VERSION;
+  global.isExcludedFromMenuEngineering = isExcludedFromMenuEngineering;
 })(typeof window !== 'undefined' ? window : globalThis);

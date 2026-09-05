@@ -357,7 +357,10 @@
     { product: "Panini Poulet", qty: 14, price: 44, family: "PANINI" },
     { product: "Mojito Red Bull", qty: 15, price: 44, family: "BOISSONS" },
     { product: "Chocolat Chaud", qty: 12, price: 18, family: "BOISSONS" },
-    { product: "Smoothie Énergétique", qty: 4, price: 42, family: "JUS" }
+    { product: "Smoothie Énergétique", qty: 4, price: 42, family: "JUS" },
+    { product: "Coca-Cola 33cl", qty: 32, price: 17, family: "SODAS" },
+    { product: "Eau Minérale 50cl", qty: 26, price: 12, family: "EAUX" },
+    { product: "Supplément Frites", qty: 14, price: 15, family: "SUPPLÉMENTS" }
   ];
 
   window.setAITab = function(tab) {
@@ -553,6 +556,12 @@
   function analyzeMenuEngineering(salesRows) {
     const aliasMap = window.ALIAS_MAP || {};
     const itemsMap = {};
+    let excludedDishesCount = 0;
+    let excludedDishesQty = 0;
+
+    const checkExcluded = typeof isExcludedFromMenuEngineering === 'function'
+      ? isExcludedFromMenuEngineering
+      : (typeof window !== 'undefined' && typeof window.isExcludedFromMenuEngineering === 'function' ? window.isExcludedFromMenuEngineering : null);
 
     salesRows.forEach(sale => {
       if (!sale || !sale.product) return;
@@ -563,6 +572,13 @@
       const qty = parseFloat(sale.qty) || 0;
       if (qty <= 0) return;
 
+      // Exclusion Menu Engineering préalable (par libellé brut / famille POS)
+      if (checkExcluded && checkExcluded(rawName, sale.category || '', sale.family || '', '')) {
+        excludedDishesCount++;
+        excludedDishesQty += qty;
+        return;
+      }
+
       let matched = allRecipes.find(r => cleanText(r.name) === cAlias || cleanText(r.name) === cRaw);
       if (!matched) {
         matched = allRecipes.find(r => {
@@ -571,6 +587,14 @@
         });
       }
       if (!matched) return;
+
+      // Exclusion Menu Engineering par catégorie / clé SSOT fiche technique (Sodas, Eaux, Suppléments)
+      const recKey = matched.greyCorner ? (matched.greyCorner.__key || '') : (matched.__key || '');
+      if (checkExcluded && checkExcluded(matched.name, matched.category, sale.family || '', recKey)) {
+        excludedDishesCount++;
+        excludedDishesQty += qty;
+        return;
+      }
 
       const sellPrice = parseFloat(sale.price) || matched.sellPrice || 0;
       const key = matched.name;
@@ -744,7 +768,9 @@
         totalCashMargin: Math.round(totalCashMargin),
         weightedFoodCost,
         avgQtyPerItem: Math.round(avgQtyPerItem),
-        avgCashMarginPerPortion: Math.round(avgCashMarginPerPortion * 100) / 100
+        avgCashMarginPerPortion: Math.round(avgCashMarginPerPortion * 100) / 100,
+        excludedDishesCount,
+        excludedDishesQty
       },
       priorityActions
     };
@@ -1189,7 +1215,7 @@
               🤖 Agent Intelligent — Menu Engineering &amp; Cash Margin (Fès)
             </h3>
             <p class="ai-agent-subtitle">
-              Audit permanent &bull; Matrice Kasavana &amp; Smith &bull; Cible Food Cost Café-Resto : <strong>32%</strong> &bull; Cash Net en Caisse : <span style="color:#059669; font-weight:900;">+${menuEng.stats.totalCashMargin.toLocaleString('fr-FR')} DH</span> (${menuEng.stats.totalQty} ventes)
+              Audit permanent &bull; Matrice Kasavana &amp; Smith (Hors sodas, eaux &amp; suppléments) &bull; Cible Food Cost Café-Resto : <strong>32%</strong> &bull; Cash Net en Caisse : <span style="color:#059669; font-weight:900;">+${menuEng.stats.totalCashMargin.toLocaleString('fr-FR')} DH</span> (${menuEng.stats.totalQty} plats)
             </p>
           </div>
         </div>
@@ -1343,6 +1369,10 @@
             <button class="ai-sub-pill ${currentMenuEngFilter === 'dog' ? 'active' : ''}" onclick="window.setMenuEngFilter('dog')">
               🐕 Chiens (${menuEng.dogs.length})
             </button>
+            <div style="margin-left:auto; display:inline-flex; align-items:center; gap:5px; font-size:11.5px; color:var(--text-muted); background:var(--bg); padding:3px 9px; border-radius:7px; border:1px solid var(--border);" title="Les sodas, eaux minérales et suppléments/extras cuisine sont exclus de la matrice pour concentrer l'analyse sur vos véritables recettes et créations culinaires.">
+              <span>🛡️</span>
+              <span><strong>Sodas, Eaux &amp; Extras exclus</strong></span>
+            </div>
           </div>
         ` : ''}
 
