@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-05T12:01:37.252Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-05T19:44:26.893Z
  */
 
 (function(global) {
@@ -2767,21 +2767,21 @@ const DATA = [
         "prepTime": 7,
         "tech": [
           "Quinoa : 140 g",
-          "Gambas Pané : 60 g",
-          "Gambas Poché : 80 g",
+          "Gambas Pané : 20 g",
+          "Gambas Poché : 30 g",
           "Fruits : 70 g",
           "Feta : 20 g",
-          "Kiwi : 120 g",
+          "Kiwi : 140 g",
           "Vinaigrette : 20 g",
           "Miel : 30 g",
           "Framboise : 17 g"
         ],
         "price": "68 DH",
-        "cost": 43.98,
+        "cost": 26.65,
         "sellPrice": 68,
-        "foodCost": 64.7,
-        "margin": 35.3,
-        "grossMarginDH": 24.02,
+        "foodCost": 39.2,
+        "margin": 60.8,
+        "grossMarginDH": 41.35,
         "__key": "ef",
         "__images": [
           "images/entree-quinoa.jpg"
@@ -3073,7 +3073,7 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "Poulet : 160 g",
-          "Champignons : 90 g",
+          "Champignons : 60 g",
           "Crème fraîche : 100 ml",
           "Demi-glace : 100 ml",
           "Légumes variés : 220 g",
@@ -3082,11 +3082,11 @@ const DATA = [
           "Huile : 50 ml"
         ],
         "price": "88 DH",
-        "cost": 26.43,
+        "cost": 25.38,
         "sellPrice": 88,
-        "foodCost": 30,
-        "margin": 70,
-        "grossMarginDH": 61.57,
+        "foodCost": 28.8,
+        "margin": 71.2,
+        "grossMarginDH": 62.62,
         "__key": "pl",
         "__images": [
           "images/plat-emincepoulet.jpg",
@@ -7546,11 +7546,11 @@ const BASE_RECIPES = [
     "category": "ENTRÉES FROIDES",
     "ingredients": [
       "Quinoa : 140 g",
-      "Gambas Pané : 60 g",
-      "Gambas Poché : 80 g",
+      "Gambas Pané : 20 g",
+      "Gambas Poché : 30 g",
       "Fruits : 70 g",
       "Feta : 20 g",
-      "Kiwi : 120 g",
+      "Kiwi : 140 g",
       "Vinaigrette : 20 g",
       "Miel : 30 g",
       "Framboise : 17 g"
@@ -7642,7 +7642,7 @@ const BASE_RECIPES = [
     "category": "PLATS",
     "ingredients": [
       "Poulet : 160 g",
-      "Champignons : 90 g",
+      "Champignons : 60 g",
       "Crème fraîche : 100 ml",
       "Demi-glace : 100 ml",
       "Légumes variés : 220 g",
