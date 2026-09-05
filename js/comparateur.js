@@ -336,7 +336,8 @@
      AGENT INTELLIGENT D'OPTIMISATION DES REVENUS (AI REVENUE ADVISOR)
      Analyse en temps réel le tableau de synthèse & les ventes journalières
   ======================================================== */
-  let currentAITab = 'daily_sales'; // 'daily_sales', 'quick_wins', 'pricing', 'standards', 'critical'
+  let currentAITab = 'menu_engineering'; // 'menu_engineering', 'daily_sales', 'quick_wins', 'pricing', 'standards', 'critical'
+  let currentMenuEngFilter = 'all'; // 'all', 'star', 'plowhorse', 'puzzle', 'dog'
   let selectedAIDailyDate = (function() {
     try { return localStorage.getItem('gc_ai_daily_date') || '__auto__'; } catch(e) { return '__auto__'; }
   })();
@@ -345,18 +346,27 @@
   })();
 
   const BENCHMARK_DAILY_SALES = [
-    { product: "Pizza Fruits de Mer", qty: 18, price: 75, family: "PIZZA" },
-    { product: "Pizza 4 Saisons", qty: 22, price: 65, family: "PIZZA" },
-    { product: "Burger Royal", qty: 15, price: 55, family: "BURGER" },
+    { product: "Pizza Fruits de Mer", qty: 18, price: 88, family: "PIZZA" },
+    { product: "Pizza 4 Saisons", qty: 22, price: 88, family: "PIZZA" },
+    { product: "Burger Royal", qty: 16, price: 70, family: "BURGER" },
+    { product: "Cheese Burger", qty: 24, price: 54, family: "BURGER" },
+    { product: "Filet de Bœuf", qty: 6, price: 135, family: "PLATS" },
+    { product: "Pasta Fruits de Mer", qty: 14, price: 88, family: "PASTA" },
     { product: "Mquila Crevettes", qty: 12, price: 70, family: "MQUILA" },
-    { product: "Pasta Fruits de Mer", qty: 14, price: 65, family: "PASTA" },
-    { product: "Cheese Burger", qty: 20, price: 45, family: "BURGER" },
-    { product: "Salade César", qty: 10, price: 50, family: "SALADE" },
-    { product: "Panini Poulet", qty: 14, price: 40, family: "PANINI" }
+    { product: "Salade César", qty: 10, price: 65, family: "SALADES" },
+    { product: "Panini Poulet", qty: 14, price: 44, family: "PANINI" },
+    { product: "Mojito Red Bull", qty: 15, price: 44, family: "BOISSONS" },
+    { product: "Chocolat Chaud", qty: 12, price: 18, family: "BOISSONS" },
+    { product: "Smoothie Énergétique", qty: 4, price: 42, family: "JUS" }
   ];
 
   window.setAITab = function(tab) {
     currentAITab = tab;
+    renderAIOptimizerAgent();
+  };
+
+  window.setMenuEngFilter = function(filter) {
+    currentMenuEngFilter = filter;
     renderAIOptimizerAgent();
   };
 
@@ -528,6 +538,215 @@
       weightedGcFC,
       weightedStdFC,
       matchedSales
+    };
+  }
+
+  // =================================================================
+  // ANALYSE MENU ENGINEERING & CASH MARGIN (KASAVANA & SMITH ADAPTÉE)
+  // =================================================================
+  // Arbitrage Marge Brute en Dirhams (Cash Margin) vs Food Cost %
+  // 1. ⭐ ÉTOILES (Stars) : Forte Marge Cash >= seuil, Fort Volume >= seuil
+  // 2. 🐎 CHEVAUX DE TRAIT (Plowhorses) : Faible Marge Cash < seuil, Fort Volume >= seuil
+  // 3. 🧩 PUZZLES : Forte Marge Cash >= seuil, Faible Volume < seuil (Nourriciers de trésorerie !)
+  // 4. 🐕 CHIENS (Dogs) : Faible Marge Cash < seuil, Faible Volume < seuil
+  // =================================================================
+  function analyzeMenuEngineering(salesRows) {
+    const aliasMap = window.ALIAS_MAP || {};
+    const itemsMap = {};
+
+    salesRows.forEach(sale => {
+      if (!sale || !sale.product) return;
+      const rawName = sale.product;
+      const aliasName = aliasMap[rawName] || rawName;
+      const cRaw = cleanText(rawName);
+      const cAlias = cleanText(aliasName);
+      const qty = parseFloat(sale.qty) || 0;
+      if (qty <= 0) return;
+
+      let matched = allRecipes.find(r => cleanText(r.name) === cAlias || cleanText(r.name) === cRaw);
+      if (!matched) {
+        matched = allRecipes.find(r => {
+          const cR = cleanText(r.name);
+          return cR.includes(cAlias) || cAlias.includes(cR) || cR.includes(cRaw) || cRaw.includes(cR);
+        });
+      }
+      if (!matched) return;
+
+      const sellPrice = parseFloat(sale.price) || matched.sellPrice || 0;
+      const key = matched.name;
+
+      if (!itemsMap[key]) {
+        itemsMap[key] = {
+          recipeName: matched.name,
+          category: matched.category,
+          recipeObj: matched,
+          sellPrice: sellPrice,
+          cost: matched.greyCorner.cost,
+          foodCost: matched.greyCorner.foodCost,
+          cashMargin: Math.round((sellPrice - matched.greyCorner.cost) * 100) / 100,
+          qtySold: 0,
+          totalRevenue: 0,
+          totalCost: 0,
+          totalCashMargin: 0
+        };
+      }
+
+      itemsMap[key].qtySold += qty;
+      itemsMap[key].totalRevenue += qty * sellPrice;
+      itemsMap[key].totalCost += qty * matched.greyCorner.cost;
+      itemsMap[key].totalCashMargin += qty * itemsMap[key].cashMargin;
+    });
+
+    const items = Object.values(itemsMap);
+    if (items.length === 0) {
+      return {
+        items: [],
+        stars: [],
+        plowhorses: [],
+        puzzles: [],
+        dogs: [],
+        stats: {
+          totalQty: 0,
+          totalRevenue: 0,
+          totalCashMargin: 0,
+          weightedFoodCost: '0.0',
+          avgQtyPerItem: 0,
+          avgCashMarginPerPortion: 0
+        },
+        priorityActions: []
+      };
+    }
+
+    const totalQty = items.reduce((sum, i) => sum + i.qtySold, 0);
+    const totalRevenue = items.reduce((sum, i) => sum + i.totalRevenue, 0);
+    const totalCost = items.reduce((sum, i) => sum + i.totalCost, 0);
+    const totalCashMargin = items.reduce((sum, i) => sum + i.totalCashMargin, 0);
+
+    const avgQtyPerItem = totalQty / items.length;
+    const avgCashMarginPerPortion = totalQty > 0 ? (totalCashMargin / totalQty) : 0;
+    const weightedFoodCost = totalRevenue > 0 ? (totalCost / totalRevenue * 100).toFixed(1) : '0.0';
+
+    const stars = [];
+    const plowhorses = [];
+    const puzzles = [];
+    const dogs = [];
+
+    items.forEach(item => {
+      const isHighVolume = item.qtySold >= avgQtyPerItem * 0.85;
+      const isHighMargin = item.cashMargin >= avgCashMarginPerPortion;
+
+      const isBankFeeder = item.cashMargin >= 45 && item.foodCost >= 33;
+      const isCompensator = item.foodCost <= 22;
+
+      const market = FES_CAFE_RESTAURANT_MARKET.getLimits(item.category, item.recipeName);
+
+      let quadrant = '';
+      let quadrantLabel = '';
+      let quadrantDesc = '';
+      let actionLabel = '';
+      let actionType = '';
+      let actionParam = null;
+
+      if (isHighVolume && isHighMargin) {
+        quadrant = 'star';
+        quadrantLabel = '⭐ ÉTOILE (Star)';
+        quadrantDesc = `Moteur de cash net : Forte marge unitaire (<strong>+${item.cashMargin.toFixed(2)} DH</strong>) et fort volume (<strong>${item.qtySold} vendus</strong>). Action : Ne pas modifier le prix, verrouiller les pesées standards de matière noble.`;
+        actionType = 'apply_standard';
+        actionLabel = '🟢 Verrouiller Portion Standard';
+        stars.push(item);
+      } else if (isHighVolume && !isHighMargin) {
+        quadrant = 'plowhorse';
+        quadrantLabel = '🐎 CHEVAL DE TRAIT (Plowhorse)';
+        const softBump = item.sellPrice < 30 ? 2 : (item.sellPrice <= 65 ? 3 : 5);
+        const newSuggestedPrice = Math.min(market.hardCeiling, item.sellPrice + softBump);
+        const extraGain = Math.round(softBump * item.qtySold);
+        quadrantDesc = `Plat locomotive (<strong>${item.qtySold} vendus</strong>), mais marge cash serrée (<strong>+${item.cashMargin.toFixed(2)} DH</strong>). Une hausse douce de +${softBump} DH injecte <strong>+${extraGain.toLocaleString('fr-FR')} DH de cash net direct</strong> sans pénaliser la fréquentation.`;
+        actionType = 'apply_price';
+        actionParam = newSuggestedPrice;
+        actionLabel = `💡 Hausse Douce (+${softBump} DH ➔ ${newSuggestedPrice} DH)`;
+        plowhorses.push(item);
+      } else if (!isHighVolume && isHighMargin) {
+        quadrant = 'puzzle';
+        quadrantLabel = '🧩 PUZZLE (Marge Élevée)';
+        quadrantDesc = isBankFeeder 
+          ? `💰 <strong>Plat Nourricier de Trésorerie :</strong> Malgré un Food Cost à <strong>${item.foodCost.toFixed(1)}%</strong>, chaque assiette dépose <strong>+${item.cashMargin.toFixed(2)} DH de cash net</strong> ! Ne pas surtaxer le prix pour ne pas faire fuir le client. Action : Briefing serveurs et mise en avant "Spécialité du Chef".`
+          : `Forte rentabilité unitaire (<strong>+${item.cashMargin.toFixed(2)} DH de marge</strong>) mais volume timide (<strong>${item.qtySold} vendus</strong>). À promouvoir visuellement sur la carte et en suggestion du jour.`;
+        actionType = 'inspect';
+        actionLabel = '🌟 Mettre en Avant (Star Menu)';
+        puzzles.push(item);
+      } else {
+        quadrant = 'dog';
+        quadrantLabel = '🐕 CHIEN (Dog)';
+        quadrantDesc = `Faible volume (<strong>${item.qtySold} vendus</strong>) et marge cash unitaire limitée (<strong>+${item.cashMargin.toFixed(2)} DH</strong>). Ne pas monter le prix violemment au risque d'anéantir les ventes. Solution recommandée : ${market.portionAdvice}`;
+        actionType = 'apply_standard';
+        actionLabel = '🛠️ Standardiser la Recette';
+        dogs.push(item);
+      }
+
+      item.quadrant = quadrant;
+      item.quadrantLabel = quadrantLabel;
+      item.quadrantDesc = quadrantDesc;
+      item.isBankFeeder = isBankFeeder;
+      item.isCompensator = isCompensator;
+      item.market = market;
+      item.actionLabel = actionLabel;
+      item.actionType = actionType;
+      item.actionParam = actionParam;
+    });
+
+    stars.sort((a, b) => b.totalCashMargin - a.totalCashMargin);
+    plowhorses.sort((a, b) => b.qtySold - a.qtySold);
+    puzzles.sort((a, b) => b.cashMargin - a.cashMargin);
+    dogs.sort((a, b) => a.cashMargin - b.cashMargin);
+    items.sort((a, b) => b.totalCashMargin - a.totalCashMargin);
+
+    const priorityActions = [];
+    const topPuzzle = puzzles[0];
+    if (topPuzzle) {
+      const extraGain = Math.round(topPuzzle.cashMargin * 15);
+      priorityActions.push({
+        title: `Pousser "${topPuzzle.recipeName}" en Suggestion du Chef (Puzzle)`,
+        desc: `Chaque vente génère <strong>+${topPuzzle.cashMargin.toFixed(2)} DH de cash net</strong>. Passer à +15 ventes apporte <strong>+${extraGain.toLocaleString('fr-FR')} DH de liquidités réelles</strong>.`,
+        recipeName: topPuzzle.recipeName
+      });
+    }
+
+    const topPlowhorse = plowhorses[0];
+    if (topPlowhorse) {
+      const bump = topPlowhorse.sellPrice < 30 ? 2 : 3;
+      const extraGain = Math.round(bump * topPlowhorse.qtySold);
+      priorityActions.push({
+        title: `Hausse douce de +${bump} DH sur "${topPlowhorse.recipeName}" (Cheval de Trait)`,
+        desc: `Avec <strong>${topPlowhorse.qtySold} ventes</strong>, ce plat populaire encaisse une hausse modérée sans friction. Trésorerie additionnelle : <strong>+${extraGain.toLocaleString('fr-FR')} DH</strong>.`,
+        recipeName: topPlowhorse.recipeName,
+        actionParam: topPlowhorse.sellPrice + bump
+      });
+    }
+
+    const topStar = stars[0];
+    if (topStar) {
+      priorityActions.push({
+        title: `Verrouiller les pesées sur "${topStar.recipeName}" (Étoile)`,
+        desc: `Locomotive de marge (<strong>+${topStar.totalCashMargin.toFixed(0)} DH générés</strong>). Contrôler strictement les grammages pour neutraliser toute dérive de surdosage.`,
+        recipeName: topStar.recipeName
+      });
+    }
+
+    return {
+      items,
+      stars,
+      plowhorses,
+      puzzles,
+      dogs,
+      stats: {
+        totalQty,
+        totalRevenue: Math.round(totalRevenue),
+        totalCashMargin: Math.round(totalCashMargin),
+        weightedFoodCost,
+        avgQtyPerItem: Math.round(avgQtyPerItem),
+        avgCashMarginPerPortion: Math.round(avgCashMarginPerPortion * 100) / 100
+      },
+      priorityActions
     };
   }
 
@@ -930,18 +1149,26 @@
     const analysis = analyzeDatasetForOptimizations();
     const stats = analysis.stats;
 
-    // Contexte des ventes journalières
+    // Contexte des ventes journalières et Menu Engineering
     const salesCtx = getDailySalesContext();
     const dailySales = analyzeDailySales(salesCtx.salesRows);
+    const menuEng = analyzeMenuEngineering(salesCtx.salesRows);
 
     let activeList = [];
-    if (currentAITab === 'daily_sales') activeList = dailySales.matchedSales;
+    if (currentAITab === 'menu_engineering') {
+      if (currentMenuEngFilter === 'star') activeList = menuEng.stars;
+      else if (currentMenuEngFilter === 'plowhorse') activeList = menuEng.plowhorses;
+      else if (currentMenuEngFilter === 'puzzle') activeList = menuEng.puzzles;
+      else if (currentMenuEngFilter === 'dog') activeList = menuEng.dogs;
+      else activeList = menuEng.items;
+    }
+    else if (currentAITab === 'daily_sales') activeList = dailySales.matchedSales;
     else if (currentAITab === 'quick_wins') activeList = analysis.quickWins;
     else if (currentAITab === 'pricing') activeList = analysis.pricingOpportunities;
     else if (currentAITab === 'standards') activeList = analysis.standardOpportunities;
     else if (currentAITab === 'critical') activeList = analysis.criticalAlerts;
 
-    const displayedItems = activeList.slice(0, 14);
+    const displayedItems = activeList.slice(0, 16);
     const collapseIcon = isAIAgentCollapsed ? '▸ Déplier l\'analyse' : '▾ Réduire';
 
     // Options du sélecteur de dates journalières
@@ -959,10 +1186,10 @@
           </div>
           <div>
             <h3 class="ai-agent-title">
-              🤖 Agent Intelligent — Optimisation Revenus &amp; Marché Café-Resto Fès
+              🤖 Agent Intelligent — Menu Engineering &amp; Cash Margin (Fès)
             </h3>
             <p class="ai-agent-subtitle">
-              Audit permanent &bull; Modèle Café-Restaurant Fès (Food Cost cible : <strong>32%</strong>) &bull; Journée analysée : <strong>${salesCtx.isBenchmark ? 'Journée Type (125 ventes)' : salesCtx.effectiveDate}</strong> &bull; Perte surdosage aujourd'hui : <span style="color:#dc2626; font-weight:900;">-${dailySales.totalDailyLostMargin.toFixed(2)} DH</span>
+              Audit permanent &bull; Matrice Kasavana &amp; Smith &bull; Cible Food Cost Café-Resto : <strong>32%</strong> &bull; Cash Net en Caisse : <span style="color:#059669; font-weight:900;">+${menuEng.stats.totalCashMargin.toLocaleString('fr-FR')} DH</span> (${menuEng.stats.totalQty} ventes)
             </p>
           </div>
         </div>
@@ -985,7 +1212,30 @@
       <div class="ai-agent-body ${isAIAgentCollapsed ? 'collapsed' : ''}">
         
         <!-- BANDEAU DES 4 KPIS EN FONCTION DU CONTEXTE -->
-        ${currentAITab === 'daily_sales' ? `
+        ${currentAITab === 'menu_engineering' ? `
+          <div class="ai-stats-row">
+            <div class="ai-stat-card" style="border-left: 4px solid #10b981;">
+              <div class="ai-stat-label">💵 Cash Net Réel en Caisse</div>
+              <div class="ai-stat-value text-success">+${menuEng.stats.totalCashMargin.toLocaleString('fr-FR')} DH</div>
+              <div class="ai-stat-sub">CA Réalisé : <strong>${menuEng.stats.totalRevenue.toLocaleString('fr-FR')} DH</strong> (${menuEng.stats.totalQty} ventes)</div>
+            </div>
+            <div class="ai-stat-card" style="border-left: 4px solid #0284c7;">
+              <div class="ai-stat-label">⚖️ Marge Cash Moyenne / Plat</div>
+              <div class="ai-stat-value" style="color:#0284c7;">+${menuEng.stats.avgCashMarginPerPortion.toFixed(2)} DH</div>
+              <div class="ai-stat-sub">Food Cost Réel Pondéré : <strong>${menuEng.stats.weightedFoodCost}%</strong></div>
+            </div>
+            <div class="ai-stat-card" style="border-left: 4px solid #8b5cf6;">
+              <div class="ai-stat-label">⭐ Matrice Kasavana &amp; Smith</div>
+              <div class="ai-stat-value" style="color:#8b5cf6;">${menuEng.stars.length} ⭐ | ${menuEng.puzzles.length} 🧩</div>
+              <div class="ai-stat-sub">${menuEng.plowhorses.length} Chevaux (🐎) | ${menuEng.dogs.length} Chiens (🐕)</div>
+            </div>
+            <div class="ai-stat-card" style="border-left: 4px solid #f59e0b;">
+              <div class="ai-stat-label">🚀 Potentiel Cash Additionnel</div>
+              <div class="ai-stat-value" style="color:#f59e0b;">+${Math.round(menuEng.stats.totalCashMargin * 0.14).toLocaleString('fr-FR')} DH</div>
+              <div class="ai-stat-sub">Gain net via 3 actions prioritaires</div>
+            </div>
+          </div>
+        ` : (currentAITab === 'daily_sales' ? `
           <div class="ai-stats-row">
             <div class="ai-stat-card" style="border-left: 4px solid #0284c7;">
               <div class="ai-stat-label">📊 Ventes Réalisées ce Jour</div>
@@ -1031,12 +1281,15 @@
               <div class="ai-stat-sub">Food Cost critique &ge; 38%</div>
             </div>
           </div>
-        `}
+        `)}
 
         <!-- ONGLETS FILTRES DE L'AGENT -->
         <div class="ai-nav-pills">
+          <button class="ai-pill ${currentAITab === 'menu_engineering' ? 'active' : ''}" onclick="window.setAITab('menu_engineering')">
+            🎯 Menu Engineering (Cash Margin) <span class="ai-pill-count">${menuEng.items.length}</span>
+          </button>
           <button class="ai-pill ${currentAITab === 'daily_sales' ? 'active' : ''}" onclick="window.setAITab('daily_sales')">
-            📅 Ventes du Jour &amp; Pertes Réelles <span class="ai-pill-count">${dailySales.matchedSales.length}</span>
+            📅 Ventes du Jour <span class="ai-pill-count">${dailySales.matchedSales.length}</span>
           </button>
           <button class="ai-pill ${currentAITab === 'quick_wins' ? 'active' : ''}" onclick="window.setAITab('quick_wins')">
             🔥 Quick Wins (Catalogue) <span class="ai-pill-count">${stats.quickWinsCount}</span>
@@ -1052,9 +1305,50 @@
           </button>
         </div>
 
-        ${salesCtx.isBenchmark && currentAITab === 'daily_sales' ? `
+        ${currentAITab === 'menu_engineering' ? `
+          <!-- BANDEAU DES 3 ACTIONS PRIORITAIRES DE TRÉSORERIE -->
+          <div class="ai-priority-banner">
+            <div class="ai-priority-header">
+              <span style="font-size:17px;">🚀</span>
+              <span>3 Actions Prioritaires Menu Engineering (Maximiser le Cash en Caisse) :</span>
+            </div>
+            <div class="ai-priority-grid">
+              ${menuEng.priorityActions.map((action, i) => `
+                <div class="ai-priority-col">
+                  <div class="ai-priority-badge">Action ${i + 1}</div>
+                  <div class="ai-priority-title">${escapeHtml(action.title)}</div>
+                  <div class="ai-priority-text">${action.desc}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- BARRE DE SOUS-FILTRES DE LA MATRICE -->
+          <div class="ai-quadrant-filter-bar">
+            <span style="font-size:12px; font-weight:800; color:var(--text-muted); margin-right:4px;">
+              📊 Filtrer la Matrice :
+            </span>
+            <button class="ai-sub-pill ${currentMenuEngFilter === 'all' ? 'active' : ''}" onclick="window.setMenuEngFilter('all')">
+              Tous (${menuEng.items.length})
+            </button>
+            <button class="ai-sub-pill ${currentMenuEngFilter === 'star' ? 'active' : ''}" onclick="window.setMenuEngFilter('star')">
+              ⭐ Étoiles (${menuEng.stars.length})
+            </button>
+            <button class="ai-sub-pill ${currentMenuEngFilter === 'plowhorse' ? 'active' : ''}" onclick="window.setMenuEngFilter('plowhorse')">
+              🐎 Chevaux de Trait (${menuEng.plowhorses.length})
+            </button>
+            <button class="ai-sub-pill ${currentMenuEngFilter === 'puzzle' ? 'active' : ''}" onclick="window.setMenuEngFilter('puzzle')">
+              🧩 Puzzles (${menuEng.puzzles.length})
+            </button>
+            <button class="ai-sub-pill ${currentMenuEngFilter === 'dog' ? 'active' : ''}" onclick="window.setMenuEngFilter('dog')">
+              🐕 Chiens (${menuEng.dogs.length})
+            </button>
+          </div>
+        ` : ''}
+
+        ${salesCtx.isBenchmark && (currentAITab === 'daily_sales' || currentAITab === 'menu_engineering') ? `
           <div style="margin-bottom:14px; padding:10px 14px; background:rgba(2,132,199,0.08); border:1px solid rgba(2,132,199,0.25); border-radius:10px; font-size:12px; color:var(--text); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-            <span>💡 <strong>Mode Démonstration Actif :</strong> Ventes basées sur un service de référence (125 couverts). Pour analyser vos tickets de caisse réels, importez vos ventes dans <a href="consommation.html" style="color:#0284c7; font-weight:800; text-decoration:none;">📊 Déstockage</a>.</span>
+            <span>💡 <strong>Service de Référence Actif :</strong> Analyse basée sur un service type étalonné. Pour analyser vos ventes réelles du jour, importez votre ticket caisse dans <a href="consommation.html" style="color:#0284c7; font-weight:800; text-decoration:none;">📊 Déstockage</a>.</span>
             <a href="consommation.html" class="btn btn-primary" style="font-size:11.5px; padding:4px 10px; text-decoration:none;">📥 Importer Ventes du Jour</a>
           </div>
         ` : ''}
@@ -1063,9 +1357,70 @@
         <div class="ai-ideas-grid">
           ${displayedItems.length === 0 ? `
             <div style="grid-column: 1 / -1; padding:30px; text-align:center; color:var(--text-muted); background:var(--bg); border-radius:12px; border:1px dashed var(--border);">
-              ✨ Félicitations ! Aucun plat ne présente d'anomalie dans cet axe d'optimisation.
+              ✨ Aucun article ne correspond à ce filtre pour la période sélectionnée.
             </div>
           ` : displayedItems.map(item => {
+            // Mode Menu Engineering & Cash Margin
+            if (currentAITab === 'menu_engineering') {
+              const qBadgeClass = item.quadrant === 'star' ? 'badge-star' : (item.quadrant === 'plowhorse' ? 'badge-plowhorse' : (item.quadrant === 'puzzle' ? 'badge-puzzle' : 'badge-dog'));
+              const priorityBorderClass = item.quadrant === 'star' ? 'priority-star' : (item.quadrant === 'puzzle' ? 'priority-puzzle' : (item.quadrant === 'plowhorse' ? 'priority-medium' : 'priority-dog'));
+
+              return `
+                <div class="ai-idea-card ${priorityBorderClass}">
+                  <div class="ai-idea-top">
+                    <div>
+                      <span class="ai-dish-cat">${escapeHtml(item.category)}</span>
+                      <h4 class="ai-dish-name">${escapeHtml(item.recipeName)}</h4>
+                    </div>
+                    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+                      <span class="quadrant-badge ${qBadgeClass}">${item.quadrantLabel}</span>
+                      ${item.isBankFeeder ? `<span class="badge-bank-feeder">💰 Nourricier Trésorerie</span>` : ''}
+                      ${item.isCompensator ? `<span class="badge-compensator">🍹 Compensateur Marge</span>` : ''}
+                    </div>
+                  </div>
+
+                  <div class="ai-metrics-compare">
+                    <div class="ai-metric-col">
+                      <span class="ai-metric-title">Vente &amp; Coût Matière</span>
+                      <span class="ai-metric-val">
+                        ${item.sellPrice} DH | Coût : ${item.cost.toFixed(2)} DH (FC ${item.foodCost.toFixed(1)}%)
+                      </span>
+                    </div>
+                    <div class="ai-metric-col">
+                      <span class="ai-metric-title">Marge Cash Unitaire &bull; Volume</span>
+                      <span class="ai-cash-huge">
+                        +${item.cashMargin.toFixed(2)} DH <span style="font-size:11.5px; font-weight:700; color:var(--text-muted);">(&times; ${item.qtySold} vendus)</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div style="margin: 8px 0 6px 0; padding: 6px 10px; background: rgba(16, 185, 129, 0.08); border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.2); display:flex; justify-content:space-between; align-items:center; font-size:12px;">
+                    <span style="font-weight:700; color:var(--text);">💵 Liquidités nettes versées en caisse :</span>
+                    <strong style="font-size:13.5px; color:#059669;">+${Math.round(item.totalCashMargin).toLocaleString('fr-FR')} DH</strong>
+                  </div>
+
+                  <div class="ai-idea-desc">
+                    ${item.quadrantDesc}
+                  </div>
+
+                  <div class="ai-idea-actions">
+                    ${item.actionType === 'apply_standard' ? `
+                      <button class="ai-btn-action btn-apply-std" onclick="window.applyAIOptimization('${escapeHtml(item.recipeName).replace(/'/g, "\\'")}', 'apply_standard')">
+                        ${item.actionLabel}
+                      </button>
+                    ` : ''}
+                    ${item.actionType === 'apply_price' ? `
+                      <button class="ai-btn-action btn-apply-price" onclick="window.applyAIOptimization('${escapeHtml(item.recipeName).replace(/'/g, "\\'")}', 'apply_price', ${item.actionParam})">
+                        ${item.actionLabel}
+                      </button>
+                    ` : ''}
+                    <button class="ai-btn-action btn-inspect" onclick="window.applyAIOptimization('${escapeHtml(item.recipeName).replace(/'/g, "\\'")}', 'inspect')">
+                      🔍 Examiner la Fiche
+                    </button>
+                  </div>
+                </div>
+              `;
+            }
             // Mode Ventes Journalières
             if (currentAITab === 'daily_sales') {
               const lossClass = item.dailyLostDH >= 100 ? 'priority-high' : (item.dailyLostDH >= 30 ? 'priority-medium' : 'priority-standard');
