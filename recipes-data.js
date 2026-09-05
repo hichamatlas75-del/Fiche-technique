@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-05T09:28:31.191Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-05T12:01:37.252Z
  */
 
 (function(global) {
@@ -2545,11 +2545,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "78 DH",
-        "cost": 27.64,
+        "cost": 27.04,
         "sellPrice": 78,
-        "foodCost": 35.4,
-        "margin": 64.6,
-        "grossMarginDH": 50.36,
+        "foodCost": 34.7,
+        "margin": 65.3,
+        "grossMarginDH": 50.96,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_mquilafruitdemer.jpeg"
@@ -3661,10 +3661,10 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_fruits_de_mer",
-        "cost": 25.48,
-        "foodCost": 39.8,
-        "margin": 60.2,
-        "grossMarginDH": 38.52
+        "cost": 24.76,
+        "foodCost": 38.7,
+        "margin": 61.3,
+        "grossMarginDH": 39.24
       },
       {
         "name": "PANINI SAUMON",
@@ -3705,11 +3705,11 @@ const DATA = [
           "FRITTES : 200 g"
         ],
         "price": "65 DH",
-        "cost": 25.24,
+        "cost": 24.52,
         "sellPrice": 65,
-        "foodCost": 38.8,
-        "margin": 61.2,
-        "grossMarginDH": 39.76,
+        "foodCost": 37.7,
+        "margin": 62.3,
+        "grossMarginDH": 40.48,
         "__key": "sw",
         "__images": [
           "images/sand-fruitsmer.jpg"
@@ -4054,11 +4054,11 @@ const DATA = [
           "Champignon : 60 g"
         ],
         "price": "88 DH",
-        "cost": 26.18,
+        "cost": 25.76,
         "sellPrice": 88,
-        "foodCost": 29.8,
-        "margin": 70.3,
-        "grossMarginDH": 61.82,
+        "foodCost": 29.3,
+        "margin": 70.7,
+        "grossMarginDH": 62.24,
         "__key": "pz",
         "__images": [
           "images/pizza-4saisons.jpg"
@@ -4124,11 +4124,11 @@ const DATA = [
           "MOZZARELLA : 150 g"
         ],
         "price": "88 DH",
-        "cost": 28.18,
+        "cost": 27.46,
         "sellPrice": 88,
-        "foodCost": 32,
-        "margin": 68,
-        "grossMarginDH": 59.82,
+        "foodCost": 31.2,
+        "margin": 68.8,
+        "grossMarginDH": 60.54,
         "__key": "pz",
         "__images": [
           "images/pizza-fruitsmer.jpg"
@@ -4256,11 +4256,11 @@ const DATA = [
           "mozzarella : 40 g"
         ],
         "price": "78 DH",
-        "cost": 26.65,
+        "cost": 25.93,
         "sellPrice": 78,
-        "foodCost": 34.2,
-        "margin": 65.8,
-        "grossMarginDH": 51.35,
+        "foodCost": 33.2,
+        "margin": 66.8,
+        "grossMarginDH": 52.07,
         "__key": "pae",
         "__images": [
           "images/lasagne-fruitdemer.jpeg"
@@ -4419,11 +4419,11 @@ const DATA = [
           "PESTO : 50 g"
         ],
         "price": "88 DH",
-        "cost": 31.11,
+        "cost": 30.39,
         "sellPrice": 88,
-        "foodCost": 35.4,
-        "margin": 64.6,
-        "grossMarginDH": 56.89,
+        "foodCost": 34.5,
+        "margin": 65.5,
+        "grossMarginDH": 57.61,
         "__key": "pae",
         "__images": [
           "images/pasta-fruitsmer.jpg"
@@ -5086,11 +5086,11 @@ const DATA = [
           "creme fraiche : 30 g"
         ],
         "price": "58 DH",
-        "cost": 19.68,
+        "cost": 18.97,
         "sellPrice": 58,
-        "foodCost": 33.9,
-        "margin": 66.1,
-        "grossMarginDH": 38.32,
+        "foodCost": 32.7,
+        "margin": 67.3,
+        "grossMarginDH": 39.03,
         "__key": "cr",
         "__images": []
       },
@@ -7427,7 +7427,11 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "cost": 27.04,
+    "foodCost": 0,
+    "margin": 0,
+    "grossMarginDH": 0
   },
   {
     "id": "pdj_norvegien",
@@ -7971,7 +7975,11 @@ const BASE_RECIPES = [
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
-    ]
+    ],
+    "cost": 24.76,
+    "foodCost": 0,
+    "margin": 0,
+    "grossMarginDH": 0
   },
   {
     "id": "pa_saumon",
@@ -7998,7 +8006,11 @@ const BASE_RECIPES = [
       "Salade : 20 g",
       "Tomate : 20 g",
       "FRITTES : 200 g"
-    ]
+    ],
+    "cost": 24.52,
+    "foodCost": 0,
+    "margin": 0,
+    "grossMarginDH": 0
   },
   {
     "id": "sw_thon",
@@ -8194,7 +8206,11 @@ const BASE_RECIPES = [
       "Champignon : 60 g"
     ],
     "price": "88 DH",
-    "sellPrice": 88
+    "sellPrice": 88,
+    "cost": 25.76,
+    "foodCost": 29.3,
+    "margin": 70.7,
+    "grossMarginDH": 62.24
   },
   {
     "id": "pz_moitie_moitie",
@@ -8240,7 +8256,11 @@ const BASE_RECIPES = [
       "MOZZARELLA : 150 g"
     ],
     "price": "88 DH",
-    "sellPrice": 88
+    "sellPrice": 88,
+    "cost": 27.46,
+    "foodCost": 31.2,
+    "margin": 68.8,
+    "grossMarginDH": 60.54
   },
   {
     "id": "pz_saumon",
@@ -8304,7 +8324,11 @@ const BASE_RECIPES = [
       "Oignon/Ail : 50 g",
       "fromage rouge : 15 g",
       "mozzarella : 40 g"
-    ]
+    ],
+    "cost": 25.93,
+    "foodCost": 0,
+    "margin": 0,
+    "grossMarginDH": 0
   },
   {
     "id": "pae_vegetarien",
@@ -8397,7 +8421,11 @@ const BASE_RECIPES = [
       "Crevette chair : 40 g",
       "calamar chair : 40 g",
       "PESTO : 50 g"
-    ]
+    ],
+    "cost": 30.39,
+    "foodCost": 0,
+    "margin": 0,
+    "grossMarginDH": 0
   },
   {
     "id": "pae_saumon",
@@ -8711,7 +8739,11 @@ const BASE_RECIPES = [
       "Calamar congelé : 120 g",
       "Mozzarella : 40 g",
       "creme fraiche : 30 g"
-    ]
+    ],
+    "cost": 18.97,
+    "foodCost": 0,
+    "margin": 0,
+    "grossMarginDH": 0
   },
   {
     "id": "rec_1788199150306",
@@ -10868,12 +10900,12 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "Gambas Pané"
   },
   "calamar brut": {
-    "cost": 0.058,
+    "cost": 0.052,
     "unit": "g",
     "label": "Calamar Brut (Congelé / Réception)"
   },
   "calamar net": {
-    "cost": 0.174,
+    "cost": 0.156,
     "unit": "g",
     "label": "Calamar Net (Chair / Égoutté)"
   },
@@ -12049,7 +12081,7 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
     // Résolution ciblée des produits à double statut (Brut vs Net)
     let lookupKey = normIngSingular;
     if (normIng.includes('calamar')) {
-      lookupKey = (normIng.includes('net') || normIng.includes('chair') || normIng.includes('egoutt')) ? 'calamar net' : 'calamar brut';
+      lookupKey = (normIng.includes('net') || normIng.includes('chair') || normIng.includes('egoutt') || normIng.includes('frais') || normIng.includes('decongel')) ? 'calamar net' : 'calamar brut';
     } else if (normIng.includes('crevette')) {
       lookupKey = (normIng.includes('chair') || normIng.includes('decortiqu') || normIng.includes('net') || normIng.includes('pur')) ? 'crevettes net' : 'crevettes brut';
     } else if (normIng.includes('gamba')) {
