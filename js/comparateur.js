@@ -31,6 +31,16 @@
     return str.toString().toLowerCase().replace(/œ/g, 'oe').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
   }
 
+  function escapeHtml(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   // Chargement des modifications enregistrées localement
   function loadSavedEdits() {
     try {
@@ -317,7 +327,624 @@
         </div>
       `;
     }
+
+    // Déclencher l'analyse permanente de l'agent intelligent
+    renderAIOptimizerAgent();
   }
+
+  /* ========================================================
+     AGENT INTELLIGENT D'OPTIMISATION DES REVENUS (AI REVENUE ADVISOR)
+     Analyse en temps réel le tableau de synthèse & les ventes journalières
+  ======================================================== */
+  let currentAITab = 'daily_sales'; // 'daily_sales', 'quick_wins', 'pricing', 'standards', 'critical'
+  let selectedAIDailyDate = (function() {
+    try { return localStorage.getItem('gc_ai_daily_date') || '__auto__'; } catch(e) { return '__auto__'; }
+  })();
+  let isAIAgentCollapsed = (function() {
+    try { return localStorage.getItem('gc_ai_agent_collapsed') === 'true'; } catch(e) { return false; }
+  })();
+
+  const BENCHMARK_DAILY_SALES = [
+    { product: "Pizza Fruits de Mer", qty: 18, price: 75, family: "PIZZA" },
+    { product: "Pizza 4 Saisons", qty: 22, price: 65, family: "PIZZA" },
+    { product: "Burger Royal", qty: 15, price: 55, family: "BURGER" },
+    { product: "Mquila Crevettes", qty: 12, price: 70, family: "MQUILA" },
+    { product: "Pasta Fruits de Mer", qty: 14, price: 65, family: "PASTA" },
+    { product: "Cheese Burger", qty: 20, price: 45, family: "BURGER" },
+    { product: "Salade César", qty: 10, price: 50, family: "SALADE" },
+    { product: "Panini Poulet", qty: 14, price: 40, family: "PANINI" }
+  ];
+
+  window.setAITab = function(tab) {
+    currentAITab = tab;
+    renderAIOptimizerAgent();
+  };
+
+  window.setAIDailySalesDate = function(dateVal) {
+    selectedAIDailyDate = dateVal;
+    try { localStorage.setItem('gc_ai_daily_date', dateVal); } catch(e) {}
+    renderAIOptimizerAgent();
+  };
+
+  window.toggleAIAgentCollapse = function() {
+    isAIAgentCollapsed = !isAIAgentCollapsed;
+    try {
+      localStorage.setItem('gc_ai_agent_collapsed', isAIAgentCollapsed);
+    } catch(e) {}
+    renderAIOptimizerAgent();
+  };
+
+  window.applyAIOptimization = function(recipeName, actionType, paramVal) {
+    const recipe = allRecipes.find(r => r.name === recipeName);
+    if (!recipe) return;
+
+    if (actionType === 'apply_standard') {
+      window.copyStandardToRecipe(recipeName);
+      if (typeof showToast === 'function') {
+        showToast(`🤖 Agent IA : Standard appliqué avec succès sur "${recipeName}" !`);
+      }
+    } else if (actionType === 'apply_price') {
+      const newPrice = parseFloat(paramVal) || 0;
+      if (newPrice > 0) {
+        window.updateRecipeSellPrice(recipeName, newPrice);
+        if (typeof showToast === 'function') {
+          showToast(`🤖 Agent IA : Prix ajusté à ${newPrice} DH sur "${recipeName}" !`);
+        }
+      }
+    } else if (actionType === 'inspect') {
+      searchQuery = recipeName;
+      const searchInput = document.getElementById('search-comparator');
+      if (searchInput) searchInput.value = recipeName;
+      if (isComparatorTableView) {
+        renderComparatorTable();
+      } else {
+        renderRecipeCards();
+      }
+      setTimeout(() => {
+        const el = document.querySelector(`[data-recipe-name="${recipeName}"]`) || document.getElementById('search-comparator');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 150);
+    }
+  };
+
+  // Récupération des données de ventes journalières
+  function getDailySalesContext() {
+    let rawDB = null;
+    try {
+      const saved = localStorage.getItem('gc_monthly_sales_db_v3');
+      if (saved) rawDB = JSON.parse(saved);
+    } catch(e) {}
+
+    const availableDates = rawDB ? Object.keys(rawDB).filter(d => Array.isArray(rawDB[d]) && rawDB[d].length > 0).sort().reverse() : [];
+    const todayISO = new Date().toLocaleDateString('en-CA');
+
+    let effectiveDate = selectedAIDailyDate;
+    let isBenchmark = false;
+    let salesRows = [];
+
+    if (effectiveDate === '__auto__') {
+      if (rawDB && rawDB[todayISO] && rawDB[todayISO].length > 0) {
+        effectiveDate = todayISO;
+        salesRows = rawDB[todayISO];
+      } else if (availableDates.length > 0) {
+        effectiveDate = availableDates[0];
+        salesRows = rawDB[effectiveDate];
+      } else {
+        effectiveDate = '__benchmark__';
+        salesRows = BENCHMARK_DAILY_SALES;
+        isBenchmark = true;
+      }
+    } else if (effectiveDate === '__benchmark__') {
+      isBenchmark = true;
+      salesRows = BENCHMARK_DAILY_SALES;
+    } else {
+      if (rawDB && rawDB[effectiveDate] && rawDB[effectiveDate].length > 0) {
+        salesRows = rawDB[effectiveDate];
+      } else {
+        isBenchmark = true;
+        salesRows = BENCHMARK_DAILY_SALES;
+      }
+    }
+
+    return {
+      effectiveDate,
+      isBenchmark,
+      availableDates,
+      salesRows
+    };
+  }
+
+  // Analyse des ventes de la journée sélectionnée
+  function analyzeDailySales(salesRows) {
+    let totalItemsSold = 0;
+    let totalDailyRevenue = 0;
+    let totalDailyGcCost = 0;
+    let totalDailyStdCost = 0;
+    let totalDailyLostMargin = 0;
+
+    const matchedSales = [];
+    const aliasMap = window.ALIAS_MAP || {};
+
+    salesRows.forEach(sale => {
+      if (!sale || !sale.product) return;
+      const rawName = sale.product;
+      const aliasName = aliasMap[rawName] || rawName;
+      const cRaw = cleanText(rawName);
+      const cAlias = cleanText(aliasName);
+      const qty = parseFloat(sale.qty) || 0;
+      if (qty <= 0) return;
+
+      let matched = allRecipes.find(r => cleanText(r.name) === cAlias || cleanText(r.name) === cRaw);
+      if (!matched) {
+        matched = allRecipes.find(r => {
+          const cR = cleanText(r.name);
+          return cR.includes(cAlias) || cAlias.includes(cR) || cR.includes(cRaw) || cRaw.includes(cR);
+        });
+      }
+
+      if (!matched) return;
+
+      const sellPrice = parseFloat(sale.price) || matched.sellPrice || 0;
+      const lineRev = qty * sellPrice;
+      const lineGcCost = qty * matched.greyCorner.cost;
+      const lineStdCost = qty * matched.standard.cost;
+      const unitDiff = matched.standard.diffDH; // surcoût Grey Corner vs Standard
+      const lineLost = qty * Math.max(0, unitDiff);
+
+      totalItemsSold += qty;
+      totalDailyRevenue += lineRev;
+      totalDailyGcCost += lineGcCost;
+      totalDailyStdCost += lineStdCost;
+      totalDailyLostMargin += lineLost;
+
+      matchedSales.push({
+        recipeName: matched.name,
+        category: matched.category,
+        qtySold: qty,
+        sellPrice: sellPrice,
+        totalRevenue: lineRev,
+        gcCostUnit: matched.greyCorner.cost,
+        gcFC: matched.greyCorner.foodCost,
+        stdCostUnit: matched.standard.cost,
+        stdFC: matched.standard.foodCost,
+        unitDiffDH: unitDiff,
+        dailyLostDH: Math.round(lineLost * 100) / 100,
+        isLoss: unitDiff > 0.5,
+        priority: lineLost >= 100 ? 'high' : (lineLost >= 30 ? 'medium' : 'standard')
+      });
+    });
+
+    matchedSales.sort((a, b) => b.dailyLostDH - a.dailyLostDH);
+
+    const weightedGcFC = totalDailyRevenue > 0 ? (totalDailyGcCost / totalDailyRevenue * 100).toFixed(1) : '0.0';
+    const weightedStdFC = totalDailyRevenue > 0 ? (totalDailyStdCost / totalDailyRevenue * 100).toFixed(1) : '0.0';
+
+    return {
+      totalItemsSold,
+      totalDailyRevenue: Math.round(totalDailyRevenue),
+      totalDailyGcCost: Math.round(totalDailyGcCost * 100) / 100,
+      totalDailyStdCost: Math.round(totalDailyStdCost * 100) / 100,
+      totalDailyLostMargin: Math.round(totalDailyLostMargin * 100) / 100,
+      weightedGcFC,
+      weightedStdFC,
+      matchedSales
+    };
+  }
+
+  // Analyse structurelle globale du catalogue de fiches
+  function analyzeDatasetForOptimizations() {
+    const quickWins = [];
+    const pricingOpportunities = [];
+    const standardOpportunities = [];
+    const criticalAlerts = [];
+
+    let totalMonthlySavings = 0;
+    let totalPotentialPricingRev = 0;
+    const keyProteinsRegex = /(calamar|crevette|gambas|saumon|viande hach|steak|bavette|poulet|escalope|mozzarella|parmesan|fromage rouge)/i;
+
+    allRecipes.forEach((recipe, idx) => {
+      const gc = recipe.greyCorner;
+      const std = recipe.standard;
+      const price = recipe.sellPrice || 0;
+      const diffDH = std.diffDH; // gc.cost - std.cost
+
+      if (diffDH > 0) {
+        totalMonthlySavings += diffDH * 50; // base conservative 50 portions/mois
+      }
+
+      // 1. QUICK WINS (Écart >= 3.00 DH / portion)
+      if (diffDH >= 3.0) {
+        const drivers = [];
+        (gc.breakdown || []).forEach(b => {
+          const matchStd = (std.breakdown || []).find(s => cleanText(s.ingredient) === cleanText(b.ingredient));
+          if (matchStd && b.cost > matchStd.cost + 1.2) {
+            drivers.push(`${b.ingredient} (${b.quantity} vs ${matchStd.quantity})`);
+          }
+        });
+
+        const driverText = drivers.length > 0 
+          ? `Surdosage identifié sur : <strong>${drivers.slice(0, 2).join(', ')}</strong>.` 
+          : `Écart de coût cumulé de <strong>+${diffDH.toFixed(2)} DH</strong> par assiette.`;
+
+        const monthlyGain = Math.round(diffDH * 60);
+
+        quickWins.push({
+          recipeName: recipe.name,
+          category: recipe.category,
+          recipeIndex: idx,
+          priority: diffDH >= 6.0 ? 'high' : 'medium',
+          currentCost: gc.cost,
+          currentFC: gc.foodCost,
+          stdCost: std.cost,
+          stdFC: std.foodCost,
+          diffDH: diffDH,
+          monthlyGain: monthlyGain,
+          title: `Gain direct : +${diffDH.toFixed(2)} DH / portion`,
+          desc: `${driverText} L'alignement sur la norme hôtelière ramène le Food Cost de <strong>${gc.foodCost}%</strong> à <strong>${std.foodCost}%</strong> sans compromis sur la qualité.`,
+          actionType: 'apply_standard',
+          actionLabel: '🟢 Appliquer le Standard Métier',
+          financialImpact: `+${monthlyGain.toLocaleString('fr-FR')} DH / mois (base 60 portions)`
+        });
+      }
+
+      // 2. PRICING POWER (Food Cost > 33% & prix > 0)
+      if (gc.foodCost > 33 && price > 0) {
+        const targetPrice28 = Math.ceil((gc.cost / 0.28) / 5) * 5;
+        const deltaPrice = targetPrice28 - price;
+
+        if (deltaPrice >= 2) {
+          const monthlyPricingBoost = Math.round(deltaPrice * 50);
+          totalPotentialPricingRev += monthlyPricingBoost;
+
+          pricingOpportunities.push({
+            recipeName: recipe.name,
+            category: recipe.category,
+            recipeIndex: idx,
+            priority: gc.foodCost >= 40 ? 'high' : 'medium',
+            currentCost: gc.cost,
+            currentFC: gc.foodCost,
+            currentPrice: price,
+            targetPrice: targetPrice28,
+            newFC: Math.round((gc.cost / targetPrice28) * 1000) / 10,
+            deltaPrice: deltaPrice,
+            monthlyGain: monthlyPricingBoost,
+            title: `Rehausse de Prix : ${price} DH ➔ ${targetPrice28} DH (+${deltaPrice} DH)`,
+            desc: `Food Cost sous tension à <strong>${gc.foodCost}%</strong> (coût matière : ${gc.cost.toFixed(2)} DH). Ajuster le tarif à <strong>${targetPrice28} DH</strong> réaligne la marge brute et ramène le ratio à <strong>${Math.round((gc.cost / targetPrice28) * 1000) / 10}%</strong>.`,
+            actionType: 'apply_price',
+            actionParam: targetPrice28,
+            actionLabel: `💡 Fixer le prix à ${targetPrice28} DH`,
+            financialImpact: `+${monthlyPricingBoost.toLocaleString('fr-FR')} DH / mois (base 50 ventes)`
+          });
+        }
+      }
+
+      // 3. STANDARDS DE GRAMMAGES & MATIÈRES NOBLES (Focus Protéines)
+      if (diffDH > 1.5) {
+        const nobleLines = (gc.breakdown || []).filter(b => keyProteinsRegex.test(b.ingredient));
+        const topNoble = nobleLines.sort((a, b) => b.cost - a.cost)[0];
+
+        standardOpportunities.push({
+          recipeName: recipe.name,
+          category: recipe.category,
+          recipeIndex: idx,
+          priority: 'standard',
+          currentCost: gc.cost,
+          currentFC: gc.foodCost,
+          stdCost: std.cost,
+          stdFC: std.foodCost,
+          diffDH: diffDH,
+          monthlyGain: Math.round(diffDH * 45),
+          title: `Portion Standard : ${recipe.name}`,
+          desc: topNoble 
+            ? `Ingrédient pivot : <strong>${topNoble.ingredient}</strong> (${topNoble.cost.toFixed(2)} DH, soit ${Math.round(topNoble.cost / (gc.cost || 1) * 100)}% du coût). La fiche standard prévoit un dosage équilibré pour maximiser le rendement.`
+            : `Fiche technique prête pour standardisation F&B. Économie de matière : <strong>${diffDH.toFixed(2)} DH</strong>.`,
+          actionType: 'apply_standard',
+          actionLabel: '🟢 Copier Standard',
+          financialImpact: `+${Math.round(diffDH * 45).toLocaleString('fr-FR')} DH / mois`
+        });
+      }
+
+      // 4. ALERTES CRITIQUES (Food Cost >= 38%)
+      if (gc.foodCost >= 38 || (price > 35 && gc.grossMarginDH < 22)) {
+        criticalAlerts.push({
+          recipeName: recipe.name,
+          category: recipe.category,
+          recipeIndex: idx,
+          priority: 'high',
+          currentCost: gc.cost,
+          currentFC: gc.foodCost,
+          currentPrice: price,
+          grossMarginDH: gc.grossMarginDH,
+          title: `⚠️ Alerte Rentabilité : Food Cost Critique (${gc.foodCost}%)`,
+          desc: `Marge nette fortement érodée (${gc.grossMarginDH.toFixed(2)} DH). Ce plat consomme trop de matière première par rapport à son tarif (${price} DH). Action corrective urgente recommandée sur le grammage ou le prix.`,
+          actionType: 'inspect',
+          actionLabel: '🔍 Examiner la Fiche',
+          financialImpact: `Marge restante : seulement ${gc.grossMarginDH.toFixed(2)} DH / vente`
+        });
+      }
+    });
+
+    quickWins.sort((a, b) => b.diffDH - a.diffDH);
+    pricingOpportunities.sort((a, b) => b.deltaPrice - a.deltaPrice);
+    standardOpportunities.sort((a, b) => b.diffDH - a.diffDH);
+    criticalAlerts.sort((a, b) => b.currentFC - a.currentFC);
+
+    return {
+      quickWins,
+      pricingOpportunities,
+      standardOpportunities,
+      criticalAlerts,
+      stats: {
+        totalMonthlySavings: Math.round(totalMonthlySavings),
+        totalPotentialPricingRev: Math.round(totalPotentialPricingRev),
+        totalDishes: allRecipes.length,
+        quickWinsCount: quickWins.length,
+        pricingCount: pricingOpportunities.length,
+        standardsCount: standardOpportunities.length,
+        criticalCount: criticalAlerts.length
+      }
+    };
+  }
+
+  function renderAIOptimizerAgent() {
+    const container = document.getElementById('ai-agent-wrapper');
+    if (!container) return;
+
+    const analysis = analyzeDatasetForOptimizations();
+    const stats = analysis.stats;
+
+    // Contexte des ventes journalières
+    const salesCtx = getDailySalesContext();
+    const dailySales = analyzeDailySales(salesCtx.salesRows);
+
+    let activeList = [];
+    if (currentAITab === 'daily_sales') activeList = dailySales.matchedSales;
+    else if (currentAITab === 'quick_wins') activeList = analysis.quickWins;
+    else if (currentAITab === 'pricing') activeList = analysis.pricingOpportunities;
+    else if (currentAITab === 'standards') activeList = analysis.standardOpportunities;
+    else if (currentAITab === 'critical') activeList = analysis.criticalAlerts;
+
+    const displayedItems = activeList.slice(0, 14);
+    const collapseIcon = isAIAgentCollapsed ? '▸ Déplier l\'analyse' : '▾ Réduire';
+
+    // Options du sélecteur de dates journalières
+    const dateOptionsHTML = `
+      <option value="__auto__" ${salesCtx.effectiveDate === '__auto__' ? 'selected' : ''}>📅 Dernier Jour Disponible</option>
+      ${salesCtx.availableDates.map(d => `<option value="${d}" ${salesCtx.effectiveDate === d ? 'selected' : ''}>📅 ${d}</option>`).join('')}
+      <option value="__benchmark__" ${salesCtx.effectiveDate === '__benchmark__' ? 'selected' : ''}>⭐ Journée Type (Benchmark 125 couverts)</option>
+    `;
+
+    container.innerHTML = `
+      <div class="ai-agent-header">
+        <div class="ai-title-wrap">
+          <div class="ai-pulse-indicator">
+            <span class="ai-pulse-dot"></span>
+          </div>
+          <div>
+            <h3 class="ai-agent-title">
+              🤖 Agent Intelligent — Analyse des Ventes Journalières &amp; Revenus
+            </h3>
+            <p class="ai-agent-subtitle">
+              Audit permanent &bull; Journée analysée : <strong>${salesCtx.isBenchmark ? 'Journée Type (125 ventes)' : salesCtx.effectiveDate}</strong> &bull; Perte surdosage aujourd'hui : <span style="color:#dc2626; font-weight:900;">-${dailySales.totalDailyLostMargin.toFixed(2)} DH</span>
+            </p>
+          </div>
+        </div>
+        <div class="ai-agent-actions">
+          <div class="ai-date-picker-wrap" title="Choisir la date des ventes journalières à analyser">
+            <span style="font-size:12px;">📅 Jour :</span>
+            <select class="ai-date-select" onchange="window.setAIDailySalesDate(this.value)">
+              ${dateOptionsHTML}
+            </select>
+          </div>
+          <button class="btn btn-secondary" style="font-size:12px; padding:5px 10px; font-weight:700;" onclick="window.renderAIOptimizerAgent ? window.renderAIOptimizerAgent() : null" title="Relancer l'analyse complète">
+            🔄 Re-calculer
+          </button>
+          <button class="btn btn-secondary" style="font-size:12px; padding:5px 12px; font-weight:700;" onclick="window.toggleAIAgentCollapse()">
+            ${collapseIcon}
+          </button>
+        </div>
+      </div>
+
+      <div class="ai-agent-body ${isAIAgentCollapsed ? 'collapsed' : ''}">
+        
+        <!-- BANDEAU DES 4 KPIS EN FONCTION DU CONTEXTE -->
+        ${currentAITab === 'daily_sales' ? `
+          <div class="ai-stats-row">
+            <div class="ai-stat-card" style="border-left: 4px solid #0284c7;">
+              <div class="ai-stat-label">📊 Ventes Réalisées ce Jour</div>
+              <div class="ai-stat-value text-accent">${dailySales.totalItemsSold} plats</div>
+              <div class="ai-stat-sub">CA Réalisé : <strong>${dailySales.totalDailyRevenue.toLocaleString('fr-FR')} DH</strong></div>
+            </div>
+            <div class="ai-stat-card" style="border-left: 4px solid #d97706;">
+              <div class="ai-stat-label">🥩 Food Cost Réel Pondéré</div>
+              <div class="ai-stat-value" style="color:#d97706;">${dailySales.weightedGcFC} %</div>
+              <div class="ai-stat-sub">Cible Standard : <strong class="text-success">${dailySales.weightedStdFC} %</strong></div>
+            </div>
+            <div class="ai-stat-card" style="border-left: 4px solid #dc2626;">
+              <div class="ai-stat-label">💸 Pertes Surdosage Aujourd'hui</div>
+              <div class="ai-stat-value text-danger">-${dailySales.totalDailyLostMargin.toFixed(2)} DH</div>
+              <div class="ai-stat-sub">Manque à gagner évitable sur le service</div>
+            </div>
+            <div class="ai-stat-card" style="border-left: 4px solid #16a34a;">
+              <div class="ai-stat-label">🎯 Marge Récupérable Mensuelle</div>
+              <div class="ai-stat-value text-success">+${Math.round(dailySales.totalDailyLostMargin * 30).toLocaleString('fr-FR')} DH</div>
+              <div class="ai-stat-sub">Bénéfice net additionnel / mois</div>
+            </div>
+          </div>
+        ` : `
+          <div class="ai-stats-row">
+            <div class="ai-stat-card">
+              <div class="ai-stat-label">💰 Gisement Total Identifié</div>
+              <div class="ai-stat-value text-success">+${stats.totalMonthlySavings.toLocaleString('fr-FR')} DH</div>
+              <div class="ai-stat-sub">Économie mensuelle estimée / mois</div>
+            </div>
+            <div class="ai-stat-card">
+              <div class="ai-stat-label">⚡ Top Quick Wins</div>
+              <div class="ai-stat-value text-accent">${stats.quickWinsCount} plats</div>
+              <div class="ai-stat-sub">Gains immédiats &ge; 3.00 DH / assiette</div>
+            </div>
+            <div class="ai-stat-card">
+              <div class="ai-stat-label">💡 Leviers de Prix (Pricing)</div>
+              <div class="ai-stat-value" style="color:#0284c7;">${stats.pricingCount} plats</div>
+              <div class="ai-stat-sub">+${stats.totalPotentialPricingRev.toLocaleString('fr-FR')} DH de marge additionnelle</div>
+            </div>
+            <div class="ai-stat-card">
+              <div class="ai-stat-label">🚨 Alertes Food Cost</div>
+              <div class="ai-stat-value ${stats.criticalCount > 0 ? 'text-danger' : 'text-success'}">${stats.criticalCount} plats</div>
+              <div class="ai-stat-sub">Food Cost critique &ge; 38%</div>
+            </div>
+          </div>
+        `}
+
+        <!-- ONGLETS FILTRES DE L'AGENT -->
+        <div class="ai-nav-pills">
+          <button class="ai-pill ${currentAITab === 'daily_sales' ? 'active' : ''}" onclick="window.setAITab('daily_sales')">
+            📅 Ventes du Jour &amp; Pertes Réelles <span class="ai-pill-count">${dailySales.matchedSales.length}</span>
+          </button>
+          <button class="ai-pill ${currentAITab === 'quick_wins' ? 'active' : ''}" onclick="window.setAITab('quick_wins')">
+            🔥 Quick Wins (Catalogue) <span class="ai-pill-count">${stats.quickWinsCount}</span>
+          </button>
+          <button class="ai-pill ${currentAITab === 'pricing' ? 'active' : ''}" onclick="window.setAITab('pricing')">
+            💡 Optimisation Prix &amp; Menu <span class="ai-pill-count">${stats.pricingCount}</span>
+          </button>
+          <button class="ai-pill ${currentAITab === 'standards' ? 'active' : ''}" onclick="window.setAITab('standards')">
+            ⚖️ Réalignement Standards <span class="ai-pill-count">${stats.standardsCount}</span>
+          </button>
+          <button class="ai-pill ${currentAITab === 'critical' ? 'active' : ''}" onclick="window.setAITab('critical')">
+            🚨 Alertes Rentabilité <span class="ai-pill-count">${stats.criticalCount}</span>
+          </button>
+        </div>
+
+        ${salesCtx.isBenchmark && currentAITab === 'daily_sales' ? `
+          <div style="margin-bottom:14px; padding:10px 14px; background:rgba(2,132,199,0.08); border:1px solid rgba(2,132,199,0.25); border-radius:10px; font-size:12px; color:var(--text); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <span>💡 <strong>Mode Démonstration Actif :</strong> Ventes basées sur un service de référence (125 couverts). Pour analyser vos tickets de caisse réels, importez vos ventes dans <a href="consommation.html" style="color:#0284c7; font-weight:800; text-decoration:none;">📊 Déstockage</a>.</span>
+            <a href="consommation.html" class="btn btn-primary" style="font-size:11.5px; padding:4px 10px; text-decoration:none;">📥 Importer Ventes du Jour</a>
+          </div>
+        ` : ''}
+
+        <!-- GRILLE DES IDÉES & ACTIONS QUOTIDIENNES -->
+        <div class="ai-ideas-grid">
+          ${displayedItems.length === 0 ? `
+            <div style="grid-column: 1 / -1; padding:30px; text-align:center; color:var(--text-muted); background:var(--bg); border-radius:12px; border:1px dashed var(--border);">
+              ✨ Félicitations ! Aucun plat ne présente d'anomalie dans cet axe d'optimisation.
+            </div>
+          ` : displayedItems.map(item => {
+            // Mode Ventes Journalières
+            if (currentAITab === 'daily_sales') {
+              const lossClass = item.dailyLostDH >= 100 ? 'priority-high' : (item.dailyLostDH >= 30 ? 'priority-medium' : 'priority-standard');
+              return `
+                <div class="ai-idea-card ${lossClass}">
+                  <div class="ai-idea-top">
+                    <div>
+                      <span class="ai-dish-cat">${escapeHtml(item.category)}</span>
+                      <h4 class="ai-dish-name">${escapeHtml(item.recipeName)}</h4>
+                    </div>
+                    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:3px;">
+                      <span class="ai-daily-qty-chip">📦 ${item.qtySold} vendus</span>
+                      ${item.dailyLostDH > 0 
+                        ? `<span class="ai-daily-loss-chip">Perte ce jour : -${item.dailyLostDH.toFixed(2)} DH</span>` 
+                        : `<span class="ai-gain-chip" style="font-size:11px;">Marge Conforme ✅</span>`}
+                    </div>
+                  </div>
+
+                  <div class="ai-metrics-compare">
+                    <div class="ai-metric-col">
+                      <span class="ai-metric-title">Vente &amp; Coût Grey Corner</span>
+                      <span class="ai-metric-val" style="color:${item.gcFC > 35 ? '#dc2626' : 'var(--text)'};">
+                        ${item.sellPrice} DH | Coût : ${item.gcCostUnit.toFixed(2)} DH (FC ${item.gcFC}%)
+                      </span>
+                    </div>
+                    <div class="ai-metric-col">
+                      <span class="ai-metric-title">Standard Métier Conseillé</span>
+                      <span class="ai-metric-val text-success">
+                        Coût : ${item.stdCostUnit.toFixed(2)} DH (FC ${item.stdFC}%)
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="ai-idea-desc">
+                    ${item.unitDiffDH > 0 
+                      ? `Surdosage unitaire de <strong>+${item.unitDiffDH.toFixed(2)} DH</strong> par assiette. Sur les <strong>${item.qtySold} ventes d'aujourd'hui</strong>, vous avez perdu <strong>${item.dailyLostDH.toFixed(2)} DH de marge nette</strong>.` 
+                      : `Portion parfaitement alignée sur la norme internationale. Marge brute réalisée aujourd'hui : <strong>${((item.sellPrice - item.gcCostUnit) * item.qtySold).toFixed(2)} DH</strong>.`}
+                  </div>
+
+                  <div class="ai-idea-actions">
+                    ${item.unitDiffDH > 0 ? `
+                      <button class="ai-btn-action btn-apply-std" onclick="window.applyAIOptimization('${escapeHtml(item.recipeName).replace(/'/g, "\\'")}', 'apply_standard')">
+                        🟢 Appliquer Standard (+${item.unitDiffDH.toFixed(2)} DH/v)
+                      </button>
+                    ` : ''}
+                    <button class="ai-btn-action btn-inspect" onclick="window.applyAIOptimization('${escapeHtml(item.recipeName).replace(/'/g, "\\'")}', 'inspect')">
+                      🔍 Voir la Fiche
+                    </button>
+                  </div>
+                </div>
+              `;
+            }
+
+            // Mode Recommandations Globales (Quick Wins, Pricing, Standards, Alertes)
+            const priorityClass = item.priority === 'high' ? 'priority-high' : (item.priority === 'standard' ? 'priority-standard' : 'priority-medium');
+            return `
+              <div class="ai-idea-card ${priorityClass}">
+                <div class="ai-idea-top">
+                  <div>
+                    <span class="ai-dish-cat">${escapeHtml(item.category)}</span>
+                    <h4 class="ai-dish-name">${escapeHtml(item.recipeName)}</h4>
+                  </div>
+                  ${item.monthlyGain ? `<span class="ai-gain-chip">💰 +${item.monthlyGain} DH/m</span>` : ''}
+                </div>
+
+                ${item.currentFC ? `
+                  <div class="ai-metrics-compare">
+                    <div class="ai-metric-col">
+                      <span class="ai-metric-title">Situation Actuelle</span>
+                      <span class="ai-metric-val" style="color:${item.currentFC > 35 ? '#dc2626' : 'var(--text)'};">
+                        FC ${item.currentFC}% ${item.currentCost ? `(${item.currentCost.toFixed(2)} DH)` : ''}
+                      </span>
+                    </div>
+                    <div class="ai-metric-col">
+                      <span class="ai-metric-title">Objectif Optimisé</span>
+                      <span class="ai-metric-val text-success">
+                        ${item.stdFC ? `FC ${item.stdFC}% (${item.stdCost.toFixed(2)} DH)` : (item.targetPrice ? `${item.targetPrice} DH (FC ${item.newFC}%)` : `Marge saine`)}
+                      </span>
+                    </div>
+                  </div>
+                ` : ''}
+
+                <div class="ai-idea-desc">
+                  ${item.desc}
+                </div>
+
+                <div class="ai-idea-actions">
+                  ${item.actionType === 'apply_standard' ? `
+                    <button class="ai-btn-action btn-apply-std" onclick="window.applyAIOptimization('${escapeHtml(item.recipeName).replace(/'/g, "\\'")}', 'apply_standard')">
+                      ${item.actionLabel}
+                    </button>
+                  ` : ''}
+                  ${item.actionType === 'apply_price' ? `
+                    <button class="ai-btn-action btn-apply-price" onclick="window.applyAIOptimization('${escapeHtml(item.recipeName).replace(/'/g, "\\'")}', 'apply_price', ${item.actionParam})">
+                      ${item.actionLabel}
+                    </button>
+                  ` : ''}
+                  <button class="ai-btn-action btn-inspect" onclick="window.applyAIOptimization('${escapeHtml(item.recipeName).replace(/'/g, "\\'")}', 'inspect')">
+                    🔍 Voir la Fiche
+                  </button>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        ${activeList.length > 14 ? `
+          <div style="margin-top:16px; text-align:center; font-size:12px; color:var(--text-muted);">
+            Affichage des 14 éléments prioritaires sur un total de <strong>${activeList.length}</strong> identifiés dans cette vue.
+          </div>
+        ` : ''}
+
+      </div>
+    `;
+  }
+  window.renderAIOptimizerAgent = renderAIOptimizerAgent;
 
   let isComparatorTableView = false;
 
