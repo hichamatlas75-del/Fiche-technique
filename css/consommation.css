@@ -1801,6 +1801,34 @@
   box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
 }
 
+.hologram-btn#btn-holo-filter-star.active {
+  background: #10b981 !important;
+  border-color: #10b981 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
+}
+
+.hologram-btn#btn-holo-filter-plowhorse.active {
+  background: #0284c7 !important;
+  border-color: #0284c7 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35) !important;
+}
+
+.hologram-btn#btn-holo-filter-puzzle.active {
+  background: #8b5cf6 !important;
+  border-color: #8b5cf6 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35) !important;
+}
+
+.hologram-btn#btn-holo-filter-dog.active {
+  background: #ef4444 !important;
+  border-color: #ef4444 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35) !important;
+}
+
 .hologram-btn.icon-btn {
   padding: 6px 9px;
   font-size: 12px;

@@ -4512,26 +4512,37 @@ function renderMenuEngineeringTable() {
 
 
 /* ========================================================
-   11.B HOLOGRAMME 3D SPATIAL (CANVAS MENU ENGINEERING 3D)
+   11.B CYLINDRE HOLOGRAPHIQUE 3D DES PLATS (MENU ENGINEERING)
 ======================================================== */
 let holoPoints = [];
 let hoveredHoloPoint = null;
 let holoCanvasBound = false;
 let holoAnimFrameId = null;
 let holoIsVisible = true;
-let isHoloDragging = false;
-let holoDragStartX = 0;
-let holoDragStartY = 0;
-let holoStartYaw = 0;
-let holoStartPitch = 0;
 
-// Caméra 3D et options
+// État et contrôle du Cylindre Holographique
+let cylinderAngle = 0;              // Angle de rotation actuel (radians)
+let cylinderTargetAngle = 0;        // Angle cible pour amortissement fluide
+let cylinderVelocity = 0;           // Vélocité inertielle
+let cylinderZoom = 1.0;             // Zoom actuel (0.6 - 2.0)
+let cylinderTargetZoom = 1.0;       // Zoom cible
+let cylinderAutoRotate = true;       // Rotation continue 360°
+let cylinderShowLabels = true;      // Affichage des noms des plats
+let cylinderFilter = 'all';         // 'all' | 'star' | 'plowhorse' | 'puzzle' | 'dog'
+let isCylinderDragging = false;
+let cylinderDragStartX = 0;
+let cylinderStartAngle = 0;
+let cylinderLastDragX = 0;
+let cylinderLastDragTime = 0;
+let cylinderPulseTime = 0;
+
+// Objet caméra conservé pour rétrocompatibilité totale avec tests et scripts
 let holoCamera = {
-  yaw: 0.75,         // ~43°
-  pitch: 0.42,       // ~24°
+  yaw: 0,
+  pitch: 0.25,
   zoom: 1.0,
-  targetYaw: 0.75,
-  targetPitch: 0.42,
+  targetYaw: 0,
+  targetPitch: 0.25,
   targetZoom: 1.0,
   autoRotate: true,
   showBeams: true,
@@ -4539,51 +4550,89 @@ let holoCamera = {
   currentView: 'free'
 };
 
-// Effets d'ambiance holographique
-let holoScanlineY = 0;
-let holoRingAngle = 0;
+// Particules lumineuses d'ambiance du cylindre
 let holoParticles = [];
-
 function initHoloParticles() {
   holoParticles = [];
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 24; i++) {
     holoParticles.push({
-      x: (Math.random() - 0.5) * 380,
-      y: Math.random() * 240,
-      z: (Math.random() - 0.5) * 380,
-      speed: 0.2 + Math.random() * 0.6,
-      size: 1 + Math.random() * 1.8,
-      alpha: 0.15 + Math.random() * 0.45
+      angle: Math.random() * Math.PI * 2,
+      heightNorm: (Math.random() - 0.5) * 2,
+      radiusOffset: (Math.random() - 0.5) * 30,
+      speedY: 0.003 + Math.random() * 0.007,
+      size: 1 + Math.random() * 1.6,
+      alpha: 0.15 + Math.random() * 0.4
     });
   }
 }
 initHoloParticles();
 
-// Projection 3D vers écran 2D
-function project3D(x, y, z, width, height, cam) {
-  const cosY = Math.cos(cam.yaw);
-  const sinY = Math.sin(cam.yaw);
-  const cosP = Math.cos(cam.pitch);
-  const sinP = Math.sin(cam.pitch);
+// Projection cylindrique 3D vers écran 2D
+// angle : angle sur la circonférence du cylindre (radians)
+// yLocal : hauteur relative dans le cylindre [-H/2, +H/2]
+// radius : rayon du cylindre (px)
+// tilt : inclinaison fixe du cylindre pour vision 3D naturelle (rad)
+function projectCylinder(angle, yLocal, radius, width, height, zoom, tilt = 0.25) {
+  const cosA = Math.cos(angle);
+  const sinA = Math.sin(angle);
+  const cosT = Math.cos(tilt);
+  const sinT = Math.sin(tilt);
 
-  // 1. Rotation Yaw autour de Y
+  // Coordonnées 3D locales
+  const x = radius * sinA;
+  const z = radius * cosA;
+  const y = yLocal;
+
+  // Inclinaison de vue fixe autour de l'axe X
+  const yRot = y * cosT - z * sinT;
+  const zRot = y * sinT + z * cosT;
+  const xRot = x;
+
+  // Perspective conique douce
+  const focal = 540;
+  const depth = focal - zRot;
+  const scale = depth > 30 ? (focal * zoom) / depth : 0.01;
+
+  const cx = width / 2;
+  const cy = height * 0.52;
+
+  return {
+    sx: cx + xRot * scale,
+    sy: cy - yRot * scale,
+    scale: scale,
+    depth: zRot,
+    isFront: cosA >= 0,
+    cosA: cosA,
+    sinA: sinA
+  };
+}
+
+// Fonction de rétrocompatibilité project3D pour tests existants
+function project3D(x, y, z, width, height, cam) {
+  const camPitch = (cam && typeof cam.pitch === 'number') ? cam.pitch : 0.25;
+  const camYaw = (cam && typeof cam.yaw === 'number') ? cam.yaw : cylinderAngle;
+  const camZoom = (cam && typeof cam.zoom === 'number') ? cam.zoom : cylinderZoom;
+
+  const cosY = Math.cos(camYaw);
+  const sinY = Math.sin(camYaw);
+  const cosP = Math.cos(camPitch);
+  const sinP = Math.sin(camPitch);
+
   const x1 = x * cosY + z * sinY;
   const z1 = -x * sinY + z * cosY;
   const y1 = y;
 
-  // 2. Rotation Pitch autour de X
   const y2 = y1 * cosP - z1 * sinP;
   const z2 = y1 * sinP + z1 * cosP;
   const x2 = x1;
 
-  // 3. Perspective
-  const focalLength = 680;
-  const cameraDistance = 750;
+  const focalLength = 540;
+  const cameraDistance = 600;
   const depth = cameraDistance + z2;
-  const scale = depth > 20 ? (focalLength * cam.zoom) / depth : 0.01;
+  const scale = depth > 20 ? (focalLength * camZoom) / depth : 0.01;
 
   const centerX = width / 2;
-  const centerY = height * 0.58;
+  const centerY = height * 0.52;
 
   return {
     sx: centerX + x2 * scale,
@@ -4596,7 +4645,7 @@ function project3D(x, y, z, width, height, cam) {
   };
 }
 
-// Fonction principale de rendu de l'hologramme
+// Moteur de rendu principal du Cylindre Holographique 3D
 function renderMenuEngineeringHologram() {
   const canvas = document.getElementById('canvas-menu-eng-hologram');
   const container = document.getElementById('hologram-viewport');
@@ -4616,29 +4665,39 @@ function renderMenuEngineeringHologram() {
   ctx.resetTransform ? ctx.resetTransform() : ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.scale(dpr, dpr);
 
-  // Amortissement fluide de la caméra
-  holoCamera.yaw += (holoCamera.targetYaw - holoCamera.yaw) * 0.12;
-  holoCamera.pitch += (holoCamera.targetPitch - holoCamera.pitch) * 0.12;
-  holoCamera.zoom += (holoCamera.targetZoom - holoCamera.zoom) * 0.12;
-
-  if (holoCamera.autoRotate && !isHoloDragging) {
-    holoCamera.targetYaw += 0.0035;
+  // Amortissement fluide de la rotation et du zoom
+  if (isCylinderDragging) {
+    cylinderVelocity = 0;
+  } else {
+    // Application de la vélocité résiduelle (inertie de lancer)
+    if (Math.abs(cylinderVelocity) > 0.0001) {
+      cylinderAngle += cylinderVelocity;
+      cylinderTargetAngle = cylinderAngle;
+      cylinderVelocity *= 0.92;
+    } else if (cylinderAutoRotate) {
+      cylinderTargetAngle += 0.0035;
+    }
   }
 
-  // Animation des ticks du socle et du balayage scanline
-  holoRingAngle += 0.012;
-  holoScanlineY = (holoScanlineY + 1.4) % height;
+  cylinderAngle += (cylinderTargetAngle - cylinderAngle) * 0.12;
+  cylinderZoom += (cylinderTargetZoom - cylinderZoom) * 0.12;
+  cylinderPulseTime += 0.025;
 
-  // Mise à jour de l'affichage HUD d'orientation
+  // Synchronisation de l'objet caméra rétrocompatible
+  holoCamera.yaw = cylinderAngle;
+  holoCamera.zoom = cylinderZoom;
+  holoCamera.autoRotate = cylinderAutoRotate;
+  holoCamera.showLabels = cylinderShowLabels;
+
+  // Mise à jour du HUD
   const hudCoords = document.getElementById('holo-hud-coords');
   if (hudCoords) {
-    const azDeg = Math.round(((holoCamera.yaw * 180 / Math.PI) % 360 + 360) % 360);
-    const elDeg = Math.round(holoCamera.pitch * 180 / Math.PI);
-    hudCoords.textContent = `AZ: ${azDeg}° • EL: ${elDeg}° • ${(holoCamera.zoom * 100).toFixed(0)}%`;
+    const deg = Math.round(((cylinderAngle * 180 / Math.PI) % 360 + 360) % 360);
+    hudCoords.textContent = `ROTATION: ${deg}° • ZOOM: ${(cylinderZoom * 100).toFixed(0)}%`;
   }
   const hudNodes = document.getElementById('holo-hud-nodes');
   if (hudNodes) {
-    hudNodes.textContent = `NODES: ${menuEngData ? menuEngData.length : 0}`;
+    hudNodes.textContent = `PLATS: ${menuEngData ? menuEngData.length : 0}`;
   }
 
   // Nettoyage fond
@@ -4648,328 +4707,391 @@ function renderMenuEngineeringHologram() {
     ctx.fillStyle = '#38bdf8';
     ctx.font = 'bold 14px ui-monospace, SFMono-Regular, monospace';
     ctx.textAlign = 'center';
-    ctx.fillText('⚡ MATRICE HOLOGRAPHIQUE EN ATTENTE DE DONNÉES ⚡', width / 2, height / 2);
+    ctx.fillText('⚡ CYLINDRE HOLOGRAPHIQUE EN ATTENTE DE DONNÉES ⚡', width / 2, height / 2);
     return;
   }
 
-  // 1. Calcul des bornes de normalisation
-  const maxQty = Math.max(10, Math.max(...menuEngData.map(i => i.qty))) * 1.1;
-  const maxGM = Math.max(10, Math.max(...menuEngData.map(i => i.grossMarginDH))) * 1.15;
+  // Bornes et statistiques de rentabilité
+  const maxQty = Math.max(1, ...menuEngData.map(i => i.qty));
+  const maxGM = Math.max(10, Math.max(...menuEngData.map(i => i.grossMarginDH))) * 1.12;
+  const minGM = Math.min(0, Math.min(...menuEngData.map(i => i.grossMarginDH)));
   const maxCA = Math.max(1, Math.max(...menuEngData.map(i => i.totalCA)));
 
   const totalVolume = menuEngData.reduce((acc, i) => acc + i.qty, 0);
   const totalProfit = menuEngData.reduce((acc, i) => acc + i.totalProfitDH, 0);
   const avgGrossMargin = totalVolume > 0 ? (totalProfit / totalVolume) : 0;
-  const popThreshold = menuEngData.length > 0 ? (totalVolume / menuEngData.length) * 0.70 : 0;
 
-  // 2. Socle Holographique Inférieur (Plancher 3D y = 0)
-  drawHoloPedestalAndGrid(ctx, width, height, holoCamera, popThreshold, maxQty, avgGrossMargin, maxGM);
+  // Dimensions géométriques du cylindre
+  const radius = Math.min(width * 0.28, 175) * cylinderZoom;
+  const cylinderHeight = 220 * cylinderZoom;
+  const halfH = cylinderHeight / 2;
+  const tilt = 0.25; // ~14.3° pour voir le dessus et le dessous
 
-  // 3. Particules quantiques 3D flottantes
-  drawHoloParticles(ctx, width, height, holoCamera);
+  // 1. Dessin de la structure arrière du cylindre (Back Wireframe)
+  drawCylinderBackStructure(ctx, width, height, radius, halfH, cylinderZoom, tilt);
 
-  // 4. Calcul et projection des plats (Data Nodes)
+  // 2. Particules holographiques en lévitation
+  drawCylinderParticles(ctx, width, height, radius, halfH, cylinderZoom, tilt);
+
+  // 3. Calcul de la projection des plats
   holoPoints = [];
-  const drawList = [];
+  const drawNodes = [];
 
-  const arenaHalf = 175; // Demi-taille du volume 3D
-  const arenaHeight = 220; // Hauteur maximale 3D
+  // Ordonnancement harmonique autour du cylindre : Étoiles -> Chevaux -> Poids morts -> Dilemmes
+  const quadrantOrder = { star: 0, plowhorse: 1, dog: 2, puzzle: 3 };
+  const sortedItems = [...menuEngData].sort((a, b) => {
+    const qDiff = (quadrantOrder[a.quadrant] || 0) - (quadrantOrder[b.quadrant] || 0);
+    if (qDiff !== 0) return qDiff;
+    return b.grossMarginDH - a.grossMarginDH;
+  });
 
-  menuEngData.forEach(item => {
-    // Normalisation des axes :
-    // X : Volume (0 -> maxQty) centré sur [-arenaHalf, +arenaHalf]
-    const normX = ((item.qty / maxQty) - 0.5) * (arenaHalf * 2);
-    // Y : Marge Brute Cash (0 -> maxGM) étalé sur [8, arenaHeight]
-    const normY = 10 + (Math.max(0, item.grossMarginDH) / maxGM) * (arenaHeight - 15);
-    // Z : Chiffre d'Affaires total (0 -> maxCA) centré sur [-arenaHalf, +arenaHalf]
-    const normZ = ((item.totalCA / maxCA) - 0.5) * (arenaHalf * 2);
+  const totalItems = sortedItems.length;
 
-    const projected = project3D(normX, normY, normZ, width, height, holoCamera);
-    const groundProj = project3D(normX, 0, normZ, width, height, holoCamera);
+  sortedItems.forEach((item, index) => {
+    // Angle natif sur la circonférence
+    const baseAngle = (index / totalItems) * Math.PI * 2;
+    const currentAngle = baseAngle + cylinderAngle;
 
-    const baseRadius = 5.5 + Math.sqrt(item.totalCA / maxCA) * 14;
-    const screenRadius = Math.max(4, Math.min(32, baseRadius * projected.scale));
+    // Hauteur Y sur le cylindre selon la Marge Brute Cash DH
+    // Les plats à forte marge sont tout en haut (+halfH * 0.76), ceux à faible marge en bas (-halfH * 0.76)
+    const marginRange = Math.max(1, maxGM - minGM);
+    const normRatio = Math.max(0, Math.min(1, (item.grossMarginDH - minGM) / marginRange));
+    const yLocal = (normRatio - 0.5) * (cylinderHeight * 0.78);
+
+    const proj = projectCylinder(currentAngle, yLocal, radius, width, height, cylinderZoom, tilt);
+
+    // Taille de l'orbe selon le CA total
+    const baseRadius = 5.5 + Math.sqrt(item.totalCA / maxCA) * 11;
+    const screenRadius = Math.max(3.5, Math.min(26, baseRadius * proj.scale));
+
+    const isMatchFilter = (cylinderFilter === 'all' || item.quadrant === cylinderFilter);
 
     const nodeObj = {
       item,
-      proj: projected,
-      groundProj: groundProj,
+      proj,
       screenRadius,
-      depth: projected.depth
+      depth: proj.depth,
+      isFront: proj.isFront,
+      isMatchFilter,
+      yLocal
     };
 
-    drawList.push(nodeObj);
+    drawNodes.push(nodeObj);
     holoPoints.push({
-      x: projected.sx,
-      y: projected.sy,
+      x: proj.sx,
+      y: proj.sy,
       r: screenRadius,
       item: item,
       node: nodeObj
     });
   });
 
-  // 5. Tri en profondeur (Painter's algorithm : du plus loin au plus proche)
-  drawList.sort((a, b) => b.depth - a.depth);
+  // Tri des orbes en profondeur (peintre : du fond vers le premier plan)
+  drawNodes.sort((a, b) => a.depth - b.depth);
 
-  // 6. Rendu des faisceaux lasers verticaux
-  if (holoCamera.showBeams) {
-    drawList.forEach(node => {
-      drawHoloLaserBeam(ctx, node);
-    });
-  }
-
-  // 7. Rendu des Orbes Holographiques
-  drawList.forEach(node => {
-    drawHoloOrb(ctx, node, hoveredHoloPoint && hoveredHoloPoint.item === node.item);
+  // 4. Rendu des orbes arrière (translucides à travers la paroi)
+  drawNodes.filter(n => !n.isFront).forEach(node => {
+    drawCylinderOrb(ctx, node, false, false);
   });
 
-  // 8. Rendu des étiquettes flottantes 3D
-  if (holoCamera.showLabels) {
-    // Affiche les labels pour les top étoiles ou le point survolé
-    const topStars = [...drawList]
-      .filter(n => n.item.quadrant === 'star')
-      .sort((a, b) => b.item.totalCA - a.item.totalCA)
-      .slice(0, 5);
+  // 5. Anneau du Seuil de Marge Moyenne (Tranchant au niveau de la marge moyenne)
+  const normThreshRatio = Math.max(0, Math.min(1, (avgGrossMargin - minGM) / Math.max(1, maxGM - minGM)));
+  const yThresh = (normThreshRatio - 0.5) * (cylinderHeight * 0.78);
+  drawCylinderThresholdRing(ctx, width, height, radius, yThresh, cylinderZoom, tilt, avgGrossMargin);
 
-    topStars.forEach(node => {
-      if (!hoveredHoloPoint || hoveredHoloPoint.item !== node.item) {
-        drawHoloFloatingLabel(ctx, node, false);
+  // 6. Dessin de la structure avant du cylindre (Front Wireframe)
+  drawCylinderFrontStructure(ctx, width, height, radius, halfH, cylinderZoom, tilt);
+
+  // 7. Rendu des orbes avant (opaques, éclatants, interactifs)
+  const frontNodes = drawNodes.filter(n => n.isFront);
+  frontNodes.forEach(node => {
+    const isHovered = (hoveredHoloPoint && hoveredHoloPoint.item === node.item);
+    drawCylinderOrb(ctx, node, isHovered, true);
+  });
+
+  // 8. Rendu des étiquettes des plats
+  if (cylinderShowLabels) {
+    frontNodes.forEach(node => {
+      if (node.isMatchFilter) {
+        const isHovered = (hoveredHoloPoint && hoveredHoloPoint.item === node.item);
+        if (!isHovered) {
+          drawCylinderLabel(ctx, node, false);
+        }
       }
     });
   }
 
-  // Si un point est survolé : dessiner le réticule de ciblage HUD
+  // 9. Si un orbe est survolé : réticule de ciblage et label prioritaire
   if (hoveredHoloPoint) {
-    drawHoloTargetReticle(ctx, hoveredHoloPoint.node);
-    drawHoloFloatingLabel(ctx, hoveredHoloPoint.node, true);
+    drawCylinderTargetReticle(ctx, hoveredHoloPoint.node);
+    drawCylinderLabel(ctx, hoveredHoloPoint.node, true);
   }
 
-  // 9. Balayage Holographique Scanline
-  drawHoloScanline(ctx, width, height);
-
-  // Initialisation des écouteurs d'événements
+  // Liaison des écouteurs d'événements
   bindHoloEventListeners(canvas, container, tooltip);
 }
 
-// Rendu du Socle, de la Grille et des Seuils
-function drawHoloPedestalAndGrid(ctx, width, height, cam, popThreshold, maxQty, avgGrossMargin, maxGM) {
-  const arenaHalf = 175;
-  const gridSteps = 6;
-  const stepSize = (arenaHalf * 2) / gridSteps;
-
-  // Lignes de grille au sol (y = 0)
-  ctx.lineWidth = 1;
-  ctx.strokeStyle = 'rgba(6, 182, 212, 0.12)';
-
-  for (let i = 0; i <= gridSteps; i++) {
-    const coord = -arenaHalf + i * stepSize;
-    // Lignes parallèles à Z
-    const p1 = project3D(coord, 0, -arenaHalf, width, height, cam);
-    const p2 = project3D(coord, 0, arenaHalf, width, height, cam);
-    ctx.beginPath();
-    ctx.moveTo(p1.sx, p1.sy);
-    ctx.lineTo(p2.sx, p2.sy);
-    ctx.stroke();
-
-    // Lignes parallèles à X
-    const p3 = project3D(-arenaHalf, 0, coord, width, height, cam);
-    const p4 = project3D(arenaHalf, 0, coord, width, height, cam);
-    ctx.beginPath();
-    ctx.moveTo(p3.sx, p3.sy);
-    ctx.lineTo(p4.sx, p4.sy);
-    ctx.stroke();
-  }
-
-  // Anneaux concentriques émetteurs au sol
-  const ringRadius = 185;
-  const numSegments = 40;
+// Rendu de la moitié arrière de la structure du cylindre
+function drawCylinderBackStructure(ctx, width, height, radius, halfH, zoom, tilt) {
   ctx.save();
-  ctx.strokeStyle = 'rgba(6, 182, 212, 0.28)';
-  ctx.lineWidth = 1.5;
+
+  // Halo central interne
+  const cx = width / 2;
+  const cy = height * 0.52;
+  const innerGrad = ctx.createRadialGradient(cx, cy, 10, cx, cy, radius * 1.15);
+  innerGrad.addColorStop(0, 'rgba(6, 182, 212, 0.08)');
+  innerGrad.addColorStop(0.65, 'rgba(14, 165, 233, 0.03)');
+  innerGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+  ctx.fillStyle = innerGrad;
+  ctx.fillRect(cx - radius * 1.3, cy - halfH * 1.4, radius * 2.6, halfH * 2.8);
+
+  // Poteau central vertical (Axe du cylindre)
+  const topCenter = projectCylinder(0, halfH, 0, width, height, zoom, tilt);
+  const botCenter = projectCylinder(0, -halfH, 0, width, height, zoom, tilt);
+  const axisGrad = ctx.createLinearGradient(0, topCenter.sy, 0, botCenter.sy);
+  axisGrad.addColorStop(0, 'rgba(56, 189, 248, 0.4)');
+  axisGrad.addColorStop(0.5, 'rgba(6, 182, 212, 0.15)');
+  axisGrad.addColorStop(1, 'rgba(56, 189, 248, 0.4)');
   ctx.beginPath();
-  for (let i = 0; i <= numSegments; i++) {
-    const angle = (i / numSegments) * Math.PI * 2;
-    const rx = Math.cos(angle) * ringRadius;
-    const rz = Math.sin(angle) * ringRadius;
-    const pt = project3D(rx, 0, rz, width, height, cam);
-    if (i === 0) ctx.moveTo(pt.sx, pt.sy);
-    else ctx.lineTo(pt.sx, pt.sy);
-  }
-  ctx.stroke();
-
-  // Ticks rotatifs holographiques autour du grand anneau
-  ctx.strokeStyle = 'rgba(56, 189, 248, 0.55)';
-  ctx.lineWidth = 1.8;
-  const numTicks = 16;
-  for (let i = 0; i < numTicks; i++) {
-    const angle = (i / numTicks) * Math.PI * 2 + holoRingAngle;
-    const r1 = ringRadius - 5;
-    const r2 = ringRadius + 5;
-    const pt1 = project3D(Math.cos(angle) * r1, 0, Math.sin(angle) * r1, width, height, cam);
-    const pt2 = project3D(Math.cos(angle) * r2, 0, Math.sin(angle) * r2, width, height, cam);
-    ctx.beginPath();
-    ctx.moveTo(pt1.sx, pt1.sy);
-    ctx.lineTo(pt2.sx, pt2.sy);
-    ctx.stroke();
-  }
-
-  // Anneau intérieur pulsant
-  const innerRadius = 90;
-  ctx.strokeStyle = 'rgba(6, 182, 212, 0.2)';
+  ctx.moveTo(topCenter.sx, topCenter.sy);
+  ctx.lineTo(botCenter.sx, botCenter.sy);
+  ctx.strokeStyle = axisGrad;
   ctx.lineWidth = 1;
-  ctx.beginPath();
-  for (let i = 0; i <= numSegments; i++) {
-    const angle = (i / numSegments) * Math.PI * 2;
-    const rx = Math.cos(angle) * innerRadius;
-    const rz = Math.sin(angle) * innerRadius;
-    const pt = project3D(rx, 0, rz, width, height, cam);
-    if (i === 0) ctx.moveTo(pt.sx, pt.sy);
-    else ctx.lineTo(pt.sx, pt.sy);
+  ctx.setLineDash([3, 3]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Demi-ellipse arrière inférieure
+  ctx.strokeStyle = 'rgba(6, 182, 212, 0.18)';
+  ctx.lineWidth = 1;
+  drawCylinderArc(ctx, width, height, radius, -halfH, zoom, tilt, Math.PI / 2, (3 * Math.PI) / 2);
+
+  // Demi-ellipse arrière supérieure
+  ctx.strokeStyle = 'rgba(6, 182, 212, 0.18)';
+  drawCylinderArc(ctx, width, height, radius, halfH, zoom, tilt, Math.PI / 2, (3 * Math.PI) / 2);
+
+  // Nervures verticales arrière (arêtes du cylindre)
+  const numRibs = 12;
+  ctx.strokeStyle = 'rgba(6, 182, 212, 0.07)';
+  ctx.lineWidth = 0.8;
+  for (let i = 0; i < numRibs; i++) {
+    const angle = (i / numRibs) * Math.PI * 2 + cylinderAngle;
+    if (Math.cos(angle) < 0) {
+      const pTop = projectCylinder(angle, halfH, radius, width, height, zoom, tilt);
+      const pBot = projectCylinder(angle, -halfH, radius, width, height, zoom, tilt);
+      ctx.beginPath();
+      ctx.moveTo(pTop.sx, pTop.sy);
+      ctx.lineTo(pBot.sx, pBot.sy);
+      ctx.stroke();
+    }
   }
-  ctx.stroke();
-  ctx.restore();
 
-  // Ligne laser du Seuil de Marge Moyenne (Axe Y)
-  const normThreshY = 10 + (avgGrossMargin / maxGM) * (220 - 15);
-  ctx.save();
-  ctx.strokeStyle = 'rgba(16, 185, 129, 0.45)';
-  ctx.setLineDash([4, 4]);
-  ctx.lineWidth = 1.2;
-  const threshP1 = project3D(-arenaHalf, normThreshY, 0, width, height, cam);
-  const threshP2 = project3D(arenaHalf, normThreshY, 0, width, height, cam);
-  ctx.beginPath();
-  ctx.moveTo(threshP1.sx, threshP1.sy);
-  ctx.lineTo(threshP2.sx, threshP2.sy);
-  ctx.stroke();
-
-  // Label Marge Moyenne
-  ctx.fillStyle = '#10b981';
-  ctx.font = 'bold 10px ui-monospace, SFMono-Regular, monospace';
-  ctx.textAlign = 'left';
-  ctx.fillText(`⚡ SEUIL MARGE MOY. : ${avgGrossMargin.toFixed(1)} DH`, threshP2.sx + 6, threshP2.sy + 3);
   ctx.restore();
 }
 
-// Particules de poussière de lumière 3D
-function drawHoloParticles(ctx, width, height, cam) {
+// Rendu de la moitié avant de la structure du cylindre
+function drawCylinderFrontStructure(ctx, width, height, radius, halfH, zoom, tilt) {
+  ctx.save();
+
+  // Demi-ellipse avant supérieure (Anneau supérieur lumineux)
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.65)';
+  ctx.lineWidth = 1.8;
+  drawCylinderArc(ctx, width, height, radius, halfH, zoom, tilt, -Math.PI / 2, Math.PI / 2);
+
+  // Demi-ellipse avant inférieure (Anneau socle lumineux)
+  ctx.strokeStyle = 'rgba(6, 182, 212, 0.55)';
+  ctx.lineWidth = 1.8;
+  drawCylinderArc(ctx, width, height, radius, -halfH, zoom, tilt, -Math.PI / 2, Math.PI / 2);
+
+  // Bords latéraux tangents (génératrices gauche et droite)
+  const pLeftTop = projectCylinder(-Math.PI / 2, halfH, radius, width, height, zoom, tilt);
+  const pLeftBot = projectCylinder(-Math.PI / 2, -halfH, radius, width, height, zoom, tilt);
+  const pRightTop = projectCylinder(Math.PI / 2, halfH, radius, width, height, zoom, tilt);
+  const pRightBot = projectCylinder(Math.PI / 2, -halfH, radius, width, height, zoom, tilt);
+
+  const edgeGrad = ctx.createLinearGradient(0, pLeftTop.sy, 0, pLeftBot.sy);
+  edgeGrad.addColorStop(0, 'rgba(56, 189, 248, 0.55)');
+  edgeGrad.addColorStop(0.5, 'rgba(6, 182, 212, 0.2)');
+  edgeGrad.addColorStop(1, 'rgba(56, 189, 248, 0.55)');
+
+  ctx.strokeStyle = edgeGrad;
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(pLeftTop.sx, pLeftTop.sy);
+  ctx.lineTo(pLeftBot.sx, pLeftBot.sy);
+  ctx.moveTo(pRightTop.sx, pRightTop.sy);
+  ctx.lineTo(pRightBot.sx, pRightBot.sy);
+  ctx.stroke();
+
+  // Nervures verticales avant lumineuses
+  const numRibs = 12;
+  ctx.strokeStyle = 'rgba(6, 182, 212, 0.22)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i < numRibs; i++) {
+    const angle = (i / numRibs) * Math.PI * 2 + cylinderAngle;
+    if (Math.cos(angle) >= 0) {
+      const pTop = projectCylinder(angle, halfH, radius, width, height, zoom, tilt);
+      const pBot = projectCylinder(angle, -halfH, radius, width, height, zoom, tilt);
+      ctx.beginPath();
+      ctx.moveTo(pTop.sx, pTop.sy);
+      ctx.lineTo(pBot.sx, pBot.sy);
+      ctx.stroke();
+    }
+  }
+
+  ctx.restore();
+}
+
+// Dessin d'un arc sur la circonférence du cylindre
+function drawCylinderArc(ctx, width, height, radius, yLocal, zoom, tilt, startAngle, endAngle) {
+  const segments = 32;
+  ctx.beginPath();
+  for (let i = 0; i <= segments; i++) {
+    const a = startAngle + (i / segments) * (endAngle - startAngle);
+    const p = projectCylinder(a, yLocal, radius, width, height, zoom, tilt);
+    if (i === 0) ctx.moveTo(p.sx, p.sy);
+    else ctx.lineTo(p.sx, p.sy);
+  }
+  ctx.stroke();
+}
+
+// Anneau laser du Seuil de Marge Moyenne coupant le cylindre
+function drawCylinderThresholdRing(ctx, width, height, radius, yThresh, zoom, tilt, avgGrossMargin) {
+  ctx.save();
+  ctx.strokeStyle = 'rgba(16, 185, 129, 0.55)';
+  ctx.lineWidth = 1.4;
+  ctx.setLineDash([4, 4]);
+
+  // Cercle complet au niveau du seuil
+  const segments = 40;
+  ctx.beginPath();
+  let rightEdge = null;
+  for (let i = 0; i <= segments; i++) {
+    const a = (i / segments) * Math.PI * 2;
+    const p = projectCylinder(a, yThresh, radius, width, height, zoom, tilt);
+    if (i === 0) ctx.moveTo(p.sx, p.sy);
+    else ctx.lineTo(p.sx, p.sy);
+    if (i === Math.round(segments / 4)) rightEdge = p;
+  }
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Étiquette Seuil de Marge
+  if (rightEdge) {
+    ctx.fillStyle = '#10b981';
+    ctx.font = 'bold 9.5px ui-monospace, SFMono-Regular, monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText(`⚡ SEUIL MARGE MOY. : ${avgGrossMargin.toFixed(1)} DH`, rightEdge.sx + 8, rightEdge.sy + 3);
+  }
+
+  ctx.restore();
+}
+
+// Particules flottantes à l'intérieur/autour du cylindre
+function drawCylinderParticles(ctx, width, height, radius, halfH, zoom, tilt) {
   ctx.save();
   holoParticles.forEach(p => {
-    p.y = (p.y + p.speed) % 240;
-    const proj = project3D(p.x, p.y, p.z, width, height, cam);
+    p.heightNorm += p.speedY;
+    if (p.heightNorm > 1) p.heightNorm = -1;
+
+    const yLocal = p.heightNorm * halfH;
+    const r = radius + p.radiusOffset;
+    const proj = projectCylinder(p.angle + cylinderAngle * 0.5, yLocal, r, width, height, zoom, tilt);
+
     if (proj.scale > 0) {
-      const radius = Math.max(0.6, p.size * proj.scale);
-      ctx.fillStyle = `rgba(56, 189, 248, ${p.alpha * Math.min(1, proj.scale * 1.2)})`;
+      const ptRadius = Math.max(0.6, p.size * proj.scale);
+      const alpha = p.alpha * (proj.isFront ? 0.85 : 0.35);
+      ctx.fillStyle = `rgba(56, 189, 248, ${alpha})`;
       ctx.beginPath();
-      ctx.arc(proj.sx, proj.sy, radius, 0, Math.PI * 2);
+      ctx.arc(proj.sx, proj.sy, ptRadius, 0, Math.PI * 2);
       ctx.fill();
     }
   });
   ctx.restore();
 }
 
-// Faisceau laser reliant chaque plat à sa base au sol
-function drawHoloLaserBeam(ctx, node) {
-  const g = node.groundProj;
+// Rendu d'un orbe (Plat) sur le cylindre
+function drawCylinderOrb(ctx, node, isHovered, isFront) {
   const p = node.proj;
+  const r = isHovered ? node.screenRadius * 1.3 : node.screenRadius;
 
-  let beamColor = 'rgba(16, 185, 129, ';
-  if (node.item.quadrant === 'plowhorse') beamColor = 'rgba(2, 132, 199, ';
-  if (node.item.quadrant === 'puzzle') beamColor = 'rgba(139, 92, 246, ';
-  if (node.item.quadrant === 'dog') beamColor = 'rgba(239, 68, 68, ';
-
-  // Anneau d'impact au sol
-  ctx.save();
-  ctx.beginPath();
-  ctx.ellipse(g.sx, g.sy, 4 * g.scale, 2 * g.scale, 0, 0, Math.PI * 2);
-  ctx.strokeStyle = beamColor + '0.45)';
-  ctx.lineWidth = 1;
-  ctx.stroke();
-
-  // Faisceau vertical avec dégradé
-  const grad = ctx.createLinearGradient(g.sx, g.sy, p.sx, p.sy);
-  grad.addColorStop(0, beamColor + '0.12)');
-  grad.addColorStop(1, beamColor + '0.65)');
-
-  ctx.beginPath();
-  ctx.moveTo(g.sx, g.sy);
-  ctx.lineTo(p.sx, p.sy);
-  ctx.strokeStyle = grad;
-  ctx.lineWidth = Math.max(0.8, 1.2 * p.scale);
-  ctx.stroke();
-  ctx.restore();
-}
-
-// Rendu d'un Orbe Holographique (Plat)
-function drawHoloOrb(ctx, node, isHovered) {
-  const p = node.proj;
-  const r = isHovered ? node.screenRadius * 1.25 : node.screenRadius;
-
+  // Couleurs du quadrant
   let color = '#10b981';
-  let glowColor = 'rgba(16, 185, 129, 0.4)';
+  let glow = 'rgba(16, 185, 129, 0.45)';
   if (node.item.quadrant === 'plowhorse') {
     color = '#0284c7';
-    glowColor = 'rgba(2, 132, 199, 0.4)';
+    glow = 'rgba(2, 132, 199, 0.45)';
   } else if (node.item.quadrant === 'puzzle') {
     color = '#8b5cf6';
-    glowColor = 'rgba(139, 92, 246, 0.4)';
+    glow = 'rgba(139, 92, 246, 0.45)';
   } else if (node.item.quadrant === 'dog') {
     color = '#ef4444';
-    glowColor = 'rgba(239, 68, 68, 0.4)';
+    glow = 'rgba(239, 68, 68, 0.45)';
   }
 
   ctx.save();
 
-  // Halo extérieur luminescent
-  const grad = ctx.createRadialGradient(p.sx, p.sy, r * 0.15, p.sx, p.sy, r * 1.5);
+  let globalAlpha = 1.0;
+  if (!isFront) {
+    globalAlpha = node.isMatchFilter ? 0.28 : 0.07;
+  } else {
+    globalAlpha = node.isMatchFilter ? 1.0 : 0.18;
+  }
+  ctx.globalAlpha = globalAlpha;
+
+  // Halo extérieur
+  const grad = ctx.createRadialGradient(p.sx, p.sy, r * 0.1, p.sx, p.sy, r * 1.6);
   grad.addColorStop(0, '#ffffff');
   grad.addColorStop(0.35, color);
-  grad.addColorStop(0.8, glowColor);
+  grad.addColorStop(0.8, glow);
   grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
   ctx.beginPath();
-  ctx.arc(p.sx, p.sy, r * 1.5, 0, Math.PI * 2);
+  ctx.arc(p.sx, p.sy, r * 1.6, 0, Math.PI * 2);
   ctx.fillStyle = grad;
   ctx.fill();
 
-  // Orbe central dense
+  // Noyau central
   ctx.beginPath();
   ctx.arc(p.sx, p.sy, r, 0, Math.PI * 2);
   ctx.fillStyle = color;
   ctx.shadowColor = color;
-  ctx.shadowBlur = isHovered ? 20 : 10;
+  ctx.shadowBlur = isHovered ? 20 : (isFront ? 10 : 3);
   ctx.fill();
 
-  // Anneau holographique interne
-  ctx.beginPath();
-  ctx.arc(p.sx, p.sy, r * 0.7, 0, Math.PI * 2);
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.75)';
-  ctx.lineWidth = 1;
-  ctx.stroke();
+  // Anneau holographique intérieur si de face
+  if (isFront) {
+    ctx.beginPath();
+    ctx.arc(p.sx, p.sy, r * 0.65, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
 
   ctx.restore();
 }
 
-// Étiquette flottante 3D au-dessus du plat
-function drawHoloFloatingLabel(ctx, node, isHighlight) {
+// Étiquette flottante attachée au plat
+function drawCylinderLabel(ctx, node, isHighlight) {
   const p = node.proj;
-  const labelY = p.sy - node.screenRadius - 12;
+  const labelY = p.sy - node.screenRadius - 11;
   const text = `${node.item.product} (${node.item.grossMarginDH.toFixed(0)} DH)`;
 
   ctx.save();
   ctx.font = isHighlight
-    ? 'bold 11.5px ui-monospace, SFMono-Regular, monospace'
+    ? 'bold 11px ui-monospace, SFMono-Regular, monospace'
     : '600 9.5px -apple-system, BlinkMacSystemFont, sans-serif';
 
   const metrics = ctx.measureText(text);
   const textW = metrics.width;
-  const padX = 7;
-  const padY = 3.5;
+  const padX = 6;
+  const padY = 3;
   const boxW = textW + padX * 2;
-  const boxH = 18;
+  const boxH = 17;
   const boxX = p.sx - boxW / 2;
   const boxY = labelY - boxH / 2;
 
-  ctx.fillStyle = isHighlight ? 'rgba(3, 7, 18, 0.92)' : 'rgba(6, 11, 25, 0.75)';
+  ctx.fillStyle = isHighlight ? 'rgba(3, 7, 18, 0.94)' : 'rgba(6, 11, 25, 0.8)';
   ctx.strokeStyle = isHighlight ? '#38bdf8' : 'rgba(6, 182, 212, 0.35)';
   ctx.lineWidth = 1;
 
@@ -4985,75 +5107,64 @@ function drawHoloFloatingLabel(ctx, node, isHighlight) {
   ctx.restore();
 }
 
-// Réticule de ciblage HUD animé sur le point survolé
-function drawHoloTargetReticle(ctx, node) {
+// Réticule de ciblage HUD sur l'orbe survolé
+function drawCylinderTargetReticle(ctx, node) {
   const p = node.proj;
-  const r = node.screenRadius + 14;
+  const r = node.screenRadius + 12;
 
   ctx.save();
   ctx.strokeStyle = '#38bdf8';
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([6, 5]);
+  ctx.lineWidth = 1.4;
+  ctx.setLineDash([5, 4]);
 
-  // Cercle de verrouillage en rotation
   ctx.beginPath();
-  ctx.arc(p.sx, p.sy, r, holoRingAngle * 1.5, holoRingAngle * 1.5 + Math.PI * 2);
+  ctx.arc(p.sx, p.sy, r, cylinderPulseTime * 2, cylinderPulseTime * 2 + Math.PI * 2);
   ctx.stroke();
 
-  // Croix de visée aux 4 angles
   ctx.setLineDash([]);
-  const crossLen = 6;
+  const crossLen = 5;
   ctx.beginPath();
-  // Haut
   ctx.moveTo(p.sx, p.sy - r - crossLen); ctx.lineTo(p.sx, p.sy - r + crossLen);
-  // Bas
   ctx.moveTo(p.sx, p.sy + r - crossLen); ctx.lineTo(p.sx, p.sy + r + crossLen);
-  // Gauche
   ctx.moveTo(p.sx - r - crossLen, p.sy); ctx.lineTo(p.sx - r + crossLen, p.sy);
-  // Droite
   ctx.moveTo(p.sx + r - crossLen, p.sy); ctx.lineTo(p.sx + r + crossLen, p.sy);
   ctx.stroke();
   ctx.restore();
 }
 
-// Balayage lumineux horizontal de l'hologramme
-function drawHoloScanline(ctx, width, height) {
-  ctx.save();
-  const grad = ctx.createLinearGradient(0, holoScanlineY - 14, 0, holoScanlineY + 14);
-  grad.addColorStop(0, 'rgba(6, 182, 212, 0)');
-  grad.addColorStop(0.5, 'rgba(6, 182, 212, 0.08)');
-  grad.addColorStop(1, 'rgba(6, 182, 212, 0)');
-
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, holoScanlineY - 14, width, 28);
-  ctx.restore();
-}
-
-// Attachement des écouteurs d'interaction (Orbit, Pan, Zoom, Hover)
+// Écouteurs d'interaction : glissement horizontal, zoom, survol, tap
 function bindHoloEventListeners(canvas, container, tooltip) {
   if (holoCanvasBound) return;
   holoCanvasBound = true;
 
-  // 1. Déplacement de la souris / Drag pour rotation orbitale 3D
+  // 1. Début de glissement souris (Rotation horizontale)
   canvas.addEventListener('mousedown', (e) => {
-    isHoloDragging = true;
-    holoDragStartX = e.clientX;
-    holoDragStartY = e.clientY;
-    holoStartYaw = holoCamera.targetYaw;
-    holoStartPitch = holoCamera.targetPitch;
+    isCylinderDragging = true;
+    cylinderDragStartX = e.clientX;
+    cylinderStartAngle = cylinderAngle;
+    cylinderLastDragX = e.clientX;
+    cylinderLastDragTime = performance.now();
+    cylinderVelocity = 0;
   });
 
   window.addEventListener('mousemove', (e) => {
-    if (isHoloDragging) {
-      const dx = e.clientX - holoDragStartX;
-      const dy = e.clientY - holoDragStartY;
+    if (isCylinderDragging) {
+      const now = performance.now();
+      const dx = e.clientX - cylinderDragStartX;
+      const dt = Math.max(1, now - cylinderLastDragTime);
 
-      holoCamera.targetYaw = holoStartYaw + dx * 0.007;
-      holoCamera.targetPitch = Math.max(-0.65, Math.min(1.52, holoStartPitch + dy * 0.007));
+      cylinderTargetAngle = cylinderStartAngle + dx * 0.0075;
+      cylinderAngle = cylinderTargetAngle;
+
+      const instDx = e.clientX - cylinderLastDragX;
+      cylinderVelocity = (instDx / dt) * 0.15;
+
+      cylinderLastDragX = e.clientX;
+      cylinderLastDragTime = now;
       return;
     }
 
-    // Détection de survol (Raycasting 2D/3D screen space)
+    // Détection de survol (Raycasting sur les points)
     const cRect = canvas.getBoundingClientRect();
     const mx = e.clientX - cRect.left;
     const my = e.clientY - cRect.top;
@@ -5061,10 +5172,12 @@ function bindHoloEventListeners(canvas, container, tooltip) {
     let found = null;
     let closestDist = Infinity;
 
+    // Priorité aux orbes de face (front nodes)
     for (let i = holoPoints.length - 1; i >= 0; i--) {
       const pt = holoPoints[i];
       const dist = Math.hypot(mx - pt.x, my - pt.y);
-      if (dist <= pt.r + 7 && dist < closestDist) {
+      const hitRadius = pt.r + (pt.node.isFront ? 10 : 4);
+      if (dist <= hitRadius && dist < closestDist) {
         found = pt;
         closestDist = dist;
       }
@@ -5087,7 +5200,7 @@ function bindHoloEventListeners(canvas, container, tooltip) {
           💡 ${escapeHtml(it.actionAdvice)}
         </div>
       `;
-      tooltip.style.left = Math.min(cRect.width - 150, Math.max(150, mx)) + 'px';
+      tooltip.style.left = Math.min(cRect.width - 155, Math.max(155, mx)) + 'px';
       tooltip.style.top = Math.max(70, my - 15) + 'px';
       tooltip.style.display = 'block';
     } else {
@@ -5099,7 +5212,7 @@ function bindHoloEventListeners(canvas, container, tooltip) {
   });
 
   window.addEventListener('mouseup', () => {
-    isHoloDragging = false;
+    isCylinderDragging = false;
   });
 
   canvas.addEventListener('mouseleave', () => {
@@ -5107,53 +5220,45 @@ function bindHoloEventListeners(canvas, container, tooltip) {
     if (tooltip) tooltip.style.display = 'none';
   });
 
+  // Clic pour recentrer un plat de face
+  canvas.addEventListener('click', () => {
+    if (hoveredHoloPoint && hoveredHoloPoint.node) {
+      rotateCylinderToNode(hoveredHoloPoint.node);
+    }
+  });
+
   // 2. Zoom à la molette
   canvas.addEventListener('wheel', (e) => {
     e.preventDefault();
-    const delta = e.deltaY > 0 ? -0.12 : 0.12;
-    holoCamera.targetZoom = Math.max(0.45, Math.min(2.4, holoCamera.targetZoom + delta));
+    const delta = e.deltaY > 0 ? -0.1 : 0.1;
+    cylinderTargetZoom = Math.max(0.55, Math.min(2.0, cylinderTargetZoom + delta));
   }, { passive: false });
 
-  // 3. Support Tactile (Touch drag & Pinch zoom)
-  let initialTouchDist = 0;
+  // 3. Support Tactile (Touch drag)
+  let touchStartX = 0;
+  let touchStartAngle = 0;
   canvas.addEventListener('touchstart', (e) => {
     if (e.touches.length === 1) {
-      isHoloDragging = true;
-      holoDragStartX = e.touches[0].clientX;
-      holoDragStartY = e.touches[0].clientY;
-      holoStartYaw = holoCamera.targetYaw;
-      holoStartPitch = holoCamera.targetPitch;
-    } else if (e.touches.length === 2) {
-      initialTouchDist = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY
-      );
+      isCylinderDragging = true;
+      touchStartX = e.touches[0].clientX;
+      touchStartAngle = cylinderAngle;
+      cylinderVelocity = 0;
     }
   }, { passive: true });
 
   canvas.addEventListener('touchmove', (e) => {
-    if (e.touches.length === 1 && isHoloDragging) {
-      const dx = e.touches[0].clientX - holoDragStartX;
-      const dy = e.touches[0].clientY - holoDragStartY;
-      holoCamera.targetYaw = holoStartYaw + dx * 0.009;
-      holoCamera.targetPitch = Math.max(-0.65, Math.min(1.52, holoStartPitch + dy * 0.009));
-    } else if (e.touches.length === 2 && initialTouchDist > 0) {
-      const currentDist = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY
-      );
-      const ratio = currentDist / initialTouchDist;
-      holoCamera.targetZoom = Math.max(0.45, Math.min(2.4, holoCamera.zoom * ratio));
-      initialTouchDist = currentDist;
+    if (e.touches.length === 1 && isCylinderDragging) {
+      const dx = e.touches[0].clientX - touchStartX;
+      cylinderTargetAngle = touchStartAngle + dx * 0.009;
+      cylinderAngle = cylinderTargetAngle;
     }
   }, { passive: true });
 
   canvas.addEventListener('touchend', () => {
-    isHoloDragging = false;
-    initialTouchDist = 0;
+    isCylinderDragging = false;
   });
 
-  // 4. Boucle d'animation fluide 60 FPS
+  // 4. Boucle d'animation fluide
   function startHoloAnimationLoop() {
     if (holoAnimFrameId) cancelAnimationFrame(holoAnimFrameId);
 
@@ -5167,7 +5272,7 @@ function bindHoloEventListeners(canvas, container, tooltip) {
   }
   startHoloAnimationLoop();
 
-  // Optimisation IntersectionObserver pour économiser CPU/batterie si masqué
+  // Optimisation IntersectionObserver
   if (typeof IntersectionObserver !== 'undefined') {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -5178,50 +5283,88 @@ function bindHoloEventListeners(canvas, container, tooltip) {
   }
 }
 
-// Fonctions de contrôle de l'Hologramme exposées
-function setHologramView(viewMode) {
-  holoCamera.currentView = viewMode;
-
-  // Mise à jour visuelle des boutons
-  ['free', 'front', 'top', 'iso'].forEach(mode => {
-    const btn = document.getElementById(`btn-holo-cam-${mode}`);
-    if (btn) btn.classList.toggle('active', mode === viewMode);
-  });
-
-  if (viewMode === 'free') {
-    holoCamera.targetPitch = 0.42;
-    holoCamera.targetYaw = 0.75;
-    holoCamera.targetZoom = 1.0;
-  } else if (viewMode === 'front') {
-    holoCamera.targetPitch = 0.0;
-    holoCamera.targetYaw = 0.0;
-    holoCamera.targetZoom = 1.05;
-    holoCamera.autoRotate = false;
-  } else if (viewMode === 'top') {
-    holoCamera.targetPitch = 1.50; // Vue verticale
-    holoCamera.targetYaw = 0.0;
-    holoCamera.targetZoom = 1.05;
-    holoCamera.autoRotate = false;
-  } else if (viewMode === 'iso') {
-    holoCamera.targetPitch = 0.615; // ~35.26° isométrique
-    holoCamera.targetYaw = 0.785;   // ~45°
-    holoCamera.targetZoom = 1.0;
+// Rotation douce du cylindre pour placer un plat face au spectateur (angle = 0)
+function rotateCylinderToNode(node) {
+  if (!node || !node.item) return;
+  const idx = menuEngData.findIndex(i => i.product === node.item.product);
+  if (idx >= 0) {
+    const targetBaseAngle = (idx / menuEngData.length) * Math.PI * 2;
+    // On cherche l'angle tel que (targetBaseAngle + targetAngle) % (2PI) == 0
+    let target = -targetBaseAngle;
+    // Normalisation autour de l'angle actuel pour rotation minimale
+    while (target - cylinderAngle > Math.PI) target -= Math.PI * 2;
+    while (target - cylinderAngle < -Math.PI) target += Math.PI * 2;
+    cylinderTargetAngle = target;
   }
-
-  updateAutoRotateBtn();
 }
 
+// Filtrage direct des quadrants sur le cylindre
+function filterCylinderQuadrant(quad) {
+  cylinderFilter = quad;
+
+  // Mise à jour visuelle des boutons de filtres
+  ['all', 'star', 'plowhorse', 'puzzle', 'dog'].forEach(q => {
+    const btn = document.getElementById(`btn-holo-filter-${q}`);
+    if (btn) btn.classList.toggle('active', q === quad);
+  });
+
+  // Si on cible un quadrant spécifique, tourner le cylindre vers le plat leader de ce quadrant
+  if (quad !== 'all' && menuEngData && menuEngData.length > 0) {
+    const bestInQuad = menuEngData
+      .filter(i => i.quadrant === quad)
+      .sort((a, b) => b.totalCA - a.totalCA)[0];
+
+    if (bestInQuad) {
+      rotateCylinderToNode({ item: bestInQuad });
+    }
+  }
+}
+
+// Contrôles exposés
 function toggleHologramAutoRotate() {
-  holoCamera.autoRotate = !holoCamera.autoRotate;
+  cylinderAutoRotate = !cylinderAutoRotate;
+  holoCamera.autoRotate = cylinderAutoRotate;
   updateAutoRotateBtn();
 }
 
 function updateAutoRotateBtn() {
   const btn = document.getElementById('btn-holo-autorotate');
   if (btn) {
-    btn.classList.toggle('active', holoCamera.autoRotate);
+    btn.classList.toggle('active', cylinderAutoRotate);
     const led = btn.querySelector('.holo-led');
-    if (led) led.classList.toggle('on', holoCamera.autoRotate);
+    if (led) led.classList.toggle('on', cylinderAutoRotate);
+  }
+}
+
+function toggleHologramLabels() {
+  cylinderShowLabels = !cylinderShowLabels;
+  holoCamera.showLabels = cylinderShowLabels;
+  const btn = document.getElementById('btn-holo-labels');
+  if (btn) btn.classList.toggle('active', cylinderShowLabels);
+}
+
+function zoomHologram(delta) {
+  cylinderTargetZoom = Math.max(0.55, Math.min(2.0, cylinderTargetZoom + delta));
+  holoCamera.targetZoom = cylinderTargetZoom;
+}
+
+function resetHologramView() {
+  cylinderTargetAngle = 0;
+  cylinderTargetZoom = 1.0;
+  cylinderAutoRotate = true;
+  cylinderFilter = 'all';
+  filterCylinderQuadrant('all');
+  updateAutoRotateBtn();
+}
+
+// Rétrocompatibilité totale avec tout appel existant
+function setHologramView(viewMode) {
+  if (viewMode === 'front' || viewMode === 'free') {
+    resetHologramView();
+  } else if (viewMode === 'top') {
+    cylinderTargetZoom = 1.25;
+  } else if (viewMode === 'iso') {
+    cylinderTargetAngle += 0.785;
   }
 }
 
@@ -5231,34 +5374,24 @@ function toggleHologramBeams() {
   if (btn) btn.classList.toggle('active', holoCamera.showBeams);
 }
 
-function toggleHologramLabels() {
-  holoCamera.showLabels = !holoCamera.showLabels;
-  const btn = document.getElementById('btn-holo-labels');
-  if (btn) btn.classList.toggle('active', holoCamera.showLabels);
-}
-
-function zoomHologram(delta) {
-  holoCamera.targetZoom = Math.max(0.45, Math.min(2.4, holoCamera.targetZoom + delta));
-}
-
-function resetHologramView() {
-  setHologramView('free');
-  holoCamera.autoRotate = true;
-  updateAutoRotateBtn();
-}
-
-// Alias de rétrocompatibilité pour tout appel existant
 function renderMenuEngineeringScatterPlot() {
   renderMenuEngineeringHologram();
 }
 
+function renderMenuEngineeringCylinder() {
+  renderMenuEngineeringHologram();
+}
+
 window.renderMenuEngineeringHologram = renderMenuEngineeringHologram;
+window.renderMenuEngineeringCylinder = renderMenuEngineeringHologram;
 window.setHologramView = setHologramView;
 window.toggleHologramAutoRotate = toggleHologramAutoRotate;
 window.toggleHologramBeams = toggleHologramBeams;
 window.toggleHologramLabels = toggleHologramLabels;
 window.zoomHologram = zoomHologram;
 window.resetHologramView = resetHologramView;
+window.filterCylinderQuadrant = filterCylinderQuadrant;
+window.rotateCylinderToNode = rotateCylinderToNode;
 
 function renderSummaryTopIngredientsPodium() {
   const container = document.getElementById('summary-top-ingredients-podium');

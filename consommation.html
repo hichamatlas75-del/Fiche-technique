@@ -130,11 +130,11 @@
         <div class="gc-drawer-nav-content">
           <span class="gc-drawer-nav-icon">🔮</span>
           <div class="gc-drawer-nav-text">
-            <span class="gc-drawer-nav-main">Hologramme 3D Spatial</span>
-            <span class="gc-drawer-nav-desc">Projection tridimensionnelle des plats</span>
+            <span class="gc-drawer-nav-main">Cylindre Holographique 3D</span>
+            <span class="gc-drawer-nav-desc">Carrousel 360° des plats &amp; marges</span>
           </div>
         </div>
-        <span class="gc-drawer-nav-badge" style="background:#8b5cf6; color:#fff;">3D</span>
+        <span class="gc-drawer-nav-badge" style="background:#8b5cf6; color:#fff;">360°</span>
       </button>
       <button type="button" class="gc-drawer-nav-item" data-nav-id="tab-comparator" onclick="window.switchToTabAndCloseDrawer('tab-comparator')">
         <div class="gc-drawer-nav-content">
@@ -751,56 +751,56 @@
 
     </div>
 
-    <!-- HOLOGRAMME 3D SPATIAL DES 4 QUADRANTS (MENU ENGINEERING) -->
+    <!-- CYLINDRE HOLOGRAPHIQUE 3D DES 4 QUADRANTS (MENU ENGINEERING) -->
     <div class="hologram-card">
       <div class="hologram-header">
         <div class="hologram-title-wrap">
-          <div class="hologram-pulse-beacon" title="Matrice Holographique Active">
+          <div class="hologram-pulse-beacon" title="Cylindre Holographique Actif">
             <span class="beacon-core"></span>
             <span class="beacon-ring"></span>
           </div>
           <div>
             <h3 class="hologram-title">
-              🔮 Hologramme 3D Spatial des Plats <span class="hologram-version-pill">3D v2.0</span>
+              🔮 Cylindre Holographique 3D <span class="hologram-version-pill">360°</span>
             </h3>
             <span class="hologram-sub">
-              Projection holographique temps réel • Espace tridimensionnel : <strong>X = Ventes</strong>, <strong>Y = Marge Cash</strong>, <strong>Z = CA Global</strong>.
+              Carrousel 360° des plats • Hauteur = <strong>Marge Brute Cash (DH)</strong> • Circonférence = <strong>Mix des Ventes</strong>
             </span>
           </div>
         </div>
 
         <div class="hologram-badges-legend">
-          <span class="badge-me star">⭐ Étoiles</span>
-          <span class="badge-me plowhorse">🐎 Chevaux</span>
-          <span class="badge-me puzzle">🧩 Dilemmes</span>
-          <span class="badge-me dog">🐕 Poids morts</span>
+          <span class="badge-me star" style="cursor:pointer;" onclick="filterCylinderQuadrant('star')" title="Filtrer les Étoiles">⭐ Étoiles</span>
+          <span class="badge-me plowhorse" style="cursor:pointer;" onclick="filterCylinderQuadrant('plowhorse')" title="Filtrer les Chevaux">🐎 Chevaux</span>
+          <span class="badge-me puzzle" style="cursor:pointer;" onclick="filterCylinderQuadrant('puzzle')" title="Filtrer les Dilemmes">🧩 Dilemmes</span>
+          <span class="badge-me dog" style="cursor:pointer;" onclick="filterCylinderQuadrant('dog')" title="Filtrer les Poids morts">🐕 Poids morts</span>
         </div>
       </div>
 
-      <!-- BARRE D'OUTILS & CONTRÔLES HUD -->
+      <!-- BARRE D'OUTILS & CONTRÔLES DU CYLINDRE -->
       <div class="hologram-hud-toolbar">
         <div class="hologram-tool-group">
-          <span class="hologram-group-label">Caméra :</span>
-          <button type="button" class="hologram-btn active" id="btn-holo-cam-free" onclick="setHologramView('free')">🪐 Vue 3D</button>
-          <button type="button" class="hologram-btn" id="btn-holo-cam-front" onclick="setHologramView('front')">📊 Face (Marge/Vente)</button>
-          <button type="button" class="hologram-btn" id="btn-holo-cam-top" onclick="setHologramView('top')">🛸 Dessus (Radar)</button>
-          <button type="button" class="hologram-btn" id="btn-holo-cam-iso" onclick="setHologramView('iso')">📐 Isométrique</button>
+          <span class="hologram-group-label">Vue :</span>
+          <button type="button" class="hologram-btn active" id="btn-holo-filter-all" onclick="filterCylinderQuadrant('all')">🌐 Tous</button>
+          <button type="button" class="hologram-btn" id="btn-holo-filter-star" onclick="filterCylinderQuadrant('star')">⭐ Étoiles</button>
+          <button type="button" class="hologram-btn" id="btn-holo-filter-plowhorse" onclick="filterCylinderQuadrant('plowhorse')">🐎 Chevaux</button>
+          <button type="button" class="hologram-btn" id="btn-holo-filter-puzzle" onclick="filterCylinderQuadrant('puzzle')">🧩 Dilemmes</button>
+          <button type="button" class="hologram-btn" id="btn-holo-filter-dog" onclick="filterCylinderQuadrant('dog')">🐕 Poids morts</button>
         </div>
 
         <div class="hologram-tool-group">
-          <button type="button" class="hologram-btn active" id="btn-holo-autorotate" onclick="toggleHologramAutoRotate()">🔄 Rotation Auto <span class="holo-led on"></span></button>
-          <button type="button" class="hologram-btn active" id="btn-holo-beams" onclick="toggleHologramBeams()">⚡ Lasers Sol</button>
+          <button type="button" class="hologram-btn active" id="btn-holo-autorotate" onclick="toggleHologramAutoRotate()">🔄 Rotation 360° <span class="holo-led on"></span></button>
           <button type="button" class="hologram-btn active" id="btn-holo-labels" onclick="toggleHologramLabels()">🏷️ Noms Plats</button>
         </div>
 
         <div class="hologram-tool-group hologram-zoom-group">
-          <button type="button" class="hologram-btn icon-btn" title="Zoomer" onclick="zoomHologram(0.2)">➕</button>
-          <button type="button" class="hologram-btn icon-btn" title="Dézoomer" onclick="zoomHologram(-0.2)">➖</button>
-          <button type="button" class="hologram-btn icon-btn" title="Recentrer la vue" onclick="resetHologramView()">🎯</button>
+          <button type="button" class="hologram-btn icon-btn" title="Zoomer" onclick="zoomHologram(0.15)">➕</button>
+          <button type="button" class="hologram-btn icon-btn" title="Dézoomer" onclick="zoomHologram(-0.15)">➖</button>
+          <button type="button" class="hologram-btn icon-btn" title="Recentrer le cylindre" onclick="resetHologramView()">🎯</button>
         </div>
       </div>
 
-      <!-- CHAMBRE DE PROJECTION HOLOGRAPHIQUE -->
+      <!-- CHAMBRE DE PROJECTION DU CYLINDRE HOLOGRAPHIQUE -->
       <div class="hologram-viewport" id="hologram-viewport">
         <canvas id="canvas-menu-eng-hologram" height="480"></canvas>
 
@@ -811,13 +811,13 @@
         <div class="hologram-corner bottom-right"></div>
 
         <div class="hologram-hud-status">
-          <span class="holo-hud-chip"><span class="holo-hud-dot"></span> PROJECTION ACTIVE</span>
-          <span class="holo-hud-chip" id="holo-hud-coords">AZ: 43° • EL: 24°</span>
-          <span class="holo-hud-chip" id="holo-hud-nodes">NODES: 0</span>
+          <span class="holo-hud-chip"><span class="holo-hud-dot"></span> CYLINDRE 360° ACTIF</span>
+          <span class="holo-hud-chip" id="holo-hud-coords">ROTATION: 0°</span>
+          <span class="holo-hud-chip" id="holo-hud-nodes">PLATS: 0</span>
         </div>
 
         <div class="hologram-hint">
-          🖱️ Glissez pour tourner • ⚙️ Molette pour zoomer • 👆 Cliquez/Survolez un orbe pour analyser
+          🖱️ Glissez horizontalement pour faire tourner le cylindre à 360° • 👆 Cliquez/Survolez un plat pour analyser sa marge
         </div>
 
         <div id="hologram-tooltip" class="hologram-tooltip" style="display:none;"></div>
