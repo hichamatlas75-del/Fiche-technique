@@ -520,28 +520,76 @@
 
     </div>
 
-    <!-- DIAGRAMME 2D SCATTER PLOT DES 4 QUADRANTS -->
-    <div class="menu-eng-chart-card">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
-        <div>
-          <h3 style="font-size:1.05rem; font-weight:900; color:var(--text); margin:0; display:flex; align-items:center; gap:8px;">
-            📊 Cartographie 2D des Plats (Scatter Plot Interactif)
-          </h3>
-          <span style="font-size:12px; color:var(--muted);">
-            Survolez une bulle pour voir les détails. Taille de la bulle = Chiffre d'Affaires généré (DH).
-          </span>
+    <!-- HOLOGRAMME 3D SPATIAL DES 4 QUADRANTS (MENU ENGINEERING) -->
+    <div class="hologram-card">
+      <div class="hologram-header">
+        <div class="hologram-title-wrap">
+          <div class="hologram-pulse-beacon" title="Matrice Holographique Active">
+            <span class="beacon-core"></span>
+            <span class="beacon-ring"></span>
+          </div>
+          <div>
+            <h3 class="hologram-title">
+              🔮 Hologramme 3D Spatial des Plats <span class="hologram-version-pill">3D v2.0</span>
+            </h3>
+            <span class="hologram-sub">
+              Projection holographique temps réel • Espace tridimensionnel : <strong>X = Ventes</strong>, <strong>Y = Marge Cash</strong>, <strong>Z = CA Global</strong>.
+            </span>
+          </div>
         </div>
-        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-          <span class="badge-me star" style="font-size:11px;">⭐ Étoiles</span>
-          <span class="badge-me plowhorse" style="font-size:11px;">🐎 Chevaux</span>
-          <span class="badge-me puzzle" style="font-size:11px;">🧩 Dilemmes</span>
-          <span class="badge-me dog" style="font-size:11px;">🐕 Poids morts</span>
+
+        <div class="hologram-badges-legend">
+          <span class="badge-me star">⭐ Étoiles</span>
+          <span class="badge-me plowhorse">🐎 Chevaux</span>
+          <span class="badge-me puzzle">🧩 Dilemmes</span>
+          <span class="badge-me dog">🐕 Poids morts</span>
         </div>
       </div>
-      
-      <div class="scatter-plot-container" id="scatter-plot-wrapper">
-        <canvas id="canvas-menu-eng-scatter" height="420"></canvas>
-        <div id="scatter-tooltip" class="scatter-tooltip" style="display:none;"></div>
+
+      <!-- BARRE D'OUTILS & CONTRÔLES HUD -->
+      <div class="hologram-hud-toolbar">
+        <div class="hologram-tool-group">
+          <span class="hologram-group-label">Caméra :</span>
+          <button type="button" class="hologram-btn active" id="btn-holo-cam-free" onclick="setHologramView('free')">🪐 Vue 3D</button>
+          <button type="button" class="hologram-btn" id="btn-holo-cam-front" onclick="setHologramView('front')">📊 Face (Marge/Vente)</button>
+          <button type="button" class="hologram-btn" id="btn-holo-cam-top" onclick="setHologramView('top')">🛸 Dessus (Radar)</button>
+          <button type="button" class="hologram-btn" id="btn-holo-cam-iso" onclick="setHologramView('iso')">📐 Isométrique</button>
+        </div>
+
+        <div class="hologram-tool-group">
+          <button type="button" class="hologram-btn active" id="btn-holo-autorotate" onclick="toggleHologramAutoRotate()">🔄 Rotation Auto <span class="holo-led on"></span></button>
+          <button type="button" class="hologram-btn active" id="btn-holo-beams" onclick="toggleHologramBeams()">⚡ Lasers Sol</button>
+          <button type="button" class="hologram-btn active" id="btn-holo-labels" onclick="toggleHologramLabels()">🏷️ Noms Plats</button>
+        </div>
+
+        <div class="hologram-tool-group hologram-zoom-group">
+          <button type="button" class="hologram-btn icon-btn" title="Zoomer" onclick="zoomHologram(0.2)">➕</button>
+          <button type="button" class="hologram-btn icon-btn" title="Dézoomer" onclick="zoomHologram(-0.2)">➖</button>
+          <button type="button" class="hologram-btn icon-btn" title="Recentrer la vue" onclick="resetHologramView()">🎯</button>
+        </div>
+      </div>
+
+      <!-- CHAMBRE DE PROJECTION HOLOGRAPHIQUE -->
+      <div class="hologram-viewport" id="hologram-viewport">
+        <canvas id="canvas-menu-eng-hologram" height="480"></canvas>
+
+        <!-- OVERLAYS HUD SCI-FI -->
+        <div class="hologram-corner top-left"></div>
+        <div class="hologram-corner top-right"></div>
+        <div class="hologram-corner bottom-left"></div>
+        <div class="hologram-corner bottom-right"></div>
+
+        <div class="hologram-hud-status">
+          <span class="holo-hud-chip"><span class="holo-hud-dot"></span> PROJECTION ACTIVE</span>
+          <span class="holo-hud-chip" id="holo-hud-coords">AZ: 43° • EL: 24°</span>
+          <span class="holo-hud-chip" id="holo-hud-nodes">NODES: 0</span>
+        </div>
+
+        <div class="hologram-hint">
+          🖱️ Glissez pour tourner • ⚙️ Molette pour zoomer • 👆 Cliquez/Survolez un orbe pour analyser
+        </div>
+
+        <div id="hologram-tooltip" class="hologram-tooltip" style="display:none;"></div>
       </div>
     </div>
 

@@ -4361,248 +4361,753 @@ function renderMenuEngineeringTable() {
 
 
 /* ========================================================
-   11.B DIAGRAMME 2D SCATTER PLOT (CANVAS MENU ENGINEERING)
+   11.B HOLOGRAMME 3D SPATIAL (CANVAS MENU ENGINEERING 3D)
 ======================================================== */
-let scatterPlotPoints = [];
-let hoveredScatterPoint = null;
-let scatterCanvasBound = false;
+let holoPoints = [];
+let hoveredHoloPoint = null;
+let holoCanvasBound = false;
+let holoAnimFrameId = null;
+let holoIsVisible = true;
+let isHoloDragging = false;
+let holoDragStartX = 0;
+let holoDragStartY = 0;
+let holoStartYaw = 0;
+let holoStartPitch = 0;
 
-function renderMenuEngineeringScatterPlot() {
-  const canvas = document.getElementById('canvas-menu-eng-scatter');
-  const container = document.getElementById('scatter-plot-wrapper');
-  const tooltip = document.getElementById('scatter-tooltip');
+// Caméra 3D et options
+let holoCamera = {
+  yaw: 0.75,         // ~43°
+  pitch: 0.42,       // ~24°
+  zoom: 1.0,
+  targetYaw: 0.75,
+  targetPitch: 0.42,
+  targetZoom: 1.0,
+  autoRotate: true,
+  showBeams: true,
+  showLabels: true,
+  currentView: 'free'
+};
+
+// Effets d'ambiance holographique
+let holoScanlineY = 0;
+let holoRingAngle = 0;
+let holoParticles = [];
+
+function initHoloParticles() {
+  holoParticles = [];
+  for (let i = 0; i < 30; i++) {
+    holoParticles.push({
+      x: (Math.random() - 0.5) * 380,
+      y: Math.random() * 240,
+      z: (Math.random() - 0.5) * 380,
+      speed: 0.2 + Math.random() * 0.6,
+      size: 1 + Math.random() * 1.8,
+      alpha: 0.15 + Math.random() * 0.45
+    });
+  }
+}
+initHoloParticles();
+
+// Projection 3D vers écran 2D
+function project3D(x, y, z, width, height, cam) {
+  const cosY = Math.cos(cam.yaw);
+  const sinY = Math.sin(cam.yaw);
+  const cosP = Math.cos(cam.pitch);
+  const sinP = Math.sin(cam.pitch);
+
+  // 1. Rotation Yaw autour de Y
+  const x1 = x * cosY + z * sinY;
+  const z1 = -x * sinY + z * cosY;
+  const y1 = y;
+
+  // 2. Rotation Pitch autour de X
+  const y2 = y1 * cosP - z1 * sinP;
+  const z2 = y1 * sinP + z1 * cosP;
+  const x2 = x1;
+
+  // 3. Perspective
+  const focalLength = 680;
+  const cameraDistance = 750;
+  const depth = cameraDistance + z2;
+  const scale = depth > 20 ? (focalLength * cam.zoom) / depth : 0.01;
+
+  const centerX = width / 2;
+  const centerY = height * 0.58;
+
+  return {
+    sx: centerX + x2 * scale,
+    sy: centerY - y2 * scale,
+    scale: scale,
+    depth: z2,
+    rawX: x,
+    rawY: y,
+    rawZ: z
+  };
+}
+
+// Fonction principale de rendu de l'hologramme
+function renderMenuEngineeringHologram() {
+  const canvas = document.getElementById('canvas-menu-eng-hologram');
+  const container = document.getElementById('hologram-viewport');
+  const tooltip = document.getElementById('hologram-tooltip');
   if (!canvas || !canvas.getContext || !container) return;
 
   const ctx = canvas.getContext('2d');
   const rect = container.getBoundingClientRect();
   const width = rect.width || 800;
-  const height = 420;
+  const height = 480;
 
   const dpr = window.devicePixelRatio || 1;
-  canvas.width = width * dpr;
-  canvas.height = height * dpr;
-  canvas.style.width = width + 'px';
-  canvas.style.height = height + 'px';
+  if (canvas.width !== width * dpr || canvas.height !== height * dpr) {
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+  }
+  ctx.resetTransform ? ctx.resetTransform() : ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.scale(dpr, dpr);
 
+  // Amortissement fluide de la caméra
+  holoCamera.yaw += (holoCamera.targetYaw - holoCamera.yaw) * 0.12;
+  holoCamera.pitch += (holoCamera.targetPitch - holoCamera.pitch) * 0.12;
+  holoCamera.zoom += (holoCamera.targetZoom - holoCamera.zoom) * 0.12;
+
+  if (holoCamera.autoRotate && !isHoloDragging) {
+    holoCamera.targetYaw += 0.0035;
+  }
+
+  // Animation des ticks du socle et du balayage scanline
+  holoRingAngle += 0.012;
+  holoScanlineY = (holoScanlineY + 1.4) % height;
+
+  // Mise à jour de l'affichage HUD d'orientation
+  const hudCoords = document.getElementById('holo-hud-coords');
+  if (hudCoords) {
+    const azDeg = Math.round(((holoCamera.yaw * 180 / Math.PI) % 360 + 360) % 360);
+    const elDeg = Math.round(holoCamera.pitch * 180 / Math.PI);
+    hudCoords.textContent = `AZ: ${azDeg}° • EL: ${elDeg}° • ${(holoCamera.zoom * 100).toFixed(0)}%`;
+  }
+  const hudNodes = document.getElementById('holo-hud-nodes');
+  if (hudNodes) {
+    hudNodes.textContent = `NODES: ${menuEngData ? menuEngData.length : 0}`;
+  }
+
+  // Nettoyage fond
   ctx.clearRect(0, 0, width, height);
 
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  const textColor = isDark ? '#94a3b8' : '#64748b';
-  const gridColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
-  const axisColor = isDark ? '#475569' : '#cbd5e1';
-
   if (!menuEngData || menuEngData.length === 0) {
-    ctx.fillStyle = textColor;
-    ctx.font = '14px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.fillStyle = '#38bdf8';
+    ctx.font = 'bold 14px ui-monospace, SFMono-Regular, monospace';
     ctx.textAlign = 'center';
-    ctx.fillText('Aucune donnée pour tracer la cartographie.', width / 2, height / 2);
+    ctx.fillText('⚡ MATRICE HOLOGRAPHIQUE EN ATTENTE DE DONNÉES ⚡', width / 2, height / 2);
     return;
   }
 
-  const padding = { top: 30, right: 35, bottom: 45, left: 65 };
-  const plotW = width - padding.left - padding.right;
-  const plotH = height - padding.top - padding.bottom;
-
-  // Calcul des Max
-  const maxQty = Math.max(10, Math.max(...menuEngData.map(i => i.qty))) * 1.12;
+  // 1. Calcul des bornes de normalisation
+  const maxQty = Math.max(10, Math.max(...menuEngData.map(i => i.qty))) * 1.1;
   const maxGM = Math.max(10, Math.max(...menuEngData.map(i => i.grossMarginDH))) * 1.15;
   const maxCA = Math.max(1, Math.max(...menuEngData.map(i => i.totalCA)));
 
-  // Calcul des Seuils
   const totalVolume = menuEngData.reduce((acc, i) => acc + i.qty, 0);
   const totalProfit = menuEngData.reduce((acc, i) => acc + i.totalProfitDH, 0);
   const avgGrossMargin = totalVolume > 0 ? (totalProfit / totalVolume) : 0;
   const popThreshold = menuEngData.length > 0 ? (totalVolume / menuEngData.length) * 0.70 : 0;
 
-  const thresholdX = padding.left + (popThreshold / maxQty) * plotW;
-  const thresholdY = padding.top + plotH - (avgGrossMargin / maxGM) * plotH;
+  // 2. Socle Holographique Inférieur (Plancher 3D y = 0)
+  drawHoloPedestalAndGrid(ctx, width, height, holoCamera, popThreshold, maxQty, avgGrossMargin, maxGM);
 
-  // 1. Fond des 4 Quadrants
-  // Top-Right: Star
-  ctx.fillStyle = isDark ? 'rgba(16, 185, 129, 0.08)' : 'rgba(16, 185, 129, 0.06)';
-  ctx.fillRect(thresholdX, padding.top, width - padding.right - thresholdX, thresholdY - padding.top);
+  // 3. Particules quantiques 3D flottantes
+  drawHoloParticles(ctx, width, height, holoCamera);
 
-  // Bottom-Right: Plowhorse
-  ctx.fillStyle = isDark ? 'rgba(2, 132, 199, 0.08)' : 'rgba(2, 132, 199, 0.06)';
-  ctx.fillRect(thresholdX, thresholdY, width - padding.right - thresholdX, height - padding.bottom - thresholdY);
+  // 4. Calcul et projection des plats (Data Nodes)
+  holoPoints = [];
+  const drawList = [];
 
-  // Top-Left: Puzzle
-  ctx.fillStyle = isDark ? 'rgba(139, 92, 246, 0.08)' : 'rgba(139, 92, 246, 0.06)';
-  ctx.fillRect(padding.left, padding.top, thresholdX - padding.left, thresholdY - padding.top);
-
-  // Bottom-Left: Dog
-  ctx.fillStyle = isDark ? 'rgba(239, 68, 68, 0.08)' : 'rgba(239, 68, 68, 0.06)';
-  ctx.fillRect(padding.left, thresholdY, thresholdX - padding.left, height - padding.bottom - thresholdY);
-
-  // 2. Lignes de grille
-  ctx.strokeStyle = gridColor;
-  ctx.lineWidth = 1;
-  const yTicks = 5;
-  for (let i = 0; i <= yTicks; i++) {
-    const yVal = (maxGM / yTicks) * i;
-    const yPos = padding.top + plotH - (yVal / maxGM) * plotH;
-    ctx.beginPath();
-    ctx.moveTo(padding.left, yPos);
-    ctx.lineTo(width - padding.right, yPos);
-    ctx.stroke();
-
-    ctx.fillStyle = textColor;
-    ctx.font = '10px -apple-system, BlinkMacSystemFont, sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillText(yVal.toFixed(0) + ' DH', padding.left - 8, yPos + 3);
-  }
-
-  const xTicks = 5;
-  for (let i = 0; i <= xTicks; i++) {
-    const xVal = (maxQty / xTicks) * i;
-    const xPos = padding.left + (xVal / maxQty) * plotW;
-    ctx.beginPath();
-    ctx.moveTo(xPos, padding.top);
-    ctx.lineTo(xPos, height - padding.bottom);
-    ctx.stroke();
-
-    ctx.fillStyle = textColor;
-    ctx.font = '10px -apple-system, BlinkMacSystemFont, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(Math.round(xVal).toString(), xPos, height - padding.bottom + 16);
-  }
-
-  // 3. Lignes de Seuils Pointillées
-  ctx.save();
-  ctx.setLineDash([5, 4]);
-  ctx.lineWidth = 1.5;
-
-  // Seuil X (Popularité)
-  ctx.strokeStyle = '#0284c7';
-  ctx.beginPath();
-  ctx.moveTo(thresholdX, padding.top);
-  ctx.lineTo(thresholdX, height - padding.bottom);
-  ctx.stroke();
-
-  // Seuil Y (Marge moyenne)
-  ctx.strokeStyle = '#10b981';
-  ctx.beginPath();
-  ctx.moveTo(padding.left, thresholdY);
-  ctx.lineTo(width - padding.right, thresholdY);
-  ctx.stroke();
-  ctx.restore();
-
-  // Labels des Seuils
-  ctx.fillStyle = '#0284c7';
-  ctx.font = 'bold 10px -apple-system, BlinkMacSystemFont, sans-serif';
-  ctx.textAlign = 'left';
-  ctx.fillText('Seuil Popularité : ' + Math.round(popThreshold) + ' u.', thresholdX + 6, padding.top + 14);
-
-  ctx.fillStyle = '#10b981';
-  ctx.font = 'bold 10px -apple-system, BlinkMacSystemFont, sans-serif';
-  ctx.textAlign = 'right';
-  ctx.fillText('Marge Moy. : ' + avgGrossMargin.toFixed(1) + ' DH', width - padding.right - 6, thresholdY - 6);
-
-  // Labels des Axes
-  ctx.fillStyle = textColor;
-  ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('Volume de Ventes (Unités Vendues) →', padding.left + plotW / 2, height - 10);
-
-  ctx.save();
-  ctx.translate(16, padding.top + plotH / 2);
-  ctx.rotate(-Math.PI / 2);
-  ctx.fillText('Marge Brute Unitaire (DH) →', 0, 0);
-  ctx.restore();
-
-  // 4. Tracé des Bulles / Points
-  scatterPlotPoints = [];
+  const arenaHalf = 175; // Demi-taille du volume 3D
+  const arenaHeight = 220; // Hauteur maximale 3D
 
   menuEngData.forEach(item => {
-    const cx = padding.left + (item.qty / maxQty) * plotW;
-    const cy = padding.top + plotH - (item.grossMarginDH / maxGM) * plotH;
-    const r = Math.min(22, Math.max(5, 5 + Math.sqrt(item.totalCA / maxCA) * 16));
+    // Normalisation des axes :
+    // X : Volume (0 -> maxQty) centré sur [-arenaHalf, +arenaHalf]
+    const normX = ((item.qty / maxQty) - 0.5) * (arenaHalf * 2);
+    // Y : Marge Brute Cash (0 -> maxGM) étalé sur [8, arenaHeight]
+    const normY = 10 + (Math.max(0, item.grossMarginDH) / maxGM) * (arenaHeight - 15);
+    // Z : Chiffre d'Affaires total (0 -> maxCA) centré sur [-arenaHalf, +arenaHalf]
+    const normZ = ((item.totalCA / maxCA) - 0.5) * (arenaHalf * 2);
 
-    scatterPlotPoints.push({ x: cx, y: cy, r: r, item: item });
+    const projected = project3D(normX, normY, normZ, width, height, holoCamera);
+    const groundProj = project3D(normX, 0, normZ, width, height, holoCamera);
 
-    let color = '#10b981';
-    if (item.quadrant === 'plowhorse') color = '#0284c7';
-    if (item.quadrant === 'puzzle') color = '#8b5cf6';
-    if (item.quadrant === 'dog') color = '#ef4444';
+    const baseRadius = 5.5 + Math.sqrt(item.totalCA / maxCA) * 14;
+    const screenRadius = Math.max(4, Math.min(32, baseRadius * projected.scale));
 
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.fillStyle = color + (isDark ? 'cc' : 'b3');
-    ctx.fill();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
+    const nodeObj = {
+      item,
+      proj: projected,
+      groundProj: groundProj,
+      screenRadius,
+      depth: projected.depth
+    };
+
+    drawList.push(nodeObj);
+    holoPoints.push({
+      x: projected.sx,
+      y: projected.sy,
+      r: screenRadius,
+      item: item,
+      node: nodeObj
+    });
   });
 
-  // Si un point est survolé, dessiner son halo
-  if (hoveredScatterPoint) {
-    const p = hoveredScatterPoint;
+  // 5. Tri en profondeur (Painter's algorithm : du plus loin au plus proche)
+  drawList.sort((a, b) => b.depth - a.depth);
+
+  // 6. Rendu des faisceaux lasers verticaux
+  if (holoCamera.showBeams) {
+    drawList.forEach(node => {
+      drawHoloLaserBeam(ctx, node);
+    });
+  }
+
+  // 7. Rendu des Orbes Holographiques
+  drawList.forEach(node => {
+    drawHoloOrb(ctx, node, hoveredHoloPoint && hoveredHoloPoint.item === node.item);
+  });
+
+  // 8. Rendu des étiquettes flottantes 3D
+  if (holoCamera.showLabels) {
+    // Affiche les labels pour les top étoiles ou le point survolé
+    const topStars = [...drawList]
+      .filter(n => n.item.quadrant === 'star')
+      .sort((a, b) => b.item.totalCA - a.item.totalCA)
+      .slice(0, 5);
+
+    topStars.forEach(node => {
+      if (!hoveredHoloPoint || hoveredHoloPoint.item !== node.item) {
+        drawHoloFloatingLabel(ctx, node, false);
+      }
+    });
+  }
+
+  // Si un point est survolé : dessiner le réticule de ciblage HUD
+  if (hoveredHoloPoint) {
+    drawHoloTargetReticle(ctx, hoveredHoloPoint.node);
+    drawHoloFloatingLabel(ctx, hoveredHoloPoint.node, true);
+  }
+
+  // 9. Balayage Holographique Scanline
+  drawHoloScanline(ctx, width, height);
+
+  // Initialisation des écouteurs d'événements
+  bindHoloEventListeners(canvas, container, tooltip);
+}
+
+// Rendu du Socle, de la Grille et des Seuils
+function drawHoloPedestalAndGrid(ctx, width, height, cam, popThreshold, maxQty, avgGrossMargin, maxGM) {
+  const arenaHalf = 175;
+  const gridSteps = 6;
+  const stepSize = (arenaHalf * 2) / gridSteps;
+
+  // Lignes de grille au sol (y = 0)
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = 'rgba(6, 182, 212, 0.12)';
+
+  for (let i = 0; i <= gridSteps; i++) {
+    const coord = -arenaHalf + i * stepSize;
+    // Lignes parallèles à Z
+    const p1 = project3D(coord, 0, -arenaHalf, width, height, cam);
+    const p2 = project3D(coord, 0, arenaHalf, width, height, cam);
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r + 5, 0, Math.PI * 2);
-    ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 2.5;
+    ctx.moveTo(p1.sx, p1.sy);
+    ctx.lineTo(p2.sx, p2.sy);
+    ctx.stroke();
+
+    // Lignes parallèles à X
+    const p3 = project3D(-arenaHalf, 0, coord, width, height, cam);
+    const p4 = project3D(arenaHalf, 0, coord, width, height, cam);
+    ctx.beginPath();
+    ctx.moveTo(p3.sx, p3.sy);
+    ctx.lineTo(p4.sx, p4.sy);
     ctx.stroke();
   }
 
-  // 5. Attacher les écouteurs de souris (une seule fois)
-  if (!scatterCanvasBound) {
-    scatterCanvasBound = true;
+  // Anneaux concentriques émetteurs au sol
+  const ringRadius = 185;
+  const numSegments = 40;
+  ctx.save();
+  ctx.strokeStyle = 'rgba(6, 182, 212, 0.28)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  for (let i = 0; i <= numSegments; i++) {
+    const angle = (i / numSegments) * Math.PI * 2;
+    const rx = Math.cos(angle) * ringRadius;
+    const rz = Math.sin(angle) * ringRadius;
+    const pt = project3D(rx, 0, rz, width, height, cam);
+    if (i === 0) ctx.moveTo(pt.sx, pt.sy);
+    else ctx.lineTo(pt.sx, pt.sy);
+  }
+  ctx.stroke();
 
-    canvas.addEventListener('mousemove', (e) => {
-      const cRect = canvas.getBoundingClientRect();
-      const mx = e.clientX - cRect.left;
-      const my = e.clientY - cRect.top;
+  // Ticks rotatifs holographiques autour du grand anneau
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.55)';
+  ctx.lineWidth = 1.8;
+  const numTicks = 16;
+  for (let i = 0; i < numTicks; i++) {
+    const angle = (i / numTicks) * Math.PI * 2 + holoRingAngle;
+    const r1 = ringRadius - 5;
+    const r2 = ringRadius + 5;
+    const pt1 = project3D(Math.cos(angle) * r1, 0, Math.sin(angle) * r1, width, height, cam);
+    const pt2 = project3D(Math.cos(angle) * r2, 0, Math.sin(angle) * r2, width, height, cam);
+    ctx.beginPath();
+    ctx.moveTo(pt1.sx, pt1.sy);
+    ctx.lineTo(pt2.sx, pt2.sy);
+    ctx.stroke();
+  }
 
-      let found = null;
-      for (let i = scatterPlotPoints.length - 1; i >= 0; i--) {
-        const pt = scatterPlotPoints[i];
-        const dist = Math.hypot(mx - pt.x, my - pt.y);
-        if (dist <= pt.r + 4) {
-          found = pt;
-          break;
-        }
+  // Anneau intérieur pulsant
+  const innerRadius = 90;
+  ctx.strokeStyle = 'rgba(6, 182, 212, 0.2)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  for (let i = 0; i <= numSegments; i++) {
+    const angle = (i / numSegments) * Math.PI * 2;
+    const rx = Math.cos(angle) * innerRadius;
+    const rz = Math.sin(angle) * innerRadius;
+    const pt = project3D(rx, 0, rz, width, height, cam);
+    if (i === 0) ctx.moveTo(pt.sx, pt.sy);
+    else ctx.lineTo(pt.sx, pt.sy);
+  }
+  ctx.stroke();
+  ctx.restore();
+
+  // Ligne laser du Seuil de Marge Moyenne (Axe Y)
+  const normThreshY = 10 + (avgGrossMargin / maxGM) * (220 - 15);
+  ctx.save();
+  ctx.strokeStyle = 'rgba(16, 185, 129, 0.45)';
+  ctx.setLineDash([4, 4]);
+  ctx.lineWidth = 1.2;
+  const threshP1 = project3D(-arenaHalf, normThreshY, 0, width, height, cam);
+  const threshP2 = project3D(arenaHalf, normThreshY, 0, width, height, cam);
+  ctx.beginPath();
+  ctx.moveTo(threshP1.sx, threshP1.sy);
+  ctx.lineTo(threshP2.sx, threshP2.sy);
+  ctx.stroke();
+
+  // Label Marge Moyenne
+  ctx.fillStyle = '#10b981';
+  ctx.font = 'bold 10px ui-monospace, SFMono-Regular, monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText(`⚡ SEUIL MARGE MOY. : ${avgGrossMargin.toFixed(1)} DH`, threshP2.sx + 6, threshP2.sy + 3);
+  ctx.restore();
+}
+
+// Particules de poussière de lumière 3D
+function drawHoloParticles(ctx, width, height, cam) {
+  ctx.save();
+  holoParticles.forEach(p => {
+    p.y = (p.y + p.speed) % 240;
+    const proj = project3D(p.x, p.y, p.z, width, height, cam);
+    if (proj.scale > 0) {
+      const radius = Math.max(0.6, p.size * proj.scale);
+      ctx.fillStyle = `rgba(56, 189, 248, ${p.alpha * Math.min(1, proj.scale * 1.2)})`;
+      ctx.beginPath();
+      ctx.arc(proj.sx, proj.sy, radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  });
+  ctx.restore();
+}
+
+// Faisceau laser reliant chaque plat à sa base au sol
+function drawHoloLaserBeam(ctx, node) {
+  const g = node.groundProj;
+  const p = node.proj;
+
+  let beamColor = 'rgba(16, 185, 129, ';
+  if (node.item.quadrant === 'plowhorse') beamColor = 'rgba(2, 132, 199, ';
+  if (node.item.quadrant === 'puzzle') beamColor = 'rgba(139, 92, 246, ';
+  if (node.item.quadrant === 'dog') beamColor = 'rgba(239, 68, 68, ';
+
+  // Anneau d'impact au sol
+  ctx.save();
+  ctx.beginPath();
+  ctx.ellipse(g.sx, g.sy, 4 * g.scale, 2 * g.scale, 0, 0, Math.PI * 2);
+  ctx.strokeStyle = beamColor + '0.45)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  // Faisceau vertical avec dégradé
+  const grad = ctx.createLinearGradient(g.sx, g.sy, p.sx, p.sy);
+  grad.addColorStop(0, beamColor + '0.12)');
+  grad.addColorStop(1, beamColor + '0.65)');
+
+  ctx.beginPath();
+  ctx.moveTo(g.sx, g.sy);
+  ctx.lineTo(p.sx, p.sy);
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = Math.max(0.8, 1.2 * p.scale);
+  ctx.stroke();
+  ctx.restore();
+}
+
+// Rendu d'un Orbe Holographique (Plat)
+function drawHoloOrb(ctx, node, isHovered) {
+  const p = node.proj;
+  const r = isHovered ? node.screenRadius * 1.25 : node.screenRadius;
+
+  let color = '#10b981';
+  let glowColor = 'rgba(16, 185, 129, 0.4)';
+  if (node.item.quadrant === 'plowhorse') {
+    color = '#0284c7';
+    glowColor = 'rgba(2, 132, 199, 0.4)';
+  } else if (node.item.quadrant === 'puzzle') {
+    color = '#8b5cf6';
+    glowColor = 'rgba(139, 92, 246, 0.4)';
+  } else if (node.item.quadrant === 'dog') {
+    color = '#ef4444';
+    glowColor = 'rgba(239, 68, 68, 0.4)';
+  }
+
+  ctx.save();
+
+  // Halo extérieur luminescent
+  const grad = ctx.createRadialGradient(p.sx, p.sy, r * 0.15, p.sx, p.sy, r * 1.5);
+  grad.addColorStop(0, '#ffffff');
+  grad.addColorStop(0.35, color);
+  grad.addColorStop(0.8, glowColor);
+  grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+  ctx.beginPath();
+  ctx.arc(p.sx, p.sy, r * 1.5, 0, Math.PI * 2);
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Orbe central dense
+  ctx.beginPath();
+  ctx.arc(p.sx, p.sy, r, 0, Math.PI * 2);
+  ctx.fillStyle = color;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = isHovered ? 20 : 10;
+  ctx.fill();
+
+  // Anneau holographique interne
+  ctx.beginPath();
+  ctx.arc(p.sx, p.sy, r * 0.7, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.75)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  ctx.restore();
+}
+
+// Étiquette flottante 3D au-dessus du plat
+function drawHoloFloatingLabel(ctx, node, isHighlight) {
+  const p = node.proj;
+  const labelY = p.sy - node.screenRadius - 12;
+  const text = `${node.item.product} (${node.item.grossMarginDH.toFixed(0)} DH)`;
+
+  ctx.save();
+  ctx.font = isHighlight
+    ? 'bold 11.5px ui-monospace, SFMono-Regular, monospace'
+    : '600 9.5px -apple-system, BlinkMacSystemFont, sans-serif';
+
+  const metrics = ctx.measureText(text);
+  const textW = metrics.width;
+  const padX = 7;
+  const padY = 3.5;
+  const boxW = textW + padX * 2;
+  const boxH = 18;
+  const boxX = p.sx - boxW / 2;
+  const boxY = labelY - boxH / 2;
+
+  ctx.fillStyle = isHighlight ? 'rgba(3, 7, 18, 0.92)' : 'rgba(6, 11, 25, 0.75)';
+  ctx.strokeStyle = isHighlight ? '#38bdf8' : 'rgba(6, 182, 212, 0.35)';
+  ctx.lineWidth = 1;
+
+  ctx.beginPath();
+  ctx.roundRect ? ctx.roundRect(boxX, boxY, boxW, boxH, 4) : ctx.rect(boxX, boxY, boxW, boxH);
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.fillStyle = isHighlight ? '#38bdf8' : '#e2e8f0';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, p.sx, labelY);
+  ctx.restore();
+}
+
+// Réticule de ciblage HUD animé sur le point survolé
+function drawHoloTargetReticle(ctx, node) {
+  const p = node.proj;
+  const r = node.screenRadius + 14;
+
+  ctx.save();
+  ctx.strokeStyle = '#38bdf8';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([6, 5]);
+
+  // Cercle de verrouillage en rotation
+  ctx.beginPath();
+  ctx.arc(p.sx, p.sy, r, holoRingAngle * 1.5, holoRingAngle * 1.5 + Math.PI * 2);
+  ctx.stroke();
+
+  // Croix de visée aux 4 angles
+  ctx.setLineDash([]);
+  const crossLen = 6;
+  ctx.beginPath();
+  // Haut
+  ctx.moveTo(p.sx, p.sy - r - crossLen); ctx.lineTo(p.sx, p.sy - r + crossLen);
+  // Bas
+  ctx.moveTo(p.sx, p.sy + r - crossLen); ctx.lineTo(p.sx, p.sy + r + crossLen);
+  // Gauche
+  ctx.moveTo(p.sx - r - crossLen, p.sy); ctx.lineTo(p.sx - r + crossLen, p.sy);
+  // Droite
+  ctx.moveTo(p.sx + r - crossLen, p.sy); ctx.lineTo(p.sx + r + crossLen, p.sy);
+  ctx.stroke();
+  ctx.restore();
+}
+
+// Balayage lumineux horizontal de l'hologramme
+function drawHoloScanline(ctx, width, height) {
+  ctx.save();
+  const grad = ctx.createLinearGradient(0, holoScanlineY - 14, 0, holoScanlineY + 14);
+  grad.addColorStop(0, 'rgba(6, 182, 212, 0)');
+  grad.addColorStop(0.5, 'rgba(6, 182, 212, 0.08)');
+  grad.addColorStop(1, 'rgba(6, 182, 212, 0)');
+
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, holoScanlineY - 14, width, 28);
+  ctx.restore();
+}
+
+// Attachement des écouteurs d'interaction (Orbit, Pan, Zoom, Hover)
+function bindHoloEventListeners(canvas, container, tooltip) {
+  if (holoCanvasBound) return;
+  holoCanvasBound = true;
+
+  // 1. Déplacement de la souris / Drag pour rotation orbitale 3D
+  canvas.addEventListener('mousedown', (e) => {
+    isHoloDragging = true;
+    holoDragStartX = e.clientX;
+    holoDragStartY = e.clientY;
+    holoStartYaw = holoCamera.targetYaw;
+    holoStartPitch = holoCamera.targetPitch;
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (isHoloDragging) {
+      const dx = e.clientX - holoDragStartX;
+      const dy = e.clientY - holoDragStartY;
+
+      holoCamera.targetYaw = holoStartYaw + dx * 0.007;
+      holoCamera.targetPitch = Math.max(-0.65, Math.min(1.52, holoStartPitch + dy * 0.007));
+      return;
+    }
+
+    // Détection de survol (Raycasting 2D/3D screen space)
+    const cRect = canvas.getBoundingClientRect();
+    const mx = e.clientX - cRect.left;
+    const my = e.clientY - cRect.top;
+
+    let found = null;
+    let closestDist = Infinity;
+
+    for (let i = holoPoints.length - 1; i >= 0; i--) {
+      const pt = holoPoints[i];
+      const dist = Math.hypot(mx - pt.x, my - pt.y);
+      if (dist <= pt.r + 7 && dist < closestDist) {
+        found = pt;
+        closestDist = dist;
       }
+    }
 
-      if (found) {
-        hoveredScatterPoint = found;
-        const it = found.item;
-        tooltip.innerHTML = `
-          <div class="tt-title">${escapeHtml(it.product)}</div>
-          <div style="font-size:10.5px; color:#94a3b8; margin-bottom:6px;">${escapeHtml(it.family)} — ${it.quadrantLabel}</div>
-          <div class="tt-row"><span>Prix de vente :</span><strong class="tt-val">${it.price.toFixed(2)} DH</strong></div>
-          <div class="tt-row"><span>Coût Portion (FC%) :</span><strong class="tt-val">${it.cost.toFixed(2)} DH (${it.foodCostPct}%)</strong></div>
-          <div class="tt-row"><span>Marge Brute / plat :</span><strong class="tt-val" style="color:#38bdf8;">${it.grossMarginDH.toFixed(2)} DH</strong></div>
-          <div class="tt-row"><span>Quantité vendue :</span><strong class="tt-val">${it.qty.toLocaleString('fr-FR')} u.</strong></div>
-          <div class="tt-row"><span>CA Total :</span><strong class="tt-val" style="color:#10b981;">${it.totalCA.toLocaleString('fr-FR', { minimumFractionDigits: 2 })} DH</strong></div>
-          <div style="margin-top:6px; padding-top:6px; border-top:1px solid rgba(255,255,255,0.15); font-size:11px; color:#fde047;">
-            💡 ${escapeHtml(it.actionAdvice)}
-          </div>
-        `;
-        tooltip.style.left = mx + 'px';
-        tooltip.style.top = (my - 10) + 'px';
-        tooltip.style.display = 'block';
-        renderMenuEngineeringScatterPlot();
-      } else {
-        if (hoveredScatterPoint) {
-          hoveredScatterPoint = null;
-          tooltip.style.display = 'none';
-          renderMenuEngineeringScatterPlot();
-        }
+    if (found) {
+      hoveredHoloPoint = found;
+      const it = found.item;
+      tooltip.innerHTML = `
+        <div class="tt-title">🔮 ${escapeHtml(it.product)}</div>
+        <div style="font-size:10.5px; color:#94a3b8; margin-bottom:7px; letter-spacing:0.03em;">
+          ${escapeHtml(it.family)} • <span style="color:#38bdf8; font-weight:700;">${it.quadrantLabel}</span>
+        </div>
+        <div class="tt-row"><span>Prix de vente :</span><strong class="tt-val">${it.price.toFixed(2)} DH</strong></div>
+        <div class="tt-row"><span>Coût Portion (FC%) :</span><strong class="tt-val">${it.cost.toFixed(2)} DH (${it.foodCostPct}%)</strong></div>
+        <div class="tt-row"><span>Marge Brute Cash :</span><strong class="tt-val" style="color:#38bdf8;">${it.grossMarginDH.toFixed(2)} DH</strong></div>
+        <div class="tt-row"><span>Quantité vendue :</span><strong class="tt-val">${it.qty.toLocaleString('fr-FR')} u.</strong></div>
+        <div class="tt-row"><span>CA Total :</span><strong class="tt-val" style="color:#10b981;">${it.totalCA.toLocaleString('fr-FR', { minimumFractionDigits: 2 })} DH</strong></div>
+        <div style="margin-top:7px; padding-top:7px; border-top:1px solid rgba(6, 182, 212, 0.25); font-size:11px; color:#fde047;">
+          💡 ${escapeHtml(it.actionAdvice)}
+        </div>
+      `;
+      tooltip.style.left = Math.min(cRect.width - 150, Math.max(150, mx)) + 'px';
+      tooltip.style.top = Math.max(70, my - 15) + 'px';
+      tooltip.style.display = 'block';
+    } else {
+      if (hoveredHoloPoint) {
+        hoveredHoloPoint = null;
+        tooltip.style.display = 'none';
       }
-    });
+    }
+  });
 
-    canvas.addEventListener('mouseleave', () => {
-      hoveredScatterPoint = null;
-      if (tooltip) tooltip.style.display = 'none';
-      renderMenuEngineeringScatterPlot();
-    });
+  window.addEventListener('mouseup', () => {
+    isHoloDragging = false;
+  });
 
-    window.addEventListener('resize', () => {
-      renderMenuEngineeringScatterPlot();
-    });
+  canvas.addEventListener('mouseleave', () => {
+    hoveredHoloPoint = null;
+    if (tooltip) tooltip.style.display = 'none';
+  });
+
+  // 2. Zoom à la molette
+  canvas.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.12 : 0.12;
+    holoCamera.targetZoom = Math.max(0.45, Math.min(2.4, holoCamera.targetZoom + delta));
+  }, { passive: false });
+
+  // 3. Support Tactile (Touch drag & Pinch zoom)
+  let initialTouchDist = 0;
+  canvas.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) {
+      isHoloDragging = true;
+      holoDragStartX = e.touches[0].clientX;
+      holoDragStartY = e.touches[0].clientY;
+      holoStartYaw = holoCamera.targetYaw;
+      holoStartPitch = holoCamera.targetPitch;
+    } else if (e.touches.length === 2) {
+      initialTouchDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+    }
+  }, { passive: true });
+
+  canvas.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 1 && isHoloDragging) {
+      const dx = e.touches[0].clientX - holoDragStartX;
+      const dy = e.touches[0].clientY - holoDragStartY;
+      holoCamera.targetYaw = holoStartYaw + dx * 0.009;
+      holoCamera.targetPitch = Math.max(-0.65, Math.min(1.52, holoStartPitch + dy * 0.009));
+    } else if (e.touches.length === 2 && initialTouchDist > 0) {
+      const currentDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const ratio = currentDist / initialTouchDist;
+      holoCamera.targetZoom = Math.max(0.45, Math.min(2.4, holoCamera.zoom * ratio));
+      initialTouchDist = currentDist;
+    }
+  }, { passive: true });
+
+  canvas.addEventListener('touchend', () => {
+    isHoloDragging = false;
+    initialTouchDist = 0;
+  });
+
+  // 4. Boucle d'animation fluide 60 FPS
+  function startHoloAnimationLoop() {
+    if (holoAnimFrameId) cancelAnimationFrame(holoAnimFrameId);
+
+    function frame() {
+      if (holoIsVisible) {
+        renderMenuEngineeringHologram();
+      }
+      holoAnimFrameId = requestAnimationFrame(frame);
+    }
+    holoAnimFrameId = requestAnimationFrame(frame);
+  }
+  startHoloAnimationLoop();
+
+  // Optimisation IntersectionObserver pour économiser CPU/batterie si masqué
+  if (typeof IntersectionObserver !== 'undefined') {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        holoIsVisible = entry.isIntersecting;
+      });
+    }, { threshold: 0.05 });
+    observer.observe(container);
   }
 }
+
+// Fonctions de contrôle de l'Hologramme exposées
+function setHologramView(viewMode) {
+  holoCamera.currentView = viewMode;
+
+  // Mise à jour visuelle des boutons
+  ['free', 'front', 'top', 'iso'].forEach(mode => {
+    const btn = document.getElementById(`btn-holo-cam-${mode}`);
+    if (btn) btn.classList.toggle('active', mode === viewMode);
+  });
+
+  if (viewMode === 'free') {
+    holoCamera.targetPitch = 0.42;
+    holoCamera.targetYaw = 0.75;
+    holoCamera.targetZoom = 1.0;
+  } else if (viewMode === 'front') {
+    holoCamera.targetPitch = 0.0;
+    holoCamera.targetYaw = 0.0;
+    holoCamera.targetZoom = 1.05;
+    holoCamera.autoRotate = false;
+  } else if (viewMode === 'top') {
+    holoCamera.targetPitch = 1.50; // Vue verticale
+    holoCamera.targetYaw = 0.0;
+    holoCamera.targetZoom = 1.05;
+    holoCamera.autoRotate = false;
+  } else if (viewMode === 'iso') {
+    holoCamera.targetPitch = 0.615; // ~35.26° isométrique
+    holoCamera.targetYaw = 0.785;   // ~45°
+    holoCamera.targetZoom = 1.0;
+  }
+
+  updateAutoRotateBtn();
+}
+
+function toggleHologramAutoRotate() {
+  holoCamera.autoRotate = !holoCamera.autoRotate;
+  updateAutoRotateBtn();
+}
+
+function updateAutoRotateBtn() {
+  const btn = document.getElementById('btn-holo-autorotate');
+  if (btn) {
+    btn.classList.toggle('active', holoCamera.autoRotate);
+    const led = btn.querySelector('.holo-led');
+    if (led) led.classList.toggle('on', holoCamera.autoRotate);
+  }
+}
+
+function toggleHologramBeams() {
+  holoCamera.showBeams = !holoCamera.showBeams;
+  const btn = document.getElementById('btn-holo-beams');
+  if (btn) btn.classList.toggle('active', holoCamera.showBeams);
+}
+
+function toggleHologramLabels() {
+  holoCamera.showLabels = !holoCamera.showLabels;
+  const btn = document.getElementById('btn-holo-labels');
+  if (btn) btn.classList.toggle('active', holoCamera.showLabels);
+}
+
+function zoomHologram(delta) {
+  holoCamera.targetZoom = Math.max(0.45, Math.min(2.4, holoCamera.targetZoom + delta));
+}
+
+function resetHologramView() {
+  setHologramView('free');
+  holoCamera.autoRotate = true;
+  updateAutoRotateBtn();
+}
+
+// Alias de rétrocompatibilité pour tout appel existant
+function renderMenuEngineeringScatterPlot() {
+  renderMenuEngineeringHologram();
+}
+
+window.renderMenuEngineeringHologram = renderMenuEngineeringHologram;
+window.setHologramView = setHologramView;
+window.toggleHologramAutoRotate = toggleHologramAutoRotate;
+window.toggleHologramBeams = toggleHologramBeams;
+window.toggleHologramLabels = toggleHologramLabels;
+window.zoomHologram = zoomHologram;
+window.resetHologramView = resetHologramView;
 
 function renderSummaryTopIngredientsPodium() {
   const container = document.getElementById('summary-top-ingredients-podium');
