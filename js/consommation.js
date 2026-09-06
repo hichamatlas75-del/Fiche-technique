@@ -5533,10 +5533,13 @@ function computeDayOfWeekStats(dataset, categoryFilter) {
     const avgQty = occCount > 0 ? data.totalQty / occCount : 0;
 
     let topProduct = null;
-    const prods = Object.values(data.products);
+    let leastProduct = null;
+    const prods = Object.values(data.products).filter(p => p.qty > 0);
     if (prods.length > 0) {
-      prods.sort((a, b) => b.total - a.total);
+      prods.sort((a, b) => b.total - a.total || b.qty - a.qty);
       topProduct = prods[0];
+      const prodsByQtyAsc = [...prods].sort((a, b) => a.qty - b.qty || a.total - b.total);
+      leastProduct = prodsByQtyAsc[0];
     }
 
     grandTotalCA += data.totalCA;
@@ -5553,7 +5556,9 @@ function computeDayOfWeekStats(dataset, categoryFilter) {
       totalQty: data.totalQty,
       avgCA,
       avgQty,
-      topProduct
+      topProduct,
+      leastProduct,
+      worstProduct: leastProduct
     };
   });
 
@@ -5656,8 +5661,11 @@ function computeWeeklyStats(dataset, categoryFilter) {
     }
     prevCA = w.totalCA;
 
-    const prods = Object.values(w.products).sort((a, b) => b.total - a.total);
+    const prods = Object.values(w.products).filter(p => p.qty > 0);
+    prods.sort((a, b) => b.total - a.total || b.qty - a.qty);
     const topProduct = prods[0] || null;
+    const prodsByQtyAsc = [...prods].sort((a, b) => a.qty - b.qty || a.total - b.total);
+    const leastProduct = prodsByQtyAsc[0] || null;
 
     let topCatStr = '-';
     const catEntries = Object.entries(w.categories).sort((a, b) => b[1] - a[1]);
@@ -5678,6 +5686,8 @@ function computeWeeklyStats(dataset, categoryFilter) {
       avgDailyCA,
       deltaWoWPct,
       topProduct,
+      leastProduct,
+      worstProduct: leastProduct,
       topCategory: topCatStr
     };
   });
@@ -5762,8 +5772,11 @@ function computeMonthlyStats(dataset, categoryFilter) {
     }
     prevCA = m.totalCA;
 
-    const prods = Object.values(m.products).sort((a, b) => b.total - a.total);
+    const prods = Object.values(m.products).filter(p => p.qty > 0);
+    prods.sort((a, b) => b.total - a.total || b.qty - a.qty);
     const topProduct = prods[0] || null;
+    const prodsByQtyAsc = [...prods].sort((a, b) => a.qty - b.qty || a.total - b.total);
+    const leastProduct = prodsByQtyAsc[0] || null;
 
     return {
       ym,
@@ -5773,7 +5786,9 @@ function computeMonthlyStats(dataset, categoryFilter) {
       totalQty: m.totalQty,
       avgDailyCA,
       deltaMoMPct,
-      topProduct
+      topProduct,
+      leastProduct,
+      worstProduct: leastProduct
     };
   });
 
@@ -5944,7 +5959,8 @@ function renderDayOfWeekComparison(dataset) {
       <th style="text-align:right;">Articles Vendus</th>
       <th style="text-align:center;">Part du CA</th>
       <th style="text-align:center;">Écart vs Moyenne</th>
-      <th>⭐ Produit Vedette du Jour</th>
+      <th>⭐ Produit Vedette</th>
+      <th>🔻 Moins Vendu</th>
     </tr>
   `;
 
@@ -5955,7 +5971,8 @@ function renderDayOfWeekComparison(dataset) {
     const rankBadge = idx < 3 ? medals[idx] : `<span class="comp-badge-rank">${idx + 1}</span>`;
     const isPos = item.deltaVsAvgPct >= 0;
     const deltaTag = `<span class="comp-delta-tag ${isPos ? 'pos' : 'neg'}">${isPos ? '+' : ''}${item.deltaVsAvgPct.toFixed(1)}%</span>`;
-    const topProdStr = item.topProduct ? `<strong>${escapeHtml(item.topProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.topProduct.qty.toLocaleString('fr-FR')} vendus)</span>` : '<span style="color:var(--muted);">-</span>';
+    const topProdStr = item.topProduct ? `<strong>${escapeHtml(item.topProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.topProduct.qty.toLocaleString('fr-FR')} u.)</span>` : '<span style="color:var(--muted);">-</span>';
+    const leastProdStr = item.leastProduct ? `<strong style="color:#ef4444;">${escapeHtml(item.leastProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.leastProduct.qty.toLocaleString('fr-FR')} u.)</span>` : '<span style="color:var(--muted);">-</span>';
 
     return `
       <tr>
@@ -5968,6 +5985,7 @@ function renderDayOfWeekComparison(dataset) {
         <td style="text-align:center; font-weight:800;">${item.sharePct.toFixed(1)}%</td>
         <td style="text-align:center;">${deltaTag}</td>
         <td>${topProdStr}</td>
+        <td>${leastProdStr}</td>
       </tr>
     `;
   }).join('');
@@ -6074,6 +6092,7 @@ function renderWeeklyComparison(dataset) {
       <th style="text-align:right;">Articles Vendus</th>
       <th>📁 Catégorie Forte</th>
       <th>⭐ Plat Leader</th>
+      <th>🔻 Moins Vendu</th>
     </tr>
   `;
 
@@ -6085,6 +6104,7 @@ function renderWeeklyComparison(dataset) {
     }
 
     const topProdStr = item.topProduct ? `<strong>${escapeHtml(item.topProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.topProduct.qty.toLocaleString('fr-FR')} u.)</span>` : '-';
+    const leastProdStr = item.leastProduct ? `<strong style="color:#ef4444;">${escapeHtml(item.leastProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.leastProduct.qty.toLocaleString('fr-FR')} u.)</span>` : '-';
 
     return `
       <tr>
@@ -6097,6 +6117,7 @@ function renderWeeklyComparison(dataset) {
         <td style="text-align:right;">${item.totalQty.toLocaleString('fr-FR')} u.</td>
         <td><span class="chip-pill" style="font-size:11px;">${escapeHtml(item.topCategory)}</span></td>
         <td>${topProdStr}</td>
+        <td>${leastProdStr}</td>
       </tr>
     `;
   }).join('');
@@ -6200,6 +6221,7 @@ function renderMonthlyComparison(dataset) {
       <th style="text-align:right;">CA Journalier Moyen</th>
       <th style="text-align:right;">Articles Vendus</th>
       <th>⭐ Produit Star du Mois</th>
+      <th>🔻 Produit Moins Vendu</th>
     </tr>
   `;
 
@@ -6211,6 +6233,7 @@ function renderMonthlyComparison(dataset) {
     }
 
     const topProdStr = item.topProduct ? `<strong>${escapeHtml(item.topProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.topProduct.qty.toLocaleString('fr-FR')} u.)</span>` : '-';
+    const leastProdStr = item.leastProduct ? `<strong style="color:#ef4444;">${escapeHtml(item.leastProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.leastProduct.qty.toLocaleString('fr-FR')} u.)</span>` : '-';
 
     return `
       <tr>
@@ -6221,6 +6244,7 @@ function renderMonthlyComparison(dataset) {
         <td style="text-align:right; font-weight:800;">${item.avgDailyCA.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} DH</td>
         <td style="text-align:right;">${item.totalQty.toLocaleString('fr-FR')} u.</td>
         <td>${topProdStr}</td>
+        <td>${leastProdStr}</td>
       </tr>
     `;
   }).join('');
@@ -6251,7 +6275,7 @@ function exportComparatorToExcel() {
     ['COMPARATEUR DES VENTES PAR JOUR DE LA SEMAINE — GREY CORNER'],
     [`Période analysée : ${dataset.scopeLabel}`, `Filtre catégorie : ${comparatorCategoryFilter}`, `Généré le : ${new Date().toLocaleDateString('fr-FR')}`],
     [],
-    ['Jour de la semaine', 'Nombre d\'occurrences', 'CA Total (DH)', 'CA Moyen / Jour (DH)', 'Articles Vendus Total', 'Volume Moyen / Jour', 'Part dans le CA (%)', 'Écart vs Moyenne Hebdo (%)', 'Plat Vedette']
+    ['Jour de la semaine', 'Nombre d\'occurrences', 'CA Total (DH)', 'CA Moyen / Jour (DH)', 'Articles Vendus Total', 'Volume Moyen / Jour', 'Part dans le CA (%)', 'Écart vs Moyenne Hebdo (%)', 'Plat Vedette', 'Produit Moins Vendu']
   ];
   dowStats.items.forEach(d => {
     dowRows.push([
@@ -6263,7 +6287,8 @@ function exportComparatorToExcel() {
       d.avgQty,
       d.sharePct.toFixed(2),
       d.deltaVsAvgPct.toFixed(2),
-      d.topProduct ? `${d.topProduct.product} (${d.topProduct.qty} u.)` : ''
+      d.topProduct ? `${d.topProduct.product} (${d.topProduct.qty} u.)` : '',
+      d.leastProduct ? `${d.leastProduct.product} (${d.leastProduct.qty} u.)` : ''
     ]);
   });
   const wsDow = XLSX.utils.aoa_to_sheet(dowRows);
@@ -6275,7 +6300,7 @@ function exportComparatorToExcel() {
     ['COMPARATEUR HEBDOMADAIRE (WEEK-OVER-WEEK) — GREY CORNER'],
     [`Période analysée : ${dataset.scopeLabel}`, `Filtre catégorie : ${comparatorCategoryFilter}`],
     [],
-    ['Semaine', 'Date Début', 'Date Fin', 'Jours Actifs', 'Chiffre d\'Affaires (DH)', 'Évolution W-o-W (%)', 'CA Moyen / Jour (DH)', 'Articles Vendus', 'Catégorie Leader', 'Plat Leader']
+    ['Semaine', 'Date Début', 'Date Fin', 'Jours Actifs', 'Chiffre d\'Affaires (DH)', 'Évolution W-o-W (%)', 'CA Moyen / Jour (DH)', 'Articles Vendus', 'Catégorie Leader', 'Plat Leader', 'Produit Moins Vendu']
   ];
   weekStats.items.forEach(w => {
     weekRows.push([
@@ -6288,7 +6313,8 @@ function exportComparatorToExcel() {
       w.avgDailyCA,
       w.totalQty,
       w.topCategory,
-      w.topProduct ? `${w.topProduct.product} (${w.topProduct.qty} u.)` : ''
+      w.topProduct ? `${w.topProduct.product} (${w.topProduct.qty} u.)` : '',
+      w.leastProduct ? `${w.leastProduct.product} (${w.leastProduct.qty} u.)` : ''
     ]);
   });
   const wsWeek = XLSX.utils.aoa_to_sheet(weekRows);
@@ -6300,7 +6326,7 @@ function exportComparatorToExcel() {
     ['COMPARATEUR MENSUEL (MONTH-OVER-MONTH) — GREY CORNER'],
     [`Période analysée : ${dataset.scopeLabel}`, `Filtre catégorie : ${comparatorCategoryFilter}`],
     [],
-    ['Mois', 'Code YM', 'Jours Actifs', 'Chiffre d\'Affaires (DH)', 'Évolution M-o-M (%)', 'CA Journalier Moyen (DH)', 'Articles Vendus Total', 'Plat Star']
+    ['Mois', 'Code YM', 'Jours Actifs', 'Chiffre d\'Affaires (DH)', 'Évolution M-o-M (%)', 'CA Journalier Moyen (DH)', 'Articles Vendus Total', 'Plat Star', 'Produit Moins Vendu']
   ];
   monthStats.items.forEach(m => {
     monthRows.push([
@@ -6311,7 +6337,8 @@ function exportComparatorToExcel() {
       m.deltaMoMPct !== null ? m.deltaMoMPct.toFixed(2) : 'Base',
       m.avgDailyCA,
       m.totalQty,
-      m.topProduct ? `${m.topProduct.product} (${m.topProduct.qty} u.)` : ''
+      m.topProduct ? `${m.topProduct.product} (${m.topProduct.qty} u.)` : '',
+      m.leastProduct ? `${m.leastProduct.product} (${m.leastProduct.qty} u.)` : ''
     ]);
   });
   const wsMonth = XLSX.utils.aoa_to_sheet(monthRows);
