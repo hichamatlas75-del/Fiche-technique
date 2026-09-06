@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-06T21:38:02.215Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-06T22:15:19.516Z
  */
 
 (function(global) {
@@ -2560,21 +2560,21 @@ const DATA = [
         "image": "images/petit-dej-norvegien.jpg",
         "prepTime": 10,
         "tech": [
-          "Saumon : 60 g",
           "Avocat : 50 g",
-          "Fromage : 30 g",
           "Pain céréales : 2 tr",
           "Jus : 200 ml",
           "Boisson chaude : 1 p",
           "Dessert : 1 p",
-          "Bouteille Eau Minérale 33cl : 1 p"
+          "Bouteille Eau Minérale 33cl : 1 p",
+          "saumon fumee : 60 g",
+          "jben : 30 g"
         ],
         "price": "68 DH",
-        "cost": 24.03,
+        "cost": 28.38,
         "sellPrice": 68,
-        "foodCost": 35.3,
-        "margin": 64.7,
-        "grossMarginDH": 43.97,
+        "foodCost": 41.7,
+        "margin": 58.3,
+        "grossMarginDH": 39.62,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-norvegien.jpg"
@@ -7437,15 +7437,17 @@ const BASE_RECIPES = [
     "name": "NORVÉGIEN",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "Saumon : 60 g",
       "Avocat : 50 g",
-      "Fromage : 30 g",
       "Pain céréales : 2 tr",
       "Jus : 200 ml",
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
-      "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+      "Bouteille Eau Minérale 33cl : 1 p",
+      "saumon fumee : 60 g",
+      "jben : 30 g"
+    ],
+    "sellPrice": 68,
+    "price": "68 DH"
   },
   {
     "id": "pdj_light",
