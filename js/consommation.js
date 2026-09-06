@@ -805,6 +805,7 @@ function processSalesAndCalculateStock(rawRows, periodTitle = '', isMonthly = fa
   renderSummaryTable();
   renderSalesTable();
   renderMenuEngineeringMatrix();
+  renderComparatorTab();
   const expBtn = document.getElementById('btn-export-excel');
   if (expBtn) expBtn.style.display = 'inline-flex';
 }
@@ -1324,7 +1325,132 @@ function escapeHtml(str) {
 let salesSortColumn = 'qty';
 let salesSortDirection = -1; // -1 = desc, 1 = asc
 let salesFamilyFilter = 'all';
+let salesCategoryFilter = 'all'; // Filtre normalisé par catégorie
 let chartMetric = 'qty'; // 'qty' ou 'ca'
+
+// Liste universelle des catégories normalisées du restaurant
+const GC_CATEGORIES = [
+  { id: 'all', label: 'Toutes les Catégories', icon: '📁' },
+  { id: 'petit-dej', label: 'Petit Déjeuner & Brunch', icon: '🥐' },
+  { id: 'plat', label: 'Plats (Viandes & Poissons)', icon: '🥩' },
+  { id: 'pizza', label: 'Pizzas', icon: '🍕' },
+  { id: 'pasta', label: 'Pasta & Pâtes', icon: '🍝' },
+  { id: 'burger', label: 'Burgers & Sandwiches', icon: '🍔' },
+  { id: 'salade', label: 'Salades Composées', icon: '🥗' },
+  { id: 'boisson', label: 'Bar, Cafés & Boissons', icon: '☕' },
+  { id: 'dessert', label: 'Desserts & Douceurs', icon: '🍰' }
+];
+
+// Détection intelligente de la catégorie d'un plat ou d'une vente
+function detectProductCategory(product, family, matchedRecipe) {
+  const p = (product || '').toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const f = (family || '').toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const rCat = (matchedRecipe && matchedRecipe.category ? matchedRecipe.category : '').toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  // 1. PETIT DÉJEUNER / BRUNCH
+  if (rCat.includes('PETIT') || rCat.includes('DEJEUNER') || f.includes('PETIT') || f.includes('DEJEUNER') || f.includes('BRUNCH') ||
+      p.includes('BRUNCH') || p.includes('PETIT DEJ') || p.includes('OMELETTE') || p.includes('CROQUE') || p.includes('MLAOU') ||
+      p.includes('HARCHA') || p.includes('BELDI') || p.includes('FORMULE MATIN')) {
+    return 'petit-dej';
+  }
+
+  // 2. PIZZA
+  if (rCat.includes('PIZZA') || f.includes('PIZZA') || p.includes('PIZZA') || p.includes('CALZONE')) {
+    return 'pizza';
+  }
+
+  // 3. PASTA / PÂTES
+  if (rCat.includes('PASTA') || rCat.includes('PATE') || f.includes('PASTA') || f.includes('PATE') ||
+      p.includes('PASTA') || p.includes('TAGLIATELLE') || p.includes('SPAGHETTI') || p.includes('PENNE') ||
+      p.includes('LASAGNE') || p.includes('TORTELLINI') || p.includes('RAVIOLI') || p.includes('MACARONI') || p.includes('FETTUCCINE')) {
+    return 'pasta';
+  }
+
+  // 4. BURGERS & SANDWICHES
+  if (rCat.includes('BURGER') || f.includes('BURGER') || p.includes('BURGER') || p.includes('SANDWICH') || p.includes('PANINI') || p.includes('TACOS') || p.includes('SMASH')) {
+    return 'burger';
+  }
+
+  // 5. SALADES
+  if (rCat.includes('SALADE') || f.includes('SALADE') || p.includes('SALADE') || p.includes('CESAR') || p.includes('CAESAR') || p.includes('BURRATA') || p.includes('BOWL')) {
+    return 'salade';
+  }
+
+  // 6. DESSERTS / CRÊPES / DOUCEURS
+  if (rCat.includes('DESSERT') || rCat.includes('CREPE') || rCat.includes('GAUFRE') || f.includes('DESSERT') || f.includes('CREPE') || f.includes('GAUFRE') ||
+      p.includes('DESSERT') || p.includes('FONDANT') || p.includes('TIRAMISU') || p.includes('CHEESECAKE') || p.includes('CREPE') ||
+      p.includes('GAUFRE') || p.includes('PANCAKE') || p.includes('GLACE') || p.includes('MUFFIN') || p.includes('TARTE') || p.includes('BROWNIE')) {
+    return 'dessert';
+  }
+
+  // 7. BAR, BOISSONS, CAFÉS
+  if (rCat.includes('BOISSON') || rCat.includes('CAFE') || rCat.includes('BAR') || rCat.includes('JUS') ||
+      f.includes('BOISSON') || f.includes('CAFE') || f.includes('BAR') || f.includes('JUS') || f.includes('SODA') || f.includes('EAU') ||
+      p.includes('CAFE') || p.includes('ESPRESSO') || p.includes('THE') || p.includes('JUS') || p.includes('MOJITO') || p.includes('COCKTAIL') ||
+      p.includes('MOCKTAIL') || p.includes('SMOOTHIE') || p.includes('MILKSHAKE') || p.includes('SIDI') || p.includes('COCA') || p.includes('SPRITE') ||
+      p.includes('EAU') || p.includes('RED BULL') || p.includes('CAPPUCCINO')) {
+    return 'boisson';
+  }
+
+  // 8. PLATS PRINCIPAUX (Viandes, Volailles, Poissons)
+  if (rCat.includes('PLAT') || rCat.includes('VIANDE') || rCat.includes('POISSON') ||
+      f.includes('PLAT') || f.includes('VIANDE') || f.includes('POISSON') ||
+      p.includes('FILET') || p.includes('STEAK') || p.includes('BOEUF') || p.includes('POULET') ||
+      p.includes('SAUMON') || p.includes('CALAMAR') || p.includes('GAMBAS') || p.includes('CREVETTE') ||
+      p.includes('ESCALOPE') || p.includes('TAJINE') || p.includes('EMINCE') || p.includes('PAVE')) {
+    return 'plat';
+  }
+
+  return 'plat';
+}
+
+function renderSalesCategoryPillBar() {
+  const container = document.getElementById('sales-category-pill-bar');
+  if (!container) return;
+
+  const sales = currentSalesData || [];
+  const totalVolumeAll = sales.reduce((acc, s) => acc + (s.qty || 0), 0);
+
+  // Calcul du volume vendu par catégorie
+  const volumeByCat = {};
+  GC_CATEGORIES.forEach(c => { volumeByCat[c.id] = 0; });
+  volumeByCat['all'] = totalVolumeAll;
+
+  sales.forEach(s => {
+    const catId = detectProductCategory(s.product, s.family, s.matchedRecipe);
+    volumeByCat[catId] = (volumeByCat[catId] || 0) + (s.qty || 0);
+  });
+
+  container.innerHTML = GC_CATEGORIES.map(cat => {
+    const vol = volumeByCat[cat.id] || 0;
+    const isActive = salesCategoryFilter === cat.id;
+    // Si la catégorie n'a pas de vente et n'est pas 'all', on l'affiche quand même si elle fait partie des catégories phares
+    return `
+      <button type="button" class="cat-pill-btn ${isActive ? 'active' : ''}" onclick="onSalesCategoryPillClick('${cat.id}')">
+        <span>${cat.icon}</span>
+        <span>${cat.label}</span>
+        <span class="cat-pill-count">${vol.toLocaleString('fr-FR')}</span>
+      </button>
+    `;
+  }).join('');
+
+  const activeLabel = document.getElementById('sales-cat-active-label');
+  if (activeLabel) {
+    if (salesCategoryFilter === 'all') {
+      activeLabel.textContent = `Toutes les catégories (${totalVolumeAll.toLocaleString('fr-FR')} unités vendues)`;
+    } else {
+      const activeObj = GC_CATEGORIES.find(c => c.id === salesCategoryFilter);
+      const activeVol = volumeByCat[salesCategoryFilter] || 0;
+      activeLabel.textContent = `Filtre actif : ${activeObj ? activeObj.icon + ' ' + activeObj.label : salesCategoryFilter} (${activeVol.toLocaleString('fr-FR')} unités vendues)`;
+    }
+  }
+}
+
+function onSalesCategoryPillClick(catId) {
+  salesCategoryFilter = catId;
+  renderSalesCategoryPillBar();
+  renderSalesTable();
+}
 
 function populateSalesFamilyDropdown() {
   const select = document.getElementById('filter-sales-family');
@@ -1428,10 +1554,15 @@ function renderSalesTable() {
   const search = cleanText(document.getElementById('search-sales').value);
 
   populateSalesFamilyDropdown();
+  renderSalesCategoryPillBar();
 
   let filtered = currentSalesData.filter(s => {
     if (currentSalesFilter === 'matched' && !s.matchedRecipe) return false;
     if (currentSalesFilter === 'unmatched' && s.matchedRecipe) return false;
+    if (salesCategoryFilter !== 'all') {
+      const cat = detectProductCategory(s.product, s.family, s.matchedRecipe);
+      if (cat !== salesCategoryFilter) return false;
+    }
     if (salesFamilyFilter !== 'all' && s.family !== salesFamilyFilter) return false;
     if (search && !cleanText(s.product).includes(search) && !cleanText(s.family).includes(search)) return false;
     return true;
@@ -1500,6 +1631,10 @@ function renderSalesBarChart() {
   }
 
   let items = currentSalesData.filter(s => {
+    if (salesCategoryFilter !== 'all') {
+      const cat = detectProductCategory(s.product, s.family, s.matchedRecipe);
+      if (cat !== salesCategoryFilter) return false;
+    }
     if (salesFamilyFilter !== 'all' && s.family !== salesFamilyFilter) return false;
     return true;
   });
@@ -5151,6 +5286,893 @@ function renderSummaryTopIngredientsPodium() {
 }
 
 
+/* ========================================================
+   11.C COMPARATEUR TEMPOREL (JOUR DE SEMAINE, SEMAINE, MOIS)
+======================================================== */
+let comparatorMode = 'dayofweek'; // 'dayofweek', 'week', 'month'
+let comparatorCategoryFilter = 'all';
+
+function getComparatorSalesDataset() {
+  const allDates = Object.keys(monthlySalesDB || {}).sort();
+  if (allDates.length === 0) {
+    return { dates: [], salesByDate: {}, scopeLabel: 'Aucune donnée' };
+  }
+
+  // Si on est en mode mois ('month'), on filtre sur le mois sélectionné
+  // Si on est en mode jour ou année, on prend l'année sélectionnée (ou toutes les dates si vide)
+  const selectedYear = (selectedYearMonth && selectedYearMonth.length >= 4) ? selectedYearMonth.slice(0, 4) : new Date().getFullYear().toString();
+  const targetPrefix = (currentViewMode === 'month') ? selectedYearMonth : selectedYear;
+  let activeDates = allDates.filter(d => d.startsWith(targetPrefix));
+  if (activeDates.length === 0) activeDates = allDates;
+
+  const salesByDate = {};
+  activeDates.forEach(d => {
+    salesByDate[d] = monthlySalesDB[d] || [];
+  });
+
+  const scopeLabel = (currentViewMode === 'month')
+    ? `Mois ${formatMonthFR(selectedYearMonth)}`
+    : `Année ${selectedYear}`;
+
+  return { dates: activeDates, salesByDate, scopeLabel };
+}
+
+// 1. Calcul Statistiques par Jour de la Semaine (Lun - Dim)
+function computeDayOfWeekStats(dataset, categoryFilter) {
+  const days = [
+    { dow: 1, name: 'Lundi', short: 'Lun', icon: '☕' },
+    { dow: 2, name: 'Mardi', short: 'Mar', icon: '🍽️' },
+    { dow: 3, name: 'Mercredi', short: 'Mer', icon: '🥗' },
+    { dow: 4, name: 'Jeudi', short: 'Jeu', icon: '🥘' },
+    { dow: 5, name: 'Vendredi', short: 'Ven', icon: '🎉' },
+    { dow: 6, name: 'Samedi', short: 'Sam', icon: '🌟' },
+    { dow: 0, name: 'Dimanche', short: 'Dim', icon: '🥞' }
+  ];
+
+  const map = {};
+  days.forEach(d => {
+    map[d.dow] = {
+      ...d,
+      occurrences: new Set(),
+      totalCA: 0,
+      totalQty: 0,
+      products: {}
+    };
+  });
+
+  dataset.dates.forEach(dStr => {
+    const dObj = new Date(dStr + 'T00:00:00');
+    const dow = dObj.getDay();
+    const target = map[dow];
+    if (!target) return;
+
+    const sales = dataset.salesByDate[dStr] || [];
+    let hasMatchingSale = false;
+
+    sales.forEach(s => {
+      if (categoryFilter !== 'all') {
+        const cat = detectProductCategory(s.product, s.family, s.matchedRecipe);
+        if (cat !== categoryFilter) return;
+      }
+      hasMatchingSale = true;
+      const q = parseFloat(s.qty) || 0;
+      const p = parseFloat(s.price) || 0;
+      const t = parseFloat(s.total) || (q * p);
+      target.totalCA += t;
+      target.totalQty += q;
+
+      if (!target.products[s.product]) {
+        target.products[s.product] = { product: s.product, qty: 0, total: 0 };
+      }
+      target.products[s.product].qty += q;
+      target.products[s.product].total += t;
+    });
+
+    if (hasMatchingSale || categoryFilter === 'all') {
+      target.occurrences.add(dStr);
+    }
+  });
+
+  let grandTotalCA = 0;
+  let grandTotalQty = 0;
+  let totalActiveDays = 0;
+
+  const resultList = days.map(d => {
+    const data = map[d.dow];
+    const occCount = data.occurrences.size;
+    const avgCA = occCount > 0 ? data.totalCA / occCount : 0;
+    const avgQty = occCount > 0 ? data.totalQty / occCount : 0;
+
+    let topProduct = null;
+    const prods = Object.values(data.products);
+    if (prods.length > 0) {
+      prods.sort((a, b) => b.total - a.total);
+      topProduct = prods[0];
+    }
+
+    grandTotalCA += data.totalCA;
+    grandTotalQty += data.totalQty;
+    totalActiveDays += occCount;
+
+    return {
+      dow: d.dow,
+      name: d.name,
+      short: d.short,
+      icon: d.icon,
+      occCount,
+      totalCA: data.totalCA,
+      totalQty: data.totalQty,
+      avgCA,
+      avgQty,
+      topProduct
+    };
+  });
+
+  const avgDailyCAAcrossWeek = totalActiveDays > 0 ? (grandTotalCA / totalActiveDays) : 0;
+
+  resultList.forEach(r => {
+    r.sharePct = grandTotalCA > 0 ? (r.totalCA / grandTotalCA * 100) : 0;
+    r.deltaVsAvgPct = avgDailyCAAcrossWeek > 0 ? ((r.avgCA - avgDailyCAAcrossWeek) / avgDailyCAAcrossWeek * 100) : 0;
+  });
+
+  const activeDaysSorted = [...resultList].filter(r => r.occCount > 0).sort((a, b) => b.avgCA - a.avgCA);
+  const leaderDay = activeDaysSorted[0] || null;
+  const quietDay = activeDaysSorted.length > 1 ? activeDaysSorted[activeDaysSorted.length - 1] : null;
+
+  return {
+    items: resultList,
+    grandTotalCA,
+    grandTotalQty,
+    totalActiveDays,
+    avgDailyCAAcrossWeek,
+    leaderDay,
+    quietDay
+  };
+}
+
+// 2. Calcul Statistiques par Semaine (Week-over-Week)
+function computeWeeklyStats(dataset, categoryFilter) {
+  function getISOWeekNumber(d) {
+    const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    const dayNum = date.getUTCDay() || 7;
+    date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+    return {
+      year: date.getUTCFullYear(),
+      week: Math.ceil((((date - yearStart) / 86400000) + 1) / 7)
+    };
+  }
+
+  const weeksMap = {};
+
+  dataset.dates.forEach(dStr => {
+    const dObj = new Date(dStr + 'T00:00:00');
+    const { year, week } = getISOWeekNumber(dObj);
+    const weekKey = `${year}-W${String(week).padStart(2, '0')}`;
+
+    if (!weeksMap[weekKey]) {
+      weeksMap[weekKey] = {
+        weekKey,
+        year,
+        week,
+        dates: new Set(),
+        totalCA: 0,
+        totalQty: 0,
+        products: {},
+        categories: {}
+      };
+    }
+
+    const wObj = weeksMap[weekKey];
+    const sales = dataset.salesByDate[dStr] || [];
+    let hasMatching = false;
+
+    sales.forEach(s => {
+      const cat = detectProductCategory(s.product, s.family, s.matchedRecipe);
+      if (categoryFilter !== 'all' && cat !== categoryFilter) return;
+
+      hasMatching = true;
+      const q = parseFloat(s.qty) || 0;
+      const p = parseFloat(s.price) || 0;
+      const t = parseFloat(s.total) || (q * p);
+      wObj.totalCA += t;
+      wObj.totalQty += q;
+
+      if (!wObj.products[s.product]) wObj.products[s.product] = { product: s.product, qty: 0, total: 0 };
+      wObj.products[s.product].qty += q;
+      wObj.products[s.product].total += t;
+
+      wObj.categories[cat] = (wObj.categories[cat] || 0) + t;
+    });
+
+    if (hasMatching || categoryFilter === 'all') {
+      wObj.dates.add(dStr);
+    }
+  });
+
+  const sortedKeys = Object.keys(weeksMap).sort();
+  let prevCA = 0;
+
+  const weekList = sortedKeys.map(wk => {
+    const w = weeksMap[wk];
+    const datesArr = Array.from(w.dates).sort();
+    const daysCount = datesArr.length;
+    const startDate = datesArr[0] || '';
+    const endDate = datesArr[datesArr.length - 1] || '';
+    const avgDailyCA = daysCount > 0 ? (w.totalCA / daysCount) : 0;
+
+    let deltaWoWPct = null;
+    if (prevCA > 0) {
+      deltaWoWPct = ((w.totalCA - prevCA) / prevCA) * 100;
+    }
+    prevCA = w.totalCA;
+
+    const prods = Object.values(w.products).sort((a, b) => b.total - a.total);
+    const topProduct = prods[0] || null;
+
+    let topCatStr = '-';
+    const catEntries = Object.entries(w.categories).sort((a, b) => b[1] - a[1]);
+    if (catEntries.length > 0) {
+      const cObj = GC_CATEGORIES.find(c => c.id === catEntries[0][0]);
+      topCatStr = cObj ? `${cObj.icon} ${cObj.label}` : catEntries[0][0];
+    }
+
+    return {
+      weekKey: wk,
+      weekNum: w.week,
+      year: w.year,
+      startDate,
+      endDate,
+      daysCount,
+      totalCA: w.totalCA,
+      totalQty: w.totalQty,
+      avgDailyCA,
+      deltaWoWPct,
+      topProduct,
+      topCategory: topCatStr
+    };
+  });
+
+  const grandTotalCA = weekList.reduce((acc, x) => acc + x.totalCA, 0);
+  const grandTotalQty = weekList.reduce((acc, x) => acc + x.totalQty, 0);
+  const avgWeekCA = weekList.length > 0 ? (grandTotalCA / weekList.length) : 0;
+  const bestWeek = [...weekList].sort((a, b) => b.totalCA - a.totalCA)[0] || null;
+
+  return {
+    items: weekList,
+    grandTotalCA,
+    grandTotalQty,
+    avgWeekCA,
+    bestWeek
+  };
+}
+
+// 3. Calcul Statistiques par Mois (Month-over-Month)
+function computeMonthlyStats(dataset, categoryFilter) {
+  const monthNamesFR = [
+    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+  ];
+
+  const monthsMap = {};
+
+  dataset.dates.forEach(dStr => {
+    const ym = dStr.substring(0, 7); // "YYYY-MM"
+    if (!monthsMap[ym]) {
+      monthsMap[ym] = {
+        ym,
+        dates: new Set(),
+        totalCA: 0,
+        totalQty: 0,
+        products: {},
+        categories: {}
+      };
+    }
+
+    const mObj = monthsMap[ym];
+    const sales = dataset.salesByDate[dStr] || [];
+    let hasMatching = false;
+
+    sales.forEach(s => {
+      const cat = detectProductCategory(s.product, s.family, s.matchedRecipe);
+      if (categoryFilter !== 'all' && cat !== categoryFilter) return;
+
+      hasMatching = true;
+      const q = parseFloat(s.qty) || 0;
+      const p = parseFloat(s.price) || 0;
+      const t = parseFloat(s.total) || (q * p);
+      mObj.totalCA += t;
+      mObj.totalQty += q;
+
+      if (!mObj.products[s.product]) mObj.products[s.product] = { product: s.product, qty: 0, total: 0 };
+      mObj.products[s.product].qty += q;
+      mObj.products[s.product].total += t;
+
+      mObj.categories[cat] = (mObj.categories[cat] || 0) + t;
+    });
+
+    if (hasMatching || categoryFilter === 'all') {
+      mObj.dates.add(dStr);
+    }
+  });
+
+  const sortedYM = Object.keys(monthsMap).sort();
+  let prevCA = 0;
+
+  const monthList = sortedYM.map(ym => {
+    const m = monthsMap[ym];
+    const [yStr, mStr] = ym.split('-');
+    const mIdx = parseInt(mStr, 10) - 1;
+    const monthName = `${monthNamesFR[mIdx]} ${yStr}`;
+    const daysCount = m.dates.size;
+    const avgDailyCA = daysCount > 0 ? (m.totalCA / daysCount) : 0;
+
+    let deltaMoMPct = null;
+    if (prevCA > 0) {
+      deltaMoMPct = ((m.totalCA - prevCA) / prevCA) * 100;
+    }
+    prevCA = m.totalCA;
+
+    const prods = Object.values(m.products).sort((a, b) => b.total - a.total);
+    const topProduct = prods[0] || null;
+
+    return {
+      ym,
+      monthName,
+      daysCount,
+      totalCA: m.totalCA,
+      totalQty: m.totalQty,
+      avgDailyCA,
+      deltaMoMPct,
+      topProduct
+    };
+  });
+
+  const grandTotalCA = monthList.reduce((acc, x) => acc + x.totalCA, 0);
+  const grandTotalQty = monthList.reduce((acc, x) => acc + x.totalQty, 0);
+  const avgMonthCA = monthList.length > 0 ? (grandTotalCA / monthList.length) : 0;
+  const bestMonth = [...monthList].sort((a, b) => b.totalCA - a.totalCA)[0] || null;
+  const quietMonth = monthList.length > 1 ? [...monthList].sort((a, b) => a.totalCA - b.totalCA)[0] : null;
+
+  return {
+    items: monthList,
+    grandTotalCA,
+    grandTotalQty,
+    avgMonthCA,
+    bestMonth,
+    quietMonth
+  };
+}
+
+// Fonction maîtresse de rendu du Comparateur
+function renderComparatorTab() {
+  const container = document.getElementById('tab-comparator');
+  if (!container) return;
+
+  const dataset = getComparatorSalesDataset();
+
+  // Mise à jour du badge de période
+  const periodBadge = document.getElementById('comp-period-badge');
+  if (periodBadge) {
+    const catObj = GC_CATEGORIES.find(c => c.id === comparatorCategoryFilter);
+    const catLabel = catObj ? `${catObj.icon} ${catObj.label}` : 'Toutes les Catégories';
+    periodBadge.textContent = `Période active : ${dataset.scopeLabel} • Filtre : ${catLabel} • ${dataset.dates.length} jours d'activité analysés`;
+  }
+
+  // Mise à jour des boutons de mode
+  const btnDay = document.getElementById('btn-comp-dayofweek');
+  const btnWeek = document.getElementById('btn-comp-week');
+  const btnMonth = document.getElementById('btn-comp-month');
+  if (btnDay) btnDay.classList.toggle('active', comparatorMode === 'dayofweek');
+  if (btnWeek) btnWeek.classList.toggle('active', comparatorMode === 'week');
+  if (btnMonth) btnMonth.classList.toggle('active', comparatorMode === 'month');
+
+  // Synchronisation du select catégorie
+  const catSelect = document.getElementById('comp-cat-select');
+  if (catSelect && catSelect.value !== comparatorCategoryFilter) {
+    catSelect.value = comparatorCategoryFilter;
+  }
+
+  // Si aucune donnée de vente
+  if (!dataset.dates || dataset.dates.length === 0) {
+    document.getElementById('comp-kpis-container').innerHTML = '';
+    document.getElementById('comp-chart-bars-container').innerHTML = `
+      <div style="text-align:center; padding:40px; color:var(--muted);">
+        Aucune donnée de vente disponible pour cette période. Importez un fichier de ventes ou synchronisez le dossier.
+      </div>
+    `;
+    document.getElementById('comp-table-thead').innerHTML = '';
+    document.getElementById('comp-table-tbody').innerHTML = '';
+    return;
+  }
+
+  if (comparatorMode === 'dayofweek') {
+    renderDayOfWeekComparison(dataset);
+  } else if (comparatorMode === 'week') {
+    renderWeeklyComparison(dataset);
+  } else if (comparatorMode === 'month') {
+    renderMonthlyComparison(dataset);
+  }
+}
+
+// 1. Rendu Comparateur par Jour de Semaine
+function renderDayOfWeekComparison(dataset) {
+  const stats = computeDayOfWeekStats(dataset, comparatorCategoryFilter);
+
+  // KPIs
+  const kpisContainer = document.getElementById('comp-kpis-container');
+  kpisContainer.innerHTML = `
+    <div class="comp-kpi-card star">
+      <div class="comp-kpi-label">🥇 Jour d'Affluence Leader</div>
+      <div class="comp-kpi-value" style="color:#10b981;">
+        ${stats.leaderDay ? `${stats.leaderDay.icon} ${stats.leaderDay.name}` : '-'}
+      </div>
+      <div class="comp-kpi-sub">
+        ${stats.leaderDay ? `<strong>${stats.leaderDay.avgCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH/j</strong> (${stats.leaderDay.sharePct.toFixed(1)}% du CA)` : ''}
+      </div>
+    </div>
+
+    <div class="comp-kpi-card calm">
+      <div class="comp-kpi-label">📉 Jour le Plus Calme</div>
+      <div class="comp-kpi-value" style="color:#f59e0b;">
+        ${stats.quietDay ? `${stats.quietDay.icon} ${stats.quietDay.name}` : '-'}
+      </div>
+      <div class="comp-kpi-sub">
+        ${stats.quietDay ? `<strong>${stats.quietDay.avgCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH/j</strong> (Opportunité promo)` : ''}
+      </div>
+    </div>
+
+    <div class="comp-kpi-card">
+      <div class="comp-kpi-label">📊 Moyenne Journalière</div>
+      <div class="comp-kpi-value">
+        ${stats.avgDailyCAAcrossWeek.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH
+      </div>
+      <div class="comp-kpi-sub">
+        sur ${stats.totalActiveDays} jours d'activité enregistrés
+      </div>
+    </div>
+
+    <div class="comp-kpi-card purple">
+      <div class="comp-kpi-label">💰 Total Période Analysée</div>
+      <div class="comp-kpi-value" style="color:#8b5cf6;">
+        ${stats.grandTotalCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH
+      </div>
+      <div class="comp-kpi-sub">
+        ${stats.grandTotalQty.toLocaleString('fr-FR')} articles vendus
+      </div>
+    </div>
+  `;
+
+  // Graphique en barres
+  document.getElementById('comp-chart-title').textContent = "📊 Chiffre d'Affaires Moyen par Jour de Semaine (Lundi à Dimanche)";
+  document.getElementById('comp-chart-sub').textContent = "Moyenne en Dirhams par occurrence du jour (hors fermetures). Visualisez immédiatement vos journées locomotives.";
+  document.getElementById('comp-chart-legend').innerHTML = `
+    <span style="color:#10b981;">● Jour Leader</span>
+    <span style="color:#f59e0b;">● Jour Calme</span>
+    <span style="color:#0284c7;">● Jours Standards</span>
+  `;
+
+  const maxAvgCA = Math.max(1, ...stats.items.map(i => i.avgCA));
+  const chartWrapper = document.getElementById('comp-chart-bars-container');
+
+  chartWrapper.innerHTML = stats.items.map(item => {
+    const isLeader = stats.leaderDay && stats.leaderDay.dow === item.dow;
+    const isQuiet = stats.quietDay && stats.quietDay.dow === item.dow && stats.items.filter(x => x.occCount > 0).length > 1;
+    const barWidthPct = maxAvgCA > 0 ? Math.max(3, Math.round((item.avgCA / maxAvgCA) * 100)) : 0;
+
+    let fillClass = '';
+    if (isLeader) fillClass = 'leader';
+    else if (isQuiet) fillClass = 'quiet';
+
+    return `
+      <div class="comp-bar-row">
+        <div class="comp-bar-label">
+          <span>${item.icon}</span>
+          <span>${item.name}</span>
+          ${isLeader ? '<span title="Leader d\'affluence">🏆</span>' : ''}
+        </div>
+        <div class="comp-bar-track">
+          <div class="comp-bar-fill ${fillClass}" style="width: ${barWidthPct}%;"></div>
+        </div>
+        <div class="comp-bar-ca">
+          ${item.avgCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH <span style="font-size:10.5px; font-weight:normal; color:var(--muted);">/j</span>
+        </div>
+        <div class="comp-bar-share">
+          ${item.sharePct.toFixed(1)}% CA
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Tableau détaillé
+  document.getElementById('comp-table-thead').innerHTML = `
+    <tr>
+      <th style="width:50px; text-align:center;">#</th>
+      <th>Jour de la Semaine</th>
+      <th style="text-align:center;">Jours Actifs</th>
+      <th style="text-align:right;">CA Total (DH)</th>
+      <th style="text-align:right;">CA Moyen / Jour</th>
+      <th style="text-align:right;">Articles Vendus</th>
+      <th style="text-align:center;">Part du CA</th>
+      <th style="text-align:center;">Écart vs Moyenne</th>
+      <th>⭐ Produit Vedette du Jour</th>
+    </tr>
+  `;
+
+  const sortedForTable = [...stats.items].sort((a, b) => b.avgCA - a.avgCA);
+  const medals = ['🥇', '🥈', '🥉'];
+
+  document.getElementById('comp-table-tbody').innerHTML = sortedForTable.map((item, idx) => {
+    const rankBadge = idx < 3 ? medals[idx] : `<span class="comp-badge-rank">${idx + 1}</span>`;
+    const isPos = item.deltaVsAvgPct >= 0;
+    const deltaTag = `<span class="comp-delta-tag ${isPos ? 'pos' : 'neg'}">${isPos ? '+' : ''}${item.deltaVsAvgPct.toFixed(1)}%</span>`;
+    const topProdStr = item.topProduct ? `<strong>${escapeHtml(item.topProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.topProduct.qty.toLocaleString('fr-FR')} vendus)</span>` : '<span style="color:var(--muted);">-</span>';
+
+    return `
+      <tr>
+        <td style="text-align:center;">${rankBadge}</td>
+        <td><strong>${item.icon} ${item.name}</strong></td>
+        <td style="text-align:center;"><span class="chip-pill">${item.occCount} j.</span></td>
+        <td style="text-align:right; font-weight:800;">${item.totalCA.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} DH</td>
+        <td style="text-align:right; font-weight:900; color:var(--accent);">${item.avgCA.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} DH</td>
+        <td style="text-align:right;">${item.totalQty.toLocaleString('fr-FR')} u.</td>
+        <td style="text-align:center; font-weight:800;">${item.sharePct.toFixed(1)}%</td>
+        <td style="text-align:center;">${deltaTag}</td>
+        <td>${topProdStr}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// 2. Rendu Comparateur par Semaine
+function renderWeeklyComparison(dataset) {
+  const stats = computeWeeklyStats(dataset, comparatorCategoryFilter);
+
+  // KPIs
+  const kpisContainer = document.getElementById('comp-kpis-container');
+  kpisContainer.innerHTML = `
+    <div class="comp-kpi-card star">
+      <div class="comp-kpi-label">🏆 Meilleure Semaine</div>
+      <div class="comp-kpi-value" style="color:#10b981;">
+        ${stats.bestWeek ? `Semaine ${stats.bestWeek.weekNum}` : '-'}
+      </div>
+      <div class="comp-kpi-sub">
+        ${stats.bestWeek ? `<strong>${stats.bestWeek.totalCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH</strong> (${stats.bestWeek.totalQty.toLocaleString('fr-FR')} articles)` : ''}
+      </div>
+    </div>
+
+    <div class="comp-kpi-card">
+      <div class="comp-kpi-label">📊 CA Hebdomadaire Moyen</div>
+      <div class="comp-kpi-value">
+        ${stats.avgWeekCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH
+      </div>
+      <div class="comp-kpi-sub">
+        sur ${stats.items.length} semaine(s) d'activité
+      </div>
+    </div>
+
+    <div class="comp-kpi-card purple">
+      <div class="comp-kpi-label">📦 Volume Total Vendu</div>
+      <div class="comp-kpi-value" style="color:#8b5cf6;">
+        ${stats.grandTotalQty.toLocaleString('fr-FR')}
+      </div>
+      <div class="comp-kpi-sub">
+        unités sorties de caisse
+      </div>
+    </div>
+
+    <div class="comp-kpi-card">
+      <div class="comp-kpi-label">💰 Chiffre d'Affaires Global</div>
+      <div class="comp-kpi-value">
+        ${stats.grandTotalCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH
+      </div>
+      <div class="comp-kpi-sub">
+        Total consolidé sur les semaines
+      </div>
+    </div>
+  `;
+
+  // Graphique
+  document.getElementById('comp-chart-title').textContent = "📆 Évolution Hebdomadaire du Chiffre d'Affaires (Week-over-Week)";
+  document.getElementById('comp-chart-sub').textContent = "Comparaison chronologique des semaines avec rythme de progression.";
+  document.getElementById('comp-chart-legend').innerHTML = `
+    <span style="color:#10b981;">● Progression Positive</span>
+    <span style="color:#ef4444;">● Ralentissement</span>
+  `;
+
+  const maxWeekCA = Math.max(1, ...stats.items.map(w => w.totalCA));
+  const chartWrapper = document.getElementById('comp-chart-bars-container');
+
+  chartWrapper.innerHTML = stats.items.map(item => {
+    const isBest = stats.bestWeek && stats.bestWeek.weekKey === item.weekKey;
+    const barWidthPct = maxWeekCA > 0 ? Math.max(4, Math.round((item.totalCA / maxWeekCA) * 100)) : 0;
+    const isPos = item.deltaWoWPct === null || item.deltaWoWPct >= 0;
+
+    let deltaLabel = '';
+    if (item.deltaWoWPct !== null) {
+      deltaLabel = `<span class="comp-delta-tag ${isPos ? 'pos' : 'neg'}">${isPos ? '▲ +' : '▼ '}${item.deltaWoWPct.toFixed(1)}%</span>`;
+    }
+
+    return `
+      <div class="comp-bar-row">
+        <div class="comp-bar-label">
+          <span>📅 S${item.weekNum}</span>
+          <span style="font-size:11px; color:var(--muted);">(${item.daysCount}j)</span>
+          ${isBest ? '<span>🏆</span>' : ''}
+        </div>
+        <div class="comp-bar-track">
+          <div class="comp-bar-fill ${isBest ? 'leader' : ''}" style="width: ${barWidthPct}%;"></div>
+        </div>
+        <div class="comp-bar-ca">
+          ${item.totalCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH
+        </div>
+        <div class="comp-bar-share">
+          ${deltaLabel || '<span style="color:var(--muted); font-size:11px;">Base</span>'}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Tableau détaillé
+  document.getElementById('comp-table-thead').innerHTML = `
+    <tr>
+      <th>Semaine</th>
+      <th>Période (Dates)</th>
+      <th style="text-align:center;">Jours Actifs</th>
+      <th style="text-align:right;">Chiffre d'Affaires</th>
+      <th style="text-align:center;">Évolution W-o-W</th>
+      <th style="text-align:right;">CA Moyen / Jour</th>
+      <th style="text-align:right;">Articles Vendus</th>
+      <th>📁 Catégorie Forte</th>
+      <th>⭐ Plat Leader</th>
+    </tr>
+  `;
+
+  document.getElementById('comp-table-tbody').innerHTML = stats.items.map(item => {
+    let deltaHtml = '<span style="color:var(--muted); font-size:11px;">-</span>';
+    if (item.deltaWoWPct !== null) {
+      const isPos = item.deltaWoWPct >= 0;
+      deltaHtml = `<span class="comp-delta-tag ${isPos ? 'pos' : 'neg'}">${isPos ? '▲ +' : '▼ '}${item.deltaWoWPct.toFixed(1)}%</span>`;
+    }
+
+    const topProdStr = item.topProduct ? `<strong>${escapeHtml(item.topProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.topProduct.qty.toLocaleString('fr-FR')} u.)</span>` : '-';
+
+    return `
+      <tr>
+        <td><strong>Semaine ${item.weekNum} (${item.year})</strong></td>
+        <td><span style="font-size:12px; color:var(--muted);">${item.startDate} ➔ ${item.endDate}</span></td>
+        <td style="text-align:center;"><span class="chip-pill">${item.daysCount} jours</span></td>
+        <td style="text-align:right; font-weight:900; color:var(--accent);">${item.totalCA.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} DH</td>
+        <td style="text-align:center;">${deltaHtml}</td>
+        <td style="text-align:right; font-weight:800;">${item.avgDailyCA.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} DH</td>
+        <td style="text-align:right;">${item.totalQty.toLocaleString('fr-FR')} u.</td>
+        <td><span class="chip-pill" style="font-size:11px;">${escapeHtml(item.topCategory)}</span></td>
+        <td>${topProdStr}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// 3. Rendu Comparateur par Mois
+function renderMonthlyComparison(dataset) {
+  const stats = computeMonthlyStats(dataset, comparatorCategoryFilter);
+
+  // KPIs
+  const kpisContainer = document.getElementById('comp-kpis-container');
+  kpisContainer.innerHTML = `
+    <div class="comp-kpi-card star">
+      <div class="comp-kpi-label">🏆 Meilleur Mois de l'Année</div>
+      <div class="comp-kpi-value" style="color:#10b981;">
+        ${stats.bestMonth ? stats.bestMonth.monthName : '-'}
+      </div>
+      <div class="comp-kpi-sub">
+        ${stats.bestMonth ? `<strong>${stats.bestMonth.totalCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH</strong> (${stats.bestMonth.daysCount} jours actifs)` : ''}
+      </div>
+    </div>
+
+    <div class="comp-kpi-card calm">
+      <div class="comp-kpi-label">📉 Mois le Plus Faible</div>
+      <div class="comp-kpi-value" style="color:#f59e0b;">
+        ${stats.quietMonth ? stats.quietMonth.monthName : '-'}
+      </div>
+      <div class="comp-kpi-sub">
+        ${stats.quietMonth ? `<strong>${stats.quietMonth.totalCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH</strong>` : ''}
+      </div>
+    </div>
+
+    <div class="comp-kpi-card">
+      <div class="comp-kpi-label">📊 Moyenne Mensuelle</div>
+      <div class="comp-kpi-value">
+        ${stats.avgMonthCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH
+      </div>
+      <div class="comp-kpi-sub">
+        sur ${stats.items.length} mois enregistrés
+      </div>
+    </div>
+
+    <div class="comp-kpi-card purple">
+      <div class="comp-kpi-label">💰 Chiffre d'Affaires Global</div>
+      <div class="comp-kpi-value" style="color:#8b5cf6;">
+        ${stats.grandTotalCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH
+      </div>
+      <div class="comp-kpi-sub">
+        ${stats.grandTotalQty.toLocaleString('fr-FR')} articles au total
+      </div>
+    </div>
+  `;
+
+  // Graphique
+  document.getElementById('comp-chart-title').textContent = "🗓️ Évolution Mensuelle du Chiffre d'Affaires (Month-over-Month)";
+  document.getElementById('comp-chart-sub').textContent = "Comparaison de la saisonnalité et des volumes mois par mois sur l'année.";
+  document.getElementById('comp-chart-legend').innerHTML = `
+    <span style="color:#10b981;">● Meilleur Mois</span>
+    <span style="color:#0284c7;">● CA Réalisé</span>
+  `;
+
+  const maxMonthCA = Math.max(1, ...stats.items.map(m => m.totalCA));
+  const chartWrapper = document.getElementById('comp-chart-bars-container');
+
+  chartWrapper.innerHTML = stats.items.map(item => {
+    const isBest = stats.bestMonth && stats.bestMonth.ym === item.ym;
+    const barWidthPct = maxMonthCA > 0 ? Math.max(4, Math.round((item.totalCA / maxMonthCA) * 100)) : 0;
+    const isPos = item.deltaMoMPct === null || item.deltaMoMPct >= 0;
+
+    let deltaLabel = '';
+    if (item.deltaMoMPct !== null) {
+      deltaLabel = `<span class="comp-delta-tag ${isPos ? 'pos' : 'neg'}">${isPos ? '▲ +' : '▼ '}${item.deltaMoMPct.toFixed(1)}%</span>`;
+    }
+
+    return `
+      <div class="comp-bar-row">
+        <div class="comp-bar-label">
+          <span>🗓️ ${item.monthName}</span>
+          ${isBest ? '<span>🏆</span>' : ''}
+        </div>
+        <div class="comp-bar-track">
+          <div class="comp-bar-fill ${isBest ? 'leader' : ''}" style="width: ${barWidthPct}%;"></div>
+        </div>
+        <div class="comp-bar-ca">
+          ${item.totalCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH
+        </div>
+        <div class="comp-bar-share">
+          ${deltaLabel || '<span style="color:var(--muted); font-size:11px;">Base</span>'}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Tableau détaillé
+  document.getElementById('comp-table-thead').innerHTML = `
+    <tr>
+      <th>Mois</th>
+      <th style="text-align:center;">Jours Actifs</th>
+      <th style="text-align:right;">Chiffre d'Affaires</th>
+      <th style="text-align:center;">Évolution M-o-M</th>
+      <th style="text-align:right;">CA Journalier Moyen</th>
+      <th style="text-align:right;">Articles Vendus</th>
+      <th>⭐ Produit Star du Mois</th>
+    </tr>
+  `;
+
+  document.getElementById('comp-table-tbody').innerHTML = stats.items.map(item => {
+    let deltaHtml = '<span style="color:var(--muted); font-size:11px;">-</span>';
+    if (item.deltaMoMPct !== null) {
+      const isPos = item.deltaMoMPct >= 0;
+      deltaHtml = `<span class="comp-delta-tag ${isPos ? 'pos' : 'neg'}">${isPos ? '▲ +' : '▼ '}${item.deltaMoMPct.toFixed(1)}%</span>`;
+    }
+
+    const topProdStr = item.topProduct ? `<strong>${escapeHtml(item.topProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.topProduct.qty.toLocaleString('fr-FR')} u.)</span>` : '-';
+
+    return `
+      <tr>
+        <td><strong>🗓️ ${item.monthName}</strong></td>
+        <td style="text-align:center;"><span class="chip-pill">${item.daysCount} j.</span></td>
+        <td style="text-align:right; font-weight:900; color:var(--accent);">${item.totalCA.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} DH</td>
+        <td style="text-align:center;">${deltaHtml}</td>
+        <td style="text-align:right; font-weight:800;">${item.avgDailyCA.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} DH</td>
+        <td style="text-align:right;">${item.totalQty.toLocaleString('fr-FR')} u.</td>
+        <td>${topProdStr}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function setComparatorMode(mode) {
+  comparatorMode = mode;
+  renderComparatorTab();
+}
+
+function setComparatorCategoryFilter(catId) {
+  comparatorCategoryFilter = catId;
+  renderComparatorTab();
+}
+
+function exportComparatorToExcel() {
+  if (typeof XLSX === 'undefined') {
+    alert("La librairie Excel (SheetJS) n'est pas chargée.");
+    return;
+  }
+
+  const dataset = getComparatorSalesDataset();
+  const wb = XLSX.utils.book_new();
+
+  // 1. Feuille Jour de Semaine
+  const dowStats = computeDayOfWeekStats(dataset, comparatorCategoryFilter);
+  const dowRows = [
+    ['COMPARATEUR DES VENTES PAR JOUR DE LA SEMAINE — GREY CORNER'],
+    [`Période analysée : ${dataset.scopeLabel}`, `Filtre catégorie : ${comparatorCategoryFilter}`, `Généré le : ${new Date().toLocaleDateString('fr-FR')}`],
+    [],
+    ['Jour de la semaine', 'Nombre d\'occurrences', 'CA Total (DH)', 'CA Moyen / Jour (DH)', 'Articles Vendus Total', 'Volume Moyen / Jour', 'Part dans le CA (%)', 'Écart vs Moyenne Hebdo (%)', 'Plat Vedette']
+  ];
+  dowStats.items.forEach(d => {
+    dowRows.push([
+      d.name,
+      d.occCount,
+      d.totalCA,
+      d.avgCA,
+      d.totalQty,
+      d.avgQty,
+      d.sharePct.toFixed(2),
+      d.deltaVsAvgPct.toFixed(2),
+      d.topProduct ? `${d.topProduct.product} (${d.topProduct.qty} u.)` : ''
+    ]);
+  });
+  const wsDow = XLSX.utils.aoa_to_sheet(dowRows);
+  XLSX.utils.book_append_sheet(wb, wsDow, "Jours de Semaine");
+
+  // 2. Feuille Semaines
+  const weekStats = computeWeeklyStats(dataset, comparatorCategoryFilter);
+  const weekRows = [
+    ['COMPARATEUR HEBDOMADAIRE (WEEK-OVER-WEEK) — GREY CORNER'],
+    [`Période analysée : ${dataset.scopeLabel}`, `Filtre catégorie : ${comparatorCategoryFilter}`],
+    [],
+    ['Semaine', 'Date Début', 'Date Fin', 'Jours Actifs', 'Chiffre d\'Affaires (DH)', 'Évolution W-o-W (%)', 'CA Moyen / Jour (DH)', 'Articles Vendus', 'Catégorie Leader', 'Plat Leader']
+  ];
+  weekStats.items.forEach(w => {
+    weekRows.push([
+      `S${w.weekNum} (${w.year})`,
+      w.startDate,
+      w.endDate,
+      w.daysCount,
+      w.totalCA,
+      w.deltaWoWPct !== null ? w.deltaWoWPct.toFixed(2) : 'Base',
+      w.avgDailyCA,
+      w.totalQty,
+      w.topCategory,
+      w.topProduct ? `${w.topProduct.product} (${w.topProduct.qty} u.)` : ''
+    ]);
+  });
+  const wsWeek = XLSX.utils.aoa_to_sheet(weekRows);
+  XLSX.utils.book_append_sheet(wb, wsWeek, "Semaines (WoW)");
+
+  // 3. Feuille Mois
+  const monthStats = computeMonthlyStats(dataset, comparatorCategoryFilter);
+  const monthRows = [
+    ['COMPARATEUR MENSUEL (MONTH-OVER-MONTH) — GREY CORNER'],
+    [`Période analysée : ${dataset.scopeLabel}`, `Filtre catégorie : ${comparatorCategoryFilter}`],
+    [],
+    ['Mois', 'Code YM', 'Jours Actifs', 'Chiffre d\'Affaires (DH)', 'Évolution M-o-M (%)', 'CA Journalier Moyen (DH)', 'Articles Vendus Total', 'Plat Star']
+  ];
+  monthStats.items.forEach(m => {
+    monthRows.push([
+      m.monthName,
+      m.ym,
+      m.daysCount,
+      m.totalCA,
+      m.deltaMoMPct !== null ? m.deltaMoMPct.toFixed(2) : 'Base',
+      m.avgDailyCA,
+      m.totalQty,
+      m.topProduct ? `${m.topProduct.product} (${m.topProduct.qty} u.)` : ''
+    ]);
+  });
+  const wsMonth = XLSX.utils.aoa_to_sheet(monthRows);
+  XLSX.utils.book_append_sheet(wb, wsMonth, "Mois (MoM)");
+
+  const fileName = `GreyCorner_Comparateur_Ventes_${new Date().toISOString().slice(0, 10)}.xlsx`;
+  XLSX.writeFile(wb, fileName);
+}
+
+
 function switchToTab(tabId) {
   document.querySelectorAll('.v-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
@@ -5159,10 +6181,15 @@ function switchToTab(tabId) {
   const tab = document.getElementById(tabId);
   if (tab) {
     tab.style.display = 'block';
-    const rect = tab.getBoundingClientRect();
-    if (rect.top < 0 || rect.top > window.innerHeight) {
-      tab.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (typeof tab.getBoundingClientRect === 'function') {
+      const rect = tab.getBoundingClientRect();
+      if ((rect.top < 0 || rect.top > (window.innerHeight || 1000)) && typeof tab.scrollIntoView === 'function') {
+        tab.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
+  }
+  if (tabId === 'tab-comparator') {
+    renderComparatorTab();
   }
   if (window.location.hash !== '#' + tabId) {
     history.pushState(null, '', '#' + tabId);
@@ -5175,6 +6202,14 @@ function switchToAuditTab() {
 
 window.switchToTab = switchToTab;
 window.switchToAuditTab = switchToAuditTab;
+
+window.setComparatorMode = setComparatorMode;
+window.setComparatorCategoryFilter = setComparatorCategoryFilter;
+window.renderComparatorTab = renderComparatorTab;
+window.exportComparatorToExcel = exportComparatorToExcel;
+window.onSalesCategoryPillClick = onSalesCategoryPillClick;
+window.renderSalesCategoryPillBar = renderSalesCategoryPillBar;
+window.detectProductCategory = detectProductCategory;
 
 window.setMenuEngQuadrantFilter = setMenuEngQuadrantFilter;
 window.onMenuEngFamilyFilterChange = onMenuEngFamilyFilterChange;
@@ -5195,15 +6230,15 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (hash === 'tab-sales' || hash === 'sales') switchToTab('tab-sales');
     else if (hash === 'tab-recipes' || hash === 'recipes') switchToTab('tab-recipes');
     else if (hash === 'tab-summary' || hash === 'summary') switchToTab('tab-summary');
+    else if (hash === 'tab-comparator' || hash === 'comparator') switchToTab('tab-comparator');
   });
   if (window.location.hash === '#tab-audit' || window.location.hash === '#audit') {
     setTimeout(() => {
-      document.querySelectorAll('.v-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
-      const btn = document.querySelector('[data-tab="tab-audit"]');
-      if (btn) btn.classList.add('active');
-      const tab = document.getElementById('tab-audit');
-      if (tab) tab.style.display = 'block';
+      switchToTab('tab-audit');
+    }, 100);
+  } else if (window.location.hash === '#tab-comparator' || window.location.hash === '#comparator') {
+    setTimeout(() => {
+      switchToTab('tab-comparator');
     }, 100);
   }
   document.getElementById('print-date-val').textContent = new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -5245,12 +6280,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Tabs de vue
   document.querySelectorAll('.v-tab').forEach(tab => {
     tab.addEventListener('click', () => {
-      document.querySelectorAll('.v-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
-      tab.classList.add('active');
       const targetId = tab.dataset.tab;
-      const target = document.getElementById(targetId);
-      if (target) target.style.display = 'block';
+      switchToTab(targetId);
     });
   });
 

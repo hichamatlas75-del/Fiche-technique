@@ -185,6 +185,9 @@
     <button class="v-tab" data-tab="tab-menu-engineering">
       🎯 Menu Engineering <span id="count-menu-eng" class="tab-count">0</span>
     </button>
+    <button class="v-tab" data-tab="tab-comparator">
+      📊 Comparateur Ventes <span id="count-comparator" class="tab-count">3 Vues</span>
+    </button>
     <button class="v-tab" data-tab="tab-recipes">
       ⚙️ Fiches Techniques <span id="count-recipes" class="tab-count">0</span>
     </button>
@@ -238,6 +241,22 @@
 
   <!-- TAB 2: DÉTAIL DES VENTES & MAPPING -->
   <div id="tab-sales" class="tab-content" style="display:none;">
+    
+    <!-- BARRE DE FILTRE DE VOLUME PAR CATÉGORIE -->
+    <div class="sales-cat-bar-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+        <span style="font-size:12px; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:0.04em;">
+          🏷️ Filtre de Volume par Catégorie :
+        </span>
+        <span id="sales-cat-active-label" style="font-size:11.5px; font-weight:700; color:var(--accent);">
+          Toutes les catégories affichées
+        </span>
+      </div>
+      <div class="sales-category-pill-bar" id="sales-category-pill-bar">
+        <!-- Rempli dynamiquement par renderSalesCategoryPillBar() -->
+      </div>
+    </div>
+
     <div class="controls-bar" style="flex-wrap:wrap; gap:10px;">
       <div class="search-input-wrap" style="min-width:220px; flex:1;">
         <span>🔍</span>
@@ -650,6 +669,90 @@
         </tbody>
       </table>
     </div>
+  </div>
+
+  <!-- TAB COMPARATEUR TEMPOREL: JOUR DE SEMAINE, SEMAINE & MOIS -->
+  <div id="tab-comparator" class="tab-content" style="display:none;">
+    
+    <!-- EN-TÊTE DU COMPARATEUR -->
+    <div class="comp-header-card">
+      <div class="comp-header-info">
+        <h2 class="comp-main-title">
+          📊 Comparateur Temporel des Ventes
+        </h2>
+        <span class="comp-main-sub" id="comp-period-badge">
+          Analyse comparative multi-périodes • Comparez vos performances de vente par jour de semaine, semaine et mois.
+        </span>
+      </div>
+
+      <div class="comp-header-actions">
+        <button class="btn btn-secondary" onclick="exportComparatorToExcel()" title="Exporter l'analyse comparative vers Excel">
+          📥 Exporter Rapport Excel
+        </button>
+      </div>
+    </div>
+
+    <!-- BARRE DE CONTRÔLES : MODES DE COMPARAISON & FILTRE CATÉGORIE -->
+    <div class="comp-controls-toolbar">
+      <!-- 1. SÉLECTEUR DE MODE TEMPOREL (3 MODES) -->
+      <div class="comp-nav-tabs">
+        <button type="button" class="comp-nav-btn active" id="btn-comp-dayofweek" onclick="setComparatorMode('dayofweek')">
+          📅 Par Jour de Semaine
+        </button>
+        <button type="button" class="comp-nav-btn" id="btn-comp-week" onclick="setComparatorMode('week')">
+          📆 Par Semaine (Week-over-Week)
+        </button>
+        <button type="button" class="comp-nav-btn" id="btn-comp-month" onclick="setComparatorMode('month')">
+          🗓️ Par Mois (Month-over-Month)
+        </button>
+      </div>
+
+      <!-- 2. FILTRE PAR CATÉGORIE TRANSVERSE -->
+      <div class="comp-cat-filter-wrap">
+        <label for="comp-cat-select" style="font-size:11.5px; font-weight:800; color:var(--muted); text-transform:uppercase;">
+          Catégorie :
+        </label>
+        <select id="comp-cat-select" onchange="setComparatorCategoryFilter(this.value)" class="comp-cat-select">
+          <option value="all">📁 Toutes les Catégories</option>
+          <option value="petit-dej">🥐 Petit Déjeuner & Brunch</option>
+          <option value="plat">🥩 Plats (Viandes & Poissons)</option>
+          <option value="pizza">🍕 Pizzas</option>
+          <option value="pasta">🍝 Pasta & Pâtes</option>
+          <option value="burger">🍔 Burgers & Sandwiches</option>
+          <option value="salade">🥗 Salades Composées</option>
+          <option value="boisson">☕ Bar & Boissons</option>
+          <option value="dessert">🍰 Desserts & Douceurs</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- KPIS RÉSUMÉS DU COMPARATEUR -->
+    <div id="comp-kpis-container" class="comp-kpis-grid"></div>
+
+    <!-- DIAGRAMME GRAPHIQUE COMPARATIF -->
+    <div class="comp-chart-card">
+      <div class="comp-chart-header">
+        <div>
+          <h3 id="comp-chart-title" style="font-size:1.05rem; font-weight:900; color:var(--text); margin:0;">
+            Graphique Comparatif des Ventes
+          </h3>
+          <span id="comp-chart-sub" style="font-size:12px; color:var(--muted); display:block; margin-top:2px;">
+            Performances et ventilation des ventes
+          </span>
+        </div>
+        <div id="comp-chart-legend" style="display:flex; gap:10px; align-items:center; font-size:12px; font-weight:700;"></div>
+      </div>
+      <div id="comp-chart-bars-container" class="comp-bars-wrapper"></div>
+    </div>
+
+    <!-- TABLEAU COMPARATIF DÉTAILLÉ -->
+    <div class="table-responsive" style="margin-top:16px;">
+      <table class="comp-table" id="table-comparator">
+        <thead id="comp-table-thead"></thead>
+        <tbody id="comp-table-tbody"></tbody>
+      </table>
+    </div>
+
   </div>
 
   <!-- TAB 4: GESTIONNAIRE DE FICHES TECHNIQUES -->
