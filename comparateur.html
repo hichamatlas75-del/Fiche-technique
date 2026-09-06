@@ -14,13 +14,15 @@
 <!-- Styles Modulaires -->
 <link rel="stylesheet" href="css/common.css?v=7.7" />
 <link rel="stylesheet" href="css/comparateur.css?v=7.7" />
+<link rel="stylesheet" href="css/burger-menu.css?v=7.8" />
 
 <!-- Données Centralisées (SSOT), Standards Proposés, Composants & Utilitaires -->
 <script src="recipes-data.js?v=7.7"></script>
 <script src="js/core-utils.js?v=7.7"></script>
 <script src="js/prices-modal.js?v=7.7"></script>
 <script src="js/proposed-standards.js?v=7.7"></script>
-<script src="js/comparateur.js?v=7.7" defer></script>
+<script src="js/burger-menu.js?v=7.8"></script>
+<script src="js/comparateur.js?v=7.8" defer></script>
 </head>
 <body>
 
@@ -28,6 +30,14 @@
   <header class="app-header">
     <div class="container app-header-content">
       <div class="app-brand">
+        <button type="button" class="gc-burger-trigger" data-drawer-trigger="drawer-comparateur" title="Ouvrir le menu des fonctions">
+          <div class="gc-burger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span class="burger-label">Menu Fonctions</span>
+        </button>
         <div class="brand-badge">GC</div>
         <div class="brand-info">
           <div class="brand-title">Grey Corner <span>⚖️ Normes &amp; Comparateur</span></div>
@@ -44,6 +54,179 @@
       </div>
     </div>
   </header>
+
+  <!-- VOLET LATÉRAL / DRAWER BURGER MENU COMPARATEUR -->
+  <div class="gc-burger-backdrop" id="gc-burger-backdrop"></div>
+
+  <aside class="gc-burger-drawer" id="drawer-comparateur" aria-hidden="true">
+    <div class="gc-drawer-header">
+      <div class="gc-drawer-brand">
+        <div class="gc-drawer-badge">GC</div>
+        <div class="gc-drawer-title-group">
+          <span class="gc-drawer-app-name">Normes &amp; Comparateur</span>
+          <span class="gc-drawer-app-sub">Navigation &amp; Fonctions</span>
+        </div>
+      </div>
+      <button type="button" class="gc-drawer-close-btn" aria-label="Fermer le menu">✕</button>
+    </div>
+
+    <div class="gc-drawer-body">
+      <!-- SECTION 1 : VUES DÉDIÉES (SÉPARATION DES FONCTIONS) -->
+      <div class="gc-drawer-section">
+        <div class="gc-drawer-section-title">
+          <span>🎯 Vues Dédiées</span>
+        </div>
+        <button type="button" class="gc-drawer-nav-item is-active" data-comp-view="recipes" onclick="window.setComparatorMainViewAndClose('recipes')">
+          <div class="gc-drawer-nav-content">
+            <span class="gc-drawer-nav-icon">⚖️</span>
+            <div class="gc-drawer-nav-text">
+              <span class="gc-drawer-nav-main">Fiches vs Normes</span>
+              <span class="gc-drawer-nav-desc">Cartes comparatives &amp; pesées</span>
+            </div>
+          </div>
+          <span class="gc-drawer-nav-badge" id="drawer-comp-count-recipes">0</span>
+        </button>
+        <button type="button" class="gc-drawer-nav-item" data-comp-view="ai" onclick="window.setComparatorMainViewAndClose('ai')">
+          <div class="gc-drawer-nav-content">
+            <span class="gc-drawer-nav-icon">🤖</span>
+            <div class="gc-drawer-nav-text">
+              <span class="gc-drawer-nav-main">Agent IA Optimiseur</span>
+              <span class="gc-drawer-nav-desc">Rentabilité, prix &amp; Menu Engineering</span>
+            </div>
+          </div>
+          <span class="gc-drawer-nav-badge" style="background:#10b981; color:#fff;">IA</span>
+        </button>
+        <button type="button" class="gc-drawer-nav-item" data-comp-view="table" onclick="window.setComparatorMainViewAndClose('table')">
+          <div class="gc-drawer-nav-content">
+            <span class="gc-drawer-nav-icon">📊</span>
+            <div class="gc-drawer-nav-text">
+              <span class="gc-drawer-nav-main">Tableau Synthétique</span>
+              <span class="gc-drawer-nav-desc">Vue tabulaire globale des écarts</span>
+            </div>
+          </div>
+          <span class="gc-drawer-nav-badge">Grille</span>
+        </button>
+      </div>
+
+      <!-- SECTION 2 : FILTRES PAR CATÉGORIE -->
+      <div class="gc-drawer-section">
+        <div class="gc-drawer-section-title">
+          <span>🏷️ Filtrer par Catégorie</span>
+        </div>
+        <button type="button" class="gc-drawer-action-btn" onclick="window.setCategoryFromDrawer('ALL')">
+          <span>📁</span>
+          <span>Toutes les Recettes</span>
+        </button>
+        <button type="button" class="gc-drawer-action-btn" onclick="window.setCategoryFromDrawer('PIZZAS')">
+          <span>🍕</span>
+          <span>Pizzas</span>
+        </button>
+        <button type="button" class="gc-drawer-action-btn" onclick="window.setCategoryFromDrawer('PATES')">
+          <span>🍝</span>
+          <span>Pasta &amp; Pâtes</span>
+        </button>
+        <button type="button" class="gc-drawer-action-btn" onclick="window.setCategoryFromDrawer('PLATS')">
+          <span>🥩</span>
+          <span>Plats Viandes &amp; Poissons</span>
+        </button>
+        <button type="button" class="gc-drawer-action-btn" onclick="window.setCategoryFromDrawer('BURGER')">
+          <span>🍔</span>
+          <span>Burgers &amp; Sandwiches</span>
+        </button>
+        <button type="button" class="gc-drawer-action-btn" onclick="window.setCategoryFromDrawer('SALADES')">
+          <span>🥗</span>
+          <span>Salades Composées</span>
+        </button>
+        <button type="button" class="gc-drawer-action-btn" onclick="window.setCategoryFromDrawer('CREPES')">
+          <span>🥞</span>
+          <span>Crêpes &amp; Gaufres</span>
+        </button>
+        <button type="button" class="gc-drawer-action-btn" onclick="window.setCategoryFromDrawer('PETIT DEJEUNER')">
+          <span>🥐</span>
+          <span>Petits Déjeuners &amp; Brunch</span>
+        </button>
+        <button type="button" class="gc-drawer-action-btn" onclick="window.toggleGainsFilterAndClose()">
+          <span>💰</span>
+          <span>Afficher uniquement gains &gt; 3 DH</span>
+        </button>
+      </div>
+
+      <!-- SECTION 3 : SAUVEGARDE & ACTIONS -->
+      <div class="gc-drawer-section">
+        <div class="gc-drawer-section-title">
+          <span>💾 Sauvegarde &amp; Actions</span>
+        </div>
+        <button type="button" class="gc-drawer-action-btn success" onclick="window.saveAllEdits ? window.saveAllEdits() : (window.saveEdits ? window.saveEdits() : null); GC_BurgerMenu.close();">
+          <span>💾</span>
+          <span>Enregistrer les Fiches</span>
+        </button>
+        <button type="button" class="gc-drawer-action-btn" onclick="window.syncDirectToGitHub ? window.syncDirectToGitHub() : null; GC_BurgerMenu.close();">
+          <span>☁️</span>
+          <span>Pousser sur GitHub</span>
+        </button>
+        <button type="button" class="gc-drawer-action-btn" onclick="window.exportComparisonToExcel ? window.exportComparisonToExcel() : null; GC_BurgerMenu.close();">
+          <span>📥</span>
+          <span>Exporter Comparatif (.xlsx)</span>
+        </button>
+        <button type="button" class="gc-drawer-action-btn" onclick="window.downloadUpdatedRecipesDataJs ? window.downloadUpdatedRecipesDataJs() : window.exportUpdatedRecipesDataJS(); GC_BurgerMenu.close();">
+          <span>📁</span>
+          <span>Exporter recipes-data.js</span>
+        </button>
+        <button type="button" class="gc-drawer-action-btn" onclick="openPricesModal(); GC_BurgerMenu.close();">
+          <span>💲</span>
+          <span>Prix Matières Premières</span>
+        </button>
+      </div>
+
+      <!-- SECTION 4 : NAVIGATION GLOBALE -->
+      <div class="gc-drawer-section">
+        <div class="gc-drawer-section-title">
+          <span>🌐 Modules du Système</span>
+        </div>
+        <a href="index.html" class="gc-drawer-nav-item">
+          <div class="gc-drawer-nav-content">
+            <span class="gc-drawer-nav-icon">🍽️</span>
+            <div class="gc-drawer-nav-text">
+              <span class="gc-drawer-nav-main">Cuisine &amp; Fiches Techniques</span>
+              <span class="gc-drawer-nav-desc">Consultation fiches &amp; pesées</span>
+            </div>
+          </div>
+          <span>➔</span>
+        </a>
+        <a href="consommation.html" class="gc-drawer-nav-item">
+          <div class="gc-drawer-nav-content">
+            <span class="gc-drawer-nav-icon">📊</span>
+            <div class="gc-drawer-nav-text">
+              <span class="gc-drawer-nav-main">Déstockage &amp; Ventes</span>
+              <span class="gc-drawer-nav-desc">Suivi journalier, mensuel &amp; annuel</span>
+            </div>
+          </div>
+          <span>➔</span>
+        </a>
+        <a href="audit.html" class="gc-drawer-nav-item">
+          <div class="gc-drawer-nav-content">
+            <span class="gc-drawer-nav-icon">⚡</span>
+            <div class="gc-drawer-nav-text">
+              <span class="gc-drawer-nav-main">Audit Flash Manuel</span>
+              <span class="gc-drawer-nav-desc">Inventaire express de stock</span>
+            </div>
+          </div>
+          <span>➔</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="gc-drawer-footer">
+      <span>Grey Corner F&amp;B v7.8</span>
+      <span>⚖️ Standards Opérationnels</span>
+    </div>
+  </aside>
+
+  <!-- BOUTON FLOTTANT BURGER RAPIDE -->
+  <button type="button" class="gc-burger-fab" data-drawer-trigger="drawer-comparateur" title="Ouvrir le menu des fonctions">
+    <span class="fab-icon">☰</span>
+    <span>Menu Fonctions</span>
+  </button>
 
   <main class="comp-page-container">
 
@@ -74,14 +257,27 @@
       </div>
     </div>
 
+    <!-- SÉLECTEUR DE VUES DÉDIÉES (SÉPARATION DES FONCTIONS) -->
+    <div class="comp-view-switcher" id="comp-view-switcher">
+      <button type="button" class="comp-view-tab is-active" id="btn-view-recipes" onclick="window.setComparatorMainView('recipes')">
+        <span>⚖️</span> Fiches Techniques vs Normes
+      </button>
+      <button type="button" class="comp-view-tab" id="btn-view-ai" onclick="window.setComparatorMainView('ai')">
+        <span>🤖</span> Agent IA Optimiseur de Rentabilité
+      </button>
+      <button type="button" class="comp-view-tab" id="btn-view-table" onclick="window.setComparatorMainView('table')">
+        <span>📊</span> Tableau Synthétique des Écarts
+      </button>
+    </div>
+
     <!-- BANDEAU KPIS SYNTHÈSE -->
     <div class="kpis-grid" id="summary-kpis"></div>
 
     <!-- AGENT INTELLIGENT D'OPTIMISATION DES REVENUS (ANALYSE CONTINUE DU TABLEAU) -->
-    <div class="ai-agent-wrapper" id="ai-agent-wrapper"></div>
+    <div class="ai-agent-wrapper" id="ai-agent-wrapper" style="display:none;"></div>
 
     <!-- TOOLBAR : RECHERCHE & FILTRES CATÉGORIES -->
-    <div class="comp-toolbar">
+    <div class="comp-toolbar" id="comp-toolbar-panel">
       <div class="toolbar-row-top">
         <div class="search-wrap">
           <span class="search-icon">🔍</span>

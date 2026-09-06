@@ -1,0 +1,553 @@
+/* ========================================================
+   GREY CORNER — COMPOSANT BURGER MENU & VOLET LATÉRAL (DRAWER)
+   Design System F&B Haut de Gamme • Thème Clair & Sombre
+======================================================== */
+
+/* 1. Bouton Déclencheur du Burger (Dans le Header) */
+.gc-burger-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 13px;
+  border-radius: 9px;
+  font-weight: 800;
+  font-size: 13px;
+  border: 1.5px solid var(--border);
+  background: var(--paper);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-sm);
+  user-select: none;
+}
+
+.gc-burger-trigger:hover {
+  background: var(--paper-hover);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+}
+
+.gc-burger-trigger:active {
+  transform: translateY(0);
+}
+
+/* Icône Burger Animée (3 barres) */
+.gc-burger-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 17px;
+  height: 13px;
+  position: relative;
+}
+
+.gc-burger-icon span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: currentColor;
+  border-radius: 2px;
+  transition: all 0.25s ease-in-out;
+}
+
+/* État actif du déclencheur */
+.gc-burger-trigger.is-active {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.gc-burger-trigger.is-active .gc-burger-icon span:nth-child(1) {
+  transform: translateY(5.5px) rotate(45deg);
+}
+
+.gc-burger-trigger.is-active .gc-burger-icon span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.gc-burger-trigger.is-active .gc-burger-icon span:nth-child(3) {
+  transform: translateY(-5.5px) rotate(-45deg);
+}
+
+.gc-burger-trigger .burger-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #ffffff;
+  letter-spacing: 0.03em;
+}
+
+/* 2. Bouton Flottant Rapide (FAB) */
+.gc-burger-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.4), 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
+}
+
+.gc-burger-fab:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(2, 132, 199, 0.5), 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.gc-burger-fab:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+.gc-burger-fab .fab-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* 3. Backdrop (Voile sombre avec flou d'arrière-plan) */
+.gc-burger-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gc-burger-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 4. Volet Latéral / Tiroir (Drawer) */
+.gc-burger-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  height: 100vh;
+  background: var(--paper, #ffffff);
+  border-right: 1px solid var(--border, #e2e8f0);
+  box-shadow: 10px 0 35px -5px rgba(0, 0, 0, 0.25);
+  z-index: 999;
+  transform: translateX(-100%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.gc-burger-drawer.is-open {
+  transform: translateX(0);
+}
+
+/* En-tête du Tiroir */
+.gc-drawer-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border, #e2e8f0);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-subtle, #f8fafc);
+}
+
+.gc-drawer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gc-drawer-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #0284c7, #38bdf8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 15px;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+}
+
+.gc-drawer-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.gc-drawer-app-name {
+  font-size: 14.5px;
+  font-weight: 900;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.gc-drawer-app-sub {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.gc-drawer-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.gc-drawer-close-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #dc2626;
+  transform: rotate(90deg);
+}
+
+/* Corps déroulant du Tiroir */
+.gc-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 14px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.gc-drawer-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.gc-drawer-body::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+/* Sections du Menu */
+.gc-drawer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.gc-drawer-section-title {
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  padding: 4px 10px;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Items de Navigation du Menu */
+.gc-drawer-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+}
+
+.gc-drawer-nav-item:hover {
+  background: var(--bg-subtle, #f1f5f9);
+  border-color: var(--border);
+  color: var(--accent);
+  transform: translateX(3px);
+}
+
+.gc-drawer-nav-item.is-active {
+  background: var(--accent-bg, rgba(2, 132, 199, 0.08));
+  border-color: var(--accent-border, rgba(2, 132, 199, 0.25));
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.gc-drawer-nav-content {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.gc-drawer-nav-icon {
+  font-size: 17px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+}
+
+.gc-drawer-nav-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.gc-drawer-nav-main {
+  line-height: 1.25;
+}
+
+.gc-drawer-nav-desc {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--muted);
+  line-height: 1.2;
+}
+
+.gc-drawer-nav-badge {
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 12px;
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.gc-drawer-nav-item.is-active .gc-drawer-nav-badge {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+/* Boutons d'Action Rapide */
+.gc-drawer-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-size: 12.5px;
+  font-weight: 700;
+  background: var(--bg-subtle, #f8fafc);
+  color: var(--text);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.gc-drawer-action-btn:hover {
+  background: var(--paper);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.gc-drawer-action-btn.success:hover {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+
+/* Pied du Tiroir */
+.gc-drawer-footer {
+  padding: 12px 18px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Séparateur d'articles */
+.gc-drawer-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+/* ========================================================
+   BARRE DE CONTRÔLE COMPACTE EN HAUT DE DÉSTOCKAGE
+======================================================== */
+.destock-top-control-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  background: var(--paper-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.destock-period-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.destock-period-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.destock-period-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.destock-period-stats strong {
+  color: var(--text);
+}
+
+.destock-toggle-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.destock-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.destock-toggle-btn:hover {
+  background: var(--bg-subtle);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.destock-toggle-btn.is-active {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ========================================================
+   SÉLECTEUR DE VUES DÉDIÉES COMPARATEUR
+======================================================== */
+.comp-view-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--paper-card);
+  padding: 6px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+}
+
+.comp-view-tab {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.comp-view-tab:hover {
+  background: var(--bg-subtle);
+  color: var(--text);
+}
+
+.comp-view-tab.is-active {
+  background: var(--paper);
+  color: var(--accent);
+  border-color: var(--border);
+  box-shadow: var(--shadow-card);
+}
+
+[data-theme="dark"] .comp-view-tab.is-active {
+  background: #1e293b;
+  border-color: #334155;
+  color: #38bdf8;
+}
+
+@media (max-width: 768px) {
+  .gc-burger-trigger .burger-label {
+    display: none;
+  }
+  .destock-top-control-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .comp-view-tab {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+}

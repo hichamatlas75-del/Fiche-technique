@@ -326,6 +326,8 @@
           <div class="kpi-sub">Différentiel de matière / portion</div>
         </div>
       `;
+      const drawerCount = document.getElementById('drawer-comp-count-recipes');
+      if (drawerCount) drawerCount.textContent = totalItems;
     }
 
     // Déclencher l'analyse permanente de l'agent intelligent
@@ -1590,24 +1592,107 @@
   window.renderAIOptimizerAgent = renderAIOptimizerAgent;
 
   let isComparatorTableView = false;
+  let currentComparatorMainView = 'recipes'; // 'recipes', 'ai', 'table'
 
-  window.toggleComparatorViewMode = function() {
-    isComparatorTableView = !isComparatorTableView;
+  window.setComparatorMainView = function(viewName) {
+    currentComparatorMainView = viewName;
+    const aiWrapper = document.getElementById('ai-agent-wrapper');
+    const toolbar = document.getElementById('comp-toolbar-panel');
     const cardsContainer = document.getElementById('recipes-comparator-container');
     const tableContainer = document.getElementById('comparator-table-container');
-    const btn = document.getElementById('btn-toggle-comp-view');
 
-    if (btn) {
-      btn.innerHTML = isComparatorTableView ? '📋 Vue : Cartes Comparatives' : '📊 Vue : Tableau Synthétique';
-    }
+    // Mettre à jour les boutons du sélecteur de vues
+    document.querySelectorAll('.comp-view-tab').forEach(b => {
+      if (b.id === `btn-view-${viewName}`) {
+        b.classList.add('is-active');
+      } else {
+        b.classList.remove('is-active');
+      }
+    });
 
-    if (cardsContainer) cardsContainer.style.display = isComparatorTableView ? 'none' : 'grid';
-    if (tableContainer) tableContainer.style.display = isComparatorTableView ? 'block' : 'none';
+    // Mettre à jour les items du drawer
+    document.querySelectorAll('.gc-drawer-nav-item[data-comp-view]').forEach(item => {
+      if (item.getAttribute('data-comp-view') === viewName) {
+        item.classList.add('is-active');
+      } else {
+        item.classList.remove('is-active');
+      }
+    });
 
-    if (isComparatorTableView) {
+    if (viewName === 'ai') {
+      if (aiWrapper) aiWrapper.style.display = 'block';
+      if (toolbar) toolbar.style.display = 'none';
+      if (cardsContainer) cardsContainer.style.display = 'none';
+      if (tableContainer) tableContainer.style.display = 'none';
+      renderAIOptimizerAgent();
+      if (aiWrapper && typeof aiWrapper.scrollIntoView === 'function') {
+        aiWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else if (viewName === 'table') {
+      if (aiWrapper) aiWrapper.style.display = 'none';
+      if (toolbar) toolbar.style.display = 'block';
+      if (cardsContainer) cardsContainer.style.display = 'none';
+      if (tableContainer) tableContainer.style.display = 'block';
+      isComparatorTableView = true;
+      const btn = document.getElementById('btn-toggle-comp-view');
+      if (btn) btn.innerHTML = '📋 Vue : Cartes Comparatives';
       renderComparatorTable();
-    } else {
+    } else { // 'recipes'
+      if (aiWrapper) aiWrapper.style.display = 'none';
+      if (toolbar) toolbar.style.display = 'block';
+      if (cardsContainer) cardsContainer.style.display = 'grid';
+      if (tableContainer) tableContainer.style.display = 'none';
+      isComparatorTableView = false;
+      const btn = document.getElementById('btn-toggle-comp-view');
+      if (btn) btn.innerHTML = '📊 Vue : Tableau Synthétique';
       renderRecipeCards();
+    }
+  };
+
+  window.setComparatorMainViewAndClose = function(viewName) {
+    window.setComparatorMainView(viewName);
+    if (window.GC_BurgerMenu) window.GC_BurgerMenu.close();
+  };
+
+  window.setCategoryFromDrawer = function(cat) {
+    currentCategory = cat;
+    window.setComparatorMainView('recipes');
+    document.querySelectorAll('.cat-pill').forEach(pill => {
+      if (pill.dataset.cat === cat) {
+        pill.classList.add('active');
+        if (typeof pill.scrollIntoView === 'function') {
+          pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+      } else {
+        pill.classList.remove('active');
+      }
+    });
+    renderRecipeCards();
+    if (window.GC_BurgerMenu) window.GC_BurgerMenu.close();
+  };
+
+  window.toggleGainsFilterAndClose = function() {
+    onlyGainsFilter = !onlyGainsFilter;
+    const filterGainBtn = document.getElementById('btn-filter-gains');
+    if (filterGainBtn) filterGainBtn.classList.toggle('active', onlyGainsFilter);
+    window.setComparatorMainView('recipes');
+    renderRecipeCards();
+    if (window.GC_BurgerMenu) window.GC_BurgerMenu.close();
+  };
+
+  window.toggleCompKpis = function() {
+    const kpiEl = document.getElementById('summary-kpis');
+    if (kpiEl) {
+      kpiEl.style.display = kpiEl.style.display === 'none' ? 'grid' : 'none';
+    }
+    if (window.GC_BurgerMenu) window.GC_BurgerMenu.close();
+  };
+
+  window.toggleComparatorViewMode = function() {
+    if (currentComparatorMainView === 'table') {
+      window.setComparatorMainView('recipes');
+    } else {
+      window.setComparatorMainView('table');
     }
   };
 

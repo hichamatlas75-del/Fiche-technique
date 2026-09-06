@@ -1218,6 +1218,15 @@ function renderDashboard({ totalCA, totalQty, salesLines, distinctProducts, matc
   document.getElementById('stat-ing-count').textContent = ingredientsCount;
   document.getElementById('count-ingredients').textContent = ingredientsCount;
   document.getElementById('count-sales').textContent = distinctProducts;
+
+  // Mise à jour des compteurs du Menu Burger Drawer
+  const drawerCountIng = document.getElementById('drawer-count-ing');
+  if (drawerCountIng) drawerCountIng.textContent = ingredientsCount;
+  const drawerCountSales = document.getElementById('drawer-count-sales');
+  if (drawerCountSales) drawerCountSales.textContent = distinctProducts;
+
+  // Mise à jour de la barre de contrôle compacte en haut
+  updateCompactTopBar({ totalCA, totalQty, salesLines, distinctProducts, periodTitle, isMonthly, activeDaysCount });
 }
 
 function formatIngQuantity(qty, unit, name = '') {
@@ -1940,6 +1949,8 @@ function renderRecipeList() {
   });
 
   document.getElementById('count-recipes').textContent = activeRecipes.length;
+  const drawerCountRecipes = document.getElementById('drawer-count-recipes');
+  if (drawerCountRecipes) drawerCountRecipes.textContent = activeRecipes.length;
 
   container.innerHTML = filtered.map(r => {
     const sellPrice = r.sellPrice || findSellingPriceForRecipe(r.name) || 0;
@@ -4388,6 +4399,11 @@ function renderMenuEngineeringMatrix() {
   if (bPuz) bPuz.textContent = String(countPuzzles);
   if (bDog) bDog.textContent = String(countDogs);
 
+  const elCountME = document.getElementById('count-menu-eng');
+  if (elCountME) elCountME.textContent = String(N);
+  const drawerCountME = document.getElementById('drawer-count-me');
+  if (drawerCountME) drawerCountME.textContent = String(N);
+
   // 6. Bannière d'opportunité d'optimisation
   const banner = document.getElementById('me-opportunity-banner');
   if (banner) {
@@ -6191,9 +6207,114 @@ function switchToTab(tabId) {
   if (tabId === 'tab-comparator') {
     renderComparatorTab();
   }
+  if (window.GC_BurgerMenu) {
+    window.GC_BurgerMenu.setActiveItem(tabId);
+  }
   if (window.location.hash !== '#' + tabId) {
     history.pushState(null, '', '#' + tabId);
   }
+}
+
+function switchToTabAndCloseDrawer(tabId) {
+  switchToTab(tabId);
+  if (window.GC_BurgerMenu) {
+    window.GC_BurgerMenu.setActiveItem(tabId);
+    window.GC_BurgerMenu.close();
+  }
+}
+
+function navigateToHologramAndCloseDrawer() {
+  switchToTab('tab-menu-engineering');
+  if (window.GC_BurgerMenu) {
+    window.GC_BurgerMenu.setActiveItem('nav-hologram');
+    window.GC_BurgerMenu.close();
+  }
+  setTimeout(() => {
+    const holo = document.querySelector('.hologram-card');
+    if (holo) {
+      holo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, 150);
+}
+
+function toggleCalendarCard(forceOpen = false) {
+  const cal = document.getElementById('calendar-card-panel');
+  const btn = document.getElementById('btn-toggle-calendar');
+  if (!cal) return;
+  const isHidden = cal.style.display === 'none';
+  if (forceOpen || isHidden) {
+    cal.style.display = 'block';
+    if (btn) {
+      btn.classList.add('is-active');
+      btn.textContent = '📅 Calendrier ▲';
+    }
+  } else {
+    cal.style.display = 'none';
+    if (btn) {
+      btn.classList.remove('is-active');
+      btn.textContent = '📅 Calendrier ▾';
+    }
+  }
+}
+
+function toggleDropZone(forceOpen = false) {
+  const dz = document.getElementById('drop-zone');
+  const btn = document.getElementById('btn-toggle-dropzone');
+  if (!dz) return;
+  const isHidden = dz.style.display === 'none';
+  if (forceOpen || isHidden) {
+    dz.style.display = 'block';
+    if (btn) {
+      btn.classList.add('is-active');
+      btn.textContent = '📁 Importer Ventes ▲';
+    }
+  } else {
+    dz.style.display = 'none';
+    if (btn) {
+      btn.classList.remove('is-active');
+      btn.textContent = '📁 Importer Ventes ▾';
+    }
+  }
+}
+
+function toggleStatsSection(forceOpen = false) {
+  const sec = document.getElementById('stats-section');
+  const btn = document.getElementById('btn-toggle-stats');
+  if (!sec) return;
+  const isHidden = sec.style.display === 'none';
+  if (forceOpen || isHidden) {
+    sec.style.display = 'grid';
+    if (btn) {
+      btn.classList.add('is-active');
+      btn.textContent = '📊 KPIs ▲';
+    }
+  } else {
+    sec.style.display = 'none';
+    if (btn) {
+      btn.classList.remove('is-active');
+      btn.textContent = '📊 KPIs ▾';
+    }
+  }
+}
+
+function updateCompactTopBar({ totalCA, totalQty, salesLines, distinctProducts, periodTitle, isMonthly, activeDaysCount }) {
+  const pLabel = document.getElementById('destock-compact-period-label');
+  const caEl = document.getElementById('destock-compact-ca');
+  const qtyEl = document.getElementById('destock-compact-qty');
+  const daysEl = document.getElementById('destock-compact-days');
+
+  if (pLabel) {
+    if (currentViewMode === 'year') {
+      pLabel.textContent = `Cumul Année ${selectedYearMonth.slice(0, 4)}`;
+    } else if (isMonthly) {
+      pLabel.textContent = `Mois ${formatMonthFR(selectedYearMonth)}`;
+    } else {
+      pLabel.textContent = periodTitle || `Jour ${selectedDate}`;
+    }
+  }
+  if (caEl) caEl.textContent = (totalCA || 0).toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' DH';
+  if (qtyEl) qtyEl.textContent = (totalQty || 0).toLocaleString('fr-FR');
+  if (daysEl) daysEl.textContent = `${activeDaysCount || 1} j. actif${(activeDaysCount || 1) > 1 ? 's' : ''}`;
 }
 
 function switchToAuditTab() {
@@ -6202,6 +6323,12 @@ function switchToAuditTab() {
 
 window.switchToTab = switchToTab;
 window.switchToAuditTab = switchToAuditTab;
+window.switchToTabAndCloseDrawer = switchToTabAndCloseDrawer;
+window.navigateToHologramAndCloseDrawer = navigateToHologramAndCloseDrawer;
+window.toggleCalendarCard = toggleCalendarCard;
+window.toggleDropZone = toggleDropZone;
+window.toggleStatsSection = toggleStatsSection;
+window.updateCompactTopBar = updateCompactTopBar;
 
 window.setComparatorMode = setComparatorMode;
 window.setComparatorCategoryFilter = setComparatorCategoryFilter;

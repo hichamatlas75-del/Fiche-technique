@@ -21,17 +21,27 @@
 <!-- Styles Modulaires -->
 <link rel="stylesheet" href="css/common.css?v=7.7" />
 <link rel="stylesheet" href="css/consommation.css?v=7.7" />
+<link rel="stylesheet" href="css/burger-menu.css?v=7.8" />
 
 <!-- Données Centralisées (SSOT), Utilitaires & Composants -->
 <script src="recipes-data.js?v=7.7"></script>
 <script src="js/core-utils.js?v=7.7"></script>
 <script src="js/prices-modal.js?v=7.7"></script>
+<script src="js/burger-menu.js?v=7.8"></script>
 </head>
 <body>
 <!-- HEADER UNIFIÉ (Design System Grey Corner) -->
 <header class="app-header">
   <div class="container app-header-content">
     <div class="app-brand">
+      <button type="button" class="gc-burger-trigger" data-drawer-trigger="drawer-destockage" title="Ouvrir le menu de navigation et des fonctions">
+        <div class="gc-burger-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <span class="burger-label">Menu Fonctions</span>
+      </button>
       <div class="brand-badge">GC</div>
       <div class="brand-info">
         <div class="brand-title">Grey Corner <span>Matières Premières</span></div>
@@ -65,16 +75,218 @@
   </div>
 </header>
 
+<!-- VOLET LATÉRAL / DRAWER BURGER MENU DÉSTOCKAGE -->
+<div class="gc-burger-backdrop" id="gc-burger-backdrop"></div>
+
+<aside class="gc-burger-drawer" id="drawer-destockage" aria-hidden="true">
+  <div class="gc-drawer-header">
+    <div class="gc-drawer-brand">
+      <div class="gc-drawer-badge">GC</div>
+      <div class="gc-drawer-title-group">
+        <span class="gc-drawer-app-name">Déstockage &amp; Ventes</span>
+        <span class="gc-drawer-app-sub">Navigation &amp; Fonctions</span>
+      </div>
+    </div>
+    <button type="button" class="gc-drawer-close-btn" aria-label="Fermer le menu">✕</button>
+  </div>
+
+  <div class="gc-drawer-body">
+    <!-- SECTION 1 : MODULES D'ANALYSE & PILOTAGE -->
+    <div class="gc-drawer-section">
+      <div class="gc-drawer-section-title">
+        <span>📊 Analyses &amp; Vues Métier</span>
+      </div>
+      <button type="button" class="gc-drawer-nav-item is-active" data-nav-id="tab-summary" onclick="window.switchToTabAndCloseDrawer('tab-summary')">
+        <div class="gc-drawer-nav-content">
+          <span class="gc-drawer-nav-icon">🥩</span>
+          <div class="gc-drawer-nav-text">
+            <span class="gc-drawer-nav-main">Matières Premières</span>
+            <span class="gc-drawer-nav-desc">Consommation &amp; Ingrédients</span>
+          </div>
+        </div>
+        <span class="gc-drawer-nav-badge" id="drawer-count-ing">0</span>
+      </button>
+      <button type="button" class="gc-drawer-nav-item" data-nav-id="tab-sales" onclick="window.switchToTabAndCloseDrawer('tab-sales')">
+        <div class="gc-drawer-nav-content">
+          <span class="gc-drawer-nav-icon">🧾</span>
+          <div class="gc-drawer-nav-text">
+            <span class="gc-drawer-nav-main">Ventes &amp; Recettes</span>
+            <span class="gc-drawer-nav-desc">Détail des ventes &amp; filtres catégories</span>
+          </div>
+        </div>
+        <span class="gc-drawer-nav-badge" id="drawer-count-sales">0</span>
+      </button>
+      <button type="button" class="gc-drawer-nav-item" data-nav-id="tab-menu-engineering" onclick="window.switchToTabAndCloseDrawer('tab-menu-engineering')">
+        <div class="gc-drawer-nav-content">
+          <span class="gc-drawer-nav-icon">🎯</span>
+          <div class="gc-drawer-nav-text">
+            <span class="gc-drawer-nav-main">Menu Engineering</span>
+            <span class="gc-drawer-nav-desc">Matrice Kasavana &amp; Smith</span>
+          </div>
+        </div>
+        <span class="gc-drawer-nav-badge" id="drawer-count-me">0</span>
+      </button>
+      <button type="button" class="gc-drawer-nav-item" data-nav-id="nav-hologram" onclick="window.navigateToHologramAndCloseDrawer()">
+        <div class="gc-drawer-nav-content">
+          <span class="gc-drawer-nav-icon">🔮</span>
+          <div class="gc-drawer-nav-text">
+            <span class="gc-drawer-nav-main">Hologramme 3D Spatial</span>
+            <span class="gc-drawer-nav-desc">Projection tridimensionnelle des plats</span>
+          </div>
+        </div>
+        <span class="gc-drawer-nav-badge" style="background:#8b5cf6; color:#fff;">3D</span>
+      </button>
+      <button type="button" class="gc-drawer-nav-item" data-nav-id="tab-comparator" onclick="window.switchToTabAndCloseDrawer('tab-comparator')">
+        <div class="gc-drawer-nav-content">
+          <span class="gc-drawer-nav-icon">📊</span>
+          <div class="gc-drawer-nav-text">
+            <span class="gc-drawer-nav-main">Comparateur Temporel</span>
+            <span class="gc-drawer-nav-desc">Par Jour de Semaine, Semaine &amp; Mois</span>
+          </div>
+        </div>
+        <span class="gc-drawer-nav-badge">3 Vues</span>
+      </button>
+      <button type="button" class="gc-drawer-nav-item" data-nav-id="tab-recipes" onclick="window.switchToTabAndCloseDrawer('tab-recipes')">
+        <div class="gc-drawer-nav-content">
+          <span class="gc-drawer-nav-icon">⚙️</span>
+          <div class="gc-drawer-nav-text">
+            <span class="gc-drawer-nav-main">Fiches Techniques</span>
+            <span class="gc-drawer-nav-desc">Base de données &amp; mapping recettes</span>
+          </div>
+        </div>
+        <span class="gc-drawer-nav-badge" id="drawer-count-recipes">0</span>
+      </button>
+    </div>
+
+    <!-- SECTION 2 : GESTION DES DONNÉES & PÉRIODE -->
+    <div class="gc-drawer-section">
+      <div class="gc-drawer-section-title">
+        <span>🛠️ Gestion des Données</span>
+      </div>
+      <button type="button" class="gc-drawer-action-btn" onclick="window.toggleCalendarCard(true); GC_BurgerMenu.close();">
+        <span>📅</span>
+        <span>Calendrier &amp; Sélection de Période</span>
+      </button>
+      <button type="button" class="gc-drawer-action-btn" onclick="window.toggleDropZone(true); GC_BurgerMenu.close();">
+        <span>📁</span>
+        <span>Importer / Synchroniser Ventes Excel</span>
+      </button>
+      <button type="button" class="gc-drawer-action-btn" onclick="window.toggleStatsSection(); GC_BurgerMenu.close();">
+        <span>📈</span>
+        <span>Afficher / Masquer les KPIs Globaux</span>
+      </button>
+    </div>
+
+    <!-- SECTION 3 : ACTIONS & EXPORTS -->
+    <div class="gc-drawer-section">
+      <div class="gc-drawer-section-title">
+        <span>⚡ Actions &amp; Outils</span>
+      </div>
+      <button type="button" class="gc-drawer-action-btn success" onclick="document.getElementById('btn-export-excel')?.click(); GC_BurgerMenu.close();">
+        <span>📥</span>
+        <span>Exporter Déstockage Excel (.xlsx)</span>
+      </button>
+      <button type="button" class="gc-drawer-action-btn" onclick="window.exportComparatorToExcel ? window.exportComparatorToExcel() : null; GC_BurgerMenu.close();">
+        <span>📊</span>
+        <span>Exporter Comparateur Temporel Excel</span>
+      </button>
+      <button type="button" class="gc-drawer-action-btn" onclick="window.GC_PricesModal ? window.GC_PricesModal.open() : (window.openPricesModal ? window.openPricesModal() : null); GC_BurgerMenu.close();">
+        <span>💲</span>
+        <span>Consulter &amp; Modifier Prix Matières</span>
+      </button>
+      <button type="button" class="gc-drawer-action-btn" onclick="window.print(); GC_BurgerMenu.close();">
+        <span>🖨️</span>
+        <span>Imprimer le Rapport de Déstockage</span>
+      </button>
+    </div>
+
+    <!-- SECTION 4 : NAVIGATION GLOBALE -->
+    <div class="gc-drawer-section">
+      <div class="gc-drawer-section-title">
+        <span>🌐 Modules du Système</span>
+      </div>
+      <a href="index.html" class="gc-drawer-nav-item">
+        <div class="gc-drawer-nav-content">
+          <span class="gc-drawer-nav-icon">🍽️</span>
+          <div class="gc-drawer-nav-text">
+            <span class="gc-drawer-nav-main">Cuisine &amp; Fiches Techniques</span>
+            <span class="gc-drawer-nav-desc">Consultation fiches &amp; pesées</span>
+          </div>
+        </div>
+        <span>➔</span>
+      </a>
+      <a href="comparateur.html" class="gc-drawer-nav-item">
+        <div class="gc-drawer-nav-content">
+          <span class="gc-drawer-nav-icon">⚖️</span>
+          <div class="gc-drawer-nav-text">
+            <span class="gc-drawer-nav-main">Normes &amp; Comparateur</span>
+            <span class="gc-drawer-nav-desc">Benchmark standards &amp; Agent IA</span>
+          </div>
+        </div>
+        <span>➔</span>
+      </a>
+      <a href="audit.html" class="gc-drawer-nav-item">
+        <div class="gc-drawer-nav-content">
+          <span class="gc-drawer-nav-icon">⚡</span>
+          <div class="gc-drawer-nav-text">
+            <span class="gc-drawer-nav-main">Audit Flash Manuel</span>
+            <span class="gc-drawer-nav-desc">Inventaire express de stock</span>
+          </div>
+        </div>
+        <span>➔</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="gc-drawer-footer">
+    <span>Grey Corner F&amp;B v7.8</span>
+    <span>⚡ Déstockage Connecté</span>
+  </div>
+</aside>
+
+<!-- BOUTON FLOTTANT BURGER RAPIDE -->
+<button type="button" class="gc-burger-fab" data-drawer-trigger="drawer-destockage" title="Ouvrir le menu des fonctions">
+  <span class="fab-icon">☰</span>
+  <span>Menu Fonctions</span>
+</button>
+
 <main class="container">
+  <!-- BANDEAU DE CONTRÔLE COMPACT : PÉRIODE, CA & BASCULE RAPIDE -->
+  <div class="destock-top-control-bar" id="destock-compact-bar">
+    <div class="destock-period-indicator">
+      <span class="destock-period-pill" id="destock-compact-period-pill">
+        📅 <span id="destock-compact-period-label">Période active</span>
+      </span>
+      <div class="destock-period-stats">
+        <span>CA : <strong id="destock-compact-ca">0 DH</strong></span>
+        <span>•</span>
+        <span>Articles : <strong id="destock-compact-qty">0</strong></span>
+        <span>•</span>
+        <span id="destock-compact-days">1 j.</span>
+      </div>
+    </div>
+
+    <div class="destock-toggle-buttons">
+      <button type="button" class="destock-toggle-btn is-active" id="btn-toggle-calendar" onclick="window.toggleCalendarCard()" title="Afficher ou masquer le calendrier">
+        📅 Calendrier ▾
+      </button>
+      <button type="button" class="destock-toggle-btn" id="btn-toggle-dropzone" onclick="window.toggleDropZone()" title="Afficher ou masquer l'importation de fichiers">
+        📁 Importer Ventes ▾
+      </button>
+      <button type="button" class="destock-toggle-btn is-active" id="btn-toggle-stats" onclick="window.toggleStatsSection()" title="Afficher ou masquer les KPIs statistiques">
+        📊 KPIs ▾
+      </button>
+    </div>
+  </div>
+
   <!-- En-tête pour impression -->
   <div class="print-header">
     <h1>GREY CORNER — Fiche de Déstockage & Consommation Journalière</h1>
     <p id="print-date">Rapport généré le <span id="print-date-val"></span></p>
   </div>
 
-  <!-- ZONE D'IMPORTATION EXCEL / FICHIER -->
-    <!-- CALENDRIER & SÉLECTEUR DE PÉRIODE MENSUELLE -->
-  <div class="calendar-card">
+  <!-- CALENDRIER & SÉLECTEUR DE PÉRIODE MENSUELLE -->
+  <div class="calendar-card" id="calendar-card-panel">
     <div class="cal-header">
       <div class="cal-nav-wrap">
         <div class="cal-title">
