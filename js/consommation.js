@@ -4536,6 +4536,15 @@ let cylinderLastDragX = 0;
 let cylinderLastDragTime = 0;
 let cylinderPulseTime = 0;
 
+// État et contrôle du Radar Holographique Simple (Planar Hologram)
+let hologramPulseTime = 0;          // Pulsation des ondes radar et halos néon
+let hologramScanActive = true;       // Faisceau de balayage scanner laser actif
+let hologramScanX = 0;              // Position X du faisceau laser
+let hologramFilter = 'all';         // 'all' | 'star' | 'plowhorse' | 'puzzle' | 'dog'
+let hologramZoom = 1.0;             // Facteur de zoom (0.75 - 1.6)
+let hologramShowLabels = true;      // Affichage direct des noms des plats
+let selectedHoloDish = null;        // Plat ciblé ou verrouillé au clic
+
 // Objet caméra conservé pour rétrocompatibilité totale avec tests et scripts
 let holoCamera = {
   yaw: 0,
@@ -4645,7 +4654,7 @@ function project3D(x, y, z, width, height, cam) {
   };
 }
 
-// Moteur de rendu principal du Cylindre Holographique 3D
+/// Moteur de rendu principal du Radar Holographique Simple (Menu Engineering)
 function renderMenuEngineeringHologram() {
   const canvas = document.getElementById('canvas-menu-eng-hologram');
   const container = document.getElementById('hologram-viewport');
@@ -4653,7 +4662,7 @@ function renderMenuEngineeringHologram() {
   if (!canvas || !canvas.getContext || !container) return;
 
   const ctx = canvas.getContext('2d');
-  const rect = container.getBoundingClientRect();
+  const rect = container.getBoundingClientRect ? container.getBoundingClientRect() : { width: 800, height: 480 };
   const width = rect.width || 800;
   const height = 480;
 
@@ -4662,522 +4671,500 @@ function renderMenuEngineeringHologram() {
     canvas.width = width * dpr;
     canvas.height = height * dpr;
   }
-  ctx.resetTransform ? ctx.resetTransform() : ctx.setTransform(1, 0, 0, 1, 0, 0);
+  if (ctx.resetTransform) ctx.resetTransform();
+  else if (ctx.setTransform) ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.scale(dpr, dpr);
 
-  // Amortissement fluide de la rotation et du zoom
-  if (isCylinderDragging) {
-    cylinderVelocity = 0;
-  } else {
-    // Application de la vélocité résiduelle (inertie de lancer)
-    if (Math.abs(cylinderVelocity) > 0.0001) {
-      cylinderAngle += cylinderVelocity;
-      cylinderTargetAngle = cylinderAngle;
-      cylinderVelocity *= 0.92;
-    } else if (cylinderAutoRotate) {
-      cylinderTargetAngle += 0.0035;
-    }
+  hologramPulseTime += 0.035;
+  if (hologramScanActive) {
+    hologramScanX = (hologramScanX + 3) % (width + 80);
   }
 
-  cylinderAngle += (cylinderTargetAngle - cylinderAngle) * 0.12;
-  cylinderZoom += (cylinderTargetZoom - cylinderZoom) * 0.12;
-  cylinderPulseTime += 0.025;
-
-  // Synchronisation de l'objet caméra rétrocompatible
-  holoCamera.yaw = cylinderAngle;
-  holoCamera.zoom = cylinderZoom;
-  holoCamera.autoRotate = cylinderAutoRotate;
-  holoCamera.showLabels = cylinderShowLabels;
-
-  // Mise à jour du HUD
-  const hudCoords = document.getElementById('holo-hud-coords');
-  if (hudCoords) {
-    const deg = Math.round(((cylinderAngle * 180 / Math.PI) % 360 + 360) % 360);
-    hudCoords.textContent = `ROTATION: ${deg}° • ZOOM: ${(cylinderZoom * 100).toFixed(0)}%`;
-  }
+  // Synchronisation des indicateurs du HUD
   const hudNodes = document.getElementById('holo-hud-nodes');
   if (hudNodes) {
     hudNodes.textContent = `PLATS: ${menuEngData ? menuEngData.length : 0}`;
+  }
+  const hudFilter = document.getElementById('holo-hud-filter');
+  if (hudFilter) {
+    const qLabels = { all: 'TOUS', star: 'ÉTOILES', plowhorse: 'CHEVAUX', puzzle: 'DILEMMES', dog: 'POIDS MORTS' };
+    hudFilter.textContent = `FILTRE: ${qLabels[hologramFilter] || 'TOUS'}`;
   }
 
   // Nettoyage fond
   ctx.clearRect(0, 0, width, height);
 
+  // 1. Fond holographique Sci-Fi (carroyage cyan + ondes radar circulaires)
+  drawSimpleHoloBackground(ctx, width, height);
+
   if (!menuEngData || menuEngData.length === 0) {
     ctx.fillStyle = '#38bdf8';
-    ctx.font = 'bold 14px ui-monospace, SFMono-Regular, monospace';
+    ctx.font = 'bold 13px ui-monospace, SFMono-Regular, monospace';
     ctx.textAlign = 'center';
-    ctx.fillText('⚡ CYLINDRE HOLOGRAPHIQUE EN ATTENTE DE DONNÉES ⚡', width / 2, height / 2);
+    ctx.fillText('⚡ PROJECTION HOLOGRAPHIQUE EN ATTENTE DE DONNÉES ⚡', width / 2, height / 2);
     return;
   }
 
-  // Bornes et statistiques de rentabilité
-  const maxQty = Math.max(1, ...menuEngData.map(i => i.qty));
-  const maxGM = Math.max(10, Math.max(...menuEngData.map(i => i.grossMarginDH))) * 1.12;
+  // Marges intérieures pour le radar
+  const padLeft = 75;
+  const padRight = 55;
+  const padTop = 45;
+  const padBottom = 55;
+  const plotW = (width - padLeft - padRight) * hologramZoom;
+  const plotH = (height - padTop - padBottom) * hologramZoom;
+
+  const maxQty = Math.max(5, Math.max(...menuEngData.map(i => i.qty)) * 1.12);
   const minGM = Math.min(0, Math.min(...menuEngData.map(i => i.grossMarginDH)));
+  const maxGM = Math.max(15, Math.max(...menuEngData.map(i => i.grossMarginDH)) * 1.15);
   const maxCA = Math.max(1, Math.max(...menuEngData.map(i => i.totalCA)));
 
   const totalVolume = menuEngData.reduce((acc, i) => acc + i.qty, 0);
   const totalProfit = menuEngData.reduce((acc, i) => acc + i.totalProfitDH, 0);
   const avgGrossMargin = totalVolume > 0 ? (totalProfit / totalVolume) : 0;
+  const avgQty = menuEngData.length > 0 ? (totalVolume / menuEngData.length) : 0;
 
-  // Dimensions géométriques du cylindre
-  const radius = Math.min(width * 0.28, 175) * cylinderZoom;
-  const cylinderHeight = 220 * cylinderZoom;
-  const halfH = cylinderHeight / 2;
-  const tilt = 0.25; // ~14.3° pour voir le dessus et le dessous
+  const gmRange = Math.max(1, maxGM - minGM);
+  const threshX = padLeft + Math.min(plotW, (avgQty / maxQty) * plotW);
+  const threshY = padTop + plotH - Math.max(0, Math.min(plotH, ((avgGrossMargin - minGM) / gmRange) * plotH));
 
-  // 1. Dessin de la structure arrière du cylindre (Back Wireframe)
-  drawCylinderBackStructure(ctx, width, height, radius, halfH, cylinderZoom, tilt);
+  // 2. Lignes laser des seuils et étiquettes des 4 quadrants
+  drawSimpleHoloThresholds(ctx, padLeft, padTop, plotW, plotH, threshX, threshY, avgGrossMargin, avgQty);
 
-  // 2. Particules holographiques en lévitation
-  drawCylinderParticles(ctx, width, height, radius, halfH, cylinderZoom, tilt);
+  // 3. Faisceau laser de balayage scanner
+  if (hologramScanActive) {
+    drawSimpleHoloScanline(ctx, width, height, hologramScanX);
+  }
 
-  // 3. Calcul de la projection des plats
+  // 4. Axes gradués holographiques
+  drawSimpleHoloAxes(ctx, padLeft, padTop, plotW, plotH, maxQty, minGM, maxGM);
+
+  // 5. Calcul et tracé des orbes holographiques
   holoPoints = [];
-  const drawNodes = [];
+  const orbs = [];
 
-  // Ordonnancement harmonique autour du cylindre : Étoiles -> Chevaux -> Poids morts -> Dilemmes
-  const quadrantOrder = { star: 0, plowhorse: 1, dog: 2, puzzle: 3 };
-  const sortedItems = [...menuEngData].sort((a, b) => {
-    const qDiff = (quadrantOrder[a.quadrant] || 0) - (quadrantOrder[b.quadrant] || 0);
-    if (qDiff !== 0) return qDiff;
-    return b.grossMarginDH - a.grossMarginDH;
-  });
+  menuEngData.forEach(item => {
+    const qRatio = Math.max(0, Math.min(1, item.qty / maxQty));
+    const mRatio = Math.max(0, Math.min(1, (item.grossMarginDH - minGM) / gmRange));
 
-  const totalItems = sortedItems.length;
+    const sx = padLeft + qRatio * plotW;
+    const sy = padTop + plotH - mRatio * plotH;
 
-  sortedItems.forEach((item, index) => {
-    // Angle natif sur la circonférence
-    const baseAngle = (index / totalItems) * Math.PI * 2;
-    const currentAngle = baseAngle + cylinderAngle;
+    const baseRadius = 6.5 + Math.sqrt(item.totalCA / maxCA) * 12;
+    const isMatch = (hologramFilter === 'all' || item.quadrant === hologramFilter);
 
-    // Hauteur Y sur le cylindre selon la Marge Brute Cash DH
-    // Les plats à forte marge sont tout en haut (+halfH * 0.76), ceux à faible marge en bas (-halfH * 0.76)
-    const marginRange = Math.max(1, maxGM - minGM);
-    const normRatio = Math.max(0, Math.min(1, (item.grossMarginDH - minGM) / marginRange));
-    const yLocal = (normRatio - 0.5) * (cylinderHeight * 0.78);
-
-    const proj = projectCylinder(currentAngle, yLocal, radius, width, height, cylinderZoom, tilt);
-
-    // Taille de l'orbe selon le CA total
-    const baseRadius = 5.5 + Math.sqrt(item.totalCA / maxCA) * 11;
-    const screenRadius = Math.max(3.5, Math.min(26, baseRadius * proj.scale));
-
-    const isMatchFilter = (cylinderFilter === 'all' || item.quadrant === cylinderFilter);
-
-    const nodeObj = {
+    const orbObj = {
       item,
-      proj,
-      screenRadius,
-      depth: proj.depth,
-      isFront: proj.isFront,
-      isMatchFilter,
-      yLocal
+      sx,
+      sy,
+      radius: baseRadius,
+      isMatch
     };
+    orbs.push(orbObj);
 
-    drawNodes.push(nodeObj);
     holoPoints.push({
-      x: proj.sx,
-      y: proj.sy,
-      r: screenRadius,
-      item: item,
-      node: nodeObj
+      x: sx,
+      y: sy,
+      r: baseRadius + 5,
+      item,
+      node: orbObj
     });
   });
 
-  // Tri des orbes en profondeur (peintre : du fond vers le premier plan)
-  drawNodes.sort((a, b) => a.depth - b.depth);
-
-  // 4. Rendu des orbes arrière (translucides à travers la paroi)
-  drawNodes.filter(n => !n.isFront).forEach(node => {
-    drawCylinderOrb(ctx, node, false, false);
+  // Rendu des orbes : d'abord ceux hors filtre (faible opacité), puis ceux filtrés
+  orbs.filter(o => !o.isMatch).forEach(orb => {
+    drawHoloOrb(ctx, orb, false, false);
   });
 
-  // 5. Anneau du Seuil de Marge Moyenne (Tranchant au niveau de la marge moyenne)
-  const normThreshRatio = Math.max(0, Math.min(1, (avgGrossMargin - minGM) / Math.max(1, maxGM - minGM)));
-  const yThresh = (normThreshRatio - 0.5) * (cylinderHeight * 0.78);
-  drawCylinderThresholdRing(ctx, width, height, radius, yThresh, cylinderZoom, tilt, avgGrossMargin);
-
-  // 6. Dessin de la structure avant du cylindre (Front Wireframe)
-  drawCylinderFrontStructure(ctx, width, height, radius, halfH, cylinderZoom, tilt);
-
-  // 7. Rendu des orbes avant (opaques, éclatants, interactifs)
-  const frontNodes = drawNodes.filter(n => n.isFront);
-  frontNodes.forEach(node => {
-    const isHovered = (hoveredHoloPoint && hoveredHoloPoint.item === node.item);
-    drawCylinderOrb(ctx, node, isHovered, true);
+  orbs.filter(o => o.isMatch).forEach(orb => {
+    const isHovered = (hoveredHoloPoint && hoveredHoloPoint.item.product === orb.item.product) || (selectedHoloDish && selectedHoloDish.product === orb.item.product);
+    drawHoloOrb(ctx, orb, true, isHovered);
   });
 
-  // 8. Rendu des étiquettes des plats
-  if (cylinderShowLabels) {
-    frontNodes.forEach(node => {
-      if (node.isMatchFilter) {
-        const isHovered = (hoveredHoloPoint && hoveredHoloPoint.item === node.item);
-        if (!isHovered) {
-          drawCylinderLabel(ctx, node, false);
-        }
-      }
-    });
+  // 6. Réticule de ciblage et faisceaux vers les axes si survolé
+  const activeHover = hoveredHoloPoint || (selectedHoloDish ? holoPoints.find(p => p.item.product === selectedHoloDish.product) : null);
+  if (activeHover && activeHover.node) {
+    drawHoloTargetCrosshair(ctx, activeHover.node.sx, activeHover.node.sy, activeHover.node.radius, padLeft, padTop + plotH, activeHover.item);
   }
 
-  // 9. Si un orbe est survolé : réticule de ciblage et label prioritaire
-  if (hoveredHoloPoint) {
-    drawCylinderTargetReticle(ctx, hoveredHoloPoint.node);
-    drawCylinderLabel(ctx, hoveredHoloPoint.node, true);
+  // Liaison des écouteurs
+  if (!holoCanvasBound) {
+    bindSimpleHoloEventListeners(canvas, container, tooltip);
   }
-
-  // Liaison des écouteurs d'événements
-  bindHoloEventListeners(canvas, container, tooltip);
 }
 
-// Rendu de la moitié arrière de la structure du cylindre
-function drawCylinderBackStructure(ctx, width, height, radius, halfH, zoom, tilt) {
+// 1. Fond holographique Sci-Fi avec carroyage et ondes concentriques
+function drawSimpleHoloBackground(ctx, width, height) {
   ctx.save();
 
-  // Halo central interne
-  const cx = width / 2;
-  const cy = height * 0.52;
-  const innerGrad = ctx.createRadialGradient(cx, cy, 10, cx, cy, radius * 1.15);
-  innerGrad.addColorStop(0, 'rgba(6, 182, 212, 0.08)');
-  innerGrad.addColorStop(0.65, 'rgba(14, 165, 233, 0.03)');
-  innerGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-  ctx.fillStyle = innerGrad;
-  ctx.fillRect(cx - radius * 1.3, cy - halfH * 1.4, radius * 2.6, halfH * 2.8);
+  // Dégradé radial sombre
+  const rad = ctx.createRadialGradient(width / 2, height / 2, 30, width / 2, height / 2, width * 0.65);
+  rad.addColorStop(0, '#0c1a3b');
+  rad.addColorStop(0.55, '#071026');
+  rad.addColorStop(1, '#02050e');
+  ctx.fillStyle = rad;
+  ctx.fillRect(0, 0, width, height);
 
-  // Poteau central vertical (Axe du cylindre)
-  const topCenter = projectCylinder(0, halfH, 0, width, height, zoom, tilt);
-  const botCenter = projectCylinder(0, -halfH, 0, width, height, zoom, tilt);
-  const axisGrad = ctx.createLinearGradient(0, topCenter.sy, 0, botCenter.sy);
-  axisGrad.addColorStop(0, 'rgba(56, 189, 248, 0.4)');
-  axisGrad.addColorStop(0.5, 'rgba(6, 182, 212, 0.15)');
-  axisGrad.addColorStop(1, 'rgba(56, 189, 248, 0.4)');
-  ctx.beginPath();
-  ctx.moveTo(topCenter.sx, topCenter.sy);
-  ctx.lineTo(botCenter.sx, botCenter.sy);
-  ctx.strokeStyle = axisGrad;
+  // Carroyage holographique cyan discret
+  ctx.strokeStyle = 'rgba(6, 182, 212, 0.055)';
   ctx.lineWidth = 1;
-  ctx.setLineDash([3, 3]);
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  // Demi-ellipse arrière inférieure
-  ctx.strokeStyle = 'rgba(6, 182, 212, 0.18)';
-  ctx.lineWidth = 1;
-  drawCylinderArc(ctx, width, height, radius, -halfH, zoom, tilt, Math.PI / 2, (3 * Math.PI) / 2);
-
-  // Demi-ellipse arrière supérieure
-  ctx.strokeStyle = 'rgba(6, 182, 212, 0.18)';
-  drawCylinderArc(ctx, width, height, radius, halfH, zoom, tilt, Math.PI / 2, (3 * Math.PI) / 2);
-
-  // Nervures verticales arrière (arêtes du cylindre)
-  const numRibs = 12;
-  ctx.strokeStyle = 'rgba(6, 182, 212, 0.07)';
-  ctx.lineWidth = 0.8;
-  for (let i = 0; i < numRibs; i++) {
-    const angle = (i / numRibs) * Math.PI * 2 + cylinderAngle;
-    if (Math.cos(angle) < 0) {
-      const pTop = projectCylinder(angle, halfH, radius, width, height, zoom, tilt);
-      const pBot = projectCylinder(angle, -halfH, radius, width, height, zoom, tilt);
-      ctx.beginPath();
-      ctx.moveTo(pTop.sx, pTop.sy);
-      ctx.lineTo(pBot.sx, pBot.sy);
-      ctx.stroke();
-    }
-  }
-
-  ctx.restore();
-}
-
-// Rendu de la moitié avant de la structure du cylindre
-function drawCylinderFrontStructure(ctx, width, height, radius, halfH, zoom, tilt) {
-  ctx.save();
-
-  // Demi-ellipse avant supérieure (Anneau supérieur lumineux)
-  ctx.strokeStyle = 'rgba(56, 189, 248, 0.65)';
-  ctx.lineWidth = 1.8;
-  drawCylinderArc(ctx, width, height, radius, halfH, zoom, tilt, -Math.PI / 2, Math.PI / 2);
-
-  // Demi-ellipse avant inférieure (Anneau socle lumineux)
-  ctx.strokeStyle = 'rgba(6, 182, 212, 0.55)';
-  ctx.lineWidth = 1.8;
-  drawCylinderArc(ctx, width, height, radius, -halfH, zoom, tilt, -Math.PI / 2, Math.PI / 2);
-
-  // Bords latéraux tangents (génératrices gauche et droite)
-  const pLeftTop = projectCylinder(-Math.PI / 2, halfH, radius, width, height, zoom, tilt);
-  const pLeftBot = projectCylinder(-Math.PI / 2, -halfH, radius, width, height, zoom, tilt);
-  const pRightTop = projectCylinder(Math.PI / 2, halfH, radius, width, height, zoom, tilt);
-  const pRightBot = projectCylinder(Math.PI / 2, -halfH, radius, width, height, zoom, tilt);
-
-  const edgeGrad = ctx.createLinearGradient(0, pLeftTop.sy, 0, pLeftBot.sy);
-  edgeGrad.addColorStop(0, 'rgba(56, 189, 248, 0.55)');
-  edgeGrad.addColorStop(0.5, 'rgba(6, 182, 212, 0.2)');
-  edgeGrad.addColorStop(1, 'rgba(56, 189, 248, 0.55)');
-
-  ctx.strokeStyle = edgeGrad;
-  ctx.lineWidth = 1.2;
-  ctx.beginPath();
-  ctx.moveTo(pLeftTop.sx, pLeftTop.sy);
-  ctx.lineTo(pLeftBot.sx, pLeftBot.sy);
-  ctx.moveTo(pRightTop.sx, pRightTop.sy);
-  ctx.lineTo(pRightBot.sx, pRightBot.sy);
-  ctx.stroke();
-
-  // Nervures verticales avant lumineuses
-  const numRibs = 12;
-  ctx.strokeStyle = 'rgba(6, 182, 212, 0.22)';
-  ctx.lineWidth = 1;
-  for (let i = 0; i < numRibs; i++) {
-    const angle = (i / numRibs) * Math.PI * 2 + cylinderAngle;
-    if (Math.cos(angle) >= 0) {
-      const pTop = projectCylinder(angle, halfH, radius, width, height, zoom, tilt);
-      const pBot = projectCylinder(angle, -halfH, radius, width, height, zoom, tilt);
-      ctx.beginPath();
-      ctx.moveTo(pTop.sx, pTop.sy);
-      ctx.lineTo(pBot.sx, pBot.sy);
-      ctx.stroke();
-    }
-  }
-
-  ctx.restore();
-}
-
-// Dessin d'un arc sur la circonférence du cylindre
-function drawCylinderArc(ctx, width, height, radius, yLocal, zoom, tilt, startAngle, endAngle) {
-  const segments = 32;
-  ctx.beginPath();
-  for (let i = 0; i <= segments; i++) {
-    const a = startAngle + (i / segments) * (endAngle - startAngle);
-    const p = projectCylinder(a, yLocal, radius, width, height, zoom, tilt);
-    if (i === 0) ctx.moveTo(p.sx, p.sy);
-    else ctx.lineTo(p.sx, p.sy);
-  }
-  ctx.stroke();
-}
-
-// Anneau laser du Seuil de Marge Moyenne coupant le cylindre
-function drawCylinderThresholdRing(ctx, width, height, radius, yThresh, zoom, tilt, avgGrossMargin) {
-  ctx.save();
-  ctx.strokeStyle = 'rgba(16, 185, 129, 0.55)';
-  ctx.lineWidth = 1.4;
-  ctx.setLineDash([4, 4]);
-
-  // Cercle complet au niveau du seuil
-  const segments = 40;
-  ctx.beginPath();
-  let rightEdge = null;
-  for (let i = 0; i <= segments; i++) {
-    const a = (i / segments) * Math.PI * 2;
-    const p = projectCylinder(a, yThresh, radius, width, height, zoom, tilt);
-    if (i === 0) ctx.moveTo(p.sx, p.sy);
-    else ctx.lineTo(p.sx, p.sy);
-    if (i === Math.round(segments / 4)) rightEdge = p;
-  }
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  // Étiquette Seuil de Marge
-  if (rightEdge) {
-    ctx.fillStyle = '#10b981';
-    ctx.font = 'bold 9.5px ui-monospace, SFMono-Regular, monospace';
-    ctx.textAlign = 'left';
-    ctx.fillText(`⚡ SEUIL MARGE MOY. : ${avgGrossMargin.toFixed(1)} DH`, rightEdge.sx + 8, rightEdge.sy + 3);
-  }
-
-  ctx.restore();
-}
-
-// Particules flottantes à l'intérieur/autour du cylindre
-function drawCylinderParticles(ctx, width, height, radius, halfH, zoom, tilt) {
-  ctx.save();
-  holoParticles.forEach(p => {
-    p.heightNorm += p.speedY;
-    if (p.heightNorm > 1) p.heightNorm = -1;
-
-    const yLocal = p.heightNorm * halfH;
-    const r = radius + p.radiusOffset;
-    const proj = projectCylinder(p.angle + cylinderAngle * 0.5, yLocal, r, width, height, zoom, tilt);
-
-    if (proj.scale > 0) {
-      const ptRadius = Math.max(0.6, p.size * proj.scale);
-      const alpha = p.alpha * (proj.isFront ? 0.85 : 0.35);
-      ctx.fillStyle = `rgba(56, 189, 248, ${alpha})`;
-      ctx.beginPath();
-      ctx.arc(proj.sx, proj.sy, ptRadius, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  });
-  ctx.restore();
-}
-
-// Rendu d'un orbe (Plat) sur le cylindre
-function drawCylinderOrb(ctx, node, isHovered, isFront) {
-  const p = node.proj;
-  const r = isHovered ? node.screenRadius * 1.3 : node.screenRadius;
-
-  // Couleurs du quadrant
-  let color = '#10b981';
-  let glow = 'rgba(16, 185, 129, 0.45)';
-  if (node.item.quadrant === 'plowhorse') {
-    color = '#0284c7';
-    glow = 'rgba(2, 132, 199, 0.45)';
-  } else if (node.item.quadrant === 'puzzle') {
-    color = '#8b5cf6';
-    glow = 'rgba(139, 92, 246, 0.45)';
-  } else if (node.item.quadrant === 'dog') {
-    color = '#ef4444';
-    glow = 'rgba(239, 68, 68, 0.45)';
-  }
-
-  ctx.save();
-
-  let globalAlpha = 1.0;
-  if (!isFront) {
-    globalAlpha = node.isMatchFilter ? 0.28 : 0.07;
-  } else {
-    globalAlpha = node.isMatchFilter ? 1.0 : 0.18;
-  }
-  ctx.globalAlpha = globalAlpha;
-
-  // Halo extérieur
-  const grad = ctx.createRadialGradient(p.sx, p.sy, r * 0.1, p.sx, p.sy, r * 1.6);
-  grad.addColorStop(0, '#ffffff');
-  grad.addColorStop(0.35, color);
-  grad.addColorStop(0.8, glow);
-  grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-  ctx.beginPath();
-  ctx.arc(p.sx, p.sy, r * 1.6, 0, Math.PI * 2);
-  ctx.fillStyle = grad;
-  ctx.fill();
-
-  // Noyau central
-  ctx.beginPath();
-  ctx.arc(p.sx, p.sy, r, 0, Math.PI * 2);
-  ctx.fillStyle = color;
-  ctx.shadowColor = color;
-  ctx.shadowBlur = isHovered ? 20 : (isFront ? 10 : 3);
-  ctx.fill();
-
-  // Anneau holographique intérieur si de face
-  if (isFront) {
+  const gridStep = 40;
+  for (let x = 0; x < width; x += gridStep) {
     ctx.beginPath();
-    ctx.arc(p.sx, p.sy, r * 0.65, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
-    ctx.lineWidth = 1;
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, height);
+    ctx.stroke();
+  }
+  for (let y = 0; y < height; y += gridStep) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(width, y);
     ctx.stroke();
   }
 
-  ctx.restore();
-}
-
-// Étiquette flottante attachée au plat
-function drawCylinderLabel(ctx, node, isHighlight) {
-  const p = node.proj;
-  const labelY = p.sy - node.screenRadius - 11;
-  const text = `${node.item.product} (${node.item.grossMarginDH.toFixed(0)} DH)`;
-
-  ctx.save();
-  ctx.font = isHighlight
-    ? 'bold 11px ui-monospace, SFMono-Regular, monospace'
-    : '600 9.5px -apple-system, BlinkMacSystemFont, sans-serif';
-
-  const metrics = ctx.measureText(text);
-  const textW = metrics.width;
-  const padX = 6;
-  const padY = 3;
-  const boxW = textW + padX * 2;
-  const boxH = 17;
-  const boxX = p.sx - boxW / 2;
-  const boxY = labelY - boxH / 2;
-
-  ctx.fillStyle = isHighlight ? 'rgba(3, 7, 18, 0.94)' : 'rgba(6, 11, 25, 0.8)';
-  ctx.strokeStyle = isHighlight ? '#38bdf8' : 'rgba(6, 182, 212, 0.35)';
+  // Ondes radar circulaires concentriques
+  const cx = width / 2;
+  const cy = height / 2;
+  const ringRadii = [60, 130, 210, 300, 390];
   ctx.lineWidth = 1;
+  ringRadii.forEach((r, idx) => {
+    const pulseAlpha = 0.04 + Math.sin(hologramPulseTime + idx) * 0.02;
+    ctx.strokeStyle = `rgba(6, 182, 212, ${pulseAlpha})`;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.stroke();
+  });
 
-  ctx.beginPath();
-  ctx.roundRect ? ctx.roundRect(boxX, boxY, boxW, boxH, 4) : ctx.rect(boxX, boxY, boxW, boxH);
-  ctx.fill();
-  ctx.stroke();
-
-  ctx.fillStyle = isHighlight ? '#38bdf8' : '#e2e8f0';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(text, p.sx, labelY);
   ctx.restore();
 }
 
-// Réticule de ciblage HUD sur l'orbe survolé
-function drawCylinderTargetReticle(ctx, node) {
-  const p = node.proj;
-  const r = node.screenRadius + 12;
-
+// 2. Lignes laser de seuil et filigranes des 4 quadrants
+function drawSimpleHoloThresholds(ctx, padLeft, padTop, plotW, plotH, threshX, threshY, avgGM, avgQty) {
   ctx.save();
-  ctx.strokeStyle = '#38bdf8';
+
+  // Filigranes néon des 4 quadrants dans les angles
+  ctx.font = 'bold 13px ui-monospace, SFMono-Regular, monospace';
+
+  // ⭐ Étoiles (Haut-Droit)
+  ctx.fillStyle = 'rgba(16, 185, 129, 0.28)';
+  ctx.textAlign = 'right';
+  ctx.fillText('⭐ ÉTOILES (Stars)', padLeft + plotW - 10, padTop + 24);
+  ctx.font = '10px system-ui';
+  ctx.fillText('Fort Volume & Forte Marge', padLeft + plotW - 10, padTop + 38);
+
+  // 🐎 Chevaux (Bas-Droit)
+  ctx.font = 'bold 13px ui-monospace, SFMono-Regular, monospace';
+  ctx.fillStyle = 'rgba(2, 132, 199, 0.28)';
+  ctx.textAlign = 'right';
+  ctx.fillText('🐎 CHEVAUX (Plowhorses)', padLeft + plotW - 10, padTop + plotH - 30);
+  ctx.font = '10px system-ui';
+  ctx.fillText('Fort Volume & Marge Modérée', padLeft + plotW - 10, padTop + plotH - 16);
+
+  // 🧩 Dilemmes (Haut-Gauche)
+  ctx.font = 'bold 13px ui-monospace, SFMono-Regular, monospace';
+  ctx.fillStyle = 'rgba(139, 92, 246, 0.28)';
+  ctx.textAlign = 'left';
+  ctx.fillText('🧩 DILEMMES (Puzzles)', padLeft + 12, padTop + 24);
+  ctx.font = '10px system-ui';
+  ctx.fillText('Faible Volume & Forte Marge', padLeft + 12, padTop + 38);
+
+  // 🐕 Poids morts (Bas-Gauche)
+  ctx.font = 'bold 13px ui-monospace, SFMono-Regular, monospace';
+  ctx.fillStyle = 'rgba(239, 68, 68, 0.28)';
+  ctx.textAlign = 'left';
+  ctx.fillText('🐕 POIDS MORTS (Dogs)', padLeft + 12, padTop + plotH - 30);
+  ctx.font = '10px system-ui';
+  ctx.fillText('Faible Volume & Faible Marge', padLeft + 12, padTop + plotH - 16);
+
+  // Ligne laser verticale Seuil Volume
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
   ctx.lineWidth = 1.4;
-  ctx.setLineDash([5, 4]);
-
+  ctx.setLineDash([4, 4]);
   ctx.beginPath();
-  ctx.arc(p.sx, p.sy, r, cylinderPulseTime * 2, cylinderPulseTime * 2 + Math.PI * 2);
+  ctx.moveTo(threshX, padTop);
+  ctx.lineTo(threshX, padTop + plotH);
   ctx.stroke();
 
+  // Ligne laser horizontale Seuil Marge Moyenne
+  ctx.strokeStyle = 'rgba(16, 185, 129, 0.45)';
+  ctx.beginPath();
+  ctx.moveTo(padLeft, threshY);
+  ctx.lineTo(padLeft + plotW, threshY);
+  ctx.stroke();
   ctx.setLineDash([]);
-  const crossLen = 5;
+
+  // Badges des seuils
+  ctx.font = 'bold 9.5px ui-monospace, SFMono-Regular, monospace';
+  ctx.fillStyle = '#38bdf8';
+  ctx.textAlign = 'center';
+  ctx.fillText(`⚡ VOL. MOYEN: ${avgQty.toFixed(0)} u.`, threshX, padTop - 8);
+
+  ctx.fillStyle = '#10b981';
+  ctx.textAlign = 'right';
+  ctx.fillText(`⚡ MARGE MOY.: ${avgGM.toFixed(1)} DH`, padLeft + plotW, threshY - 6);
+
+  // Réticule d'intersection
+  const pulse = Math.sin(hologramPulseTime * 3) * 2;
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+  ctx.lineWidth = 1.5;
   ctx.beginPath();
-  ctx.moveTo(p.sx, p.sy - r - crossLen); ctx.lineTo(p.sx, p.sy - r + crossLen);
-  ctx.moveTo(p.sx, p.sy + r - crossLen); ctx.lineTo(p.sx, p.sy + r + crossLen);
-  ctx.moveTo(p.sx - r - crossLen, p.sy); ctx.lineTo(p.sx - r + crossLen, p.sy);
-  ctx.moveTo(p.sx + r - crossLen, p.sy); ctx.lineTo(p.sx + r + crossLen, p.sy);
+  ctx.arc(threshX, threshY, 4 + pulse, 0, Math.PI * 2);
   ctx.stroke();
+
   ctx.restore();
 }
 
-// Écouteurs d'interaction : glissement horizontal, zoom, survol, tap
-function bindHoloEventListeners(canvas, container, tooltip) {
+// 3. Faisceau laser de balayage scanner
+function drawSimpleHoloScanline(ctx, width, height, scanX) {
+  ctx.save();
+  const grad = ctx.createLinearGradient(scanX - 45, 0, scanX + 45, 0);
+  grad.addColorStop(0, 'rgba(6, 182, 212, 0)');
+  grad.addColorStop(0.5, 'rgba(6, 182, 212, 0.12)');
+  grad.addColorStop(0.5, 'rgba(56, 189, 248, 0.65)');
+  grad.addColorStop(1, 'rgba(6, 182, 212, 0)');
+
+  ctx.fillStyle = grad;
+  ctx.fillRect(scanX - 45, 0, 90, height);
+  ctx.restore();
+}
+
+// 4. Axes gradués holographiques
+function drawSimpleHoloAxes(ctx, padLeft, padTop, plotW, plotH, maxQty, minGM, maxGM) {
+  ctx.save();
+
+  // Axe Horizontal (Volume)
+  ctx.strokeStyle = 'rgba(56, 189, 248, 0.7)';
+  ctx.lineWidth = 1.6;
+  ctx.beginPath();
+  ctx.moveTo(padLeft, padTop + plotH);
+  ctx.lineTo(padLeft + plotW, padTop + plotH);
+  ctx.stroke();
+
+  // Flèche Axe X
+  ctx.fillStyle = '#38bdf8';
+  ctx.beginPath();
+  ctx.moveTo(padLeft + plotW, padTop + plotH - 4);
+  ctx.lineTo(padLeft + plotW + 7, padTop + plotH);
+  ctx.lineTo(padLeft + plotW, padTop + plotH + 4);
+  ctx.fill();
+
+  ctx.font = 'bold 10px ui-monospace, SFMono-Regular, monospace';
+  ctx.textAlign = 'right';
+  ctx.fillText('POPULARITÉ / VOLUME VENDU (UNITÉS) ➔', padLeft + plotW - 10, padTop + plotH + 28);
+
+  // Graduations X
+  const xSteps = 4;
+  for (let i = 1; i <= xSteps; i++) {
+    const val = Math.round((maxQty / xSteps) * i);
+    const gx = padLeft + (i / xSteps) * plotW;
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.25)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(gx, padTop + plotH);
+    ctx.lineTo(gx, padTop + plotH + 5);
+    ctx.stroke();
+
+    ctx.fillStyle = 'rgba(226, 232, 240, 0.75)';
+    ctx.font = '9px ui-monospace, SFMono-Regular, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(`${val} u.`, gx, padTop + plotH + 16);
+  }
+
+  // Axe Vertical (Marge Cash)
+  ctx.strokeStyle = 'rgba(16, 185, 129, 0.7)';
+  ctx.lineWidth = 1.6;
+  ctx.beginPath();
+  ctx.moveTo(padLeft, padTop + plotH);
+  ctx.lineTo(padLeft, padTop);
+  ctx.stroke();
+
+  // Flèche Axe Y
+  ctx.fillStyle = '#10b981';
+  ctx.beginPath();
+  ctx.moveTo(padLeft - 4, padTop);
+  ctx.lineTo(padLeft, padTop - 7);
+  ctx.lineTo(padLeft + 4, padTop);
+  ctx.fill();
+
+  ctx.font = 'bold 10px ui-monospace, SFMono-Regular, monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText('▲ MARGE BRUTE CASH (DIRHAMS)', padLeft + 10, padTop - 12);
+
+  // Graduations Y
+  const ySteps = 4;
+  const gmRange = maxGM - minGM;
+  for (let i = 0; i <= ySteps; i++) {
+    const val = Math.round(minGM + (gmRange / ySteps) * i);
+    const gy = padTop + plotH - (i / ySteps) * plotH;
+    ctx.strokeStyle = 'rgba(16, 185, 129, 0.25)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(padLeft - 5, gy);
+    ctx.lineTo(padLeft, gy);
+    ctx.stroke();
+
+    ctx.fillStyle = 'rgba(226, 232, 240, 0.75)';
+    ctx.font = '9px ui-monospace, SFMono-Regular, monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText(`${val} DH`, padLeft - 8, gy + 3);
+  }
+
+  ctx.restore();
+}
+
+// 5. Orbe holographique lumineux pour chaque plat
+function drawHoloOrb(ctx, orb, isMatch, isHovered) {
+  const { item, sx, sy, radius } = orb;
+  ctx.save();
+
+  // Couleurs de quadrants
+  const colors = {
+    star: { core: '#10b981', glow: 'rgba(16, 185, 129, 0.45)', hot: '#a7f3d0' },
+    plowhorse: { core: '#0284c7', glow: 'rgba(2, 132, 199, 0.45)', hot: '#bae6fd' },
+    puzzle: { core: '#8b5cf6', glow: 'rgba(139, 92, 246, 0.45)', hot: '#ddd6fe' },
+    dog: { core: '#ef4444', glow: 'rgba(239, 68, 68, 0.45)', hot: '#fecaca' }
+  };
+  const theme = colors[item.quadrant] || colors.star;
+
+  if (!isMatch) {
+    ctx.globalAlpha = 0.15;
+    ctx.fillStyle = theme.core;
+    ctx.beginPath();
+    ctx.arc(sx, sy, Math.max(3, radius * 0.7), 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+    return;
+  }
+
+  const pulse = Math.sin(hologramPulseTime * 2.5 + sx * 0.05) * 2;
+  const currentR = radius + (isHovered ? 4 : pulse);
+
+  // Halo radiant extérieur
+  const haloR = currentR * (isHovered ? 2.8 : 2.1);
+  const grad = ctx.createRadialGradient(sx, sy, currentR * 0.3, sx, sy, haloR);
+  grad.addColorStop(0, theme.glow);
+  grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(sx, sy, haloR, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Orbe principal
+  const orbGrad = ctx.createRadialGradient(sx - currentR * 0.3, sy - currentR * 0.3, 1, sx, sy, currentR);
+  orbGrad.addColorStop(0, theme.hot);
+  orbGrad.addColorStop(0.65, theme.core);
+  orbGrad.addColorStop(1, '#051025');
+
+  ctx.fillStyle = orbGrad;
+  ctx.beginPath();
+  ctx.arc(sx, sy, currentR, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Liseré néon lumineux
+  ctx.strokeStyle = isHovered ? '#ffffff' : theme.hot;
+  ctx.lineWidth = isHovered ? 2.2 : 1.2;
+  ctx.stroke();
+
+  // Point central lumineux
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(sx, sy, Math.max(1.5, currentR * 0.25), 0, Math.PI * 2);
+  ctx.fill();
+
+  // Étiquette du plat
+  if (hologramShowLabels) {
+    ctx.font = isHovered ? 'bold 11px system-ui, -apple-system, sans-serif' : '600 10px system-ui, -apple-system, sans-serif';
+    ctx.textAlign = 'center';
+
+    // Ombre portée pour lisibilité parfaite
+    ctx.shadowColor = '#000000';
+    ctx.shadowBlur = 4;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 1;
+
+    ctx.fillStyle = isHovered ? '#fef08a' : '#f8fafc';
+    ctx.fillText(item.product, sx, sy + currentR + 13);
+
+    ctx.font = 'bold 9px ui-monospace, SFMono-Regular, monospace';
+    ctx.fillStyle = theme.core;
+    ctx.fillText(`+${item.grossMarginDH.toFixed(1)} DH`, sx, sy + currentR + 24);
+  }
+
+  ctx.restore();
+}
+
+// 6. Réticule de ciblage et lignes de projection vers les axes
+function drawHoloTargetCrosshair(ctx, sx, sy, r, padLeft, plotBottom, item) {
+  ctx.save();
+
+  // Faisceaux laser pointillés vers l'axe X et Y
+  ctx.strokeStyle = '#38bdf8';
+  ctx.lineWidth = 1.2;
+  ctx.setLineDash([3, 3]);
+
+  ctx.beginPath();
+  ctx.moveTo(sx, sy);
+  ctx.lineTo(sx, plotBottom);
+  ctx.moveTo(sx, sy);
+  ctx.lineTo(padLeft, sy);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Badge valeur sur l'axe X
+  ctx.fillStyle = '#0284c7';
+  ctx.fillRect(sx - 24, plotBottom + 4, 48, 16);
+  ctx.font = 'bold 9px ui-monospace, SFMono-Regular, monospace';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.fillText(`${item.qty} u.`, sx, plotBottom + 15);
+
+  // Badge valeur sur l'axe Y
+  ctx.fillStyle = '#10b981';
+  ctx.fillRect(padLeft - 52, sy - 8, 48, 16);
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.fillText(`${item.grossMarginDH.toFixed(1)} DH`, padLeft - 28, sy + 3);
+
+  // Réticule circulaire de visée rotatif
+  const targetR = r + 9;
+  ctx.strokeStyle = '#38bdf8';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.arc(sx, sy, targetR, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Crochets de cadrage aux 4 coins du réticule
+  const bracketLen = 4;
+  ctx.strokeStyle = '#fde047';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(sx - targetR - bracketLen, sy); ctx.lineTo(sx - targetR + bracketLen, sy);
+  ctx.moveTo(sx + targetR - bracketLen, sy); ctx.lineTo(sx + targetR + bracketLen, sy);
+  ctx.moveTo(sx, sy - targetR - bracketLen); ctx.lineTo(sx, sy - targetR + bracketLen);
+  ctx.moveTo(sx, sy + targetR - bracketLen); ctx.lineTo(sx, sy + targetR + bracketLen);
+  ctx.stroke();
+
+  ctx.restore();
+}
+
+// 7. Écouteurs d'interaction sur le canvas holographique
+function bindSimpleHoloEventListeners(canvas, container, tooltip) {
   if (holoCanvasBound) return;
   holoCanvasBound = true;
 
-  // 1. Début de glissement souris (Rotation horizontale)
-  canvas.addEventListener('mousedown', (e) => {
-    isCylinderDragging = true;
-    cylinderDragStartX = e.clientX;
-    cylinderStartAngle = cylinderAngle;
-    cylinderLastDragX = e.clientX;
-    cylinderLastDragTime = performance.now();
-    cylinderVelocity = 0;
-  });
+  if (!canvas || !canvas.addEventListener) return;
 
-  window.addEventListener('mousemove', (e) => {
-    if (isCylinderDragging) {
-      const now = performance.now();
-      const dx = e.clientX - cylinderDragStartX;
-      const dt = Math.max(1, now - cylinderLastDragTime);
-
-      cylinderTargetAngle = cylinderStartAngle + dx * 0.0075;
-      cylinderAngle = cylinderTargetAngle;
-
-      const instDx = e.clientX - cylinderLastDragX;
-      cylinderVelocity = (instDx / dt) * 0.15;
-
-      cylinderLastDragX = e.clientX;
-      cylinderLastDragTime = now;
-      return;
-    }
-
-    // Détection de survol (Raycasting sur les points)
-    const cRect = canvas.getBoundingClientRect();
+  canvas.addEventListener('mousemove', (e) => {
+    const cRect = canvas.getBoundingClientRect ? canvas.getBoundingClientRect() : { left: 0, top: 0, width: canvas.width || 800 };
     const mx = e.clientX - cRect.left;
     const my = e.clientY - cRect.top;
 
     let found = null;
     let closestDist = Infinity;
 
-    // Priorité aux orbes de face (front nodes)
     for (let i = holoPoints.length - 1; i >= 0; i--) {
       const pt = holoPoints[i];
       const dist = Math.hypot(mx - pt.x, my - pt.y);
-      const hitRadius = pt.r + (pt.node.isFront ? 10 : 4);
-      if (dist <= hitRadius && dist < closestDist) {
+      if (dist <= pt.r + 6 && dist < closestDist) {
         found = pt;
         closestDist = dist;
       }
@@ -5186,33 +5173,31 @@ function bindHoloEventListeners(canvas, container, tooltip) {
     if (found) {
       hoveredHoloPoint = found;
       const it = found.item;
-      tooltip.innerHTML = `
-        <div class="tt-title">🔮 ${escapeHtml(it.product)}</div>
-        <div style="font-size:10.5px; color:#94a3b8; margin-bottom:7px; letter-spacing:0.03em;">
-          ${escapeHtml(it.family)} • <span style="color:#38bdf8; font-weight:700;">${it.quadrantLabel}</span>
-        </div>
-        <div class="tt-row"><span>Prix de vente :</span><strong class="tt-val">${it.price.toFixed(2)} DH</strong></div>
-        <div class="tt-row"><span>Coût Portion (FC%) :</span><strong class="tt-val">${it.cost.toFixed(2)} DH (${it.foodCostPct}%)</strong></div>
-        <div class="tt-row"><span>Marge Brute Cash :</span><strong class="tt-val" style="color:#38bdf8;">${it.grossMarginDH.toFixed(2)} DH</strong></div>
-        <div class="tt-row"><span>Quantité vendue :</span><strong class="tt-val">${it.qty.toLocaleString('fr-FR')} u.</strong></div>
-        <div class="tt-row"><span>CA Total :</span><strong class="tt-val" style="color:#10b981;">${it.totalCA.toLocaleString('fr-FR', { minimumFractionDigits: 2 })} DH</strong></div>
-        <div style="margin-top:7px; padding-top:7px; border-top:1px solid rgba(6, 182, 212, 0.25); font-size:11px; color:#fde047;">
-          💡 ${escapeHtml(it.actionAdvice)}
-        </div>
-      `;
-      tooltip.style.left = Math.min(cRect.width - 155, Math.max(155, mx)) + 'px';
-      tooltip.style.top = Math.max(70, my - 15) + 'px';
-      tooltip.style.display = 'block';
+      if (tooltip) {
+        tooltip.innerHTML = `
+          <div class="tt-title">🔮 ${escapeHtml(it.product)}</div>
+          <div style="font-size:10.5px; color:#94a3b8; margin-bottom:7px; letter-spacing:0.03em;">
+            ${escapeHtml(it.family || '')} • <span style="color:#38bdf8; font-weight:700;">${it.quadrantLabel || ''}</span>
+          </div>
+          <div class="tt-row"><span>Prix de vente :</span><strong class="tt-val">${(it.price || 0).toFixed(2)} DH</strong></div>
+          <div class="tt-row"><span>Coût Portion (FC%) :</span><strong class="tt-val">${(it.cost || 0).toFixed(2)} DH (${it.foodCostPct || 0}%)</strong></div>
+          <div class="tt-row"><span>Marge Brute Cash :</span><strong class="tt-val" style="color:#38bdf8;">${(it.grossMarginDH || 0).toFixed(2)} DH</strong></div>
+          <div class="tt-row"><span>Quantité vendue :</span><strong class="tt-val">${(it.qty || 0).toLocaleString('fr-FR')} u.</strong></div>
+          <div class="tt-row"><span>CA Total :</span><strong class="tt-val" style="color:#10b981;">${(it.totalCA || 0).toLocaleString('fr-FR', { minimumFractionDigits: 2 })} DH</strong></div>
+          <div style="margin-top:7px; padding-top:7px; border-top:1px solid rgba(6, 182, 212, 0.25); font-size:11px; color:#fde047;">
+            💡 ${escapeHtml(it.actionAdvice || '')}
+          </div>
+        `;
+        tooltip.style.left = Math.min((cRect.width || 800) - 155, Math.max(155, mx)) + 'px';
+        tooltip.style.top = Math.max(70, my - 15) + 'px';
+        tooltip.style.display = 'block';
+      }
     } else {
       if (hoveredHoloPoint) {
         hoveredHoloPoint = null;
-        tooltip.style.display = 'none';
+        if (tooltip) tooltip.style.display = 'none';
       }
     }
-  });
-
-  window.addEventListener('mouseup', () => {
-    isCylinderDragging = false;
   });
 
   canvas.addEventListener('mouseleave', () => {
@@ -5220,60 +5205,76 @@ function bindHoloEventListeners(canvas, container, tooltip) {
     if (tooltip) tooltip.style.display = 'none';
   });
 
-  // Clic pour recentrer un plat de face
   canvas.addEventListener('click', () => {
-    if (hoveredHoloPoint && hoveredHoloPoint.node) {
-      rotateCylinderToNode(hoveredHoloPoint.node);
+    if (hoveredHoloPoint && hoveredHoloPoint.item) {
+      selectedHoloDish = hoveredHoloPoint.item;
+    } else {
+      selectedHoloDish = null;
     }
   });
 
-  // 2. Zoom à la molette
+  // Zoom doux à la molette
   canvas.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    const delta = e.deltaY > 0 ? -0.1 : 0.1;
-    cylinderTargetZoom = Math.max(0.55, Math.min(2.0, cylinderTargetZoom + delta));
+    if (e.preventDefault) e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.08 : 0.08;
+    hologramZoom = Math.max(0.75, Math.min(1.6, hologramZoom + delta));
   }, { passive: false });
 
-  // 3. Support Tactile (Touch drag)
-  let touchStartX = 0;
-  let touchStartAngle = 0;
-  canvas.addEventListener('touchstart', (e) => {
-    if (e.touches.length === 1) {
-      isCylinderDragging = true;
-      touchStartX = e.touches[0].clientX;
-      touchStartAngle = cylinderAngle;
-      cylinderVelocity = 0;
-    }
-  }, { passive: true });
-
+  // Support tactile
   canvas.addEventListener('touchmove', (e) => {
-    if (e.touches.length === 1 && isCylinderDragging) {
-      const dx = e.touches[0].clientX - touchStartX;
-      cylinderTargetAngle = touchStartAngle + dx * 0.009;
-      cylinderAngle = cylinderTargetAngle;
+    if (e.touches && e.touches.length === 1) {
+      const touch = e.touches[0];
+      const cRect = canvas.getBoundingClientRect ? canvas.getBoundingClientRect() : { left: 0, top: 0, width: canvas.width || 800 };
+      const mx = touch.clientX - cRect.left;
+      const my = touch.clientY - cRect.top;
+
+      let found = null;
+      let closestDist = Infinity;
+      for (let i = holoPoints.length - 1; i >= 0; i--) {
+        const pt = holoPoints[i];
+        const dist = Math.hypot(mx - pt.x, my - pt.y);
+        if (dist <= pt.r + 10 && dist < closestDist) {
+          found = pt;
+          closestDist = dist;
+        }
+      }
+      if (found) {
+        hoveredHoloPoint = found;
+        if (tooltip) {
+          const it = found.item;
+          tooltip.innerHTML = `
+            <div class="tt-title">🔮 ${escapeHtml(it.product)}</div>
+            <div class="tt-row"><span>Marge Cash :</span><strong class="tt-val" style="color:#38bdf8;">${(it.grossMarginDH || 0).toFixed(2)} DH</strong></div>
+            <div class="tt-row"><span>Quantité :</span><strong class="tt-val">${(it.qty || 0).toLocaleString('fr-FR')} u.</strong></div>
+          `;
+          tooltip.style.left = Math.min((cRect.width || 800) - 155, Math.max(155, mx)) + 'px';
+          tooltip.style.top = Math.max(70, my - 15) + 'px';
+          tooltip.style.display = 'block';
+        }
+      }
     }
   }, { passive: true });
 
-  canvas.addEventListener('touchend', () => {
-    isCylinderDragging = false;
-  });
-
-  // 4. Boucle d'animation fluide
+  // Boucle d'animation fluide
   function startHoloAnimationLoop() {
-    if (holoAnimFrameId) cancelAnimationFrame(holoAnimFrameId);
-
+    if (holoAnimFrameId && typeof cancelAnimationFrame === 'function') {
+      cancelAnimationFrame(holoAnimFrameId);
+    }
     function frame() {
       if (holoIsVisible) {
         renderMenuEngineeringHologram();
       }
+      if (typeof requestAnimationFrame === 'function') {
+        holoAnimFrameId = requestAnimationFrame(frame);
+      }
+    }
+    if (typeof requestAnimationFrame === 'function') {
       holoAnimFrameId = requestAnimationFrame(frame);
     }
-    holoAnimFrameId = requestAnimationFrame(frame);
   }
   startHoloAnimationLoop();
 
-  // Optimisation IntersectionObserver
-  if (typeof IntersectionObserver !== 'undefined') {
+  if (typeof IntersectionObserver !== 'undefined' && container) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         holoIsVisible = entry.isIntersecting;
@@ -5283,95 +5284,82 @@ function bindHoloEventListeners(canvas, container, tooltip) {
   }
 }
 
-// Rotation douce du cylindre pour placer un plat face au spectateur (angle = 0)
-function rotateCylinderToNode(node) {
-  if (!node || !node.item) return;
-  const idx = menuEngData.findIndex(i => i.product === node.item.product);
-  if (idx >= 0) {
-    const targetBaseAngle = (idx / menuEngData.length) * Math.PI * 2;
-    // On cherche l'angle tel que (targetBaseAngle + targetAngle) % (2PI) == 0
-    let target = -targetBaseAngle;
-    // Normalisation autour de l'angle actuel pour rotation minimale
-    while (target - cylinderAngle > Math.PI) target -= Math.PI * 2;
-    while (target - cylinderAngle < -Math.PI) target += Math.PI * 2;
-    cylinderTargetAngle = target;
-  }
-}
-
-// Filtrage direct des quadrants sur le cylindre
-function filterCylinderQuadrant(quad) {
+// Filtrage direct des quadrants holographiques
+function filterHologramQuadrant(quad) {
+  hologramFilter = quad;
   cylinderFilter = quad;
 
-  // Mise à jour visuelle des boutons de filtres
   ['all', 'star', 'plowhorse', 'puzzle', 'dog'].forEach(q => {
     const btn = document.getElementById(`btn-holo-filter-${q}`);
     if (btn) btn.classList.toggle('active', q === quad);
   });
-
-  // Si on cible un quadrant spécifique, tourner le cylindre vers le plat leader de ce quadrant
-  if (quad !== 'all' && menuEngData && menuEngData.length > 0) {
-    const bestInQuad = menuEngData
-      .filter(i => i.quadrant === quad)
-      .sort((a, b) => b.totalCA - a.totalCA)[0];
-
-    if (bestInQuad) {
-      rotateCylinderToNode({ item: bestInQuad });
-    }
-  }
 }
 
-// Contrôles exposés
-function toggleHologramAutoRotate() {
-  cylinderAutoRotate = !cylinderAutoRotate;
-  holoCamera.autoRotate = cylinderAutoRotate;
-  updateAutoRotateBtn();
+function filterCylinderQuadrant(quad) {
+  filterHologramQuadrant(quad);
 }
 
-function updateAutoRotateBtn() {
-  const btn = document.getElementById('btn-holo-autorotate');
+function toggleHologramScan() {
+  hologramScanActive = !hologramScanActive;
+  const btn = document.getElementById('btn-holo-sweep');
   if (btn) {
-    btn.classList.toggle('active', cylinderAutoRotate);
+    btn.classList.toggle('active', hologramScanActive);
     const led = btn.querySelector('.holo-led');
-    if (led) led.classList.toggle('on', cylinderAutoRotate);
+    if (led) led.classList.toggle('on', hologramScanActive);
   }
 }
 
 function toggleHologramLabels() {
-  cylinderShowLabels = !cylinderShowLabels;
-  holoCamera.showLabels = cylinderShowLabels;
+  hologramShowLabels = !hologramShowLabels;
+  cylinderShowLabels = hologramShowLabels;
   const btn = document.getElementById('btn-holo-labels');
-  if (btn) btn.classList.toggle('active', cylinderShowLabels);
-}
-
-function zoomHologram(delta) {
-  cylinderTargetZoom = Math.max(0.55, Math.min(2.0, cylinderTargetZoom + delta));
-  holoCamera.targetZoom = cylinderTargetZoom;
+  if (btn) btn.classList.toggle('active', hologramShowLabels);
 }
 
 function resetHologramView() {
-  cylinderTargetAngle = 0;
+  hologramFilter = 'all';
+  cylinderFilter = 'all';
+  hologramZoom = 1.0;
+  cylinderZoom = 1.0;
   cylinderTargetZoom = 1.0;
   cylinderAutoRotate = true;
-  cylinderFilter = 'all';
-  filterCylinderQuadrant('all');
-  updateAutoRotateBtn();
-}
-
-// Rétrocompatibilité totale avec tout appel existant
-function setHologramView(viewMode) {
-  if (viewMode === 'front' || viewMode === 'free') {
-    resetHologramView();
-  } else if (viewMode === 'top') {
-    cylinderTargetZoom = 1.25;
-  } else if (viewMode === 'iso') {
-    cylinderTargetAngle += 0.785;
+  hologramScanActive = true;
+  selectedHoloDish = null;
+  hoveredHoloPoint = null;
+  filterHologramQuadrant('all');
+  const btnSweep = document.getElementById('btn-holo-sweep');
+  if (btnSweep) {
+    if (btnSweep.classList) btnSweep.classList.toggle('active', true);
+    const led = btnSweep.querySelector('.holo-led');
+    if (led && led.classList && led.classList.toggle) led.classList.toggle('on', true);
   }
 }
 
-function toggleHologramBeams() {
-  holoCamera.showBeams = !holoCamera.showBeams;
-  const btn = document.getElementById('btn-holo-beams');
-  if (btn) btn.classList.toggle('active', holoCamera.showBeams);
+function zoomHologram(delta) {
+  hologramZoom = Math.max(0.75, Math.min(1.6, hologramZoom + delta));
+  cylinderZoom = hologramZoom;
+  cylinderTargetZoom = hologramZoom;
+}
+
+function rotateCylinderToNode(node) {
+  if (node && node.item) {
+    selectedHoloDish = node.item;
+    cylinderTargetAngle = 0;
+    const pt = holoPoints.find(p => p.item.product === node.item.product);
+    if (pt) hoveredHoloPoint = pt;
+  }
+}
+
+// Rétrocompatibilité avec les anciens contrôles
+function toggleHologramAutoRotate() {
+  cylinderAutoRotate = !cylinderAutoRotate;
+  toggleHologramScan();
+}
+
+function toggleHologramBeams() {}
+
+function setHologramView(viewMode) {
+  resetHologramView();
 }
 
 function renderMenuEngineeringScatterPlot() {
@@ -5384,19 +5372,21 @@ function renderMenuEngineeringCylinder() {
 
 window.renderMenuEngineeringHologram = renderMenuEngineeringHologram;
 window.renderMenuEngineeringCylinder = renderMenuEngineeringHologram;
+window.filterHologramQuadrant = filterHologramQuadrant;
+window.filterCylinderQuadrant = filterCylinderQuadrant;
+window.toggleHologramScan = toggleHologramScan;
+window.toggleHologramLabels = toggleHologramLabels;
+window.resetHologramView = resetHologramView;
+window.zoomHologram = zoomHologram;
+window.rotateCylinderToNode = rotateCylinderToNode;
+window.projectCylinder = projectCylinder;
+window.project3D = project3D;
 window.setHologramView = setHologramView;
 window.toggleHologramAutoRotate = toggleHologramAutoRotate;
 window.toggleHologramBeams = toggleHologramBeams;
-window.toggleHologramLabels = toggleHologramLabels;
-window.zoomHologram = zoomHologram;
-window.resetHologramView = resetHologramView;
-window.filterCylinderQuadrant = filterCylinderQuadrant;
-window.rotateCylinderToNode = rotateCylinderToNode;
 
 function renderSummaryTopIngredientsPodium() {
   const container = document.getElementById('summary-top-ingredients-podium');
-  if (!container) return;
-
   if (!aggregatedIngredients || aggregatedIngredients.length === 0) {
     container.style.display = 'none';
     return;
