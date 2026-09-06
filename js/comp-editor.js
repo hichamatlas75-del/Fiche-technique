@@ -348,23 +348,34 @@ function addIngredientToRecipe(p1, p2) {
     return;
   }
 
-  const ingName = prompt("Nom du nouvel ingrédient :", "Nouvel Ingrédient");
-  if (ingName === null) return; // Annulation utilisateur
+  const ingName = prompt(`Nom du nouvel ingrédient pour « ${recipe.name} » :\n(Ex: Sauce Barbecue, Cheddar, Oignons frits)`, "Nouvel Ingrédient");
+  if (ingName === null) return; // Annulation explicite de l'utilisateur
   const cleanName = ingName.trim();
   if (!cleanName) {
     if (window.GC_Toast) window.GC_Toast.show("Le nom de l'ingrédient ne peut pas être vide.", "warning");
     return;
   }
 
-  const qty = prompt("Quantité (ex: 50 g, 100 ml, 1 p) :", "50 g");
-  if (qty === null) return; // Annulation utilisateur
-  let cleanQty = qty.trim();
-  if (!cleanQty) cleanQty = "50 g";
-  if (/^\d+(?:[.,]\d+)?$/.test(cleanQty)) {
-    cleanQty += ' g';
+  let finalName = cleanName;
+  let finalQty = "50 g";
+
+  // Si l'utilisateur a déjà écrit "Nom : Quantité" dans le premier prompt
+  if (cleanName.includes(':')) {
+    const parts = cleanName.split(':');
+    finalName = parts[0].trim();
+    finalQty = parts.slice(1).join(':').trim() || "50 g";
+  } else {
+    const qty = prompt(`Quantité pour « ${finalName} » :\n(Ex: 50 g, 100 ml, 1 p)`, "50 g");
+    if (qty === null) return; // Annulation explicite
+    let cleanQty = qty.trim();
+    if (!cleanQty) cleanQty = "50 g";
+    if (/^\d+(?:[.,]\d+)?$/.test(cleanQty)) {
+      cleanQty += ' g';
+    }
+    finalQty = cleanQty;
   }
 
-  recipe.greyCorner.tech.push(`${cleanName} : ${cleanQty}`);
+  recipe.greyCorner.tech.push(`${finalName} : ${finalQty}`);
 
   const edits = window.editedRecipes || (typeof editedRecipes !== 'undefined' ? editedRecipes : {});
   edits[recipe.name] = {
@@ -387,11 +398,25 @@ function addIngredientToRecipe(p1, p2) {
   const renderCards = window.renderRecipeCards || (typeof renderRecipeCards === 'function' ? renderRecipeCards : null);
   if (renderCards) renderCards();
 
+  // Ouvrir automatiquement le tiroir accordéon de ce plat pour observer immédiatement la nouvelle composition
+  const drawerPanel = document.getElementById(`drawer-panel-gc-${cardIdx}`);
+  const drawerBtn = document.getElementById(`btn-drawer-gc-${cardIdx}`);
+  const drawerIcon = document.getElementById(`icon-drawer-gc-${cardIdx}`);
+  if (drawerPanel) {
+    drawerPanel.style.display = 'block';
+    if (drawerBtn) drawerBtn.classList.add('drawer-open');
+    if (drawerIcon) drawerIcon.textContent = '▲';
+    const renderBreakdownFn = window.renderPortionCostBreakdownHTML || (typeof renderPortionCostBreakdownHTML === 'function' ? renderPortionCostBreakdownHTML : null);
+    if (renderBreakdownFn) {
+      drawerPanel.innerHTML = renderBreakdownFn(recipe.greyCorner.tech, recipe.sellPrice, 'gc', cardIdx);
+    }
+  }
+
   const renderKPIs = window.renderSummaryKPIs || (typeof renderSummaryKPIs === 'function' ? renderSummaryKPIs : null);
   if (renderKPIs) renderKPIs();
 
   if (window.GC_Toast) {
-    window.GC_Toast.show(`➕ Ingrédient « ${cleanName} » ajouté à ${recipe.name}`, 'success');
+    window.GC_Toast.show(`➕ « ${finalName} » (${finalQty}) ajouté à ${recipe.name}`, 'success');
   }
 }
 

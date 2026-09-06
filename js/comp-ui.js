@@ -211,13 +211,31 @@ var rowsHTML = filtered.map((recipe, idx) => {
 
     const container = document.getElementById('recipes-comparator-container');
     if (!container) return;
-var filtered = allRecipes.filter(r => {
-      const matchCat = currentCategory === 'ALL' || r.category === currentCategory;
-      const matchSearch = !searchQuery || 
-        r.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-        r.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        r.greyCorner.tech.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
-      const matchGains = !onlyGainsFilter || r.standard.diffDH >= 3.0;
+
+    // AM-04: Mémoriser les tiroirs de portion ouverts par nom de recette
+    const openGCDrawers = new Set();
+    const openSTDDrawers = new Set();
+    document.querySelectorAll('.comparative-card').forEach(card => {
+      const rName = card.getAttribute('data-recipe-name');
+      if (!rName) return;
+      const gcPanel = card.querySelector('.col-greycorner .portion-drawer-panel');
+      if (gcPanel && gcPanel.style.display !== 'none') openGCDrawers.add(rName);
+      const stdPanel = card.querySelector('.col-standard .portion-drawer-panel');
+      if (stdPanel && stdPanel.style.display !== 'none') openSTDDrawers.add(rName);
+    });
+
+    const recipesList = window.allRecipes || allRecipes || [];
+    const cat = window.currentCategory || currentCategory || 'ALL';
+    const query = (window.searchQuery || searchQuery || '').toLowerCase();
+    const gainsOnly = window.onlyGainsFilter || onlyGainsFilter;
+
+    var filtered = recipesList.filter(r => {
+      const matchCat = cat === 'ALL' || r.category === cat;
+      const matchSearch = !query || 
+        r.name.toLowerCase().includes(query) || 
+        r.category.toLowerCase().includes(query) ||
+        r.greyCorner.tech.some(t => t.toLowerCase().includes(query));
+      const matchGains = !gainsOnly || r.standard.diffDH >= 3.0;
       return matchCat && matchSearch && matchGains;
     });
 
@@ -235,6 +253,27 @@ var filtered = allRecipes.filter(r => {
     container.innerHTML = filtered.map((recipe, idx) => {
       return createRecipeComparativeCardHTML(recipe, idx);
     }).join('');
+
+    // AM-04: Restaurer l'ouverture des tiroirs pour les cartes mémorisées
+    document.querySelectorAll('.comparative-card').forEach((card, idx) => {
+      const rName = card.getAttribute('data-recipe-name');
+      if (rName && openGCDrawers.has(rName)) {
+        const panel = document.getElementById(`drawer-panel-gc-${idx}`);
+        const btn = document.getElementById(`btn-drawer-gc-${idx}`);
+        const icon = document.getElementById(`icon-drawer-gc-${idx}`);
+        if (panel) panel.style.display = 'block';
+        if (btn) btn.classList.add('drawer-open');
+        if (icon) icon.textContent = '▲';
+      }
+      if (rName && openSTDDrawers.has(rName)) {
+        const panel = document.getElementById(`drawer-panel-std-${idx}`);
+        const btn = document.getElementById(`btn-drawer-std-${idx}`);
+        const icon = document.getElementById(`icon-drawer-std-${idx}`);
+        if (panel) panel.style.display = 'block';
+        if (btn) btn.classList.add('drawer-open');
+        if (icon) icon.textContent = '▲';
+      }
+    });
   }
 
   // Génération du code HTML d'une carte comparative 2-colonnes

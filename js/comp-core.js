@@ -30,6 +30,7 @@ var hasUnsavedChanges = false; // AM-03: suivi des modifications non sauvegardé
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         editedRecipes = JSON.parse(saved);
+        window.editedRecipes = editedRecipes;
         hasUnsavedChanges = false; // données chargées = pas de modifications pendantes
       }
     } catch (e) {
@@ -42,6 +43,8 @@ var hasUnsavedChanges = false; // AM-03: suivi des modifications non sauvegardé
     // AM-03: marquer comme modifié si auto-save (pas encore confirmé par l'utilisateur)
     if (!isManualSave) hasUnsavedChanges = true;
     try {
+      if (window.editedRecipes) editedRecipes = window.editedRecipes;
+      window.editedRecipes = editedRecipes;
       // 1. Sauvegarder dans STORAGE_KEY (mémoire locale du comparateur)
       localStorage.setItem(STORAGE_KEY, JSON.stringify(editedRecipes));
 
@@ -132,7 +135,7 @@ var r = cleanMap.get(cName);
   }
 
   // Exposer globalement pour exécution directe
-  window.saveEdits = () => saveEdits(true);
+  window.saveEdits = saveEdits;
   window.saveAllEdits = () => saveEdits(true);
 
   // Chargement des prix personnalisés des matières premières
@@ -224,9 +227,17 @@ var sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^
       });
     });
 
-    renderCategoriesBar();
-    renderSummaryKPIs();
-    renderRecipeCards();
+    window.allRecipes = allRecipes;
+    window.editedRecipes = editedRecipes;
+
+    if (typeof renderCategoriesBar === 'function') renderCategoriesBar();
+    else if (window.renderCategoriesBar) window.renderCategoriesBar();
+
+    if (typeof renderSummaryKPIs === 'function') renderSummaryKPIs();
+    else if (window.renderSummaryKPIs) window.renderSummaryKPIs();
+
+    if (typeof renderRecipeCards === 'function') renderRecipeCards();
+    else if (window.renderRecipeCards) window.renderRecipeCards();
   }
 
   // Rendu de la barre des catégories
