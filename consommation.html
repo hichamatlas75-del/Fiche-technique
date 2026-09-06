@@ -904,6 +904,52 @@
       </div>
     </div>
 
+    <!-- SÉLECTEUR DE PÉRIODE & CALENDRIER LIBRE -->
+    <div class="comp-period-card">
+      <div class="comp-period-header">
+        <div class="comp-period-title-group">
+          <span class="comp-period-icon">📅</span>
+          <div>
+            <h3 class="comp-period-title">Période d'Analyse &amp; Calendrier Libre</h3>
+            <p class="comp-period-desc">Choisissez une période prédéfinie ou sélectionnez librement vos dates pour comparer vos ventes par jour de semaine, semaine et mois.</p>
+          </div>
+        </div>
+        <div class="comp-active-dates-badge" id="comp-active-dates-badge">
+          ⏳ Chargement de la période...
+        </div>
+      </div>
+
+      <div class="comp-period-controls">
+        <!-- Raccourcis Presets -->
+        <div class="comp-presets-bar">
+          <span class="comp-presets-label">Raccourcis :</span>
+          <button type="button" class="comp-preset-pill active" id="btn-preset-all" data-preset="all" onclick="setComparatorDatePreset('all')">🌐 Toute la Période</button>
+          <button type="button" class="comp-preset-pill" id="btn-preset-thismonth" data-preset="thismonth" onclick="setComparatorDatePreset('thismonth')">🗓️ Mois en Cours</button>
+          <button type="button" class="comp-preset-pill" id="btn-preset-prevmonth" data-preset="prevmonth" onclick="setComparatorDatePreset('prevmonth')">⏮️ Mois Précédent</button>
+          <button type="button" class="comp-preset-pill" id="btn-preset-last30" data-preset="last30" onclick="setComparatorDatePreset('last30')">📊 30 Derniers Jours</button>
+          <button type="button" class="comp-preset-pill" id="btn-preset-quarter" data-preset="quarter" onclick="setComparatorDatePreset('quarter')">📆 Trimestre (90j)</button>
+        </div>
+
+        <!-- Sélecteur de Dates Libres -->
+        <div class="comp-custom-dates-bar">
+          <div class="comp-date-input-wrap">
+            <label for="comp-date-start">Du :</label>
+            <input type="date" id="comp-date-start" class="comp-date-input" onchange="onComparatorDateInputChange()" />
+          </div>
+          <div class="comp-date-input-wrap">
+            <label for="comp-date-end">Au :</label>
+            <input type="date" id="comp-date-end" class="comp-date-input" onchange="onComparatorDateInputChange()" />
+          </div>
+          <button type="button" class="btn btn-primary comp-btn-apply" onclick="applyComparatorCustomDateRange()" title="Appliquer la sélection de dates">
+            🔍 Filtrer la Période
+          </button>
+          <button type="button" class="btn btn-secondary comp-btn-reset" onclick="setComparatorDatePreset('all')" title="Réinitialiser à toute la période">
+            🔄 Tout Réinitialiser
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- BARRE DE CONTRÔLES : MODES DE COMPARAISON & FILTRE CATÉGORIE -->
     <div class="comp-controls-toolbar">
       <!-- 1. SÉLECTEUR DE MODE TEMPOREL (3 MODES) -->
@@ -926,14 +972,14 @@
         </label>
         <select id="comp-cat-select" onchange="setComparatorCategoryFilter(this.value)" class="comp-cat-select">
           <option value="all">📁 Toutes les Catégories</option>
-          <option value="petit-dej">🥐 Petit Déjeuner & Brunch</option>
-          <option value="plat">🥩 Plats (Viandes & Poissons)</option>
+          <option value="petit-dej">🥐 Petit Déjeuner &amp; Brunch</option>
+          <option value="plat">🥩 Plats (Viandes &amp; Poissons)</option>
           <option value="pizza">🍕 Pizzas</option>
-          <option value="pasta">🍝 Pasta & Pâtes</option>
-          <option value="burger">🍔 Burgers & Sandwiches</option>
+          <option value="pasta">🍝 Pasta &amp; Pâtes</option>
+          <option value="burger">🍔 Burgers &amp; Sandwiches</option>
           <option value="salade">🥗 Salades Composées</option>
-          <option value="boisson">☕ Bar & Boissons</option>
-          <option value="dessert">🍰 Desserts & Douceurs</option>
+          <option value="boisson">☕ Bar &amp; Boissons</option>
+          <option value="dessert">🍰 Desserts &amp; Douceurs</option>
         </select>
       </div>
     </div>
@@ -956,6 +1002,9 @@
       </div>
       <div id="comp-chart-bars-container" class="comp-bars-wrapper"></div>
     </div>
+
+    <!-- PANNEAU DÉCISIONNEL STRATÉGIQUE : DÉCISIONS MENU & PRIX FUTURS -->
+    <div id="comp-decision-card" class="comp-decision-card"></div>
 
     <!-- TABLEAU COMPARATIF DÉTAILLÉ -->
     <div class="table-responsive" style="margin-top:16px;">

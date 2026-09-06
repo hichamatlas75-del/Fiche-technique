@@ -2673,4 +2673,417 @@
   color: #854d0e;
 }
 
+/* ========================================================
+   SÉLECTEUR DE PÉRIODE & CALENDRIER LIBRE DU COMPARATEUR
+======================================================== */
+.comp-period-card {
+  background: var(--paper, #ffffff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
 
+.comp-period-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border, #e2e8f0);
+}
+
+.comp-period-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comp-period-icon {
+  font-size: 22px;
+}
+
+.comp-period-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text, #0f172a);
+  margin: 0;
+}
+
+.comp-period-desc {
+  font-size: 12px;
+  color: var(--muted, #64748b);
+  margin: 2px 0 0 0;
+}
+
+.comp-active-dates-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.25);
+  color: #0284c7;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.comp-period-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comp-presets-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.comp-presets-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--muted, #64748b);
+  margin-right: 4px;
+}
+
+.comp-preset-pill {
+  background: var(--bg, #f8fafc);
+  border: 1px solid var(--border, #e2e8f0);
+  color: var(--text, #334155);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.comp-preset-pill:hover {
+  background: var(--primary, #0284c7);
+  color: #ffffff;
+  border-color: var(--primary, #0284c7);
+  transform: translateY(-1px);
+}
+
+.comp-preset-pill.active {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+}
+
+.comp-custom-dates-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.comp-date-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.comp-date-input-wrap label {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted, #64748b);
+}
+
+.comp-date-input {
+  background: var(--bg, #ffffff);
+  border: 1px solid var(--border, #cbd5e1);
+  color: var(--text, #0f172a);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.comp-date-input:focus {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2);
+}
+
+.comp-btn-apply {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 8px;
+}
+
+.comp-btn-reset {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+/* ========================================================
+   RADAR DÉCISIONNEL MÉTIER : MENU PROCHAIN & PRIX FUTURS
+======================================================== */
+.comp-decision-card {
+  background: var(--paper, #ffffff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.comp-decision-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border, #e2e8f0);
+}
+
+.comp-decision-title {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text, #0f172a);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.comp-decision-sub {
+  font-size: 12.5px;
+  color: var(--muted, #64748b);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.comp-decision-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.comp-decision-box {
+  background: var(--bg, #f8fafc);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.comp-decision-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.comp-decision-box.box-danger::before {
+  background: #ef4444;
+}
+
+.comp-decision-box.box-success::before {
+  background: #10b981;
+}
+
+.comp-decision-box.box-warning::before {
+  background: #f59e0b;
+}
+
+.comp-decision-box.box-purple::before {
+  background: #8b5cf6;
+}
+
+.comp-box-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comp-box-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--text, #0f172a);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.comp-box-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.comp-box-badge.danger {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.comp-box-badge.success {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
+
+.comp-box-badge.warning {
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+}
+
+.comp-box-badge.purple {
+  background: rgba(139, 92, 246, 0.12);
+  color: #8b5cf6;
+}
+
+.comp-box-content {
+  font-size: 12.5px;
+  color: var(--text, #1e293b);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comp-dish-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background: var(--paper, #ffffff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 8px;
+}
+
+.comp-dish-name {
+  font-weight: 700;
+  color: var(--text, #0f172a);
+}
+
+.comp-dish-meta {
+  font-size: 11.5px;
+  color: var(--muted, #64748b);
+}
+
+.comp-action-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.comp-action-badge.eliminate {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.comp-action-badge.boost {
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.comp-action-badge.price-up {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.comp-simul-box {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px dashed rgba(16, 185, 129, 0.4);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 4px;
+}
+
+.comp-simul-title {
+  font-weight: 800;
+  color: #065f46;
+  font-size: 12px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.comp-simul-text {
+  font-size: 12px;
+  color: #047857;
+  line-height: 1.45;
+}
+
+.comp-simul-gain {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #10b981;
+  display: block;
+  margin: 6px 0 2px 0;
+}
+
+.comp-badge-conseil {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.comp-badge-conseil.loco {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
+
+.comp-badge-conseil.hausse {
+  background: rgba(2, 132, 199, 0.12);
+  color: #0284c7;
+}
+
+.comp-badge-conseil.flop {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.comp-badge-conseil.promo {
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+}
+
+@media (max-width: 768px) {
+  .comp-period-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .comp-presets-bar {
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+  .comp-custom-dates-bar {
+    justify-content: space-between;
+  }
+}

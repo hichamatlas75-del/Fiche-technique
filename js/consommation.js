@@ -5437,33 +5437,165 @@ function renderSummaryTopIngredientsPodium() {
 
 /* ========================================================
    11.C COMPARATEUR TEMPOREL (JOUR DE SEMAINE, SEMAINE, MOIS)
+/* ========================================================
+   COMPARATEUR TEMPOREL MULTI-PÉRIODES & AIDE À LA DÉCISION MÉTIER
 ======================================================== */
 let comparatorMode = 'dayofweek'; // 'dayofweek', 'week', 'month'
 let comparatorCategoryFilter = 'all';
+let comparatorDatePreset = 'all'; // 'all', 'thismonth', 'prevmonth', 'last30', 'quarter', 'custom'
+let comparatorCustomStartDate = '';
+let comparatorCustomEndDate = '';
+
+// Helper Métier : Exclut les compléments de caisse et faux plats de l'analyse des Moins Vendus
+function isExcludedFromLeastSold(productName, familyName) {
+  if (!productName) return true;
+  const raw = `${productName} ${familyName || ''}`.toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
+  // 1. Divers Food / Divers
+  if (/\bdivers\b/.test(raw) || raw.includes('divers food') || raw.includes('divers cuisine') || raw.includes('article divers') || raw.includes('autre divers')) {
+    return true;
+  }
+  // 2. Suppléments Cuisine / Extras
+  if (raw.includes('suppliment cuisine') || raw.includes('supplement cuisine') || 
+      raw.includes('supp cuisine') || raw.includes('extra cuisine') ||
+      raw.includes('suppliment') || raw.includes('supplement') || 
+      /\bsupp\b/.test(raw) || /\bextra\b/.test(raw) ||
+      raw.includes('supp ') || raw.includes('extra ') ||
+      raw.includes('supplement frites') || raw.includes('extra steak') || 
+      raw.includes('extra cheddar') || raw.includes('supplement sauce') || raw.includes('extra pain')) {
+    return true;
+  }
+  // 3. À la carte / Consommations Internes / Repas Personnel
+  if (raw.includes('a la carte') || raw.includes('consommation interne') || 
+      raw.includes('personnel') || raw.includes('repas staff') || raw.includes('offert')) {
+    return true;
+  }
+  // 4. Menu Enfant / Kids
+  if (raw.includes('menu enfant') || raw.includes('formule enfant') || raw.includes('kids menu') || raw.includes('enfant')) {
+    return true;
+  }
+  // 5. Suppléments Petit Déjeuner
+  if (raw.includes('suppliment petit') || raw.includes('supplement petit') || 
+      raw.includes('supp petit') || raw.includes('suppliment dej') || 
+      raw.includes('supplement dej') || raw.includes('extra oeuf') || raw.includes('supplement miel')) {
+    return true;
+  }
+  // 6. Eaux embouteillées et Sodas industriels de négoce (produits non cuisinés)
+  if (raw.includes('coca') || raw.includes('fanta') || raw.includes('sprite') || 
+      raw.includes('hawai') || raw.includes('poms') || raw.includes('schweppes') || 
+      raw.includes('sidi ali') || raw.includes('ain saiss') || raw.includes('oulmes') || 
+      raw.includes('eau minerale') || raw.includes('canette') || raw.includes('red bull')) {
+    return true;
+  }
+
+  return false;
+}
+
+function setComparatorDatePreset(preset) {
+  comparatorDatePreset = preset;
+  renderComparatorTab();
+}
+
+function onComparatorDateInputChange() {
+  const startInput = document.getElementById('comp-date-start');
+  const endInput = document.getElementById('comp-date-end');
+  if (startInput && endInput) {
+    comparatorCustomStartDate = startInput.value;
+    comparatorCustomEndDate = endInput.value;
+    comparatorDatePreset = 'custom';
+    renderComparatorTab();
+  }
+}
+
+function applyComparatorCustomDateRange() {
+  const startInput = document.getElementById('comp-date-start');
+  const endInput = document.getElementById('comp-date-end');
+  if (startInput && endInput) {
+    comparatorCustomStartDate = startInput.value;
+    comparatorCustomEndDate = endInput.value;
+    comparatorDatePreset = 'custom';
+    renderComparatorTab();
+  }
+}
 
 function getComparatorSalesDataset() {
   const allDates = Object.keys(monthlySalesDB || {}).sort();
   if (allDates.length === 0) {
-    return { dates: [], salesByDate: {}, scopeLabel: 'Aucune donnée' };
+    return { dates: [], salesByDate: {}, scopeLabel: 'Aucune donnée', startDate: '', endDate: '' };
   }
 
-  // Si on est en mode mois ('month'), on filtre sur le mois sélectionné
-  // Si on est en mode jour ou année, on prend l'année sélectionnée (ou toutes les dates si vide)
-  const selectedYear = (selectedYearMonth && selectedYearMonth.length >= 4) ? selectedYearMonth.slice(0, 4) : new Date().getFullYear().toString();
-  const targetPrefix = (currentViewMode === 'month') ? selectedYearMonth : selectedYear;
-  let activeDates = allDates.filter(d => d.startsWith(targetPrefix));
-  if (activeDates.length === 0) activeDates = allDates;
+  const minDate = allDates[0];
+  const maxDate = allDates[allDates.length - 1];
+
+  let startDate = minDate;
+  let endDate = maxDate;
+
+  if (comparatorDatePreset === 'all') {
+    startDate = minDate;
+    endDate = maxDate;
+  } else if (comparatorDatePreset === 'thismonth') {
+    const latestYM = maxDate.slice(0, 7);
+    startDate = `${latestYM}-01`;
+    endDate = `${latestYM}-31`;
+  } else if (comparatorDatePreset === 'prevmonth') {
+    const latestYM = maxDate.slice(0, 7);
+    const [yStr, mStr] = latestYM.split('-');
+    let y = parseInt(yStr, 10);
+    let m = parseInt(mStr, 10) - 1;
+    if (m === 0) {
+      m = 12;
+      y -= 1;
+    }
+    const prevYM = `${y}-${String(m).padStart(2, '0')}`;
+    startDate = `${prevYM}-01`;
+    endDate = `${prevYM}-31`;
+  } else if (comparatorDatePreset === 'last30') {
+    const dMax = new Date(maxDate + 'T00:00:00');
+    dMax.setDate(dMax.getDate() - 29);
+    startDate = dMax.toISOString().slice(0, 10);
+    endDate = maxDate;
+  } else if (comparatorDatePreset === 'quarter') {
+    const dMax = new Date(maxDate + 'T00:00:00');
+    dMax.setDate(dMax.getDate() - 89);
+    startDate = dMax.toISOString().slice(0, 10);
+    endDate = maxDate;
+  } else if (comparatorDatePreset === 'custom') {
+    startDate = comparatorCustomStartDate || minDate;
+    endDate = comparatorCustomEndDate || maxDate;
+  }
+
+  // Filtrage strict des dates comprises dans l'intervalle
+  let activeDates = allDates.filter(d => {
+    if (startDate && d < startDate) return false;
+    if (endDate && d > endDate) return false;
+    return true;
+  });
 
   const salesByDate = {};
   activeDates.forEach(d => {
     salesByDate[d] = monthlySalesDB[d] || [];
   });
 
-  const scopeLabel = (currentViewMode === 'month')
-    ? `Mois ${formatMonthFR(selectedYearMonth)}`
-    : `Année ${selectedYear}`;
+  let scopeLabel = '';
+  if (activeDates.length === 0) {
+    scopeLabel = `Aucune vente entre le ${formatDateFR(startDate)} et le ${formatDateFR(endDate)}`;
+  } else if (comparatorDatePreset === 'all') {
+    scopeLabel = `Toute la Période (${formatDateFR(activeDates[0])} — ${formatDateFR(activeDates[activeDates.length - 1])})`;
+  } else if (comparatorDatePreset === 'thismonth') {
+    scopeLabel = `Mois en cours (${formatMonthFR(startDate.slice(0, 7))})`;
+  } else if (comparatorDatePreset === 'prevmonth') {
+    scopeLabel = `Mois Précédent (${formatMonthFR(startDate.slice(0, 7))})`;
+  } else if (comparatorDatePreset === 'last30') {
+    scopeLabel = `30 Derniers Jours (${formatDateFR(startDate)} — ${formatDateFR(endDate)})`;
+  } else if (comparatorDatePreset === 'quarter') {
+    scopeLabel = `Dernier Trimestre (${formatDateFR(startDate)} — ${formatDateFR(endDate)})`;
+  } else {
+    scopeLabel = `Période Libre (${formatDateFR(startDate)} — ${formatDateFR(endDate)})`;
+  }
 
-  return { dates: activeDates, salesByDate, scopeLabel };
+  return { dates: activeDates, salesByDate, scopeLabel, startDate, endDate };
 }
 
 // 1. Calcul Statistiques par Jour de la Semaine (Lun - Dim)
@@ -5511,7 +5643,7 @@ function computeDayOfWeekStats(dataset, categoryFilter) {
       target.totalQty += q;
 
       if (!target.products[s.product]) {
-        target.products[s.product] = { product: s.product, qty: 0, total: 0 };
+        target.products[s.product] = { product: s.product, family: s.family || '', qty: 0, total: 0 };
       }
       target.products[s.product].qty += q;
       target.products[s.product].total += t;
@@ -5538,8 +5670,12 @@ function computeDayOfWeekStats(dataset, categoryFilter) {
     if (prods.length > 0) {
       prods.sort((a, b) => b.total - a.total || b.qty - a.qty);
       topProduct = prods[0];
-      const prodsByQtyAsc = [...prods].sort((a, b) => a.qty - b.qty || a.total - b.total);
-      leastProduct = prodsByQtyAsc[0];
+
+      // Exclusion stricte des suppléments, divers, menus enfants pour trouver le vrai plat moins vendu
+      const eligibleDishes = prods.filter(p => !isExcludedFromLeastSold(p.product, p.family));
+      const candidateList = eligibleDishes.length > 0 ? eligibleDishes : prods;
+      const prodsByQtyAsc = [...candidateList].sort((a, b) => a.qty - b.qty || a.total - b.total);
+      leastProduct = prodsByQtyAsc[0] || null;
     }
 
     grandTotalCA += data.totalCA;
@@ -5632,7 +5768,7 @@ function computeWeeklyStats(dataset, categoryFilter) {
       wObj.totalCA += t;
       wObj.totalQty += q;
 
-      if (!wObj.products[s.product]) wObj.products[s.product] = { product: s.product, qty: 0, total: 0 };
+      if (!wObj.products[s.product]) wObj.products[s.product] = { product: s.product, family: s.family || '', qty: 0, total: 0 };
       wObj.products[s.product].qty += q;
       wObj.products[s.product].total += t;
 
@@ -5664,7 +5800,11 @@ function computeWeeklyStats(dataset, categoryFilter) {
     const prods = Object.values(w.products).filter(p => p.qty > 0);
     prods.sort((a, b) => b.total - a.total || b.qty - a.qty);
     const topProduct = prods[0] || null;
-    const prodsByQtyAsc = [...prods].sort((a, b) => a.qty - b.qty || a.total - b.total);
+
+    // Exclusion stricte des suppléments, divers, menus enfants pour trouver le vrai plat moins vendu
+    const eligibleDishes = prods.filter(p => !isExcludedFromLeastSold(p.product, p.family));
+    const candidateList = eligibleDishes.length > 0 ? eligibleDishes : prods;
+    const prodsByQtyAsc = [...candidateList].sort((a, b) => a.qty - b.qty || a.total - b.total);
     const leastProduct = prodsByQtyAsc[0] || null;
 
     let topCatStr = '-';
@@ -5743,7 +5883,7 @@ function computeMonthlyStats(dataset, categoryFilter) {
       mObj.totalCA += t;
       mObj.totalQty += q;
 
-      if (!mObj.products[s.product]) mObj.products[s.product] = { product: s.product, qty: 0, total: 0 };
+      if (!mObj.products[s.product]) mObj.products[s.product] = { product: s.product, family: s.family || '', qty: 0, total: 0 };
       mObj.products[s.product].qty += q;
       mObj.products[s.product].total += t;
 
@@ -5775,7 +5915,11 @@ function computeMonthlyStats(dataset, categoryFilter) {
     const prods = Object.values(m.products).filter(p => p.qty > 0);
     prods.sort((a, b) => b.total - a.total || b.qty - a.qty);
     const topProduct = prods[0] || null;
-    const prodsByQtyAsc = [...prods].sort((a, b) => a.qty - b.qty || a.total - b.total);
+
+    // Exclusion stricte des suppléments, divers, menus enfants pour trouver le vrai plat moins vendu
+    const eligibleDishes = prods.filter(p => !isExcludedFromLeastSold(p.product, p.family));
+    const candidateList = eligibleDishes.length > 0 ? eligibleDishes : prods;
+    const prodsByQtyAsc = [...candidateList].sort((a, b) => a.qty - b.qty || a.total - b.total);
     const leastProduct = prodsByQtyAsc[0] || null;
 
     return {
@@ -5803,12 +5947,12 @@ function computeMonthlyStats(dataset, categoryFilter) {
     grandTotalCA,
     grandTotalQty,
     avgMonthCA,
-    bestMonth,
+bestMonth,
     quietMonth
   };
 }
 
-// Fonction maîtresse de rendu du Comparateur
+/// Fonction maîtresse de rendu du Comparateur
 function renderComparatorTab() {
   const container = document.getElementById('tab-comparator');
   if (!container) return;
@@ -5821,6 +5965,23 @@ function renderComparatorTab() {
     const catObj = GC_CATEGORIES.find(c => c.id === comparatorCategoryFilter);
     const catLabel = catObj ? `${catObj.icon} ${catObj.label}` : 'Toutes les Catégories';
     periodBadge.textContent = `Période active : ${dataset.scopeLabel} • Filtre : ${catLabel} • ${dataset.dates.length} jours d'activité analysés`;
+  }
+
+  // Synchronisation des boutons de raccourcis presets
+  const presetPills = document.querySelectorAll('.comp-preset-pill');
+  presetPills.forEach(p => {
+    p.classList.toggle('active', p.getAttribute('data-preset') === comparatorDatePreset);
+  });
+
+  // Synchronisation des champs date libres
+  const dateStartInput = document.getElementById('comp-date-start');
+  const dateEndInput = document.getElementById('comp-date-end');
+  if (dateStartInput && dataset.startDate) dateStartInput.value = dataset.startDate;
+  if (dateEndInput && dataset.endDate) dateEndInput.value = dataset.endDate;
+
+  const activeDatesBadge = document.getElementById('comp-active-dates-badge');
+  if (activeDatesBadge) {
+    activeDatesBadge.innerHTML = `📅 <strong>${dataset.dates.length} jours d'activité</strong> (${dataset.startDate || '-'} ➔ ${dataset.endDate || '-'})`;
   }
 
   // Mise à jour des boutons de mode
@@ -5839,14 +6000,22 @@ function renderComparatorTab() {
 
   // Si aucune donnée de vente
   if (!dataset.dates || dataset.dates.length === 0) {
-    document.getElementById('comp-kpis-container').innerHTML = '';
-    document.getElementById('comp-chart-bars-container').innerHTML = `
-      <div style="text-align:center; padding:40px; color:var(--muted);">
-        Aucune donnée de vente disponible pour cette période. Importez un fichier de ventes ou synchronisez le dossier.
-      </div>
-    `;
-    document.getElementById('comp-table-thead').innerHTML = '';
-    document.getElementById('comp-table-tbody').innerHTML = '';
+    const kpisCont = document.getElementById('comp-kpis-container');
+    if (kpisCont) kpisCont.innerHTML = '';
+    const chartBars = document.getElementById('comp-chart-bars-container');
+    if (chartBars) {
+      chartBars.innerHTML = `
+        <div style="text-align:center; padding:40px; color:var(--muted);">
+          Aucune donnée de vente disponible pour cette période (${dataset.startDate || ''} ➔ ${dataset.endDate || ''}). Modifiez la sélection ou cliquez sur « Toute la Période ».
+        </div>
+      `;
+    }
+    const decCard = document.getElementById('comp-decision-card');
+    if (decCard) decCard.innerHTML = '';
+    const th = document.getElementById('comp-table-thead');
+    if (th) th.innerHTML = '';
+    const tb = document.getElementById('comp-table-tbody');
+    if (tb) tb.innerHTML = '';
     return;
   }
 
@@ -5857,6 +6026,193 @@ function renderComparatorTab() {
   } else if (comparatorMode === 'month') {
     renderMonthlyComparison(dataset);
   }
+
+  // Rendu du Radar Décisionnel IA (Menu Prochain & Prix Futurs)
+  renderComparatorDecisionPanel(dataset);
+}
+
+// Radar Décisionnel Opérationnel (Aide à la Décision Menu & Prix)
+function renderComparatorDecisionPanel(dataset) {
+  const panel = document.getElementById('comp-decision-card');
+  if (!panel) return;
+
+  const productsMap = {};
+  let totalPeriodCA = 0;
+  let totalPeriodQty = 0;
+
+  dataset.dates.forEach(dStr => {
+    const sales = dataset.salesByDate[dStr] || [];
+    sales.forEach(s => {
+      const cat = detectProductCategory(s.product, s.family, s.matchedRecipe);
+      if (comparatorCategoryFilter !== 'all' && cat !== comparatorCategoryFilter) return;
+
+      const q = parseFloat(s.qty) || 0;
+      const p = parseFloat(s.price) || 0;
+      const t = parseFloat(s.total) || (q * p);
+
+      if (!productsMap[s.product]) {
+        productsMap[s.product] = {
+          product: s.product,
+          family: s.family || '',
+          category: cat,
+          qty: 0,
+          total: 0,
+          price: p
+        };
+      }
+      productsMap[s.product].qty += q;
+      productsMap[s.product].total += t;
+      totalPeriodCA += t;
+      totalPeriodQty += q;
+    });
+  });
+
+  const allDishes = Object.values(productsMap);
+  if (allDishes.length === 0) {
+    panel.innerHTML = '';
+    return;
+  }
+
+  // Filtrer les vrais plats culinaires (exclusion stricte des suppléments, divers, internes, sodas)
+  const eligibleDishes = allDishes.filter(d => !isExcludedFromLeastSold(d.product, d.family));
+  const candidateList = eligibleDishes.length >= 3 ? eligibleDishes : allDishes;
+
+  // 1. FLOP DISHES (Moins vendus réels pour arbitrage)
+  const flops = [...candidateList].sort((a, b) => a.qty - b.qty || a.total - b.total).slice(0, 3);
+
+  // 2. STARS & CHEVAUX DE BATAILLE (Top volumes)
+  const locomotives = [...candidateList].sort((a, b) => b.qty - a.qty || b.total - a.total).slice(0, 3);
+
+  // 3. STATISTIQUES D'AFFLUENCE JOURS
+  const dowStats = computeDayOfWeekStats(dataset, comparatorCategoryFilter);
+  const leaderDay = dowStats.leaderDay;
+  const quietDay = dowStats.quietDay;
+
+  // Simulation Trésorerie : Hausse +2 à +5 DH sur les 3 Locomotives
+  const activeDays = Math.max(1, dataset.dates.length);
+  const annualFactor = 365 / activeDays;
+  const topVolumePeriod = locomotives.reduce((acc, x) => acc + x.qty, 0);
+  const annualTopVolume = Math.round(topVolumePeriod * annualFactor);
+  const gain2DH = Math.round(annualTopVolume * 2);
+  const gain3DH = Math.round(annualTopVolume * 3);
+  const gain5DH = Math.round(annualTopVolume * 5);
+
+  panel.innerHTML = `
+    <div class="comp-decision-header">
+      <div>
+        <h3 class="comp-decision-title">
+          🧭 Radar Décisionnel : Arbitrage Prochaine Carte &amp; Stratégie de Prix
+        </h3>
+        <p class="comp-decision-sub">
+          Analyse décisionnelle basée sur <strong>${dataset.dates.length} jours d'historique de ventes réelles</strong>. Utilisez ces leviers pour composer la prochaine carte et optimiser vos prix sans perdre de clients.
+        </p>
+      </div>
+      <span class="comp-active-dates-badge" style="background:rgba(139, 92, 246, 0.1); color:#8b5cf6; border-color:rgba(139, 92, 246, 0.3);">
+        🎯 Aide au Choix Métier
+      </span>
+    </div>
+
+    <div class="comp-decision-grid">
+      <!-- 1. SOUS-PERFORMANTS / FLOPS -->
+      <div class="comp-decision-box box-danger">
+        <div class="comp-box-header">
+          <h4 class="comp-box-title">🚨 Plats Sous-Performants (Arbitrage Carte)</h4>
+          <span class="comp-box-badge danger">À Décider</span>
+        </div>
+        <div class="comp-box-content">
+          <p style="margin:0; font-size:12px; color:var(--muted);">
+            Vrais plats culinaires ayant enregistré les plus faibles volumes de commande sur la période :
+          </p>
+          ${flops.map(f => {
+            const isVeryLow = f.qty <= 3;
+            const actionTag = isVeryLow 
+              ? '<span class="comp-action-badge eliminate">❌ Supprimer</span>' 
+              : '<span class="comp-action-badge boost">🔄 Repenser / Saison</span>';
+            const advice = isVeryLow 
+              ? 'Rotation quasi-nulle. Supprimez pour réduire le gaspillage et libérer la mise en place.' 
+              : 'Faible rotation. À proposer en suggestion du chef le midi ou à reformuler.';
+            return `
+              <div class="comp-dish-row">
+                <div>
+                  <div class="comp-dish-name">${escapeHtml(f.product)}</div>
+                  <div class="comp-dish-meta">${f.qty.toLocaleString('fr-FR')} vendus • ${f.total.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH de CA</div>
+                  <div style="font-size:11px; color:var(--muted); margin-top:2px;">${advice}</div>
+                </div>
+                <div>${actionTag}</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- 2. LEVIERS DE PRIX (+2 à +5 DH) -->
+      <div class="comp-decision-box box-success">
+        <div class="comp-box-header">
+          <h4 class="comp-box-title">💎 Leviers de Prix (Hausse Douce +2 à +5 DH)</h4>
+          <span class="comp-box-badge success">Marge Immédiate</span>
+        </div>
+        <div class="comp-box-content">
+          <p style="margin:0; font-size:12px; color:var(--muted);">
+            Plats locomotives à très fort volume où un ajustement de prix génère un gain cash direct sans frottement client :
+          </p>
+          ${locomotives.map(s => `
+            <div class="comp-dish-row">
+              <div>
+                <div class="comp-dish-name">⭐ ${escapeHtml(s.product)}</div>
+                <div class="comp-dish-meta">${s.qty.toLocaleString('fr-FR')} vendus (${totalPeriodQty > 0 ? Math.round((s.qty / totalPeriodQty) * 100) : 0}% du volume total) • Prix : ${s.price ? s.price + ' DH' : '-'}</div>
+              </div>
+              <span class="comp-action-badge price-up">+2 à +3 DH</span>
+            </div>
+          `).join('')}
+
+          <div class="comp-simul-box">
+            <div class="comp-simul-title">💰 Simulateur de Trésorerie Nette Annuelle</div>
+            <div class="comp-simul-text">
+              En augmentant de <strong>+2 DH</strong> vos 3 meilleures locomotives (${locomotives.map(s => escapeHtml(s.product)).join(', ')}) :
+              <span class="comp-simul-gain">+${gain2DH.toLocaleString('fr-FR')} DH / an</span>
+              de trésorerie nette additionnelle pure, avec un risque de perte client quasi-nul.
+              <div style="font-size:11px; color:#065f46; margin-top:4px;">
+                💡 À +3 DH : <strong>+${gain3DH.toLocaleString('fr-FR')} DH</strong> • À +5 DH : <strong>+${gain5DH.toLocaleString('fr-FR')} DH</strong>.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. STRATÉGIE D'AFFLUENCE HEBDOMADAIRE -->
+      <div class="comp-decision-box box-warning">
+        <div class="comp-box-header">
+          <h4 class="comp-box-title">⏰ Stratégie d'Affluence &amp; Rotation</h4>
+          <span class="comp-box-badge warning">Organisation Cuisine</span>
+        </div>
+        <div class="comp-box-content">
+          ${leaderDay ? `
+            <div class="comp-dish-row">
+              <div>
+                <div class="comp-dish-name">🔥 Jour Leader : ${leaderDay.icon} ${leaderDay.name}</div>
+                <div class="comp-dish-meta">${leaderDay.avgCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH/j moyen (${leaderDay.sharePct.toFixed(1)}% du CA hebdo)</div>
+                <div style="font-size:11.5px; color:#b45309; margin-top:3px;">
+                  👉 <strong>Action :</strong> Sécuriser les approvisionnements des viandes et poissons nobles le veille. Privilégier les préparations rapides pour accélérer le turnover des tables.
+                </div>
+              </div>
+            </div>
+          ` : ''}
+
+          ${quietDay ? `
+            <div class="comp-dish-row">
+              <div>
+                <div class="comp-dish-name">📉 Jour Calme : ${quietDay.icon} ${quietDay.name}</div>
+                <div class="comp-dish-meta">${quietDay.avgCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH/j moyen</div>
+                <div style="font-size:11.5px; color:#b45309; margin-top:3px;">
+                  👉 <strong>Action :</strong> Lancer une formule midi attractive (Plat du Jour + Café offert) ou un tarif spécial pour dynamiser la fréquentation sans dégrader l'image.
+                </div>
+              </div>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 // 1. Rendu Comparateur par Jour de Semaine
@@ -5921,28 +6277,30 @@ function renderDayOfWeekComparison(dataset) {
 
   chartWrapper.innerHTML = stats.items.map(item => {
     const isLeader = stats.leaderDay && stats.leaderDay.dow === item.dow;
-    const isQuiet = stats.quietDay && stats.quietDay.dow === item.dow && stats.items.filter(x => x.occCount > 0).length > 1;
-    const barWidthPct = maxAvgCA > 0 ? Math.max(3, Math.round((item.avgCA / maxAvgCA) * 100)) : 0;
+    const isQuiet = stats.quietDay && stats.quietDay.dow === item.dow;
+    let barClass = '';
+    if (isLeader) barClass = 'leader';
+    else if (isQuiet) barClass = 'quiet';
 
-    let fillClass = '';
-    if (isLeader) fillClass = 'leader';
-    else if (isQuiet) fillClass = 'quiet';
+    const barWidthPct = maxAvgCA > 0 ? Math.max(4, Math.round((item.avgCA / maxAvgCA) * 100)) : 0;
+    const isPos = item.deltaVsAvgPct >= 0;
+    const deltaTag = `<span class="comp-delta-tag ${isPos ? 'pos' : 'neg'}">${isPos ? '▲ +' : '▼ '}${item.deltaVsAvgPct.toFixed(1)}%</span>`;
 
     return `
       <div class="comp-bar-row">
         <div class="comp-bar-label">
-          <span>${item.icon}</span>
-          <span>${item.name}</span>
-          ${isLeader ? '<span title="Leader d\'affluence">🏆</span>' : ''}
+          <span>${item.icon} ${item.name}</span>
+          ${isLeader ? '<span>🥇</span>' : ''}
+          ${isQuiet ? '<span>📉</span>' : ''}
         </div>
         <div class="comp-bar-track">
-          <div class="comp-bar-fill ${fillClass}" style="width: ${barWidthPct}%;"></div>
+          <div class="comp-bar-fill ${barClass}" style="width: ${barWidthPct}%;"></div>
         </div>
         <div class="comp-bar-ca">
-          ${item.avgCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH <span style="font-size:10.5px; font-weight:normal; color:var(--muted);">/j</span>
+          ${item.avgCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH/j
         </div>
         <div class="comp-bar-share">
-          ${item.sharePct.toFixed(1)}% CA
+          ${item.sharePct.toFixed(1)}% ${deltaTag}
         </div>
       </div>
     `;
@@ -5961,6 +6319,7 @@ function renderDayOfWeekComparison(dataset) {
       <th style="text-align:center;">Écart vs Moyenne</th>
       <th>⭐ Produit Vedette</th>
       <th>🔻 Moins Vendu</th>
+      <th>💡 Conseil Métier</th>
     </tr>
   `;
 
@@ -5974,6 +6333,13 @@ function renderDayOfWeekComparison(dataset) {
     const topProdStr = item.topProduct ? `<strong>${escapeHtml(item.topProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.topProduct.qty.toLocaleString('fr-FR')} u.)</span>` : '<span style="color:var(--muted);">-</span>';
     const leastProdStr = item.leastProduct ? `<strong style="color:#ef4444;">${escapeHtml(item.leastProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.leastProduct.qty.toLocaleString('fr-FR')} u.)</span>` : '<span style="color:var(--muted);">-</span>';
 
+    let conseilTag = '<span class="comp-badge-conseil" style="background:var(--bg); color:var(--muted);">Rythme Régulier</span>';
+    if (stats.leaderDay && stats.leaderDay.dow === item.dow) {
+      conseilTag = '<span class="comp-badge-conseil loco">⭐ Jour Leader (Sécuriser stocks)</span>';
+    } else if (stats.quietDay && stats.quietDay.dow === item.dow) {
+      conseilTag = '<span class="comp-badge-conseil promo">🎯 Jour Calme (Action Promo / Formule)</span>';
+    }
+
     return `
       <tr>
         <td style="text-align:center;">${rankBadge}</td>
@@ -5986,6 +6352,7 @@ function renderDayOfWeekComparison(dataset) {
         <td style="text-align:center;">${deltaTag}</td>
         <td>${topProdStr}</td>
         <td>${leastProdStr}</td>
+        <td>${conseilTag}</td>
       </tr>
     `;
   }).join('');
@@ -6019,32 +6386,22 @@ function renderWeeklyComparison(dataset) {
     </div>
 
     <div class="comp-kpi-card purple">
-      <div class="comp-kpi-label">📦 Volume Total Vendu</div>
+      <div class="comp-kpi-label">💰 Total Période Analysée</div>
       <div class="comp-kpi-value" style="color:#8b5cf6;">
-        ${stats.grandTotalQty.toLocaleString('fr-FR')}
-      </div>
-      <div class="comp-kpi-sub">
-        unités sorties de caisse
-      </div>
-    </div>
-
-    <div class="comp-kpi-card">
-      <div class="comp-kpi-label">💰 Chiffre d'Affaires Global</div>
-      <div class="comp-kpi-value">
         ${stats.grandTotalCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH
       </div>
       <div class="comp-kpi-sub">
-        Total consolidé sur les semaines
+        ${stats.grandTotalQty.toLocaleString('fr-FR')} articles vendus
       </div>
     </div>
   `;
 
   // Graphique
   document.getElementById('comp-chart-title').textContent = "📆 Évolution Hebdomadaire du Chiffre d'Affaires (Week-over-Week)";
-  document.getElementById('comp-chart-sub').textContent = "Comparaison chronologique des semaines avec rythme de progression.";
+  document.getElementById('comp-chart-sub').textContent = "Comparaison de la dynamique des ventes semaine par semaine avec taux de croissance.";
   document.getElementById('comp-chart-legend').innerHTML = `
-    <span style="color:#10b981;">● Progression Positive</span>
-    <span style="color:#ef4444;">● Ralentissement</span>
+    <span style="color:#10b981;">● Semaine Record</span>
+    <span style="color:#0284c7;">● CA Hebdo Réalisé</span>
   `;
 
   const maxWeekCA = Math.max(1, ...stats.items.map(w => w.totalCA));
@@ -6053,18 +6410,11 @@ function renderWeeklyComparison(dataset) {
   chartWrapper.innerHTML = stats.items.map(item => {
     const isBest = stats.bestWeek && stats.bestWeek.weekKey === item.weekKey;
     const barWidthPct = maxWeekCA > 0 ? Math.max(4, Math.round((item.totalCA / maxWeekCA) * 100)) : 0;
-    const isPos = item.deltaWoWPct === null || item.deltaWoWPct >= 0;
-
-    let deltaLabel = '';
-    if (item.deltaWoWPct !== null) {
-      deltaLabel = `<span class="comp-delta-tag ${isPos ? 'pos' : 'neg'}">${isPos ? '▲ +' : '▼ '}${item.deltaWoWPct.toFixed(1)}%</span>`;
-    }
 
     return `
       <div class="comp-bar-row">
         <div class="comp-bar-label">
-          <span>📅 S${item.weekNum}</span>
-          <span style="font-size:11px; color:var(--muted);">(${item.daysCount}j)</span>
+          <span>Semaine ${item.weekNum}</span>
           ${isBest ? '<span>🏆</span>' : ''}
         </div>
         <div class="comp-bar-track">
@@ -6074,7 +6424,7 @@ function renderWeeklyComparison(dataset) {
           ${item.totalCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH
         </div>
         <div class="comp-bar-share">
-          ${deltaLabel || '<span style="color:var(--muted); font-size:11px;">Base</span>'}
+          ${item.deltaWoWPct !== null ? `<span class="comp-delta-tag ${item.deltaWoWPct >= 0 ? 'pos' : 'neg'}">${item.deltaWoWPct >= 0 ? '▲ +' : '▼ '}${item.deltaWoWPct.toFixed(1)}%</span>` : '<span style="color:var(--muted); font-size:11px;">Base</span>'}
         </div>
       </div>
     `;
@@ -6093,6 +6443,7 @@ function renderWeeklyComparison(dataset) {
       <th>📁 Catégorie Forte</th>
       <th>⭐ Plat Leader</th>
       <th>🔻 Moins Vendu</th>
+      <th>💡 Conseil Métier</th>
     </tr>
   `;
 
@@ -6106,6 +6457,13 @@ function renderWeeklyComparison(dataset) {
     const topProdStr = item.topProduct ? `<strong>${escapeHtml(item.topProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.topProduct.qty.toLocaleString('fr-FR')} u.)</span>` : '-';
     const leastProdStr = item.leastProduct ? `<strong style="color:#ef4444;">${escapeHtml(item.leastProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.leastProduct.qty.toLocaleString('fr-FR')} u.)</span>` : '-';
 
+    let conseilTag = '<span class="comp-badge-conseil" style="background:var(--bg); color:var(--muted);">Tendance Stable</span>';
+    if (item.deltaWoWPct !== null && item.deltaWoWPct >= 10) {
+      conseilTag = '<span class="comp-badge-conseil loco">📈 Forte Croissance (+10%)</span>';
+    } else if (item.deltaWoWPct !== null && item.deltaWoWPct <= -10) {
+      conseilTag = '<span class="comp-badge-conseil flop">📉 Creux d\'Activité (-10%)</span>';
+    }
+
     return `
       <tr>
         <td><strong>Semaine ${item.weekNum} (${item.year})</strong></td>
@@ -6118,6 +6476,7 @@ function renderWeeklyComparison(dataset) {
         <td><span class="chip-pill" style="font-size:11px;">${escapeHtml(item.topCategory)}</span></td>
         <td>${topProdStr}</td>
         <td>${leastProdStr}</td>
+        <td>${conseilTag}</td>
       </tr>
     `;
   }).join('');
@@ -6131,17 +6490,17 @@ function renderMonthlyComparison(dataset) {
   const kpisContainer = document.getElementById('comp-kpis-container');
   kpisContainer.innerHTML = `
     <div class="comp-kpi-card star">
-      <div class="comp-kpi-label">🏆 Meilleur Mois de l'Année</div>
+      <div class="comp-kpi-label">🏆 Meilleur Mois</div>
       <div class="comp-kpi-value" style="color:#10b981;">
         ${stats.bestMonth ? stats.bestMonth.monthName : '-'}
       </div>
       <div class="comp-kpi-sub">
-        ${stats.bestMonth ? `<strong>${stats.bestMonth.totalCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH</strong> (${stats.bestMonth.daysCount} jours actifs)` : ''}
+        ${stats.bestMonth ? `<strong>${stats.bestMonth.totalCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH</strong> (${stats.bestMonth.daysCount} j.)` : ''}
       </div>
     </div>
 
     <div class="comp-kpi-card calm">
-      <div class="comp-kpi-label">📉 Mois le Plus Faible</div>
+      <div class="comp-kpi-label">📉 Mois le Plus Calme</div>
       <div class="comp-kpi-value" style="color:#f59e0b;">
         ${stats.quietMonth ? stats.quietMonth.monthName : '-'}
       </div>
@@ -6185,12 +6544,6 @@ function renderMonthlyComparison(dataset) {
   chartWrapper.innerHTML = stats.items.map(item => {
     const isBest = stats.bestMonth && stats.bestMonth.ym === item.ym;
     const barWidthPct = maxMonthCA > 0 ? Math.max(4, Math.round((item.totalCA / maxMonthCA) * 100)) : 0;
-    const isPos = item.deltaMoMPct === null || item.deltaMoMPct >= 0;
-
-    let deltaLabel = '';
-    if (item.deltaMoMPct !== null) {
-      deltaLabel = `<span class="comp-delta-tag ${isPos ? 'pos' : 'neg'}">${isPos ? '▲ +' : '▼ '}${item.deltaMoMPct.toFixed(1)}%</span>`;
-    }
 
     return `
       <div class="comp-bar-row">
@@ -6205,7 +6558,7 @@ function renderMonthlyComparison(dataset) {
           ${item.totalCA.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} DH
         </div>
         <div class="comp-bar-share">
-          ${deltaLabel || '<span style="color:var(--muted); font-size:11px;">Base</span>'}
+          ${item.deltaMoMPct !== null ? `<span class="comp-delta-tag ${item.deltaMoMPct >= 0 ? 'pos' : 'neg'}">${item.deltaMoMPct >= 0 ? '▲ +' : '▼ '}${item.deltaMoMPct.toFixed(1)}%</span>` : '<span style="color:var(--muted); font-size:11px;">Base</span>'}
         </div>
       </div>
     `;
@@ -6222,6 +6575,7 @@ function renderMonthlyComparison(dataset) {
       <th style="text-align:right;">Articles Vendus</th>
       <th>⭐ Produit Star du Mois</th>
       <th>🔻 Produit Moins Vendu</th>
+      <th>💡 Conseil Métier</th>
     </tr>
   `;
 
@@ -6235,6 +6589,15 @@ function renderMonthlyComparison(dataset) {
     const topProdStr = item.topProduct ? `<strong>${escapeHtml(item.topProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.topProduct.qty.toLocaleString('fr-FR')} u.)</span>` : '-';
     const leastProdStr = item.leastProduct ? `<strong style="color:#ef4444;">${escapeHtml(item.leastProduct.product)}</strong> <span style="font-size:11px; color:var(--muted);">(${item.leastProduct.qty.toLocaleString('fr-FR')} u.)</span>` : '-';
 
+    let conseilTag = '<span class="comp-badge-conseil" style="background:var(--bg); color:var(--muted);">Niveau Nominal</span>';
+    if (stats.bestMonth && stats.bestMonth.ym === item.ym) {
+      conseilTag = '<span class="comp-badge-conseil loco">🏆 Mois Record</span>';
+    } else if (stats.quietMonth && stats.quietMonth.ym === item.ym) {
+      conseilTag = '<span class="comp-badge-conseil promo">📉 Mois d\'Hivernage / Calme</span>';
+    } else if (item.deltaMoMPct !== null && item.deltaMoMPct >= 10) {
+      conseilTag = '<span class="comp-badge-conseil loco">🚀 Forte Progression</span>';
+    }
+
     return `
       <tr>
         <td><strong>🗓️ ${item.monthName}</strong></td>
@@ -6245,6 +6608,7 @@ function renderMonthlyComparison(dataset) {
         <td style="text-align:right;">${item.totalQty.toLocaleString('fr-FR')} u.</td>
         <td>${topProdStr}</td>
         <td>${leastProdStr}</td>
+        <td>${conseilTag}</td>
       </tr>
     `;
   }).join('');
@@ -6275,9 +6639,13 @@ function exportComparatorToExcel() {
     ['COMPARATEUR DES VENTES PAR JOUR DE LA SEMAINE — GREY CORNER'],
     [`Période analysée : ${dataset.scopeLabel}`, `Filtre catégorie : ${comparatorCategoryFilter}`, `Généré le : ${new Date().toLocaleDateString('fr-FR')}`],
     [],
-    ['Jour de la semaine', 'Nombre d\'occurrences', 'CA Total (DH)', 'CA Moyen / Jour (DH)', 'Articles Vendus Total', 'Volume Moyen / Jour', 'Part dans le CA (%)', 'Écart vs Moyenne Hebdo (%)', 'Plat Vedette', 'Produit Moins Vendu']
+    ['Jour de la semaine', 'Nombre d\'occurrences', 'CA Total (DH)', 'CA Moyen / Jour (DH)', 'Articles Vendus Total', 'Volume Moyen / Jour', 'Part dans le CA (%)', 'Écart vs Moyenne Hebdo (%)', 'Plat Vedette', 'Produit Moins Vendu', 'Conseil Métier']
   ];
   dowStats.items.forEach(d => {
+    let advice = 'Rythme Régulier';
+    if (dowStats.leaderDay && dowStats.leaderDay.dow === d.dow) advice = 'Jour Leader (Sécuriser approvisionnements)';
+    else if (dowStats.quietDay && dowStats.quietDay.dow === d.dow) advice = 'Jour Calme (Formule Déjeuner Promo)';
+
     dowRows.push([
       d.name,
       d.occCount,
@@ -6288,7 +6656,8 @@ function exportComparatorToExcel() {
       d.sharePct.toFixed(2),
       d.deltaVsAvgPct.toFixed(2),
       d.topProduct ? `${d.topProduct.product} (${d.topProduct.qty} u.)` : '',
-      d.leastProduct ? `${d.leastProduct.product} (${d.leastProduct.qty} u.)` : ''
+      d.leastProduct ? `${d.leastProduct.product} (${d.leastProduct.qty} u.)` : '',
+      advice
     ]);
   });
   const wsDow = XLSX.utils.aoa_to_sheet(dowRows);
@@ -6300,9 +6669,13 @@ function exportComparatorToExcel() {
     ['COMPARATEUR HEBDOMADAIRE (WEEK-OVER-WEEK) — GREY CORNER'],
     [`Période analysée : ${dataset.scopeLabel}`, `Filtre catégorie : ${comparatorCategoryFilter}`],
     [],
-    ['Semaine', 'Date Début', 'Date Fin', 'Jours Actifs', 'Chiffre d\'Affaires (DH)', 'Évolution W-o-W (%)', 'CA Moyen / Jour (DH)', 'Articles Vendus', 'Catégorie Leader', 'Plat Leader', 'Produit Moins Vendu']
+    ['Semaine', 'Date Début', 'Date Fin', 'Jours Actifs', 'Chiffre d\'Affaires (DH)', 'Évolution W-o-W (%)', 'CA Moyen / Jour (DH)', 'Articles Vendus', 'Catégorie Leader', 'Plat Leader', 'Produit Moins Vendu', 'Conseil Métier']
   ];
   weekStats.items.forEach(w => {
+    let advice = 'Tendance Stable';
+    if (w.deltaWoWPct !== null && w.deltaWoWPct >= 10) advice = 'Forte Croissance (+10%)';
+    else if (w.deltaWoWPct !== null && w.deltaWoWPct <= -10) advice = 'Creux d\'Activité (-10%)';
+
     weekRows.push([
       `S${w.weekNum} (${w.year})`,
       w.startDate,
@@ -6314,7 +6687,8 @@ function exportComparatorToExcel() {
       w.totalQty,
       w.topCategory,
       w.topProduct ? `${w.topProduct.product} (${w.topProduct.qty} u.)` : '',
-      w.leastProduct ? `${w.leastProduct.product} (${w.leastProduct.qty} u.)` : ''
+      w.leastProduct ? `${w.leastProduct.product} (${w.leastProduct.qty} u.)` : '',
+      advice
     ]);
   });
   const wsWeek = XLSX.utils.aoa_to_sheet(weekRows);
@@ -6326,9 +6700,14 @@ function exportComparatorToExcel() {
     ['COMPARATEUR MENSUEL (MONTH-OVER-MONTH) — GREY CORNER'],
     [`Période analysée : ${dataset.scopeLabel}`, `Filtre catégorie : ${comparatorCategoryFilter}`],
     [],
-    ['Mois', 'Code YM', 'Jours Actifs', 'Chiffre d\'Affaires (DH)', 'Évolution M-o-M (%)', 'CA Journalier Moyen (DH)', 'Articles Vendus Total', 'Plat Star', 'Produit Moins Vendu']
+    ['Mois', 'Code YM', 'Jours Actifs', 'Chiffre d\'Affaires (DH)', 'Évolution M-o-M (%)', 'CA Journalier Moyen (DH)', 'Articles Vendus Total', 'Plat Star', 'Produit Moins Vendu', 'Conseil Métier']
   ];
   monthStats.items.forEach(m => {
+    let advice = 'Niveau Nominal';
+    if (monthStats.bestMonth && monthStats.bestMonth.ym === m.ym) advice = 'Mois Record';
+    else if (monthStats.quietMonth && monthStats.quietMonth.ym === m.ym) advice = 'Mois d\'Hivernage / Calme';
+    else if (m.deltaMoMPct !== null && m.deltaMoMPct >= 10) advice = 'Forte Progression';
+
     monthRows.push([
       m.monthName,
       m.ym,
@@ -6338,7 +6717,8 @@ function exportComparatorToExcel() {
       m.avgDailyCA,
       m.totalQty,
       m.topProduct ? `${m.topProduct.product} (${m.topProduct.qty} u.)` : '',
-      m.leastProduct ? `${m.leastProduct.product} (${m.leastProduct.qty} u.)` : ''
+      m.leastProduct ? `${m.leastProduct.product} (${m.leastProduct.qty} u.)` : '',
+      advice
     ]);
   });
   const wsMonth = XLSX.utils.aoa_to_sheet(monthRows);
@@ -6348,6 +6728,18 @@ function exportComparatorToExcel() {
   XLSX.writeFile(wb, fileName);
 }
 
+// Exports globaux pour la page et les tests
+if (typeof window !== 'undefined') {
+  window.isExcludedFromLeastSold = isExcludedFromLeastSold;
+  window.setComparatorDatePreset = setComparatorDatePreset;
+  window.onComparatorDateInputChange = onComparatorDateInputChange;
+  window.applyComparatorCustomDateRange = applyComparatorCustomDateRange;
+  window.setComparatorMode = setComparatorMode;
+  window.setComparatorCategoryFilter = setComparatorCategoryFilter;
+  window.renderComparatorTab = renderComparatorTab;
+  window.renderComparatorDecisionPanel = renderComparatorDecisionPanel;
+  window.exportComparatorToExcel = exportComparatorToExcel;
+}
 
 function switchToTab(tabId) {
   document.querySelectorAll('.v-tab').forEach(t => t.classList.remove('active'));
