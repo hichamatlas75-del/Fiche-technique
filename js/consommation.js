@@ -5436,47 +5436,104 @@ let comparatorDatePreset = 'all'; // 'all', 'thismonth', 'prevmonth', 'last30', 
 let comparatorCustomStartDate = '';
 let comparatorCustomEndDate = '';
 
-// Helper Métier : Exclut les compléments de caisse et faux plats de l'analyse des Moins Vendus
+// Helper Métier : Exclut les boissons (cafés, sodas, jus, eaux), extras, suppléments, à la carte et divers pour concentrer l'analyse 100% sur la Cuisine
 function isExcludedFromLeastSold(productName, familyName) {
   if (!productName) return true;
   const raw = `${productName} ${familyName || ''}`.toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '');
 
-  // 1. Divers Food / Divers
-  if (/\bdivers\b/.test(raw) || raw.includes('divers food') || raw.includes('divers cuisine') || raw.includes('article divers') || raw.includes('autre divers')) {
+  const normFamily = (familyName || '').toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
+  // 1. Détection via catégorie standard (boisson)
+  if (typeof detectProductCategory === 'function') {
+    const cat = detectProductCategory(productName, familyName, null);
+    if (cat === 'boisson') return true;
+  }
+
+  // 2. Famille / Rayon Boissons & Bar
+  if (normFamily.includes('boisson') || normFamily.includes('bar') || 
+      normFamily.includes('cafe') || normFamily.includes('jus') || 
+      normFamily.includes('soda') || normFamily.includes('eau') || 
+      normFamily.includes('drink') || normFamily.includes('cocktail') || 
+      normFamily.includes('chaude')) {
     return true;
   }
-  // 2. Suppléments Cuisine / Extras
-  if (raw.includes('suppliment cuisine') || raw.includes('supplement cuisine') || 
-      raw.includes('supp cuisine') || raw.includes('extra cuisine') ||
-      raw.includes('suppliment') || raw.includes('supplement') || 
+
+  // 3. Cafés, Thés et Boissons Chaudes (Café le plus vendu en restauration, à exclure de la cuisine)
+  if (/\bcafe\b/.test(raw) || /\bcafes\b/.test(raw) ||
+      raw.includes('espresso') || raw.includes('expresso') || 
+      raw.includes('cappuccino') || raw.includes('latte') || 
+      raw.includes('macchiato') || raw.includes('americano') || 
+      raw.includes('nespresso') || raw.includes('nescafe') ||
+      raw.includes('allonge') || raw.includes('ristretto') ||
+      raw.includes('moka') || raw.includes('chocolat chaud') || 
+      raw.includes('chocolat viennois') || raw.includes('matcha') ||
+      raw.includes('infusion') || raw.includes('tisane') ||
+      /\bthe\b/.test(raw) || /\bthes\b/.test(raw) || 
+      raw.includes('the a la menthe') || raw.includes('the vert') || raw.includes('the noir')) {
+    return true;
+  }
+
+  // 4. Eaux, Sodas industriels de négoce et Énergisants
+  if (raw.includes('coca') || /\bcola\b/.test(raw) || raw.includes('pepsi') ||
+      raw.includes('fanta') || raw.includes('sprite') || raw.includes('hawai') || 
+      raw.includes('poms') || raw.includes('schweppes') || raw.includes('orangina') || 
+      raw.includes('seven up') || raw.includes('7up') || raw.includes('canette') || 
+      raw.includes('soda') || raw.includes('red bull') || raw.includes('monster') ||
+      raw.includes('sidi ali') || raw.includes('ain saiss') || raw.includes('oulmes') || 
+      raw.includes('eau minerale') || raw.includes('eau gazeuse') || raw.includes('san pellegrino') ||
+      raw.includes('perrier') || raw.includes('aquafina') || /\beau\b/.test(raw) || /\beaux\b/.test(raw)) {
+    return true;
+  }
+
+  // 5. Jus, Smoothies, Milkshakes, Cocktails & Boissons Bar
+  if (/\bjus\b/.test(raw) || raw.includes('jus d') || raw.includes('jus de') || 
+      raw.includes('jus frais') || raw.includes('smoothie') || raw.includes('milkshake') || 
+      raw.includes('milk shake') || raw.includes('cocktail') || raw.includes('mocktail') || 
+      raw.includes('mojito') || raw.includes('frappe') || raw.includes('citronnade') || 
+      raw.includes('orange pressee') || raw.includes('citron presse') || raw.includes('sirop') ||
+      raw.includes('ice tea') || raw.includes('iced tea') || raw.includes('the glace')) {
+    return true;
+  }
+
+  // 6. Divers Food / Divers Caisse
+  if (/\bdivers\b/.test(raw) || raw.includes('divers food') || raw.includes('divers cuisine') || 
+      raw.includes('article divers') || raw.includes('autre divers') || raw.includes('divers bar')) {
+    return true;
+  }
+
+  // 7. Suppléments Cuisine, Extras & Add-ons
+  if (raw.includes('suppliment') || raw.includes('supplement') || 
       /\bsupp\b/.test(raw) || /\bextra\b/.test(raw) ||
-      raw.includes('supp ') || raw.includes('extra ') ||
+      raw.includes('supp ') || raw.includes('extra ') || raw.includes('extra-') ||
+      raw.includes('suppliment cuisine') || raw.includes('supplement cuisine') || 
+      raw.includes('supp cuisine') || raw.includes('extra cuisine') ||
       raw.includes('supplement frites') || raw.includes('extra steak') || 
-      raw.includes('extra cheddar') || raw.includes('supplement sauce') || raw.includes('extra pain')) {
+      raw.includes('extra cheddar') || raw.includes('supplement sauce') || 
+      raw.includes('extra pain') || raw.includes('extra fromage') || raw.includes('extra poulet')) {
     return true;
   }
-  // 3. À la carte / Consommations Internes / Repas Personnel
+
+  // 8. À la carte / Consommations Internes / Repas Personnel / Offerts
   if (raw.includes('a la carte') || raw.includes('consommation interne') || 
-      raw.includes('personnel') || raw.includes('repas staff') || raw.includes('offert')) {
+      raw.includes('personnel') || raw.includes('repas staff') || 
+      raw.includes('staff') || raw.includes('offert') || raw.includes('gratuit')) {
     return true;
   }
-  // 4. Menu Enfant / Kids
-  if (raw.includes('menu enfant') || raw.includes('formule enfant') || raw.includes('kids menu') || raw.includes('enfant')) {
+
+  // 9. Menus Enfants & Formules Dédiées
+  if (raw.includes('menu enfant') || raw.includes('formule enfant') || 
+      raw.includes('kids menu') || /\bkids\b/.test(raw) || raw.includes('enfant')) {
     return true;
   }
-  // 5. Suppléments Petit Déjeuner
+
+  // 10. Suppléments Petit Déjeuner
   if (raw.includes('suppliment petit') || raw.includes('supplement petit') || 
       raw.includes('supp petit') || raw.includes('suppliment dej') || 
       raw.includes('supplement dej') || raw.includes('extra oeuf') || raw.includes('supplement miel')) {
-    return true;
-  }
-  // 6. Eaux embouteillées et Sodas industriels de négoce (produits non cuisinés)
-  if (raw.includes('coca') || raw.includes('fanta') || raw.includes('sprite') || 
-      raw.includes('hawai') || raw.includes('poms') || raw.includes('schweppes') || 
-      raw.includes('sidi ali') || raw.includes('ain saiss') || raw.includes('oulmes') || 
-      raw.includes('eau minerale') || raw.includes('canette') || raw.includes('red bull')) {
     return true;
   }
 
@@ -5658,12 +5715,13 @@ function computeDayOfWeekStats(dataset, categoryFilter) {
     let leastProduct = null;
     const prods = Object.values(data.products).filter(p => p.qty > 0);
     if (prods.length > 0) {
-      prods.sort((a, b) => b.total - a.total || b.qty - a.qty);
-      topProduct = prods[0];
-
-      // Exclusion stricte des suppléments, divers, menus enfants pour trouver le vrai plat moins vendu
+      // Exclusion stricte des boissons (cafés, sodas, etc.), extras, suppléments et à la carte pour isoler la Cuisine
       const eligibleDishes = prods.filter(p => !isExcludedFromLeastSold(p.product, p.family));
       const candidateList = eligibleDishes.length > 0 ? eligibleDishes : prods;
+
+      const prodsByRevenueDesc = [...candidateList].sort((a, b) => b.total - a.total || b.qty - a.qty);
+      topProduct = prodsByRevenueDesc[0] || null;
+
       const prodsByQtyAsc = [...candidateList].sort((a, b) => a.qty - b.qty || a.total - b.total);
       leastProduct = prodsByQtyAsc[0] || null;
     }
@@ -5788,14 +5846,19 @@ function computeWeeklyStats(dataset, categoryFilter) {
     prevCA = w.totalCA;
 
     const prods = Object.values(w.products).filter(p => p.qty > 0);
-    prods.sort((a, b) => b.total - a.total || b.qty - a.qty);
-    const topProduct = prods[0] || null;
+    let topProduct = null;
+    let leastProduct = null;
+    if (prods.length > 0) {
+      // Exclusion stricte des boissons (cafés, sodas, etc.), extras, suppléments et à la carte pour isoler la Cuisine
+      const eligibleDishes = prods.filter(p => !isExcludedFromLeastSold(p.product, p.family));
+      const candidateList = eligibleDishes.length > 0 ? eligibleDishes : prods;
 
-    // Exclusion stricte des suppléments, divers, menus enfants pour trouver le vrai plat moins vendu
-    const eligibleDishes = prods.filter(p => !isExcludedFromLeastSold(p.product, p.family));
-    const candidateList = eligibleDishes.length > 0 ? eligibleDishes : prods;
-    const prodsByQtyAsc = [...candidateList].sort((a, b) => a.qty - b.qty || a.total - b.total);
-    const leastProduct = prodsByQtyAsc[0] || null;
+      const prodsByRevenueDesc = [...candidateList].sort((a, b) => b.total - a.total || b.qty - a.qty);
+      topProduct = prodsByRevenueDesc[0] || null;
+
+      const prodsByQtyAsc = [...candidateList].sort((a, b) => a.qty - b.qty || a.total - b.total);
+      leastProduct = prodsByQtyAsc[0] || null;
+    }
 
     let topCatStr = '-';
     const catEntries = Object.entries(w.categories).sort((a, b) => b[1] - a[1]);
@@ -5903,14 +5966,19 @@ function computeMonthlyStats(dataset, categoryFilter) {
     prevCA = m.totalCA;
 
     const prods = Object.values(m.products).filter(p => p.qty > 0);
-    prods.sort((a, b) => b.total - a.total || b.qty - a.qty);
-    const topProduct = prods[0] || null;
+    let topProduct = null;
+    let leastProduct = null;
+    if (prods.length > 0) {
+      // Exclusion stricte des boissons (cafés, sodas, etc.), extras, suppléments et à la carte pour isoler la Cuisine
+      const eligibleDishes = prods.filter(p => !isExcludedFromLeastSold(p.product, p.family));
+      const candidateList = eligibleDishes.length > 0 ? eligibleDishes : prods;
 
-    // Exclusion stricte des suppléments, divers, menus enfants pour trouver le vrai plat moins vendu
-    const eligibleDishes = prods.filter(p => !isExcludedFromLeastSold(p.product, p.family));
-    const candidateList = eligibleDishes.length > 0 ? eligibleDishes : prods;
-    const prodsByQtyAsc = [...candidateList].sort((a, b) => a.qty - b.qty || a.total - b.total);
-    const leastProduct = prodsByQtyAsc[0] || null;
+      const prodsByRevenueDesc = [...candidateList].sort((a, b) => b.total - a.total || b.qty - a.qty);
+      topProduct = prodsByRevenueDesc[0] || null;
+
+      const prodsByQtyAsc = [...candidateList].sort((a, b) => a.qty - b.qty || a.total - b.total);
+      leastProduct = prodsByQtyAsc[0] || null;
+    }
 
     return {
       ym,
@@ -6307,8 +6375,8 @@ function renderDayOfWeekComparison(dataset) {
       <th style="text-align:right;">Articles Vendus</th>
       <th style="text-align:center;">Part du CA</th>
       <th style="text-align:center;">Écart vs Moyenne</th>
-      <th>⭐ Produit Vedette</th>
-      <th>🔻 Moins Vendu</th>
+      <th>⭐ Plat Vedette (Cuisine)</th>
+      <th>🔻 Moins Vendu (Cuisine)</th>
       <th>💡 Conseil Métier</th>
     </tr>
   `;
@@ -6431,8 +6499,8 @@ function renderWeeklyComparison(dataset) {
       <th style="text-align:right;">CA Moyen / Jour</th>
       <th style="text-align:right;">Articles Vendus</th>
       <th>📁 Catégorie Forte</th>
-      <th>⭐ Plat Leader</th>
-      <th>🔻 Moins Vendu</th>
+      <th>⭐ Plat Leader (Cuisine)</th>
+      <th>🔻 Moins Vendu (Cuisine)</th>
       <th>💡 Conseil Métier</th>
     </tr>
   `;
@@ -6563,8 +6631,8 @@ function renderMonthlyComparison(dataset) {
       <th style="text-align:center;">Évolution M-o-M</th>
       <th style="text-align:right;">CA Journalier Moyen</th>
       <th style="text-align:right;">Articles Vendus</th>
-      <th>⭐ Produit Star du Mois</th>
-      <th>🔻 Produit Moins Vendu</th>
+      <th>⭐ Plat Star (Cuisine)</th>
+      <th>🔻 Moins Vendu (Cuisine)</th>
       <th>💡 Conseil Métier</th>
     </tr>
   `;
@@ -6629,7 +6697,7 @@ function exportComparatorToExcel() {
     ['COMPARATEUR DES VENTES PAR JOUR DE LA SEMAINE — GREY CORNER'],
     [`Période analysée : ${dataset.scopeLabel}`, `Filtre catégorie : ${comparatorCategoryFilter}`, `Généré le : ${new Date().toLocaleDateString('fr-FR')}`],
     [],
-    ['Jour de la semaine', 'Nombre d\'occurrences', 'CA Total (DH)', 'CA Moyen / Jour (DH)', 'Articles Vendus Total', 'Volume Moyen / Jour', 'Part dans le CA (%)', 'Écart vs Moyenne Hebdo (%)', 'Plat Vedette', 'Produit Moins Vendu', 'Conseil Métier']
+    ['Jour de la semaine', 'Nombre d\'occurrences', 'CA Total (DH)', 'CA Moyen / Jour (DH)', 'Articles Vendus Total', 'Volume Moyen / Jour', 'Part dans le CA (%)', 'Écart vs Moyenne Hebdo (%)', 'Plat Vedette (Cuisine)', 'Moins Vendu (Cuisine)', 'Conseil Métier']
   ];
   dowStats.items.forEach(d => {
     let advice = 'Rythme Régulier';
@@ -6659,7 +6727,7 @@ function exportComparatorToExcel() {
     ['COMPARATEUR HEBDOMADAIRE (WEEK-OVER-WEEK) — GREY CORNER'],
     [`Période analysée : ${dataset.scopeLabel}`, `Filtre catégorie : ${comparatorCategoryFilter}`],
     [],
-    ['Semaine', 'Date Début', 'Date Fin', 'Jours Actifs', 'Chiffre d\'Affaires (DH)', 'Évolution W-o-W (%)', 'CA Moyen / Jour (DH)', 'Articles Vendus', 'Catégorie Leader', 'Plat Leader', 'Produit Moins Vendu', 'Conseil Métier']
+    ['Semaine', 'Date Début', 'Date Fin', 'Jours Actifs', 'Chiffre d\'Affaires (DH)', 'Évolution W-o-W (%)', 'CA Moyen / Jour (DH)', 'Articles Vendus', 'Catégorie Leader', 'Plat Leader (Cuisine)', 'Moins Vendu (Cuisine)', 'Conseil Métier']
   ];
   weekStats.items.forEach(w => {
     let advice = 'Tendance Stable';
@@ -6690,7 +6758,7 @@ function exportComparatorToExcel() {
     ['COMPARATEUR MENSUEL (MONTH-OVER-MONTH) — GREY CORNER'],
     [`Période analysée : ${dataset.scopeLabel}`, `Filtre catégorie : ${comparatorCategoryFilter}`],
     [],
-    ['Mois', 'Code YM', 'Jours Actifs', 'Chiffre d\'Affaires (DH)', 'Évolution M-o-M (%)', 'CA Journalier Moyen (DH)', 'Articles Vendus Total', 'Plat Star', 'Produit Moins Vendu', 'Conseil Métier']
+    ['Mois', 'Code YM', 'Jours Actifs', 'Chiffre d\'Affaires (DH)', 'Évolution M-o-M (%)', 'CA Journalier Moyen (DH)', 'Articles Vendus Total', 'Plat Star (Cuisine)', 'Moins Vendu (Cuisine)', 'Conseil Métier']
   ];
   monthStats.items.forEach(m => {
     let advice = 'Niveau Nominal';
@@ -6721,6 +6789,7 @@ function exportComparatorToExcel() {
 // Exports globaux pour la page et les tests
 if (typeof window !== 'undefined') {
   window.isExcludedFromLeastSold = isExcludedFromLeastSold;
+  window.isExcludedFromComparatorDishes = isExcludedFromLeastSold;
   window.setComparatorDatePreset = setComparatorDatePreset;
   window.onComparatorDateInputChange = onComparatorDateInputChange;
   window.applyComparatorCustomDateRange = applyComparatorCustomDateRange;
