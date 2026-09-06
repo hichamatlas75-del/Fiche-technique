@@ -12,25 +12,12 @@
   let allPastSessions = [];
   let activeSessionId = 'current';
 
-  const SESSIONS_STORAGE_KEY = 'gc_audit_sessions_v1';
+  const SESSIONS_STORAGE_KEY = GC_STORAGE_KEYS.AUDIT;
   const ACTIVE_ITEMS_KEY = 'greyAuditFlashHistory';
 
-  const INGREDIENT_CATEGORIES_LOCAL = {
-    viandes: ['poulet', 'boeuf', 'bœuf', 'steak', 'kefta', 'viande', 'dinde', 'canard', 'veau', 'viande hachee', 'viande hachée', 'merguez', 'saucisse', 'charcuterie', 'bacon', 'jambon', 'khlii', 'nuggets', 'cordon bleu', 'salami', 'pepperoni', 'viande'],
-    poissons: ['saumon', 'crevette', 'crevettes', 'calamar', 'calamars', 'poisson', 'fruits de mer', 'gambas', 'thon', 'moules', 'palourde', 'dorade', 'loup', 'anchois', 'surimi'],
-    fromages: ['fromage', 'mozzarella', 'cheddar', 'parmesan', 'gouda', 'edam', 'burrata', 'feta', 'bleu', 'gorgonzola', 'brie', 'camembert', 'ricotta', 'mascarpone', 'cream cheese', 'jeban', 'vache qui rit', 'kiri', 'lait', 'creme', 'crème', 'beurre', 'yaourt', 'leben', 'lait concentre', 'creme liquide'],
-    boissons: ['eau', 'oulmes', 'oulmès', 'coca', 'sprite', 'hawai', 'poms', 'schweppes', 'orangina', 'red bull', 'nespresso', 'pastille', 'cafe', 'café', 'the', 'thé', 'verveine', 'infusion', 'chocolat', 'sirop', 'glacon', 'glaçon', 'glace', 'boba', 'boisson', 'jus', 'smoothie', 'sidi ali'],
-    legumes: ['tomate', 'oignon', 'champignon', 'pomme de terre', 'frite', 'frites', 'puree', 'potatos', 'avocat', 'salade', 'mesclun', 'laitue', 'roquette', 'epinard', 'épinard', 'poivron', 'radis', 'carotte', 'concombre', 'betterave', 'olive', 'olives', 'orange', 'citron', 'fraise', 'framboise', 'mangue', 'banane', 'pomme', 'ananas', 'peche', 'pêche', 'kiwi', 'fruits', 'fruit', 'menthe', 'agrumes', 'acai', 'haricot', 'courgette', 'brocoli', 'persil', 'coriandre', 'ail']
-  };
-
-  function cleanTextLocal(str) {
-    if (!str) return '';
-    return String(str).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
-  }
-
   function categorizeIngredientLocal(name) {
-    const n = cleanTextLocal(name);
-    for (const [category, keywords] of Object.entries(INGREDIENT_CATEGORIES_LOCAL)) {
+    const n = cleanText(name);
+    for (const [category, keywords] of Object.entries(INGREDIENT_CATEGORIES)) {
       if (keywords.some(kw => n.includes(kw))) return category;
     }
     return 'epicerie';
@@ -40,7 +27,7 @@
     const current = document.documentElement.getAttribute('data-theme') || 'light';
     const next = current === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('gc_theme', next);
+    localStorage.setItem(GC_STORAGE_KEYS.THEME, next);
   }
 
   // Chargement du catalogue d'ingrédients
@@ -59,7 +46,7 @@
               const ingName = parts[0].trim();
               const qtyStr = parts.length > 1 ? parts.slice(1).join(':').trim() : '1 p';
               if (ingName && ingName.length >= 2) {
-                const key = cleanTextLocal(ingName);
+                const key = cleanText(ingName);
                 if (!setMap.has(key)) {
                   let unit = 'g';
                   if (qtyStr.includes('ml') || qtyStr.includes('cl') || qtyStr.includes('l') || qtyStr.includes('L')) unit = 'ml';
@@ -81,7 +68,7 @@
 
     const costMap = window.INGREDIENT_UNIT_COSTS || {};
     Object.keys(costMap).forEach(k => {
-      const key = cleanTextLocal(k);
+      const key = cleanText(k);
       const def = costMap[k];
       if (!setMap.has(key)) {
         let u = def.unit || 'g';
@@ -136,7 +123,7 @@
       return;
     }
 
-    const found = allIngredientsCatalog.find(i => cleanTextLocal(i.name) === cleanTextLocal(selectedName));
+    const found = allIngredientsCatalog.find(i => cleanText(i.name) === cleanText(selectedName));
     let unit = found ? found.unit : 'g';
     if (unit === 'piece') unit = 'p';
 
@@ -151,9 +138,9 @@
     // Déterminer le prix indicatif (converti en DH/kg ou DH/L pour g/ml)
     let defaultPrice = (unit === 'p' || unit === 'piece') ? 5 : 50;
     const costMap = window.INGREDIENT_UNIT_COSTS || {};
-    const key = cleanTextLocal(selectedName);
+    const key = cleanText(selectedName);
     for (const [k, v] of Object.entries(costMap)) {
-      if (key.includes(cleanTextLocal(k)) || cleanTextLocal(k).includes(key)) {
+      if (key.includes(cleanText(k)) || cleanText(k).includes(key)) {
         if (unit === 'g' || unit === 'ml') {
           defaultPrice = Math.round((v.cost * 1000) * 100) / 100;
         } else {
@@ -163,7 +150,7 @@
       }
     }
 
-    const existingInActive = currentSessionItems.find(i => cleanTextLocal(i.name) === cleanTextLocal(selectedName));
+    const existingInActive = currentSessionItems.find(i => cleanText(i.name) === cleanText(selectedName));
     if (existingInActive) {
       document.getElementById('flash-sinit').value = existingInActive.sInit || 0;
       document.getElementById('flash-achats').value = existingInActive.achats || 0;
@@ -188,14 +175,14 @@
     }
 
     const ingName = sel.value;
-    const cleanIng = cleanTextLocal(ingName);
-    const found = allIngredientsCatalog.find(i => cleanTextLocal(i.name) === cleanIng);
+    const cleanIng = cleanText(ingName);
+    const found = allIngredientsCatalog.find(i => cleanText(i.name) === cleanIng);
     const unit = found ? found.unit : (document.querySelector('.flash-unit-lbl')?.textContent || 'g');
     let totalTheo = 0;
 
     // Essayer de lire depuis la base de ventes mensuelle (gc_monthly_sales_db_v3) ou legacy
     try {
-      const monthlyRaw = localStorage.getItem('gc_monthly_sales_db_v3');
+      const monthlyRaw = localStorage.getItem(GC_STORAGE_KEYS.SALES);
       const salesRaw = localStorage.getItem('gc_pos_sales_v4') || localStorage.getItem('gc_pos_sales');
       const data = window.CATEGORIES_DATA || window.DATA || [];
 
@@ -219,9 +206,9 @@
         salesRows.forEach(r => {
           if (r && r.product) {
             const aliasTarget = aliasMap[r.product] || r.product;
-            const p = cleanTextLocal(aliasTarget);
+            const p = cleanText(aliasTarget);
             salesMap[p] = (salesMap[p] || 0) + (parseFloat(r.qty) || 0);
-            const directClean = cleanTextLocal(r.product);
+            const directClean = cleanText(r.product);
             if (directClean !== p) {
               salesMap[directClean] = (salesMap[directClean] || 0) + (parseFloat(r.qty) || 0);
             }
@@ -230,12 +217,12 @@
 
         data.forEach(cat => {
           (cat.items || []).forEach(item => {
-            const itemClean = cleanTextLocal(item.name);
+            const itemClean = cleanText(item.name);
             const count = salesMap[itemClean] || 0;
             if (count > 0 && Array.isArray(item.tech)) {
               item.tech.forEach(line => {
                 const parts = line.split(':');
-                const techIng = cleanTextLocal(parts[0]);
+                const techIng = cleanText(parts[0]);
                 if (techIng.includes(cleanIng) || cleanIng.includes(techIng)) {
                   const qtyStr = parts.length > 1 ? parts.slice(1).join(':').trim() : '1 p';
                   let q = 1;
@@ -273,7 +260,7 @@
             const count = sales[item.name] || 0;
             if (count > 0 && Array.isArray(item.tech)) {
               item.tech.forEach(line => {
-                if (cleanTextLocal(line.split(':')[0]).includes(cleanIng)) {
+                if (cleanText(line.split(':')[0]).includes(cleanIng)) {
                   const num = parseFloat(line.split(':')[1]?.replace(/[^0-9.]/g, '')) || 0;
                   totalTheo += num * count;
                 }
@@ -290,9 +277,9 @@
       document.getElementById('flash-theorique').value = totalTheo.toFixed(2);
       calculateLiveAuditFlash();
       // AM-02 FIX : Toast non bloquant au lieu d'alert()
-      showToast(`⚡ ${totalTheo.toFixed(2)} ${unit} chargés depuis les ventes enregistrées !`);
+      GC_Toast.show(`⚡ ${totalTheo.toFixed(2)} ${unit} chargés depuis les ventes enregistrées !`, 'info');
     } else {
-      showToast("Aucune vente enregistrée trouvée pour cet ingrédient. Saisissez la quantité manuellement.");
+      GC_Toast.show("Aucune vente enregistrée trouvée pour cet ingrédient. Saisissez la quantité manuellement.", 'info');
     }
   }
 
@@ -406,7 +393,7 @@
       return;
     }
 
-    const existingIdx = currentSessionItems.findIndex(x => cleanTextLocal(x.name) === cleanTextLocal(current.name));
+    const existingIdx = currentSessionItems.findIndex(x => cleanText(x.name) === cleanText(current.name));
     if (existingIdx >= 0) {
       currentSessionItems[existingIdx] = current;
     } else {
@@ -415,7 +402,7 @@
 
     saveCurrentItemsToStorage();
     renderCurrentSessionTable();
-    showToast(`✅ "${current.name}" enregistré dans la session active !`);
+    GC_Toast.show(`✅ "${current.name}" enregistré dans la session active !`, 'info');
   }
 
   function removeAuditFromHistory(idx) {
@@ -493,7 +480,7 @@
     renderCurrentSessionTable();
     renderPastSessionsTable();
 
-    showToast("💾 Session d'audit clôturée et archivée avec succès dans l'historique !");
+    GC_Toast.show("💾 Session d'audit clôturée et archivée avec succès dans l'historique !", 'info');
   }
 
   // Démarrer une nouvelle session
@@ -512,7 +499,7 @@
     saveCurrentItemsToStorage();
     resetFlashInputs();
     renderCurrentSessionTable();
-    showToast("➕ Nouvelle session d'audit démarrée !");
+    GC_Toast.show("➕ Nouvelle session d'audit démarrée !", 'info');
   }
 
   // Sélection d'une session dans la liste déroulante
@@ -552,7 +539,7 @@
       savePastSessionsToStorage();
       renderSessionSelector();
       renderPastSessionsTable();
-      showToast("🗑️ Session supprimée de l'historique.");
+      GC_Toast.show("🗑️ Session supprimée de l'historique.", 'info');
     }
   }
 
@@ -562,7 +549,7 @@
       savePastSessionsToStorage();
       renderSessionSelector();
       renderPastSessionsTable();
-      showToast("🗑️ Historique complet réinitialisé.");
+      GC_Toast.show("🗑️ Historique complet réinitialisé.", 'info');
     }
   }
 
@@ -803,7 +790,7 @@
     XLSX.utils.book_append_sheet(wb, ws1, "Rapport d'Audit");
 
     XLSX.writeFile(wb, `GreyCorner_Audit_${dateStr}_${serviceStr.replace(/\s+/g, '_')}.xlsx`);
-    showToast("📥 Fichier Excel généré avec succès !");
+    GC_Toast.show("📥 Fichier Excel généré avec succès !", 'info');
   }
 
   // Export d'une session spécifique
@@ -831,7 +818,7 @@
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, `Audit ${s.date}`);
     XLSX.writeFile(wb, `GreyCorner_Audit_${s.date}_${s.id}.xlsx`);
-    showToast("📥 Session exportée en Excel !");
+    GC_Toast.show("📥 Session exportée en Excel !", 'info');
   };
 
   // Sauvegarde globale au format JSON
@@ -850,30 +837,12 @@
     a.download = `grey-corner-audit-history-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    showToast("📁 Fichier de sauvegarde JSON téléchargé !");
-  }
-
-  // Notification Toast
-  function showToast(msg) {
-    let toast = document.getElementById('audit-toast');
-    if (!toast) {
-      toast = document.createElement('div');
-      toast.id = 'audit-toast';
-      toast.style.cssText = 'position:fixed; bottom:24px; right:24px; background:#0f172a; color:#fff; padding:14px 22px; border-radius:12px; font-weight:700; font-size:14px; box-shadow:0 8px 24px rgba(0,0,0,0.3); z-index:9999; display:flex; align-items:center; gap:10px; transition:all 0.3s ease; border:1px solid #334155;';
-      document.body.appendChild(toast);
-    }
-    toast.textContent = msg;
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateY(0)';
-    setTimeout(() => {
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateY(10px)';
-    }, 3200);
+    GC_Toast.show("📁 Fichier de sauvegarde JSON téléchargé !", 'info');
   }
 
   // Initialisation automatique au chargement
   document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('gc_theme') || 'light';
+    const savedTheme = localStorage.getItem(GC_STORAGE_KEYS.THEME) || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
 
     const dateInput = document.getElementById('session-date');

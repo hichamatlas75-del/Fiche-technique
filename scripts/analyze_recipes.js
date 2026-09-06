@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+import { createRequire } from 'module';
 
-const recipesCode = fs.readFileSync('recipes-data.js', 'utf8');
-eval(recipesCode);
-const DATA = globalThis.DATA;
+const require = createRequire(import.meta.url);
+const { DATA } = require('../recipes-data.js');
 
 const stats = [];
 DATA.forEach(cat => {

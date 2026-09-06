@@ -461,6 +461,43 @@
     return false;
   }
 
+  /**
+   * Suppression des pluriels simples (mots > 3 caractères se terminant par 's')
+   * PARTAGÉE — utilisée par recipes-data.js et build-food-cost.js
+   */
+  function stripPlural(s) {
+    return s.split(' ').map(function(w) {
+      return (w.length > 3 && w.endsWith('s')) ? w.slice(0, -1) : w;
+    }).join(' ');
+  }
+
+  /**
+   * Résolution des noms de fruits de mer vers la bonne clé de coût (brut vs net)
+   * PARTAGÉE — élimine la duplication entre recipes-data.js et build-food-cost.js
+   */
+  function resolveSeafoodKey(normalizedIngredientName) {
+    var n = normalizedIngredientName;
+    if (n.includes('calamar')) {
+      return (n.includes('net') || n.includes('chair') || n.includes('egoutt') || n.includes('frais') || n.includes('decongel'))
+        ? 'calamar net' : 'calamar brut';
+    }
+    if (n.includes('crevette')) {
+      return (n.includes('chair') || n.includes('decortiqu') || n.includes('net') || n.includes('pur'))
+        ? 'crevettes net' : 'crevettes brut';
+    }
+    if (n.includes('gamba')) {
+      if (n.includes('pane')) return 'gambas pane';
+      if (n.includes('chair') || n.includes('poche') || n.includes('decortiqu') || n.includes('net')) return 'gambas net';
+      return 'gambas brut';
+    }
+    if (n.includes('saumon')) {
+      if (n.includes('fume')) return 'saumon fume';
+      if (n.includes('carcasse') && !n.includes('sans')) return 'saumon brut';
+      return 'saumon frais net';
+    }
+    return null; // Not a seafood item
+  }
+
   global.cleanText = cleanText;
   global.escapeHtml = escapeHtml;
   global.applyTheme = applyTheme;
@@ -477,4 +514,6 @@
   global.forceCacheRefresh = forceCacheRefresh;
   global.APP_DATA_VERSION = APP_DATA_VERSION;
   global.isExcludedFromMenuEngineering = isExcludedFromMenuEngineering;
+  global.stripPlural = stripPlural;
+  global.resolveSeafoodKey = resolveSeafoodKey;
 })(typeof window !== 'undefined' ? window : globalThis);

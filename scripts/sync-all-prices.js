@@ -1,16 +1,13 @@
 import fs from 'fs';
 import path from 'path';
+import { createRequire } from 'module';
 
-globalThis.window = globalThis;
+const require = createRequire(import.meta.url);
+const { DATA } = require('../recipes-data.js');
 
 const menuDataModule = await import('../menu-data.js');
 const menuData = menuDataModule.menuData;
 
-const recipesDataPath = path.resolve('./recipes-data.js');
-let recipesCode = fs.readFileSync(recipesDataPath, 'utf-8');
-
-eval(recipesCode);
-const DATA = globalThis.DATA;
 if (!DATA || !Array.isArray(DATA)) {
   console.error("DATA not found in recipes-data.js");
   process.exit(1);

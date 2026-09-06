@@ -1,5 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const { DATA } = require('../recipes-data.js');
 
 const recipesDataPath = path.resolve('./recipes-data.js');
 let recipesCode = fs.readFileSync(recipesDataPath, 'utf-8');
@@ -225,9 +229,6 @@ if (dataEndIndex === -1) {
   console.error("Section 2 marker not found");
   process.exit(1);
 }
-
-eval(recipesCode);
-const DATA = globalThis.DATA;
 
 let updateCount = 0;
 

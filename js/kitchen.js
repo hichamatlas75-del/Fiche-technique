@@ -52,16 +52,6 @@ function makeItemKey(catKey, itemName) {
   return 'item_' + catKey + '_' + itemName.toLowerCase().replace(/[^a-z0-9]/g, '_');
 }
 
-// Protection contre les failles XSS et échappement complet (attributs inclus)
-function escapeHtml(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
 
 
 function createCard(item, catKey, categoryColor, categoryName = '') {
@@ -72,7 +62,7 @@ function createCard(item, catKey, categoryColor, categoryName = '') {
   const hasTimer = typeof item.prepTime === 'number' && item.prepTime > 0;
   const prepSeconds = hasTimer ? item.prepTime * 60 : 0;
   const timerInit = formatTime(prepSeconds);
-  const priceDisplay = item.price || (item.sellPrice ? item.sellPrice + ' DH' : '');
+  const priceDisplay = item.price || (item.sellPrice ? formatMoney(item.sellPrice, 0) : '');
 
   // Formatage soigné des ingrédients avec différenciation nombre / unité (AM-UI-11)
   const techHtml = (item.tech || []).map(line => {
@@ -117,7 +107,7 @@ function createCard(item, catKey, categoryColor, categoryName = '') {
   const techCount = (item.tech || []).length;
 
   return `
-    <div class="card" data-key="${itemKey}" data-search="${(item.name + ' ' + (item.tech||[]).join(' ')).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')}">
+    <div class="card" data-key="${itemKey}" data-search="${cleanText(item.name + ' ' + (item.tech||[]).join(' '))}">
       <div class="hero-wrap">
         ${catBadgeHtml}
         <img class="hero" src="${firstImg}" alt="${escapedName}" data-gallery="${gallery.join('|')}" style="border-bottom-color:${categoryColor}" onerror="this.onerror=null;this.src='${dishPlaceholder}';">
@@ -132,7 +122,7 @@ function createCard(item, catKey, categoryColor, categoryName = '') {
         <div class="financial-row">
           <div class="fin-item cost" title="Coût matière première estimé">
             <span class="fin-label">Coût Portion</span>
-            <span class="fin-val">${item.cost !== undefined ? item.cost.toFixed(2) + ' DH' : '-'}</span>
+            <span class="fin-val">${item.cost !== undefined ? formatMoney(item.cost) : '-'}</span>
           </div>
           <div class="fin-item ${item.foodCost <= 32 ? 'fc-low' : item.foodCost <= 42 ? 'fc-med' : 'fc-high'}" title="Ratio Food Cost (Coût / Prix Vente)">
             <span class="fin-label">Food Cost</span>
@@ -172,12 +162,7 @@ function renderAll() {
     const savedCustomPrices = localStorage.getItem('gc_ingredient_prices_v1');
     if (savedCustomPrices && window.INGREDIENT_UNIT_COSTS) {
       const parsed = JSON.parse(savedCustomPrices);
-      const obsoleteKeys = window.OBSOLETE_INGREDIENT_KEYS || new Set([
-        'calamar', 'calamars', 'calamar congele', 'calamars congeles', 'calamars brut', 'calamars net', 'calamar egoutte', 'calamars egouttes', 'calamar chair', 'calamars chair',
-        'crevette', 'crevettes', 'crevette avec coquille', 'crevettes avec coquille', 'crevette brut', 'crevette chair', 'crevettes chair', 'crevette chair pure', 'crevettes chair pure', 'crevette chair pur', 'crevettes chair pur',
-        'gambas', 'gambas avec coquille', 'gambas chair', 'gambas chair pure', 'gambas chair pur', 'gambas panees', 'gambas poche', 'gambas pochee', 'gambas decortiquees',
-        'saumon', 'saumon frais', 'saumon sans carcasse', 'saumon avec carcasse', 'saumon fumee'
-      ]);
+      const obsoleteKeys = window.OBSOLETE_INGREDIENT_KEYS;
       obsoleteKeys.forEach(k => { delete parsed[k]; delete window.INGREDIENT_UNIT_COSTS[k]; });
       Object.assign(window.INGREDIENT_UNIT_COSTS, parsed);
     }
@@ -188,7 +173,7 @@ function renderAll() {
       const customList = JSON.parse(savedCustomRecipes);
       customList.forEach(r => {
         if (r && r.name) {
-          const norm = r.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+          const norm = cleanText(r.name).replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
           customMap.set(norm, r);
         }
       });
@@ -199,7 +184,7 @@ function renderAll() {
     if (savedCompRecipes) {
       const compEdits = JSON.parse(savedCompRecipes);
       Object.keys(compEdits).forEach(name => {
-        const norm = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+        const norm = cleanText(name).replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
         if (compEdits[name] && compEdits[name].tech) {
           const prev = customMap.get(norm) || {};
           customMap.set(norm, Object.assign(prev, { ingredients: compEdits[name].tech, tech: compEdits[name].tech }));
@@ -214,14 +199,14 @@ function renderAll() {
     DATA.forEach(cat => {
       // Filtre sur une copie sans modifier cat.items
       const visibleItems = (cat.items || []).filter(it => {
-        const norm = (it.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+        const norm = cleanText(it.name || '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
         return !deletedSet.has(norm) && !deletedSet.has(it.id);
       });
 
       // Enrichissement des items (copie superficielle pour ne pas muter les originaux)
       const enrichedItems = visibleItems.map(it => {
         const clone = Object.assign({}, it); // copie sans mutation
-        const norm = (clone.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+        const norm = cleanText(clone.name || '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
         const match = customMap.get(norm);
         if (match && ((Array.isArray(match.ingredients) && match.ingredients.length > 0) || (Array.isArray(match.tech) && match.tech.length > 0))) {
           clone.tech = match.ingredients || match.tech;
@@ -244,16 +229,16 @@ function renderAll() {
     const existingNorms = new Set();
     renderData.forEach(({ items }) => {
       items.forEach(it => {
-        const norm = (it.name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+        const norm = cleanText(it.name || '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
         existingNorms.add(norm);
       });
     });
 
     customMap.forEach((r, norm) => {
       if (!existingNorms.has(norm) && !deletedSet.has(norm) && !deletedSet.has(r.id)) {
-        const rCatNorm = (r.category || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+        const rCatNorm = cleanText(r.category || '').trim();
         let targetEntry = renderData.find(e => {
-          const cNorm = (e.cat.category || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+          const cNorm = cleanText(e.cat.category || '').trim();
           return cNorm.includes(rCatNorm) || rCatNorm.includes(cNorm);
         });
         if (!targetEntry) {
@@ -267,7 +252,7 @@ function renderAll() {
           image: r.image || 'images/placeholder.svg',
           prepTime: r.prepTime || 5,
           tech: r.ingredients || [],
-          price: sellP > 0 ? `${sellP} DH` : '',
+          price: sellP > 0 ? formatMoney(sellP, 0) : '',
           sellPrice: sellP,
           cost: calc.cost,
           foodCost: calc.foodCost,
@@ -357,10 +342,6 @@ function initTabBehavior() {
 /* ===============================
    MOTEUR DE RECHERCHE RAPIDE
 ================================= */
-function normalizeText(s) {
-  return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-}
-
 let cachedCards = null;
 let cachedSections = null;
 let searchDebounceTimer = null;
@@ -379,7 +360,7 @@ function initSearch() {
   searchInput.addEventListener('input', (e) => {
 
     const raw = e.target.value.trim();
-    const q = normalizeText(raw);
+    const q = cleanText(raw);
     searchClear.classList.toggle('visible', raw.length > 0);
 
     // Debounce: wait 150ms after last keystroke
@@ -400,7 +381,7 @@ function initSearch() {
         let secMatches = 0;
         const secCards = sec.querySelectorAll('.card');
         secCards.forEach(card => {
-          const text = normalizeText(card.dataset.search || '');
+          const text = cleanText(card.dataset.search || '');
           const match = text.includes(q);
           card.style.display = match ? '' : 'none';
           if (match) {
