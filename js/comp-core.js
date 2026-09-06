@@ -309,6 +309,24 @@ var sumPrice = 0;
     }
 
     // Déclencher l'analyse permanente de l'agent intelligent
-    renderAIOptimizerAgent();
+    if (typeof window.renderAIOptimizerAgent === 'function') {
+      window.renderAIOptimizerAgent();
+    } else if (typeof renderAIOptimizerAgent === 'function') {
+      renderAIOptimizerAgent();
+    }
   }
 
+  // Exports globaux pour la communication inter-modules
+  window.allRecipes = allRecipes;
+  window.editedRecipes = editedRecipes;
+  window.currentCategory = currentCategory;
+  window.searchQuery = searchQuery;
+  window.onlyGainsFilter = onlyGainsFilter;
+  window.hasUnsavedChanges = hasUnsavedChanges;
+  window.STORAGE_KEY = STORAGE_KEY;
+  window.loadSavedEdits = loadSavedEdits;
+  window.saveEdits = saveEdits;
+  window.loadCustomIngredientPrices = loadCustomIngredientPrices;
+  window.initData = initData;
+  window.renderCategoriesBar = renderCategoriesBar;
+  window.renderSummaryKPIs = renderSummaryKPIs;

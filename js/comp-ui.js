@@ -283,7 +283,7 @@ var filtered = allRecipes.filter(r => {
 
             <!-- ÉDITEUR D'INGRÉDIENTS EN DIRECT -->
             <div class="custom-ingredients-editor" id="editor-${idx}">
-              ${renderIngredientsEditorHTML(recipe.greyCorner.tech, recipe.name, idx)}
+              ${(window.renderIngredientsEditorHTML || (typeof renderIngredientsEditorHTML === 'function' ? renderIngredientsEditorHTML : () => ''))(recipe.greyCorner.tech, recipe.name, idx)}
             </div>
 
             <!-- BOUTONS D'ACTION SUR LA RECETTE -->
@@ -453,6 +453,13 @@ var barColor = type === 'gc' ? '#0284c7' : '#16a34a';
       if (icon) icon.textContent = '▼';
       if (btn) btn.classList.remove('drawer-open');
     } else {
+      // Toujours rafraîchir avec les données les plus récentes lors de l'ouverture
+      if (type === 'gc') {
+        const res = (window.resolveRecipe || resolveRecipe)(idx);
+        if (res && res.recipe) {
+          panel.innerHTML = renderPortionCostBreakdownHTML(res.recipe.greyCorner.tech, res.recipe.sellPrice, 'gc', idx);
+        }
+      }
       panel.style.display = 'block';
       if (icon) icon.textContent = '▲';
       if (btn) btn.classList.add('drawer-open');
@@ -465,7 +472,30 @@ var barColor = type === 'gc' ? '#0284c7' : '#16a34a';
     const btn = document.getElementById(`btn-table-drawer-${idx}`);
     if (!row) return;
     const isOpen = row.style.display !== 'none';
+    if (!isOpen) {
+      const resolveFn = window.resolveRecipe || (typeof resolveRecipe === 'function' ? resolveRecipe : null);
+      const res = resolveFn ? resolveFn(idx) : null;
+      if (res && res.recipe && typeof renderPortionCostBreakdownHTML === 'function') {
+        const gcBox = row.querySelector('div > div:first-child');
+        if (gcBox) {
+          gcBox.innerHTML = `
+            <div style="font-weight:800; font-size:12.5px; color:#0284c7; margin-bottom:6px;">
+              🔵 Détail Coût Grey Corner (${res.recipe.greyCorner.cost.toFixed(2)} DH)
+            </div>
+            ${renderPortionCostBreakdownHTML(res.recipe.greyCorner.tech, res.recipe.sellPrice, 'gc', idx)}
+          `;
+        }
+      }
+    }
     row.style.display = isOpen ? 'none' : 'table-row';
     if (btn) btn.innerHTML = isOpen ? '📂 Détails' : '🔼 Masquer';
   };
+
+  // Exports globaux pour la communication inter-modules
+  window.renderRecipeCards = renderRecipeCards;
+  window.renderComparatorTable = renderComparatorTable;
+  window.createRecipeComparativeCardHTML = createRecipeComparativeCardHTML;
+  window.renderPortionCostBreakdownHTML = renderPortionCostBreakdownHTML;
+  window.isComparatorTableView = isComparatorTableView;
+  window.currentComparatorMainView = currentComparatorMainView;
 
