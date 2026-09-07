@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T21:51:16.091Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T21:58:02.933Z
  */
 
 (function(global) {
@@ -2535,9 +2535,9 @@ const DATA = [
         "image": "images/petit-dej_mquilafruitdemer.jpeg",
         "prepTime": 12,
         "tech": [
-          "crevettes : 100 g",
-          "calamars : 100 g",
-          "moules : 100 g",
+          "crevettes : 140 g",
+          "calamars : 120 g",
+          "moules : 80 g",
           "Œufs : 2 p",
           "Jus : 200 ml",
           "Boisson chaude : 1 p",
@@ -2545,11 +2545,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "78 DH",
-        "cost": 27.04,
+        "cost": 29.18,
         "sellPrice": 78,
-        "foodCost": 34.7,
-        "margin": 65.3,
-        "grossMarginDH": 50.96,
+        "foodCost": 37.4,
+        "margin": 62.6,
+        "grossMarginDH": 48.82,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_mquilafruitdemer.jpeg"
@@ -2560,7 +2560,7 @@ const DATA = [
         "image": "images/petit-dej-norvegien.jpg",
         "prepTime": 10,
         "tech": [
-          "Avocat : 90 g",
+          "Avocat : 80 g",
           "Pain céréales : 2 tr",
           "Jus : 200 ml",
           "Boisson chaude : 1 p",
@@ -2570,11 +2570,11 @@ const DATA = [
           "jben : 30 g"
         ],
         "price": "68 DH",
-        "cost": 30.34,
+        "cost": 30.1,
         "sellPrice": 68,
-        "foodCost": 44.6,
-        "margin": 55.4,
-        "grossMarginDH": 37.66,
+        "foodCost": 44.3,
+        "margin": 55.7,
+        "grossMarginDH": 37.9,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-norvegien.jpg"
@@ -7455,9 +7455,9 @@ const BASE_RECIPES = [
     "name": "MQUILA-FRUITS DE MER",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "crevettes : 100 g",
-      "calamars : 100 g",
-      "moules : 100 g",
+      "crevettes : 140 g",
+      "calamars : 120 g",
+      "moules : 80 g",
       "Œufs : 2 p",
       "Jus : 200 ml",
       "Boisson chaude : 1 p",
@@ -7474,7 +7474,7 @@ const BASE_RECIPES = [
     "name": "NORVÉGIEN",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "Avocat : 90 g",
+      "Avocat : 80 g",
       "Pain céréales : 2 tr",
       "Jus : 200 ml",
       "Boisson chaude : 1 p",
