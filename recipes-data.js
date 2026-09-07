@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T10:30:56.534Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T10:38:51.322Z
  */
 
 (function(global) {
@@ -2570,11 +2570,11 @@ const DATA = [
           "jben : 30 g"
         ],
         "price": "68 DH",
-        "cost": 30.34,
+        "cost": 30.94,
         "sellPrice": 68,
-        "foodCost": 44.6,
-        "margin": 55.4,
-        "grossMarginDH": 37.66,
+        "foodCost": 45.5,
+        "margin": 54.5,
+        "grossMarginDH": 37.06,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-norvegien.jpg"
@@ -2826,11 +2826,11 @@ const DATA = [
           "SAUCE TARTARE : 24 g"
         ],
         "price": "88 DH",
-        "cost": 31.07,
+        "cost": 31.32,
         "sellPrice": 88,
-        "foodCost": 35.3,
-        "margin": 64.7,
-        "grossMarginDH": 56.93,
+        "foodCost": 35.6,
+        "margin": 64.4,
+        "grossMarginDH": 56.68,
         "__key": "ef",
         "__images": [
           "images/entree-tartare.jpeg"
@@ -5068,11 +5068,11 @@ const DATA = [
           "Fromage : 30 g"
         ],
         "price": "58 DH",
-        "cost": 22.45,
+        "cost": 23.05,
         "sellPrice": 58,
-        "foodCost": 38.7,
-        "margin": 61.3,
-        "grossMarginDH": 35.55,
+        "foodCost": 39.7,
+        "margin": 60.3,
+        "grossMarginDH": 34.95,
         "__key": "cr",
         "__images": []
       },
@@ -10889,7 +10889,7 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "Saumon Frais Net (Pavé / Filet)"
   },
   "saumon fume": {
-    "cost": 0.28,
+    "cost": 0.29,
     "unit": "g"
   },
   "crevettes brut": {
