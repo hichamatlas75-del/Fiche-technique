@@ -6,8 +6,19 @@
 function findSellingPriceForRecipe(recipeName) {
   if (!recipeName) return 0;
   const cleanN = cleanText(recipeName);
-  if (typeof DATA !== 'undefined' && Array.isArray(DATA)) {
-    for (const cat of DATA) {
+
+  // 1. Chercher dans activeRecipes
+  if (typeof activeRecipes !== 'undefined' && Array.isArray(activeRecipes)) {
+    const found = activeRecipes.find(r => r && r.sellPrice > 0 && cleanText(r.name) === cleanN);
+    if (found && found.sellPrice) return found.sellPrice;
+  }
+
+  // 2. Chercher dans DATA (SSOT)
+  const dataList = (typeof window !== 'undefined' && Array.isArray(window.DATA))
+    ? window.DATA
+    : (typeof DATA !== 'undefined' && Array.isArray(DATA) ? DATA : []);
+  if (dataList.length > 0) {
+    for (const cat of dataList) {
       for (const item of (cat.items || [])) {
         if (cleanText(item.name) === cleanN) {
           return item.sellPrice || parseFloat(String(item.price || '0').replace(/[^0-9.]/g, '')) || 0;
@@ -15,6 +26,23 @@ function findSellingPriceForRecipe(recipeName) {
       }
     }
   }
+
+  // 3. Chercher dans currentSalesData
+  if (typeof currentSalesData !== 'undefined' && Array.isArray(currentSalesData)) {
+    const sale = currentSalesData.find(s => s && s.price > 0 && cleanText(s.product) === cleanN);
+    if (sale && sale.price) return sale.price;
+  }
+
+  // 4. Chercher dans monthlySalesDB
+  if (typeof monthlySalesDB !== 'undefined' && monthlySalesDB) {
+    for (const dayRows of Object.values(monthlySalesDB)) {
+      if (Array.isArray(dayRows)) {
+        const sale = dayRows.find(s => s && s.price > 0 && cleanText(s.product) === cleanN);
+        if (sale && sale.price) return sale.price;
+      }
+    }
+  }
+
   return 0;
 }
 

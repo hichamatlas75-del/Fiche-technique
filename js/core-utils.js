@@ -3,7 +3,7 @@
  */
 
 (function(global) {
-  const APP_DATA_VERSION = 'v7.7_merguez_compagnard_20260904';
+  const APP_DATA_VERSION = 'v8.1_lasagne_mozzarella_20260907';
 
   // ─────────────────────────────────────────────────────────────
   // CLÉS LOCALSTORAGE CENTRALISÉES (Single Source of Truth)
@@ -516,4 +516,11 @@
   global.isExcludedFromMenuEngineering = isExcludedFromMenuEngineering;
   global.stripPlural = stripPlural;
   global.resolveSeafoodKey = resolveSeafoodKey;
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+      cleanText, escapeHtml, applyTheme, formatMoney, formatNumber, formatDateFR, formatMonthFR,
+      initThemeManager, GC_Store, GC_WakeLock, GC_Toast, GC_STORAGE_KEYS, OBSOLETE_INGREDIENT_KEYS,
+      forceCacheRefresh, APP_DATA_VERSION, isExcludedFromMenuEngineering, stripPlural, resolveSeafoodKey
+    };
+  }
 })(typeof window !== 'undefined' ? window : globalThis);

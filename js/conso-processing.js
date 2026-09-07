@@ -12,6 +12,30 @@ function findRecipeForProduct(rawName, rawFamille = '') {
   const cName = cleanText(rawName);
   const cFam = cleanText(rawFamille);
 
+  // 0. Correspondance exacte ultra-rapide O(1) via l'index de recettes ou la table d'alias
+  if (window.recipeNameIndex && window.recipeNameIndex.has(cName)) {
+    return window.recipeNameIndex.get(cName);
+  }
+  const aliasMap = window.cleanAliasMap || ALIAS_MAP;
+  if (aliasMap && aliasMap[cName]) {
+    const r = activeRecipes.find(x => x.id === aliasMap[cName]);
+    if (r) return r;
+  }
+
+  // 0b. Détection prioritaire absolue pour les LASAGNES (évite toute collision avec les pâtes classiques)
+  if (cName.includes('lasagne')) {
+    if (cName.includes('poulet') || cName.includes('chicken') || cName.includes('champignon')) {
+      return activeRecipes.find(x => x.id === 'pae_lasagne_poulet') || activeRecipes.find(x => cleanText(x.name).includes('lasagne poulet'));
+    }
+    if (cName.includes('fruit') || cName.includes('mer') || cName.includes('seafood')) {
+      return activeRecipes.find(x => x.id === 'pae_lasagne_fruits_de_mer') || activeRecipes.find(x => cleanText(x.name).includes('lasagne fruit'));
+    }
+    if (cName.includes('bolognaise') || cName.includes('viande') || cName.includes('hache') || cName.includes('boeuf')) {
+      return activeRecipes.find(x => x.id === 'pae_lasagne_bolognaise') || activeRecipes.find(x => cleanText(x.name).includes('lasagne bolognaise'));
+    }
+    return activeRecipes.find(x => x.id === 'pae_lasagne_bolognaise') || activeRecipes.find(x => cleanText(x.name).includes('lasagne'));
+  }
+
   // 1. Détection prioritaire des produits spécifiques (Brochettes, Couscous, Salades, Suppléments, Paninis, Œufs, Croquettes...)
   if (cName.includes('brochette')) {
     return activeRecipes.find(x => x.id === 'plat_brochette_poulet');
@@ -73,7 +97,7 @@ function findRecipeForProduct(rawName, rawFamille = '') {
     if (cName.includes('mer') || cName.includes('fruit')) return activeRecipes.find(x => x.id === 'pa_fruits_de_mer');
   }
 
-  if (cFam.includes('pasta') || cFam.includes('pate') || cName.includes('pasta') || cName.includes('pate')) {
+  if ((cFam.includes('pasta') || cFam.includes('pate') || cName.includes('pasta') || cName.includes('pate')) && !cName.includes('lasagne')) {
     if (cName.includes('fruit') || cName.includes('mer')) return activeRecipes.find(x => x.id === 'pae_fruits_de_mer');
     if (cName.includes('saumon')) return activeRecipes.find(x => x.id === 'pae_saumon');
     if (cName.includes('carbonara')) return activeRecipes.find(x => x.id === 'pae_carbonara');
@@ -111,13 +135,6 @@ function findRecipeForProduct(rawName, rawFamille = '') {
     if (cName.includes('fromage')) return activeRecipes.find(x => x.id === 'alc_omlette_fromage');
     if (cName.includes('chef')) return activeRecipes.find(x => x.id === 'alc_omlette_chef');
     if (cName.includes('nature') || cName.includes('omlette') || cName.includes('omelette')) return activeRecipes.find(x => x.id === 'alc_omlette_nature');
-  }
-
-  // 2. Alias direct
-  const aliasMap = window.cleanAliasMap || ALIAS_MAP;
-  if (aliasMap[cName]) {
-    const r = activeRecipes.find(x => x.id === aliasMap[cName]);
-    if (r) return r;
   }
 
   // 3. Nettoyage de préfixes habituels de caisse

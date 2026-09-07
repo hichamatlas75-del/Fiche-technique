@@ -8281,6 +8281,7 @@ const BASE_RECIPES = [
     "id": "pae_lasagne_poulet",
     "name": "LASAGNE POULET",
     "category": "PÂTES",
+    "sellPrice": 60,
     "ingredients": [
       "Pâtes : 60 g",
       "poulet : 80 g",
@@ -8298,6 +8299,7 @@ const BASE_RECIPES = [
     "id": "pae_lasagne_bolognaise",
     "name": "LASAGNE BOLOGNAISE",
     "category": "PÂTES",
+    "sellPrice": 72,
     "ingredients": [
       "Pâtes : 60 g",
       "Viande : 80 g",
@@ -8315,6 +8317,7 @@ const BASE_RECIPES = [
     "id": "pae_lasagne_fruits_de_mer",
     "name": "LASAGNE FRUITS DE MER",
     "category": "PÂTES",
+    "sellPrice": 78,
     "ingredients": [
       "Pâtes : 60 g",
       "Crevettes avec coquille : 145 g",
@@ -9869,8 +9872,10 @@ const ALIAS_MAP = {
   "moitié moitié": "pz_moitie_moitie",
   "burrata": "pz_burrata",
   "lasagne poulet": "pae_lasagne_poulet",
+  "lasagne poulet champignon": "pae_lasagne_poulet",
   "lasagne bolognaise": "pae_lasagne_bolognaise",
   "lasagne fruits de mer": "pae_lasagne_fruits_de_mer",
+  "lasagne fruit de mer": "pae_lasagne_fruits_de_mer",
   "vegetarien": "pae_vegetarien",
   "végétarien": "pae_vegetarien",
   "carbonara": "pae_carbonara",
@@ -12207,5 +12212,8 @@ if (typeof window !== 'undefined') {
   window.DATA = DATA;
   window.CATEGORIES_DATA = DATA;
   window.BASE_RECIPES = BASE_RECIPES;
+}
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { DATA, CATEGORIES_DATA: DATA, BASE_RECIPES, ALIAS_MAP, INGREDIENT_CATEGORIES, INGREDIENT_UNIT_COSTS, calculateRecipeFoodCost };
 }
 })(typeof window !== 'undefined' ? window : globalThis);

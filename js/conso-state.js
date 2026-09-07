@@ -11,14 +11,12 @@ const ALIAS_MAP = window.ALIAS_MAP || {};
 const DATA = window.DATA || window.CATEGORIES_DATA || [];
 const INGREDIENT_UNIT_COSTS = window.INGREDIENT_UNIT_COSTS || {};
 
-// BUG FIX: Déléguer au calculateur canonique centralisé (recipes-data.js) qui intègre
-// le routage intelligent des fruits de mer (calamar congelé/décongelé, crevettes, saumon)
-function calculateRecipeFoodCost(ingredients, sellPrice) {
-  if (typeof window !== 'undefined' && typeof window.calculateRecipeFoodCost === 'function' && window.calculateRecipeFoodCost !== calculateRecipeFoodCost) {
-    return window.calculateRecipeFoodCost(ingredients, sellPrice);
-  }
-  return { cost: 0, sellPrice: 0, foodCost: 0, margin: 0, grossMarginDH: 0, breakdown: [] };
-}
+// Utiliser le calculateur de coût de portion canonique (ingredient-costs.js / recipes-data.js)
+var calculateRecipeFoodCost = (typeof window !== 'undefined' && typeof window.calculateRecipeFoodCost === 'function')
+  ? window.calculateRecipeFoodCost
+  : ((typeof global !== 'undefined' && typeof global.calculateRecipeFoodCost === 'function')
+      ? global.calculateRecipeFoodCost
+      : function() { return { cost: 0, sellPrice: 0, foodCost: 0, margin: 0, grossMarginDH: 0, breakdown: [] }; });
 
 /* ========================================================
    3. GESTION DU STOCKAGE DES RECETTES & BASE DE VENTES MENSUELLE
@@ -33,7 +31,7 @@ var currentSalesData = [];
 var currentSalesFilter = 'all'; // 'all', 'matched', 'unmatched'
 var aggregatedIngredients = [];
 
-const RECIPES_DB_VERSION = 'v7.7_merguez_compagnard_20260904';
+const RECIPES_DB_VERSION = 'v8.1_lasagne_mozzarella_20260907';
 
 function loadRecipes() {
   try {
@@ -71,6 +69,27 @@ function loadRecipes() {
     }
   } catch (err) {
     console.warn("Erreur synchronisation recettes comparateur:", err);
+  }
+
+  // S'assurer que chaque recette dispose de son prix de vente (depuis DATA si manquant)
+  const _dataList = (typeof window !== 'undefined' && Array.isArray(window.DATA))
+    ? window.DATA
+    : (typeof DATA !== 'undefined' && Array.isArray(DATA) ? DATA : []);
+  if (_dataList.length > 0) {
+    activeRecipes.forEach(r => {
+      if (!r.sellPrice) {
+        const cN = cleanText(r.name);
+        for (const cat of _dataList) {
+          for (const item of (cat.items || [])) {
+            if (cleanText(item.name) === cN) {
+              r.sellPrice = item.sellPrice || parseFloat(String(item.price || '0').replace(/[^0-9.]/g, '')) || 0;
+              break;
+            }
+          }
+          if (r.sellPrice) break;
+        }
+      }
+    });
   }
 
   // Build recipe index for O(1) lookups
