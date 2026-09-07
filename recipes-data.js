@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T10:04:24.160Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T10:21:14.551Z
  */
 
 (function(global) {
@@ -4626,14 +4626,15 @@ const DATA = [
           "Boules de glace : 3 p",
           "Chantilly : 40 g",
           "Coulis : 20 ml",
-          "Amandes : 15 g"
+          "Amandes : 15 g",
+          "BISCUIT : 1 g"
         ],
         "price": "65 DH",
         "sellPrice": 65,
-        "cost": 21.08,
-        "foodCost": 32.4,
-        "margin": 67.6,
-        "grossMarginDH": 43.92,
+        "cost": 22.58,
+        "foodCost": 34.7,
+        "margin": 65.3,
+        "grossMarginDH": 42.42,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4648,14 +4649,15 @@ const DATA = [
           "Banane : 1 p",
           "Boules de glace : 3 p",
           "Chantilly : 40 g",
-          "Chocolat : 20 ml"
+          "Chocolat : 20 ml",
+          "BISCUIT : 1 g"
         ],
         "price": "50 DH",
         "sellPrice": 50,
-        "cost": 21.2,
-        "foodCost": 42.4,
-        "margin": 57.6,
-        "grossMarginDH": 28.8,
+        "cost": 22.7,
+        "foodCost": 45.4,
+        "margin": 54.6,
+        "grossMarginDH": 27.3,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4692,12 +4694,12 @@ const DATA = [
           "Fruits rouges : 40 g",
           "Chantilly : 30 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "45 DH",
+        "sellPrice": 45,
         "cost": 20.62,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 45.8,
+        "margin": 54.2,
+        "grossMarginDH": 24.38,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4710,16 +4712,16 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Lait : 180 ml",
-          "Boules de glace : 2 p",
+          "Boules de glace : 1 p",
           "Nutella : 50 g",
           "Chantilly : 20 g"
         ],
-        "price": "",
-        "sellPrice": 0,
-        "cost": 18.2,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
+        "cost": 12.2,
+        "foodCost": 29,
+        "margin": 71,
+        "grossMarginDH": 29.8,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4732,15 +4734,15 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Lait : 180 ml",
-          "Boules de glace : 3 p",
+          "Boules de glace : 2 p",
           "Chantilly : 20 g"
         ],
-        "price": "",
-        "sellPrice": 0,
-        "cost": 20.25,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
+        "cost": 14.25,
+        "foodCost": 33.9,
+        "margin": 66.1,
+        "grossMarginDH": 27.75,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4757,12 +4759,12 @@ const DATA = [
           "Cookies : 40 g",
           "Chantilly : 20 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
         "cost": 16.25,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 38.7,
+        "margin": 61.3,
+        "grossMarginDH": 25.75,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4779,12 +4781,12 @@ const DATA = [
           "Fraise : 50 g",
           "Chantilly : 20 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
         "cost": 15.1,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 36,
+        "margin": 64,
+        "grossMarginDH": 26.9,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4801,12 +4803,12 @@ const DATA = [
           "Chocolat : 30 ml",
           "Chantilly : 20 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
         "cost": 16.2,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 38.6,
+        "margin": 61.4,
+        "grossMarginDH": 25.8,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4823,12 +4825,12 @@ const DATA = [
           "KitKat : 1 p",
           "Chantilly : 20 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
         "cost": 20.25,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 48.2,
+        "margin": 51.8,
+        "grossMarginDH": 21.75,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4845,12 +4847,12 @@ const DATA = [
           "Caramel : 40 g",
           "Chantilly : 20 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
         "cost": 16.05,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 38.2,
+        "margin": 61.8,
+        "grossMarginDH": 25.95,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4865,12 +4867,12 @@ const DATA = [
           "Jus d'orange : 180 ml",
           "Boules de glace : 2 p"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
         "cost": 13.8,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 32.9,
+        "margin": 67.1,
+        "grossMarginDH": 28.2,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4949,12 +4951,12 @@ const DATA = [
           "Fruits de saison : 60 g",
           "Boules de glace : 1 p"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "50 DH",
+        "sellPrice": 50,
         "cost": 17.15,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 34.3,
+        "margin": 65.7,
+        "grossMarginDH": 32.85,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -9216,7 +9218,8 @@ const BASE_RECIPES = [
       "Boules de glace : 3 p",
       "Chantilly : 40 g",
       "Coulis : 20 ml",
-      "Amandes : 15 g"
+      "Amandes : 15 g",
+      "BISCUIT : 1 g"
     ]
   },
   {
@@ -9227,7 +9230,8 @@ const BASE_RECIPES = [
       "Banane : 1 p",
       "Boules de glace : 3 p",
       "Chantilly : 40 g",
-      "Chocolat : 20 ml"
+      "Chocolat : 20 ml",
+      "BISCUIT : 1 g"
     ]
   },
   {
@@ -9248,7 +9252,9 @@ const BASE_RECIPES = [
       "Boules de glace : 3 p",
       "Fruits rouges : 40 g",
       "Chantilly : 30 g"
-    ]
+    ],
+    "sellPrice": 45,
+    "price": "45 DH"
   },
   {
     "id": "des_milkshake_nutella",
@@ -9256,7 +9262,7 @@ const BASE_RECIPES = [
     "category": "DESSERTS & PÂTISSERIES",
     "ingredients": [
       "Lait : 180 ml",
-      "Boules de glace : 2 p",
+      "Boules de glace : 1 p",
       "Nutella : 50 g",
       "Chantilly : 20 g"
     ]
@@ -9267,7 +9273,7 @@ const BASE_RECIPES = [
     "category": "DESSERTS & PÂTISSERIES",
     "ingredients": [
       "Lait : 180 ml",
-      "Boules de glace : 3 p",
+      "Boules de glace : 2 p",
       "Chantilly : 20 g"
     ]
   },
@@ -9313,7 +9319,9 @@ const BASE_RECIPES = [
       "Boules de glace : 2 p",
       "KitKat : 1 p",
       "Chantilly : 20 g"
-    ]
+    ],
+    "sellPrice": 42,
+    "price": "42 DH"
   },
   {
     "id": "des_milkshake_caramel",
@@ -9324,7 +9332,9 @@ const BASE_RECIPES = [
       "Boules de glace : 2 p",
       "Caramel : 40 g",
       "Chantilly : 20 g"
-    ]
+    ],
+    "sellPrice": 42,
+    "price": "42 DH"
   },
   {
     "id": "des_orangeshake",
@@ -9333,7 +9343,9 @@ const BASE_RECIPES = [
     "ingredients": [
       "Jus d'orange : 180 ml",
       "Boules de glace : 2 p"
-    ]
+    ],
+    "sellPrice": 42,
+    "price": "42 DH"
   },
   {
     "id": "des_pain_cake_nutella",
@@ -9373,7 +9385,9 @@ const BASE_RECIPES = [
       "Nutella : 50 g",
       "Fruits de saison : 60 g",
       "Boules de glace : 1 p"
-    ]
+    ],
+    "sellPrice": 50,
+    "price": "50 DH"
   },
   {
     "id": "bc_lait_chaud",
