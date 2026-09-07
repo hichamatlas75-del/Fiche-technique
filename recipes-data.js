@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T21:48:50.816Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T21:51:16.091Z
  */
 
 (function(global) {
@@ -2219,11 +2219,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 2 p"
         ],
         "price": "144 DH",
-        "cost": 57.38,
+        "cost": 55.38,
         "sellPrice": 144,
-        "foodCost": 39.8,
-        "margin": 60.2,
-        "grossMarginDH": 86.62,
+        "foodCost": 38.5,
+        "margin": 61.5,
+        "grossMarginDH": 88.62,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-duo.jpg"
@@ -2496,11 +2496,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 26.25,
+        "cost": 24.25,
         "sellPrice": 64,
-        "foodCost": 41,
-        "margin": 59,
-        "grossMarginDH": 37.75,
+        "foodCost": 37.9,
+        "margin": 62.1,
+        "grossMarginDH": 39.75,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-espagnol.jpg"
@@ -3026,7 +3026,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 19.2,
+        "cost": 13.2,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -11307,7 +11307,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece"
   },
   "croquettes": {
-    "cost": 3,
+    "cost": 2,
     "unit": "piece"
   },
   "croque maison": {
