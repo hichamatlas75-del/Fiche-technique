@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T09:42:17.378Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T10:04:24.160Z
  */
 
 (function(global) {
@@ -4574,14 +4574,14 @@ const DATA = [
         "name": "BOULE DE GLACE",
         "prepTime": 2,
         "tech": [
-          "Glace artisanale au choix : 80 g"
+          "Glace artisanale au choix : 65 g"
         ],
         "price": "16 DH",
-        "cost": 7.2,
+        "cost": 5.85,
         "sellPrice": 16,
-        "foodCost": 45,
-        "margin": 55,
-        "grossMarginDH": 8.8,
+        "foodCost": 36.6,
+        "margin": 63.4,
+        "grossMarginDH": 10.15,
         "__key": "dp",
         "__images": []
       },
@@ -4589,15 +4589,15 @@ const DATA = [
         "name": "2 BOULES DE GLACE",
         "prepTime": 2,
         "tech": [
-          "Glace artisanale au choix : 160 g",
+          "Glace artisanale au choix : 130 g",
           "Coulis & Chantilly : 0 g"
         ],
         "price": "30 DH",
-        "cost": 14.4,
+        "cost": 11.7,
         "sellPrice": 30,
-        "foodCost": 48,
-        "margin": 52,
-        "grossMarginDH": 15.6,
+        "foodCost": 39,
+        "margin": 61,
+        "grossMarginDH": 18.3,
         "__key": "dp",
         "__images": []
       },
@@ -4605,15 +4605,15 @@ const DATA = [
         "name": "3 BOULES DE GLACE",
         "prepTime": 3,
         "tech": [
-          "Glace artisanale au choix : 240 g",
+          "Glace artisanale au choix : 195 g",
           "Coulis, Chantilly & Gaufrette : 0 g"
         ],
-        "price": "35 DH",
-        "cost": 21.6,
-        "sellPrice": 35,
-        "foodCost": 61.7,
-        "margin": 38.3,
-        "grossMarginDH": 13.4,
+        "price": "45 DH",
+        "cost": 17.55,
+        "sellPrice": 45,
+        "foodCost": 39,
+        "margin": 61,
+        "grossMarginDH": 27.45,
         "__key": "dp",
         "__images": []
       },
@@ -4623,17 +4623,17 @@ const DATA = [
         "image": "images/placeholder.svg",
         "prepTime": 5,
         "tech": [
-          "Boules de glace : 6.5 p",
+          "Boules de glace : 3 p",
           "Chantilly : 40 g",
           "Coulis : 20 ml",
           "Amandes : 15 g"
         ],
         "price": "65 DH",
         "sellPrice": 65,
-        "cost": 48.58,
-        "foodCost": 74.7,
-        "margin": 25.3,
-        "grossMarginDH": 16.42,
+        "cost": 21.08,
+        "foodCost": 32.4,
+        "margin": 67.6,
+        "grossMarginDH": 43.92,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4652,10 +4652,10 @@ const DATA = [
         ],
         "price": "50 DH",
         "sellPrice": 50,
-        "cost": 24.2,
-        "foodCost": 48.4,
-        "margin": 51.6,
-        "grossMarginDH": 25.8,
+        "cost": 21.2,
+        "foodCost": 42.4,
+        "margin": 57.6,
+        "grossMarginDH": 28.8,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4673,7 +4673,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 15.35,
+        "cost": 13.35,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -4694,7 +4694,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 23.62,
+        "cost": 20.62,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -4716,7 +4716,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 20.2,
+        "cost": 18.2,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -4737,7 +4737,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 23.25,
+        "cost": 20.25,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -4759,7 +4759,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 18.25,
+        "cost": 16.25,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -4781,7 +4781,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 17.1,
+        "cost": 15.1,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -4803,7 +4803,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 18.2,
+        "cost": 16.2,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -4825,7 +4825,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 22.25,
+        "cost": 20.25,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -4847,7 +4847,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 18.05,
+        "cost": 16.05,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -4867,7 +4867,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 15.8,
+        "cost": 13.8,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -4951,7 +4951,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 18.15,
+        "cost": 17.15,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -8479,7 +8479,7 @@ const BASE_RECIPES = [
     "name": "BOULE DE GLACE",
     "category": "DESSERTS & PÂTISSERIES",
     "ingredients": [
-      "Glace artisanale au choix : 80 g"
+      "Glace artisanale au choix : 65 g"
     ]
   },
   {
@@ -8487,7 +8487,7 @@ const BASE_RECIPES = [
     "name": "2 BOULES DE GLACE",
     "category": "DESSERTS & PÂTISSERIES",
     "ingredients": [
-      "Glace artisanale au choix : 160 g",
+      "Glace artisanale au choix : 130 g",
       "Coulis & Chantilly : 0 g"
     ]
   },
@@ -8496,9 +8496,11 @@ const BASE_RECIPES = [
     "name": "3 BOULES DE GLACE",
     "category": "DESSERTS & PÂTISSERIES",
     "ingredients": [
-      "Glace artisanale au choix : 240 g",
+      "Glace artisanale au choix : 195 g",
       "Coulis, Chantilly & Gaufrette : 0 g"
-    ]
+    ],
+    "sellPrice": 45,
+    "price": "45 DH"
   },
   {
     "id": "cr_crepe_nutella",
@@ -9211,7 +9213,7 @@ const BASE_RECIPES = [
     "name": "Coupe Grey Corner",
     "category": "DESSERTS & PÂTISSERIES",
     "ingredients": [
-      "Boules de glace : 6.5 p",
+      "Boules de glace : 3 p",
       "Chantilly : 40 g",
       "Coulis : 20 ml",
       "Amandes : 15 g"
@@ -9226,9 +9228,7 @@ const BASE_RECIPES = [
       "Boules de glace : 3 p",
       "Chantilly : 40 g",
       "Chocolat : 20 ml"
-    ],
-    "sellPrice": 50,
-    "price": "50 DH"
+    ]
   },
   {
     "id": "des_coupe_enfant",
@@ -11682,11 +11682,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "boule de glace": {
-    "cost": 7,
+    "cost": 6,
     "unit": "piece"
   },
   "boule de glace vanille": {
-    "cost": 7,
+    "cost": 6,
     "unit": "piece"
   },
   "glace artisanale": {
@@ -11908,12 +11908,12 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "Pancake"
   },
   "boules de glace": {
-    "cost": 7,
+    "cost": 6,
     "unit": "piece",
     "label": "Boule Glace"
   },
   "boule glace": {
-    "cost": 7,
+    "cost": 6,
     "unit": "piece",
     "label": "Boule Glace"
   },
