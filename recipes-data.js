@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T20:16:03.880Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T20:18:35.638Z
  */
 
 (function(global) {
@@ -5530,16 +5530,18 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "Pâte à pizza : 330 g",
-          "Mozzarella : 200 g",
+          "Mozzarella : 150 g",
           "Sauce tomate : 100 g",
-          "Garniture composée : 150 g"
+          "saumon : 50 g",
+          "calamar net : 40 g",
+          "crevette net : 40 g"
         ],
         "price": "85 DH",
-        "cost": 15.45,
+        "cost": 34.09,
         "sellPrice": 85,
-        "foodCost": 18.2,
-        "margin": 81.8,
-        "grossMarginDH": 69.55,
+        "foodCost": 40.1,
+        "margin": 59.9,
+        "grossMarginDH": 50.91,
         "__key": "sup",
         "__images": []
       },
@@ -8653,9 +8655,11 @@ const BASE_RECIPES = [
     "category": "SUPPLÉMENTS & EXTRAS",
     "ingredients": [
       "Pâte à pizza : 330 g",
-      "Mozzarella : 200 g",
+      "Mozzarella : 150 g",
       "Sauce tomate : 100 g",
-      "Garniture composée : 150 g"
+      "saumon : 50 g",
+      "calamar net : 40 g",
+      "crevette net : 40 g"
     ]
   },
   {
