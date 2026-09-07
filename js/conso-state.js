@@ -31,7 +31,7 @@ var currentSalesData = [];
 var currentSalesFilter = 'all'; // 'all', 'matched', 'unmatched'
 var aggregatedIngredients = [];
 
-const RECIPES_DB_VERSION = 'v8.1_lasagne_mozzarella_20260907';
+const RECIPES_DB_VERSION = 'v8.2_20260907';
 
 function loadRecipes() {
   try {
@@ -131,11 +131,42 @@ function loadMonthlySalesDB() {
   }
 }
 
+function pruneOldestSales(db, maxMonthsToKeep = 6) {
+  const dates = Object.keys(db).sort();
+  if (dates.length <= 90) return false;
+  const yearMonths = Array.from(new Set(dates.map(d => d.slice(0, 7)))).sort();
+  if (yearMonths.length <= maxMonthsToKeep) return false;
+  const dropSet = new Set(yearMonths.slice(0, yearMonths.length - maxMonthsToKeep));
+  dates.forEach(d => {
+    if (dropSet.has(d.slice(0, 7))) delete db[d];
+  });
+  return true;
+}
+
 function saveMonthlySalesDB() {
   try {
     localStorage.setItem(GC_STORAGE_KEYS.SALES, JSON.stringify(monthlySalesDB));
   } catch (e) {
-    console.warn('[LocalStorage] Erreur sauvegarde ventes:', e);
+    console.warn('[LocalStorage] Erreur sauvegarde ventes (quota potentiel):', e);
+    if (e && (e.name === 'QuotaExceededError' || e.code === 22 || e.code === 1014 || (e.message && e.message.includes('quota')))) {
+      const cloned = Object.assign({}, monthlySalesDB);
+      const pruned = pruneOldestSales(cloned, 6);
+      if (pruned) {
+        try {
+          localStorage.setItem(GC_STORAGE_KEYS.SALES, JSON.stringify(cloned));
+          monthlySalesDB = cloned;
+          if (window.GC_Toast) {
+            window.GC_Toast.show("⚠️ Quota mémoire atteint : les 6 derniers mois de ventes ont été conservés en local.", 'warning');
+          }
+          return;
+        } catch (e2) {
+          console.error('[LocalStorage] Échec sauvegarde même après purge:', e2);
+        }
+      }
+      if (window.GC_Toast) {
+        window.GC_Toast.show("❌ Espace mémoire saturé (limite 5 Mo du navigateur). Veuillez exporter vos ventes.", 'error');
+      }
+    }
   }
 }
 

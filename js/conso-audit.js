@@ -169,55 +169,7 @@ async function autoScanVentesFolder(showUserAlert = false) {
   // Map unifiée pour collecter les fichiers : Map<relPath, downloadUrl|null>
   const filesToProcess = new Map();
 
-  // 1. SOURCE DYNAMIQUE EN TEMPS RÉEL : API GitHub (avec scan récursif des sous-dossiers par mois)
-  try {
-    const ghResp = await fetch('https://api.github.com/repos/hichamatlas75-del/Fiche-technique/contents/ventes?t=' + Date.now(), {
-      headers: { 'Accept': 'application/vnd.github.v3+json' },
-      cache: 'no-store'
-    });
-    if (ghResp.ok) {
-      const ghItems = await ghResp.json();
-      if (Array.isArray(ghItems)) {
-        for (const item of ghItems) {
-          if (!item) continue;
-          if (item.type === 'file' && item.name) {
-            const low = item.name.toLowerCase();
-            if (low.endsWith('.xls') || low.endsWith('.xlsx')) {
-              filesToProcess.set(item.name, item.download_url || null);
-            }
-          } else if (item.type === 'dir' && item.url) {
-            // Sous-dossier mensuel (ex: 2026-08)
-            try {
-              const subResp = await fetch(item.url + (item.url.includes('?') ? '&' : '?') + 't=' + Date.now(), {
-                headers: { 'Accept': 'application/vnd.github.v3+json' },
-                cache: 'no-store'
-              });
-              if (subResp.ok) {
-                const subItems = await subResp.json();
-                if (Array.isArray(subItems)) {
-                  subItems.forEach(subItem => {
-                    if (subItem && subItem.name) {
-                      const low = subItem.name.toLowerCase();
-                      if (low.endsWith('.xls') || low.endsWith('.xlsx')) {
-                        const rel = item.name + '/' + subItem.name;
-                        filesToProcess.set(rel, subItem.download_url || null);
-                      }
-                    }
-                  });
-                }
-              }
-            } catch (errSub) {
-              console.warn('[Auto-sync GitHub subfolder]', errSub);
-            }
-          }
-        }
-      }
-    }
-  } catch (e) {
-    console.warn('[Auto-sync GitHub API]', e);
-  }
-
-  // 2. SOURCE STATIQUE : manifest.json (fonctionne en local ou si API GitHub indisponible)
+  // 1. SOURCE RAPIDE & FIABLE : manifest.json (local / CDN, sans limitation de requêtes API)
   try {
     const manifestResp = await fetchFile('ventes/manifest.json');
     if (manifestResp) {
@@ -232,6 +184,56 @@ async function autoScanVentesFolder(showUserAlert = false) {
     }
   } catch (e) {
     console.warn('[Auto-sync manifest.json]', e);
+  }
+
+  // 2. SOURCE SECONDAIRE EN RECOURS : API GitHub si le manifest est vide ou indisponible
+  if (filesToProcess.size === 0) {
+    try {
+      const ghResp = await fetch('https://api.github.com/repos/hichamatlas75-del/Fiche-technique/contents/ventes?t=' + Date.now(), {
+        headers: { 'Accept': 'application/vnd.github.v3+json' },
+        cache: 'no-store'
+      });
+      if (ghResp.ok) {
+        const ghItems = await ghResp.json();
+        if (Array.isArray(ghItems)) {
+          for (const item of ghItems) {
+            if (!item) continue;
+            if (item.type === 'file' && item.name) {
+              const low = item.name.toLowerCase();
+              if (low.endsWith('.xls') || low.endsWith('.xlsx')) {
+                filesToProcess.set(item.name, item.download_url || null);
+              }
+            } else if (item.type === 'dir' && item.url) {
+              // Sous-dossier mensuel (ex: 2026-08)
+              try {
+                const subResp = await fetch(item.url + (item.url.includes('?') ? '&' : '?') + 't=' + Date.now(), {
+                  headers: { 'Accept': 'application/vnd.github.v3+json' },
+                  cache: 'no-store'
+                });
+                if (subResp.ok) {
+                  const subItems = await subResp.json();
+                  if (Array.isArray(subItems)) {
+                    subItems.forEach(subItem => {
+                      if (subItem && subItem.name) {
+                        const low = subItem.name.toLowerCase();
+                        if (low.endsWith('.xls') || low.endsWith('.xlsx')) {
+                          const rel = item.name + '/' + subItem.name;
+                          filesToProcess.set(rel, subItem.download_url || null);
+                        }
+                      }
+                    });
+                  }
+                }
+              } catch (errSub) {
+                console.warn('[Auto-sync GitHub subfolder]', errSub);
+              }
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('[Auto-sync GitHub API]', e);
+    }
   }
 
   // 3. SCANNER DE CANDIDATS (ACTIF UNIQUEMENT EN SECOURS si aucun fichier détecté par GitHub API / manifest.json)

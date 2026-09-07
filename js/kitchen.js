@@ -355,51 +355,21 @@ function initSearch() {
   if (isSearchInitialized) return;
   isSearchInitialized = true;
 
-  if (!searchInput) return;
-
   searchInput.addEventListener('input', (e) => {
-
     const raw = e.target.value.trim();
-    const q = cleanText(raw);
     searchClear.classList.toggle('visible', raw.length > 0);
 
     // Debounce: wait 150ms after last keystroke
     clearTimeout(searchDebounceTimer);
     searchDebounceTimer = setTimeout(() => {
-      const cards = cachedCards || document.querySelectorAll('.card');
-      const sections = cachedSections || document.querySelectorAll('.section-wrap');
-      let matchesCount = 0;
-
-      if (!q) {
-        cards.forEach(c => c.style.display = '');
-        sections.forEach(s => s.style.display = '');
-        searchInfo.classList.remove('visible');
-        return;
-      }
-
-      sections.forEach(sec => {
-        let secMatches = 0;
-        const secCards = sec.querySelectorAll('.card');
-        secCards.forEach(card => {
-          const text = cleanText(card.dataset.search || '');
-          const match = text.includes(q);
-          card.style.display = match ? '' : 'none';
-          if (match) {
-            secMatches++;
-            matchesCount++;
-          }
-        });
-        sec.style.display = secMatches > 0 ? '' : 'none';
-      });
-
-      searchInfo.innerHTML = `Résultat pour "<strong>${escapeHtml(raw)}</strong>" : <strong>${matchesCount}</strong> fiche(s) trouvée(s).`;
-      searchInfo.classList.add('visible');
+      applyCombinedFilters();
     }, 150);
   });
 
   searchClear.addEventListener('click', () => {
     searchInput.value = '';
-    searchInput.dispatchEvent(new Event('input'));
+    searchClear.classList.remove('visible');
+    applyCombinedFilters();
     searchInput.focus();
   });
 }
@@ -725,32 +695,68 @@ function initQuickFilters() {
 }
 
 function applyQuickFilter() {
-  const sections = document.querySelectorAll('.section-wrap');
+  applyCombinedFilters();
+}
+
+function applyCombinedFilters() {
+  const cards = cachedCards || document.querySelectorAll('.card');
+  const sections = cachedSections || document.querySelectorAll('.section-wrap');
+  const rawSearch = (searchInput ? searchInput.value : '').trim();
+  const q = cleanText(rawSearch);
+  let totalMatches = 0;
+
   sections.forEach(sec => {
     let visibleInSec = 0;
-    const cards = sec.querySelectorAll('.card');
-    cards.forEach(c => {
-      let match = true;
+    const secCards = sec.querySelectorAll('.card');
+    secCards.forEach(card => {
+      // 1. Condition recherche
+      let matchSearch = true;
+      if (q) {
+        const text = cleanText(card.dataset.search || '');
+        matchSearch = text.includes(q);
+      }
+
+      // 2. Condition filtre rapide
+      let matchQuick = true;
       if (activeQuickFilter === 'express') {
-        const timeChip = c.querySelector('.chip-time') || c.querySelector('.chip.mins');
+        const timeChip = card.querySelector('.chip-time') || card.querySelector('.chip.mins');
         const minutes = timeChip ? parseInt(timeChip.textContent.replace(/[^0-9]/g, ''), 10) : 99;
-        match = minutes <= 10;
+        matchQuick = minutes <= 10;
       } else if (activeQuickFilter === 'photos') {
-        const hero = c.querySelector('img.hero');
-        match = hero && !hero.src.startsWith('data:image/svg+xml');
+        const hero = card.querySelector('img.hero');
+        matchQuick = hero && !hero.src.startsWith('data:image/svg+xml');
       } else if (activeQuickFilter === 'vege') {
-        // AM-04 FIX : mots-clés enrichis pour le filtre Frais & Salades
-        const txt = (c.dataset.search || '').toLowerCase();
-        match = txt.includes('salade') || txt.includes('burrata') || txt.includes('avocat')
+        const txt = (card.dataset.search || '').toLowerCase();
+        matchQuick = txt.includes('salade') || txt.includes('burrata') || txt.includes('avocat')
              || txt.includes('fromage') || txt.includes('vegetarien') || txt.includes('vegeta')
              || txt.includes('roquette') || txt.includes('mesclun') || txt.includes('caprese')
              || txt.includes('bruschetta') || txt.includes('mozzarella') || txt.includes('tomate');
       }
-      c.style.display = match ? '' : 'none';
-      if (match) visibleInSec++;
+
+      const isVisible = matchSearch && matchQuick;
+      card.style.display = isVisible ? '' : 'none';
+      if (isVisible) {
+        visibleInSec++;
+        totalMatches++;
+      }
     });
     sec.style.display = visibleInSec > 0 ? '' : 'none';
   });
+
+  if (searchInfo) {
+    if (q || activeQuickFilter !== 'all') {
+      const parts = [];
+      if (q) parts.push(`recherche "<strong>${escapeHtml(rawSearch)}</strong>"`);
+      if (activeQuickFilter === 'express') parts.push(`filtre <strong>Express (≤ 10 min)</strong>`);
+      else if (activeQuickFilter === 'photos') parts.push(`filtre <strong>Avec Photos</strong>`);
+      else if (activeQuickFilter === 'vege') parts.push(`filtre <strong>Frais & Salades</strong>`);
+
+      searchInfo.innerHTML = `Affichage pour ${parts.join(' + ')} : <strong>${totalMatches}</strong> fiche(s) trouvée(s).`;
+      searchInfo.classList.add('visible');
+    } else {
+      searchInfo.classList.remove('visible');
+    }
+  }
 }
 
 // BUG-07 FIX : Gestion du thème déléguée à window.initThemeManager() (core-utils.js)

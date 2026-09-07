@@ -5,12 +5,13 @@ const require = createRequire(import.meta.url);
 const { DATA } = require('../recipes-data.js');
 
 const list = [
-  { cat: 'PANINIS', name: 'FRUITS DE MER' },
-  { cat: 'SANDWICHS', name: 'FRUITS DE MER' },
-  { cat: 'PIZZA', name: 'FRUITS DE MER' },
+  { cat: 'PANINIS', name: 'PANINI FRUITS DE MER' },
+  { cat: 'SANDWICHS', name: 'SANDWICH FRUITS DE MER' },
+  { cat: 'PIZZA', name: 'PIZZA FRUITS DE MER' },
   { cat: 'PÂTES', name: 'LASAGNE FRUITS DE MER' },
-  { cat: 'PÂTES', name: 'FRUITS DE MER' },
-  { cat: 'CRÊPES', name: 'CRÊPE PÊCHEUR' }
+  { cat: 'PÂTES', name: 'PASTA FRUITS DE MER' },
+  { cat: 'CRÊPES', name: 'CRÊPE PÊCHEUR' },
+  { cat: 'ENTRÉES CHAUDES', name: 'PIL PIL FRUITS DE MER' }
 ];
 
 console.log('=== SEAFOOD PRODUCTS METRICS (40g Crevette + 40g Calamar) ===');
