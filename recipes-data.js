@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T21:48:20.718Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T21:48:50.816Z
  */
 
 (function(global) {
@@ -2187,11 +2187,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "85 DH",
-        "cost": 37.6,
+        "cost": 36.6,
         "sellPrice": 85,
-        "foodCost": 44.2,
-        "margin": 55.8,
-        "grossMarginDH": 47.4,
+        "foodCost": 43.1,
+        "margin": 56.9,
+        "grossMarginDH": 48.4,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-gc.jpg"
@@ -11303,7 +11303,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece"
   },
   "croquettes fromage": {
-    "cost": 3,
+    "cost": 2,
     "unit": "piece"
   },
   "croquettes": {
