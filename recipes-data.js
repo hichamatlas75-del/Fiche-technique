@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T20:18:35.638Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T20:20:52.529Z
  */
 
 (function(global) {
@@ -5536,12 +5536,12 @@ const DATA = [
           "calamar net : 40 g",
           "crevette net : 40 g"
         ],
-        "price": "85 DH",
+        "price": "94 DH",
         "cost": 34.09,
-        "sellPrice": 85,
-        "foodCost": 40.1,
-        "margin": 59.9,
-        "grossMarginDH": 50.91,
+        "sellPrice": 94,
+        "foodCost": 36.3,
+        "margin": 63.7,
+        "grossMarginDH": 59.91,
         "__key": "sup",
         "__images": []
       },
@@ -8660,7 +8660,9 @@ const BASE_RECIPES = [
       "saumon : 50 g",
       "calamar net : 40 g",
       "crevette net : 40 g"
-    ]
+    ],
+    "sellPrice": 94,
+    "price": "94 DH"
   },
   {
     "id": "sup_divers_cuisine_food",
