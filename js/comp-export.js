@@ -56,192 +56,19 @@
 
   // ========================================================
   // GESTION MERCURIALE & PRIX D'ACHAT DES MATIÈRES PREMIÈRES
+  // (Délégation universelle vers GC_PricesModal / prices-modal.js)
   // ========================================================
 
   function openPricesModal() {
-    loadCustomIngredientPrices();
-    const modal = document.getElementById('prices-modal');
-    if (modal) modal.classList.add('visible');
-    renderPricesTable();
+    if (window.GC_PricesModal) {
+      window.GC_PricesModal.open();
+    }
   }
 
   function closePricesModal() {
-    const modal = document.getElementById('prices-modal');
-    if (modal) modal.classList.remove('visible');
-  }
-
-  function renderPricesTable() {
-    const container = document.getElementById('prices-table-body');
-    if (!container) return;
-
-    const searchInput = document.getElementById('search-prices-input');
-    const search = (searchInput ? searchInput.value : '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
-    const costMap = window.INGREDIENT_UNIT_COSTS || {};
-
-    const entries = Object.entries(costMap);
-    const filtered = entries.filter(([k, v]) => {
-      if (!search) return true;
-      const label = v.label || k;
-      const normLabel = label.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      const normKey = k.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      return normLabel.includes(search) || normKey.includes(search);
-    });
-
-    const badge = document.getElementById('prices-count-badge');
-    if (badge) badge.textContent = `${entries.length} matières (${filtered.length} affichées)`;
-
-    if (filtered.length === 0) {
-      container.innerHTML = `
-        <tr>
-          <td colspan="4" style="text-align:center; padding:30px; color:var(--text-muted);">
-            Aucune matière première trouvée pour votre recherche.
-          </td>
-        </tr>
-      `;
-      return;
+    if (window.GC_PricesModal) {
+      window.GC_PricesModal.close();
     }
-
-    container.innerHTML = filtered.map(([key, item]) => {
-      const label = item.label || (key.charAt(0).toUpperCase() + key.slice(1));
-      const unit = item.unit || 'g';
-
-      let displayUnit = 'kg';
-      let purchasePrice = (item.cost || 0) * 1000;
-      let unitDesc = `${(item.cost || 0).toFixed(4)} DH/g`;
-
-      if (unit === 'ml' || unit === 'l') {
-        displayUnit = 'L';
-        purchasePrice = (item.cost || 0) * 1000;
-        unitDesc = `${(item.cost || 0).toFixed(4)} DH/ml`;
-      } else if (unit === 'piece' || unit === 'p') {
-        displayUnit = 'Pièce / Unité';
-        purchasePrice = item.cost || 0;
-        unitDesc = `${(item.cost || 0).toFixed(2)} DH/p`;
-      }
-
-      purchasePrice = Math.round(purchasePrice * 100) / 100;
-
-      return `
-        <tr>
-          <td style="padding:10px 14px; font-weight:700; color:var(--text);">
-            ${escapeHtml(label)}
-            <span style="font-size:10px; color:var(--text-muted); display:block; font-weight:normal;">Réf: ${escapeHtml(key)}</span>
-          </td>
-          <td style="padding:10px; text-align:center;">
-            <span class="unit-chip">
-              ${displayUnit}
-            </span>
-          </td>
-          <td style="padding:8px 14px; text-align:right;">
-            <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px;">
-              <input type="number" step="0.1" min="0" 
-                class="price-edit-input" 
-                data-key="${escapeHtml(key)}" 
-                data-unit="${unit}" 
-                value="${purchasePrice}" 
-                style="width:95px; padding:6px 8px; text-align:right; font-weight:800; font-size:13px; border-radius:7px; border:1.5px solid var(--border); background:var(--bg); color:var(--accent);"
-              />
-              <span style="font-size:12px; font-weight:700; color:var(--text-muted);">DH</span>
-            </div>
-          </td>
-          <td style="padding:10px 14px; text-align:right; font-weight:700; color:var(--text-muted); font-size:12px;">
-            ${unitDesc}
-          </td>
-        </tr>
-      `;
-    }).join('');
-  }
-
-  function showAddNewPriceForm() {
-    const box = document.getElementById('add-price-form-box');
-    if (box) box.style.display = 'block';
-    const nameInp = document.getElementById('new-price-name');
-    if (nameInp) nameInp.focus();
-  }
-
-  function hideAddNewPriceForm() {
-    const box = document.getElementById('add-price-form-box');
-    if (box) box.style.display = 'none';
-  }
-
-  function confirmAddIngredientPrice() {
-    const name = document.getElementById('new-price-name').value.trim();
-    const unit = document.getElementById('new-price-unit').value;
-    const priceVal = parseFloat(document.getElementById('new-price-val').value) || 0;
-
-    if (!name) {
-      alert("Veuillez saisir le nom de la matière première.");
-      return;
-    }
-    if (priceVal <= 0) {
-      alert("Veuillez spécifier un prix d'achat valide supérieur à 0.");
-      return;
-    }
-
-    const key = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
-    let baseUnit = 'g';
-    let unitCost = priceVal / 1000;
-
-    if (unit === 'l') {
-      baseUnit = 'ml';
-      unitCost = priceVal / 1000;
-    } else if (unit === 'p') {
-      baseUnit = 'piece';
-      unitCost = priceVal;
-    }
-
-    if (!window.INGREDIENT_UNIT_COSTS) window.INGREDIENT_UNIT_COSTS = {};
-    window.INGREDIENT_UNIT_COSTS[key] = {
-      cost: unitCost,
-      unit: baseUnit,
-      label: name
-    };
-
-    saveAllIngredientPricesFromModal();
-
-    document.getElementById('new-price-name').value = '';
-    document.getElementById('new-price-val').value = '';
-    hideAddNewPriceForm();
-    renderPricesTable();
-  }
-
-  function saveAllIngredientPricesFromModal() {
-    const inputs = document.querySelectorAll('.price-edit-input');
-    if (!window.INGREDIENT_UNIT_COSTS) window.INGREDIENT_UNIT_COSTS = {};
-
-    inputs.forEach(inp => {
-      const key = inp.dataset.key;
-      const unit = inp.dataset.unit;
-      const val = parseFloat(inp.value) || 0;
-
-      let unitCost = val / 1000;
-      if (unit === 'piece' || unit === 'p') {
-        unitCost = val;
-      }
-
-      if (window.INGREDIENT_UNIT_COSTS[key]) {
-        window.INGREDIENT_UNIT_COSTS[key].cost = unitCost;
-      } else {
-        window.INGREDIENT_UNIT_COSTS[key] = {
-          cost: unitCost,
-          unit: unit,
-          label: key
-        };
-      }
-    });
-
-    try {
-      localStorage.setItem(window.GC_STORAGE_KEYS.PRICES, JSON.stringify(window.INGREDIENT_UNIT_COSTS));
-    } catch (e) {
-      console.error('Erreur sauvegarde prix localStorage:', e);
-    }
-
-    // Recalculer toutes les recettes dans le comparateur
-    initData();
-    renderSummaryKpis();
-    renderRecipeCards();
-
-    window.GC_Toast.show("✅ Prix des matières enregistrés ! Food costs et marges recalculés en direct.", 'success');
   }
 
   // Générer la chaîne complète du fichier recipes-data.js à jour
@@ -286,7 +113,7 @@
     const aliasObj = window.ALIAS_MAP || {};
     const catObj = window.INGREDIENT_CATEGORIES || {};
     const unitCostsObj = window.INGREDIENT_UNIT_COSTS || {};
-    const fnStr = (window.calculateRecipeFoodCost || calculateRecipeFoodCost).toString();
+    const fnStr = (window.calculateRecipeFoodCost || function(){}).toString();
 
     let content = `/**\n * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes\n * Source Unique de Vérité (SSOT) mise à jour automatiquement le ${new Date().toISOString()}\n */\n\n(function(global) {\n`;
     content += `const DATA = ${JSON.stringify(clonedData, null, 2)};\n\n`;
@@ -295,7 +122,7 @@
     content += `const INGREDIENT_CATEGORIES = ${JSON.stringify(catObj, null, 2)};\n\n`;
     content += `const INGREDIENT_UNIT_COSTS = ${JSON.stringify(unitCostsObj, null, 2)};\n\n`;
     content += `${fnStr}\n\n`;
-    content += `global.CATEGORIES_DATA = DATA;\nglobal.DATA = DATA;\nglobal.BASE_RECIPES = BASE_RECIPES;\nglobal.ALIAS_MAP = ALIAS_MAP;\nglobal.INGREDIENT_CATEGORIES = INGREDIENT_CATEGORIES;\nglobal.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\nglobal.calculateRecipeFoodCost = calculateRecipeFoodCost;\nif (typeof window !== 'undefined') {\n  window.calculateRecipeFoodCost = calculateRecipeFoodCost;\n  window.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\n  window.DATA = DATA;\n  window.CATEGORIES_DATA = DATA;\n  window.BASE_RECIPES = BASE_RECIPES;\n}\n})(typeof window !== 'undefined' ? window : globalThis);\n`;
+    content += `global.CATEGORIES_DATA = DATA;\nglobal.DATA = DATA;\nglobal.BASE_RECIPES = BASE_RECIPES;\nglobal.ALIAS_MAP = ALIAS_MAP;\nglobal.INGREDIENT_CATEGORIES = INGREDIENT_CATEGORIES;\nglobal.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\nglobal.calculateRecipeFoodCost = calculateRecipeFoodCost;\nif (typeof window !== 'undefined') {\n  window.calculateRecipeFoodCost = calculateRecipeFoodCost;\n  window.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\n  window.DATA = DATA;\n  window.CATEGORIES_DATA = DATA;\n  window.BASE_RECIPES = BASE_RECIPES;\n}\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = { DATA, CATEGORIES_DATA: DATA, BASE_RECIPES, ALIAS_MAP, INGREDIENT_CATEGORIES, INGREDIENT_UNIT_COSTS, calculateRecipeFoodCost };\n}\n})(typeof window !== 'undefined' ? window : globalThis);\n`;
 
     return content;
   }

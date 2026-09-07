@@ -146,6 +146,26 @@
       min-height: 40px;
     }
   }
+
+  @media print {
+    .app-header, .audit-hero button, #flash-live-result, .flash-form-card, .table-header-bar button {
+      display: none !important;
+    }
+    .audit-page-container {
+      padding: 0;
+      max-width: 100%;
+    }
+    .audit-hero {
+      border: none;
+      background: none;
+      padding: 0 0 12px 0;
+      margin-bottom: 12px;
+    }
+    .table-responsive-card {
+      box-shadow: none;
+      border: 1px solid #ccc;
+    }
+  }
 </style>
 </head>
 <body>
@@ -186,6 +206,7 @@
           💾 Clôturer & Enregistrer la Session
         </button>
         <button class="btn btn-success" onclick="exportAuditHistoryToExcel()">📥 Exporter Session (.xlsx)</button>
+        <button class="btn btn-secondary" onclick="window.print()" title="Imprimer la feuille d'inventaire ou exporter en PDF">🖨️ Imprimer</button>
         <button class="btn btn-secondary" onclick="exportFullHistoryJSON()" title="Télécharger l'historique complet au format JSON">📁 Sauvegarde JSON</button>
         <button class="btn btn-secondary" onclick="startNewAuditSession()">➕ Nouvelle Session</button>
       </div>

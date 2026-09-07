@@ -2319,4 +2319,9 @@ export const menuData = [
   }
 ];
 
-window.menuData = menuData;
+if (typeof window !== 'undefined') {
+  window.menuData = menuData;
+}
+if (typeof global !== 'undefined') {
+  global.menuData = menuData;
+}
