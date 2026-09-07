@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T10:25:18.271Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T10:30:56.534Z
  */
 
 (function(global) {
@@ -2560,7 +2560,7 @@ const DATA = [
         "image": "images/petit-dej-norvegien.jpg",
         "prepTime": 10,
         "tech": [
-          "Avocat : 50 g",
+          "Avocat : 90 g",
           "Pain céréales : 2 tr",
           "Jus : 200 ml",
           "Boisson chaude : 1 p",
@@ -2570,11 +2570,11 @@ const DATA = [
           "jben : 30 g"
         ],
         "price": "68 DH",
-        "cost": 29.38,
+        "cost": 30.34,
         "sellPrice": 68,
-        "foodCost": 43.2,
-        "margin": 56.8,
-        "grossMarginDH": 38.62,
+        "foodCost": 44.6,
+        "margin": 55.4,
+        "grossMarginDH": 37.66,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-norvegien.jpg"
@@ -7439,7 +7439,7 @@ const BASE_RECIPES = [
     "name": "NORVÉGIEN",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "Avocat : 50 g",
+      "Avocat : 90 g",
       "Pain céréales : 2 tr",
       "Jus : 200 ml",
       "Boisson chaude : 1 p",
