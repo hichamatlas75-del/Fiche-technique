@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T10:21:14.551Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T10:25:18.271Z
  */
 
 (function(global) {
@@ -4541,16 +4541,16 @@ const DATA = [
         "name": "FONDANT AU CHOCOLAT",
         "prepTime": 8,
         "tech": [
-          "Fondant chocolat cœur coulant : 1 p (120 g)",
-          "Glace vanille artisanale : 1 boule (50 g)",
+          "Fondant chocolat cœur coulant : 1 g",
+          "Glace vanille artisanale : 65 g",
           "Sucre glace : 5 g"
         ],
         "price": "40 DH",
-        "cost": 16.55,
+        "cost": 17.9,
         "sellPrice": 40,
-        "foodCost": 41.4,
-        "margin": 58.6,
-        "grossMarginDH": 23.45,
+        "foodCost": 44.7,
+        "margin": 55.3,
+        "grossMarginDH": 22.1,
         "__key": "dp",
         "__images": []
       },
@@ -8462,8 +8462,8 @@ const BASE_RECIPES = [
     "name": "FONDANT AU CHOCOLAT",
     "category": "DESSERTS & PÂTISSERIES",
     "ingredients": [
-      "Fondant chocolat cœur coulant : 1 p (120 g)",
-      "Glace vanille artisanale : 1 boule (50 g)",
+      "Fondant chocolat cœur coulant : 1 g",
+      "Glace vanille artisanale : 65 g",
       "Sucre glace : 5 g"
     ]
   },
@@ -9232,7 +9232,9 @@ const BASE_RECIPES = [
       "Chantilly : 40 g",
       "Chocolat : 20 ml",
       "BISCUIT : 1 g"
-    ]
+    ],
+    "sellPrice": 50,
+    "price": "50 DH"
   },
   {
     "id": "des_coupe_enfant",
