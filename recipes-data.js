@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T10:38:51.322Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T20:16:03.880Z
  */
 
 (function(global) {
@@ -2570,11 +2570,11 @@ const DATA = [
           "jben : 30 g"
         ],
         "price": "68 DH",
-        "cost": 30.94,
+        "cost": 30.34,
         "sellPrice": 68,
-        "foodCost": 45.5,
-        "margin": 54.5,
-        "grossMarginDH": 37.06,
+        "foodCost": 44.6,
+        "margin": 55.4,
+        "grossMarginDH": 37.66,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-norvegien.jpg"
@@ -2826,11 +2826,11 @@ const DATA = [
           "SAUCE TARTARE : 24 g"
         ],
         "price": "88 DH",
-        "cost": 31.32,
+        "cost": 31.07,
         "sellPrice": 88,
-        "foodCost": 35.6,
-        "margin": 64.4,
-        "grossMarginDH": 56.68,
+        "foodCost": 35.3,
+        "margin": 64.7,
+        "grossMarginDH": 56.93,
         "__key": "ef",
         "__images": [
           "images/entree-tartare.jpeg"
@@ -4546,11 +4546,11 @@ const DATA = [
           "Sucre glace : 5 g"
         ],
         "price": "40 DH",
-        "cost": 17.9,
+        "cost": 16.21,
         "sellPrice": 40,
-        "foodCost": 44.7,
-        "margin": 55.3,
-        "grossMarginDH": 22.1,
+        "foodCost": 40.5,
+        "margin": 59.5,
+        "grossMarginDH": 23.79,
         "__key": "dp",
         "__images": []
       },
@@ -4577,11 +4577,11 @@ const DATA = [
           "Glace artisanale au choix : 65 g"
         ],
         "price": "16 DH",
-        "cost": 5.85,
+        "cost": 4.16,
         "sellPrice": 16,
-        "foodCost": 36.6,
-        "margin": 63.4,
-        "grossMarginDH": 10.15,
+        "foodCost": 26,
+        "margin": 74,
+        "grossMarginDH": 11.84,
         "__key": "dp",
         "__images": []
       },
@@ -4593,11 +4593,11 @@ const DATA = [
           "Coulis & Chantilly : 0 g"
         ],
         "price": "30 DH",
-        "cost": 11.7,
+        "cost": 8.32,
         "sellPrice": 30,
-        "foodCost": 39,
-        "margin": 61,
-        "grossMarginDH": 18.3,
+        "foodCost": 27.7,
+        "margin": 72.3,
+        "grossMarginDH": 21.68,
         "__key": "dp",
         "__images": []
       },
@@ -4609,11 +4609,11 @@ const DATA = [
           "Coulis, Chantilly & Gaufrette : 0 g"
         ],
         "price": "45 DH",
-        "cost": 17.55,
+        "cost": 12.48,
         "sellPrice": 45,
-        "foodCost": 39,
-        "margin": 61,
-        "grossMarginDH": 27.45,
+        "foodCost": 27.7,
+        "margin": 72.3,
+        "grossMarginDH": 32.52,
         "__key": "dp",
         "__images": []
       },
@@ -4631,10 +4631,10 @@ const DATA = [
         ],
         "price": "65 DH",
         "sellPrice": 65,
-        "cost": 22.58,
-        "foodCost": 34.7,
-        "margin": 65.3,
-        "grossMarginDH": 42.42,
+        "cost": 14.18,
+        "foodCost": 21.8,
+        "margin": 78.2,
+        "grossMarginDH": 50.82,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4654,10 +4654,10 @@ const DATA = [
         ],
         "price": "50 DH",
         "sellPrice": 50,
-        "cost": 22.7,
-        "foodCost": 45.4,
-        "margin": 54.6,
-        "grossMarginDH": 27.3,
+        "cost": 14.3,
+        "foodCost": 28.6,
+        "margin": 71.4,
+        "grossMarginDH": 35.7,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4675,7 +4675,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 13.35,
+        "cost": 7.75,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -4696,10 +4696,10 @@ const DATA = [
         ],
         "price": "45 DH",
         "sellPrice": 45,
-        "cost": 20.62,
-        "foodCost": 45.8,
-        "margin": 54.2,
-        "grossMarginDH": 24.38,
+        "cost": 12.22,
+        "foodCost": 27.2,
+        "margin": 72.8,
+        "grossMarginDH": 32.78,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4718,10 +4718,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 12.2,
-        "foodCost": 29,
-        "margin": 71,
-        "grossMarginDH": 29.8,
+        "cost": 9.4,
+        "foodCost": 22.4,
+        "margin": 77.6,
+        "grossMarginDH": 32.6,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4739,10 +4739,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 14.25,
-        "foodCost": 33.9,
-        "margin": 66.1,
-        "grossMarginDH": 27.75,
+        "cost": 8.65,
+        "foodCost": 20.6,
+        "margin": 79.4,
+        "grossMarginDH": 33.35,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4761,10 +4761,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 16.25,
-        "foodCost": 38.7,
-        "margin": 61.3,
-        "grossMarginDH": 25.75,
+        "cost": 10.65,
+        "foodCost": 25.4,
+        "margin": 74.6,
+        "grossMarginDH": 31.35,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4783,10 +4783,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 15.1,
-        "foodCost": 36,
-        "margin": 64,
-        "grossMarginDH": 26.9,
+        "cost": 9.5,
+        "foodCost": 22.6,
+        "margin": 77.4,
+        "grossMarginDH": 32.5,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4805,10 +4805,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 16.2,
-        "foodCost": 38.6,
-        "margin": 61.4,
-        "grossMarginDH": 25.8,
+        "cost": 10.6,
+        "foodCost": 25.2,
+        "margin": 74.8,
+        "grossMarginDH": 31.4,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4827,10 +4827,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 20.25,
-        "foodCost": 48.2,
-        "margin": 51.8,
-        "grossMarginDH": 21.75,
+        "cost": 14.65,
+        "foodCost": 34.9,
+        "margin": 65.1,
+        "grossMarginDH": 27.35,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4849,10 +4849,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 16.05,
-        "foodCost": 38.2,
-        "margin": 61.8,
-        "grossMarginDH": 25.95,
+        "cost": 10.45,
+        "foodCost": 24.9,
+        "margin": 75.1,
+        "grossMarginDH": 31.55,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4869,10 +4869,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 13.8,
-        "foodCost": 32.9,
-        "margin": 67.1,
-        "grossMarginDH": 28.2,
+        "cost": 8.2,
+        "foodCost": 19.5,
+        "margin": 80.5,
+        "grossMarginDH": 33.8,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4953,10 +4953,10 @@ const DATA = [
         ],
         "price": "50 DH",
         "sellPrice": 50,
-        "cost": 17.15,
-        "foodCost": 34.3,
-        "margin": 65.7,
-        "grossMarginDH": 32.85,
+        "cost": 14.35,
+        "foodCost": 28.7,
+        "margin": 71.3,
+        "grossMarginDH": 35.65,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -5068,11 +5068,11 @@ const DATA = [
           "Fromage : 30 g"
         ],
         "price": "58 DH",
-        "cost": 23.05,
+        "cost": 22.45,
         "sellPrice": 58,
-        "foodCost": 39.7,
-        "margin": 60.3,
-        "grossMarginDH": 34.95,
+        "foodCost": 38.7,
+        "margin": 61.3,
+        "grossMarginDH": 35.55,
         "__key": "cr",
         "__images": []
       },
@@ -10894,7 +10894,7 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "Saumon Frais Net (Pavé / Filet)"
   },
   "saumon fume": {
-    "cost": 0.29,
+    "cost": 0.28,
     "unit": "g"
   },
   "crevettes brut": {
@@ -11703,31 +11703,31 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "boule de glace": {
-    "cost": 6,
+    "cost": 3.2,
     "unit": "piece"
   },
   "boule de glace vanille": {
-    "cost": 6,
+    "cost": 3.2,
     "unit": "piece"
   },
   "glace artisanale": {
-    "cost": 0.09,
+    "cost": 0.064,
     "unit": "g"
   },
   "glace vanille": {
-    "cost": 0.09,
+    "cost": 0.064,
     "unit": "g"
   },
   "glace": {
-    "cost": 0.09,
+    "cost": 0.064,
     "unit": "g"
   },
   "glace artisanale au choix": {
-    "cost": 0.09,
+    "cost": 0.064,
     "unit": "g"
   },
   "glace vanille artisanale": {
-    "cost": 0.09,
+    "cost": 0.064,
     "unit": "g"
   },
   "sucre": {
@@ -11929,12 +11929,12 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "Pancake"
   },
   "boules de glace": {
-    "cost": 6,
+    "cost": 3,
     "unit": "piece",
     "label": "Boule Glace"
   },
   "boule glace": {
-    "cost": 6,
+    "cost": 3,
     "unit": "piece",
     "label": "Boule Glace"
   },
@@ -12212,8 +12212,5 @@ if (typeof window !== 'undefined') {
   window.DATA = DATA;
   window.CATEGORIES_DATA = DATA;
   window.BASE_RECIPES = BASE_RECIPES;
-}
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { DATA, CATEGORIES_DATA: DATA, BASE_RECIPES, ALIAS_MAP, INGREDIENT_CATEGORIES, INGREDIENT_UNIT_COSTS, calculateRecipeFoodCost };
 }
 })(typeof window !== 'undefined' ? window : globalThis);
