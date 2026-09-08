@@ -119,54 +119,253 @@ function saveRecipes() {
   }
 }
 
-function loadMonthlySalesDB() {
+/* ========================================================
+   3.B MOTEUR DE STOCKAGE PERSISTANT INDEXEDDB (Sans Quota 5 Mo)
+======================================================== */
+const GC_SalesIDB = {
+  dbName: 'GreyCornerSalesDB',
+  storeName: 'sales',
+  version: 1,
+  _dbPromise: null,
+
+  getDB() {
+    if (this._dbPromise) return this._dbPromise;
+    if (typeof indexedDB === 'undefined') {
+      return Promise.resolve(null);
+    }
+    this._dbPromise = new Promise((resolve) => {
+      try {
+        const req = indexedDB.open(this.dbName, this.version);
+        req.onupgradeneeded = () => {
+          const db = req.result;
+          if (!db.objectStoreNames.contains(this.storeName)) {
+            db.createObjectStore(this.storeName, { keyPath: 'date' });
+          }
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => {
+          console.warn('[SalesIDB] Erreur ouverture IndexedDB:', req.error);
+          resolve(null);
+        };
+      } catch (err) {
+        console.warn('[SalesIDB] Exception ouverture IndexedDB:', err);
+        resolve(null);
+      }
+    });
+    return this._dbPromise;
+  },
+
+  async loadAll() {
+    try {
+      const db = await this.getDB();
+      if (!db) return null;
+      return new Promise((resolve) => {
+        try {
+          const tx = db.transaction(this.storeName, 'readonly');
+          const store = tx.objectStore(this.storeName);
+          const req = store.getAll();
+          req.onsuccess = () => {
+            const map = {};
+            (req.result || []).forEach(item => {
+              if (item && item.date && Array.isArray(item.rows)) {
+                map[item.date] = item.rows;
+              }
+            });
+            resolve(map);
+          };
+          req.onerror = () => {
+            console.warn('[SalesIDB] Erreur chargement getAll:', req.error);
+            resolve(null);
+          };
+        } catch (txErr) {
+          console.warn('[SalesIDB] Erreur transaction lecture:', txErr);
+          resolve(null);
+        }
+      });
+    } catch (e) {
+      console.warn('[SalesIDB] Exception loadAll:', e);
+      return null;
+    }
+  },
+
+  async saveDate(dateKey, rows) {
+    if (!dateKey || !Array.isArray(rows)) return false;
+    try {
+      const db = await this.getDB();
+      if (!db) return false;
+      return new Promise((resolve) => {
+        try {
+          const tx = db.transaction(this.storeName, 'readwrite');
+          const store = tx.objectStore(this.storeName);
+          store.put({ date: dateKey, rows: rows, updatedAt: Date.now() });
+          tx.oncomplete = () => resolve(true);
+          tx.onerror = () => resolve(false);
+        } catch (e) {
+          resolve(false);
+        }
+      });
+    } catch (e) {
+      return false;
+    }
+  },
+
+  async saveAll(dbObj) {
+    if (!dbObj || typeof dbObj !== 'object') return false;
+    try {
+      const db = await this.getDB();
+      if (!db) return false;
+      return new Promise((resolve) => {
+        try {
+          const tx = db.transaction(this.storeName, 'readwrite');
+          const store = tx.objectStore(this.storeName);
+          for (const [dateKey, rows] of Object.entries(dbObj)) {
+            if (Array.isArray(rows) && rows.length > 0) {
+              store.put({ date: dateKey, rows: rows, updatedAt: Date.now() });
+            }
+          }
+          tx.oncomplete = () => resolve(true);
+          tx.onerror = () => {
+            console.warn('[SalesIDB] Erreur transaction saveAll:', tx.error);
+            resolve(false);
+          };
+        } catch (e) {
+          resolve(false);
+        }
+      });
+    } catch (e) {
+      return false;
+    }
+  },
+
+  async deleteDate(dateKey) {
+    if (!dateKey) return false;
+    try {
+      const db = await this.getDB();
+      if (!db) return false;
+      return new Promise((resolve) => {
+        try {
+          const tx = db.transaction(this.storeName, 'readwrite');
+          const store = tx.objectStore(this.storeName);
+          store.delete(dateKey);
+          tx.oncomplete = () => resolve(true);
+          tx.onerror = () => resolve(false);
+        } catch (e) {
+          resolve(false);
+        }
+      });
+    } catch (e) {
+      return false;
+    }
+  },
+
+  async clearAll() {
+    try {
+      const db = await this.getDB();
+      if (!db) return false;
+      return new Promise((resolve) => {
+        try {
+          const tx = db.transaction(this.storeName, 'readwrite');
+          const store = tx.objectStore(this.storeName);
+          store.clear();
+          tx.oncomplete = () => resolve(true);
+          tx.onerror = () => resolve(false);
+        } catch (e) {
+          resolve(false);
+        }
+      });
+    } catch (e) {
+      return false;
+    }
+  }
+};
+
+if (typeof window !== 'undefined') {
+  window.GC_SalesIDB = GC_SalesIDB;
+}
+if (typeof global !== 'undefined') {
+  global.GC_SalesIDB = GC_SalesIDB;
+}
+
+async function loadMonthlySalesDB(onLoadedCallback) {
+  // 1. Étape synchrone : lecture immédiate du cache localStorage pour affichage instantané
   try {
     const saved = localStorage.getItem(GC_STORAGE_KEYS.SALES);
     if (saved) {
-      monthlySalesDB = JSON.parse(saved);
+      const parsed = JSON.parse(saved);
+      if (parsed && typeof parsed === 'object') {
+        monthlySalesDB = Object.assign({}, parsed);
+      }
     }
   } catch (e) {
     console.warn('[LocalStorage] Erreur chargement ventes:', e);
-    monthlySalesDB = {};
   }
-}
 
-function pruneOldestSales(db, maxMonthsToKeep = 6) {
-  const dates = Object.keys(db).sort();
-  if (dates.length <= 90) return false;
-  const yearMonths = Array.from(new Set(dates.map(d => d.slice(0, 7)))).sort();
-  if (yearMonths.length <= maxMonthsToKeep) return false;
-  const dropSet = new Set(yearMonths.slice(0, yearMonths.length - maxMonthsToKeep));
-  dates.forEach(d => {
-    if (dropSet.has(d.slice(0, 7))) delete db[d];
-  });
-  return true;
+  // 2. Étape asynchrone : hydratation intégrale depuis IndexedDB (tous les 12 mois sans aucune purge)
+  try {
+    const idbData = await GC_SalesIDB.loadAll();
+    if (idbData && Object.keys(idbData).length > 0) {
+      monthlySalesDB = Object.assign({}, monthlySalesDB, idbData);
+    } else if (Object.keys(monthlySalesDB).length > 0) {
+      // Première migration vers IndexedDB
+      GC_SalesIDB.saveAll(monthlySalesDB);
+    }
+  } catch (e) {
+    console.warn('[IndexedDB] Erreur hydratation ventes:', e);
+  }
+
+  if (typeof onLoadedCallback === 'function') {
+    onLoadedCallback(monthlySalesDB);
+  }
+
+  if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+    window.dispatchEvent(new CustomEvent('gc-sales-loaded', { detail: { count: Object.keys(monthlySalesDB).length } }));
+  }
+
+  return monthlySalesDB;
 }
 
 function saveMonthlySalesDB() {
+  // 1. Sauvegarde systématique et intégrale dans IndexedDB (100% des mois conservés sans aucune purge)
+  GC_SalesIDB.saveAll(monthlySalesDB).catch(err => {
+    console.warn('[IndexedDB] Erreur sauvegarde ventes:', err);
+  });
+
+  // 2. Miroir vers localStorage (sauvegarde sécurisée sans jamais altérer ni purger monthlySalesDB)
   try {
     localStorage.setItem(GC_STORAGE_KEYS.SALES, JSON.stringify(monthlySalesDB));
   } catch (e) {
-    console.warn('[LocalStorage] Erreur sauvegarde ventes (quota potentiel):', e);
-    if (e && (e.name === 'QuotaExceededError' || e.code === 22 || e.code === 1014 || (e.message && e.message.includes('quota')))) {
-      const cloned = Object.assign({}, monthlySalesDB);
-      const pruned = pruneOldestSales(cloned, 6);
-      if (pruned) {
-        try {
-          localStorage.setItem(GC_STORAGE_KEYS.SALES, JSON.stringify(cloned));
-          monthlySalesDB = cloned;
-          if (window.GC_Toast) {
-            window.GC_Toast.show("⚠️ Quota mémoire atteint : les 6 derniers mois de ventes ont été conservés en local.", 'warning');
-          }
-          return;
-        } catch (e2) {
-          console.error('[LocalStorage] Échec sauvegarde même après purge:', e2);
-        }
-      }
-      if (window.GC_Toast) {
-        window.GC_Toast.show("❌ Espace mémoire saturé (limite 5 Mo du navigateur). Veuillez exporter vos ventes.", 'error');
-      }
+    // Si localStorage atteint sa limite stricte de 5 Mo :
+    // Les 12 mois complets restent 100% intacts dans monthlySalesDB et IndexedDB.
+    try {
+      const recentKeys = Object.keys(monthlySalesDB).sort().slice(-60);
+      const recentCache = {};
+      recentKeys.forEach(k => { recentCache[k] = monthlySalesDB[k]; });
+      localStorage.setItem(GC_STORAGE_KEYS.SALES, JSON.stringify(recentCache));
+      console.info('[SalesStorage] Quota localStorage (5 Mo) atteint. Les données intégrales des 12 mois sont pérennisées dans IndexedDB.');
+    } catch (e2) {
+      console.warn('[SalesStorage] Miroir localStorage ignoré, IndexedDB actif:', e2);
     }
   }
+}
+
+function deleteMonthlySalesDate(dateKey) {
+  if (!dateKey) return;
+  delete monthlySalesDB[dateKey];
+  GC_SalesIDB.deleteDate(dateKey);
+  saveMonthlySalesDB();
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    loadRecipes,
+    saveRecipes,
+    loadMonthlySalesDB,
+    saveMonthlySalesDB,
+    deleteMonthlySalesDate,
+    GC_SalesIDB,
+    activeRecipes,
+    monthlySalesDB,
+    RECIPES_DB_VERSION
+  };
 }
 

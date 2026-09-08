@@ -319,8 +319,12 @@ function clearCurrentDayData() {
     return;
   }
   if (confirm(`Voulez-vous supprimer les données de vente du ${formatDateFR(selectedDate)} ?`)) {
-    delete monthlySalesDB[selectedDate];
-    saveMonthlySalesDB();
+    if (typeof deleteMonthlySalesDate === 'function') {
+      deleteMonthlySalesDate(selectedDate);
+    } else {
+      delete monthlySalesDB[selectedDate];
+      saveMonthlySalesDB();
+    }
     renderCalendar();
     recalculateCurrentView();
   }

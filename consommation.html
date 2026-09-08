@@ -359,6 +359,7 @@
       <input type="file" id="file-input" accept=".xlsx, .xls, .csv" multiple style="display: none;" />
       <button class="btn btn-primary" onclick="document.getElementById('file-input').click()">📁 Importer un ou plusieurs fichiers Excel</button>
       <button class="btn" onclick="autoScanVentesFolder(true)" style="border-color:var(--accent); color:var(--accent); font-weight:800;">🔄 Synchroniser dossier /ventes</button>
+      <button class="btn" onclick="if(confirm('Recharger l\'intégralité des fichiers de vente depuis le serveur ?')) autoScanVentesFolder(true, true);" style="font-size:11px; opacity:0.85;" title="Force le re-téléchargement et le re-calcul complet de tous les mois de l'année">⚡ Re-sync Complète</button>
     </div>
     <div id="sync-status-banner" style="margin-top:12px; font-size:12px; font-weight:700; color:var(--ok); display:none;"></div>
   </div>

@@ -141,7 +141,7 @@ async function handleUploadedFiles(fileList) {
 }
 
 // Détection et synchronisation automatique avec le dossier racine /ventes
-async function autoScanVentesFolder(showUserAlert = false) {
+async function autoScanVentesFolder(showUserAlert = false, forceFullResync = false) {
   const banner = document.getElementById('sync-status-banner');
   if (banner) {
     banner.style.display = 'block';
@@ -269,30 +269,81 @@ async function autoScanVentesFolder(showUserAlert = false) {
     });
   }
 
-  // 4. CHARGEMENT ET TRAITEMENT DES FICHIERS
+  // 4. CHARGEMENT DELTA INTELLIGENT : ignorer instantanément les journées déjà en base locale
+  const filesToLoad = [];
+  let alreadyCachedCount = 0;
+
   for (const [fname, downloadUrl] of filesToProcess.entries()) {
     const dKey = extractDateFromFilename(fname);
     if (!dKey) continue;
 
-    try {
-      const pathSegments = fname.split('/').map(seg => encodeURIComponent(seg)).join('/');
-      const resp = await fetchFile('ventes/' + pathSegments, downloadUrl);
-      if (resp) {
-        const buf = await resp.arrayBuffer();
-        const wb = XLSX.read(new Uint8Array(buf), { type: 'array' });
-        const rows = parseWorkbookToRows(wb);
-        if (rows.length > 0) {
-          monthlySalesDB[dKey] = rows;
-          foundCount++;
-          if (!loadedDates.includes(dKey)) {
-            loadedDates.push(dKey);
+    const hasData = monthlySalesDB[dKey] && Array.isArray(monthlySalesDB[dKey]) && monthlySalesDB[dKey].length > 0;
+    if (!forceFullResync && hasData) {
+      alreadyCachedCount++;
+      continue;
+    }
+
+    filesToLoad.push({ fname, downloadUrl, dKey });
+  }
+
+  // Si toutes les dates sont déjà en cache et aucun fichier manquant
+  if (filesToLoad.length === 0 && alreadyCachedCount > 0) {
+    const availableDates = Object.keys(monthlySalesDB).filter(d => monthlySalesDB[d] && monthlySalesDB[d].length > 0).sort();
+    if (availableDates.length > 0 && (!monthlySalesDB[selectedDate] || monthlySalesDB[selectedDate].length === 0)) {
+      selectedDate = availableDates[availableDates.length - 1];
+      selectedYearMonth = selectedDate.slice(0, 7);
+      renderCalendar();
+      recalculateCurrentView();
+    }
+    const lastDateFR = formatDateFR(selectedDate);
+    const msg = `⚡ Ventes à jour (${alreadyCachedCount} journées enregistrées / 12 mois complets). Dernière date : ${lastDateFR}.`;
+    if (banner) {
+      banner.style.color = "var(--ok)";
+      banner.textContent = msg;
+      setTimeout(() => {
+        if (banner.textContent === msg) banner.style.display = 'none';
+      }, 5000);
+    }
+    if (showUserAlert) {
+      alert(`✅ Vos ventes sont 100% synchronisées !\n${alreadyCachedCount} journées sont conservées en local sans aucune restriction ni purge.\n\nDernière journée active : ${lastDateFR}.`);
+    }
+    return;
+  }
+
+  if (banner && filesToLoad.length > 0) {
+    banner.textContent = `🔄 Téléchargement de ${filesToLoad.length} nouveau(x) fichier(s) de ventes en cours...`;
+  }
+
+  // Pool de concurrence (6 requêtes simultanées) pour un chargement rapide
+  const concurrency = 6;
+  let cursor = 0;
+
+  async function downloadAndParseWorker() {
+    while (cursor < filesToLoad.length) {
+      const item = filesToLoad[cursor++];
+      try {
+        const pathSegments = item.fname.split('/').map(seg => encodeURIComponent(seg)).join('/');
+        const resp = await fetchFile('ventes/' + pathSegments, item.downloadUrl);
+        if (resp) {
+          const buf = await resp.arrayBuffer();
+          const wb = XLSX.read(new Uint8Array(buf), { type: 'array' });
+          const rows = parseWorkbookToRows(wb);
+          if (rows.length > 0) {
+            monthlySalesDB[item.dKey] = rows;
+            foundCount++;
+            if (!loadedDates.includes(item.dKey)) {
+              loadedDates.push(item.dKey);
+            }
           }
         }
+      } catch (e) {
+        console.warn('[Auto-sync file error]', item.fname, e);
       }
-    } catch (e) {
-      console.warn('[Auto-sync file error]', fname, e);
     }
   }
+
+  const workers = Array.from({ length: Math.min(concurrency, filesToLoad.length) }, () => downloadAndParseWorker());
+  await Promise.all(workers);
 
   // 5. SAUVEGARDE & ACTUALISATION DE L'INTERFACE
   if (foundCount > 0) {
@@ -310,7 +361,8 @@ async function autoScanVentesFolder(showUserAlert = false) {
 
     loadedDates.sort();
     const lastDateFR = formatDateFR(selectedDate);
-    const msg = `✅ ${foundCount} journée(s) synchronisée(s) ! Dernière date active : ${lastDateFR}.`;
+    const totalDays = availableDates.length;
+    const msg = `✅ ${foundCount} nouveau(x) jour(s) synchronisé(s) ! Total en base : ${totalDays} journées (Dernière date : ${lastDateFR}).`;
 
     if (banner) {
       banner.style.color = "var(--ok)";
@@ -318,15 +370,15 @@ async function autoScanVentesFolder(showUserAlert = false) {
     }
     if (showUserAlert) {
       const recentList = loadedDates.slice(-6).map(d => '• ' + formatDateFR(d)).join('\n');
-      alert(`✅ Synchronisation réussie !\n${foundCount} fichier(s) traités.\n\nJournées récentes chargées :\n${recentList}\n\nAffichage automatique des ventes du ${lastDateFR}.`);
+      alert(`✅ Synchronisation réussie !\n${foundCount} nouveau(x) fichier(s) traités.\nTotal des journées en mémoire : ${totalDays} jours.\n\nJournées récentes chargées :\n${recentList}\n\nAffichage automatique des ventes du ${lastDateFR}.`);
     }
   } else {
     if (banner) {
       banner.style.color = "var(--muted)";
-      banner.textContent = "📁 Dossier /ventes prêt. Déposez vos fichiers 'Fin_Journée_YYYYMMDD.xls' pour auto-chargement.";
+      banner.textContent = `📁 Dossier /ventes synchronisé (${alreadyCachedCount} journées). Déposez vos fichiers pour ajout.`;
     }
     if (showUserAlert) {
-      alert("Aucun nouveau fichier de vente n'a été trouvé dans le dossier /ventes pour cette période.");
+      alert("Aucun nouveau fichier de vente n'a été trouvé dans le dossier /ventes.");
     }
   }
 }

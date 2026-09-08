@@ -184,11 +184,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   document.getElementById('print-date-val').textContent = new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   loadRecipes();
-  loadMonthlySalesDB();
   renderRecipeList();
   renderCalendar();
   recalculateCurrentView();
-  autoScanVentesFolder(false);
+
+  // Hydratation intégrale des 12 mois depuis IndexedDB puis vérification delta du dossier /ventes
+  loadMonthlySalesDB(() => {
+    renderCalendar();
+    recalculateCurrentView();
+    autoScanVentesFolder(false);
+  });
 
   // Drag & Drop
   const dropZone = document.getElementById('drop-zone');
