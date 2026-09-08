@@ -1,6 +1,7 @@
 # Node & logs
 node_modules/
 npm-debug.log*
+*.log
 
 # OS & Editors
 .DS_Store
