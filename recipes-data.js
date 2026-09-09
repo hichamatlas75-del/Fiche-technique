@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-07T21:58:02.933Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-09T12:30:44.313Z
  */
 
 (function(global) {
@@ -2187,11 +2187,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "85 DH",
-        "cost": 36.6,
+        "cost": 37.6,
         "sellPrice": 85,
-        "foodCost": 43.1,
-        "margin": 56.9,
-        "grossMarginDH": 48.4,
+        "foodCost": 44.2,
+        "margin": 55.8,
+        "grossMarginDH": 47.4,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-gc.jpg"
@@ -2219,11 +2219,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 2 p"
         ],
         "price": "144 DH",
-        "cost": 55.38,
+        "cost": 57.38,
         "sellPrice": 144,
-        "foodCost": 38.5,
-        "margin": 61.5,
-        "grossMarginDH": 88.62,
+        "foodCost": 39.8,
+        "margin": 60.2,
+        "grossMarginDH": 86.62,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-duo.jpg"
@@ -2496,11 +2496,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 24.25,
+        "cost": 26.25,
         "sellPrice": 64,
-        "foodCost": 37.9,
-        "margin": 62.1,
-        "grossMarginDH": 39.75,
+        "foodCost": 41,
+        "margin": 59,
+        "grossMarginDH": 37.75,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-espagnol.jpg"
@@ -3026,7 +3026,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 13.2,
+        "cost": 19.2,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -3581,17 +3581,17 @@ const DATA = [
         "price": "40 DH",
         "sellPrice": 40,
         "tech": [
-          "Charcuterie : 120 g",
-          "Mozzarella : 60 g",
+          "Charcuterie : 100 g",
+          "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_charcuterie",
-        "cost": 16.84,
-        "foodCost": 42.1,
-        "margin": 57.9,
-        "grossMarginDH": 23.16
+        "cost": 14.54,
+        "foodCost": 36.4,
+        "margin": 63.7,
+        "grossMarginDH": 25.46
       },
       {
         "name": "PANINI POULET",
@@ -3599,16 +3599,16 @@ const DATA = [
         "sellPrice": 44,
         "tech": [
           "Poulet : 70 g",
-          "Mozzarella : 60 g",
+          "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_poulet",
-        "cost": 13.14,
-        "foodCost": 29.9,
-        "margin": 70.1,
-        "grossMarginDH": 30.86
+        "cost": 12.04,
+        "foodCost": 27.4,
+        "margin": 72.6,
+        "grossMarginDH": 31.96
       },
       {
         "name": "PANINI VIANDE HACHÉE",
@@ -3616,16 +3616,16 @@ const DATA = [
         "sellPrice": 54,
         "tech": [
           "Viande : 100 g",
-          "Mozzarella : 60 g",
+          "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_viande_hach_e",
-        "cost": 19.64,
-        "foodCost": 36.4,
-        "margin": 63.6,
-        "grossMarginDH": 34.36
+        "cost": 18.54,
+        "foodCost": 34.3,
+        "margin": 65.7,
+        "grossMarginDH": 35.46
       },
       {
         "name": "PANINI GOURMAND",
@@ -3635,16 +3635,16 @@ const DATA = [
           "Viande : 50 g",
           "Poulet : 50 g",
           "Charcuterie : 50 g",
-          "Mozzarella : 60 g",
+          "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_gourmand",
-        "cost": 20.14,
-        "foodCost": 31.5,
-        "margin": 68.5,
-        "grossMarginDH": 43.86
+        "cost": 19.04,
+        "foodCost": 29.8,
+        "margin": 70.3,
+        "grossMarginDH": 44.96
       },
       {
         "name": "PANINI FRUITS DE MER",
@@ -3654,16 +3654,16 @@ const DATA = [
           "Crevettes avec coquille : 145 g",
           "Calamar congelé : 120 g",
           "Pesto : 20 g",
-          "Mozzarella : 60 g",
+          "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_fruits_de_mer",
-        "cost": 24.76,
-        "foodCost": 38.7,
-        "margin": 61.3,
-        "grossMarginDH": 39.24
+        "cost": 23.66,
+        "foodCost": 37,
+        "margin": 63,
+        "grossMarginDH": 40.34
       },
       {
         "name": "PANINI SAUMON",
@@ -3672,16 +3672,16 @@ const DATA = [
         "tech": [
           "Saumon : 90 g",
           "Pesto : 20 g",
-          "Mozzarella : 60 g",
+          "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_saumon",
-        "cost": 26.74,
-        "foodCost": 41.8,
-        "margin": 58.2,
-        "grossMarginDH": 37.26
+        "cost": 25.64,
+        "foodCost": 40.1,
+        "margin": 59.9,
+        "grossMarginDH": 38.36
       }
     ]
   },
@@ -5063,16 +5063,17 @@ const DATA = [
         "prepTime": 10,
         "tech": [
           "Pâte à crêpe : 1 p",
-          "Saumon fumé : 60 g",
+          "Saumon frais : 90 g",
           "Crème fraîche : 40 ml",
-          "Fromage : 30 g"
+          "Fromage : 20 g",
+          "Mozzarella : 40 g"
         ],
         "price": "58 DH",
-        "cost": 22.45,
+        "cost": 23.1,
         "sellPrice": 58,
-        "foodCost": 38.7,
-        "margin": 61.3,
-        "grossMarginDH": 35.55,
+        "foodCost": 39.8,
+        "margin": 60.2,
+        "grossMarginDH": 34.9,
         "__key": "cr",
         "__images": []
       },
@@ -7955,8 +7956,8 @@ const BASE_RECIPES = [
     "name": "PANINI CHARCUTERIE",
     "category": "PANINIS",
     "ingredients": [
-      "Charcuterie : 120 g",
-      "Mozzarella : 60 g",
+      "Charcuterie : 100 g",
+      "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -7968,7 +7969,7 @@ const BASE_RECIPES = [
     "category": "PANINIS",
     "ingredients": [
       "Poulet : 70 g",
-      "Mozzarella : 60 g",
+      "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -7980,7 +7981,7 @@ const BASE_RECIPES = [
     "category": "PANINIS",
     "ingredients": [
       "Viande : 100 g",
-      "Mozzarella : 60 g",
+      "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -7994,7 +7995,7 @@ const BASE_RECIPES = [
       "Viande : 50 g",
       "Poulet : 50 g",
       "Charcuterie : 50 g",
-      "Mozzarella : 60 g",
+      "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -8008,7 +8009,7 @@ const BASE_RECIPES = [
       "Crevettes avec coquille : 145 g",
       "Calamar congelé : 120 g",
       "Pesto : 20 g",
-      "Mozzarella : 60 g",
+      "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -8025,7 +8026,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Saumon : 90 g",
       "Pesto : 20 g",
-      "Mozzarella : 60 g",
+      "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
@@ -8602,9 +8603,10 @@ const BASE_RECIPES = [
     "category": "CRÊPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "Saumon fumé : 60 g",
+      "Saumon frais : 90 g",
       "Crème fraîche : 40 ml",
-      "Fromage : 30 g"
+      "Fromage : 20 g",
+      "Mozzarella : 40 g"
     ]
   },
   {
@@ -11303,11 +11305,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece"
   },
   "croquettes fromage": {
-    "cost": 2,
+    "cost": 3,
     "unit": "piece"
   },
   "croquettes": {
-    "cost": 2,
+    "cost": 3,
     "unit": "piece"
   },
   "croque maison": {
