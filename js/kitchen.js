@@ -15,10 +15,16 @@ const searchInfo = document.getElementById('search-info');
 // SVG Fallback image contextuel avec icône et nom du plat
 function makePlaceholderSvg(name = 'Plat Grey Corner', color = '#0284c7') {
   const safeName = (name && name.length > 28) ? name.slice(0, 26) + '…' : (name || 'Grey Corner');
-  return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240' fill='%230f172a'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%231e293b'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='240' fill='url(%23g)'/%3E%3Ccircle cx='200' cy='95' r='44' fill='${encodeURIComponent(color)}' opacity='0.18'/%3E%3Ctext x='200' y='108' font-size='38' text-anchor='middle'%3E🍽️%3C/text%3E%3Ctext x='200' y='160' fill='%23f1f5f9' font-size='15' font-family='sans-serif' font-weight='800' text-anchor='middle'%3E${encodeURIComponent(safeName)}%3C/text%3E%3Ctext x='200' y='185' fill='%2364748b' font-size='11' font-family='sans-serif' font-weight='700' letter-spacing='1' text-anchor='middle'%3EGREY CORNER CUISINE%3C/text%3E%3C/svg%3E`;
+  return `data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 240%22 fill=%22%230f172a%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%231e293b%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%230f172a%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%22400%22 height=%22240%22 fill=%22url(%23g)%22/%3E%3Ccircle cx=%22200%22 cy=%2295%22 r=%2244%22 fill=%22${encodeURIComponent(color)}%22 opacity=%220.18%22/%3E%3Ctext x=%22200%22 y=%22108%22 font-size=%2238%22 text-anchor=%22middle%22%3E🍽️%3C/text%3E%3Ctext x=%22200%22 y=%22160%22 fill=%22%23f1f5f9%22 font-size=%2215%22 font-family=%22sans-serif%22 font-weight=%22800%22 text-anchor=%22middle%22%3E${encodeURIComponent(safeName)}%3C/text%3E%3Ctext x=%22200%22 y=%22185%22 fill=%22%2364748b%22 font-size=%2211%22 font-family=%22sans-serif%22 font-weight=%22700%22 letter-spacing=%221%22 text-anchor=%22middle%22%3EGREY CORNER CUISINE%3C/text%3E%3C/svg%3E`;
 }
 
 const PLACEHOLDER_SVG = makePlaceholderSvg('Fiche Cuisine', '#0284c7');
+
+window.handleKitchenImgError = function(imgEl) {
+  if (!imgEl) return;
+  imgEl.onerror = null;
+  imgEl.src = (imgEl.dataset && imgEl.dataset.placeholder) ? imgEl.dataset.placeholder : 'images/placeholder.svg';
+};
 
 function getCategoryEmoji(catName, catKey) {
   const n = (catName || '').toLowerCase();
@@ -110,7 +116,7 @@ function createCard(item, catKey, categoryColor, categoryName = '') {
     <div class="card" data-key="${itemKey}" data-search="${cleanText(item.name + ' ' + (item.tech||[]).join(' '))}">
       <div class="hero-wrap">
         ${catBadgeHtml}
-        <img class="hero" src="${firstImg}" alt="${escapedName}" data-gallery="${gallery.join('|')}" style="border-bottom-color:${categoryColor}" onerror="this.onerror=null;this.src='${dishPlaceholder}';">
+        <img class="hero" src="${firstImg}" alt="${escapedName}" data-gallery="${gallery.join('|')}" data-placeholder="${dishPlaceholder}" style="border-bottom-color:${categoryColor}" onerror="window.handleKitchenImgError(this)">
         ${multiBadge}
       </div>
       <div class="body">

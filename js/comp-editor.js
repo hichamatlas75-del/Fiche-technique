@@ -76,7 +76,8 @@ function resolveRecipe(p1, p2) {
   if (isNum1) {
     cardIdx = parseInt(p1, 10);
     const card = document.getElementById(`card-${cardIdx}`);
-    recipeName = card ? card.getAttribute('data-recipe-name') : (recipesList[cardIdx] ? recipesList[cardIdx].name : null);
+    const tableRow = document.getElementById(`table-row-${cardIdx}`) || document.getElementById(`table-row-drawer-${cardIdx}`);
+    recipeName = card ? card.getAttribute('data-recipe-name') : (tableRow ? tableRow.getAttribute('data-recipe-name') : (recipesList[cardIdx] ? recipesList[cardIdx].name : null));
     if (card && card.getAttribute('data-category')) cardCat = card.getAttribute('data-category');
   } else if (typeof p1 === 'string') {
     recipeName = p1;

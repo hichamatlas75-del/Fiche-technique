@@ -63,7 +63,29 @@ function getSalesFilesRecursive(dir, baseDir = dir) {
   return results.sort();
 }
 
-const allSalesFiles = getSalesFilesRecursive(ventesDir);
+const rawSalesFiles = getSalesFilesRecursive(ventesDir);
+
+// Déduplication intelligente par date : si .xlsx et .xls existent pour la même date, garder .xlsx
+const fileByDate = new Map();
+rawSalesFiles.forEach(relPath => {
+  const match = relPath.match(/(\d{8})/);
+  if (!match) {
+    fileByDate.set(relPath, relPath);
+    return;
+  }
+  const dateKey = match[1];
+  if (!fileByDate.has(dateKey)) {
+    fileByDate.set(dateKey, relPath);
+  } else {
+    const existing = fileByDate.get(dateKey);
+    // Priorité au format moderne .xlsx
+    if (relPath.endsWith('.xlsx') && existing.endsWith('.xls')) {
+      fileByDate.set(dateKey, relPath);
+    }
+  }
+});
+
+const allSalesFiles = Array.from(fileByDate.values()).sort();
 
 const manifest = {
   totalFiles: allSalesFiles.length,

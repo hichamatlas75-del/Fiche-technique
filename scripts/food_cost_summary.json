@@ -719,11 +719,11 @@
   {
     "category": "CAFÉS & BOISSONS CHAUDES",
     "name": "Lait FROID",
-    "sellPrice": 0,
+    "sellPrice": 12,
     "cost": 2.12,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 17.7,
+    "marginPct": 82.3,
+    "grossMarginDH": 9.88,
     "details": [
       {
         "ingredient": "Lait",
@@ -1480,11 +1480,11 @@
   {
     "category": "JUS FRAIS PRESSÉS & ROYAUX",
     "name": "FRUITS SECS",
-    "sellPrice": 0,
+    "sellPrice": 38,
     "cost": 5.87,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 15.4,
+    "marginPct": 84.6,
+    "grossMarginDH": 32.13,
     "details": [
       {
         "ingredient": "Fruits secs / Amandes",
@@ -1506,11 +1506,11 @@
   {
     "category": "JUS FRAIS PRESSÉS & ROYAUX",
     "name": "JUS D'AVOCAT ORANGE",
-    "sellPrice": 0,
+    "sellPrice": 32,
     "cost": 3.9,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 12.2,
+    "marginPct": 87.8,
+    "grossMarginDH": 28.1,
     "details": [
       {
         "ingredient": "Avocat",
@@ -1527,11 +1527,11 @@
   {
     "category": "JUS FRAIS PRESSÉS & ROYAUX",
     "name": "Jus De Pomme",
-    "sellPrice": 0,
+    "sellPrice": 28,
     "cost": 3.5,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 12.5,
+    "marginPct": 87.5,
+    "grossMarginDH": 24.5,
     "details": [
       {
         "ingredient": "Pomme",
@@ -1564,11 +1564,11 @@
   {
     "category": "JUS FRAIS PRESSÉS & ROYAUX",
     "name": "Panaché AU LAIT",
-    "sellPrice": 0,
+    "sellPrice": 38,
     "cost": 3.78,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 9.9,
+    "marginPct": 90.1,
+    "grossMarginDH": 34.22,
     "details": [
       {
         "ingredient": "Fruits de saison",
@@ -1946,11 +1946,11 @@
   {
     "category": "COCKTAILS & MOCKTAILS",
     "name": "GINGEMBRE",
-    "sellPrice": 0,
+    "sellPrice": 32,
     "cost": 5.12,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 16,
+    "marginPct": 84,
+    "grossMarginDH": 26.88,
     "details": [
       {
         "ingredient": "Jus de gingembre",
@@ -1972,11 +1972,11 @@
   {
     "category": "COCKTAILS & MOCKTAILS",
     "name": "Cocktail Fraîcheur",
-    "sellPrice": 0,
+    "sellPrice": 42,
     "cost": 2.5,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 6,
+    "marginPct": 94,
+    "grossMarginDH": 39.5,
     "details": [
       {
         "ingredient": "Jus de pomme",
@@ -2003,11 +2003,11 @@
   {
     "category": "COCKTAILS & MOCKTAILS",
     "name": "San Francisco",
-    "sellPrice": 0,
+    "sellPrice": 34,
     "cost": 2.96,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 8.7,
+    "marginPct": 91.3,
+    "grossMarginDH": 31.04,
     "details": [
       {
         "ingredient": "Jus d'orange",
@@ -2029,11 +2029,11 @@
   {
     "category": "COCKTAILS & MOCKTAILS",
     "name": "Cocktail GREY CORNER",
-    "sellPrice": 0,
+    "sellPrice": 48,
     "cost": 4.7,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 9.8,
+    "marginPct": 90.2,
+    "grossMarginDH": 43.3,
     "details": [
       {
         "ingredient": "Fruits variés",
@@ -2343,11 +2343,11 @@
   {
     "category": "SMOOTHIES & BOWLS",
     "name": "Triple Berry",
-    "sellPrice": 0,
+    "sellPrice": 48,
     "cost": 7.58,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 15.8,
+    "marginPct": 84.2,
+    "grossMarginDH": 40.42,
     "details": [
       {
         "ingredient": "Fruits rouges",
@@ -2369,11 +2369,11 @@
   {
     "category": "SMOOTHIES & BOWLS",
     "name": "Énergétique",
-    "sellPrice": 0,
+    "sellPrice": 42,
     "cost": 5.42,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 12.9,
+    "marginPct": 87.1,
+    "grossMarginDH": 36.58,
     "details": [
       {
         "ingredient": "Banane",
@@ -2400,11 +2400,11 @@
   {
     "category": "SMOOTHIES & BOWLS",
     "name": "Pink Smoothie",
-    "sellPrice": 0,
+    "sellPrice": 48,
     "cost": 6.77,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 14.1,
+    "marginPct": 85.9,
+    "grossMarginDH": 41.23,
     "details": [
       {
         "ingredient": "Fraise",
@@ -2431,11 +2431,11 @@
   {
     "category": "SMOOTHIES & BOWLS",
     "name": "Multi-Vitamine",
-    "sellPrice": 0,
+    "sellPrice": 42,
     "cost": 2.48,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 5.9,
+    "marginPct": 94.1,
+    "grossMarginDH": 39.52,
     "details": [
       {
         "ingredient": "Jus d'orange",
@@ -2457,11 +2457,11 @@
   {
     "category": "SMOOTHIES & BOWLS",
     "name": "Hawaïen",
-    "sellPrice": 0,
+    "sellPrice": 42,
     "cost": 5.28,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 12.6,
+    "marginPct": 87.4,
+    "grossMarginDH": 36.72,
     "details": [
       {
         "ingredient": "Ananas",
@@ -2483,11 +2483,11 @@
   {
     "category": "SMOOTHIES & BOWLS",
     "name": "Exotique BOWL",
-    "sellPrice": 0,
+    "sellPrice": 48,
     "cost": 11.5,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 24,
+    "marginPct": 76,
+    "grossMarginDH": 36.5,
     "details": [
       {
         "ingredient": "Fruits exotiques",
@@ -2707,11 +2707,11 @@
   {
     "category": "SODAS & BOISSONS FRAÎCHES",
     "name": "SCHWEPPES CITRON",
-    "sellPrice": 0,
+    "sellPrice": 17,
     "cost": 7.55,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 44.4,
+    "marginPct": 55.6,
+    "grossMarginDH": 9.45,
     "details": [
       {
         "ingredient": "Canette Schweppes Citron",
@@ -2723,11 +2723,11 @@
   {
     "category": "SODAS & BOISSONS FRAÎCHES",
     "name": "OULMES MOJITO",
-    "sellPrice": 0,
+    "sellPrice": 16,
     "cost": 1,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 6.3,
+    "marginPct": 93.8,
+    "grossMarginDH": 15,
     "details": [
       {
         "ingredient": "Canette Oulmès Mojito",
@@ -2739,11 +2739,11 @@
   {
     "category": "SODAS & BOISSONS FRAÎCHES",
     "name": "OULMES TROPICAL",
-    "sellPrice": 0,
+    "sellPrice": 16,
     "cost": 1,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 6.3,
+    "marginPct": 93.8,
+    "grossMarginDH": 15,
     "details": [
       {
         "ingredient": "Canette Oulmès Tropical",
@@ -3752,25 +3752,25 @@
     "category": "PETIT DÉJEUNER",
     "name": "MQUILA-FRUITS DE MER",
     "sellPrice": 78,
-    "cost": 25.88,
-    "foodCostPct": 33.2,
-    "marginPct": 66.8,
-    "grossMarginDH": 52.12,
+    "cost": 28.02,
+    "foodCostPct": 35.9,
+    "marginPct": 64.1,
+    "grossMarginDH": 49.98,
     "details": [
       {
         "ingredient": "crevettes",
-        "quantity": "100 g",
-        "cost": 5.5
+        "quantity": "140 g",
+        "cost": 7.7
       },
       {
         "ingredient": "calamars",
-        "quantity": "100 g",
-        "cost": 5.2
+        "quantity": "120 g",
+        "cost": 6.24
       },
       {
         "ingredient": "moules",
-        "quantity": "100 g",
-        "cost": 5.5
+        "quantity": "80 g",
+        "cost": 4.4
       },
       {
         "ingredient": "Œufs",
@@ -3803,15 +3803,15 @@
     "category": "PETIT DÉJEUNER",
     "name": "NORVÉGIEN",
     "sellPrice": 68,
-    "cost": 30.34,
-    "foodCostPct": 44.6,
-    "marginPct": 55.4,
-    "grossMarginDH": 37.66,
+    "cost": 30.1,
+    "foodCostPct": 44.3,
+    "marginPct": 55.7,
+    "grossMarginDH": 37.9,
     "details": [
       {
         "ingredient": "Avocat",
-        "quantity": "90 g",
-        "cost": 2.16
+        "quantity": "80 g",
+        "cost": 1.92
       },
       {
         "ingredient": "Pain céréales",
@@ -3971,11 +3971,11 @@
   {
     "category": "PETIT DÉJEUNER",
     "name": "MQILA MERGUEZ",
-    "sellPrice": 0,
+    "sellPrice": 64,
     "cost": 8.75,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 13.7,
+    "marginPct": 86.3,
+    "grossMarginDH": 55.25,
     "details": [
       {
         "ingredient": "Merguez",
@@ -4348,11 +4348,11 @@
   {
     "category": "ENTRÉES FROIDES",
     "name": "SALADE CERCLE VEGGL",
-    "sellPrice": 0,
+    "sellPrice": 48,
     "cost": 12.28,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 25.6,
+    "marginPct": 74.4,
+    "grossMarginDH": 35.72,
     "details": [
       {
         "ingredient": "Chou rouge",
@@ -4424,11 +4424,11 @@
   {
     "category": "ENTRÉES FROIDES",
     "name": "SALADE BURRATTA",
-    "sellPrice": 0,
+    "sellPrice": 98,
     "cost": 27.96,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 28.5,
+    "marginPct": 71.5,
+    "grossMarginDH": 70.04,
     "details": [
       {
         "ingredient": "BURRATA",
@@ -4460,11 +4460,11 @@
   {
     "category": "ENTRÉES FROIDES",
     "name": "RUSSE",
-    "sellPrice": 0,
+    "sellPrice": 54,
     "cost": 6.16,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 11.4,
+    "marginPct": 88.6,
+    "grossMarginDH": 47.84,
     "details": [
       {
         "ingredient": "Pomme de terre",
@@ -4619,11 +4619,11 @@
   {
     "category": "ENTRÉES CHAUDES",
     "name": "BOULETTES DE POULET FR",
-    "sellPrice": 0,
+    "sellPrice": 52,
     "cost": 15.44,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 29.7,
+    "marginPct": 70.3,
+    "grossMarginDH": 36.56,
     "details": [
       {
         "ingredient": "Poulet haché",
@@ -4650,11 +4650,11 @@
   {
     "category": "ENTRÉES CHAUDES",
     "name": "6 CROQUETTES FROMAGE",
-    "sellPrice": 0,
+    "sellPrice": 48,
     "cost": 19.2,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 40,
+    "marginPct": 60,
+    "grossMarginDH": 28.8,
     "details": [
       {
         "ingredient": "Croquettes de fromage",
@@ -5677,20 +5677,20 @@
     "category": "PANINIS",
     "name": "PANINI CHARCUTERIE",
     "sellPrice": 40,
-    "cost": 16.84,
-    "foodCostPct": 42.1,
-    "marginPct": 57.9,
-    "grossMarginDH": 23.16,
+    "cost": 14.54,
+    "foodCostPct": 36.4,
+    "marginPct": 63.7,
+    "grossMarginDH": 25.46,
     "details": [
       {
         "ingredient": "Charcuterie",
-        "quantity": "120 g",
-        "cost": 7.2
+        "quantity": "100 g",
+        "cost": 6
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "60 g",
-        "cost": 3.3
+        "quantity": "40 g",
+        "cost": 2.2
       },
       {
         "ingredient": "Frites + sauce",
@@ -5713,10 +5713,10 @@
     "category": "PANINIS",
     "name": "PANINI POULET",
     "sellPrice": 44,
-    "cost": 13.14,
-    "foodCostPct": 29.9,
-    "marginPct": 70.1,
-    "grossMarginDH": 30.86,
+    "cost": 12.04,
+    "foodCostPct": 27.4,
+    "marginPct": 72.6,
+    "grossMarginDH": 31.96,
     "details": [
       {
         "ingredient": "Poulet",
@@ -5725,8 +5725,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "60 g",
-        "cost": 3.3
+        "quantity": "40 g",
+        "cost": 2.2
       },
       {
         "ingredient": "Frites + sauce",
@@ -5749,10 +5749,10 @@
     "category": "PANINIS",
     "name": "PANINI VIANDE HACHÉE",
     "sellPrice": 54,
-    "cost": 19.64,
-    "foodCostPct": 36.4,
-    "marginPct": 63.6,
-    "grossMarginDH": 34.36,
+    "cost": 18.54,
+    "foodCostPct": 34.3,
+    "marginPct": 65.7,
+    "grossMarginDH": 35.46,
     "details": [
       {
         "ingredient": "Viande",
@@ -5761,8 +5761,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "60 g",
-        "cost": 3.3
+        "quantity": "40 g",
+        "cost": 2.2
       },
       {
         "ingredient": "Frites + sauce",
@@ -5785,10 +5785,10 @@
     "category": "PANINIS",
     "name": "PANINI GOURMAND",
     "sellPrice": 64,
-    "cost": 20.14,
-    "foodCostPct": 31.5,
-    "marginPct": 68.5,
-    "grossMarginDH": 43.86,
+    "cost": 19.04,
+    "foodCostPct": 29.8,
+    "marginPct": 70.3,
+    "grossMarginDH": 44.96,
     "details": [
       {
         "ingredient": "Viande",
@@ -5807,8 +5807,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "60 g",
-        "cost": 3.3
+        "quantity": "40 g",
+        "cost": 2.2
       },
       {
         "ingredient": "Frites + sauce",
@@ -5831,10 +5831,10 @@
     "category": "PANINIS",
     "name": "PANINI FRUITS DE MER",
     "sellPrice": 64,
-    "cost": 24.76,
-    "foodCostPct": 38.7,
-    "marginPct": 61.3,
-    "grossMarginDH": 39.24,
+    "cost": 23.66,
+    "foodCostPct": 37,
+    "marginPct": 63,
+    "grossMarginDH": 40.34,
     "details": [
       {
         "ingredient": "Crevettes avec coquille",
@@ -5853,8 +5853,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "60 g",
-        "cost": 3.3
+        "quantity": "40 g",
+        "cost": 2.2
       },
       {
         "ingredient": "Frites + sauce",
@@ -5877,10 +5877,10 @@
     "category": "PANINIS",
     "name": "PANINI SAUMON",
     "sellPrice": 64,
-    "cost": 26.74,
-    "foodCostPct": 41.8,
-    "marginPct": 58.2,
-    "grossMarginDH": 37.26,
+    "cost": 25.64,
+    "foodCostPct": 40.1,
+    "marginPct": 59.9,
+    "grossMarginDH": 38.36,
     "details": [
       {
         "ingredient": "Saumon",
@@ -5894,8 +5894,8 @@
       },
       {
         "ingredient": "Mozzarella",
-        "quantity": "60 g",
-        "cost": 3.3
+        "quantity": "40 g",
+        "cost": 2.2
       },
       {
         "ingredient": "Frites + sauce",
@@ -6617,7 +6617,7 @@
       },
       {
         "ingredient": "Burrata",
-        "quantity": "1 g",
+        "quantity": "1 p",
         "cost": 25
       },
       {
@@ -7326,11 +7326,11 @@
   {
     "category": "PÂTES",
     "name": "MENU ENFANT PASTA NATURE",
-    "sellPrice": 0,
+    "sellPrice": 58,
     "cost": 11.73,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 20.2,
+    "marginPct": 79.8,
+    "grossMarginDH": 46.27,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -7555,11 +7555,11 @@
   {
     "category": "DESSERTS & PÂTISSERIES",
     "name": "Coupe Enfant",
-    "sellPrice": 0,
+    "sellPrice": 40,
     "cost": 7.75,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 19.4,
+    "marginPct": 80.6,
+    "grossMarginDH": 32.25,
     "details": [
       {
         "ingredient": "Boules de glace",
@@ -7840,11 +7840,11 @@
   {
     "category": "DESSERTS & PÂTISSERIES",
     "name": "Pain Cake Nutella",
-    "sellPrice": 0,
+    "sellPrice": 38,
     "cost": 10.74,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 28.3,
+    "marginPct": 71.7,
+    "grossMarginDH": 27.26,
     "details": [
       {
         "ingredient": "Pancakes",
@@ -7861,11 +7861,11 @@
   {
     "category": "DESSERTS & PÂTISSERIES",
     "name": "Pain Cake Fruits De Saison",
-    "sellPrice": 0,
+    "sellPrice": 44,
     "cost": 8.08,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 18.4,
+    "marginPct": 81.6,
+    "grossMarginDH": 35.92,
     "details": [
       {
         "ingredient": "Pancakes",
@@ -7887,11 +7887,11 @@
   {
     "category": "DESSERTS & PÂTISSERIES",
     "name": "Pain Cake Enfant",
-    "sellPrice": 0,
+    "sellPrice": 32,
     "cost": 6.87,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 21.5,
+    "marginPct": 78.5,
+    "grossMarginDH": 25.13,
     "details": [
       {
         "ingredient": "Pancakes",
@@ -8095,10 +8095,10 @@
     "category": "CRÊPES",
     "name": "CRÊPE NORVÉGIENNE",
     "sellPrice": 58,
-    "cost": 22.45,
-    "foodCostPct": 38.7,
-    "marginPct": 61.3,
-    "grossMarginDH": 35.55,
+    "cost": 23.1,
+    "foodCostPct": 39.8,
+    "marginPct": 60.2,
+    "grossMarginDH": 34.9,
     "details": [
       {
         "ingredient": "Pâte à crêpe",
@@ -8106,9 +8106,9 @@
         "cost": 1.8
       },
       {
-        "ingredient": "Saumon fumé",
-        "quantity": "60 g",
-        "cost": 16.8
+        "ingredient": "Saumon frais",
+        "quantity": "90 g",
+        "cost": 16.2
       },
       {
         "ingredient": "Crème fraîche",
@@ -8117,8 +8117,13 @@
       },
       {
         "ingredient": "Fromage",
-        "quantity": "30 g",
-        "cost": 2.85
+        "quantity": "20 g",
+        "cost": 1.9
+      },
+      {
+        "ingredient": "Mozzarella",
+        "quantity": "40 g",
+        "cost": 2.2
       }
     ]
   },
@@ -8161,11 +8166,11 @@
   {
     "category": "CRÊPES",
     "name": "CREPE BOLONAISE",
-    "sellPrice": 0,
+    "sellPrice": 54,
     "cost": 15.54,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 28.8,
+    "marginPct": 71.2,
+    "grossMarginDH": 38.46,
     "details": [
       {
         "ingredient": "Pâte à crêpe",
@@ -8192,11 +8197,11 @@
   {
     "category": "CRÊPES",
     "name": "CREPE GREY CORNER SALEE",
-    "sellPrice": 0,
+    "sellPrice": 58,
     "cost": 17.5,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 30.2,
+    "marginPct": 69.8,
+    "grossMarginDH": 40.5,
     "details": [
       {
         "ingredient": "Pâte à crêpe",
@@ -8233,11 +8238,11 @@
   {
     "category": "CRÊPES",
     "name": "CREPE BANANE NUTELLA",
-    "sellPrice": 0,
+    "sellPrice": 42,
     "cost": 7.94,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 18.9,
+    "marginPct": 81.1,
+    "grossMarginDH": 34.06,
     "details": [
       {
         "ingredient": "Pâte à crêpe",
@@ -8259,11 +8264,11 @@
   {
     "category": "CRÊPES",
     "name": "CREPE NATURE",
-    "sellPrice": 0,
+    "sellPrice": 28,
     "cost": 3.6,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 12.9,
+    "marginPct": 87.1,
+    "grossMarginDH": 24.4,
     "details": [
       {
         "ingredient": "Pâte à crêpe",
@@ -8275,11 +8280,11 @@
   {
     "category": "CRÊPES",
     "name": "CREPE CHOCO-NOISETTE",
-    "sellPrice": 0,
+    "sellPrice": 42,
     "cost": 11.04,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 26.3,
+    "marginPct": 73.7,
+    "grossMarginDH": 30.96,
     "details": [
       {
         "ingredient": "Pâte à crêpe",
@@ -8301,11 +8306,11 @@
   {
     "category": "CRÊPES",
     "name": "CREPE EXOTIQUE",
-    "sellPrice": 0,
+    "sellPrice": 48,
     "cost": 8.14,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 17,
+    "marginPct": 83,
+    "grossMarginDH": 39.86,
     "details": [
       {
         "ingredient": "Pâte à crêpe",
@@ -8327,11 +8332,11 @@
   {
     "category": "CRÊPES",
     "name": "CREPE GREY CORNER SUCREE",
-    "sellPrice": 0,
+    "sellPrice": 52,
     "cost": 9.79,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 18.8,
+    "marginPct": 81.2,
+    "grossMarginDH": 42.21,
     "details": [
       {
         "ingredient": "Pâte à crêpe",
@@ -8353,11 +8358,11 @@
   {
     "category": "CRÊPES",
     "name": "CREPE PM-CARAMELISEE",
-    "sellPrice": 0,
+    "sellPrice": 40,
     "cost": 3.6,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 9,
+    "marginPct": 91,
+    "grossMarginDH": 36.4,
     "details": [
       {
         "ingredient": "Pâte à crêpe",
@@ -8374,11 +8379,11 @@
   {
     "category": "CRÊPES",
     "name": "Gauffre Nutella",
-    "sellPrice": 0,
+    "sellPrice": 38,
     "cost": 6.54,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 17.2,
+    "marginPct": 82.8,
+    "grossMarginDH": 31.46,
     "details": [
       {
         "ingredient": "Pâte à gaufre",
@@ -8395,11 +8400,11 @@
   {
     "category": "CRÊPES",
     "name": "Gauffre Nutela Banane",
-    "sellPrice": 0,
+    "sellPrice": 42,
     "cost": 7.66,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 18.2,
+    "marginPct": 81.8,
+    "grossMarginDH": 34.34,
     "details": [
       {
         "ingredient": "Pâte à gaufre",
@@ -8421,11 +8426,11 @@
   {
     "category": "CRÊPES",
     "name": "GAUFFRE KUNAFA PISTACHE",
-    "sellPrice": 0,
+    "sellPrice": 48,
     "cost": 11.9,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 24.8,
+    "marginPct": 75.2,
+    "grossMarginDH": 36.1,
     "details": [
       {
         "ingredient": "Pâte à gaufre",
@@ -8452,11 +8457,11 @@
   {
     "category": "CRÊPES",
     "name": "Gauffre Exotique",
-    "sellPrice": 0,
+    "sellPrice": 48,
     "cost": 6.56,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 13.7,
+    "marginPct": 86.3,
+    "grossMarginDH": 41.44,
     "details": [
       {
         "ingredient": "Pâte à gaufre",
@@ -8478,11 +8483,11 @@
   {
     "category": "CRÊPES",
     "name": "Gauffre Choco-Noisette",
-    "sellPrice": 0,
+    "sellPrice": 42,
     "cost": 11.04,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 26.3,
+    "marginPct": 73.7,
+    "grossMarginDH": 30.96,
     "details": [
       {
         "ingredient": "Pâte à gaufre",
@@ -8504,11 +8509,11 @@
   {
     "category": "CRÊPES",
     "name": "Gauffre PM-Caramelisee",
-    "sellPrice": 0,
+    "sellPrice": 40,
     "cost": 4.44,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 11.1,
+    "marginPct": 88.9,
+    "grossMarginDH": 35.56,
     "details": [
       {
         "ingredient": "Pâte à gaufre",
@@ -8530,11 +8535,11 @@
   {
     "category": "CRÊPES",
     "name": "GAUFFRE NATURE",
-    "sellPrice": 0,
+    "sellPrice": 28,
     "cost": 1.89,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 6.7,
+    "marginPct": 93.3,
+    "grossMarginDH": 26.11,
     "details": [
       {
         "ingredient": "Pâte à gaufre",
@@ -8751,11 +8756,11 @@
   {
     "category": "SUPPLÉMENTS & EXTRAS",
     "name": "COUSCOUS POULET AVEC PETIT LAIT",
-    "sellPrice": 0,
+    "sellPrice": 54,
     "cost": 15.86,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 29.4,
+    "marginPct": 70.6,
+    "grossMarginDH": 38.14,
     "details": [
       {
         "ingredient": "Semoule couscous",
@@ -8782,11 +8787,11 @@
   {
     "category": "SUPPLÉMENTS & EXTRAS",
     "name": "COUSCOUS VIANDE AVEC PETIT LAIT",
-    "sellPrice": 0,
+    "sellPrice": 64,
     "cost": 25.86,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 40.4,
+    "marginPct": 59.6,
+    "grossMarginDH": 38.14,
     "details": [
       {
         "ingredient": "Semoule couscous",
@@ -8903,11 +8908,11 @@
   {
     "category": "SUPPLÉMENTS & EXTRAS",
     "name": "MENU ENFANT BURGER",
-    "sellPrice": 0,
+    "sellPrice": 58,
     "cost": 22.59,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 38.9,
+    "marginPct": 61.1,
+    "grossMarginDH": 35.41,
     "details": [
       {
         "ingredient": "Viande Hachée",
@@ -9273,11 +9278,11 @@
   {
     "category": "A LA CARTE & BOULANGERIE",
     "name": "OEUFS BELDI",
-    "sellPrice": 0,
+    "sellPrice": 45,
     "cost": 10.49,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 23.3,
+    "marginPct": 76.7,
+    "grossMarginDH": 34.51,
     "details": [
       {
         "ingredient": "Œufs Beldi",
@@ -9447,11 +9452,11 @@
   {
     "category": "A LA CARTE & BOULANGERIE",
     "name": "BERBER",
-    "sellPrice": 0,
+    "sellPrice": 54,
     "cost": 10.62,
-    "foodCostPct": 0,
-    "marginPct": 0,
-    "grossMarginDH": 0,
+    "foodCostPct": 19.7,
+    "marginPct": 80.3,
+    "grossMarginDH": 43.38,
     "details": [
       {
         "ingredient": "Œufs",

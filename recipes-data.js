@@ -490,12 +490,12 @@ const DATA = [
           "Lait : 200 ml",
           "Sucre : 1 p"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "12 DH",
+        "sellPrice": 12,
         "cost": 2.12,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 17.7,
+        "margin": 82.3,
+        "grossMarginDH": 9.88,
         "__key": "bc",
         "__images": [
           "images/placeholder.svg"
@@ -1054,12 +1054,12 @@ const DATA = [
           "Lait : 150 ml",
           "Miel : 15 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "38 DH",
+        "sellPrice": 38,
         "cost": 5.87,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 15.4,
+        "margin": 84.6,
+        "grossMarginDH": 32.13,
         "__key": "jf",
         "__images": [
           "images/placeholder.svg"
@@ -1074,12 +1074,12 @@ const DATA = [
           "Avocat : 100 g",
           "Jus d'orange : 150 ml"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "32 DH",
+        "sellPrice": 32,
         "cost": 3.9,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 12.2,
+        "margin": 87.8,
+        "grossMarginDH": 28.1,
         "__key": "jf",
         "__images": [
           "images/placeholder.svg"
@@ -1093,12 +1093,12 @@ const DATA = [
         "tech": [
           "Pomme : 250 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "28 DH",
+        "sellPrice": 28,
         "cost": 3.5,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 12.5,
+        "margin": 87.5,
+        "grossMarginDH": 24.5,
         "__key": "jf",
         "__images": [
           "images/placeholder.svg"
@@ -1133,12 +1133,12 @@ const DATA = [
           "Fruits de saison : 120 g",
           "Lait : 150 ml"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "38 DH",
+        "sellPrice": 38,
         "cost": 3.78,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 9.9,
+        "margin": 90.1,
+        "grossMarginDH": 34.22,
         "__key": "jf",
         "__images": [
           "images/placeholder.svg"
@@ -1398,12 +1398,12 @@ const DATA = [
           "Citron : 30 ml",
           "Miel : 20 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "32 DH",
+        "sellPrice": 32,
         "cost": 5.12,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 16,
+        "margin": 84,
+        "grossMarginDH": 26.88,
         "__key": "ck",
         "__images": [
           "images/placeholder.svg"
@@ -1420,12 +1420,12 @@ const DATA = [
           "Citron : 30 ml",
           "Glaçons : 1 p"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
         "cost": 2.5,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 6,
+        "margin": 94,
+        "grossMarginDH": 39.5,
         "__key": "ck",
         "__images": [
           "images/placeholder.svg"
@@ -1441,12 +1441,12 @@ const DATA = [
           "Jus d'ananas : 100 ml",
           "Sirop grenadine : 20 ml"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "34 DH",
+        "sellPrice": 34,
         "cost": 2.96,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 8.7,
+        "margin": 91.3,
+        "grossMarginDH": 31.04,
         "__key": "ck",
         "__images": [
           "images/placeholder.svg"
@@ -1462,12 +1462,12 @@ const DATA = [
           "Jus d'orange : 100 ml",
           "Sirop : 20 ml"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "48 DH",
+        "sellPrice": 48,
         "cost": 4.7,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 9.8,
+        "margin": 90.2,
+        "grossMarginDH": 43.3,
         "__key": "ck",
         "__images": [
           "images/placeholder.svg"
@@ -1666,12 +1666,12 @@ const DATA = [
           "Lait : 100 ml",
           "Yaourt : 50 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "48 DH",
+        "sellPrice": 48,
         "cost": 7.58,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 15.8,
+        "margin": 84.2,
+        "grossMarginDH": 40.42,
         "__key": "sm",
         "__images": [
           "images/placeholder.svg"
@@ -1688,12 +1688,12 @@ const DATA = [
           "Lait : 150 ml",
           "Miel : 15 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
         "cost": 5.42,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 12.9,
+        "margin": 87.1,
+        "grossMarginDH": 36.58,
         "__key": "sm",
         "__images": [
           "images/placeholder.svg"
@@ -1710,12 +1710,12 @@ const DATA = [
           "Yaourt : 80 g",
           "Lait : 100 ml"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "48 DH",
+        "sellPrice": 48,
         "cost": 6.77,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 14.1,
+        "margin": 85.9,
+        "grossMarginDH": 41.23,
         "__key": "sm",
         "__images": [
           "images/placeholder.svg"
@@ -1731,12 +1731,12 @@ const DATA = [
           "Carotte : 60 g",
           "Pomme : 80 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
         "cost": 2.48,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 5.9,
+        "margin": 94.1,
+        "grossMarginDH": 39.52,
         "__key": "sm",
         "__images": [
           "images/placeholder.svg"
@@ -1752,12 +1752,12 @@ const DATA = [
           "Mangue : 80 g",
           "Jus d'orange : 100 ml"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
         "cost": 5.28,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 12.6,
+        "margin": 87.4,
+        "grossMarginDH": 36.72,
         "__key": "sm",
         "__images": [
           "images/placeholder.svg"
@@ -1774,12 +1774,12 @@ const DATA = [
           "Muesli : 40 g",
           "Graines de chia : 10 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "48 DH",
+        "sellPrice": 48,
         "cost": 11.5,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 24,
+        "margin": 76,
+        "grossMarginDH": 36.5,
         "__key": "sm",
         "__images": [
           "images/placeholder.svg"
@@ -1957,12 +1957,12 @@ const DATA = [
         "tech": [
           "Canette Schweppes Citron : 1 p"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "17 DH",
+        "sellPrice": 17,
         "cost": 7.55,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 44.4,
+        "margin": 55.6,
+        "grossMarginDH": 9.45,
         "__key": "sd",
         "__images": [
           "images/placeholder.svg"
@@ -1976,12 +1976,12 @@ const DATA = [
         "tech": [
           "Canette Oulmès Mojito : 1 p"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "16 DH",
+        "sellPrice": 16,
         "cost": 1,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 6.3,
+        "margin": 93.8,
+        "grossMarginDH": 15,
         "__key": "sd",
         "__images": [
           "images/placeholder.svg"
@@ -1995,12 +1995,12 @@ const DATA = [
         "tech": [
           "Canette Oulmès Tropical : 1 p"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "16 DH",
+        "sellPrice": 16,
         "cost": 1,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 6.3,
+        "margin": 93.8,
+        "grossMarginDH": 15,
         "__key": "sd",
         "__images": [
           "images/placeholder.svg"
@@ -2129,11 +2129,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 23.42,
+        "cost": 33.11,
         "sellPrice": 52,
-        "foodCost": 45,
-        "margin": 55,
-        "grossMarginDH": 28.58,
+        "foodCost": 63.7,
+        "margin": 36.3,
+        "grossMarginDH": 18.89,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_compagnard.jpeg"
@@ -2156,11 +2156,11 @@ const DATA = [
           "JBEN : 50 g"
         ],
         "price": "68 DH",
-        "cost": 26.64,
+        "cost": 33.1,
         "sellPrice": 68,
-        "foodCost": 39.2,
-        "margin": 60.8,
-        "grossMarginDH": 41.36,
+        "foodCost": 48.7,
+        "margin": 51.3,
+        "grossMarginDH": 34.9,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_americain.jpeg"
@@ -2219,11 +2219,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 2 p"
         ],
         "price": "144 DH",
-        "cost": 57.38,
+        "cost": 56.22,
         "sellPrice": 144,
-        "foodCost": 39.8,
-        "margin": 60.2,
-        "grossMarginDH": 86.62,
+        "foodCost": 39,
+        "margin": 61,
+        "grossMarginDH": 87.78,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-duo.jpg"
@@ -2297,11 +2297,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 13.79,
+        "cost": 12.05,
         "sellPrice": 52,
-        "foodCost": 26.5,
-        "margin": 73.5,
-        "grossMarginDH": 38.21,
+        "foodCost": 23.2,
+        "margin": 76.8,
+        "grossMarginDH": 39.95,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-veg.jpg"
@@ -2395,11 +2395,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 19.99,
+        "cost": 18.25,
         "sellPrice": 52,
-        "foodCost": 38.4,
-        "margin": 61.6,
-        "grossMarginDH": 32.01,
+        "foodCost": 35.1,
+        "margin": 64.9,
+        "grossMarginDH": 33.75,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-cont.jpg"
@@ -2419,11 +2419,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "52 DH",
-        "cost": 16.39,
+        "cost": 14.65,
         "sellPrice": 52,
-        "foodCost": 31.5,
-        "margin": 68.5,
-        "grossMarginDH": 35.61,
+        "foodCost": 28.2,
+        "margin": 71.8,
+        "grossMarginDH": 37.35,
         "__key": "pdj",
         "__images": [
           "images/omelette-fromage.jpg"
@@ -2442,11 +2442,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "42 DH",
-        "cost": 12.59,
+        "cost": 10.85,
         "sellPrice": 42,
-        "foodCost": 30,
-        "margin": 70,
-        "grossMarginDH": 29.41,
+        "foodCost": 25.8,
+        "margin": 74.2,
+        "grossMarginDH": 31.15,
         "__key": "pdj",
         "__images": [
           "images/omelette-nature.jpg"
@@ -2467,11 +2467,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "58 DH",
-        "cost": 16.29,
+        "cost": 14.55,
         "sellPrice": 58,
-        "foodCost": 28.1,
-        "margin": 71.9,
-        "grossMarginDH": 41.71,
+        "foodCost": 25.1,
+        "margin": 74.9,
+        "grossMarginDH": 43.45,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-chef.jpg"
@@ -2520,11 +2520,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 18.22,
+        "cost": 17.06,
         "sellPrice": 64,
-        "foodCost": 28.5,
-        "margin": 71.5,
-        "grossMarginDH": 45.78,
+        "foodCost": 26.7,
+        "margin": 73.3,
+        "grossMarginDH": 46.94,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-mquila.jpg"
@@ -2545,11 +2545,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "78 DH",
-        "cost": 29.18,
+        "cost": 28.02,
         "sellPrice": 78,
-        "foodCost": 37.4,
-        "margin": 62.6,
-        "grossMarginDH": 48.82,
+        "foodCost": 35.9,
+        "margin": 64.1,
+        "grossMarginDH": 49.98,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_mquilafruitdemer.jpeg"
@@ -2658,12 +2658,12 @@ const DATA = [
           "Poivrons/oignons : 120 g",
           "Œufs : 2 p"
         ],
-        "price": "",
-        "sellPrice": 0,
-        "cost": 9.91,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "price": "64 DH",
+        "sellPrice": 64,
+        "cost": 8.75,
+        "foodCost": 13.7,
+        "margin": 86.3,
+        "grossMarginDH": 55.25,
         "__key": "pdj",
         "__images": [
           "images/placeholder.svg"
@@ -2856,12 +2856,12 @@ const DATA = [
           "Maïs : 30 g",
           "Poivron : 50 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "48 DH",
+        "sellPrice": 48,
         "cost": 12.28,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 25.6,
+        "margin": 74.4,
+        "grossMarginDH": 35.72,
         "__key": "ef",
         "__images": [
           "images/placeholder.svg"
@@ -2879,12 +2879,12 @@ const DATA = [
           "roquette :25 G",
           "vinaigre balsamique :10 G"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "98 DH",
+        "sellPrice": 98,
         "cost": 27.96,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 28.5,
+        "margin": 71.5,
+        "grossMarginDH": 70.04,
         "__key": "ef",
         "__images": [
           "images/placeholder.svg"
@@ -2903,12 +2903,12 @@ const DATA = [
           "Poulet : 50 g",
           "Mayonnaise : 30 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "54 DH",
+        "sellPrice": 54,
         "cost": 6.16,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 11.4,
+        "margin": 88.6,
+        "grossMarginDH": 47.84,
         "__key": "ef",
         "__images": [
           "images/placeholder.svg"
@@ -3003,12 +3003,12 @@ const DATA = [
           "FR EDAM: 40 g",
           "CHAPLURE: 50 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "52 DH",
+        "sellPrice": 52,
         "cost": 15.44,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 29.7,
+        "margin": 70.3,
+        "grossMarginDH": 36.56,
         "__key": "ec",
         "__images": [
           "images/placeholder.svg"
@@ -3024,12 +3024,12 @@ const DATA = [
           "Sauce : 30 g",
           "Mesclun : 30 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "48 DH",
+        "sellPrice": 48,
         "cost": 19.2,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 40,
+        "margin": 60,
+        "grossMarginDH": 28.8,
         "__key": "ec",
         "__images": [
           "images/placeholder.svg"
@@ -3141,11 +3141,11 @@ const DATA = [
           "Beurre : 40 g"
         ],
         "price": "98 DH",
-        "cost": 28.73,
+        "cost": 32.96,
         "sellPrice": 98,
-        "foodCost": 29.3,
-        "margin": 70.7,
-        "grossMarginDH": 69.27,
+        "foodCost": 33.6,
+        "margin": 66.4,
+        "grossMarginDH": 65.04,
         "__key": "pl",
         "__images": [
           "images/plat-supreme.webp"
@@ -3428,11 +3428,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "56 DH",
-        "cost": 19.92,
+        "cost": 24.15,
         "sellPrice": 56,
-        "foodCost": 35.6,
-        "margin": 64.4,
-        "grossMarginDH": 36.08,
+        "foodCost": 43.1,
+        "margin": 56.9,
+        "grossMarginDH": 31.85,
         "__key": "bg",
         "__images": [
           "images/burger-eggcheese.jpg"
@@ -3477,11 +3477,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "70 DH",
-        "cost": 26,
+        "cost": 30.23,
         "sellPrice": 70,
-        "foodCost": 37.1,
-        "margin": 62.9,
-        "grossMarginDH": 44,
+        "foodCost": 43.2,
+        "margin": 56.8,
+        "grossMarginDH": 39.77,
         "__key": "bg",
         "__images": [
           "images/burger-royal.jpg"
@@ -3509,11 +3509,11 @@ const DATA = [
           "Sauce burger : 60 ml"
         ],
         "price": "58 DH",
-        "cost": 17.66,
+        "cost": 21.89,
         "sellPrice": 58,
-        "foodCost": 30.4,
-        "margin": 69.6,
-        "grossMarginDH": 40.34,
+        "foodCost": 37.7,
+        "margin": 62.3,
+        "grossMarginDH": 36.11,
         "__key": "wr",
         "__images": [
           "images/Wrap-poulet.jpg"
@@ -3533,11 +3533,11 @@ const DATA = [
           "Sauce burger : 60 ml"
         ],
         "price": "62 DH",
-        "cost": 20.76,
+        "cost": 24.99,
         "sellPrice": 62,
-        "foodCost": 33.5,
-        "margin": 66.5,
-        "grossMarginDH": 41.24,
+        "foodCost": 40.3,
+        "margin": 59.7,
+        "grossMarginDH": 37.01,
         "__key": "wr",
         "__images": [
           "images/Wrap-viande-hachee.jpg"
@@ -3559,11 +3559,11 @@ const DATA = [
           "Sauce burger : 60 ml"
         ],
         "price": "64 DH",
-        "cost": 20.09,
+        "cost": 24.32,
         "sellPrice": 64,
-        "foodCost": 31.4,
-        "margin": 68.6,
-        "grossMarginDH": 43.91,
+        "foodCost": 38,
+        "margin": 62,
+        "grossMarginDH": 39.68,
         "__key": "wr",
         "__images": [
           "images/Wrap-gourmand.jpg"
@@ -4093,7 +4093,7 @@ const DATA = [
           "Pâte : 330 g",
           "Mozzarella : 150 g",
           "Sauce tomate : 100 g",
-          "Burrata : 1 g",
+          "Burrata : 1 p",
           "Tomate cerise : 50 g",
           "Roquette : 30 g",
           "Vinaigre balsamique : 10 ml",
@@ -4503,12 +4503,12 @@ const DATA = [
           "Parmesan : 30 g",
           "Canette Soda : 3.5 p"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "58 DH",
+        "sellPrice": 58,
         "cost": 11.73,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 20.2,
+        "margin": 79.8,
+        "grossMarginDH": 46.27,
         "__key": "pae",
         "__images": [
           "images/placeholder.svg"
@@ -4673,12 +4673,12 @@ const DATA = [
           "Chantilly : 20 g",
           "Smarties : 15 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "40 DH",
+        "sellPrice": 40,
         "cost": 7.75,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 19.4,
+        "margin": 80.6,
+        "grossMarginDH": 32.25,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4887,12 +4887,12 @@ const DATA = [
           "Pancakes : 3 p",
           "Nutella : 60 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "38 DH",
+        "sellPrice": 38,
         "cost": 10.74,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 28.3,
+        "margin": 71.7,
+        "grossMarginDH": 27.26,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4908,12 +4908,12 @@ const DATA = [
           "Fruits de saison : 80 g",
           "Miel : 30 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "44 DH",
+        "sellPrice": 44,
         "cost": 8.08,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 18.4,
+        "margin": 81.6,
+        "grossMarginDH": 35.92,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4929,12 +4929,12 @@ const DATA = [
           "Nutella : 30 g",
           "Smarties : 10 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "32 DH",
+        "sellPrice": 32,
         "cost": 6.87,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 21.5,
+        "margin": 78.5,
+        "grossMarginDH": 25.13,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -5107,12 +5107,12 @@ const DATA = [
           "Mozzarella : 60 g",
           "SAUCE TOMATE : 50 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "54 DH",
+        "sellPrice": 54,
         "cost": 15.54,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 28.8,
+        "margin": 71.2,
+        "grossMarginDH": 38.46,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5131,12 +5131,12 @@ const DATA = [
           "Mozzarella : 60 g",
           "Fromage : 20 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "58 DH",
+        "sellPrice": 58,
         "cost": 17.5,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 30.2,
+        "margin": 69.8,
+        "grossMarginDH": 40.5,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5152,12 +5152,12 @@ const DATA = [
           "Nutella : 60 g",
           "BANANE : 100 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
         "cost": 7.94,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 18.9,
+        "margin": 81.1,
+        "grossMarginDH": 34.06,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5171,12 +5171,12 @@ const DATA = [
         "tech": [
           "Pâte à crêpe : 2 p"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "28 DH",
+        "sellPrice": 28,
         "cost": 3.6,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 12.9,
+        "margin": 87.1,
+        "grossMarginDH": 24.4,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5192,12 +5192,12 @@ const DATA = [
           "Nutella : 60 g",
           "Noisette : 30 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
         "cost": 11.04,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 26.3,
+        "margin": 73.7,
+        "grossMarginDH": 30.96,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5213,12 +5213,12 @@ const DATA = [
           "Nutella : 60 g",
           "Fruits de saison : 80 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "48 DH",
+        "sellPrice": 48,
         "cost": 8.14,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 17,
+        "margin": 83,
+        "grossMarginDH": 39.86,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5234,12 +5234,12 @@ const DATA = [
           "Nutella : 60 g",
           "Chocolat varié : 50 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "52 DH",
+        "sellPrice": 52,
         "cost": 9.79,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 18.8,
+        "margin": 81.2,
+        "grossMarginDH": 42.21,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5254,12 +5254,12 @@ const DATA = [
           "Pâte à crêpe : 1 p",
           "Caramel : 40 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "40 DH",
+        "sellPrice": 40,
         "cost": 3.6,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 9,
+        "margin": 91,
+        "grossMarginDH": 36.4,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5274,12 +5274,12 @@ const DATA = [
           "Pâte à gaufre : 1 p",
           "Nutella : 60 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "38 DH",
+        "sellPrice": 38,
         "cost": 6.54,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 17.2,
+        "margin": 82.8,
+        "grossMarginDH": 31.46,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5295,12 +5295,12 @@ const DATA = [
           "Nutella : 60 g",
           "Banane : 80 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
         "cost": 7.66,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 18.2,
+        "margin": 81.8,
+        "grossMarginDH": 34.34,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5317,12 +5317,12 @@ const DATA = [
           "Pistache : 30 g",
           "Sirop : 20 ml"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "48 DH",
+        "sellPrice": 48,
         "cost": 11.9,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 24.8,
+        "margin": 75.2,
+        "grossMarginDH": 36.1,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5338,12 +5338,12 @@ const DATA = [
           "Fruits de saison : 80 g",
           "Nutella : 40 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "48 DH",
+        "sellPrice": 48,
         "cost": 6.56,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 13.7,
+        "margin": 86.3,
+        "grossMarginDH": 41.44,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5359,12 +5359,12 @@ const DATA = [
           "Nutella : 60 g",
           "Noisette : 30 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "42 DH",
+        "sellPrice": 42,
         "cost": 11.04,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 26.3,
+        "margin": 73.7,
+        "grossMarginDH": 30.96,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5380,12 +5380,12 @@ const DATA = [
           "Pomme : 60 g",
           "Caramel : 40 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "40 DH",
+        "sellPrice": 40,
         "cost": 4.44,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 11.1,
+        "margin": 88.9,
+        "grossMarginDH": 35.56,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5400,12 +5400,12 @@ const DATA = [
           "Pâte à gaufre : 1 p",
           "Sucre : 15 g"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "28 DH",
+        "sellPrice": 28,
         "cost": 1.89,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 6.7,
+        "margin": 93.3,
+        "grossMarginDH": 26.11,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5587,12 +5587,12 @@ const DATA = [
           "Légumes couscous : 250 g",
           "Petit lait (Lben) : 200 ml"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "54 DH",
+        "sellPrice": 54,
         "cost": 15.86,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 29.4,
+        "margin": 70.6,
+        "grossMarginDH": 38.14,
         "__key": "sup",
         "__images": [
           "images/placeholder.svg"
@@ -5609,12 +5609,12 @@ const DATA = [
           "Légumes couscous : 250 g",
           "Petit lait (Lben) : 200 ml"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "64 DH",
+        "sellPrice": 64,
         "cost": 25.86,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 40.4,
+        "margin": 59.6,
+        "grossMarginDH": 38.14,
         "__key": "sup",
         "__images": [
           "images/placeholder.svg"
@@ -5730,12 +5730,12 @@ const DATA = [
           "Pain : 1 p",
           "coca : 1 p"
         ],
-        "price": "",
-        "sellPrice": 0,
+        "price": "58 DH",
+        "sellPrice": 58,
         "cost": 22.59,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "foodCost": 38.9,
+        "margin": 61.1,
+        "grossMarginDH": 35.41,
         "__key": "sup",
         "__images": [
           "images/placeholder.svg"
@@ -6052,29 +6052,29 @@ const DATA = [
       {
         "name": "OMLETTE FROMAGE (A LA CARTE)",
         "sellPrice": 38,
-        "cost": 7.97,
-        "margin": 79,
+        "cost": 6.23,
+        "margin": 83.6,
         "tech": [
           "Œufs : 3 p",
           "Fromage : 40 g",
           "Mesclun : 30 g"
         ],
-        "foodCost": 21,
-        "grossMarginDH": 30.03,
+        "foodCost": 16.4,
+        "grossMarginDH": 31.77,
         "__key": "alc",
         "__images": []
       },
       {
         "name": "OMLETTE NATURE (A LA CARTE)",
         "sellPrice": 32,
-        "cost": 4.17,
-        "margin": 87,
+        "cost": 2.43,
+        "margin": 92.4,
         "tech": [
           "Œufs : 3 p",
           "Mesclun : 30 g"
         ],
-        "foodCost": 13,
-        "grossMarginDH": 27.83,
+        "foodCost": 7.6,
+        "grossMarginDH": 29.57,
         "__key": "alc",
         "__images": []
       },
@@ -6088,12 +6088,12 @@ const DATA = [
           "Huile d’olive : 10 ml",
           "Sel & Poivre : 1 g"
         ],
-        "price": "",
-        "sellPrice": 0,
-        "cost": 3.03,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "price": "45 DH",
+        "sellPrice": 45,
+        "cost": 10.49,
+        "foodCost": 23.3,
+        "margin": 76.7,
+        "grossMarginDH": 34.51,
         "__key": "alc",
         "__images": [
           "images/placeholder.svg"
@@ -6188,7 +6188,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 8.51,
+        "cost": 6.77,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -6265,12 +6265,12 @@ const DATA = [
           "Khlii : 50 g",
           "Tomate : 40 g"
         ],
-        "price": "",
-        "sellPrice": 0,
-        "cost": 11.78,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "price": "54 DH",
+        "sellPrice": 54,
+        "cost": 10.62,
+        "foodCost": 19.7,
+        "margin": 80.3,
+        "grossMarginDH": 43.38,
         "__key": "alc",
         "__images": [
           "images/placeholder.svg"
@@ -6340,7 +6340,9 @@ const BASE_RECIPES = [
       "Poulet : 200 g",
       "Légumes couscous : 250 g",
       "Petit lait (Lben) : 200 ml"
-    ]
+    ],
+    "sellPrice": 54,
+    "price": "54 DH"
   },
   {
     "id": "plat_couscous_viande",
@@ -6351,7 +6353,9 @@ const BASE_RECIPES = [
       "Viande hachée : 200 g",
       "Légumes couscous : 250 g",
       "Petit lait (Lben) : 200 ml"
-    ]
+    ],
+    "sellPrice": 64,
+    "price": "64 DH"
   },
   {
     "id": "sup_supplement_charcuterie",
@@ -6380,7 +6384,9 @@ const BASE_RECIPES = [
       "Sauce : 30 g",
       "FR EDAM: 40 g",
       "CHAPLURE: 50 g"
-    ]
+    ],
+    "sellPrice": 52,
+    "price": "52 DH"
   },
   {
     "id": "alc_oeufs_beldi",
@@ -6390,7 +6396,9 @@ const BASE_RECIPES = [
       "Œufs Beldi : 2 p",
       "Huile d’olive : 10 ml",
       "Sel & Poivre : 1 g"
-    ]
+    ],
+    "sellPrice": 45,
+    "price": "45 DH"
   },
   {
     "id": "ec_croquettes_fromage",
@@ -6400,7 +6408,9 @@ const BASE_RECIPES = [
       "Croquettes de fromage : 6 p",
       "Sauce : 30 g",
       "Mesclun : 30 g"
-    ]
+    ],
+    "sellPrice": 48,
+    "price": "48 DH"
   },
   {
     "id": "bc_cafe_noir_espresso",
@@ -8272,7 +8282,7 @@ const BASE_RECIPES = [
       "Pâte : 330 g",
       "Mozzarella : 150 g",
       "Sauce tomate : 100 g",
-      "Burrata : 1 g",
+      "Burrata : 1 p",
       "Tomate cerise : 50 g",
       "Roquette : 30 g",
       "Vinaigre balsamique : 10 ml",
@@ -8802,7 +8812,9 @@ const BASE_RECIPES = [
       "VIANDE HACHEE :100 g",
       "Mozzarella : 60 g",
       "SAUCE TOMATE : 50 g"
-    ]
+    ],
+    "sellPrice": 54,
+    "price": "54 DH"
   },
   {
     "id": "rec_1788199269031",
@@ -8815,7 +8827,9 @@ const BASE_RECIPES = [
       "poulet : 50 g",
       "Mozzarella : 60 g",
       "Fromage : 20 g"
-    ]
+    ],
+    "sellPrice": 58,
+    "price": "58 DH"
   },
   {
     "id": "rec_1788199499882",
@@ -8825,7 +8839,9 @@ const BASE_RECIPES = [
       "Pâte à crêpe : 1 p",
       "Nutella : 60 g",
       "BANANE : 100 g"
-    ]
+    ],
+    "sellPrice": 42,
+    "price": "42 DH"
   },
   {
     "id": "rec_1788199584604",
@@ -8833,7 +8849,9 @@ const BASE_RECIPES = [
     "category": "CREPES",
     "ingredients": [
       "Pâte à crêpe : 2 p"
-    ]
+    ],
+    "sellPrice": 28,
+    "price": "28 DH"
   },
   {
     "id": "rec_1788199636915",
@@ -8843,7 +8861,9 @@ const BASE_RECIPES = [
       "Pâte à crêpe : 1 p",
       "Nutella : 60 g",
       "Noisette : 30 g"
-    ]
+    ],
+    "sellPrice": 42,
+    "price": "42 DH"
   },
   {
     "id": "rec_1788199691970",
@@ -8853,7 +8873,9 @@ const BASE_RECIPES = [
       "Pâte à crêpe : 1 p",
       "Nutella : 60 g",
       "Fruits de saison : 80 g"
-    ]
+    ],
+    "sellPrice": 48,
+    "price": "48 DH"
   },
   {
     "id": "rec_1788199770175",
@@ -8863,7 +8885,9 @@ const BASE_RECIPES = [
       "Pâte à crêpe : 1 p",
       "Nutella : 60 g",
       "Chocolat varié : 50 g"
-    ]
+    ],
+    "sellPrice": 52,
+    "price": "52 DH"
   },
   {
     "id": "rec_1788199916543",
@@ -8872,7 +8896,9 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte à crêpe : 1 p",
       "Caramel : 40 g"
-    ]
+    ],
+    "sellPrice": 40,
+    "price": "40 DH"
   },
   {
     "id": "rec_1788200045078",
@@ -8890,7 +8916,9 @@ const BASE_RECIPES = [
       "Merguez : 65 g",
       "Poivrons/oignons : 120 g",
       "Œufs : 2 p"
-    ]
+    ],
+    "sellPrice": 64,
+    "price": "64 DH"
   },
   {
     "id": "rec_1788200259401",
@@ -8948,7 +8976,9 @@ const BASE_RECIPES = [
       "Frites + Sauce : 200 g",
       "Pain : 1 p",
       "coca : 1 p"
-    ]
+    ],
+    "sellPrice": 58,
+    "price": "58 DH"
   },
   {
     "id": "rec_1788201291652",
@@ -8968,7 +8998,9 @@ const BASE_RECIPES = [
       "Vinaigrette : 40 ml",
       "Maïs : 30 g",
       "Poivron : 50 g"
-    ]
+    ],
+    "sellPrice": 48,
+    "price": "48 DH"
   },
   {
     "id": "ef_salade_burrata",
@@ -8980,7 +9012,9 @@ const BASE_RECIPES = [
       "tomate:30 G",
       "roquette :25 G",
       "vinaigre balsamique :10 G"
-    ]
+    ],
+    "sellPrice": 98,
+    "price": "98 DH"
   },
   {
     "id": "rec_1788201893575",
@@ -8993,7 +9027,9 @@ const BASE_RECIPES = [
       "Œufs de caille : 1 p",
       "Poulet : 50 g",
       "Mayonnaise : 30 g"
-    ]
+    ],
+    "sellPrice": 54,
+    "price": "54 DH"
   },
   {
     "id": "sod_schweppes_citron",
@@ -9001,7 +9037,9 @@ const BASE_RECIPES = [
     "category": "SODAS & BOISSONS FRAÎCHES",
     "ingredients": [
       "Canette Schweppes Citron : 1 p"
-    ]
+    ],
+    "sellPrice": 17,
+    "price": "17 DH"
   },
   {
     "id": "sod_oulmes_mojito",
@@ -9009,7 +9047,9 @@ const BASE_RECIPES = [
     "category": "SODAS & BOISSONS FRAÎCHES",
     "ingredients": [
       "Canette Oulmès Mojito : 1 p"
-    ]
+    ],
+    "sellPrice": 16,
+    "price": "16 DH"
   },
   {
     "id": "sod_oulmes_tropical",
@@ -9017,7 +9057,9 @@ const BASE_RECIPES = [
     "category": "SODAS & BOISSONS FRAÎCHES",
     "ingredients": [
       "Canette Oulmès Tropical : 1 p"
-    ]
+    ],
+    "sellPrice": 16,
+    "price": "16 DH"
   },
   {
     "id": "ck_gingembre",
@@ -9027,7 +9069,9 @@ const BASE_RECIPES = [
       "Jus de gingembre : 150 ml",
       "Citron : 30 ml",
       "Miel : 20 g"
-    ]
+    ],
+    "sellPrice": 32,
+    "price": "32 DH"
   },
   {
     "id": "ck_fraicheur",
@@ -9038,7 +9082,9 @@ const BASE_RECIPES = [
       "Menthe : 10 g",
       "Citron : 30 ml",
       "Glaçons : 1 p"
-    ]
+    ],
+    "sellPrice": 42,
+    "price": "42 DH"
   },
   {
     "id": "ck_san_francisco",
@@ -9048,7 +9094,9 @@ const BASE_RECIPES = [
       "Jus d'orange : 100 ml",
       "Jus d'ananas : 100 ml",
       "Sirop grenadine : 20 ml"
-    ]
+    ],
+    "sellPrice": 34,
+    "price": "34 DH"
   },
   {
     "id": "ck_cocktail_gc",
@@ -9058,7 +9106,9 @@ const BASE_RECIPES = [
       "Fruits variés : 150 g",
       "Jus d'orange : 100 ml",
       "Sirop : 20 ml"
-    ]
+    ],
+    "sellPrice": 48,
+    "price": "48 DH"
   },
   {
     "id": "sm_triple_berry",
@@ -9068,7 +9118,9 @@ const BASE_RECIPES = [
       "Fruits rouges : 120 g",
       "Lait : 100 ml",
       "Yaourt : 50 g"
-    ]
+    ],
+    "sellPrice": 48,
+    "price": "48 DH"
   },
   {
     "id": "sm_energetique",
@@ -9079,7 +9131,9 @@ const BASE_RECIPES = [
       "Dattes : 40 g",
       "Lait : 150 ml",
       "Miel : 15 g"
-    ]
+    ],
+    "sellPrice": 42,
+    "price": "42 DH"
   },
   {
     "id": "sm_pink_smoothie",
@@ -9090,7 +9144,9 @@ const BASE_RECIPES = [
       "Framboise : 50 g",
       "Yaourt : 80 g",
       "Lait : 100 ml"
-    ]
+    ],
+    "sellPrice": 48,
+    "price": "48 DH"
   },
   {
     "id": "sm_multi_vitamine",
@@ -9100,7 +9156,9 @@ const BASE_RECIPES = [
       "Jus d'orange : 100 ml",
       "Carotte : 60 g",
       "Pomme : 80 g"
-    ]
+    ],
+    "sellPrice": 42,
+    "price": "42 DH"
   },
   {
     "id": "sm_hawaien",
@@ -9110,7 +9168,9 @@ const BASE_RECIPES = [
       "Ananas : 100 g",
       "Mangue : 80 g",
       "Jus d'orange : 100 ml"
-    ]
+    ],
+    "sellPrice": 42,
+    "price": "42 DH"
   },
   {
     "id": "smb_exotique_bowl",
@@ -9121,7 +9181,9 @@ const BASE_RECIPES = [
       "Açaï : 50 g",
       "Muesli : 40 g",
       "Graines de chia : 10 g"
-    ]
+    ],
+    "sellPrice": 48,
+    "price": "48 DH"
   },
   {
     "id": "jf_fruits_secs",
@@ -9131,7 +9193,9 @@ const BASE_RECIPES = [
       "Fruits secs / Amandes : 50 g",
       "Lait : 150 ml",
       "Miel : 15 g"
-    ]
+    ],
+    "sellPrice": 38,
+    "price": "38 DH"
   },
   {
     "id": "jf_avocat_orange",
@@ -9140,7 +9204,9 @@ const BASE_RECIPES = [
     "ingredients": [
       "Avocat : 100 g",
       "Jus d'orange : 150 ml"
-    ]
+    ],
+    "sellPrice": 32,
+    "price": "32 DH"
   },
   {
     "id": "jf_pomme",
@@ -9148,7 +9214,9 @@ const BASE_RECIPES = [
     "category": "JUS FRAIS PRESSÉS & ROYAUX",
     "ingredients": [
       "Pomme : 250 g"
-    ]
+    ],
+    "sellPrice": 28,
+    "price": "28 DH"
   },
   {
     "id": "jf_banane_orange",
@@ -9166,7 +9234,9 @@ const BASE_RECIPES = [
     "ingredients": [
       "Fruits de saison : 120 g",
       "Lait : 150 ml"
-    ]
+    ],
+    "sellPrice": 38,
+    "price": "38 DH"
   },
   {
     "id": "jf_mini_orange",
@@ -9192,7 +9262,9 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte à gaufre : 1 p",
       "Nutella : 60 g"
-    ]
+    ],
+    "sellPrice": 38,
+    "price": "38 DH"
   },
   {
     "id": "cr_gaufre_nutela_banane",
@@ -9202,7 +9274,9 @@ const BASE_RECIPES = [
       "Pâte à gaufre : 1 p",
       "Nutella : 60 g",
       "Banane : 80 g"
-    ]
+    ],
+    "sellPrice": 42,
+    "price": "42 DH"
   },
   {
     "id": "cr_gaufre_kunafa_pistache",
@@ -9213,7 +9287,9 @@ const BASE_RECIPES = [
       "Kunafa : 40 g",
       "Pistache : 30 g",
       "Sirop : 20 ml"
-    ]
+    ],
+    "sellPrice": 48,
+    "price": "48 DH"
   },
   {
     "id": "cr_gaufre_exotique",
@@ -9223,7 +9299,9 @@ const BASE_RECIPES = [
       "Pâte à gaufre : 1 p",
       "Fruits de saison : 80 g",
       "Nutella : 40 g"
-    ]
+    ],
+    "sellPrice": 48,
+    "price": "48 DH"
   },
   {
     "id": "cr_gaufre_choco_noisette",
@@ -9233,7 +9311,9 @@ const BASE_RECIPES = [
       "Pâte à gaufre : 1 p",
       "Nutella : 60 g",
       "Noisette : 30 g"
-    ]
+    ],
+    "sellPrice": 42,
+    "price": "42 DH"
   },
   {
     "id": "cr_gaufre_pm_caramelisee",
@@ -9243,7 +9323,9 @@ const BASE_RECIPES = [
       "Pâte à gaufre : 1 p",
       "Pomme : 60 g",
       "Caramel : 40 g"
-    ]
+    ],
+    "sellPrice": 40,
+    "price": "40 DH"
   },
   {
     "id": "cr_gaufre_nature",
@@ -9252,7 +9334,9 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte à gaufre : 1 p",
       "Sucre : 15 g"
-    ]
+    ],
+    "sellPrice": 28,
+    "price": "28 DH"
   },
   {
     "id": "des_coupe_grey_corner",
@@ -9288,7 +9372,9 @@ const BASE_RECIPES = [
       "Boules de glace : 2 p",
       "Chantilly : 20 g",
       "Smarties : 15 g"
-    ]
+    ],
+    "sellPrice": 40,
+    "price": "40 DH"
   },
   {
     "id": "des_coupe_amor",
@@ -9400,7 +9486,9 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pancakes : 3 p",
       "Nutella : 60 g"
-    ]
+    ],
+    "sellPrice": 38,
+    "price": "38 DH"
   },
   {
     "id": "des_pain_cake_fruits",
@@ -9410,7 +9498,9 @@ const BASE_RECIPES = [
       "Pancakes : 3 p",
       "Fruits de saison : 80 g",
       "Miel : 30 g"
-    ]
+    ],
+    "sellPrice": 44,
+    "price": "44 DH"
   },
   {
     "id": "des_pain_cake_enfant",
@@ -9420,7 +9510,9 @@ const BASE_RECIPES = [
       "Pancakes : 2 p",
       "Nutella : 30 g",
       "Smarties : 10 g"
-    ]
+    ],
+    "sellPrice": 32,
+    "price": "32 DH"
   },
   {
     "id": "des_pain_cake_gc",
@@ -9451,7 +9543,9 @@ const BASE_RECIPES = [
     "ingredients": [
       "Lait : 200 ml",
       "Sucre : 1 p"
-    ]
+    ],
+    "sellPrice": 12,
+    "price": "12 DH"
   },
   {
     "id": "bc_cafe_aromatise",
@@ -9623,7 +9717,9 @@ const BASE_RECIPES = [
       "Œufs : 2 p",
       "Khlii : 50 g",
       "Tomate : 40 g"
-    ]
+    ],
+    "sellPrice": 54,
+    "price": "54 DH"
   },
   {
     "id": "alc_toast_nutella",
@@ -9659,11 +9755,20 @@ const BASE_RECIPES = [
       "Sauce tomate : 60 g",
       "Parmesan : 30 g",
       "Canette Soda : 3.5 p"
-    ]
+    ],
+    "sellPrice": 58,
+    "price": "58 DH"
   }
 ];
 
 const ALIAS_MAP = {
+  "salade burratta": "ef_salade_burrata",
+  "crepe banane nutella": "rec_1788199499882",
+  "salade cercle veggl": "rec_1788201291652",
+  "salade cercle veggi": "rec_1788201291652",
+  "menu enfant burger": "rec_1788201140701",
+  "salade fruits": "des_pain_cake_fruits",
+
   "brochette de poulet": "plat_brochette_poulet",
   "plat brochette poulet": "plat_brochette_poulet",
   "brochettes de poulet": "pl_brochettes_de_poulet",

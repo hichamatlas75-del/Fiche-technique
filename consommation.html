@@ -1034,7 +1034,7 @@
         <input type="text" id="search-recipe-list" placeholder="Rechercher une fiche technique..." />
       </div>
       <div class="nav-actions" style="gap:8px; flex-wrap:wrap;">
-        <button class="btn" style="background:#10b981; color:#fff; border-color:#10b981; font-weight:800;" onclick="openPricesModal()" title="Ouvrir la mercuriale et ajuster les prix d'achat des ingrédients">💲 Prix Matières Premières</button>
+        <button class="btn" style="background:#10b981; color:#fff; border-color:#10b981; font-weight:800;" onclick="window.GC_PricesModal ? window.GC_PricesModal.open() : openPricesModal()" title="Ouvrir la mercuriale et ajuster les prix d'achat des ingrédients">💲 Prix Matières Premières</button>
         <button id="btn-add-recipe" class="btn btn-primary">➕ Nouvelle Fiche Technique</button>
         <button class="btn" style="background:#0284c7; color:#fff; border-color:#0284c7;" onclick="downloadUpdatedRecipesDataJs()" title="Télécharger le fichier recipes-data.js complet mis à jour pour le projet">📁 Sauvegarder dans recipes-data.js</button>
         <button class="btn" onclick="exportRecipesJSON()" title="Télécharger les fiches techniques en fichier JSON">💾 Exporter Fiches (JSON)</button>

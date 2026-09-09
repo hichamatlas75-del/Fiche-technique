@@ -442,203 +442,42 @@ function closePricesModal() {
 
 if (window.GC_PricesModal) {
   window.GC_PricesModal.onUpdate(() => {
-    recalculateMonthlyAudit();
-    renderSummaryTable();
-    if (typeof renderMenuEngineering === 'function') renderMenuEngineering();
-  });
-}
-
-function renderPricesTable() {
-  const container = document.getElementById('prices-table-body');
-  const search = cleanText(document.getElementById('search-prices-input').value);
-  const costMap = window.INGREDIENT_UNIT_COSTS || {};
-
-  const entries = Object.entries(costMap);
-  const filtered = entries.filter(([k, v]) => {
-    if (!search) return true;
-    const label = v.label || k;
-    return cleanText(label).includes(search) || cleanText(k).includes(search);
-  });
-
-  document.getElementById('prices-count-badge').textContent = `${entries.length} matières (${filtered.length} affichées)`;
-
-  if (filtered.length === 0) {
-    container.innerHTML = `
-      <tr>
-        <td colspan="4" style="text-align:center; padding:30px; color:var(--muted);">
-          Aucune matière première trouvée pour "${escapeHtml(search)}".
-        </td>
-      </tr>
-    `;
-    return;
-  }
-
-  container.innerHTML = filtered.map(([key, item]) => {
-    const label = item.label || (key.charAt(0).toUpperCase() + key.slice(1));
-    const unit = item.unit || 'g';
-
-    let displayUnit = 'kg';
-    let purchasePrice = (item.cost || 0) * 1000;
-    let unitDesc = `${(item.cost || 0).toFixed(4)} DH/g`;
-
-    if (unit === 'ml') {
-      displayUnit = 'L';
-      purchasePrice = (item.cost || 0) * 1000;
-      unitDesc = `${(item.cost || 0).toFixed(4)} DH/ml`;
-    } else if (unit === 'piece' || unit === 'p') {
-      displayUnit = 'Pièce / Unité';
-      purchasePrice = item.cost || 0;
-      unitDesc = `${(item.cost || 0).toFixed(2)} DH/p`;
-    }
-
-    purchasePrice = Math.round(purchasePrice * 100) / 100;
-
-    return `
-      <tr style="border-bottom:1px solid var(--border);">
-        <td style="padding:10px 12px; font-weight:700; color:var(--text);">
-          ${escapeHtml(label)}
-          <span style="font-size:10px; color:var(--muted); display:block; font-weight:normal;">Réf: ${escapeHtml(key)}</span>
-        </td>
-        <td style="padding:10px; text-align:center;">
-          <span style="background:var(--chip); color:var(--text); border:1px solid var(--border); padding:3px 8px; border-radius:6px; font-size:11px; font-weight:800;">
-            ${displayUnit}
-          </span>
-        </td>
-        <td style="padding:8px 12px; text-align:right;">
-          <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px;">
-            <input type="number" step="0.1" min="0" 
-              class="price-edit-input" 
-              data-key="${escapeHtml(key)}" 
-              data-unit="${unit}" 
-              value="${purchasePrice}" 
-              style="width:95px; padding:6px 8px; text-align:right; font-weight:800; font-size:13px; border-radius:6px; border:1.5px solid var(--border); background:var(--bg); color:var(--accent);"
-            />
-            <span style="font-size:12px; font-weight:700; color:var(--muted);">DH</span>
-          </div>
-        </td>
-        <td style="padding:10px 12px; text-align:right; font-weight:700; color:var(--muted); font-size:12px;">
-          ${unitDesc}
-        </td>
-      </tr>
-    `;
-  }).join('');
-}
-
-function showAddNewPriceForm() {
-  document.getElementById('add-price-form-box').style.display = 'block';
-  document.getElementById('new-price-name').focus();
-}
-
-function hideAddNewPriceForm() {
-  document.getElementById('add-price-form-box').style.display = 'none';
-}
-
-function confirmAddIngredientPrice() {
-  const name = document.getElementById('new-price-name').value.trim();
-  const unit = document.getElementById('new-price-unit').value;
-  const priceVal = parseFloat(document.getElementById('new-price-val').value) || 0;
-
-  if (!name) {
-    alert("Veuillez saisir le nom de la matière première.");
-    return;
-  }
-  if (priceVal <= 0) {
-    alert("Veuillez spécifier un prix d'achat valide supérieur à 0.");
-    return;
-  }
-
-  const key = cleanText(name);
-  let baseUnit = 'g';
-  let unitCost = priceVal / 1000;
-
-  if (unit === 'l') {
-    baseUnit = 'ml';
-    unitCost = priceVal / 1000;
-  } else if (unit === 'p') {
-    baseUnit = 'piece';
-    unitCost = priceVal;
-  }
-
-  if (!window.INGREDIENT_UNIT_COSTS) window.INGREDIENT_UNIT_COSTS = {};
-  window.INGREDIENT_UNIT_COSTS[key] = {
-    cost: unitCost,
-    unit: baseUnit,
-    label: name
-  };
-
-  saveAllIngredientPricesFromModal();
-
-  document.getElementById('new-price-name').value = '';
-  document.getElementById('new-price-val').value = '';
-  hideAddNewPriceForm();
-  renderPricesTable();
-}
-
-function saveAllIngredientPricesFromModal() {
-  const inputs = document.querySelectorAll('.price-edit-input');
-  if (!window.INGREDIENT_UNIT_COSTS) window.INGREDIENT_UNIT_COSTS = {};
-
-  inputs.forEach(inp => {
-    const key = inp.dataset.key;
-    const unit = inp.dataset.unit;
-    const val = parseFloat(inp.value) || 0;
-
-    let unitCost = val / 1000;
-    if (unit === 'piece' || unit === 'p') {
-      unitCost = val;
-    }
-
-    if (window.INGREDIENT_UNIT_COSTS[key]) {
-      window.INGREDIENT_UNIT_COSTS[key].cost = unitCost;
-    } else {
-      window.INGREDIENT_UNIT_COSTS[key] = {
-        cost: unitCost,
-        unit: unit,
-        label: key
-      };
-    }
-  });
-
-  // Sauvegarde persistante dans localStorage
-  try {
-    localStorage.setItem(GC_STORAGE_KEYS.PRICES, JSON.stringify(window.INGREDIENT_UNIT_COSTS));
-  } catch (e) {
-    console.error('Erreur sauvegarde localStorage prix:', e);
-  }
-
-  // Recalculer les coûts de toutes les fiches techniques actives
-  if (Array.isArray(activeRecipes)) {
-    activeRecipes.forEach(r => {
-      const sellPrice = r.sellPrice || findSellingPriceForRecipe(r.name) || 0;
-      if (typeof calculateRecipeFoodCost === 'function') {
-        const fc = calculateRecipeFoodCost(r.ingredients, sellPrice);
-        r.cost = fc.cost;
-        r.foodCost = fc.foodCost;
-        r.margin = fc.margin;
-        r.grossMarginDH = fc.grossMarginDH;
-      }
-    });
-    saveRecipes();
-  }
-
-  // Mettre à jour DATA si présent
-  if (typeof DATA !== 'undefined' && Array.isArray(DATA)) {
-    DATA.forEach(cat => {
-      (cat.items || []).forEach(it => {
+    // Recalculer les coûts de toutes les fiches techniques actives
+    if (Array.isArray(activeRecipes)) {
+      activeRecipes.forEach(r => {
+        const sellPrice = r.sellPrice || findSellingPriceForRecipe(r.name) || 0;
         if (typeof calculateRecipeFoodCost === 'function') {
-          const sellPrice = it.sellPrice || parseFloat(String(it.price || 0).replace(/[^0-9.]/g, '')) || 0;
-          const fc = calculateRecipeFoodCost(it.tech, sellPrice);
-          it.cost = fc.cost;
-          it.foodCost = fc.foodCost;
-          it.margin = fc.margin;
-          it.grossMarginDH = fc.grossMarginDH;
+          const fc = calculateRecipeFoodCost(r.ingredients, sellPrice);
+          r.cost = fc.cost;
+          r.foodCost = fc.foodCost;
+          r.margin = fc.margin;
+          r.grossMarginDH = fc.grossMarginDH;
         }
       });
-    });
-  }
+      saveRecipes();
+    }
 
-  renderRecipeList();
-  recalculateCurrentView();
-  alert("✅ Prix des matières premières enregistrés ! Tous les Food Costs et Marges ont été recalculés avec succès.");
+    // Mettre à jour DATA si présent
+    if (typeof DATA !== 'undefined' && Array.isArray(DATA)) {
+      DATA.forEach(cat => {
+        (cat.items || []).forEach(it => {
+          if (typeof calculateRecipeFoodCost === 'function') {
+            const sellPrice = it.sellPrice || parseFloat(String(it.price || 0).replace(/[^0-9.]/g, '')) || 0;
+            const fc = calculateRecipeFoodCost(it.tech, sellPrice);
+            it.cost = fc.cost;
+            it.foodCost = fc.foodCost;
+            it.margin = fc.margin;
+            it.grossMarginDH = fc.grossMarginDH;
+          }
+        });
+      });
+    }
+
+    renderRecipeList();
+    if (typeof recalculateCurrentView === 'function') recalculateCurrentView();
+    if (typeof renderSummaryTable === 'function') renderSummaryTable();
+    if (typeof renderMenuEngineeringMatrix === 'function') renderMenuEngineeringMatrix();
+  });
 }
+
 

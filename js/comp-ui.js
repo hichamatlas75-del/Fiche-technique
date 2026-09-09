@@ -131,7 +131,7 @@ var rowsHTML = filtered.map((recipe, idx) => {
       const diffColor = recipe.standard.diffDH > 0 ? '#0284c7' : '#64748b';
 
       return `
-        <tr style="border-bottom:1px solid var(--border); transition:background 0.15s;">
+        <tr id="table-row-${idx}" data-recipe-name="${escapeHtml(recipe.name)}" style="border-bottom:1px solid var(--border); transition:background 0.15s;">
           <td style="padding:12px 14px; font-weight:800; color:var(--text);">${escapeHtml(recipe.name)}</td>
           <td style="padding:12px 14px; color:var(--text-muted); font-size:12px;">${escapeHtml(recipe.category)}</td>
           <td style="padding:12px 14px; text-align:right; font-weight:700;">${recipe.sellPrice.toFixed(2)} DH</td>
@@ -152,16 +152,16 @@ var rowsHTML = filtered.map((recipe, idx) => {
           </td>
           <td style="padding:12px 14px; text-align:center;">
             <div style="display:flex; gap:6px; justify-content:center; align-items:center;">
-              <button class="btn btn-secondary" id="btn-table-drawer-${idx}" style="padding:5px 8px; font-size:11.5px; font-weight:700; border-radius:6px; cursor:pointer;" onclick="window.toggleTableRowDrawer(${idx})">
+              <button class="btn btn-secondary" id="btn-table-drawer-${idx}" style="padding:5px 8px; font-size:11.5px; font-weight:700; border-radius:6px; cursor:pointer;" onclick="window.toggleTableRowDrawer(${idx}, '${escapeHtml(recipe.name).replace(/'/g, "\\'")}')">
                 📂 Détails
               </button>
-              <button class="btn btn-secondary" style="padding:5px 8px; font-size:11.5px; font-weight:700; border-radius:6px; cursor:pointer;" onclick="window.copyStandardToRecipe(${idx})">
+              <button class="btn btn-secondary" style="padding:5px 8px; font-size:11.5px; font-weight:700; border-radius:6px; cursor:pointer;" onclick="window.copyStandardToRecipe('${escapeHtml(recipe.name).replace(/'/g, "\\'")}', ${idx})">
                 🟢 Standard
               </button>
             </div>
           </td>
         </tr>
-        <tr id="table-row-drawer-${idx}" style="display:none; background:var(--bg-subtle, rgba(0,0,0,0.02)); border-bottom:2px solid var(--border);">
+        <tr id="table-row-drawer-${idx}" data-recipe-name="${escapeHtml(recipe.name)}" style="display:none; background:var(--bg-subtle, rgba(0,0,0,0.02)); border-bottom:2px solid var(--border);">
           <td colspan="7" style="padding:14px 18px;">
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
               <div style="background:var(--paper); padding:12px; border-radius:8px; border:1px solid var(--border);">
@@ -506,14 +506,15 @@ var barColor = type === 'gc' ? '#0284c7' : '#16a34a';
   };
 
   // Bascule du tiroir dans le tableau synthétique
-  window.toggleTableRowDrawer = function(idx) {
+  window.toggleTableRowDrawer = function(idx, optRecipeName) {
     const row = document.getElementById(`table-row-drawer-${idx}`);
     const btn = document.getElementById(`btn-table-drawer-${idx}`);
     if (!row) return;
     const isOpen = row.style.display !== 'none';
     if (!isOpen) {
       const resolveFn = window.resolveRecipe || (typeof resolveRecipe === 'function' ? resolveRecipe : null);
-      const res = resolveFn ? resolveFn(idx) : null;
+      const recipeTarget = optRecipeName || row.getAttribute('data-recipe-name') || idx;
+      const res = resolveFn ? resolveFn(recipeTarget, idx) : null;
       if (res && res.recipe && typeof renderPortionCostBreakdownHTML === 'function') {
         const gcBox = row.querySelector('div > div:first-child');
         if (gcBox) {

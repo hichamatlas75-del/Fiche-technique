@@ -29,14 +29,25 @@ foreach ($f in $rootFiles) {
     $moved++
 }
 
-# 2. Collecte récursive de tous les fichiers
-$allFiles = @()
+# 2. Collecte récursive de tous les fichiers avec déduplication par date (priorité .xlsx)
+$fileByDate = @{}
 Get-ChildItem -Path $ventesDir -Recurse -File | Where-Object { ($_.Extension -eq '.xls' -or $_.Extension -eq '.xlsx') -and $_.Name -ne 'manifest.json' } | ForEach-Object {
     $rel = $_.FullName.Substring($ventesDir.Length + 1).Replace('\', '/')
-    $allFiles += $rel
+    $dateKey = $rel
+    if ($rel -match '(\d{8})') {
+        $dateKey = $Matches[1]
+    }
+    if (-not $fileByDate.ContainsKey($dateKey)) {
+        $fileByDate[$dateKey] = $rel
+    } else {
+        $existing = $fileByDate[$dateKey]
+        if ($rel.EndsWith('.xlsx') -and $existing.EndsWith('.xls')) {
+            $fileByDate[$dateKey] = $rel
+        }
+    }
 }
 
-$allFiles = $allFiles | Sort-Object
+$allFiles = ($fileByDate.Values | Sort-Object)
 
 $manifestObj = @{
     totalFiles = $allFiles.Count
