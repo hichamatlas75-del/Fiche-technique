@@ -129,7 +129,7 @@
 /* NAVIGATION DES ONGLETS DE CATÉGORIES */
 nav.kitchen-nav {
   position: sticky;
-  top: 60px;
+  top: var(--header-height, 60px);
   z-index: 40;
   background: var(--paper);
   border-bottom: 1px solid var(--border);
@@ -728,7 +728,7 @@ nav.kitchen-nav {
   }
   
   nav.kitchen-nav {
-    top: 0 !important;
+    top: var(--header-height, 96px) !important;
   }
   
   .kitchen-quick-filters {
@@ -767,5 +767,139 @@ nav.kitchen-nav {
 @media (min-width: 540px) and (max-width: 900px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ========================================================
+   8. FEUILLE DE STYLE D'IMPRESSION PRO (FICHES CUISINE A4)
+======================================================== */
+@media print {
+  /* Masquer barres d'outils, navigation, recherche, minuteurs et contrôles */
+  .app-header,
+  .kitchen-filters-bar,
+  nav.kitchen-nav,
+  .search-info,
+  .gc-burger-fab,
+  .card-status-badge,
+  .timer-row,
+  .btn,
+  .search-clear,
+  .modal-overlay,
+  #lightbox,
+  .toast-container {
+    display: none !important;
+  }
+
+  /* Reset des marges et fonds pour économie d'encre et netteté maximale */
+  body, html {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .section-title {
+    margin: 20px 0 10px !important;
+    padding-left: 8px !important;
+    border-left: 4px solid #0284c7 !important;
+    color: #000000 !important;
+    font-size: 14pt !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  .section-count {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+
+  /* Grille 2 colonnes régulière sur A4 */
+  .grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Cartes recettes compactes sans coupure en plein milieu */
+  .card {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-bottom: 12px !important;
+  }
+
+  .hero-wrap {
+    height: 120px !important;
+    background: #f8fafc !important;
+  }
+
+  .hero {
+    object-fit: cover !important;
+    filter: none !important;
+  }
+
+  .body {
+    padding: 10px !important;
+  }
+
+  .name {
+    font-size: 11pt !important;
+    color: #000000 !important;
+  }
+
+  .price {
+    color: #0284c7 !important;
+    font-size: 11pt !important;
+    font-weight: bold !important;
+  }
+
+  .financial-row {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+    padding: 4px 6px !important;
+  }
+
+  .fin-label {
+    color: #475569 !important;
+    font-size: 8pt !important;
+  }
+
+  .fin-val {
+    color: #0f172a !important;
+    font-size: 9pt !important;
+  }
+
+  .tech {
+    max-height: none !important;
+    overflow: visible !important;
+    margin-top: 6px !important;
+  }
+
+  .tech li {
+    font-size: 9pt !important;
+    color: #1e293b !important;
+    padding: 2px 0 !important;
+    border-bottom: 1px dotted #e2e8f0 !important;
+  }
+
+  .card-footer {
+    padding: 6px 10px !important;
+    background: #f8fafc !important;
+    border-top: 1px solid #e2e8f0 !important;
+    font-size: 8.5pt !important;
+    color: #475569 !important;
   }
 }

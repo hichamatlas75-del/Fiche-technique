@@ -92,6 +92,14 @@
   --dish-pill-bg: #f1f5f9;
   --dish-pill-border: #e2e8f0;
   --dish-pill-text: #334155;
+
+  /* Design System Tokens & Aliases Compatibilité */
+  --shadow: var(--shadow-card);
+  --table-head-bg: var(--thead-bg);
+  --card-bg: var(--paper-card);
+  --card-bg-subtle: var(--bg-subtle);
+  --success: var(--ok);
+  --primary: var(--accent);
 }
 
 [data-theme="dark"] {
@@ -179,6 +187,14 @@
   --dish-pill-bg: #192230;
   --dish-pill-border: #263242;
   --dish-pill-text: #cbd5e1;
+
+  /* Design System Tokens & Aliases Compatibilité */
+  --shadow: var(--shadow-card);
+  --table-head-bg: var(--thead-bg);
+  --card-bg: var(--paper-card);
+  --card-bg-subtle: var(--bg-subtle);
+  --success: var(--ok);
+  --primary: var(--accent);
 }
 
 /* ========================================================
@@ -504,7 +520,8 @@ button {
   text-align: left;
 }
 
-.destock-table th {
+.destock-table th,
+.table-responsive thead th {
   background: var(--thead-bg);
   color: var(--text);
   font-weight: 800;
@@ -646,7 +663,8 @@ button {
 
   /* Barres d'actions tactiles avec défilement fluide */
   .header-actions,
-  .nav-actions {
+  .nav-actions,
+  .app-header-nav {
     display: flex !important;
     align-items: center !important;
     gap: 8px !important;
@@ -655,10 +673,12 @@ button {
     -webkit-overflow-scrolling: touch !important;
     padding-bottom: 6px !important;
     scrollbar-width: none !important;
+    flex-wrap: nowrap !important;
   }
 
   .header-actions::-webkit-scrollbar,
-  .nav-actions::-webkit-scrollbar {
+  .nav-actions::-webkit-scrollbar,
+  .app-header-nav::-webkit-scrollbar {
     display: none !important;
   }
 

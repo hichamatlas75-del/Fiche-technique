@@ -163,7 +163,7 @@ var rowsHTML = filtered.map((recipe, idx) => {
         </tr>
         <tr id="table-row-drawer-${idx}" data-recipe-name="${escapeHtml(recipe.name)}" style="display:none; background:var(--bg-subtle, rgba(0,0,0,0.02)); border-bottom:2px solid var(--border);">
           <td colspan="7" style="padding:14px 18px;">
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
               <div style="background:var(--paper); padding:12px; border-radius:8px; border:1px solid var(--border);">
                 <div style="font-weight:800; font-size:12.5px; color:#0284c7; margin-bottom:6px;">
                   🔵 Détail Coût Grey Corner (${recipe.greyCorner.cost.toFixed(2)} DH)
@@ -183,22 +183,24 @@ var rowsHTML = filtered.map((recipe, idx) => {
     }).join('');
 
     container.innerHTML = `
-      <table style="width:100%; border-collapse:collapse; font-size:13px;">
-        <thead>
-          <tr style="background:var(--thead-bg, #f8fafc); border-bottom:1.5px solid var(--border); text-transform:uppercase; font-size:11px; font-weight:800; color:var(--text-muted);">
-            <th style="padding:12px 14px; text-align:left;">Plat / Recette</th>
-            <th style="padding:12px 14px; text-align:left;">Catégorie</th>
-            <th style="padding:12px 14px; text-align:right;">Prix Vente</th>
-            <th style="padding:12px 14px; text-align:right;">Coût Grey Corner</th>
-            <th style="padding:12px 14px; text-align:right;">Coût Standard Int.</th>
-            <th style="padding:12px 14px; text-align:right;">Écart DH</th>
-            <th style="padding:12px 14px; text-align:center;">Action Rapide</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rowsHTML}
-        </tbody>
-      </table>
+      <div class="table-responsive" style="overflow-x:auto; width:100%; -webkit-overflow-scrolling:touch; border-radius:12px; border:1px solid var(--border); background:var(--paper);">
+        <table style="width:100%; border-collapse:collapse; font-size:13px; min-width:760px;">
+          <thead>
+            <tr style="background:var(--thead-bg, #f8fafc); border-bottom:1.5px solid var(--border); text-transform:uppercase; font-size:11px; font-weight:800; color:var(--text-muted);">
+              <th style="padding:12px 14px; text-align:left;">Plat / Recette</th>
+              <th style="padding:12px 14px; text-align:left;">Catégorie</th>
+              <th style="padding:12px 14px; text-align:right;">Prix Vente</th>
+              <th style="padding:12px 14px; text-align:right;">Coût Grey Corner</th>
+              <th style="padding:12px 14px; text-align:right;">Coût Standard Int.</th>
+              <th style="padding:12px 14px; text-align:right;">Écart DH</th>
+              <th style="padding:12px 14px; text-align:center;">Action Rapide</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHTML}
+          </tbody>
+        </table>
+      </div>
     `;
   }
 

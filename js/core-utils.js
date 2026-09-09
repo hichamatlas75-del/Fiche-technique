@@ -20,6 +20,7 @@
     APP_VER:     'gc_app_data_version',
     KITCHEN:     'gc_kitchen_state',
     AUDIT:       'gc_audit_sessions_v1',
+    SYNC_PING:   'gc_sync_ping',
   };
 
   // ─────────────────────────────────────────────────────────────

@@ -193,7 +193,14 @@ function renderAll() {
         const norm = cleanText(name).replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
         if (compEdits[name] && compEdits[name].tech) {
           const prev = customMap.get(norm) || {};
-          customMap.set(norm, Object.assign(prev, { ingredients: compEdits[name].tech, tech: compEdits[name].tech }));
+          const updated = Object.assign({}, prev, {
+            ingredients: compEdits[name].tech,
+            tech: compEdits[name].tech
+          });
+          if (typeof compEdits[name].sellPrice === 'number' && compEdits[name].sellPrice > 0) {
+            updated.sellPrice = compEdits[name].sellPrice;
+          }
+          customMap.set(norm, updated);
         }
       });
     }
@@ -814,6 +821,40 @@ if (window.GC_PricesModal) {
     renderAll();
   });
 }
+
+// Synchronisation dynamique de la hauteur de l'en-tête collant (évite les collisions sur mobile)
+function updateKitchenHeaderHeight() {
+  const headerEl = document.querySelector('.app-header');
+  if (headerEl) {
+    const h = headerEl.offsetHeight;
+    document.documentElement.style.setProperty('--header-height', h + 'px');
+  }
+}
+window.addEventListener('resize', updateKitchenHeaderHeight, { passive: true });
+updateKitchenHeaderHeight();
+
+// Synchronisation réactive temps réel inter-onglets et inter-modules
+window.addEventListener('storage', (e) => {
+  const keys = window.GC_STORAGE_KEYS || {
+    RECIPES: 'gc_recipes_db_v5',
+    COMP_EDITS: 'grey_corner_custom_recipes_v5',
+    DELETED: 'gc_deleted_recipes_v1',
+    PRICES: 'gc_ingredient_prices_v1',
+    SYNC_PING: 'gc_sync_ping'
+  };
+  if (!e.key ||
+      e.key === keys.RECIPES ||
+      e.key === keys.COMP_EDITS ||
+      e.key === keys.DELETED ||
+      e.key === keys.PRICES ||
+      e.key === keys.SYNC_PING) {
+    renderAll();
+  }
+});
+
+window.addEventListener('gc:recipe-updated', () => {
+  renderAll();
+});
 
 // Lancement initial
 renderAll();

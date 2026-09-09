@@ -67,7 +67,7 @@ var baseList = [];
         const item = editedRecipes[name];
         if (!item || !Array.isArray(item.tech)) return;
         const cName = cleanText(name);
-var r = cleanMap.get(cName);
+        var r = cleanMap.get(cName);
         if (!r) {
           const simp = cName.replace(/^(?:pizza|pasta|plat|sandwich|panini)\s+/, '').trim();
           r = cleanMap.get(simp);
@@ -79,10 +79,19 @@ var r = cleanMap.get(cName);
             r.sellPrice = item.sellPrice;
             r.price = item.sellPrice + ' DH';
           }
+          if (typeof window.calculateRecipeFoodCost === 'function') {
+            const calc = window.calculateRecipeFoodCost(r.tech, r.sellPrice || 0);
+            r.cost = calc.cost;
+            r.foodCost = calc.foodCost;
+            r.margin = calc.margin;
+            r.grossMarginDH = calc.grossMarginDH;
+          }
         }
       });
 
       localStorage.setItem(window.GC_STORAGE_KEYS.RECIPES, JSON.stringify(baseList));
+      const dbVer = (typeof window.RECIPES_DB_VERSION !== 'undefined') ? window.RECIPES_DB_VERSION : 'v8.2_20260907';
+      localStorage.setItem('gc_recipes_db_version', dbVer);
 
       // 3. Mettre à jour window.DATA et window.CATEGORIES_DATA en mémoire
       const allData = window.CATEGORIES_DATA || window.DATA || [];
@@ -96,10 +105,23 @@ var r = cleanMap.get(cName);
                 it.sellPrice = userEdit.sellPrice;
                 it.price = userEdit.sellPrice + ' DH';
               }
+              if (typeof window.calculateRecipeFoodCost === 'function') {
+                const calc = window.calculateRecipeFoodCost(it.tech, it.sellPrice || 0);
+                it.cost = calc.cost;
+                it.foodCost = calc.foodCost;
+                it.margin = calc.margin;
+                it.grossMarginDH = calc.grossMarginDH;
+              }
             }
           }
         });
       });
+
+      // 4. Émettre les signaux de synchronisation temps réel inter-onglets
+      try {
+        localStorage.setItem('gc_sync_ping', Date.now().toString());
+        window.dispatchEvent(new CustomEvent('gc:recipe-updated', { detail: { action: 'save' } }));
+      } catch (e) {}
 
       // AM-03: marquer comme sauvegardé
       hasUnsavedChanges = false;
@@ -166,6 +188,25 @@ var r = cleanMap.get(cName);
       if (editedRecipes[k]) delete editedRecipes[k];
     });
 
+    // Charger les exclusions de fiches supprimées
+    let deletedSet = new Set();
+    try {
+      const deletedList = JSON.parse(localStorage.getItem(window.GC_STORAGE_KEYS.DELETED) || '[]');
+      deletedSet = new Set(deletedList.map(x => String(x).toLowerCase().trim()));
+    } catch(e) {}
+
+    // Synchronisation avec gc_recipes_db_v5 (fiches modifiées ou créées dans Déstockage)
+    let dbV5Recipes = [];
+    try {
+      const rawV5 = localStorage.getItem(window.GC_STORAGE_KEYS.RECIPES);
+      if (rawV5) dbV5Recipes = JSON.parse(rawV5);
+    } catch(e) {}
+
+    const dbV5Map = new Map();
+    dbV5Recipes.forEach(r => {
+      if (r && r.name) dbV5Map.set(cleanText(r.name), r);
+    });
+
     // Créer un index normalisé des modifications enregistrées
     const cleanEditsMap = new Map();
     Object.keys(editedRecipes).forEach(k => {
@@ -173,25 +214,38 @@ var r = cleanMap.get(cName);
     });
 
     const data = window.CATEGORIES_DATA || window.DATA || [];
+    const processedRecipeNames = new Set();
+
     data.forEach(cat => {
       const catName = cat.category || 'AUTRE';
       (cat.items || []).forEach(item => {
-        const initialTech = JSON.parse(JSON.stringify(item.tech || []));
-var sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
-        
-        // 1. Fiche Grey Corner (Modifiable ou initiale)
         const cTarget = cleanText(item.name);
+        if (deletedSet.has(cTarget) || (item.id && deletedSet.has(String(item.id).toLowerCase()))) return;
+        processedRecipeNames.add(cTarget);
+
+        const initialTech = JSON.parse(JSON.stringify(item.tech || []));
+        var sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
+        
+        // Fiche Grey Corner (priorité aux edits locaux, puis base Déstockage)
         const userEdit = editedRecipes[item.name] || cleanEditsMap.get(cTarget);
+        const destockRecipe = dbV5Map.get(cTarget);
+
         if (userEdit && typeof userEdit.sellPrice === 'number' && userEdit.sellPrice > 0) {
           sellPrice = userEdit.sellPrice;
+        } else if (destockRecipe && typeof destockRecipe.sellPrice === 'number' && destockRecipe.sellPrice > 0) {
+          sellPrice = destockRecipe.sellPrice;
         }
-        const currentTech = (userEdit && Array.isArray(userEdit.tech)) 
-          ? userEdit.tech.slice() 
-          : JSON.parse(JSON.stringify(initialTech));
+
+        let currentTech = initialTech;
+        if (userEdit && Array.isArray(userEdit.tech) && userEdit.tech.length > 0) {
+          currentTech = userEdit.tech.slice();
+        } else if (destockRecipe && Array.isArray(destockRecipe.ingredients) && destockRecipe.ingredients.length > 0) {
+          currentTech = destockRecipe.ingredients.slice();
+        }
 
         const gcCostObj = window.calculateRecipeFoodCost(currentTech, sellPrice);
 
-        // 2. Norme Internationale & Standard Métier (À titre comparatif)
+        // Norme Internationale & Standard Métier
         const standardObj = window.getProposedStandard(item.name, { category: catName, tech: initialTech });
         const standardTech = standardObj ? standardObj.tech : initialTech;
         const standardCostObj = window.calculateRecipeFoodCost(standardTech, sellPrice);
@@ -224,6 +278,48 @@ var sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^
             diffDH: diffDH
           }
         });
+      });
+    });
+
+    // Intégrer les fiches créées dans Déstockage (non présentes dans DATA)
+    dbV5Recipes.forEach(r => {
+      if (!r || !r.name) return;
+      const cTarget = cleanText(r.name);
+      if (processedRecipeNames.has(cTarget) || deletedSet.has(cTarget) || (r.id && deletedSet.has(String(r.id).toLowerCase()))) return;
+      processedRecipeNames.add(cTarget);
+
+      const rCat = r.category || 'AUTRE';
+      const rSellPrice = r.sellPrice || parseFloat(String(r.price || '0').replace(/[^0-9.]/g, '')) || 0;
+      const rTech = Array.isArray(r.ingredients) ? r.ingredients.slice() : (Array.isArray(r.tech) ? r.tech.slice() : []);
+      const gcCost = window.calculateRecipeFoodCost(rTech, rSellPrice);
+      const standardObj = window.getProposedStandard(r.name, { category: rCat, tech: rTech });
+      const stdTech = standardObj ? standardObj.tech : rTech;
+      const stdCost = window.calculateRecipeFoodCost(stdTech, rSellPrice);
+
+      allRecipes.push({
+        category: rCat,
+        name: r.name,
+        image: 'images/placeholder.svg',
+        sellPrice: rSellPrice,
+        initialTech: rTech,
+        greyCorner: {
+          tech: rTech,
+          cost: gcCost.cost,
+          foodCost: gcCost.foodCost,
+          margin: gcCost.margin,
+          grossMarginDH: gcCost.grossMarginDH,
+          breakdown: gcCost.breakdown
+        },
+        standard: {
+          tech: stdTech,
+          rationale: standardObj ? standardObj.rationale : "Standard basé sur la fiche opérationnelle.",
+          cost: stdCost.cost,
+          foodCost: stdCost.foodCost,
+          margin: stdCost.margin,
+          grossMarginDH: stdCost.grossMarginDH,
+          breakdown: stdCost.breakdown,
+          diffDH: Math.round((gcCost.cost - stdCost.cost) * 100) / 100
+        }
       });
     });
 
@@ -325,6 +421,31 @@ var sumPrice = 0;
     } else if (typeof renderAIOptimizerAgent === 'function') {
       renderAIOptimizerAgent();
     }
+  }
+
+  // Écoute des événements inter-onglets et inter-modules
+  if (typeof window !== 'undefined') {
+    window.addEventListener('storage', function(e) {
+      const keys = window.GC_STORAGE_KEYS || {
+        RECIPES: 'gc_recipes_db_v5',
+        COMP_EDITS: 'grey_corner_custom_recipes_v5',
+        DELETED: 'gc_deleted_recipes_v1',
+        PRICES: 'gc_ingredient_prices_v1',
+        SYNC_PING: 'gc_sync_ping'
+      };
+      if (!e.key || 
+          e.key === keys.RECIPES ||
+          e.key === keys.COMP_EDITS ||
+          e.key === keys.DELETED ||
+          e.key === keys.PRICES ||
+          e.key === keys.SYNC_PING) {
+        initData();
+      }
+    });
+
+    window.addEventListener('gc:recipe-updated', function() {
+      initData();
+    });
   }
 
   // Exports globaux pour la communication inter-modules

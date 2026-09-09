@@ -252,6 +252,7 @@ function onIngredientInputChange(p1, p2, p3, p4, p5) {
   const edits = window.editedRecipes || (typeof editedRecipes !== 'undefined' ? editedRecipes : {});
   edits[recipe.name] = {
     tech: recipe.greyCorner.tech.slice(),
+    sellPrice: recipe.sellPrice,
     updatedAt: Date.now()
   };
   window.editedRecipes = edits;
@@ -298,6 +299,7 @@ function updateIngredientName(p1, p2, p3, p4) {
   const edits = window.editedRecipes || (typeof editedRecipes !== 'undefined' ? editedRecipes : {});
   edits[recipe.name] = {
     tech: recipe.greyCorner.tech.slice(),
+    sellPrice: recipe.sellPrice,
     updatedAt: Date.now()
   };
   window.editedRecipes = edits;
@@ -381,6 +383,7 @@ function addIngredientToRecipe(p1, p2) {
   const edits = window.editedRecipes || (typeof editedRecipes !== 'undefined' ? editedRecipes : {});
   edits[recipe.name] = {
     tech: recipe.greyCorner.tech.slice(),
+    sellPrice: recipe.sellPrice,
     updatedAt: Date.now()
   };
   window.editedRecipes = edits;
@@ -448,6 +451,7 @@ function removeIngredientFromRecipe(p1, p2, p3) {
   const edits = window.editedRecipes || (typeof editedRecipes !== 'undefined' ? editedRecipes : {});
   edits[recipe.name] = {
     tech: recipe.greyCorner.tech.slice(),
+    sellPrice: recipe.sellPrice,
     updatedAt: Date.now()
   };
   window.editedRecipes = edits;
@@ -484,6 +488,7 @@ function copyStandardToRecipe(p1, p2) {
   const edits = window.editedRecipes || (typeof editedRecipes !== 'undefined' ? editedRecipes : {});
   edits[recipe.name] = {
     tech: recipe.greyCorner.tech.slice(),
+    sellPrice: recipe.sellPrice,
     updatedAt: Date.now()
   };
   window.editedRecipes = edits;
@@ -519,10 +524,31 @@ function resetRecipeToInitial(p1, p2) {
   delete edits[recipe.name];
   window.editedRecipes = edits;
 
+  recipe.greyCorner.tech = JSON.parse(JSON.stringify(recipe.initialTech));
+
+  // Rétablir également dans gc_recipes_db_v5 si présent
+  try {
+    const rawV5 = localStorage.getItem(window.GC_STORAGE_KEYS ? window.GC_STORAGE_KEYS.RECIPES : 'gc_recipes_db_v5');
+    if (rawV5) {
+      const list = JSON.parse(rawV5);
+      const cleanFn = window.cleanText || ((s) => String(s).toLowerCase().trim());
+      const cTarget = cleanFn(recipe.name);
+      const found = list.find(r => cleanFn(r.name) === cTarget);
+      if (found) {
+        found.tech = recipe.greyCorner.tech.slice();
+        found.ingredients = recipe.greyCorner.tech.slice();
+        const calc = window.calculateRecipeFoodCost(found.tech, found.sellPrice || recipe.sellPrice);
+        found.cost = calc.cost;
+        found.foodCost = calc.foodCost;
+        found.margin = calc.margin;
+        found.grossMarginDH = calc.grossMarginDH;
+        localStorage.setItem(window.GC_STORAGE_KEYS ? window.GC_STORAGE_KEYS.RECIPES : 'gc_recipes_db_v5', JSON.stringify(list));
+      }
+    }
+  } catch(e) {}
+
   const saveFn = window.saveEdits || (typeof saveEdits === 'function' ? saveEdits : null);
   if (saveFn) saveFn(false);
-
-  recipe.greyCorner.tech = JSON.parse(JSON.stringify(recipe.initialTech));
 
   const costObj = window.calculateRecipeFoodCost(recipe.greyCorner.tech, recipe.sellPrice);
   recipe.greyCorner.cost = costObj.cost;

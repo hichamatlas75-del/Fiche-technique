@@ -33,37 +33,112 @@ var aggregatedIngredients = [];
 
 const RECIPES_DB_VERSION = 'v8.2_20260907';
 
+const cleanText = (typeof window !== 'undefined' && typeof window.cleanText === 'function')
+  ? window.cleanText
+  : ((typeof global !== 'undefined' && typeof global.cleanText === 'function')
+      ? global.cleanText
+      : function(s) { return String(s || '').toLowerCase().trim(); });
+
+const getStorageKey = (keyName, fallback) => {
+  if (typeof GC_STORAGE_KEYS !== 'undefined' && GC_STORAGE_KEYS && GC_STORAGE_KEYS[keyName]) {
+    return GC_STORAGE_KEYS[keyName];
+  }
+  if (typeof window !== 'undefined' && window.GC_STORAGE_KEYS && window.GC_STORAGE_KEYS[keyName]) {
+    return window.GC_STORAGE_KEYS[keyName];
+  }
+  return fallback;
+};
+
 function loadRecipes() {
+  const kRecipes = getStorageKey('RECIPES', 'gc_recipes_db_v5');
+  const kDeleted = getStorageKey('DELETED', 'gc_deleted_recipes_v1');
+  const kComp = getStorageKey('COMP_EDITS', 'grey_corner_custom_recipes_v5');
+
   try {
     const savedVersion = localStorage.getItem('gc_recipes_db_version');
-    const saved = localStorage.getItem(GC_STORAGE_KEYS.RECIPES);
-    if (savedVersion === RECIPES_DB_VERSION && saved) {
+    const saved = localStorage.getItem(kRecipes);
+    if (saved && (savedVersion === RECIPES_DB_VERSION || !savedVersion)) {
       activeRecipes = JSON.parse(saved);
+    } else if (saved && savedVersion) {
+      activeRecipes = JSON.parse(saved);
+      localStorage.setItem('gc_recipes_db_version', RECIPES_DB_VERSION);
     } else {
       activeRecipes = JSON.parse(JSON.stringify(BASE_RECIPES));
       try {
         localStorage.removeItem('gc_recipes_db_v4');
         localStorage.setItem('gc_recipes_db_version', RECIPES_DB_VERSION);
-        localStorage.setItem(GC_STORAGE_KEYS.RECIPES, JSON.stringify(activeRecipes));
+        localStorage.setItem(kRecipes, JSON.stringify(activeRecipes));
       } catch (err) {}
     }
   } catch (e) {
     activeRecipes = JSON.parse(JSON.stringify(BASE_RECIPES));
   }
 
-  // Synchronisation avec les modifications de fiches du comparateur
+  // Filtrer les recettes supprimées
+  let deletedSet = new Set();
   try {
-    const savedComp = localStorage.getItem(GC_STORAGE_KEYS.COMP_EDITS);
+    const deletedList = JSON.parse(localStorage.getItem(kDeleted) || '[]');
+    deletedSet = new Set(deletedList.map(x => String(x).toLowerCase().trim()));
+  } catch(e) {}
+
+  if (deletedSet.size > 0) {
+    activeRecipes = activeRecipes.filter(r => {
+      if (!r) return false;
+      const cN = cleanText(r.name);
+      const idStr = r.id ? String(r.id).toLowerCase().trim() : '';
+      return !deletedSet.has(cN) && !deletedSet.has(idStr);
+    });
+  }
+
+  // Synchronisation avec les modifications de fiches du comparateur
+  const _dataList = (typeof window !== 'undefined' && Array.isArray(window.DATA))
+    ? window.DATA
+    : (typeof DATA !== 'undefined' && Array.isArray(DATA) ? DATA : []);
+
+  try {
+    const savedComp = localStorage.getItem(kComp);
     if (savedComp) {
       const compEdits = JSON.parse(savedComp);
       const tempIndex = new Map();
       activeRecipes.forEach(r => tempIndex.set(cleanText(r.name), r));
+
       Object.keys(compEdits).forEach(name => {
         const cName = cleanText(name);
-        const r = tempIndex.get(cName) || tempIndex.get(cName.replace(/^(?:pizza|pasta|plat|sandwich|panini)\s+/, ''));
-        if (r && compEdits[name] && Array.isArray(compEdits[name].tech) && compEdits[name].tech.length > 0) {
-          r.ingredients = compEdits[name].tech.slice();
-          r.tech = compEdits[name].tech.slice();
+        if (deletedSet.has(cName)) return;
+
+        let r = tempIndex.get(cName) || tempIndex.get(cName.replace(/^(?:pizza|pasta|plat|sandwich|panini)\s+/, ''));
+        const editData = compEdits[name];
+        if (!editData) return;
+
+        if (!r && Array.isArray(editData.tech) && editData.tech.length > 0) {
+          let foundInCat = null;
+          for (const cat of _dataList) {
+            const it = (cat.items || []).find(i => cleanText(i.name) === cName);
+            if (it) { foundInCat = { cat: cat.category, item: it }; break; }
+          }
+          const sPrice = editData.sellPrice || (foundInCat ? (foundInCat.item.sellPrice || parseFloat(String(foundInCat.item.price || '0').replace(/[^0-9.]/g, ''))) : 0) || 0;
+          const fc = calculateRecipeFoodCost(editData.tech, sPrice);
+          r = {
+            id: 'rec_comp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+            name: name,
+            category: foundInCat ? foundInCat.cat : 'AUTRE',
+            ingredients: editData.tech.slice(),
+            sellPrice: sPrice,
+            cost: fc.cost,
+            foodCost: fc.foodCost,
+            margin: fc.margin,
+            grossMarginDH: fc.grossMarginDH
+          };
+          activeRecipes.push(r);
+          tempIndex.set(cName, r);
+        } else if (r) {
+          if (Array.isArray(editData.tech) && editData.tech.length > 0) {
+            r.ingredients = editData.tech.slice();
+            r.tech = editData.tech.slice();
+          }
+          if (typeof editData.sellPrice === 'number' && editData.sellPrice > 0) {
+            r.sellPrice = editData.sellPrice;
+          }
         }
       });
     }
@@ -71,26 +146,28 @@ function loadRecipes() {
     console.warn("Erreur synchronisation recettes comparateur:", err);
   }
 
-  // S'assurer que chaque recette dispose de son prix de vente (depuis DATA si manquant)
-  const _dataList = (typeof window !== 'undefined' && Array.isArray(window.DATA))
-    ? window.DATA
-    : (typeof DATA !== 'undefined' && Array.isArray(DATA) ? DATA : []);
-  if (_dataList.length > 0) {
-    activeRecipes.forEach(r => {
-      if (!r.sellPrice) {
-        const cN = cleanText(r.name);
-        for (const cat of _dataList) {
-          for (const item of (cat.items || [])) {
-            if (cleanText(item.name) === cN) {
-              r.sellPrice = item.sellPrice || parseFloat(String(item.price || '0').replace(/[^0-9.]/g, '')) || 0;
-              break;
-            }
+  // S'assurer que chaque recette dispose de son prix de vente (depuis DATA si manquant) et recalculer Food Cost
+  activeRecipes.forEach(r => {
+    if (!r.sellPrice && _dataList.length > 0) {
+      const cN = cleanText(r.name);
+      for (const cat of _dataList) {
+        for (const item of (cat.items || [])) {
+          if (cleanText(item.name) === cN) {
+            r.sellPrice = item.sellPrice || parseFloat(String(item.price || '0').replace(/[^0-9.]/g, '')) || 0;
+            break;
           }
-          if (r.sellPrice) break;
         }
+        if (r.sellPrice) break;
       }
-    });
-  }
+    }
+    if (typeof calculateRecipeFoodCost === 'function' && (r.ingredients || r.tech)) {
+      const fc = calculateRecipeFoodCost(r.ingredients || r.tech || [], r.sellPrice || 0);
+      r.cost = fc.cost;
+      r.foodCost = fc.foodCost;
+      r.margin = fc.margin;
+      r.grossMarginDH = fc.grossMarginDH;
+    }
+  });
 
   // Build recipe index for O(1) lookups
   window.recipeNameIndex = new Map();
@@ -111,9 +188,10 @@ function loadRecipes() {
 }
 
 function saveRecipes() {
+  const kRecipes = getStorageKey('RECIPES', 'gc_recipes_db_v5');
   try {
     localStorage.setItem('gc_recipes_db_version', RECIPES_DB_VERSION);
-    localStorage.setItem(GC_STORAGE_KEYS.RECIPES, JSON.stringify(activeRecipes));
+    localStorage.setItem(kRecipes, JSON.stringify(activeRecipes));
   } catch (e) {
     console.warn('[LocalStorage] Erreur sauvegarde recettes:', e);
   }
@@ -353,6 +431,38 @@ function deleteMonthlySalesDate(dateKey) {
   delete monthlySalesDB[dateKey];
   GC_SalesIDB.deleteDate(dateKey);
   saveMonthlySalesDB();
+}
+
+// Synchronisation réactive temps réel inter-onglets et inter-modules
+if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+  window.addEventListener('storage', function(e) {
+    const kRecipes = getStorageKey('RECIPES', 'gc_recipes_db_v5');
+    const kComp = getStorageKey('COMP_EDITS', 'grey_corner_custom_recipes_v5');
+    const kDeleted = getStorageKey('DELETED', 'gc_deleted_recipes_v1');
+    const kPrices = getStorageKey('PRICES', 'gc_ingredient_prices_v1');
+    const kPing = getStorageKey('SYNC_PING', 'gc_sync_ping');
+
+    if (!e.key ||
+        e.key === kRecipes ||
+        e.key === kComp ||
+        e.key === kDeleted ||
+        e.key === kPrices ||
+        e.key === kPing) {
+      loadRecipes();
+      if (typeof renderRecipeList === 'function') renderRecipeList();
+      if (typeof recalculateCurrentView === 'function') recalculateCurrentView();
+    }
+  });
+
+  window.addEventListener('gc:recipe-updated', function() {
+    loadRecipes();
+    if (typeof renderRecipeList === 'function') renderRecipeList();
+    if (typeof recalculateCurrentView === 'function') recalculateCurrentView();
+  });
+
+  window.loadRecipes = loadRecipes;
+  window.saveRecipes = saveRecipes;
+  window.activeRecipes = activeRecipes;
 }
 
 if (typeof module !== 'undefined' && module.exports) {

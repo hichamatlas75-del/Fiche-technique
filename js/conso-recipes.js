@@ -234,6 +234,26 @@ function deleteRecipe(id) {
     localStorage.setItem(GC_STORAGE_KEYS.DELETED, JSON.stringify(deletedList));
   } catch (e) {}
 
+  // 6. Retirer des modifications comparateur si présentes
+  try {
+    const savedComp = localStorage.getItem(GC_STORAGE_KEYS.COMP_EDITS);
+    if (savedComp) {
+      const compEdits = JSON.parse(savedComp);
+      if (r && compEdits[r.name]) {
+        delete compEdits[r.name];
+        localStorage.setItem(GC_STORAGE_KEYS.COMP_EDITS, JSON.stringify(compEdits));
+      }
+    }
+  } catch (e) {}
+
+  // 7. Émettre signal de synchronisation temps réel
+  try {
+    localStorage.setItem(GC_STORAGE_KEYS.SYNC_PING, Date.now().toString());
+    if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+      window.dispatchEvent(new CustomEvent('gc:recipe-updated', { detail: { recipeName: name, action: 'delete' } }));
+    }
+  } catch (e) {}
+
   closeModal();
   renderRecipeList();
   recalculateCurrentView();
@@ -288,7 +308,7 @@ function saveRecipeFromModal() {
   try {
     const savedComp = localStorage.getItem(GC_STORAGE_KEYS.COMP_EDITS);
     const compEdits = savedComp ? JSON.parse(savedComp) : {};
-    compEdits[name] = { tech: ingredients.slice(), updatedAt: Date.now() };
+    compEdits[name] = { tech: ingredients.slice(), sellPrice: sellPrice, updatedAt: Date.now() };
     localStorage.setItem(GC_STORAGE_KEYS.COMP_EDITS, JSON.stringify(compEdits));
   } catch (e) {
     console.warn("Erreur sauvegarde grey_corner_custom_recipes_v5", e);
@@ -314,6 +334,14 @@ function saveRecipeFromModal() {
       });
     });
   }
+
+  // 5. Émettre signal de synchronisation temps réel inter-modules et inter-onglets
+  try {
+    localStorage.setItem(GC_STORAGE_KEYS.SYNC_PING, Date.now().toString());
+    if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+      window.dispatchEvent(new CustomEvent('gc:recipe-updated', { detail: { recipeName: name, action: 'save' } }));
+    }
+  } catch (e) {}
 
   closeModal();
   renderRecipeList();
@@ -478,6 +506,14 @@ if (window.GC_PricesModal) {
     if (typeof renderSummaryTable === 'function') renderSummaryTable();
     if (typeof renderMenuEngineeringMatrix === 'function') renderMenuEngineeringMatrix();
   });
+}
+
+if (typeof window !== 'undefined') {
+  window.saveRecipeFromModal = saveRecipeFromModal;
+  window.deleteRecipe = deleteRecipe;
+  window.editRecipe = editRecipe;
+  window.openRecipeEditor = openRecipeEditor;
+  window.renderRecipeList = renderRecipeList;
 }
 
 
