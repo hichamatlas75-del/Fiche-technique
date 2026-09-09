@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-09T20:46:26.394Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-09T21:26:51.696Z
  */
 
 (function(global) {
@@ -3581,17 +3581,17 @@ const DATA = [
         "price": "40 DH",
         "sellPrice": 40,
         "tech": [
-          "Charcuterie : 120 g",
+          "Charcuterie : 100 g",
           "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_charcuterie",
-        "cost": 15.74,
-        "foodCost": 39.4,
-        "margin": 60.6,
-        "grossMarginDH": 24.26
+        "cost": 14.54,
+        "foodCost": 36.4,
+        "margin": 63.7,
+        "grossMarginDH": 25.46
       },
       {
         "name": "PANINI POULET",
@@ -7966,12 +7966,14 @@ const BASE_RECIPES = [
     "name": "PANINI CHARCUTERIE",
     "category": "PANINIS",
     "ingredients": [
-      "Charcuterie : 120 g",
+      "Charcuterie : 100 g",
       "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
-    ]
+    ],
+    "sellPrice": 40,
+    "price": "40 DH"
   },
   {
     "id": "pa_poulet",
