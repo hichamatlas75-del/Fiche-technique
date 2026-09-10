@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T17:03:48.448Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T17:04:33.132Z
  */
 
 (function(global) {
@@ -4718,10 +4718,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 9.4,
-        "foodCost": 22.4,
-        "margin": 77.6,
-        "grossMarginDH": 32.6,
+        "cost": 9.2,
+        "foodCost": 21.9,
+        "margin": 78.1,
+        "grossMarginDH": 32.8,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4889,10 +4889,10 @@ const DATA = [
         ],
         "price": "38 DH",
         "sellPrice": 38,
-        "cost": 13.9,
-        "foodCost": 36.6,
-        "margin": 63.4,
-        "grossMarginDH": 24.1,
+        "cost": 13.5,
+        "foodCost": 35.5,
+        "margin": 64.5,
+        "grossMarginDH": 24.5,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4931,10 +4931,10 @@ const DATA = [
         ],
         "price": "32 DH",
         "sellPrice": 32,
-        "cost": 10.82,
-        "foodCost": 33.8,
-        "margin": 66.2,
-        "grossMarginDH": 21.18,
+        "cost": 10.5,
+        "foodCost": 32.8,
+        "margin": 67.2,
+        "grossMarginDH": 21.5,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4953,10 +4953,10 @@ const DATA = [
         ],
         "price": "50 DH",
         "sellPrice": 50,
-        "cost": 14.35,
-        "foodCost": 28.7,
-        "margin": 71.3,
-        "grossMarginDH": 35.65,
+        "cost": 14.15,
+        "foodCost": 28.3,
+        "margin": 71.7,
+        "grossMarginDH": 35.85,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4977,11 +4977,11 @@ const DATA = [
           "Nutella : 120 g"
         ],
         "price": "38 DH",
-        "cost": 11.28,
+        "cost": 10.8,
         "sellPrice": 38,
-        "foodCost": 29.7,
-        "margin": 70.3,
-        "grossMarginDH": 26.72,
+        "foodCost": 28.4,
+        "margin": 71.6,
+        "grossMarginDH": 27.2,
         "__key": "cr",
         "__images": []
       },
@@ -5154,10 +5154,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 12.68,
-        "foodCost": 30.2,
-        "margin": 69.8,
-        "grossMarginDH": 29.32,
+        "cost": 12.2,
+        "foodCost": 29,
+        "margin": 71,
+        "grossMarginDH": 29.8,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5194,10 +5194,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 11.04,
-        "foodCost": 26.3,
-        "margin": 73.7,
-        "grossMarginDH": 30.96,
+        "cost": 10.8,
+        "foodCost": 25.7,
+        "margin": 74.3,
+        "grossMarginDH": 31.2,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5215,10 +5215,10 @@ const DATA = [
         ],
         "price": "48 DH",
         "sellPrice": 48,
-        "cost": 8.14,
-        "foodCost": 17,
-        "margin": 83,
-        "grossMarginDH": 39.86,
+        "cost": 7.9,
+        "foodCost": 16.5,
+        "margin": 83.5,
+        "grossMarginDH": 40.1,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5236,10 +5236,10 @@ const DATA = [
         ],
         "price": "52 DH",
         "sellPrice": 52,
-        "cost": 9.79,
-        "foodCost": 18.8,
-        "margin": 81.2,
-        "grossMarginDH": 42.21,
+        "cost": 9.55,
+        "foodCost": 18.4,
+        "margin": 81.6,
+        "grossMarginDH": 42.45,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5276,10 +5276,10 @@ const DATA = [
         ],
         "price": "38 DH",
         "sellPrice": 38,
-        "cost": 11.28,
-        "foodCost": 29.7,
-        "margin": 70.3,
-        "grossMarginDH": 26.72,
+        "cost": 10.8,
+        "foodCost": 28.4,
+        "margin": 71.6,
+        "grossMarginDH": 27.2,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5297,10 +5297,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 12.4,
-        "foodCost": 29.5,
-        "margin": 70.5,
-        "grossMarginDH": 29.6,
+        "cost": 11.92,
+        "foodCost": 28.4,
+        "margin": 71.6,
+        "grossMarginDH": 30.08,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5340,10 +5340,10 @@ const DATA = [
         ],
         "price": "48 DH",
         "sellPrice": 48,
-        "cost": 6.56,
-        "foodCost": 13.7,
-        "margin": 86.3,
-        "grossMarginDH": 41.44,
+        "cost": 6.4,
+        "foodCost": 13.3,
+        "margin": 86.7,
+        "grossMarginDH": 41.6,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5361,10 +5361,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 11.04,
-        "foodCost": 26.3,
-        "margin": 73.7,
-        "grossMarginDH": 30.96,
+        "cost": 10.8,
+        "foodCost": 25.7,
+        "margin": 74.3,
+        "grossMarginDH": 31.2,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5706,12 +5706,12 @@ const DATA = [
         "tech": [
           "NUTELLA : 40 g"
         ],
-        "price": "7 DH",
-        "sellPrice": 7,
-        "cost": 3.16,
-        "foodCost": 45.1,
-        "margin": 54.9,
-        "grossMarginDH": 3.84,
+        "price": "10 DH",
+        "sellPrice": 10,
+        "cost": 3,
+        "foodCost": 30,
+        "margin": 70,
+        "grossMarginDH": 7,
         "__key": "sup",
         "__images": [
           "images/placeholder.svg"
@@ -6289,7 +6289,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 4.76,
+        "cost": 4.6,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -11700,7 +11700,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "nutella": {
-    "cost": 0.079,
+    "cost": 0.075,
     "unit": "g"
   },
   "pate de pistache": {
