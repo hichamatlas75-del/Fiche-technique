@@ -267,7 +267,7 @@ function deleteRecipeFromModal() {
   }
 }
 
-function saveRecipeFromModal() {
+function saveRecipeFromModal(silent = false) {
   const id = document.getElementById('edit-recipe-id').value;
   const name = document.getElementById('edit-recipe-name').value.trim();
   const category = document.getElementById('edit-recipe-cat').value;
@@ -347,35 +347,194 @@ function saveRecipeFromModal() {
   renderRecipeList();
   recalculateCurrentView();
 
-  alert(`✅ Fiche technique "${name}" enregistrée avec succès !\n\nCoût Matière : ${fcCalc.cost.toFixed(2)} DH | Food Cost : ${fcCalc.foodCost.toFixed(1)}% | Marge : ${fcCalc.margin.toFixed(1)}%`);
+  if (!silent) {
+    alert(`✅ Fiche technique "${name}" enregistrée avec succès !\n\nCoût Matière : ${fcCalc.cost.toFixed(2)} DH | Food Cost : ${fcCalc.foodCost.toFixed(1)}% | Marge : ${fcCalc.margin.toFixed(1)}%`);
+  }
 }
+
+// Construction de la chaîne JavaScript complète du fichier recipes-data.js
+function buildUpdatedRecipesDataJsString() {
+  const rawData = window.CATEGORIES_DATA || window.DATA || [];
+  const clonedData = JSON.parse(JSON.stringify(rawData));
+
+  // Map des recettes actives par nom normalisé
+  const activeMap = new Map();
+  (activeRecipes || []).forEach(r => {
+    if (r && r.name) {
+      activeMap.set(cleanText(r.name), r);
+    }
+  });
+
+  clonedData.forEach(cat => {
+    (cat.items || []).forEach(item => {
+      const active = activeMap.get(cleanText(item.name));
+      if (active) {
+        if (active.ingredients) item.tech = active.ingredients.slice();
+        if (typeof active.sellPrice === 'number' && active.sellPrice > 0) {
+          item.sellPrice = active.sellPrice;
+          item.price = active.sellPrice + ' DH';
+        }
+      }
+      const sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
+      const costObj = (typeof calculateRecipeFoodCost === 'function' ? calculateRecipeFoodCost : window.calculateRecipeFoodCost)(item.tech, sellPrice);
+      item.cost = costObj.cost;
+      item.foodCost = costObj.foodCost;
+      item.margin = costObj.margin;
+      item.grossMarginDH = costObj.grossMarginDH;
+    });
+  });
+
+  const updatedBaseRecipes = (activeRecipes || []).map(r => ({
+    id: r.id,
+    name: r.name,
+    category: r.category || 'AUTRE',
+    ingredients: r.ingredients || []
+  }));
+
+  const aliasObj = window.ALIAS_MAP || {};
+  const catObj = window.INGREDIENT_CATEGORIES || {};
+  const unitCostsObj = window.INGREDIENT_UNIT_COSTS || {};
+  const fnStr = (typeof calculateRecipeFoodCost === 'function' ? calculateRecipeFoodCost : window.calculateRecipeFoodCost).toString();
+
+  let content = `/**\n * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes\n * Source Unique de Vérité (SSOT) mise à jour automatiquement le ${new Date().toISOString()}\n */\n\n(function(global) {\n`;
+  content += `const DATA = ${JSON.stringify(clonedData, null, 2)};\n\n`;
+  content += `const BASE_RECIPES = ${JSON.stringify(updatedBaseRecipes, null, 2)};\n\n`;
+  content += `const ALIAS_MAP = ${JSON.stringify(aliasObj, null, 2)};\n\n`;
+  content += `const INGREDIENT_CATEGORIES = ${JSON.stringify(catObj, null, 2)};\n\n`;
+  content += `const INGREDIENT_UNIT_COSTS = ${JSON.stringify(unitCostsObj, null, 2)};\n\n`;
+  content += `${fnStr}\n\n`;
+  content += `global.CATEGORIES_DATA = DATA;\nglobal.DATA = DATA;\nglobal.BASE_RECIPES = BASE_RECIPES;\nglobal.ALIAS_MAP = ALIAS_MAP;\nglobal.INGREDIENT_CATEGORIES = INGREDIENT_CATEGORIES;\nglobal.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\nglobal.calculateRecipeFoodCost = calculateRecipeFoodCost;\nif (typeof window !== 'undefined') {\n  window.calculateRecipeFoodCost = calculateRecipeFoodCost;\n  window.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\n  window.DATA = DATA;\n  window.CATEGORIES_DATA = DATA;\n  window.BASE_RECIPES = BASE_RECIPES;\n}\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = { DATA, CATEGORIES_DATA: DATA, BASE_RECIPES, ALIAS_MAP, INGREDIENT_CATEGORIES, INGREDIENT_UNIT_COSTS, calculateRecipeFoodCost };\n}\n})(typeof window !== 'undefined' ? window : globalThis);\n`;
+
+  return content;
+}
+
+// Synchronisation directe des fiches techniques vers GitHub (Codebase) via l'API REST
+window.syncRecipesDirectToGitHub = async function(btnElement) {
+  let token = localStorage.getItem('gc_github_token');
+  if (!token) {
+    token = prompt("🔑 Synchronisation directe avec GitHub (Codebase) :\nVeuillez entrer votre GitHub Personal Access Token (PAT) avec accès 'repo' :\n(Ce jeton restera mémorisé dans votre navigateur en toute sécurité)");
+    if (!token) return false;
+    token = token.trim();
+    localStorage.setItem('gc_github_token', token);
+  }
+
+  const btn = btnElement || document.getElementById('btn-recipes-github-sync');
+  const origHTML = btn ? btn.innerHTML : '';
+  const origBG = btn ? btn.style.background : '';
+  if (btn) {
+    btn.innerHTML = "⏳ Envoi vers GitHub...";
+    btn.disabled = true;
+  }
+
+  try {
+    const fileContent = buildUpdatedRecipesDataJsString();
+    const owner = 'hichamatlas75-del';
+    const repo = 'Fiche-technique';
+    const path = 'recipes-data.js';
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+    // 1. Récupérer le SHA actuel du fichier
+    const getRes = await fetch(apiUrl, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+
+    if (!getRes.ok) {
+      if (getRes.status === 401 || getRes.status === 403) {
+        localStorage.removeItem('gc_github_token');
+        throw new Error("Token GitHub invalide ou permissions insuffisantes. Veuillez cliquer à nouveau et entrer un token valide avec la permission 'repo'.");
+      }
+      throw new Error(`Erreur GitHub API (${getRes.status}): ${getRes.statusText}`);
+    }
+
+    const fileData = await getRes.json();
+    const currentSha = fileData.sha;
+
+    // 2. Encodage UTF-8 en Base64
+    const utf8Bytes = new TextEncoder().encode(fileContent);
+    let binaryStr = '';
+    for (let i = 0; i < utf8Bytes.length; i++) {
+      binaryStr += String.fromCharCode(utf8Bytes[i]);
+    }
+    const base64Content = btoa(binaryStr);
+
+    // 3. Envoyer le commit directement sur origin/main
+    const nowStr = new Date().toLocaleString('fr-FR');
+    const putRes = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: `Mise à jour des fiches techniques depuis l'interface Déstockage [${nowStr}]`,
+        content: base64Content,
+        sha: currentSha,
+        branch: 'main'
+      })
+    });
+
+    if (!putRes.ok) {
+      const errJson = await putRes.json().catch(() => ({}));
+      throw new Error(errJson.message || `Erreur HTTP ${putRes.status}`);
+    }
+
+    if (window.GC_Toast) {
+      window.GC_Toast.show("🚀 Fiches techniques enregistrées DIRECTEMENT sur le Codebase GitHub !", 'success');
+    } else {
+      alert("🚀 Fiches techniques enregistrées DIRECTEMENT sur le dépôt GitHub avec succès !");
+    }
+
+    if (btn) {
+      btn.innerHTML = "✅ Enregistré sur GitHub !";
+      btn.style.background = "#059669";
+      setTimeout(() => {
+        btn.innerHTML = origHTML;
+        btn.style.background = origBG;
+        btn.disabled = false;
+      }, 4000);
+    }
+    return true;
+  } catch (err) {
+    alert("⚠️ Erreur lors de la synchronisation avec GitHub :\n" + err.message);
+    if (btn) {
+      btn.innerHTML = origHTML;
+      btn.style.background = origBG;
+      btn.disabled = false;
+    }
+    return false;
+  }
+};
+window.syncDirectToGitHub = window.syncRecipesDirectToGitHub;
+
+// Enregistrer la fiche de la modale ET pousser directement vers GitHub
+window.saveRecipeAndPushToGitHub = async function(btnElement) {
+  const name = document.getElementById('edit-recipe-name').value.trim();
+  if (!name) {
+    alert('Veuillez spécifier le nom du plat.');
+    return;
+  }
+
+  // 1. Sauvegarde locale silencieuse
+  saveRecipeFromModal(true);
+
+  // 2. Envoi vers GitHub
+  const success = await window.syncRecipesDirectToGitHub(btnElement);
+  if (success) {
+    if (window.GC_Toast) {
+      window.GC_Toast.show(`🚀 Fiche "${name}" enregistrée et poussée sur GitHub !`, 'success');
+    } else {
+      alert(`🚀 Fiche technique "${name}" enregistrée et poussée sur GitHub avec succès !`);
+    }
+  }
+};
 
 function downloadUpdatedRecipesDataJs() {
   try {
-    // 1. Construire les données DATA et BASE_RECIPES mises à jour
-    const updatedBaseRecipes = activeRecipes.map(r => ({
-      id: r.id,
-      name: r.name,
-      category: r.category || 'AUTRE',
-      ingredients: r.ingredients || []
-    }));
-
-    // 2. Créer le script exportable complet
-    const fnStr = (typeof window.calculateRecipeFoodCost === 'function' ? window.calculateRecipeFoodCost : calculateRecipeFoodCost).toString();
-    const dataObj = typeof window.DATA !== 'undefined' ? window.DATA : (typeof DATA !== 'undefined' ? DATA : []);
-    const aliasObj = typeof window.ALIAS_MAP !== 'undefined' ? window.ALIAS_MAP : (typeof ALIAS_MAP !== 'undefined' ? ALIAS_MAP : {});
-    const catObj = typeof window.INGREDIENT_CATEGORIES !== 'undefined' ? window.INGREDIENT_CATEGORIES : (typeof INGREDIENT_CATEGORIES !== 'undefined' ? INGREDIENT_CATEGORIES : {});
-    const unitCostsObj = typeof window.INGREDIENT_UNIT_COSTS !== 'undefined' ? window.INGREDIENT_UNIT_COSTS : (typeof INGREDIENT_UNIT_COSTS !== 'undefined' ? INGREDIENT_UNIT_COSTS : {});
-
-    let content = `/**\n * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes\n * Source Unique de Vérité (SSOT) mise à jour automatiquement le ${new Date().toISOString()}\n */\n\n(function(global) {\n`;
-    content += `const DATA = ${JSON.stringify(dataObj, null, 2)};\n\n`;
-    content += `const BASE_RECIPES = ${JSON.stringify(updatedBaseRecipes, null, 2)};\n\n`;
-    content += `const ALIAS_MAP = ${JSON.stringify(aliasObj, null, 2)};\n\n`;
-    content += `const INGREDIENT_CATEGORIES = ${JSON.stringify(catObj, null, 2)};\n\n`;
-    content += `const INGREDIENT_UNIT_COSTS = ${JSON.stringify(unitCostsObj, null, 2)};\n\n`;
-    content += `${fnStr}\n\n`;
-    content += `global.CATEGORIES_DATA = DATA;\nglobal.DATA = DATA;\nglobal.BASE_RECIPES = BASE_RECIPES;\nglobal.ALIAS_MAP = ALIAS_MAP;\nglobal.INGREDIENT_CATEGORIES = INGREDIENT_CATEGORIES;\nglobal.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\nglobal.calculateRecipeFoodCost = calculateRecipeFoodCost;\nif (typeof window !== 'undefined') {\n  window.calculateRecipeFoodCost = calculateRecipeFoodCost;\n  window.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\n  window.DATA = DATA;\n  window.CATEGORIES_DATA = DATA;\n  window.BASE_RECIPES = BASE_RECIPES;\n}\n})(typeof window !== 'undefined' ? window : globalThis);\n`;
-
+    const content = buildUpdatedRecipesDataJsString();
     const blob = new Blob([content], { type: "application/javascript;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

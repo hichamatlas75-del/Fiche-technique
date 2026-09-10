@@ -187,6 +187,10 @@
         <span>📥</span>
         <span>Exporter Déstockage Excel (.xlsx)</span>
       </button>
+      <button type="button" class="gc-drawer-action-btn" style="background:rgba(15, 23, 42, 0.08); border-color:#0f172a;" onclick="window.syncRecipesDirectToGitHub ? window.syncRecipesDirectToGitHub() : null; GC_BurgerMenu.close();">
+        <span>🚀</span>
+        <span>Pousser Fiches sur GitHub</span>
+      </button>
       <button type="button" class="gc-drawer-action-btn" onclick="window.exportComparatorToExcel ? window.exportComparatorToExcel() : null; GC_BurgerMenu.close();">
         <span>📊</span>
         <span>Exporter Comparateur Temporel Excel</span>
@@ -1036,6 +1040,7 @@
       <div class="nav-actions" style="gap:8px; flex-wrap:wrap;">
         <button class="btn" style="background:#10b981; color:#fff; border-color:#10b981; font-weight:800;" onclick="window.GC_PricesModal ? window.GC_PricesModal.open() : openPricesModal()" title="Ouvrir la mercuriale et ajuster les prix d'achat des ingrédients">💲 Prix Matières Premières</button>
         <button id="btn-add-recipe" class="btn btn-primary">➕ Nouvelle Fiche Technique</button>
+        <button id="btn-recipes-github-sync" class="btn" style="background:#0f172a; color:#fff; border:none; font-weight:800; padding:8px 16px; border-radius:8px; box-shadow:0 4px 10px rgba(15,23,42,0.3); display:inline-flex; align-items:center; gap:6px; cursor:pointer;" onclick="window.syncRecipesDirectToGitHub(this)" title="Enregistrer et pousser directement les fiches techniques sur GitHub (Codebase)">🚀 Pousser sur GitHub</button>
         <button class="btn" style="background:#0284c7; color:#fff; border-color:#0284c7;" onclick="downloadUpdatedRecipesDataJs()" title="Télécharger le fichier recipes-data.js complet mis à jour pour le projet">📁 Sauvegarder dans recipes-data.js</button>
         <button class="btn" onclick="exportRecipesJSON()" title="Télécharger les fiches techniques en fichier JSON">💾 Exporter Fiches (JSON)</button>
         <button class="btn" onclick="document.getElementById('recipes-import-file').click()" title="Charger un fichier de fiches techniques JSON">📂 Importer Fiches</button>
@@ -1130,9 +1135,10 @@
     </div>
     <div class="modal-foot" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
       <button id="btn-delete-recipe-modal" class="btn" style="color:#ef4444; border-color:rgba(239,68,68,0.35); font-weight:700; display:none;" onclick="deleteRecipeFromModal()">🗑️ Supprimer cette Fiche</button>
-      <div style="display:flex; gap:8px; margin-left:auto;">
+      <div style="display:flex; gap:8px; margin-left:auto; flex-wrap:wrap;">
         <button class="btn" onclick="closeModal()">Annuler</button>
         <button class="btn btn-primary" onclick="saveRecipeFromModal()" style="font-weight:800; padding:8px 18px;">💾 Enregistrer la Fiche Technique</button>
+        <button type="button" class="btn" id="btn-modal-save-and-push" style="background:#0f172a; color:#fff; border:none; font-weight:800; padding:8px 18px; border-radius:8px; display:inline-flex; align-items:center; gap:6px; cursor:pointer; box-shadow:0 4px 10px rgba(15,23,42,0.25);" onclick="saveRecipeAndPushToGitHub(this)" title="Enregistrer localement ET pousser immédiatement sur GitHub">🚀 Enregistrer &amp; Pousser sur GitHub</button>
       </div>
     </div>
   </div>
