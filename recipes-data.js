@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T19:17:23.215Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T20:39:50.805Z
  */
 
 (function(global) {
@@ -946,11 +946,11 @@ const DATA = [
           "Sucre : 20 g"
         ],
         "price": "32 DH",
-        "cost": 5.79,
+        "cost": 9.95,
         "sellPrice": 32,
-        "foodCost": 18.1,
-        "margin": 81.9,
-        "grossMarginDH": 26.21,
+        "foodCost": 31.1,
+        "margin": 68.9,
+        "grossMarginDH": 22.05,
         "__key": "jf",
         "__images": [
           "images/jus-avocat.webp"
@@ -967,11 +967,11 @@ const DATA = [
           "Amandes, Noix, Raisins secs : 40 g"
         ],
         "price": "38 DH",
-        "cost": 9.27,
+        "cost": 13.43,
         "sellPrice": 38,
-        "foodCost": 24.4,
-        "margin": 75.6,
-        "grossMarginDH": 28.73,
+        "foodCost": 35.3,
+        "margin": 64.7,
+        "grossMarginDH": 24.57,
         "__key": "jf",
         "__images": [
           "images/jus-avocatsec.webp"
@@ -989,11 +989,11 @@ const DATA = [
           "Avocat : 40 g"
         ],
         "price": "38 DH",
-        "cost": 4.94,
+        "cost": 5.98,
         "sellPrice": 38,
-        "foodCost": 13,
-        "margin": 87,
-        "grossMarginDH": 33.06,
+        "foodCost": 15.7,
+        "margin": 84.3,
+        "grossMarginDH": 32.02,
         "__key": "jf",
         "__images": [
           "images/jus-panache.webp"
@@ -1034,11 +1034,11 @@ const DATA = [
           "Coulis caramel : 15 ml"
         ],
         "price": "46 DH",
-        "cost": 18.33,
+        "cost": 22.23,
         "sellPrice": 46,
-        "foodCost": 39.8,
-        "margin": 60.2,
-        "grossMarginDH": 27.67,
+        "foodCost": 48.3,
+        "margin": 51.7,
+        "grossMarginDH": 23.77,
         "__key": "jf",
         "__images": [
           "images/jus-za3za3.webp"
@@ -1076,10 +1076,10 @@ const DATA = [
         ],
         "price": "32 DH",
         "sellPrice": 32,
-        "cost": 3.9,
-        "foodCost": 12.2,
-        "margin": 87.8,
-        "grossMarginDH": 28.1,
+        "cost": 6.5,
+        "foodCost": 20.3,
+        "margin": 79.7,
+        "grossMarginDH": 25.5,
         "__key": "jf",
         "__images": [
           "images/placeholder.svg"
@@ -2156,11 +2156,11 @@ const DATA = [
           "JBEN : 50 g"
         ],
         "price": "68 DH",
-        "cost": 26.64,
+        "cost": 28.2,
         "sellPrice": 68,
-        "foodCost": 39.2,
-        "margin": 60.8,
-        "grossMarginDH": 41.36,
+        "foodCost": 41.5,
+        "margin": 58.5,
+        "grossMarginDH": 39.8,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_americain.jpeg"
@@ -2570,11 +2570,11 @@ const DATA = [
           "jben : 30 g"
         ],
         "price": "68 DH",
-        "cost": 30.1,
+        "cost": 32.18,
         "sellPrice": 68,
-        "foodCost": 44.3,
-        "margin": 55.7,
-        "grossMarginDH": 37.9,
+        "foodCost": 47.3,
+        "margin": 52.7,
+        "grossMarginDH": 35.82,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-norvegien.jpg"
@@ -2805,11 +2805,11 @@ const DATA = [
           "Agrumes : 15 g"
         ],
         "price": "78 DH",
-        "cost": 30.86,
+        "cost": 34.76,
         "sellPrice": 78,
-        "foodCost": 39.6,
-        "margin": 60.4,
-        "grossMarginDH": 47.14,
+        "foodCost": 44.6,
+        "margin": 55.4,
+        "grossMarginDH": 43.24,
         "__key": "ef",
         "__images": [
           "images/entree-terremer.jpg"
@@ -2826,11 +2826,11 @@ const DATA = [
           "SAUCE TARTARE : 24 g"
         ],
         "price": "88 DH",
-        "cost": 31.07,
+        "cost": 38.87,
         "sellPrice": 88,
-        "foodCost": 35.3,
-        "margin": 64.7,
-        "grossMarginDH": 56.93,
+        "foodCost": 44.2,
+        "margin": 55.8,
+        "grossMarginDH": 49.13,
         "__key": "ef",
         "__images": [
           "images/entree-tartare.jpeg"
@@ -3193,11 +3193,11 @@ const DATA = [
           "Huile : 60 ml"
         ],
         "price": "115 DH",
-        "cost": 48.69,
+        "cost": 44.19,
         "sellPrice": 115,
-        "foodCost": 42.3,
-        "margin": 57.7,
-        "grossMarginDH": 66.31,
+        "foodCost": 38.4,
+        "margin": 61.6,
+        "grossMarginDH": 70.81,
         "__key": "pl",
         "__images": [
           "images/plat-eminceboeuf.jpg",
@@ -3219,11 +3219,11 @@ const DATA = [
           "Frites : 200 g"
         ],
         "price": "135 DH",
-        "cost": 55.25,
+        "cost": 49.85,
         "sellPrice": 135,
-        "foodCost": 40.9,
-        "margin": 59.1,
-        "grossMarginDH": 79.75,
+        "foodCost": 36.9,
+        "margin": 63.1,
+        "grossMarginDH": 85.15,
         "__key": "pl",
         "__images": [
           "images/plat-filet.jpg",
@@ -3404,11 +3404,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "54 DH",
-        "cost": 16.32,
+        "cost": 17.62,
         "sellPrice": 54,
-        "foodCost": 30.2,
-        "margin": 69.8,
-        "grossMarginDH": 37.68,
+        "foodCost": 32.6,
+        "margin": 67.4,
+        "grossMarginDH": 36.38,
         "__key": "bg",
         "__images": [
           "images/burger-avocado.jpg"
@@ -3796,11 +3796,11 @@ const DATA = [
           "FRITTES : 200 g"
         ],
         "price": "65 DH",
-        "cost": 30.94,
+        "cost": 28.24,
         "sellPrice": 65,
-        "foodCost": 47.6,
-        "margin": 52.4,
-        "grossMarginDH": 34.06,
+        "foodCost": 43.4,
+        "margin": 56.6,
+        "grossMarginDH": 36.76,
         "__key": "sw",
         "__images": [
           "images/sand-cheesesteak.jpg"
@@ -4885,14 +4885,14 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pancakes : 3 p",
-          "Nutella : 120 g"
+          "Nutella : 100 g"
         ],
         "price": "38 DH",
         "sellPrice": 38,
-        "cost": 15,
-        "foodCost": 39.5,
-        "margin": 60.5,
-        "grossMarginDH": 23,
+        "cost": 13.5,
+        "foodCost": 35.5,
+        "margin": 64.5,
+        "grossMarginDH": 24.5,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4926,15 +4926,15 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pancakes : 2 p",
-          "Nutella : 30 g",
+          "Nutella : 80 g",
           "Smarties : 10 g"
         ],
         "price": "32 DH",
         "sellPrice": 32,
-        "cost": 6.75,
-        "foodCost": 21.1,
-        "margin": 78.9,
-        "grossMarginDH": 25.25,
+        "cost": 10.5,
+        "foodCost": 32.8,
+        "margin": 67.2,
+        "grossMarginDH": 21.5,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4974,14 +4974,14 @@ const DATA = [
         "prepTime": 8,
         "tech": [
           "Pâte à crêpe : 1 p",
-          "Nutella : 120 g"
+          "Nutella : 100 g"
         ],
         "price": "38 DH",
-        "cost": 10.8,
+        "cost": 9.3,
         "sellPrice": 38,
-        "foodCost": 28.4,
-        "margin": 71.6,
-        "grossMarginDH": 27.2,
+        "foodCost": 24.5,
+        "margin": 75.5,
+        "grossMarginDH": 28.7,
         "__key": "cr",
         "__images": []
       },
@@ -5149,15 +5149,15 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pâte à crêpe : 1 p",
-          "Nutella : 120 g",
+          "Nutella : 100 g",
           "BANANE : 100 g"
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 12.2,
-        "foodCost": 29,
-        "margin": 71,
-        "grossMarginDH": 29.8,
+        "cost": 10.7,
+        "foodCost": 25.5,
+        "margin": 74.5,
+        "grossMarginDH": 31.3,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5272,14 +5272,14 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pâte à gaufre : 1 p",
-          "Nutella : 120 g"
+          "Nutella : 100 g"
         ],
         "price": "38 DH",
         "sellPrice": 38,
-        "cost": 10.8,
-        "foodCost": 28.4,
-        "margin": 71.6,
-        "grossMarginDH": 27.2,
+        "cost": 9.3,
+        "foodCost": 24.5,
+        "margin": 75.5,
+        "grossMarginDH": 28.7,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5292,15 +5292,15 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pâte à gaufre : 1 p",
-          "Nutella : 60 g",
+          "Nutella : 100 g",
           "Banane : 80 g"
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 7.42,
-        "foodCost": 17.7,
-        "margin": 82.3,
-        "grossMarginDH": 34.58,
+        "cost": 10.42,
+        "foodCost": 24.8,
+        "margin": 75.2,
+        "grossMarginDH": 31.58,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5314,15 +5314,15 @@ const DATA = [
         "tech": [
           "Pâte à gaufre : 1 p",
           "Kunafa : 40 g",
-          "Pate de Pistache : 130 g",
+          "Pate de Pistache : 150 g",
           "Sirop : 20 ml"
         ],
         "price": "48 DH",
         "sellPrice": 48,
-        "cost": 18.45,
-        "foodCost": 38.4,
-        "margin": 61.6,
-        "grossMarginDH": 29.55,
+        "cost": 20.75,
+        "foodCost": 43.2,
+        "margin": 56.8,
+        "grossMarginDH": 27.25,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5704,14 +5704,14 @@ const DATA = [
         "image": "images/placeholder.svg",
         "prepTime": 5,
         "tech": [
-          "NUTELLA : 20 g"
+          "NUTELLA : 40 g"
         ],
-        "price": "7 DH",
-        "sellPrice": 7,
-        "cost": 1.5,
-        "foodCost": 21.4,
-        "margin": 78.6,
-        "grossMarginDH": 5.5,
+        "price": "10 DH",
+        "sellPrice": 10,
+        "cost": 3,
+        "foodCost": 30,
+        "margin": 70,
+        "grossMarginDH": 7,
         "__key": "sup",
         "__images": [
           "images/placeholder.svg"
@@ -8476,7 +8476,7 @@ const BASE_RECIPES = [
     "category": "CREPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "Nutella : 120 g"
+      "Nutella : 100 g"
     ],
     "sellPrice": 38,
     "price": "38 DH"
@@ -8748,7 +8748,7 @@ const BASE_RECIPES = [
     "category": "CREPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "Nutella : 120 g",
+      "Nutella : 100 g",
       "BANANE : 100 g"
     ],
     "sellPrice": 42,
@@ -8806,10 +8806,10 @@ const BASE_RECIPES = [
     "name": "NUTELLA",
     "category": "AUTRE",
     "ingredients": [
-      "NUTELLA : 20 g"
+      "NUTELLA : 40 g"
     ],
-    "sellPrice": 7,
-    "price": "7 DH"
+    "sellPrice": 10,
+    "price": "10 DH"
   },
   {
     "id": "rec_1788200166784",
@@ -9114,7 +9114,7 @@ const BASE_RECIPES = [
     "category": "AUTRE",
     "ingredients": [
       "Pâte à gaufre : 1 p",
-      "Nutella : 120 g"
+      "Nutella : 100 g"
     ],
     "sellPrice": 38,
     "price": "38 DH"
@@ -9125,9 +9125,11 @@ const BASE_RECIPES = [
     "category": "CRÊPES",
     "ingredients": [
       "Pâte à gaufre : 1 p",
-      "Nutella : 60 g",
+      "Nutella : 100 g",
       "Banane : 80 g"
-    ]
+    ],
+    "sellPrice": 42,
+    "price": "42 DH"
   },
   {
     "id": "cr_gaufre_kunafa_pistache",
@@ -9136,7 +9138,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte à gaufre : 1 p",
       "Kunafa : 40 g",
-      "Pate de Pistache : 130 g",
+      "Pate de Pistache : 150 g",
       "Sirop : 20 ml"
     ],
     "sellPrice": 48,
@@ -9316,7 +9318,7 @@ const BASE_RECIPES = [
     "category": "AUTRE",
     "ingredients": [
       "Pancakes : 3 p",
-      "Nutella : 120 g"
+      "Nutella : 100 g"
     ],
     "sellPrice": 38,
     "price": "38 DH"
@@ -9337,9 +9339,11 @@ const BASE_RECIPES = [
     "category": "DESSERTS & PÂTISSERIES",
     "ingredients": [
       "Pancakes : 2 p",
-      "Nutella : 30 g",
+      "Nutella : 80 g",
       "Smarties : 10 g"
-    ]
+    ],
+    "sellPrice": 32,
+    "price": "32 DH"
   },
   {
     "id": "des_pain_cake_gc",
@@ -10781,11 +10785,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "filet de boeuf": {
-    "cost": 0.22,
+    "cost": 0.19,
     "unit": "g"
   },
   "filet": {
-    "cost": 0.22,
+    "cost": 0.19,
     "unit": "g"
   },
   "viande tajine": {
@@ -11424,11 +11428,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "avocat": {
-    "cost": 0.024,
+    "cost": 0.05,
     "unit": "g"
   },
   "avocat hass": {
-    "cost": 0.024,
+    "cost": 0.05,
     "unit": "g"
   },
   "banane": {
