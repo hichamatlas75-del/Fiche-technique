@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T09:29:53.069Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T10:57:18.309Z
  */
 
 (function(global) {
@@ -2566,15 +2566,15 @@ const DATA = [
           "Boisson chaude : 1 p",
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p",
-          "saumon fumee : 60 g",
+          "saumon fumee : 40 g",
           "jben : 30 g"
         ],
         "price": "68 DH",
-        "cost": 30.1,
+        "cost": 24.5,
         "sellPrice": 68,
-        "foodCost": 44.3,
-        "margin": 55.7,
-        "grossMarginDH": 37.9,
+        "foodCost": 36,
+        "margin": 64,
+        "grossMarginDH": 43.5,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-norvegien.jpg"
@@ -7493,7 +7493,7 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p",
-      "saumon fumee : 60 g",
+      "saumon fumee : 40 g",
       "jben : 30 g"
     ],
     "sellPrice": 68,
