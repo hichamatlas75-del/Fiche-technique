@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T16:00:00.646Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T16:57:36.549Z
  */
 
 (function(global) {
