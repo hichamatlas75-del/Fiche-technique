@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T16:57:36.549Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T17:03:48.448Z
  */
 
 (function(global) {
@@ -4885,14 +4885,14 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pancakes : 3 p",
-          "Nutella : 60 g"
+          "Nutella : 100 g"
         ],
         "price": "38 DH",
         "sellPrice": 38,
-        "cost": 10.74,
-        "foodCost": 28.3,
-        "margin": 71.7,
-        "grossMarginDH": 27.26,
+        "cost": 13.9,
+        "foodCost": 36.6,
+        "margin": 63.4,
+        "grossMarginDH": 24.1,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4926,15 +4926,15 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pancakes : 2 p",
-          "Nutella : 30 g",
+          "Nutella : 80 g",
           "Smarties : 10 g"
         ],
         "price": "32 DH",
         "sellPrice": 32,
-        "cost": 6.87,
-        "foodCost": 21.5,
-        "margin": 78.5,
-        "grossMarginDH": 25.13,
+        "cost": 10.82,
+        "foodCost": 33.8,
+        "margin": 66.2,
+        "grossMarginDH": 21.18,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4974,14 +4974,14 @@ const DATA = [
         "prepTime": 8,
         "tech": [
           "Pâte à crêpe : 1 p",
-          "Nutella : 60 g"
+          "Nutella : 120 g"
         ],
         "price": "38 DH",
-        "cost": 6.54,
+        "cost": 11.28,
         "sellPrice": 38,
-        "foodCost": 17.2,
-        "margin": 82.8,
-        "grossMarginDH": 31.46,
+        "foodCost": 29.7,
+        "margin": 70.3,
+        "grossMarginDH": 26.72,
         "__key": "cr",
         "__images": []
       },
@@ -4995,11 +4995,11 @@ const DATA = [
           "Pistaches concassées : 0 g"
         ],
         "price": "48 DH",
-        "cost": 19.8,
+        "cost": 23.55,
         "sellPrice": 48,
-        "foodCost": 41.3,
-        "margin": 58.8,
-        "grossMarginDH": 28.2,
+        "foodCost": 49.1,
+        "margin": 50.9,
+        "grossMarginDH": 24.45,
         "__key": "cr",
         "__images": []
       },
@@ -5149,15 +5149,15 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pâte à crêpe : 1 p",
-          "Nutella : 60 g",
+          "Nutella : 120 g",
           "BANANE : 100 g"
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 7.94,
-        "foodCost": 18.9,
-        "margin": 81.1,
-        "grossMarginDH": 34.06,
+        "cost": 12.68,
+        "foodCost": 30.2,
+        "margin": 69.8,
+        "grossMarginDH": 29.32,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5272,14 +5272,14 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pâte à gaufre : 1 p",
-          "Nutella : 60 g"
+          "Nutella : 120 g"
         ],
         "price": "38 DH",
         "sellPrice": 38,
-        "cost": 6.54,
-        "foodCost": 17.2,
-        "margin": 82.8,
-        "grossMarginDH": 31.46,
+        "cost": 11.28,
+        "foodCost": 29.7,
+        "margin": 70.3,
+        "grossMarginDH": 26.72,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5292,15 +5292,15 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pâte à gaufre : 1 p",
-          "Nutella : 60 g",
+          "Nutella : 120 g",
           "Banane : 80 g"
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 7.66,
-        "foodCost": 18.2,
-        "margin": 81.8,
-        "grossMarginDH": 34.34,
+        "cost": 12.4,
+        "foodCost": 29.5,
+        "margin": 70.5,
+        "grossMarginDH": 29.6,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5319,10 +5319,10 @@ const DATA = [
         ],
         "price": "48 DH",
         "sellPrice": 48,
-        "cost": 18.45,
-        "foodCost": 38.4,
-        "margin": 61.6,
-        "grossMarginDH": 29.55,
+        "cost": 21.7,
+        "foodCost": 45.2,
+        "margin": 54.8,
+        "grossMarginDH": 26.3,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5704,14 +5704,14 @@ const DATA = [
         "image": "images/placeholder.svg",
         "prepTime": 5,
         "tech": [
-          "NUTELLA : 20 g"
+          "NUTELLA : 40 g"
         ],
-        "price": "",
-        "sellPrice": 0,
-        "cost": 1.58,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "price": "7 DH",
+        "sellPrice": 7,
+        "cost": 3.16,
+        "foodCost": 45.1,
+        "margin": 54.9,
+        "grossMarginDH": 3.84,
         "__key": "sup",
         "__images": [
           "images/placeholder.svg"
@@ -8474,7 +8474,7 @@ const BASE_RECIPES = [
     "category": "CREPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "Nutella : 60 g"
+      "Nutella : 120 g"
     ]
   },
   {
@@ -8742,7 +8742,7 @@ const BASE_RECIPES = [
     "category": "CREPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "Nutella : 60 g",
+      "Nutella : 120 g",
       "BANANE : 100 g"
     ]
   },
@@ -8798,7 +8798,7 @@ const BASE_RECIPES = [
     "name": "NUTELLA",
     "category": "AUTRE",
     "ingredients": [
-      "NUTELLA : 20 g"
+      "NUTELLA : 40 g"
     ]
   },
   {
@@ -9101,19 +9101,19 @@ const BASE_RECIPES = [
   {
     "id": "cr_gaufre_nutella",
     "name": "Gauffre Nutella",
-    "category": "CRÊPES",
+    "category": "AUTRE",
     "ingredients": [
       "Pâte à gaufre : 1 p",
-      "Nutella : 60 g"
+      "Nutella : 120 g"
     ]
   },
   {
     "id": "cr_gaufre_nutela_banane",
     "name": "Gauffre Nutela Banane",
-    "category": "CRÊPES",
+    "category": "AUTRE",
     "ingredients": [
       "Pâte à gaufre : 1 p",
-      "Nutella : 60 g",
+      "Nutella : 120 g",
       "Banane : 80 g"
     ]
   },
@@ -9302,7 +9302,7 @@ const BASE_RECIPES = [
     "category": "DESSERTS & PÂTISSERIES",
     "ingredients": [
       "Pancakes : 3 p",
-      "Nutella : 60 g"
+      "Nutella : 100 g"
     ]
   },
   {
@@ -9321,7 +9321,7 @@ const BASE_RECIPES = [
     "category": "DESSERTS & PÂTISSERIES",
     "ingredients": [
       "Pancakes : 2 p",
-      "Nutella : 30 g",
+      "Nutella : 80 g",
       "Smarties : 10 g"
     ]
   },
@@ -11704,7 +11704,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "pate de pistache": {
-    "cost": 0.115,
+    "cost": 0.14,
     "unit": "g"
   },
   "kunafa": {
