@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T19:12:06.454Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T19:17:23.215Z
  */
 
 (function(global) {
@@ -7751,7 +7751,9 @@ const BASE_RECIPES = [
       "Légumes : 220 g",
       "Fokacha : 150 g",
       "Frites : 200 g"
-    ]
+    ],
+    "sellPrice": 135,
+    "price": "135 DH"
   },
   {
     "id": "pl_pave_de_saumon",
@@ -8475,7 +8477,9 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte à crêpe : 1 p",
       "Nutella : 120 g"
-    ]
+    ],
+    "sellPrice": 38,
+    "price": "38 DH"
   },
   {
     "id": "cr_crepe_kunafa_pistache",
@@ -8486,7 +8490,9 @@ const BASE_RECIPES = [
       "Pâte de pistache :  150 g",
       "Kunafa croustillante : 30 g",
       "Pistaches concassées : 0 g"
-    ]
+    ],
+    "sellPrice": 48,
+    "price": "48 DH"
   },
   {
     "id": "cr_crepe_fromage",
@@ -8744,7 +8750,9 @@ const BASE_RECIPES = [
       "Pâte à crêpe : 1 p",
       "Nutella : 120 g",
       "BANANE : 100 g"
-    ]
+    ],
+    "sellPrice": 42,
+    "price": "42 DH"
   },
   {
     "id": "rec_1788199584604",
@@ -8799,7 +8807,9 @@ const BASE_RECIPES = [
     "category": "AUTRE",
     "ingredients": [
       "NUTELLA : 20 g"
-    ]
+    ],
+    "sellPrice": 7,
+    "price": "7 DH"
   },
   {
     "id": "rec_1788200166784",
@@ -9105,7 +9115,9 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte à gaufre : 1 p",
       "Nutella : 120 g"
-    ]
+    ],
+    "sellPrice": 38,
+    "price": "38 DH"
   },
   {
     "id": "cr_gaufre_nutela_banane",
@@ -9126,7 +9138,9 @@ const BASE_RECIPES = [
       "Kunafa : 40 g",
       "Pate de Pistache : 130 g",
       "Sirop : 20 ml"
-    ]
+    ],
+    "sellPrice": 48,
+    "price": "48 DH"
   },
   {
     "id": "cr_gaufre_exotique",
@@ -9303,7 +9317,9 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pancakes : 3 p",
       "Nutella : 120 g"
-    ]
+    ],
+    "sellPrice": 38,
+    "price": "38 DH"
   },
   {
     "id": "des_pain_cake_fruits",
