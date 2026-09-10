@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T17:04:33.132Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T17:11:12.501Z
  */
 
 (function(global) {
@@ -4995,11 +4995,11 @@ const DATA = [
           "Pistaches concassées : 0 g"
         ],
         "price": "48 DH",
-        "cost": 23.55,
+        "cost": 19.8,
         "sellPrice": 48,
-        "foodCost": 49.1,
-        "margin": 50.9,
-        "grossMarginDH": 24.45,
+        "foodCost": 41.3,
+        "margin": 58.8,
+        "grossMarginDH": 28.2,
         "__key": "cr",
         "__images": []
       },
@@ -5314,15 +5314,15 @@ const DATA = [
         "tech": [
           "Pâte à gaufre : 1 p",
           "Kunafa : 40 g",
-          "Pate de Pistache : 130 g",
+          "Pate de Pistache : 150 g",
           "Sirop : 20 ml"
         ],
         "price": "48 DH",
         "sellPrice": 48,
-        "cost": 21.7,
-        "foodCost": 45.2,
-        "margin": 54.8,
-        "grossMarginDH": 26.3,
+        "cost": 20.75,
+        "foodCost": 43.2,
+        "margin": 56.8,
+        "grossMarginDH": 27.25,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -9124,7 +9124,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte à gaufre : 1 p",
       "Kunafa : 40 g",
-      "Pate de Pistache : 130 g",
+      "Pate de Pistache : 150 g",
       "Sirop : 20 ml"
     ]
   },
@@ -9560,6 +9560,14 @@ const BASE_RECIPES = [
       "Sauce tomate : 60 g",
       "Parmesan : 30 g",
       "Canette Soda : 3.5 p"
+    ]
+  },
+  {
+    "id": "rec_1789060086918",
+    "name": "SUPP PISTACHE",
+    "category": "AUTRE",
+    "ingredients": [
+      "Pate de pistache : 40 g"
     ]
   }
 ];
@@ -11704,7 +11712,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "pate de pistache": {
-    "cost": 0.14,
+    "cost": 0.115,
     "unit": "g"
   },
   "kunafa": {
