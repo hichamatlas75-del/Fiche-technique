@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-09T21:26:51.696Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T09:29:53.069Z
  */
 
 (function(global) {
@@ -2535,8 +2535,8 @@ const DATA = [
         "image": "images/petit-dej_mquilafruitdemer.jpeg",
         "prepTime": 12,
         "tech": [
-          "crevettes : 140 g",
-          "calamars : 120 g",
+          "crevettes CHAIR : 40 g",
+          "calamars CHAIR : 40 g",
           "moules : 80 g",
           "Œufs : 2 p",
           "Jus : 200 ml",
@@ -2545,11 +2545,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "78 DH",
-        "cost": 29.18,
+        "cost": 29.88,
         "sellPrice": 78,
-        "foodCost": 37.4,
-        "margin": 62.6,
-        "grossMarginDH": 48.82,
+        "foodCost": 38.3,
+        "margin": 61.7,
+        "grossMarginDH": 48.12,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_mquilafruitdemer.jpeg"
@@ -3652,7 +3652,7 @@ const DATA = [
         "sellPrice": 64,
         "tech": [
           "Crevettes CHAIR  : 40 g",
-          "Calamar congelé : 120 g",
+          "Calamar CHAIR : 40 g",
           "Pesto : 20 g",
           "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
@@ -4244,8 +4244,8 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "Pâtes : 60 g",
-          "Crevettes avec coquille : 145 g",
-          "Calamar congelé : 120 g",
+          "Crevettes CHAIR : 40 g",
+          "Calamar CHAIR : 40 g",
           "Parmesan : 15 g",
           "Huile : 30 g",
           "Pesto : 40 g",
@@ -4255,11 +4255,11 @@ const DATA = [
           "mozzarella : 40 g"
         ],
         "price": "78 DH",
-        "cost": 25.93,
+        "cost": 26.35,
         "sellPrice": 78,
-        "foodCost": 33.2,
-        "margin": 66.8,
-        "grossMarginDH": 52.07,
+        "foodCost": 33.8,
+        "margin": 66.2,
+        "grossMarginDH": 51.65,
         "__key": "pae",
         "__images": [
           "images/lasagne-fruitdemer.jpeg"
@@ -7466,8 +7466,8 @@ const BASE_RECIPES = [
     "name": "MQUILA-FRUITS DE MER",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "crevettes : 140 g",
-      "calamars : 120 g",
+      "crevettes CHAIR : 40 g",
+      "calamars CHAIR : 40 g",
       "moules : 80 g",
       "Œufs : 2 p",
       "Jus : 200 ml",
@@ -7478,7 +7478,9 @@ const BASE_RECIPES = [
     "cost": 27.04,
     "foodCost": 0,
     "margin": 0,
-    "grossMarginDH": 0
+    "grossMarginDH": 0,
+    "sellPrice": 78,
+    "price": "78 DH"
   },
   {
     "id": "pdj_norvegien",
@@ -8019,7 +8021,7 @@ const BASE_RECIPES = [
     "category": "PANINIS",
     "ingredients": [
       "Crevettes CHAIR  : 40 g",
-      "Calamar congelé : 120 g",
+      "Calamar CHAIR : 40 g",
       "Pesto : 20 g",
       "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
@@ -8029,7 +8031,9 @@ const BASE_RECIPES = [
     "cost": 24.76,
     "foodCost": 0,
     "margin": 0,
-    "grossMarginDH": 0
+    "grossMarginDH": 0,
+    "sellPrice": 64,
+    "price": "64 DH"
   },
   {
     "id": "pa_saumon",
@@ -8368,8 +8372,8 @@ const BASE_RECIPES = [
     "sellPrice": 78,
     "ingredients": [
       "Pâtes : 60 g",
-      "Crevettes avec coquille : 145 g",
-      "Calamar congelé : 120 g",
+      "Crevettes CHAIR : 40 g",
+      "Calamar CHAIR : 40 g",
       "Parmesan : 15 g",
       "Huile : 30 g",
       "Pesto : 40 g",
@@ -8381,7 +8385,8 @@ const BASE_RECIPES = [
     "cost": 25.93,
     "foodCost": 0,
     "margin": 0,
-    "grossMarginDH": 0
+    "grossMarginDH": 0,
+    "price": "78 DH"
   },
   {
     "id": "pae_vegetarien",
