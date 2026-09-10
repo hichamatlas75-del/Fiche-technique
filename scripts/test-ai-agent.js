@@ -25,16 +25,31 @@ const mockLocalStorage = {
 };
 
 const domElements = {};
+const mockDoc = {
+  createElement: (tag) => ({
+    innerHTML: '',
+    style: {},
+    textContent: '',
+    appendChild: () => {},
+    setAttribute: () => {},
+    classList: { add: () => {}, remove: () => {} }
+  }),
+  getElementById: (id) => {
+    if (!domElements[id]) domElements[id] = { innerHTML: '', value: '', style: {}, textContent: '', classList: { add: () => {}, remove: () => {} } };
+    return domElements[id];
+  },
+  querySelectorAll: () => [],
+  body: {
+    appendChild: () => {},
+    removeChild: () => {},
+    contains: () => true
+  }
+};
+
 const mockWindow = {
   addEventListener: (name, fn) => {},
   dispatchEvent: (evt) => {},
-  document: {
-    getElementById: (id) => {
-      if (!domElements[id]) domElements[id] = { innerHTML: '', value: '', style: {}, textContent: '' };
-      return domElements[id];
-    },
-    querySelectorAll: () => []
-  }
+  document: mockDoc
 };
 
 global.window = mockWindow;
@@ -117,10 +132,63 @@ console.log("  ✓ Intent 'Stratégie -2% Food Cost' détecté et traité avec s
 // Test 1.6: Plat spécifique (Pizza 4 Saisons)
 window.askAIFBAssistant("Pizza 4 Saisons");
 lastAiMsg = window.aiChatHistory[window.aiChatHistory.length - 1];
-console.log("DEBUG 1.6 text:", lastAiMsg.text);
 assert(lastAiMsg.text.toLowerCase().includes("pizza 4 saisons"), "Doit analyser la Pizza 4 Saisons spécifiquement");
 assert(lastAiMsg.text.includes("Prix de vente"), "Doit afficher les métriques du plat");
-console.log("  ✓ Intent 'Plat spécifique' résolu avec analyse détaillée");
+assert(lastAiMsg.text.includes("Composition"), "Doit afficher le tableau de composition détaillé");
+console.log("  ✓ Intent 'Plat spécifique' résolu avec analyse détaillée et composition");
+
+// Test 1.7: REQUÊTE UTILISATEUR : "QUEL PLAT QUI CONTIENT VIANDE HACHEE"
+window.askAIFBAssistant("QUEL PLAT QUI CONTIENT VIANDE HACHEE");
+lastAiMsg = window.aiChatHistory[window.aiChatHistory.length - 1];
+assert(lastAiMsg.text.includes("Fiches Techniques contenant"), "Doit trouver les plats contenant de la viande hachée");
+assert(lastAiMsg.text.toLowerCase().includes("viande hachée") || lastAiMsg.text.toLowerCase().includes("viande hachee"), "Doit cibler la viande hachée");
+assert(lastAiMsg.text.includes("Dosage :"), "Doit afficher les grammages exacts par assiette");
+console.log("  ✓ Requête Utilisateur 'QUEL PLAT QUI CONTIENT VIANDE HACHEE' traitée avec succès (fiches + dosages listés)");
+
+// Test 1.8: Recherche par Catégorie : "Combien de pizzas avons-nous ?"
+window.askAIFBAssistant("Combien de pizzas avons-nous ?");
+lastAiMsg = window.aiChatHistory[window.aiChatHistory.length - 1];
+assert(lastAiMsg.text.includes("Famille Culinaire : « PIZZA »"), "Doit identifier la famille culinaire PIZZA");
+assert(lastAiMsg.text.includes("Prix de vente moyen"), "Doit afficher les métriques moyennes de la catégorie");
+console.log("  ✓ Intent 'Recherche par Catégorie' (Pizzas) validé avec succès");
+
+// Test 1.9: Recherche Floue de Plat : "Margherita" (sans préfixe PIZZA, tolérance orthographique)
+window.askAIFBAssistant("Margherita");
+lastAiMsg = window.aiChatHistory[window.aiChatHistory.length - 1];
+assert(lastAiMsg.text.toLowerCase().includes("margarita") || lastAiMsg.text.toLowerCase().includes("margherita"), "Doit identifier la Pizza Margarita/Margherita même sans le mot Pizza");
+assert(lastAiMsg.text.includes("Composition &amp; Grammages"), "Doit afficher la composition");
+console.log("  ✓ Intent 'Recherche Floue de Plat' ('Margherita') résolu avec succès");
+
+// Test 1.10: Comparatif Côte-à-Côte : "Compare Pizza Margherita et Pizza 4 Saisons"
+window.askAIFBAssistant("Compare Pizza Margherita et Pizza 4 Saisons");
+lastAiMsg = window.aiChatHistory[window.aiChatHistory.length - 1];
+assert(lastAiMsg.text.includes("Comparatif Face-à-Face"), "Doit générer le tableau comparatif");
+assert(lastAiMsg.text.includes("Verdict Copilote"), "Doit donner le verdict de cash margin");
+console.log("  ✓ Intent 'Comparatif Face-à-Face' validé avec succès");
+
+// Test 1.11: Filtrage Tarifaire : "Quel est le plat le plus cher ?"
+window.askAIFBAssistant("Quel est le plat le plus cher ?");
+lastAiMsg = window.aiChatHistory[window.aiChatHistory.length - 1];
+assert(lastAiMsg.text.includes("Top 5 des Plats les plus Chers"), "Doit afficher les plats les plus chers");
+console.log("  ✓ Intent 'Plat le plus cher' validé avec succès");
+
+// Test 1.12: Filtrage par Seuil de Prix : "Plats à moins de 50 DH"
+window.askAIFBAssistant("Plats à moins de 50 DH");
+lastAiMsg = window.aiChatHistory[window.aiChatHistory.length - 1];
+assert(lastAiMsg.text.includes("Plats à moins de 50 DH"), "Doit filtrer les plats sous 50 DH");
+console.log("  ✓ Intent 'Budget max (Moins de 50 DH)' validé avec succès");
+
+// Test 1.13: Définition Métier : "C'est quoi le Food Cost ?"
+window.askAIFBAssistant("C'est quoi le Food Cost ?");
+lastAiMsg = window.aiChatHistory[window.aiChatHistory.length - 1];
+assert(lastAiMsg.text.includes("Ratio Matière"), "Doit expliquer le Food Cost avec sa formule");
+console.log("  ✓ Intent 'Pédagogie / Définition Food Cost' validé avec succès");
+
+// Test 1.14: Mercuriale Ingrédient : "Prix au kilo de la mozzarella"
+window.askAIFBAssistant("Prix au kilo de la mozzarella");
+lastAiMsg = window.aiChatHistory[window.aiChatHistory.length - 1];
+assert(lastAiMsg.text.includes("Mercuriale Ingrédient : « Mozzarella »"), "Doit afficher la fiche mercuriale de la Mozzarella");
+console.log("  ✓ Intent 'Mercuriale / Prix au kilo' validé avec succès");
 
 console.log("\n--- TEST 2: SIMULATEUR MACRO INFLATION & WHAT-IF ---");
 
@@ -140,6 +208,39 @@ console.log(`  ✓ Simulation Viande +20% : ${simViande.count} plats impactés, 
 const simNegoc = window.runMacroInflationSimulation("Poulet", -10);
 assert(simNegoc.totalMonthlySurcost < 0, "Une baisse de prix négociée doit être négative (économie)");
 console.log(`  ✓ Simulation Négociation Poulet -10% : gain mensuel généré : ${Math.abs(simNegoc.totalMonthlySurcost)} DH`);
+
+// Test 2.4: Simulation Réduction de Grammage (-15g Mozzarella)
+const simDosageDown = window.runMacroInflationSimulation("Mozzarella", 0, -15, 'grams');
+assert(simDosageDown.count > 0, "Doit impacter les recettes contenant de la mozzarella");
+assert(simDosageDown.totalMonthlySurcost < 0, "Une réduction de portion doit générer un gain de marge (surcoût négatif)");
+assert(simDosageDown.affectedDishes[0].newQty < simDosageDown.affectedDishes[0].oldQty, "Le nouveau dosage doit être réduit");
+console.log(`  ✓ Simulation Réduction Dosage (-15g Mozza) : gain mensuel de +${Math.abs(simDosageDown.totalMonthlySurcost)} DH sur ${simDosageDown.count} plats`);
+
+// Test 2.5: Simulation Surdosage (+25g Viande)
+const simDosageUp = window.runMacroInflationSimulation("Viande", 0, 25, 'grams');
+assert(simDosageUp.count > 0, "Doit impacter les recettes contenant de la viande");
+assert(simDosageUp.totalMonthlySurcost > 0, "Un surdosage doit engendrer un surcoût mensuel positif");
+assert(simDosageUp.affectedDishes[0].newQty > simDosageUp.affectedDishes[0].oldQty, "Le nouveau dosage doit être augmenté");
+console.log(`  ✓ Simulation Surdosage (+25g Viande) : surcoût mensuel de -${simDosageUp.totalMonthlySurcost} DH sur ${simDosageUp.count} plats`);
+
+// Test 2.6: Simulation Double Levier (Inflation Fournisseur +15% combinée à Calibrage -20g)
+const simMixte = window.runMacroInflationSimulation("Mozzarella", 15, -20, 'grams');
+assert(simMixte.totalMonthlySurcost < simMozza.totalMonthlySurcost, "Le recalibrage de portion doit absorber l'inflation fournisseur");
+console.log(`  ✓ Simulation Mixte (+15% prix & -20g portion) : surcoût net ramené de +${simMozza.totalMonthlySurcost} DH à ${simMixte.totalMonthlySurcost} DH/m`);
+
+// Test 2.7: Application unitaire du nouveau dosage à une recette (SSOT)
+const targetDish = window.allRecipes.find(r => r.greyCorner.tech.some(t => t.toLowerCase().includes('mozzarella'))) || window.allRecipes[0];
+const targetName = targetDish.name;
+window.applyGrammageToRecipe(targetName, "Mozzarella", 100, "g", true);
+const updatedLine = targetDish.greyCorner.tech.find(t => t.toLowerCase().includes('mozzarella'));
+assert(updatedLine && updatedLine.includes('100'), "La ligne greyCorner.tech doit être mise à jour avec le nouveau grammage 100 g");
+console.log(`  ✓ Application de grammage (applyGrammageToRecipe) : « ${targetName} » mis à jour (${updatedLine})`);
+
+// Test 2.8: Intent conversationnel What-If Dosage dans le chat IA
+window.askAIFBAssistant("Quel est l'impact si je diminue la mozzarella de 15g ?");
+const lastAiMsg5b = window.aiChatHistory[window.aiChatHistory.length - 1];
+assert(lastAiMsg5b && lastAiMsg5b.text.includes("Simulation \"What-If\" Dosage"), "L'assistant IA doit traiter l'intent What-If dosage");
+console.log("  ✓ Chatbot IA : Intent 'What-If Dosage' détecté et simulé instantanément");
 
 console.log("\n--- TEST 3: CONCEPTEUR DE RECETTES IA ---");
 
