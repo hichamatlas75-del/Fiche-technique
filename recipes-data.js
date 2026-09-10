@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T11:07:23.549Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T16:00:00.646Z
  */
 
 (function(global) {
@@ -2535,8 +2535,8 @@ const DATA = [
         "image": "images/petit-dej_mquilafruitdemer.jpeg",
         "prepTime": 12,
         "tech": [
-          "crevettes CHAIR : 40 g",
-          "calamars CHAIR : 40 g",
+          "crevettes : 140 g",
+          "calamars : 120 g",
           "moules : 80 g",
           "Œufs : 2 p",
           "Jus : 200 ml",
@@ -2545,11 +2545,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "78 DH",
-        "cost": 29.88,
+        "cost": 29.18,
         "sellPrice": 78,
-        "foodCost": 38.3,
-        "margin": 61.7,
-        "grossMarginDH": 48.12,
+        "foodCost": 37.4,
+        "margin": 62.6,
+        "grossMarginDH": 48.82,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_mquilafruitdemer.jpeg"
@@ -2566,15 +2566,15 @@ const DATA = [
           "Boisson chaude : 1 p",
           "Dessert : 1 p",
           "Bouteille Eau Minérale 33cl : 1 p",
-          "saumon fumee : 40 g",
+          "saumon fumee : 60 g",
           "jben : 30 g"
         ],
         "price": "68 DH",
-        "cost": 24.5,
+        "cost": 30.1,
         "sellPrice": 68,
-        "foodCost": 36,
-        "margin": 64,
-        "grossMarginDH": 43.5,
+        "foodCost": 44.3,
+        "margin": 55.7,
+        "grossMarginDH": 37.9,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-norvegien.jpg"
@@ -3652,7 +3652,7 @@ const DATA = [
         "sellPrice": 64,
         "tech": [
           "Crevettes CHAIR  : 40 g",
-          "Calamar CHAIR : 40 g",
+          "Calamar congelé : 120 g",
           "Pesto : 20 g",
           "Mozzarella : 40 g",
           "Frites + sauce : 200 g",
@@ -4244,8 +4244,8 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "Pâtes : 60 g",
-          "Crevettes CHAIR : 40 g",
-          "Calamar CHAIR : 40 g",
+          "Crevettes avec coquille : 145 g",
+          "Calamar congelé : 120 g",
           "Parmesan : 15 g",
           "Huile : 30 g",
           "Pesto : 40 g",
@@ -4255,11 +4255,11 @@ const DATA = [
           "mozzarella : 40 g"
         ],
         "price": "78 DH",
-        "cost": 26.35,
+        "cost": 25.93,
         "sellPrice": 78,
-        "foodCost": 33.8,
-        "margin": 66.2,
-        "grossMarginDH": 51.65,
+        "foodCost": 33.2,
+        "margin": 66.8,
+        "grossMarginDH": 52.07,
         "__key": "pae",
         "__images": [
           "images/lasagne-fruitdemer.jpeg"
@@ -4990,16 +4990,16 @@ const DATA = [
         "prepTime": 10,
         "tech": [
           "Pâte à crêpe : 1 p",
-          "Pâte de pistache : 40 g",
+          "Pâte de pistache :  150 g",
           "Kunafa croustillante : 30 g",
-          "Pistaches concassées : 15 g"
+          "Pistaches concassées : 0 g"
         ],
         "price": "48 DH",
-        "cost": 12.35,
+        "cost": 19.8,
         "sellPrice": 48,
-        "foodCost": 25.7,
-        "margin": 74.3,
-        "grossMarginDH": 35.65,
+        "foodCost": 41.3,
+        "margin": 58.8,
+        "grossMarginDH": 28.2,
         "__key": "cr",
         "__images": []
       },
@@ -5314,15 +5314,15 @@ const DATA = [
         "tech": [
           "Pâte à gaufre : 1 p",
           "Kunafa : 40 g",
-          "Pistache : 30 g",
+          "Pate de Pistache : 130 g",
           "Sirop : 20 ml"
         ],
         "price": "48 DH",
         "sellPrice": 48,
-        "cost": 11.9,
-        "foodCost": 24.8,
-        "margin": 75.2,
-        "grossMarginDH": 36.1,
+        "cost": 18.45,
+        "foodCost": 38.4,
+        "margin": 61.6,
+        "grossMarginDH": 29.55,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5582,17 +5582,17 @@ const DATA = [
         "image": "images/placeholder.svg",
         "prepTime": 5,
         "tech": [
-          "Semoule couscous : 250 g",
+          "Semoule couscous : 200 g",
           "Poulet : 200 g",
           "Légumes couscous : 250 g",
           "Petit lait (Lben) : 200 ml"
         ],
         "price": "54 DH",
         "sellPrice": 54,
-        "cost": 16.25,
-        "foodCost": 30.1,
-        "margin": 69.9,
-        "grossMarginDH": 37.75,
+        "cost": 15.86,
+        "foodCost": 29.4,
+        "margin": 70.6,
+        "grossMarginDH": 38.14,
         "__key": "sup",
         "__images": [
           "images/placeholder.svg"
@@ -6338,7 +6338,7 @@ const BASE_RECIPES = [
     "name": "COUSCOUS POULET AVEC PETIT LAIT",
     "category": "AUTRE",
     "ingredients": [
-      "Semoule couscous : 250 g",
+      "Semoule couscous : 200 g",
       "Poulet : 200 g",
       "Légumes couscous : 250 g",
       "Petit lait (Lben) : 200 ml"
@@ -7446,8 +7446,8 @@ const BASE_RECIPES = [
     "name": "MQUILA-FRUITS DE MER",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "crevettes CHAIR : 40 g",
-      "calamars CHAIR : 40 g",
+      "crevettes : 140 g",
+      "calamars : 120 g",
       "moules : 80 g",
       "Œufs : 2 p",
       "Jus : 200 ml",
@@ -7467,7 +7467,7 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p",
-      "saumon fumee : 40 g",
+      "saumon fumee : 60 g",
       "jben : 30 g"
     ]
   },
@@ -7987,7 +7987,7 @@ const BASE_RECIPES = [
     "category": "PANINIS",
     "ingredients": [
       "Crevettes CHAIR  : 40 g",
-      "Calamar CHAIR : 40 g",
+      "Calamar congelé : 120 g",
       "Pesto : 20 g",
       "Mozzarella : 40 g",
       "Frites + sauce : 200 g",
@@ -8291,8 +8291,8 @@ const BASE_RECIPES = [
     "category": "PÂTES",
     "ingredients": [
       "Pâtes : 60 g",
-      "Crevettes CHAIR : 40 g",
-      "Calamar CHAIR : 40 g",
+      "Crevettes avec coquille : 145 g",
+      "Calamar congelé : 120 g",
       "Parmesan : 15 g",
       "Huile : 30 g",
       "Pesto : 40 g",
@@ -8480,12 +8480,12 @@ const BASE_RECIPES = [
   {
     "id": "cr_crepe_kunafa_pistache",
     "name": "CRÊPE KUNAFA PISTACHE",
-    "category": "CRÊPES",
+    "category": "AUTRE",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "Pâte de pistache : 40 g",
+      "Pâte de pistache :  150 g",
       "Kunafa croustillante : 30 g",
-      "Pistaches concassées : 15 g"
+      "Pistaches concassées : 0 g"
     ]
   },
   {
@@ -9120,11 +9120,11 @@ const BASE_RECIPES = [
   {
     "id": "cr_gaufre_kunafa_pistache",
     "name": "GAUFFRE KUNAFA PISTACHE",
-    "category": "CRÊPES",
+    "category": "AUTRE",
     "ingredients": [
       "Pâte à gaufre : 1 p",
       "Kunafa : 40 g",
-      "Pistache : 30 g",
+      "Pate de Pistache : 130 g",
       "Sirop : 20 ml"
     ]
   },
@@ -11704,7 +11704,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "pate de pistache": {
-    "cost": 0.14,
+    "cost": 0.115,
     "unit": "g"
   },
   "kunafa": {
