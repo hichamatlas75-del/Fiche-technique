@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T17:11:12.501Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T18:34:14.812Z
  */
 
 (function(global) {
@@ -4974,14 +4974,14 @@ const DATA = [
         "prepTime": 8,
         "tech": [
           "Pâte à crêpe : 1 p",
-          "Nutella : 120 g"
+          "Nutella : 100 g"
         ],
         "price": "38 DH",
-        "cost": 10.8,
+        "cost": 9.3,
         "sellPrice": 38,
-        "foodCost": 28.4,
-        "margin": 71.6,
-        "grossMarginDH": 27.2,
+        "foodCost": 24.5,
+        "margin": 75.5,
+        "grossMarginDH": 28.7,
         "__key": "cr",
         "__images": []
       },
@@ -5149,15 +5149,15 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pâte à crêpe : 1 p",
-          "Nutella : 120 g",
+          "Nutella : 100 g",
           "BANANE : 100 g"
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 12.2,
-        "foodCost": 29,
-        "margin": 71,
-        "grossMarginDH": 29.8,
+        "cost": 10.7,
+        "foodCost": 25.5,
+        "margin": 74.5,
+        "grossMarginDH": 31.3,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5272,14 +5272,14 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pâte à gaufre : 1 p",
-          "Nutella : 120 g"
+          "Nutella : 100 g"
         ],
         "price": "38 DH",
         "sellPrice": 38,
-        "cost": 10.8,
-        "foodCost": 28.4,
-        "margin": 71.6,
-        "grossMarginDH": 27.2,
+        "cost": 9.3,
+        "foodCost": 24.5,
+        "margin": 75.5,
+        "grossMarginDH": 28.7,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5292,15 +5292,15 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pâte à gaufre : 1 p",
-          "Nutella : 120 g",
+          "Nutella : 100 g",
           "Banane : 80 g"
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 11.92,
-        "foodCost": 28.4,
-        "margin": 71.6,
-        "grossMarginDH": 30.08,
+        "cost": 10.42,
+        "foodCost": 24.8,
+        "margin": 75.2,
+        "grossMarginDH": 31.58,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -8474,7 +8474,7 @@ const BASE_RECIPES = [
     "category": "CREPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "Nutella : 120 g"
+      "Nutella : 100 g"
     ]
   },
   {
@@ -8742,7 +8742,7 @@ const BASE_RECIPES = [
     "category": "CREPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "Nutella : 120 g",
+      "Nutella : 100 g",
       "BANANE : 100 g"
     ]
   },
@@ -9104,7 +9104,7 @@ const BASE_RECIPES = [
     "category": "AUTRE",
     "ingredients": [
       "Pâte à gaufre : 1 p",
-      "Nutella : 120 g"
+      "Nutella : 100 g"
     ]
   },
   {
@@ -9113,7 +9113,7 @@ const BASE_RECIPES = [
     "category": "AUTRE",
     "ingredients": [
       "Pâte à gaufre : 1 p",
-      "Nutella : 120 g",
+      "Nutella : 100 g",
       "Banane : 80 g"
     ]
   },
