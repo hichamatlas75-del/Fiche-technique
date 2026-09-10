@@ -1713,6 +1713,245 @@
   }
 }
 
+/* ========================================================
+   NOUVELLES FONCTIONNALITÉS IA AVANCÉES
+   Chat IA, Simulateur Macro What-If, Concepteur de Recettes
+   ======================================================== */
+
+.ai-highlight-card {
+  animation: aiHighlightPulse 2.5s ease-out;
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 25px rgba(2, 132, 199, 0.45) !important;
+}
+
+@keyframes aiHighlightPulse {
+  0% { transform: scale(1.02); box-shadow: 0 0 30px rgba(2, 132, 199, 0.85); }
+  50% { transform: scale(1.01); box-shadow: 0 0 15px rgba(2, 132, 199, 0.5); }
+  100% { transform: scale(1); }
+}
+
+/* 1. ASSISTANT & CHAT IA F&B */
+.ai-assistant-container {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.ai-chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+
+.ai-quick-prompts-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  padding: 8px 12px;
+  background: var(--bg);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.ai-prompt-chip {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ai-prompt-chip:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  transform: translateY(-1px);
+}
+
+.ai-chat-window {
+  max-height: 420px;
+  min-height: 220px;
+  overflow-y: auto;
+  padding: 12px;
+  background: var(--bg);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.ai-chat-bubble {
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.ai-bubble {
+  align-self: flex-start;
+  background: var(--paper);
+  border: 1px solid rgba(2, 132, 199, 0.25);
+  color: var(--text);
+  border-left: 4px solid #0284c7;
+}
+
+.user-bubble {
+  align-self: flex-end;
+  background: #0284c7;
+  color: #ffffff;
+  border-bottom-right-radius: 3px;
+}
+
+.user-bubble strong, .user-bubble span {
+  color: #ffffff !important;
+}
+
+.ai-bubble-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-bottom: 3px;
+}
+
+.user-bubble .ai-bubble-meta {
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.ai-chat-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.ai-chat-mini-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+.ai-chat-input-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.ai-chat-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ai-chat-input:focus {
+  outline: none;
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+}
+
+/* 2. SIMULATEUR MACRO WHAT-IF */
+.ai-sim-box, .ai-batch-box, .ai-gen-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.ai-sim-controls-grid, .ai-gen-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.ai-sim-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.ai-sim-table-wrap {
+  max-height: 280px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.ai-sim-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.ai-sim-table th {
+  background: var(--thead-bg);
+  padding: 8px 12px;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-bottom: 1px solid var(--border);
+  font-weight: 800;
+}
+
+.ai-sim-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* 3. CONCEPTEUR DE RECETTE IA */
+.ai-gen-preview-card {
+  background: var(--bg);
+  border: 1.5px solid rgba(16, 185, 129, 0.35);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 14px;
+}
+
+.ai-gen-ing-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.ai-gen-tag {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
 
 
 
