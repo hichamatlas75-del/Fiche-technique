@@ -128,7 +128,7 @@ export const menuData = [
         image: "images/petit-dej-berbere.webp"
       },
       {
-        name: { fr: "COMPAGNAD", en: "COPAGNARD", de: "COMPAGNAR" },
+        name: { fr: "COMPAGNARD", en: "COMPAGNARD", de: "COMPAGNARD" },
         description: {
           fr: "3 Œuf brouillé ,3 charcuterie, 2 pain cake chocolat ,pain seigle, huile d’olive , olive , mesclun salade, jus d'orange, boisson chaude au choix, dessert et eau minérale.",
           en: "3 scrambled eggs, 3 cold cuts, 2 slices of chocolate cake, rye bread, olive oil, olive , mesclun salad, orange juice, hot drink of your choice, dessert, and mineral water.",
@@ -1332,7 +1332,7 @@ export const menuData = [
         image: "images/boisson-nespresso.webp"
       },
       {
-        name: { fr: "CAPPUCHINO AVEC CHANTILLY", en: "CAPPUCCINO WITH WHIPPED CREAM", de: "CAPPUCCINO MIT SCHLAGSAHNE" },
+        name: { fr: "CAPPUCCINO AVEC CHANTILLY", en: "CAPPUCCINO WITH WHIPPED CREAM", de: "CAPPUCCINO MIT SCHLAGSAHNE" },
         description: {
           fr: "Servi avec une eau minérale 33 cl.",
           en: "Served with a 33 cl mineral water.",
@@ -1362,7 +1362,7 @@ export const menuData = [
         image: "images/boisson-cafelait.webp"
       },
       {
-        name: { fr: "CAPPUCHINO ITALIEN", en: "ITALIAN CAPPUCCINO", de: "ITALIENISCHER CAPPUCCINO" },
+        name: { fr: "CAPPUCCINO ITALIEN", en: "ITALIAN CAPPUCCINO", de: "ITALIENISCHER CAPPUCCINO" },
         description: {
           fr: "Servi avec une eau minérale 33 cl.",
           en: "Served with a 33 cl mineral water.",
