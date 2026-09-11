@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-11T12:06:04.571Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-11T14:29:33.723Z
  */
 
 (function(global) {
@@ -3792,15 +3792,15 @@ const DATA = [
           "Cheddar : 30 g",
           "Sauce spéciale : 30 g",
           "CHAMPIGNONS : 50 g",
-          "FILET : 70 g",
+          "FILET : 62 g",
           "FRITTES : 200 g"
         ],
         "price": "64 DH",
-        "cost": 26.54,
+        "cost": 24.78,
         "sellPrice": 64,
-        "foodCost": 41.5,
-        "margin": 58.5,
-        "grossMarginDH": 37.46,
+        "foodCost": 38.7,
+        "margin": 61.3,
+        "grossMarginDH": 39.22,
         "__key": "sw",
         "__images": [
           "images/sand-cheesesteak.jpg"
@@ -8074,7 +8074,7 @@ const BASE_RECIPES = [
       "Cheddar : 30 g",
       "Sauce spéciale : 30 g",
       "CHAMPIGNONS : 50 g",
-      "FILET : 70 g",
+      "FILET : 62 g",
       "FRITTES : 200 g"
     ],
     "sellPrice": 64,
