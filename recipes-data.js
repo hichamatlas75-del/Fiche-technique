@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-10T20:39:50.805Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-11T12:06:04.571Z
  */
 
 (function(global) {
@@ -946,11 +946,11 @@ const DATA = [
           "Sucre : 20 g"
         ],
         "price": "32 DH",
-        "cost": 9.95,
+        "cost": 5.79,
         "sellPrice": 32,
-        "foodCost": 31.1,
-        "margin": 68.9,
-        "grossMarginDH": 22.05,
+        "foodCost": 18.1,
+        "margin": 81.9,
+        "grossMarginDH": 26.21,
         "__key": "jf",
         "__images": [
           "images/jus-avocat.webp"
@@ -967,11 +967,11 @@ const DATA = [
           "Amandes, Noix, Raisins secs : 40 g"
         ],
         "price": "38 DH",
-        "cost": 13.43,
+        "cost": 9.27,
         "sellPrice": 38,
-        "foodCost": 35.3,
-        "margin": 64.7,
-        "grossMarginDH": 24.57,
+        "foodCost": 24.4,
+        "margin": 75.6,
+        "grossMarginDH": 28.73,
         "__key": "jf",
         "__images": [
           "images/jus-avocatsec.webp"
@@ -989,11 +989,11 @@ const DATA = [
           "Avocat : 40 g"
         ],
         "price": "38 DH",
-        "cost": 5.98,
+        "cost": 4.94,
         "sellPrice": 38,
-        "foodCost": 15.7,
-        "margin": 84.3,
-        "grossMarginDH": 32.02,
+        "foodCost": 13,
+        "margin": 87,
+        "grossMarginDH": 33.06,
         "__key": "jf",
         "__images": [
           "images/jus-panache.webp"
@@ -1034,11 +1034,11 @@ const DATA = [
           "Coulis caramel : 15 ml"
         ],
         "price": "46 DH",
-        "cost": 22.23,
+        "cost": 18.33,
         "sellPrice": 46,
-        "foodCost": 48.3,
-        "margin": 51.7,
-        "grossMarginDH": 23.77,
+        "foodCost": 39.8,
+        "margin": 60.2,
+        "grossMarginDH": 27.67,
         "__key": "jf",
         "__images": [
           "images/jus-za3za3.webp"
@@ -1076,10 +1076,10 @@ const DATA = [
         ],
         "price": "32 DH",
         "sellPrice": 32,
-        "cost": 6.5,
-        "foodCost": 20.3,
-        "margin": 79.7,
-        "grossMarginDH": 25.5,
+        "cost": 3.9,
+        "foodCost": 12.2,
+        "margin": 87.8,
+        "grossMarginDH": 28.1,
         "__key": "jf",
         "__images": [
           "images/placeholder.svg"
@@ -2156,11 +2156,11 @@ const DATA = [
           "JBEN : 50 g"
         ],
         "price": "68 DH",
-        "cost": 28.2,
+        "cost": 26.64,
         "sellPrice": 68,
-        "foodCost": 41.5,
-        "margin": 58.5,
-        "grossMarginDH": 39.8,
+        "foodCost": 39.2,
+        "margin": 60.8,
+        "grossMarginDH": 41.36,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_americain.jpeg"
@@ -2570,11 +2570,11 @@ const DATA = [
           "jben : 30 g"
         ],
         "price": "68 DH",
-        "cost": 32.18,
+        "cost": 30.1,
         "sellPrice": 68,
-        "foodCost": 47.3,
-        "margin": 52.7,
-        "grossMarginDH": 35.82,
+        "foodCost": 44.3,
+        "margin": 55.7,
+        "grossMarginDH": 37.9,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-norvegien.jpg"
@@ -2805,11 +2805,11 @@ const DATA = [
           "Agrumes : 15 g"
         ],
         "price": "78 DH",
-        "cost": 34.76,
+        "cost": 30.86,
         "sellPrice": 78,
-        "foodCost": 44.6,
-        "margin": 55.4,
-        "grossMarginDH": 43.24,
+        "foodCost": 39.6,
+        "margin": 60.4,
+        "grossMarginDH": 47.14,
         "__key": "ef",
         "__images": [
           "images/entree-terremer.jpg"
@@ -2826,11 +2826,11 @@ const DATA = [
           "SAUCE TARTARE : 24 g"
         ],
         "price": "88 DH",
-        "cost": 38.87,
+        "cost": 31.07,
         "sellPrice": 88,
-        "foodCost": 44.2,
-        "margin": 55.8,
-        "grossMarginDH": 49.13,
+        "foodCost": 35.3,
+        "margin": 64.7,
+        "grossMarginDH": 56.93,
         "__key": "ef",
         "__images": [
           "images/entree-tartare.jpeg"
@@ -3183,7 +3183,7 @@ const DATA = [
         "images": "images/plat-eminceboeuf.jpg,images/plat-eminceboeuf2.jpg,images/plat-eminceboeuf3.jpg",
         "prepTime": 16,
         "tech": [
-          "FILET DE Bœuf : 150 g",
+          "FILET DE Bœuf : 125 g",
           "Champignons : 80 g",
           "Crème fraîche : 70 ml",
           "Demi-glace : 60 ml",
@@ -3193,11 +3193,11 @@ const DATA = [
           "Huile : 60 ml"
         ],
         "price": "115 DH",
-        "cost": 44.19,
+        "cost": 43.19,
         "sellPrice": 115,
-        "foodCost": 38.4,
-        "margin": 61.6,
-        "grossMarginDH": 70.81,
+        "foodCost": 37.6,
+        "margin": 62.4,
+        "grossMarginDH": 71.81,
         "__key": "pl",
         "__images": [
           "images/plat-eminceboeuf.jpg",
@@ -3219,11 +3219,11 @@ const DATA = [
           "Frites : 200 g"
         ],
         "price": "135 DH",
-        "cost": 49.85,
+        "cost": 55.25,
         "sellPrice": 135,
-        "foodCost": 36.9,
-        "margin": 63.1,
-        "grossMarginDH": 85.15,
+        "foodCost": 40.9,
+        "margin": 59.1,
+        "grossMarginDH": 79.75,
         "__key": "pl",
         "__images": [
           "images/plat-filet.jpg",
@@ -3404,11 +3404,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "54 DH",
-        "cost": 17.62,
+        "cost": 16.32,
         "sellPrice": 54,
-        "foodCost": 32.6,
-        "margin": 67.4,
-        "grossMarginDH": 36.38,
+        "foodCost": 30.2,
+        "margin": 69.8,
+        "grossMarginDH": 37.68,
         "__key": "bg",
         "__images": [
           "images/burger-avocado.jpg"
@@ -3792,15 +3792,15 @@ const DATA = [
           "Cheddar : 30 g",
           "Sauce spéciale : 30 g",
           "CHAMPIGNONS : 50 g",
-          "FILET : 90 g",
+          "FILET : 70 g",
           "FRITTES : 200 g"
         ],
-        "price": "65 DH",
-        "cost": 28.24,
-        "sellPrice": 65,
-        "foodCost": 43.4,
-        "margin": 56.6,
-        "grossMarginDH": 36.76,
+        "price": "64 DH",
+        "cost": 26.54,
+        "sellPrice": 64,
+        "foodCost": 41.5,
+        "margin": 58.5,
+        "grossMarginDH": 37.46,
         "__key": "sw",
         "__images": [
           "images/sand-cheesesteak.jpg"
@@ -4885,14 +4885,14 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pancakes : 3 p",
-          "Nutella : 100 g"
+          "Nutella : 120 g"
         ],
         "price": "38 DH",
         "sellPrice": 38,
-        "cost": 13.5,
-        "foodCost": 35.5,
-        "margin": 64.5,
-        "grossMarginDH": 24.5,
+        "cost": 15,
+        "foodCost": 39.5,
+        "margin": 60.5,
+        "grossMarginDH": 23,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4974,14 +4974,14 @@ const DATA = [
         "prepTime": 8,
         "tech": [
           "Pâte à crêpe : 1 p",
-          "Nutella : 100 g"
+          "Nutella : 120 g"
         ],
         "price": "38 DH",
-        "cost": 9.3,
+        "cost": 10.8,
         "sellPrice": 38,
-        "foodCost": 24.5,
-        "margin": 75.5,
-        "grossMarginDH": 28.7,
+        "foodCost": 28.4,
+        "margin": 71.6,
+        "grossMarginDH": 27.2,
         "__key": "cr",
         "__images": []
       },
@@ -5149,15 +5149,15 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pâte à crêpe : 1 p",
-          "Nutella : 100 g",
+          "Nutella : 120 g",
           "BANANE : 100 g"
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 10.7,
-        "foodCost": 25.5,
-        "margin": 74.5,
-        "grossMarginDH": 31.3,
+        "cost": 12.2,
+        "foodCost": 29,
+        "margin": 71,
+        "grossMarginDH": 29.8,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5272,14 +5272,14 @@ const DATA = [
         "prepTime": 5,
         "tech": [
           "Pâte à gaufre : 1 p",
-          "Nutella : 100 g"
+          "Nutella : 120 g"
         ],
         "price": "38 DH",
         "sellPrice": 38,
-        "cost": 9.3,
-        "foodCost": 24.5,
-        "margin": 75.5,
-        "grossMarginDH": 28.7,
+        "cost": 10.8,
+        "foodCost": 28.4,
+        "margin": 71.6,
+        "grossMarginDH": 27.2,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5314,15 +5314,15 @@ const DATA = [
         "tech": [
           "Pâte à gaufre : 1 p",
           "Kunafa : 40 g",
-          "Pate de Pistache : 150 g",
+          "Pate de Pistache : 130 g",
           "Sirop : 20 ml"
         ],
         "price": "48 DH",
         "sellPrice": 48,
-        "cost": 20.75,
-        "foodCost": 43.2,
-        "margin": 56.8,
-        "grossMarginDH": 27.25,
+        "cost": 18.45,
+        "foodCost": 38.4,
+        "margin": 61.6,
+        "grossMarginDH": 29.55,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5704,14 +5704,14 @@ const DATA = [
         "image": "images/placeholder.svg",
         "prepTime": 5,
         "tech": [
-          "NUTELLA : 40 g"
+          "NUTELLA : 20 g"
         ],
-        "price": "10 DH",
-        "sellPrice": 10,
-        "cost": 3,
-        "foodCost": 30,
-        "margin": 70,
-        "grossMarginDH": 7,
+        "price": "7 DH",
+        "sellPrice": 7,
+        "cost": 1.5,
+        "foodCost": 21.4,
+        "margin": 78.6,
+        "grossMarginDH": 5.5,
         "__key": "sup",
         "__images": [
           "images/placeholder.svg"
@@ -7729,7 +7729,7 @@ const BASE_RECIPES = [
     "name": "EMINCE DE BŒUF",
     "category": "PLATS",
     "ingredients": [
-      "FILET DE Bœuf : 150 g",
+      "FILET DE Bœuf : 125 g",
       "Champignons : 80 g",
       "Crème fraîche : 70 ml",
       "Demi-glace : 60 ml",
@@ -7737,7 +7737,9 @@ const BASE_RECIPES = [
       "Fokacha : 150 g",
       "Frites : 200 g",
       "Huile : 60 ml"
-    ]
+    ],
+    "sellPrice": 115,
+    "price": "115 DH"
   },
   {
     "id": "pl_filet_de_boeuf",
@@ -8072,9 +8074,11 @@ const BASE_RECIPES = [
       "Cheddar : 30 g",
       "Sauce spéciale : 30 g",
       "CHAMPIGNONS : 50 g",
-      "FILET : 90 g",
+      "FILET : 70 g",
       "FRITTES : 200 g"
-    ]
+    ],
+    "sellPrice": 64,
+    "price": "64 DH"
   },
   {
     "id": "sw_viande_hachee",
@@ -8476,7 +8480,7 @@ const BASE_RECIPES = [
     "category": "CREPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "Nutella : 100 g"
+      "Nutella : 120 g"
     ],
     "sellPrice": 38,
     "price": "38 DH"
@@ -8748,7 +8752,7 @@ const BASE_RECIPES = [
     "category": "CREPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "Nutella : 100 g",
+      "Nutella : 120 g",
       "BANANE : 100 g"
     ],
     "sellPrice": 42,
@@ -8806,10 +8810,10 @@ const BASE_RECIPES = [
     "name": "NUTELLA",
     "category": "AUTRE",
     "ingredients": [
-      "NUTELLA : 40 g"
+      "NUTELLA : 20 g"
     ],
-    "sellPrice": 10,
-    "price": "10 DH"
+    "sellPrice": 7,
+    "price": "7 DH"
   },
   {
     "id": "rec_1788200166784",
@@ -9114,7 +9118,7 @@ const BASE_RECIPES = [
     "category": "AUTRE",
     "ingredients": [
       "Pâte à gaufre : 1 p",
-      "Nutella : 100 g"
+      "Nutella : 120 g"
     ],
     "sellPrice": 38,
     "price": "38 DH"
@@ -9138,7 +9142,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte à gaufre : 1 p",
       "Kunafa : 40 g",
-      "Pate de Pistache : 150 g",
+      "Pate de Pistache : 130 g",
       "Sirop : 20 ml"
     ],
     "sellPrice": 48,
@@ -9318,7 +9322,7 @@ const BASE_RECIPES = [
     "category": "AUTRE",
     "ingredients": [
       "Pancakes : 3 p",
-      "Nutella : 100 g"
+      "Nutella : 120 g"
     ],
     "sellPrice": 38,
     "price": "38 DH"
@@ -10785,11 +10789,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "filet de boeuf": {
-    "cost": 0.19,
+    "cost": 0.22,
     "unit": "g"
   },
   "filet": {
-    "cost": 0.19,
+    "cost": 0.22,
     "unit": "g"
   },
   "viande tajine": {
@@ -11428,11 +11432,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "avocat": {
-    "cost": 0.05,
+    "cost": 0.024,
     "unit": "g"
   },
   "avocat hass": {
-    "cost": 0.05,
+    "cost": 0.024,
     "unit": "g"
   },
   "banane": {
