@@ -152,16 +152,26 @@ async function autoScanVentesFolder(showUserAlert = false, forceFullResync = fal
   let foundCount = 0;
   let loadedDates = [];
 
-  // Helper pour tenter plusieurs chemins relatifs avec cache-busting
+  const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/hichamatlas75-del/Fiche-technique/main/ventes/';
+
+  // Helper pour tenter plusieurs chemins relatifs avec cache-busting et fallback GitHub Raw
   async function fetchFile(path, fallbackUrl = null) {
-    const candidatePaths = [path, './' + path, '/' + path];
-    if (fallbackUrl) candidatePaths.push(fallbackUrl);
+    const cleanRelPath = path.replace(/^(\.\/|\/)?(ventes\/)?/, '');
+    const candidatePaths = [
+      path, 
+      './' + path, 
+      '/' + path, 
+      GITHUB_RAW_BASE + cleanRelPath
+    ];
+    if (fallbackUrl && !candidatePaths.includes(fallbackUrl)) {
+      candidatePaths.splice(3, 0, fallbackUrl);
+    }
     for (const p of candidatePaths) {
       try {
         const sep = p.includes('?') ? '&' : '?';
         const resp = await fetch(p + sep + 't=' + Date.now(), { cache: 'no-store' });
-        if (resp.ok) return resp;
-      } catch (e) { console.warn('[Auto-sync fetch]', e); }
+        if (resp && resp.ok) return resp;
+      } catch (e) { /* fallback suivant silencieux */ }
     }
     return null;
   }
@@ -169,24 +179,69 @@ async function autoScanVentesFolder(showUserAlert = false, forceFullResync = fal
   // Map unifiée pour collecter les fichiers : Map<relPath, downloadUrl|null>
   const filesToProcess = new Map();
 
-  // 1. SOURCE RAPIDE & FIABLE : manifest.json (local / CDN, sans limitation de requêtes API)
+  // 1. SOURCE RAPIDE & FIABLE : manifest.json (local / CDN) ET vérification GitHub Raw
+  let manifest = null;
   try {
     const manifestResp = await fetchFile('ventes/manifest.json');
     if (manifestResp) {
-      const manifest = await manifestResp.json();
-      const rawFiles = manifest ? manifest.files : [];
-      const filesList = Array.isArray(rawFiles) ? rawFiles : (rawFiles ? [rawFiles] : []);
-      filesList.forEach(fname => {
-        if (fname && !filesToProcess.has(fname)) {
-          filesToProcess.set(fname, null);
-        }
-      });
+      manifest = await manifestResp.json();
     }
   } catch (e) {
-    console.warn('[Auto-sync manifest.json]', e);
+    console.warn('[Auto-sync local manifest]', e);
   }
 
-  // 2. SOURCE SECONDAIRE EN RECOURS : API GitHub si le manifest est vide ou indisponible
+  // Tenter TOUJOURS en complément direct GitHub Raw pour garantir d'avoir le dernier manifest
+  // (indépendamment de tout délai ou saut de déploiement de Cloudflare Pages)
+  try {
+    const rawManifestResp = await fetch(`https://raw.githubusercontent.com/hichamatlas75-del/Fiche-technique/main/ventes/manifest.json?t=${Date.now()}`, { cache: 'no-store' });
+    if (rawManifestResp && rawManifestResp.ok) {
+      const rawManifest = await rawManifestResp.json();
+      if (rawManifest && Array.isArray(rawManifest.files)) {
+        if (!manifest || (rawManifest.files.length >= (manifest.files || []).length)) {
+          manifest = rawManifest;
+        }
+      }
+    }
+  } catch (rawErr) {
+    console.warn('[Auto-sync raw GitHub manifest]', rawErr);
+  }
+
+  if (manifest && Array.isArray(manifest.files)) {
+    manifest.files.forEach(fname => {
+      if (fname && !filesToProcess.has(fname)) {
+        filesToProcess.set(fname, GITHUB_RAW_BASE + encodeURI(fname));
+      }
+    });
+  }
+
+  // 2. VÉRIFICATION DU MOIS EN COURS VIA L'API REST GITHUB (Détection temps réel des nouveaux ajouts)
+  try {
+    const currentYM = new Date().toISOString().slice(0, 7); // ex: '2026-09'
+    const ghResp = await fetch(`https://api.github.com/repos/hichamatlas75-del/Fiche-technique/contents/ventes/${currentYM}?t=${Date.now()}`, {
+      headers: { 'Accept': 'application/vnd.github.v3+json' },
+      cache: 'no-store'
+    });
+    if (ghResp.ok) {
+      const ghItems = await ghResp.json();
+      if (Array.isArray(ghItems)) {
+        ghItems.forEach(item => {
+          if (item && item.name) {
+            const low = item.name.toLowerCase();
+            if (low.endsWith('.xls') || low.endsWith('.xlsx')) {
+              const rel = `${currentYM}/${item.name}`;
+              if (!filesToProcess.has(rel) || !filesToProcess.get(rel)) {
+                filesToProcess.set(rel, item.download_url || (GITHUB_RAW_BASE + encodeURI(rel)));
+              }
+            }
+          }
+        });
+      }
+    }
+  } catch (ghErr) {
+    console.warn('[Auto-sync current month check]', ghErr);
+  }
+
+  // 3. SCANNER DE CANDIDATS (ACTIF UNIQUEMENT EN SECOURS si aucun fichier détecté par GitHub API / manifest.json)
   if (filesToProcess.size === 0) {
     try {
       const ghResp = await fetch('https://api.github.com/repos/hichamatlas75-del/Fiche-technique/contents/ventes?t=' + Date.now(), {
