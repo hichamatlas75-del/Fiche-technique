@@ -8,6 +8,106 @@
 ======================================================== */
 
 
+/**
+ * AME-03 : TABLE DE RÈGLES POS DÉCLARATIVE
+ * Chaque règle { id, test(cleanName, cleanFamily) } est évaluée dans l'ordre.
+ * Premier match gagne. Pour ajouter un produit POS, ajoutez une entrée ici — sans toucher à findRecipeForProduct().
+ */
+const POS_RULES = [
+  // ── Lasagnes (avant pâtes pour éviter les collisions) ──────────────────────
+  { id: 'pae_lasagne_poulet',          test: (n) => n.includes('lasagne') && (n.includes('poulet') || n.includes('chicken') || n.includes('champignon')) },
+  { id: 'pae_lasagne_fruits_de_mer',   test: (n) => n.includes('lasagne') && (n.includes('fruit') || n.includes('mer') || n.includes('seafood')) },
+  { id: 'pae_lasagne_bolognaise',      test: (n) => n.includes('lasagne') && (n.includes('bolognaise') || n.includes('viande') || n.includes('hache') || n.includes('boeuf')) },
+  { id: 'pae_lasagne_bolognaise',      test: (n) => n.includes('lasagne') }, // fallback lasagne
+
+  // ── Plats ──────────────────────────────────────────────────────────────────
+  { id: 'plat_brochette_poulet',       test: (n) => n.includes('brochette') },
+  { id: 'plat_couscous_poulet',        test: (n) => n.includes('couscous') },
+  { id: 'ec_boulettes_poulet',         test: (n) => n.includes('boulette') },
+  { id: 'ec_croquettes_fromage',       test: (n) => n.includes('croquette') },
+  { id: 'pl_emince_de_boeuf',          test: (n) => n.includes('emince') && n.includes('boeuf') },
+  { id: 'pl_filet_de_boeuf',           test: (n) => n.includes('filet') && n.includes('boeuf') },
+  { id: 'pl_roulade_de_boeuf_vh',      test: (n) => n.includes('roulade') },
+
+  // ── Burgers ────────────────────────────────────────────────────────────────
+  { id: 'bg_egg_et_cheeseburger',      test: (n, f) => (n.includes('burger') || f.includes('burger')) && (n.includes('egg') || n.includes('oeuf')) },
+  { id: 'bg_chicken_burger',           test: (n, f) => (n.includes('burger') || f.includes('burger')) && (n.includes('chicken') || n.includes('poulet')) },
+  { id: 'bg_burger_royal',             test: (n, f) => (n.includes('burger') || f.includes('burger')) && n.includes('royal') },
+  { id: 'bg_big_burger',               test: (n, f) => (n.includes('burger') || f.includes('burger')) && n.includes('big') },
+  { id: 'bg_avocado_forestier',        test: (n, f) => (n.includes('burger') || f.includes('burger')) && (n.includes('avocado') || n.includes('forestier')) },
+  { id: 'bg_cheese_burger',            test: (n, f) => (n.includes('burger') || f.includes('burger')) && n.includes('cheese') },
+  { id: 'bg_egg_et_cheeseburger',      test: (n) => n.includes('egg') && (n.includes('cheese') || n.includes('burger')) },
+
+  // ── Œufs ──────────────────────────────────────────────────────────────────
+  { id: 'alc_oeufs_beldi',             test: (n) => /\boeufs?\b/i.test(n) && !n.includes('boeuf') && n.includes('beldi') },
+  { id: 'alc_omlette_fromage',         test: (n) => /\boeufs?\b/i.test(n) && !n.includes('boeuf') && n.includes('fromage') },
+  { id: 'alc_omlette_nature',          test: (n) => /\boeufs?\b/i.test(n) && !n.includes('boeuf') && (n.includes('nature') || n.includes('omlette') || n.includes('omelette')) },
+  { id: 'alc_omlette_chef',            test: (n) => /\boeufs?\b/i.test(n) && !n.includes('boeuf') && n.includes('chef') },
+  { id: 'sup_supplement_oeufs',        test: (n) => /\boeufs?\b/i.test(n) && !n.includes('boeuf') },
+
+  // ── Suppléments ───────────────────────────────────────────────────────────
+  { id: 'sup_supplement_charcuterie',  test: (n) => (n.startsWith('sup ') || n.startsWith('supplement')) && n.includes('charcuterie') },
+  { id: 'sup_supplement_fromage',      test: (n) => (n.startsWith('sup ') || n.startsWith('supplement')) && n.includes('fromage') },
+  { id: 'sup_supplement_poulet',       test: (n) => (n.startsWith('sup ') || n.startsWith('supplement')) && n.includes('poulet') },
+  { id: 'sup_supplement_viande',       test: (n) => (n.startsWith('sup ') || n.startsWith('supplement')) && n.includes('viande') },
+  { id: 'sup_supplement_oeufs',        test: (n) => (n.startsWith('sup ') || n.startsWith('supplement')) && n.includes('oeuf') },
+
+  // ── Composé ───────────────────────────────────────────────────────────────
+  { id: 'sup_pizza_composee_au_choix', test: (n, f) => n.includes('compose') && (n.includes('pizza') || f.includes('pizza')) },
+  { id: 'sal_composee_au_choix',       test: (n) => n.includes('compose') },
+
+  // ── Paninis ───────────────────────────────────────────────────────────────
+  { id: 'pa_poulet',                   test: (n, f) => (n.includes('panini') || f.includes('panini')) && n.includes('poulet') },
+  { id: 'pa_charcuterie',              test: (n, f) => (n.includes('panini') || f.includes('panini')) && n.includes('charcuterie') },
+  { id: 'pa_viande_hachee',            test: (n, f) => (n.includes('panini') || f.includes('panini')) && (n.includes('viande') || n.includes('hache')) },
+  { id: 'pa_gourmand',                 test: (n, f) => (n.includes('panini') || f.includes('panini')) && (n.includes('mix') || n.includes('gourmand')) },
+  { id: 'pa_saumon',                   test: (n, f) => (n.includes('panini') || f.includes('panini')) && n.includes('saumon') },
+  { id: 'pa_fruits_de_mer',            test: (n, f) => (n.includes('panini') || f.includes('panini')) && (n.includes('mer') || n.includes('fruit')) },
+
+  // ── Pâtes (sans lasagne) ──────────────────────────────────────────────────
+  { id: 'pae_fruits_de_mer',           test: (n, f) => (f.includes('pasta') || f.includes('pate') || n.includes('pasta') || n.includes('pate')) && !n.includes('lasagne') && (n.includes('fruit') || n.includes('mer')) },
+  { id: 'pae_saumon',                  test: (n, f) => (f.includes('pasta') || f.includes('pate') || n.includes('pasta') || n.includes('pate')) && !n.includes('lasagne') && n.includes('saumon') },
+  { id: 'pae_carbonara',               test: (n, f) => (f.includes('pasta') || f.includes('pate') || n.includes('pasta') || n.includes('pate')) && !n.includes('lasagne') && n.includes('carbonara') },
+  { id: 'pae_bolognaise',              test: (n, f) => (f.includes('pasta') || f.includes('pate') || n.includes('pasta') || n.includes('pate')) && !n.includes('lasagne') && n.includes('bolognaise') },
+  { id: 'pae_5_fromages',              test: (n, f) => (f.includes('pasta') || f.includes('pate') || n.includes('pasta') || n.includes('pate')) && !n.includes('lasagne') && (n.includes('5 fromage') || n.includes('fromages')) },
+  { id: 'pae_vegetarien',              test: (n, f) => (f.includes('pasta') || f.includes('pate') || n.includes('pasta') || n.includes('pate')) && !n.includes('lasagne') && (n.includes('vegetarien') || n.includes('vegetarienne')) },
+  { id: 'pae_poulet_champignon_epinard', test: (n, f) => (f.includes('pasta') || f.includes('pate') || n.includes('pasta') || n.includes('pate')) && !n.includes('lasagne') && n.includes('poulet') },
+
+  // ── Sandwichs / Ciabattas ─────────────────────────────────────────────────
+  { id: 'sw_fruits_de_mer',            test: (n, f) => (f.includes('sandwich') || f.includes('ciabatta') || n.includes('sandwich') || n.includes('ciabatta')) && (n.includes('fruit') || n.includes('mer')) },
+  { id: 'sw_thon',                     test: (n, f) => (f.includes('sandwich') || f.includes('ciabatta') || n.includes('sandwich') || n.includes('ciabatta')) && n.includes('thon') },
+  { id: 'sw_poulet_crunchy',           test: (n, f) => (f.includes('sandwich') || f.includes('ciabatta') || n.includes('sandwich') || n.includes('ciabatta')) && n.includes('poulet') && n.includes('crunchy') },
+  { id: 'sw_poulet',                   test: (n, f) => (f.includes('sandwich') || f.includes('ciabatta') || n.includes('sandwich') || n.includes('ciabatta')) && n.includes('poulet') },
+  { id: 'sw_cheese_steak',             test: (n, f) => (f.includes('sandwich') || f.includes('ciabatta') || n.includes('sandwich') || n.includes('ciabatta')) && (n.includes('cheese') || n.includes('steak')) },
+  { id: 'sw_viande_hachee',            test: (n, f) => (f.includes('sandwich') || f.includes('ciabatta') || n.includes('sandwich') || n.includes('ciabatta')) && (n.includes('viande') || n.includes('hache')) },
+
+  // ── Pizzas ────────────────────────────────────────────────────────────────
+  { id: 'pz_fruits_de_mer',            test: (n, f) => (f.includes('pizza') || n.includes('pizza')) && (n.includes('fruit') || n.includes('mer')) },
+  { id: 'pz_saumon',                   test: (n, f) => (f.includes('pizza') || n.includes('pizza')) && n.includes('saumon') },
+  { id: 'pz_thon',                     test: (n, f) => (f.includes('pizza') || n.includes('pizza')) && n.includes('thon') },
+  { id: 'pz_viande_hachee',            test: (n, f) => (f.includes('pizza') || n.includes('pizza')) && (n.includes('viande') || n.includes('hache')) },
+  { id: 'pz_5_fromages',              test: (n, f) => (f.includes('pizza') || n.includes('pizza')) && (n.includes('5 fromage') || n.includes('fromages')) },
+  { id: 'pz_vegetarienne',             test: (n, f) => (f.includes('pizza') || n.includes('pizza')) && (n.includes('vegetarien') || n.includes('vegetarienne')) },
+  { id: 'pz_poulet_sauce_blanche',     test: (n, f) => (f.includes('pizza') || n.includes('pizza')) && n.includes('poulet') },
+
+  // ── À la carte / Boulangerie ──────────────────────────────────────────────
+  { id: 'alc_baghrir',                 test: (n, f) => (f === 'a la carte' || f.includes('carte') || f.includes('boulangerie')) && n.includes('baghrir') },
+  { id: 'alc_msemen',                  test: (n, f) => (f === 'a la carte' || f.includes('carte') || f.includes('boulangerie')) && (n.includes('msemen') || n.includes('mlaoui')) },
+  { id: 'alc_viennoiserie',            test: (n, f) => (f === 'a la carte' || f.includes('carte') || f.includes('boulangerie')) && (n.includes('viennoiserie') || n.includes('croissant')) },
+  { id: 'alc_harcha',                  test: (n, f) => (f === 'a la carte' || f.includes('carte') || f.includes('boulangerie')) && n.includes('harcha') },
+  { id: 'alc_omlette_fromage',         test: (n, f) => (f === 'a la carte' || f.includes('carte') || f.includes('boulangerie')) && n.includes('fromage') },
+  { id: 'alc_omlette_chef',            test: (n, f) => (f === 'a la carte' || f.includes('carte') || f.includes('boulangerie')) && n.includes('chef') },
+  { id: 'alc_omlette_nature',          test: (n, f) => (f === 'a la carte' || f.includes('carte') || f.includes('boulangerie')) && (n.includes('nature') || n.includes('omlette') || n.includes('omelette')) },
+];
+
+/**
+ * BUG-02 FIX : Échappe les métacaractères regex dans une chaîne
+ * Évite les crashes de `new RegExp(rClean)` sur des noms contenant +, *, (, ), etc.
+ */
+function escapeRegex(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function findRecipeForProduct(rawName, rawFamille = '') {
   const cName = cleanText(rawName);
   const cFam = cleanText(rawFamille);
@@ -22,122 +122,15 @@ function findRecipeForProduct(rawName, rawFamille = '') {
     if (r) return r;
   }
 
-  // 0b. Détection prioritaire absolue pour les LASAGNES (évite toute collision avec les pâtes classiques)
-  if (cName.includes('lasagne')) {
-    if (cName.includes('poulet') || cName.includes('chicken') || cName.includes('champignon')) {
-      return activeRecipes.find(x => x.id === 'pae_lasagne_poulet') || activeRecipes.find(x => cleanText(x.name).includes('lasagne poulet'));
+  // 1. AME-03 : Évaluation des règles POS déclaratives (ordre prioritaire)
+  for (const rule of POS_RULES) {
+    if (rule.test(cName, cFam)) {
+      const found = activeRecipes.find(x => x.id === rule.id);
+      if (found) return found;
     }
-    if (cName.includes('fruit') || cName.includes('mer') || cName.includes('seafood')) {
-      return activeRecipes.find(x => x.id === 'pae_lasagne_fruits_de_mer') || activeRecipes.find(x => cleanText(x.name).includes('lasagne fruit'));
-    }
-    if (cName.includes('bolognaise') || cName.includes('viande') || cName.includes('hache') || cName.includes('boeuf')) {
-      return activeRecipes.find(x => x.id === 'pae_lasagne_bolognaise') || activeRecipes.find(x => cleanText(x.name).includes('lasagne bolognaise'));
-    }
-    return activeRecipes.find(x => x.id === 'pae_lasagne_bolognaise') || activeRecipes.find(x => cleanText(x.name).includes('lasagne'));
   }
 
-  // 1. Détection prioritaire des produits spécifiques (Brochettes, Couscous, Salades, Suppléments, Paninis, Œufs, Croquettes...)
-  if (cName.includes('brochette')) {
-    return activeRecipes.find(x => x.id === 'plat_brochette_poulet');
-  }
-  if (cName.includes('couscous')) {
-    return activeRecipes.find(x => x.id === 'plat_couscous_poulet');
-  }
-  if (cName.includes('boulette')) {
-    return activeRecipes.find(x => x.id === 'ec_boulettes_poulet');
-  }
-  if (cName.includes('croquette')) {
-    return activeRecipes.find(x => x.id === 'ec_croquettes_fromage') || activeRecipes.find(x => x.id === 'ec_boulettes_de_poulet_au_fromage');
-  }
-  if (cName.includes('emince') && cName.includes('boeuf')) {
-    return activeRecipes.find(x => x.id === 'pl_emince_de_boeuf');
-  }
-  if (cName.includes('filet') && cName.includes('boeuf')) {
-    return activeRecipes.find(x => x.id === 'pl_filet_de_boeuf');
-  }
-  if (cName.includes('roulade')) {
-    return activeRecipes.find(x => x.id === 'pl_roulade_de_boeuf_vh');
-  }
-  if (cName.includes('burger') || cFam.includes('burger')) {
-    if (cName.includes('egg') || cName.includes('oeuf')) return activeRecipes.find(x => x.id === 'bg_egg_et_cheeseburger');
-    if (cName.includes('chicken') || cName.includes('poulet')) return activeRecipes.find(x => x.id === 'bg_chicken_burger');
-    if (cName.includes('royal')) return activeRecipes.find(x => x.id === 'bg_burger_royal');
-    if (cName.includes('big')) return activeRecipes.find(x => x.id === 'bg_big_burger');
-    if (cName.includes('avocado') || cName.includes('forestier')) return activeRecipes.find(x => x.id === 'bg_avocado_forestier');
-    if (cName.includes('cheese')) return activeRecipes.find(x => x.id === 'bg_cheese_burger');
-  }
-  if (cName.includes('egg') && (cName.includes('cheese') || cName.includes('burger'))) {
-    return activeRecipes.find(x => x.id === 'bg_egg_et_cheeseburger');
-  }
-  if (/\boeufs?\b/i.test(cName) && !cName.includes('boeuf')) {
-    if (cName.includes('beldi')) return activeRecipes.find(x => x.id === 'alc_oeufs_beldi');
-    if (cName.includes('fromage')) return activeRecipes.find(x => x.id === 'alc_omlette_fromage');
-    if (cName.includes('nature') || cName.includes('omlette') || cName.includes('omelette')) return activeRecipes.find(x => x.id === 'alc_omlette_nature');
-    if (cName.includes('chef')) return activeRecipes.find(x => x.id === 'alc_omlette_chef');
-    return activeRecipes.find(x => x.id === 'sup_supplement_oeufs');
-  }
-  if (cName.startsWith('sup ') || cName.startsWith('supplement')) {
-    if (cName.includes('charcuterie')) return activeRecipes.find(x => x.id === 'sup_supplement_charcuterie');
-    if (cName.includes('fromage')) return activeRecipes.find(x => x.id === 'sup_supplement_fromage');
-    if (cName.includes('poulet')) return activeRecipes.find(x => x.id === 'sup_supplement_poulet');
-    if (cName.includes('viande')) return activeRecipes.find(x => x.id === 'sup_supplement_viande');
-    if (cName.includes('oeuf')) return activeRecipes.find(x => x.id === 'sup_supplement_oeufs');
-  }
-  if (cName.includes('compose')) {
-    if (cName.includes('pizza') || cFam.includes('pizza')) return activeRecipes.find(x => x.id === 'sup_pizza_composee_au_choix');
-    return activeRecipes.find(x => x.id === 'sal_composee_au_choix');
-  }
-  // Détection contextuelle par mot-clé et famille de vente
-  if (cName.includes('panini') || cFam.includes('panini')) {
-    if (cName.includes('poulet')) return activeRecipes.find(x => x.id === 'pa_poulet');
-    if (cName.includes('charcuterie')) return activeRecipes.find(x => x.id === 'pa_charcuterie');
-    if (cName.includes('viande') || cName.includes('hache')) return activeRecipes.find(x => x.id === 'pa_viande_hachee');
-    if (cName.includes('mix') || cName.includes('gourmand')) return activeRecipes.find(x => x.id === 'pa_gourmand');
-    if (cName.includes('saumon')) return activeRecipes.find(x => x.id === 'pa_saumon');
-    if (cName.includes('mer') || cName.includes('fruit')) return activeRecipes.find(x => x.id === 'pa_fruits_de_mer');
-  }
-
-  if ((cFam.includes('pasta') || cFam.includes('pate') || cName.includes('pasta') || cName.includes('pate')) && !cName.includes('lasagne')) {
-    if (cName.includes('fruit') || cName.includes('mer')) return activeRecipes.find(x => x.id === 'pae_fruits_de_mer');
-    if (cName.includes('saumon')) return activeRecipes.find(x => x.id === 'pae_saumon');
-    if (cName.includes('carbonara')) return activeRecipes.find(x => x.id === 'pae_carbonara');
-    if (cName.includes('bolognaise')) return activeRecipes.find(x => x.id === 'pae_bolognaise');
-    if (cName.includes('5 fromage') || cName.includes('fromages')) return activeRecipes.find(x => x.id === 'pae_5_fromages');
-    if (cName.includes('vegetarien') || cName.includes('vegetarienne')) return activeRecipes.find(x => x.id === 'pae_vegetarien');
-    if (cName.includes('poulet')) return activeRecipes.find(x => x.id === 'pae_poulet_champignon_epinard');
-  }
-
-  if (cFam.includes('sandwich') || cFam.includes('ciabatta') || cName.includes('sandwich') || cName.includes('ciabatta')) {
-    if (cName.includes('fruit') || cName.includes('mer')) return activeRecipes.find(x => x.id === 'sw_fruits_de_mer');
-    if (cName.includes('thon')) return activeRecipes.find(x => x.id === 'sw_thon');
-    if (cName.includes('poulet') && cName.includes('crunchy')) return activeRecipes.find(x => x.id === 'sw_poulet_crunchy');
-    if (cName.includes('poulet')) return activeRecipes.find(x => x.id === 'sw_poulet');
-    if (cName.includes('cheese') || cName.includes('steak')) return activeRecipes.find(x => x.id === 'sw_cheese_steak');
-    if (cName.includes('viande') || cName.includes('hache')) return activeRecipes.find(x => x.id === 'sw_viande_hachee');
-  }
-
-  if (cFam.includes('pizza') || cName.includes('pizza')) {
-    if (cName.includes('fruit') || cName.includes('mer')) return activeRecipes.find(x => x.id === 'pz_fruits_de_mer');
-    if (cName.includes('saumon')) return activeRecipes.find(x => x.id === 'pz_saumon');
-    if (cName.includes('thon')) return activeRecipes.find(x => x.id === 'pz_thon');
-    if (cName.includes('viande') || cName.includes('hache')) return activeRecipes.find(x => x.id === 'pz_viande_hachee');
-    if (cName.includes('5 fromage') || cName.includes('fromages')) return activeRecipes.find(x => x.id === 'pz_5_fromages');
-    if (cName.includes('vegetarien') || cName.includes('vegetarienne')) return activeRecipes.find(x => x.id === 'pz_vegetarienne');
-    if (cName.includes('poulet')) return activeRecipes.find(x => x.id === 'pz_poulet_sauce_blanche');
-  }
-
-  // Traitement spécifique des produits "A LA CARTE" (Boulangerie, Viennoiseries, Omelettes seules sans formule pdj)
-  if (cFam === 'a la carte' || cFam.includes('carte') || cFam.includes('boulangerie')) {
-    if (cName.includes('baghrir')) return activeRecipes.find(x => x.id === 'alc_baghrir');
-    if (cName.includes('msemen') || cName.includes('mlaoui')) return activeRecipes.find(x => x.id === 'alc_msemen');
-    if (cName.includes('viennoiserie') || cName.includes('croissant')) return activeRecipes.find(x => x.id === 'alc_viennoiserie');
-    if (cName.includes('harcha')) return activeRecipes.find(x => x.id === 'alc_harcha');
-    if (cName.includes('fromage')) return activeRecipes.find(x => x.id === 'alc_omlette_fromage');
-    if (cName.includes('chef')) return activeRecipes.find(x => x.id === 'alc_omlette_chef');
-    if (cName.includes('nature') || cName.includes('omlette') || cName.includes('omelette')) return activeRecipes.find(x => x.id === 'alc_omlette_nature');
-  }
-
-  // 3. Nettoyage de préfixes habituels de caisse
+  // 2. Nettoyage de préfixes habituels de caisse
   let simplified = cName
     .replace(/^pet dej\s+/, '')
     .replace(/^plat\s+/, '')
@@ -168,17 +161,22 @@ function findRecipeForProduct(rawName, rawFamille = '') {
     if (r) return r;
   }
 
-  // 4. Fast O(1) exact match via index
+  // 3. Fast O(1) exact match via index (nom complet + nom simplifié)
   if (window.recipeNameIndex && window.recipeNameIndex.has(cName)) return window.recipeNameIndex.get(cName);
   if (window.recipeNameIndex && window.recipeNameIndex.has(simplified)) return window.recipeNameIndex.get(simplified);
 
-  // 5. Recherche par mot entier (Regex word boundary)
+  // 4. Recherche par mot entier — BUG-02 FIX : regex sécurisée via escapeRegex()
   for (const r of activeRecipes) {
     const rClean = cleanText(r.name);
     if (rClean.length > 2) {
-      const reg = new RegExp('\\b' + rClean + '\\b', 'i');
-      if (reg.test(cName) || (rClean.length > 4 && reg.test(simplified))) {
-        return r;
+      try {
+        const reg = new RegExp('\\b' + escapeRegex(rClean) + '\\b', 'i');
+        if (reg.test(cName) || (rClean.length > 4 && reg.test(simplified))) {
+          return r;
+        }
+      } catch (e) {
+        // Sécurité : ignorer les regex pathologiques résiduelles
+        if (cName.includes(rClean) || simplified.includes(rClean)) return r;
       }
     }
   }
@@ -705,3 +703,7 @@ function processSalesAndCalculateStock(rawRows, periodTitle = '', isMonthly = fa
   if (expBtn) expBtn.style.display = 'inline-flex';
 }
 
+// Interopérabilité Node.js (scripts d'automatisation + tests unitaires)
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { parseIngredientLine, findRecipeForProduct, escapeRegex, categorizeIngredient, processSalesAndCalculateStock };
+}

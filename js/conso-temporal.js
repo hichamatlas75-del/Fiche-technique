@@ -5,7 +5,6 @@
 
 /* ========================================================
    11.C COMPARATEUR TEMPOREL (JOUR DE SEMAINE, SEMAINE, MOIS)
-/* ========================================================
    COMPARATEUR TEMPOREL MULTI-PÉRIODES & AIDE À LA DÉCISION MÉTIER
 ======================================================== */
 var comparatorMode = 'dayofweek'; // 'dayofweek', 'week', 'month'

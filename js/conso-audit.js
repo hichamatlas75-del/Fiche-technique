@@ -99,6 +99,19 @@ function parseWorkbookToRows(workbook) {
 async function handleUploadedFiles(fileList) {
   if (!fileList || fileList.length === 0) return;
 
+  // AME-05 : Indicateur de chargement visuel sur la drop zone
+  const dropZoneEl = document.getElementById('drop-zone');
+  const dropZoneOrigHTML = dropZoneEl ? dropZoneEl.innerHTML : null;
+  if (dropZoneEl) {
+    dropZoneEl.style.opacity = '0.6';
+    dropZoneEl.style.pointerEvents = 'none';
+    const loadingMsg = dropZoneEl.querySelector('.dz-loading-msg') || document.createElement('div');
+    loadingMsg.className = 'dz-loading-msg';
+    loadingMsg.style.cssText = 'text-align:center;font-weight:700;padding:8px;color:#38bdf8;';
+    loadingMsg.textContent = `⏳ Traitement de ${fileList.length} fichier(s)...`;
+    dropZoneEl.appendChild(loadingMsg);
+  }
+
   let loadedFilesCount = 0;
   let lastLoadedDate = selectedDate;
 
@@ -113,6 +126,20 @@ async function handleUploadedFiles(fileList) {
       const rows = parseWorkbookToRows(workbook);
 
       if (rows.length > 0) {
+        // BUG-08 FIX : Confirmation avant écrasement silencieux des données existantes
+        const existingRows = monthlySalesDB[extractedDate];
+        if (existingRows && existingRows.length > 0) {
+          let shouldReplace;
+          if (window.GC_Toast && typeof window.GC_Toast.confirm === 'function') {
+            shouldReplace = await window.GC_Toast.confirm(
+              `⚠️ Des données existent déjà pour le ${extractedDate} (${existingRows.length} lignes).\nVoulez-vous les remplacer par ${rows.length} nouvelles lignes ?`,
+              { labelOk: '✅ Remplacer', labelCancel: '⏭️ Conserver existant' }
+            );
+          } else {
+            shouldReplace = window.confirm(`⚠️ Des données existent déjà pour le ${extractedDate} (${existingRows.length} lignes). Remplacer ?`);
+          }
+          if (!shouldReplace) continue;
+        }
         monthlySalesDB[extractedDate] = rows;
         loadedFilesCount++;
         lastLoadedDate = extractedDate;
@@ -120,6 +147,14 @@ async function handleUploadedFiles(fileList) {
     } catch (err) {
       console.warn("Erreur lors de la lecture du fichier : " + file.name, err);
     }
+  }
+
+  // AME-05 : Restaurer la drop zone après traitement
+  if (dropZoneEl) {
+    dropZoneEl.style.opacity = '';
+    dropZoneEl.style.pointerEvents = '';
+    const loadingMsg = dropZoneEl.querySelector('.dz-loading-msg');
+    if (loadingMsg) dropZoneEl.removeChild(loadingMsg);
   }
 
   if (loadedFilesCount > 0) {
@@ -135,8 +170,13 @@ async function handleUploadedFiles(fileList) {
       banner.textContent = `✅ ${loadedFilesCount} fichier(s) de ventes chargé(s) avec succès !`;
       setTimeout(() => { banner.style.display = 'none'; }, 6000);
     }
+    if (window.GC_Toast) window.GC_Toast.show(`${loadedFilesCount} fichier(s) chargé(s) avec succès !`, 'success');
   } else {
-    alert("Aucune ligne de vente exploitable n'a été trouvée dans les fichiers sélectionnés.");
+    if (window.GC_Toast) {
+      window.GC_Toast.show("Aucune ligne de vente exploitable trouvée dans les fichiers sélectionnés.", 'warning');
+    } else {
+      alert("Aucune ligne de vente exploitable n'a été trouvée dans les fichiers sélectionnés.");
+    }
   }
 }
 

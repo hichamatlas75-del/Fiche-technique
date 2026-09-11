@@ -1,0 +1,642 @@
+﻿[
+    {
+        "Ingredient":  "Gouda",
+        "Recipe":  "PASTA 5 FROMAGES",
+        "Category":  "PÂTES",
+        "TotalSold9Months":  30,
+        "CA_Genere":  150,
+        "AvgSalesPerMonth":  3.3
+    },
+    {
+        "Ingredient":  "Chèvre",
+        "Recipe":  "PASTA 5 FROMAGES",
+        "Category":  "PÂTES",
+        "TotalSold9Months":  30,
+        "CA_Genere":  150,
+        "AvgSalesPerMonth":  3.3
+    },
+    {
+        "Ingredient":  "Fromage blanc",
+        "Recipe":  "CRÊPE FROMAGE",
+        "Category":  "CRÊPES",
+        "TotalSold9Months":  56,
+        "CA_Genere":  2520,
+        "AvgSalesPerMonth":  6.2
+    },
+    {
+        "Ingredient":  "Purée de fraise",
+        "Recipe":  "SIGNATURE GREY CORNER",
+        "Category":  "COCKTAILS \u0026 MOCKTAILS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Biscuits Oreo",
+        "Recipe":  "ZA3ZA3 ROYAL GREY CORNER",
+        "Category":  "JUS FRAIS PRESSÉS \u0026 ROYAUX",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Fruits variés",
+        "Recipe":  "Cocktail GREY CORNER",
+        "Category":  "COCKTAILS \u0026 MOCKTAILS",
+        "TotalSold9Months":  52,
+        "CA_Genere":  2490,
+        "AvgSalesPerMonth":  5.8
+    },
+    {
+        "Ingredient":  "Supplément pâtes noires à l\u0027encre de seiche",
+        "Recipe":  "SPAGHETTIS NOIRS (suppl.)",
+        "Category":  "PÂTES",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Lait de coco",
+        "Recipe":  "VIRGIN PIÑA COLADA",
+        "Category":  "COCKTAILS \u0026 MOCKTAILS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Mlaoui",
+        "Recipe":  "BELDI",
+        "Category":  "PETIT DÉJEUNER",
+        "TotalSold9Months":  5,
+        "CA_Genere":  140,
+        "AvgSalesPerMonth":  0.6
+    },
+    {
+        "Ingredient":  "KitKat",
+        "Recipe":  "Milkshake Kitkat",
+        "Category":  "DESSERTS \u0026 PÂTISSERIES",
+        "TotalSold9Months":  37,
+        "CA_Genere":  1542,
+        "AvgSalesPerMonth":  4.1
+    },
+    {
+        "Ingredient":  "Sachet thé",
+        "Recipe":  "The Americain",
+        "Category":  "CAFÉS \u0026 BOISSONS CHAUDES",
+        "TotalSold9Months":  9,
+        "CA_Genere":  162,
+        "AvgSalesPerMonth":  1
+    },
+    {
+        "Ingredient":  "Khlii",
+        "Recipe":  "BERBER",
+        "Category":  "A LA CARTE \u0026 BOULANGERIE",
+        "TotalSold9Months":  22,
+        "CA_Genere":  818,
+        "AvgSalesPerMonth":  2.4
+    },
+    {
+        "Ingredient":  "Canette Oulmès Tropical",
+        "Recipe":  "OULMES TROPICAL",
+        "Category":  "SODAS \u0026 BOISSONS FRAÎCHES",
+        "TotalSold9Months":  48,
+        "CA_Genere":  960,
+        "AvgSalesPerMonth":  5.3
+    },
+    {
+        "Ingredient":  "Œufs frais",
+        "Recipe":  "SUPPLÉMENT ŒUFS",
+        "Category":  "SUPPLÉMENTS \u0026 EXTRAS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Thé vert Gunpowder",
+        "Recipe":  "THÉ MAROCAIN À LA MENTHE",
+        "Category":  "CAFÉS \u0026 BOISSONS CHAUDES",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Sauce barbecue",
+        "Recipe":  "BROCHETTES DE POULET",
+        "Category":  "PLATS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Pain mie complet",
+        "Recipe":  "HOLLANDAIS",
+        "Category":  "PETIT DÉJEUNER",
+        "TotalSold9Months":  2,
+        "CA_Genere":  76,
+        "AvgSalesPerMonth":  0.2
+    },
+    {
+        "Ingredient":  "Tranche d\u0027ananas",
+        "Recipe":  "VIRGIN PIÑA COLADA",
+        "Category":  "COCKTAILS \u0026 MOCKTAILS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Noix de coco râpée",
+        "Recipe":  "SMOOTHIE BOWL EXOTIQUE",
+        "Category":  "SMOOTHIES \u0026 BOWLS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Base mixée Açaï/Fruits rouges",
+        "Recipe":  "SMOOTHIE BOWL ULTRA BOOST",
+        "Category":  "SMOOTHIES \u0026 BOWLS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Pomme de terre purée",
+        "Recipe":  "SUPPLÉMENT PURÉE",
+        "Category":  "SUPPLÉMENTS \u0026 EXTRAS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Sauce cocktail",
+        "Recipe":  "SANDWICH FRUITS DE MER",
+        "Category":  "SANDWICHS",
+        "TotalSold9Months":  1,
+        "CA_Genere":  68,
+        "AvgSalesPerMonth":  0.1
+    },
+    {
+        "Ingredient":  "Mélange plantes infusion",
+        "Recipe":  "INFUSION BIEN-ÊTRE",
+        "Category":  "CAFÉS \u0026 BOISSONS CHAUDES",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Cookies",
+        "Recipe":  "Milkshake Cookies",
+        "Category":  "DESSERTS \u0026 PÂTISSERIES",
+        "TotalSold9Months":  17,
+        "CA_Genere":  698,
+        "AvgSalesPerMonth":  1.9
+    },
+    {
+        "Ingredient":  "Bouteille Eau Minérale 75cl",
+        "Recipe":  "EAU MINÉRALE 75CL",
+        "Category":  "EAUX MINÉRALES \u0026 GAZEUSES",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Jus de citron vert",
+        "Recipe":  "SIGNATURE GREY CORNER",
+        "Category":  "COCKTAILS \u0026 MOCKTAILS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Farine",
+        "Recipe":  "BOULETTE DE POULET AU FROMAGE",
+        "Category":  "ENTRÉES CHAUDES",
+        "TotalSold9Months":  30,
+        "CA_Genere":  150,
+        "AvgSalesPerMonth":  3.3
+    },
+    {
+        "Ingredient":  "Sprite",
+        "Recipe":  "COCKTAIL SANS ALCOOL SPÉCIAL",
+        "Category":  "COCKTAILS \u0026 MOCKTAILS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Fromage portion",
+        "Recipe":  "LA VACHE QUI RIT",
+        "Category":  "SUPPLÉMENTS \u0026 EXTRAS",
+        "TotalSold9Months":  35,
+        "CA_Genere":  175,
+        "AvgSalesPerMonth":  3.9
+    },
+    {
+        "Ingredient":  "Coulis \u0026 Chantilly",
+        "Recipe":  "2 BOULES DE GLACE",
+        "Category":  "DESSERTS \u0026 PÂTISSERIES",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Salade mesclun",
+        "Recipe":  "SALADE COMPOSÉE AU CHOIX",
+        "Category":  "SUPPLÉMENTS \u0026 EXTRAS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Chocolat varié",
+        "Recipe":  "CREPE GREY CORNER SUCREE",
+        "Category":  "CRÊPES",
+        "TotalSold9Months":  31,
+        "CA_Genere":  1604,
+        "AvgSalesPerMonth":  3.4
+    },
+    {
+        "Ingredient":  "Jus de pêche",
+        "Recipe":  "COCKTAIL SANS ALCOOL SPÉCIAL",
+        "Category":  "COCKTAILS \u0026 MOCKTAILS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Ricotta",
+        "Recipe":  "RIGATONI RICOTTA",
+        "Category":  "PÂTES",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Ananas",
+        "Recipe":  "Hawaïen",
+        "Category":  "SMOOTHIES \u0026 BOWLS",
+        "TotalSold9Months":  48,
+        "CA_Genere":  1984,
+        "AvgSalesPerMonth":  5.3
+    },
+    {
+        "Ingredient":  "Orange",
+        "Recipe":  "MINI ORANGE",
+        "Category":  "JUS FRAIS PRESSÉS \u0026 ROYAUX",
+        "TotalSold9Months":  33,
+        "CA_Genere":  330,
+        "AvgSalesPerMonth":  3.7
+    },
+    {
+        "Ingredient":  "Fromage variété",
+        "Recipe":  "SUPPLÉMENT FROMAGE",
+        "Category":  "SUPPLÉMENTS \u0026 EXTRAS",
+        "TotalSold9Months":  30,
+        "CA_Genere":  150,
+        "AvgSalesPerMonth":  3.3
+    },
+    {
+        "Ingredient":  "Yaourt grec nature",
+        "Recipe":  "SMOOTHIE PINK BERRY",
+        "Category":  "SMOOTHIES \u0026 BOWLS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Bouteille Eau Minérale 50cl",
+        "Recipe":  "EAU MINÉRALE 50CL",
+        "Category":  "EAUX MINÉRALES \u0026 GAZEUSES",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Pistache",
+        "Recipe":  "GAUFFRE KUNAFA PISTACHE",
+        "Category":  "CRÊPES",
+        "TotalSold9Months":  34,
+        "CA_Genere":  1530,
+        "AvgSalesPerMonth":  3.8
+    },
+    {
+        "Ingredient":  "Croquettes de fromage",
+        "Recipe":  "6 CROQUETTES FROMAGE",
+        "Category":  "ENTRÉES CHAUDES",
+        "TotalSold9Months":  42,
+        "CA_Genere":  840,
+        "AvgSalesPerMonth":  4.7
+    },
+    {
+        "Ingredient":  "Kunafa",
+        "Recipe":  "GAUFFRE KUNAFA PISTACHE",
+        "Category":  "CRÊPES",
+        "TotalSold9Months":  34,
+        "CA_Genere":  1530,
+        "AvgSalesPerMonth":  3.8
+    },
+    {
+        "Ingredient":  "Crème de coco",
+        "Recipe":  "VIRGIN PIÑA COLADA",
+        "Category":  "COCKTAILS \u0026 MOCKTAILS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Amandes effilées",
+        "Recipe":  "SMOOTHIE BOWL ULTRA BOOST",
+        "Category":  "SMOOTHIES \u0026 BOWLS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Edam",
+        "Recipe":  "BOULETTE DE POULET AU FROMAGE",
+        "Category":  "ENTRÉES CHAUDES",
+        "TotalSold9Months":  30,
+        "CA_Genere":  150,
+        "AvgSalesPerMonth":  3.3
+    },
+    {
+        "Ingredient":  "Canette Soda",
+        "Recipe":  "MENU ENFANT PASTA NATURE",
+        "Category":  "PÂTES",
+        "TotalSold9Months":  24,
+        "CA_Genere":  1320,
+        "AvgSalesPerMonth":  2.7
+    },
+    {
+        "Ingredient":  "Poulet émincé",
+        "Recipe":  "SUPPLÉMENT POULET",
+        "Category":  "SUPPLÉMENTS \u0026 EXTRAS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Fraise fraîche",
+        "Recipe":  "COCKTAIL À BASE D\u0027ORANGE",
+        "Category":  "JUS FRAIS PRESSÉS \u0026 ROYAUX",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Huile de table",
+        "Recipe":  "ROULADE DE BŒUF VH",
+        "Category":  "PLATS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Accompagnements — 2 au choix",
+        "Recipe":  "BROCHETTES DE POULET",
+        "Category":  "PLATS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Sirop de passion",
+        "Recipe":  "SIGNATURE GREY CORNER",
+        "Category":  "COCKTAILS \u0026 MOCKTAILS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Garnitures composées",
+        "Recipe":  "SALADE COMPOSÉE AU CHOIX",
+        "Category":  "SUPPLÉMENTS \u0026 EXTRAS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Coulis caramel",
+        "Recipe":  "ZA3ZA3 ROYAL GREY CORNER",
+        "Category":  "JUS FRAIS PRESSÉS \u0026 ROYAUX",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Eau",
+        "Recipe":  "THÉ NOIR AU LAIT",
+        "Category":  "CAFÉS \u0026 BOISSONS CHAUDES",
+        "TotalSold9Months":  36,
+        "CA_Genere":  648,
+        "AvgSalesPerMonth":  4
+    },
+    {
+        "Ingredient":  "Fruits frais décor",
+        "Recipe":  "SIGNATURE GREY CORNER",
+        "Category":  "COCKTAILS \u0026 MOCKTAILS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Gingembre frais",
+        "Recipe":  "SMOOTHIE MULTIVITAMINÉ",
+        "Category":  "SMOOTHIES \u0026 BOWLS",
+        "TotalSold9Months":  31,
+        "CA_Genere":  1266,
+        "AvgSalesPerMonth":  3.4
+    },
+    {
+        "Ingredient":  "Chocolat KitKat / Snickers",
+        "Recipe":  "ZA3ZA3 ROYAL GREY CORNER",
+        "Category":  "JUS FRAIS PRESSÉS \u0026 ROYAUX",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Riz",
+        "Recipe":  "RIZ",
+        "Category":  "SUPPLÉMENTS \u0026 EXTRAS",
+        "TotalSold9Months":  39,
+        "CA_Genere":  585,
+        "AvgSalesPerMonth":  4.3
+    },
+    {
+        "Ingredient":  "Perles de fruits Popping Boba",
+        "Recipe":  "SMOOTHIE JELLY FRUIT",
+        "Category":  "SMOOTHIES \u0026 BOWLS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "crevette net",
+        "Recipe":  "PIZZA COMPOSÉE AU CHOIX",
+        "Category":  "SUPPLÉMENTS \u0026 EXTRAS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Confiture",
+        "Recipe":  "CONFITURE",
+        "Category":  "A LA CARTE \u0026 BOULANGERIE",
+        "TotalSold9Months":  5,
+        "CA_Genere":  25,
+        "AvgSalesPerMonth":  0.6
+    },
+    {
+        "Ingredient":  "Coulis, Chantilly \u0026 Gaufrette",
+        "Recipe":  "3 BOULES DE GLACE",
+        "Category":  "DESSERTS \u0026 PÂTISSERIES",
+        "TotalSold9Months":  58,
+        "CA_Genere":  2610,
+        "AvgSalesPerMonth":  6.4
+    },
+    {
+        "Ingredient":  "Olive noire",
+        "Recipe":  "ROULADE DE BŒUF VH",
+        "Category":  "PLATS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Lben",
+        "Recipe":  "LBEN",
+        "Category":  "SUPPLÉMENTS \u0026 EXTRAS",
+        "TotalSold9Months":  17,
+        "CA_Genere":  85,
+        "AvgSalesPerMonth":  1.9
+    },
+    {
+        "Ingredient":  "Myrtilles \u0026 Framboises",
+        "Recipe":  "SMOOTHIE BOWL ULTRA BOOST",
+        "Category":  "SMOOTHIES \u0026 BOWLS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Jus d\u0027ananas frais",
+        "Recipe":  "VIRGIN PIÑA COLADA",
+        "Category":  "COCKTAILS \u0026 MOCKTAILS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Framboises",
+        "Recipe":  "SMOOTHIE PINK BERRY",
+        "Category":  "SMOOTHIES \u0026 BOWLS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "FILET DE Bœuf",
+        "Recipe":  "EMINCE DE BŒUF",
+        "Category":  "PLATS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Jus de cranberry",
+        "Recipe":  "SMOOTHIE JELLY FRUIT",
+        "Category":  "SMOOTHIES \u0026 BOWLS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Pomme fraîche",
+        "Recipe":  "JUS POMME \u0026 BANANE",
+        "Category":  "JUS FRAIS PRESSÉS \u0026 ROYAUX",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "calamar net",
+        "Recipe":  "PIZZA COMPOSÉE AU CHOIX",
+        "Category":  "SUPPLÉMENTS \u0026 EXTRAS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Poivre vert",
+        "Recipe":  "FILET DE BŒUF",
+        "Category":  "PLATS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Fruits secs variés",
+        "Recipe":  "ZA3ZA3 ROYAL GREY CORNER",
+        "Category":  "JUS FRAIS PRESSÉS \u0026 ROYAUX",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Cacao",
+        "Recipe":  "CAPPUCCINO CHANTILLY",
+        "Category":  "CAFÉS \u0026 BOISSONS CHAUDES",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Base mixée Mangue/Banane/Passion",
+        "Recipe":  "SMOOTHIE BOWL EXOTIQUE",
+        "Category":  "SMOOTHIES \u0026 BOWLS",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Canette Schweppes Citron",
+        "Recipe":  "SCHWEPPES CITRON",
+        "Category":  "SODAS \u0026 BOISSONS FRAÎCHES",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Coulis chocolat",
+        "Recipe":  "CHOCOLAT CHAUD CHANTILLY",
+        "Category":  "CAFÉS \u0026 BOISSONS CHAUDES",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Schweppes (Canette 33cl)",
+        "Recipe":  "SCHWEPPES CITRON / TONIC 33CL",
+        "Category":  "SODAS \u0026 BOISSONS FRAÎCHES",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Lait ou Jus d\u0027orange",
+        "Recipe":  "JUS POMME \u0026 BANANE",
+        "Category":  "JUS FRAIS PRESSÉS \u0026 ROYAUX",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    },
+    {
+        "Ingredient":  "Crème",
+        "Recipe":  "RIGATONI RICOTTA",
+        "Category":  "PÂTES",
+        "TotalSold9Months":  0,
+        "CA_Genere":  0,
+        "AvgSalesPerMonth":  0
+    }
+]

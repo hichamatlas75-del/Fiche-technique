@@ -149,12 +149,14 @@
 
   // Synchronisation directe vers le Codebase GitHub via l'API REST
   window.syncDirectToGitHub = async function() {
-    let token = localStorage.getItem('gc_github_token');
+    // SÉCURITÉ BUG-03 FIX : Le PAT est un secret — stocké en sessionStorage uniquement
+    // (effacé automatiquement à la fermeture du navigateur, inaccessible depuis d'autres onglets)
+    let token = sessionStorage.getItem('gc_github_token');
     if (!token) {
-      token = prompt("🔑 Synchronisation directe avec GitHub (Codebase) :\nVeuillez entrer votre GitHub Personal Access Token (PAT) avec accès 'repo' :\n(Ce jeton restera mémorisé dans votre navigateur en toute sécurité)");
+      token = prompt("🔑 Synchronisation directe avec GitHub :\nVeuillez entrer votre GitHub Personal Access Token (PAT) avec accès 'repo' :\n(Ce jeton est mémorisé uniquement pour cette session — effacé à la fermeture du navigateur)");
       if (!token) return;
       token = token.trim();
-      localStorage.setItem('gc_github_token', token);
+      sessionStorage.setItem('gc_github_token', token);
     }
 
     const btn = document.getElementById('btn-github-sync');
@@ -181,7 +183,7 @@
 
       if (!getRes.ok) {
         if (getRes.status === 401 || getRes.status === 403) {
-          localStorage.removeItem('gc_github_token');
+          sessionStorage.removeItem('gc_github_token'); // BUG-03 FIX
           throw new Error("Token GitHub invalide ou permissions insuffisantes. Veuillez cliquer à nouveau et entrer un token valide avec la permission 'repo'.");
         }
         throw new Error(`Erreur GitHub API (${getRes.status}): ${getRes.statusText}`);

@@ -185,6 +185,10 @@ function loadRecipes() {
   if (typeof initAuditFlashDropdown === 'function') {
     initAuditFlashDropdown();
   }
+
+  // BUG-04 FIX : Synchroniser la référence globale après chaque rechargement
+  // (activeRecipes est réassigné par JSON.parse, window.activeRecipes doit suivre)
+  if (typeof window !== 'undefined') window.activeRecipes = activeRecipes;
 }
 
 function saveRecipes() {

@@ -49,7 +49,7 @@ var hasUnsavedChanges = false; // AM-03: suivi des modifications non sauvegardé
       localStorage.setItem(STORAGE_KEY, JSON.stringify(editedRecipes));
 
       // 2. Synchroniser dans gc_recipes_db_v5 (utilisé par Cuisine et Déstockage)
-var baseList = [];
+      let baseList = [];
       const rawV5 = localStorage.getItem(window.GC_STORAGE_KEYS.RECIPES);
       if (rawV5) {
         try { baseList = JSON.parse(rawV5); } catch(e) {}

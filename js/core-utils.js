@@ -37,6 +37,18 @@
     'saumon', 'saumon frais', 'saumon sans carcasse', 'saumon avec carcasse', 'saumon fumee'
   ]);
 
+  // ─────────────────────────────────────────────────────────────
+  // AME-04 : LISTES DE MOTS-CLÉS D'EXCLUSION CENTRALISÉES (Single Source of Truth)
+  // Utilisées par isExcludedFromMenuEngineering() ET conso-temporal.js
+  // ─────────────────────────────────────────────────────────────
+  const GC_EXCLUSION_KEYWORDS = {
+    sodas:           ['coca', 'sprite', 'fanta', 'hawai', 'poms', 'schweppes', 'schwep', 'orangina', 'pepsi', '7up', 'seven up', 'mirinda', 'canette', 'red bull', 'redbull', 'monster'],
+    eaux:            ['sidi ali', 'ain saiss', 'oulmes', 'san pellegrino', 'pellegrino', 'evian', 'eau minerale', 'eau gazeuse', 'eau plate', 'bouteille eau', 'bouteille d eau', 'aquafina', 'perrier'],
+    supplements:     ['supp cuisine', 'supplement cuisine', 'extra cuisine', 'supp frite', 'supp puree', 'supp potatos', 'supp fromage', 'supp cheese', 'supp cheddar', 'supp mozza', 'supp sauce', 'supp viande', 'supp steak', 'supp poulet', 'supp oeuf', 'supp pain', 'supp champignon', 'extra fromage', 'extra cheese', 'extra sauce', 'extra frite', 'extra viande', 'extra steak', 'extra poulet', 'extra oeuf'],
+    boissons_chaudes:['espresso', 'expresso', 'cappuccino', 'latte', 'macchiato', 'americano', 'nespresso', 'nescafe', 'allonge', 'ristretto', 'moka', 'chocolat chaud', 'chocolat viennois', 'infusion', 'tisane', 'the a la menthe', 'the vert', 'the noir', 'verveine', 'matcha'],
+    jus_bar:         ['smoothie', 'milkshake', 'milk shake', 'cocktail', 'mocktail', 'mojito', 'frappe', 'citronnade', 'orange pressee', 'citron presse', 'ice tea', 'iced tea', 'the glace', 'sirop'],
+  };
+
   // Invalidation automatique et forcée du cache local lors d'un déploiement
   try {
     const currentVer = typeof localStorage !== 'undefined' ? localStorage.getItem(GC_STORAGE_KEYS.APP_VER) : null;
@@ -245,7 +257,93 @@
       }, 3500);
     }
 
-    return { show };
+    /**
+     * AME-02 : Modale de confirmation non-bloquante (remplace confirm() natif)
+     * @param {string} msg - Message à afficher
+     * @param {object} options - { labelOk, labelCancel, onOk, onCancel }
+     * @returns {Promise<boolean>} - true si confirmé, false si annulé
+     */
+    function confirm(msg, options = {}) {
+      return new Promise((resolve) => {
+        const overlay = document.createElement('div');
+        overlay.style.cssText = [
+          'position:fixed', 'inset:0', 'background:rgba(0,0,0,0.6)',
+          'z-index:100000', 'display:flex', 'align-items:center',
+          'justify-content:center', 'padding:20px', 'backdrop-filter:blur(4px)'
+        ].join(';');
+
+        const modal = document.createElement('div');
+        modal.style.cssText = [
+          'background:#0f172a', 'border:1px solid #334155', 'border-radius:16px',
+          'padding:28px 32px', 'max-width:460px', 'width:100%',
+          'box-shadow:0 24px 64px rgba(0,0,0,0.55)', 'color:#f8fafc',
+          'font-family:inherit', 'text-align:center', 'animation:gc-modal-in 0.18s ease'
+        ].join(';');
+
+        const text = document.createElement('p');
+        text.style.cssText = 'margin:0 0 22px;font-size:15px;line-height:1.6;white-space:pre-line;';
+        text.textContent = msg;
+
+        const btnRow = document.createElement('div');
+        btnRow.style.cssText = 'display:flex;gap:12px;justify-content:center;flex-wrap:wrap;';
+
+        const btnOk = document.createElement('button');
+        btnOk.textContent = options.labelOk || '✅ Confirmer';
+        btnOk.style.cssText = [
+          'padding:11px 24px', 'border-radius:8px', 'border:none',
+          'background:#059669', 'color:#fff', 'font-weight:700',
+          'cursor:pointer', 'font-size:14px', 'transition:background 0.15s'
+        ].join(';');
+
+        const btnCancel = document.createElement('button');
+        btnCancel.textContent = options.labelCancel || '❌ Annuler';
+        btnCancel.style.cssText = [
+          'padding:11px 24px', 'border-radius:8px', 'border:none',
+          'background:#334155', 'color:#fff', 'font-weight:700',
+          'cursor:pointer', 'font-size:14px', 'transition:background 0.15s'
+        ].join(';');
+
+        const close = () => {
+          if (document.body.contains(overlay)) document.body.removeChild(overlay);
+        };
+
+        btnOk.addEventListener('click', () => {
+          close();
+          if (typeof options.onOk === 'function') options.onOk();
+          resolve(true);
+        });
+        btnCancel.addEventListener('click', () => {
+          close();
+          if (typeof options.onCancel === 'function') options.onCancel();
+          resolve(false);
+        });
+        overlay.addEventListener('click', (e) => {
+          if (e.target === overlay) {
+            close();
+            if (typeof options.onCancel === 'function') options.onCancel();
+            resolve(false);
+          }
+        });
+        document.addEventListener('keydown', function escHandler(e) {
+          if (e.key === 'Escape') {
+            document.removeEventListener('keydown', escHandler);
+            close();
+            if (typeof options.onCancel === 'function') options.onCancel();
+            resolve(false);
+          }
+        }, { once: true });
+
+        btnRow.appendChild(btnOk);
+        btnRow.appendChild(btnCancel);
+        modal.appendChild(text);
+        modal.appendChild(btnRow);
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+        btnOk.focus();
+      });
+    }
+
+    return { show, confirm };
   })();
 
   /**
@@ -512,6 +610,7 @@
   global.GC_Toast = GC_Toast;
   global.GC_STORAGE_KEYS = GC_STORAGE_KEYS;
   global.OBSOLETE_INGREDIENT_KEYS = OBSOLETE_INGREDIENT_KEYS;
+  global.GC_EXCLUSION_KEYWORDS = GC_EXCLUSION_KEYWORDS; // AME-04
   global.forceCacheRefresh = forceCacheRefresh;
   global.APP_DATA_VERSION = APP_DATA_VERSION;
   global.isExcludedFromMenuEngineering = isExcludedFromMenuEngineering;
@@ -521,7 +620,8 @@
     module.exports = {
       cleanText, escapeHtml, applyTheme, formatMoney, formatNumber, formatDateFR, formatMonthFR,
       initThemeManager, GC_Store, GC_WakeLock, GC_Toast, GC_STORAGE_KEYS, OBSOLETE_INGREDIENT_KEYS,
-      forceCacheRefresh, APP_DATA_VERSION, isExcludedFromMenuEngineering, stripPlural, resolveSeafoodKey
+      GC_EXCLUSION_KEYWORDS, forceCacheRefresh, APP_DATA_VERSION,
+      isExcludedFromMenuEngineering, stripPlural, resolveSeafoodKey
     };
   }
 })(typeof window !== 'undefined' ? window : globalThis);

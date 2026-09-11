@@ -1,0 +1,1832 @@
+﻿[
+    {
+        "Qty":  60,
+        "CA":  4200,
+        "RawName":  "Pasta 5 Fromage",
+        "Famille":  "PASTA"
+    },
+    {
+        "Qty":  4,
+        "CA":  168,
+        "RawName":  "Gauffre PM-Caramelisee",
+        "Famille":  "GAUFFRES"
+    },
+    {
+        "Qty":  1,
+        "CA":  25,
+        "RawName":  "TORTILLA",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  289,
+        "CA":  6358,
+        "RawName":  "Cafe Nespresso",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  32,
+        "CA":  3136,
+        "RawName":  "Salade Burratta",
+        "Famille":  "ENTREES FROIDES"
+    },
+    {
+        "Qty":  52,
+        "CA":  312,
+        "RawName":  "MSSEMEN AGRICH",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  2,
+        "CA":  80,
+        "RawName":  "Gauffre Amlou",
+        "Famille":  "GAUFFRES"
+    },
+    {
+        "Qty":  416,
+        "CA":  7072,
+        "RawName":  "SCHWEPPS TONIC",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  198,
+        "CA":  9504,
+        "RawName":  "Ultra Vitamines BOWL",
+        "Famille":  "SMOOTHIE BOWL"
+    },
+    {
+        "Qty":  133,
+        "CA":  9044,
+        "RawName":  "Croustillon Gambas",
+        "Famille":  "ENTREES CHAUDES"
+    },
+    {
+        "Qty":  34,
+        "CA":  1870,
+        "RawName":  "Menu Enfant Pizza",
+        "Famille":  "Menu Enfant"
+    },
+    {
+        "Qty":  40,
+        "CA":  4800,
+        "RawName":  "ROULADE DE BOEUF VH",
+        "Famille":  "PLATS"
+    },
+    {
+        "Qty":  15,
+        "CA":  600,
+        "RawName":  "CHEESE CAKE CITRON",
+        "Famille":  "GATEAUX"
+    },
+    {
+        "Qty":  1001,
+        "CA":  17017,
+        "RawName":  "Coca",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  925,
+        "CA":  17575,
+        "RawName":  "Cafe Au Lait",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  1,
+        "CA":  55,
+        "RawName":  "Gaufer Grey Corner",
+        "Famille":  "GAUFFRES"
+    },
+    {
+        "Qty":  72,
+        "CA":  1800,
+        "RawName":  "Frappuccino Classique",
+        "Famille":  "FRAPPUCCINO"
+    },
+    {
+        "Qty":  9,
+        "CA":  45,
+        "RawName":  "Pasta Spaguettis Noirs",
+        "Famille":  "PASTA"
+    },
+    {
+        "Qty":  20,
+        "CA":  840,
+        "RawName":  "Milkshake Nutella",
+        "Famille":  "MILKSHAKE"
+    },
+    {
+        "Qty":  13,
+        "CA":  130,
+        "RawName":  "FROMAGE ROUGE TAJ",
+        "Famille":  "SUPPLEMENT CUISINE"
+    },
+    {
+        "Qty":  101,
+        "CA":  505,
+        "RawName":  "MINI LIMONADE",
+        "Famille":  "PERSONNEL"
+    },
+    {
+        "Qty":  469,
+        "CA":  7973,
+        "RawName":  "SCHWEPPS CITRON",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  336,
+        "CA":  5040,
+        "RawName":  "Verveine",
+        "Famille":  "THE"
+    },
+    {
+        "Qty":  27,
+        "CA":  405,
+        "RawName":  "PUREE POMME DE TERRE",
+        "Famille":  "SUPPLEMENT CUISINE"
+    },
+    {
+        "Qty":  219,
+        "CA":  9198,
+        "RawName":  "Crepe Banane Nutella",
+        "Famille":  "CREPES SUCREE"
+    },
+    {
+        "Qty":  83,
+        "CA":  5395,
+        "RawName":  "SANDWICH  FRUIT DE MER",
+        "Famille":  "SANDWICHS CIABATTA"
+    },
+    {
+        "Qty":  141,
+        "CA":  10998,
+        "RawName":  "Salade Terre Mer",
+        "Famille":  "ENTREES FROIDES"
+    },
+    {
+        "Qty":  40,
+        "CA":  2200,
+        "RawName":  "Menu Enfant Nugette",
+        "Famille":  "Menu Enfant"
+    },
+    {
+        "Qty":  10,
+        "CA":  500,
+        "RawName":  "MQILA MERGUEZ",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  191,
+        "CA":  11842,
+        "RawName":  "Pizza Veget Arienne",
+        "Famille":  "PIZZA"
+    },
+    {
+        "Qty":  8,
+        "CA":  40,
+        "RawName":  "PETIT BAGHRIR",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  57,
+        "CA":  285,
+        "RawName":  "Supp Chantilly",
+        "Famille":  "COUPE DE GLACE"
+    },
+    {
+        "Qty":  245,
+        "CA":  9310,
+        "RawName":  "TIRAMISU",
+        "Famille":  "GATEAUX"
+    },
+    {
+        "Qty":  39,
+        "CA":  1638,
+        "RawName":  "Milkshake Vanille",
+        "Famille":  "MILKSHAKE"
+    },
+    {
+        "Qty":  789,
+        "CA":  17358,
+        "RawName":  "EAU MINERAL 75 cl",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  1,
+        "CA":  38,
+        "RawName":  "OMLETTE FR CHARCUTERIE",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  59,
+        "CA":  2006,
+        "RawName":  "San Francisco",
+        "Famille":  "COCKTAILS"
+    },
+    {
+        "Qty":  153,
+        "CA":  3825,
+        "RawName":  "Jus De Carotte",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  12,
+        "CA":  504,
+        "RawName":  "Milkshake Cookies",
+        "Famille":  "MILKSHAKE"
+    },
+    {
+        "Qty":  25,
+        "CA":  1050,
+        "RawName":  "Crepe PM-Caramelisee",
+        "Famille":  "CREPES SUCREE"
+    },
+    {
+        "Qty":  25,
+        "CA":  750,
+        "RawName":  "BANANE ORANGE",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  230,
+        "CA":  14720,
+        "RawName":  "Panini Fruit De Mer",
+        "Famille":  "PANINI"
+    },
+    {
+        "Qty":  109,
+        "CA":  4360,
+        "RawName":  "Panini Charcuterie",
+        "Famille":  "PANINI"
+    },
+    {
+        "Qty":  130,
+        "CA":  7020,
+        "RawName":  "Sandwich Viande Hache",
+        "Famille":  "SANDWICHS CIABATTA"
+    },
+    {
+        "Qty":  194,
+        "CA":  10088,
+        "RawName":  "Pizza Margarita",
+        "Famille":  "PIZZA"
+    },
+    {
+        "Qty":  97,
+        "CA":  5432,
+        "RawName":  "EGG BURGER",
+        "Famille":  "BURGERS"
+    },
+    {
+        "Qty":  179,
+        "CA":  11456,
+        "RawName":  "Pet-Dej Mquila MERGUEZ",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  608,
+        "CA":  29184,
+        "RawName":  "Crepe Poulet CHAMPIGNON",
+        "Famille":  "CREPES SALEES"
+    },
+    {
+        "Qty":  70,
+        "CA":  1820,
+        "RawName":  "Chocolat Fondu",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  708,
+        "CA":  21240,
+        "RawName":  "Jus De Fraise",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  163,
+        "CA":  8476,
+        "RawName":  "OMLETTE VEGETARIENNE",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  573,
+        "CA":  9741,
+        "RawName":  "Hawai",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  195,
+        "CA":  0.19500000926200614,
+        "RawName":  "THE PERSONNEL",
+        "Famille":  "PERSONNEL"
+    },
+    {
+        "Qty":  28,
+        "CA":  336,
+        "RawName":  "LAIT CHAUD",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  172,
+        "CA":  19780,
+        "RawName":  "Plat EminceDe Boeuf",
+        "Famille":  "PLATS"
+    },
+    {
+        "Qty":  36,
+        "CA":  1620,
+        "RawName":  "CREPE FROMAGE",
+        "Famille":  "CREPES SALEES"
+    },
+    {
+        "Qty":  5,
+        "CA":  340,
+        "RawName":  "MQUILA FRUITS MER",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  195,
+        "CA":  2925,
+        "RawName":  "FRITES",
+        "Famille":  "SUPPLEMENT CUISINE"
+    },
+    {
+        "Qty":  182,
+        "CA":  6916,
+        "RawName":  "Mojito Tropical",
+        "Famille":  "MOJITO"
+    },
+    {
+        "Qty":  219,
+        "CA":  17082,
+        "RawName":  "Pizza Poulet",
+        "Famille":  "PIZZA"
+    },
+    {
+        "Qty":  102,
+        "CA":  9996,
+        "RawName":  "SUPREME DE POULET",
+        "Famille":  "PLATS"
+    },
+    {
+        "Qty":  15,
+        "CA":  300,
+        "RawName":  "3 MERGUEZ",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  24,
+        "CA":  120,
+        "RawName":  "LA VACHE QUI RIT",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  32,
+        "CA":  1440,
+        "RawName":  "CHEESE CAKE PISTACHE",
+        "Famille":  "GATEAUX"
+    },
+    {
+        "Qty":  6,
+        "CA":  180,
+        "RawName":  "GAUFFRE NATURE",
+        "Famille":  "GAUFFRES"
+    },
+    {
+        "Qty":  64,
+        "CA":  4160,
+        "RawName":  "Coupe Grey Corner",
+        "Famille":  "COUPE DE GLACE"
+    },
+    {
+        "Qty":  16,
+        "CA":  608,
+        "RawName":  "BERBER",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  51,
+        "CA":  306,
+        "RawName":  "SIDI ALI 33 CL",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  94,
+        "CA":  0.094000004464775022,
+        "RawName":  "SEPARE PERSONNEL",
+        "Famille":  "PERSONNEL"
+    },
+    {
+        "Qty":  166,
+        "CA":  13944,
+        "RawName":  "BROCHETTE DE POULET",
+        "Famille":  "PLATS"
+    },
+    {
+        "Qty":  2068,
+        "CA":  45496,
+        "RawName":  "Jus D\u0027 Orange",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  3,
+        "CA":  90,
+        "RawName":  "BELDI",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  373,
+        "CA":  15046,
+        "RawName":  "OMLETTE NATURE",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  36,
+        "CA":  1944,
+        "RawName":  "Crepe Bolonaise",
+        "Famille":  "CREPES SALEES"
+    },
+    {
+        "Qty":  357,
+        "CA":  2062,
+        "RawName":  "DIVERS FOOD",
+        "Famille":  "ENTREES FROIDES"
+    },
+    {
+        "Qty":  22,
+        "CA":  220,
+        "RawName":  "MINI ORANGE",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  256,
+        "CA":  13824,
+        "RawName":  "Pet-Dej Berbere",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  89,
+        "CA":  4272,
+        "RawName":  "Triple Berry",
+        "Famille":  "SMOOTHIES"
+    },
+    {
+        "Qty":  30,
+        "CA":  720,
+        "RawName":  "CAFE SEPARE",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  12,
+        "CA":  72,
+        "RawName":  "PAIN CEREAL",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  105,
+        "CA":  7140,
+        "RawName":  "Salade Quinoa",
+        "Famille":  "ENTREES FROIDES"
+    },
+    {
+        "Qty":  38,
+        "CA":  3572,
+        "RawName":  "COMPOSE AU CHOIX",
+        "Famille":  "PIZZA"
+    },
+    {
+        "Qty":  135,
+        "CA":  4725,
+        "RawName":  "Jus De Framboise",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  19,
+        "CA":  798,
+        "RawName":  "Crepe Choco-Noisette",
+        "Famille":  "CREPES SUCREE"
+    },
+    {
+        "Qty":  168,
+        "CA":  14280,
+        "RawName":  "Plat Escalope A La Milanaise",
+        "Famille":  "PLATS"
+    },
+    {
+        "Qty":  394,
+        "CA":  34672,
+        "RawName":  "Pizza Fruits De Mer",
+        "Famille":  "PIZZA"
+    },
+    {
+        "Qty":  853,
+        "CA":  14501,
+        "RawName":  "Coca Zero",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  11,
+        "CA":  462,
+        "RawName":  "Milkshake Oreo",
+        "Famille":  "MILKSHAKE"
+    },
+    {
+        "Qty":  49,
+        "CA":  2450,
+        "RawName":  "Banana Split",
+        "Famille":  "COUPE DE GLACE"
+    },
+    {
+        "Qty":  540,
+        "CA":  16200,
+        "RawName":  "2 BOULE DE GLACE",
+        "Famille":  "COUPE DE GLACE"
+    },
+    {
+        "Qty":  10,
+        "CA":  100,
+        "RawName":  "SUP CHARCUTERIE",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  9,
+        "CA":  54,
+        "RawName":  "PAIN GRILLE",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  145,
+        "CA":  9280,
+        "RawName":  "WRAP GOURMAND",
+        "Famille":  "PANINI"
+    },
+    {
+        "Qty":  152,
+        "CA":  912,
+        "RawName":  "OEUF",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  11,
+        "CA":  462,
+        "RawName":  "CREPE  PISTACHE",
+        "Famille":  "CREPES SUCREE"
+    },
+    {
+        "Qty":  18,
+        "CA":  756,
+        "RawName":  "ORANGESHAKE AU CHOIX",
+        "Famille":  "MILKSHAKE"
+    },
+    {
+        "Qty":  422,
+        "CA":  18990,
+        "RawName":  "SAN SEBASTIEN GREY CORNER",
+        "Famille":  "GATEAUX"
+    },
+    {
+        "Qty":  54,
+        "CA":  1188,
+        "RawName":  "Cappuccino Avec Chantilly",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  300,
+        "CA":  19500,
+        "RawName":  "SANDWICH CHEESE STEAK",
+        "Famille":  "SANDWICHS CIABATTA"
+    },
+    {
+        "Qty":  12,
+        "CA":  240,
+        "RawName":  "CAFE DOUBLE",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  947,
+        "CA":  15152,
+        "RawName":  "Boule De Glace",
+        "Famille":  "COUPE DE GLACE"
+    },
+    {
+        "Qty":  65,
+        "CA":  3380,
+        "RawName":  "BOULETTES DE POULET FR",
+        "Famille":  "ENTREES CHAUDES"
+    },
+    {
+        "Qty":  197,
+        "CA":  12805,
+        "RawName":  "Pasta Carbonara",
+        "Famille":  "PASTA"
+    },
+    {
+        "Qty":  15,
+        "CA":  450,
+        "RawName":  "Crepe Nature",
+        "Famille":  "CREPES SUCREE"
+    },
+    {
+        "Qty":  23,
+        "CA":  1196,
+        "RawName":  "Crepe Grey Corner SUCREE",
+        "Famille":  "CREPES SUCREE"
+    },
+    {
+        "Qty":  20,
+        "CA":  300,
+        "RawName":  "RIZ",
+        "Famille":  "SUPPLEMENT CUISINE"
+    },
+    {
+        "Qty":  22,
+        "CA":  484,
+        "RawName":  "3 OEUFS",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  58,
+        "CA":  5452,
+        "RawName":  "BALLOTINE DE POULET",
+        "Famille":  "PLATS"
+    },
+    {
+        "Qty":  496,
+        "CA":  21824,
+        "RawName":  "Panini Poulet",
+        "Famille":  "PANINI"
+    },
+    {
+        "Qty":  230,
+        "CA":  12420,
+        "RawName":  "Couscous Poulet Avec Petit Lait",
+        "Famille":  "COUSCOUS VENDREDI"
+    },
+    {
+        "Qty":  1,
+        "CA":  18,
+        "RawName":  "POULET PANE 3",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  32,
+        "CA":  2816,
+        "RawName":  "TARTARE SAUMON",
+        "Famille":  "ENTREES FROIDES"
+    },
+    {
+        "Qty":  2,
+        "CA":  84,
+        "RawName":  "GAUFFRE PISTACHE",
+        "Famille":  "GAUFFRES"
+    },
+    {
+        "Qty":  86,
+        "CA":  5332,
+        "RawName":  "WRAP VIANDE HACHEE",
+        "Famille":  "PANINI"
+    },
+    {
+        "Qty":  66,
+        "CA":  2772,
+        "RawName":  "Energetique",
+        "Famille":  "SMOOTHIES"
+    },
+    {
+        "Qty":  25,
+        "CA":  125,
+        "RawName":  "FROMAGE",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  7,
+        "CA":  336,
+        "RawName":  "Pain Cake Fruits De Saison",
+        "Famille":  "PAIN CAKE"
+    },
+    {
+        "Qty":  22,
+        "CA":  924,
+        "RawName":  "Pain Cake Nutella",
+        "Famille":  "PAIN CAKE"
+    },
+    {
+        "Qty":  342,
+        "CA":  13680,
+        "RawName":  "Menu Enfant",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  1,
+        "CA":  40,
+        "RawName":  "Gauffre Caramel",
+        "Famille":  "GAUFFRES"
+    },
+    {
+        "Qty":  326,
+        "CA":  18908,
+        "RawName":  "WRAP POULET",
+        "Famille":  "PANINI"
+    },
+    {
+        "Qty":  12,
+        "CA":  480,
+        "RawName":  "KHLIE",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  23,
+        "CA":  1035,
+        "RawName":  "GAUFFRE KUNAFA PISTACHE",
+        "Famille":  "GAUFFRES"
+    },
+    {
+        "Qty":  987,
+        "CA":  54285,
+        "RawName":  "Pet-Dej Fassi",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  2735,
+        "CA":  43760,
+        "RawName":  "The à La Menthe",
+        "Famille":  "THE"
+    },
+    {
+        "Qty":  46,
+        "CA":  230,
+        "RawName":  "HUILE OLIVE",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  123,
+        "CA":  17835,
+        "RawName":  "Plat Pave De Saumon",
+        "Famille":  "PLATS"
+    },
+    {
+        "Qty":  232,
+        "CA":  3944,
+        "RawName":  "Sprite",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  43,
+        "CA":  1204,
+        "RawName":  "Jus De Pomme",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  64,
+        "CA":  1024,
+        "RawName":  "THE M3ACHAB",
+        "Famille":  "THE"
+    },
+    {
+        "Qty":  8,
+        "CA":  176,
+        "RawName":  "JUS DE BETTRAVE",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  13,
+        "CA":  130,
+        "RawName":  "CHAMPIGNON",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  171,
+        "CA":  4788,
+        "RawName":  "Red Bull",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  1,
+        "CA":  68,
+        "RawName":  "FRUITS DE MER",
+        "Famille":  "RAMADAN MENU MQILA"
+    },
+    {
+        "Qty":  100,
+        "CA":  3800,
+        "RawName":  "FRUITS SEC",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  49,
+        "CA":  2695,
+        "RawName":  "Menu Enfant Burger",
+        "Famille":  "Menu Enfant"
+    },
+    {
+        "Qty":  104,
+        "CA":  4576,
+        "RawName":  "Mojito Red Bull",
+        "Famille":  "MOJITO"
+    },
+    {
+        "Qty":  52,
+        "CA":  1560,
+        "RawName":  "Jus De Peche",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  65,
+        "CA":  325,
+        "RawName":  "MIEL",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  5,
+        "CA":  50,
+        "RawName":  "CHARCUTERIE",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  14,
+        "CA":  140,
+        "RawName":  "CORNFLEX",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  380,
+        "CA":  33440,
+        "RawName":  "Plat Emince De Poulet",
+        "Famille":  "PLATS"
+    },
+    {
+        "Qty":  226,
+        "CA":  963,
+        "RawName":  "DIVERS BAR",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  237,
+        "CA":  9480,
+        "RawName":  "Fondant Au Chocolat",
+        "Famille":  "GATEAUX"
+    },
+    {
+        "Qty":  11,
+        "CA":  0.011000000522475998,
+        "RawName":  "ORANGE CUISINE",
+        "Famille":  "PERSONNEL"
+    },
+    {
+        "Qty":  138,
+        "CA":  18630,
+        "RawName":  "Filet De Boeuf",
+        "Famille":  "PLATS"
+    },
+    {
+        "Qty":  61,
+        "CA":  3660,
+        "RawName":  "Pasta Vegetarien",
+        "Famille":  "PASTA"
+    },
+    {
+        "Qty":  22,
+        "CA":  110,
+        "RawName":  "BEURRE",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  54,
+        "CA":  2592,
+        "RawName":  "Salade Cercle Veggl",
+        "Famille":  "ENTREES FROIDES"
+    },
+    {
+        "Qty":  107,
+        "CA":  321,
+        "RawName":  "EAU MATCH",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  15,
+        "CA":  720,
+        "RawName":  "Jelly Almond",
+        "Famille":  "SMOOTHIES"
+    },
+    {
+        "Qty":  234,
+        "CA":  17550,
+        "RawName":  "Pasta Poulet Champignon",
+        "Famille":  "PASTA"
+    },
+    {
+        "Qty":  46,
+        "CA":  2668,
+        "RawName":  "Crepe Norvegienne",
+        "Famille":  "CREPES SALEES"
+    },
+    {
+        "Qty":  59,
+        "CA":  885,
+        "RawName":  "POTATOS",
+        "Famille":  "SUPPLEMENT CUISINE"
+    },
+    {
+        "Qty":  26,
+        "CA":  312,
+        "RawName":  "Lait FROID",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  259,
+        "CA":  5180,
+        "RawName":  "Ice Coffee Classique",
+        "Famille":  "ICE COFFEE"
+    },
+    {
+        "Qty":  126,
+        "CA":  9828,
+        "RawName":  "MQUILA FRUITS DE MER",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  91,
+        "CA":  1820,
+        "RawName":  "OULMESS MOJITO",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  43,
+        "CA":  1935,
+        "RawName":  "CHEESECAKE FRAMBOISE",
+        "Famille":  "GATEAUX"
+    },
+    {
+        "Qty":  48,
+        "CA":  2304,
+        "RawName":  "Pink Smoothie",
+        "Famille":  "SMOOTHIES"
+    },
+    {
+        "Qty":  115,
+        "CA":  7820,
+        "RawName":  "REGINA DINDE FUMEE",
+        "Famille":  "PIZZA"
+    },
+    {
+        "Qty":  329,
+        "CA":  17766,
+        "RawName":  "Cheese Burger",
+        "Famille":  "BURGERS"
+    },
+    {
+        "Qty":  64,
+        "CA":  3712,
+        "RawName":  "Crepe Grey Corner SALEE",
+        "Famille":  "CREPES SALEES"
+    },
+    {
+        "Qty":  40,
+        "CA":  2560,
+        "RawName":  "Panini Saumon",
+        "Famille":  "PANINI"
+    },
+    {
+        "Qty":  47,
+        "CA":  4418,
+        "RawName":  "Pizza Saumon",
+        "Famille":  "PIZZA"
+    },
+    {
+        "Qty":  381,
+        "CA":  7239,
+        "RawName":  "Cappuccino Italien",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  74,
+        "CA":  4440,
+        "RawName":  "LASAGNE POULET",
+        "Famille":  "PASTA"
+    },
+    {
+        "Qty":  15,
+        "CA":  90,
+        "RawName":  "HARCHA CH3IR",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  14,
+        "CA":  532,
+        "RawName":  "Panache AU LAIT",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  815,
+        "CA":  42380,
+        "RawName":  "COMPAGNARD",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  28,
+        "CA":  1176,
+        "RawName":  "Milkshake Kitkat",
+        "Famille":  "MILKSHAKE"
+    },
+    {
+        "Qty":  1,
+        "CA":  50,
+        "RawName":  "JUS MANGUE ANN",
+        "Famille":  "JUS ANNIVERSAIRE"
+    },
+    {
+        "Qty":  3,
+        "CA":  120,
+        "RawName":  "Pain Cake Enfant",
+        "Famille":  "PAIN CAKE"
+    },
+    {
+        "Qty":  75,
+        "CA":  2100,
+        "RawName":  "Frappuccino Aromatisé",
+        "Famille":  "FRAPPUCCINO"
+    },
+    {
+        "Qty":  193,
+        "CA":  0.19300000916700707,
+        "RawName":  "CAFE PERSONNEL",
+        "Famille":  "PERSONNEL"
+    },
+    {
+        "Qty":  139,
+        "CA":  3892,
+        "RawName":  "Ice Tea Framboise",
+        "Famille":  "ICE TEA"
+    },
+    {
+        "Qty":  151,
+        "CA":  11026,
+        "RawName":  "Pizza VIANDE HACHEE",
+        "Famille":  "PIZZA"
+    },
+    {
+        "Qty":  31,
+        "CA":  465,
+        "RawName":  "LEGUMES SAUTEES",
+        "Famille":  "SUPPLEMENT CUISINE"
+    },
+    {
+        "Qty":  11,
+        "CA":  275,
+        "RawName":  "NESPRESSO AU LAIT",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  16,
+        "CA":  800,
+        "RawName":  "PASTA NATURE",
+        "Famille":  "PASTA"
+    },
+    {
+        "Qty":  10,
+        "CA":  500,
+        "RawName":  "Gauffre Exotique",
+        "Famille":  "GAUFFRES"
+    },
+    {
+        "Qty":  236,
+        "CA":  10620,
+        "RawName":  "Panini Viande Hachee",
+        "Famille":  "PANINI"
+    },
+    {
+        "Qty":  121,
+        "CA":  6534,
+        "RawName":  "Burger Avocado Forestier",
+        "Famille":  "BURGERS"
+    },
+    {
+        "Qty":  91,
+        "CA":  0.091000004322277048,
+        "RawName":  "CAFE AU LAIT PERSONNEL",
+        "Famille":  "PERSONNEL"
+    },
+    {
+        "Qty":  23,
+        "CA":  460,
+        "RawName":  "6 CROQUETTES FROMAGE",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  608,
+        "CA":  24320,
+        "RawName":  "San Sebastien",
+        "Famille":  "GATEAUX"
+    },
+    {
+        "Qty":  8,
+        "CA":  336,
+        "RawName":  "Gauffre Choco-Noisette",
+        "Famille":  "GAUFFRES"
+    },
+    {
+        "Qty":  519,
+        "CA":  21798,
+        "RawName":  "Pet-Dej Light",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  52,
+        "CA":  2340,
+        "RawName":  "3 BOULES DE GLACE",
+        "Famille":  "COUPE DE GLACE"
+    },
+    {
+        "Qty":  582,
+        "CA":  27936,
+        "RawName":  "CREPE KUNAFA PISTACHE",
+        "Famille":  "CREPES SUCREE"
+    },
+    {
+        "Qty":  33,
+        "CA":  2244,
+        "RawName":  "Pasta Regatoni Ricotta",
+        "Famille":  "PASTA"
+    },
+    {
+        "Qty":  8,
+        "CA":  40,
+        "RawName":  "LBEN",
+        "Famille":  "COUSCOUS VENDREDI"
+    },
+    {
+        "Qty":  16,
+        "CA":  240,
+        "RawName":  "PARMESAN FROMAGE",
+        "Famille":  "SUPPLEMENT CUISINE"
+    },
+    {
+        "Qty":  939,
+        "CA":  28170,
+        "RawName":  "Jus De Mangue",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  31,
+        "CA":  186,
+        "RawName":  "HARCHA NATURE",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  878,
+        "CA":  45656,
+        "RawName":  "Pet-Dej Hollandais",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  17,
+        "CA":  306,
+        "RawName":  "The Noir Au Lait",
+        "Famille":  "THE"
+    },
+    {
+        "Qty":  36,
+        "CA":  648,
+        "RawName":  "CAFE AROMATISE",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  30,
+        "CA":  1260,
+        "RawName":  "Gauffre Nutela Banane",
+        "Famille":  "GAUFFRES"
+    },
+    {
+        "Qty":  250,
+        "CA":  12500,
+        "RawName":  "CHICKEN BURGER",
+        "Famille":  "BURGERS"
+    },
+    {
+        "Qty":  46,
+        "CA":  3588,
+        "RawName":  "LASAGNE FRUITS DE MER",
+        "Famille":  "PASTA"
+    },
+    {
+        "Qty":  219,
+        "CA":  9198,
+        "RawName":  "COCKTAIL ORANGE",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  598,
+        "CA":  34684,
+        "RawName":  "Omlette Du Chef",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  121,
+        "CA":  7865,
+        "RawName":  "Pizza Thon",
+        "Famille":  "PIZZA"
+    },
+    {
+        "Qty":  99,
+        "CA":  4752,
+        "RawName":  "Exotique BOWL",
+        "Famille":  "SMOOTHIE BOWL"
+    },
+    {
+        "Qty":  72,
+        "CA":  1152,
+        "RawName":  "2 OEUFS",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  36,
+        "CA":  720,
+        "RawName":  "OULMES TROPICAL",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  44,
+        "CA":  2112,
+        "RawName":  "Cocktail GREY CORNER",
+        "Famille":  "COCKTAILS"
+    },
+    {
+        "Qty":  656,
+        "CA":  11808,
+        "RawName":  "Cafe  Americain",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  10265,
+        "CA":  164240,
+        "RawName":  "CAFE NOIR",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  79,
+        "CA":  2765,
+        "RawName":  "JUS D AVOCAT ORANGE",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  4,
+        "CA":  72,
+        "RawName":  "The Americain",
+        "Famille":  "THE"
+    },
+    {
+        "Qty":  10,
+        "CA":  190,
+        "RawName":  "CAFE CASSE",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  213,
+        "CA":  12354,
+        "RawName":  "Sandwich Poulet Crunchy",
+        "Famille":  "SANDWICHS CIABATTA"
+    },
+    {
+        "Qty":  348,
+        "CA":  6264,
+        "RawName":  "Chocolat Au Lait",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  47,
+        "CA":  0.047000002232387,
+        "RawName":  "LAIT AU CHOCOLAT",
+        "Famille":  "PERSONNEL"
+    },
+    {
+        "Qty":  34,
+        "CA":  1632,
+        "RawName":  "Crepe Exotique",
+        "Famille":  "CREPES SUCREE"
+    },
+    {
+        "Qty":  561,
+        "CA":  47685,
+        "RawName":  "Brunch GREY CORNER",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  861,
+        "CA":  13776,
+        "RawName":  "oULMES",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  34,
+        "CA":  3332,
+        "RawName":  "Pasta Saumon",
+        "Famille":  "PASTA"
+    },
+    {
+        "Qty":  168,
+        "CA":  3192,
+        "RawName":  "CAFE MOITIE",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  508,
+        "CA":  34544,
+        "RawName":  "Pet-Dej Norvegien",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  5,
+        "CA":  25,
+        "RawName":  "CONFITURE",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  349,
+        "CA":  11168,
+        "RawName":  "Jus D\u0027Ananas",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  19,
+        "CA":  798,
+        "RawName":  "Multi-Vitamine",
+        "Famille":  "SMOOTHIES"
+    },
+    {
+        "Qty":  78,
+        "CA":  3276,
+        "RawName":  "Fraicheur",
+        "Famille":  "COCKTAILS"
+    },
+    {
+        "Qty":  112,
+        "CA":  5040,
+        "RawName":  "CHEESE CAKE CHOCOLAT",
+        "Famille":  "GATEAUX"
+    },
+    {
+        "Qty":  15,
+        "CA":  330,
+        "RawName":  "Chocolat Avec Chantilly",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  129,
+        "CA":  3612,
+        "RawName":  "Jus De Banane",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  334,
+        "CA":  16032,
+        "RawName":  "Sandwich Poulet",
+        "Famille":  "SANDWICHS CIABATTA"
+    },
+    {
+        "Qty":  233,
+        "CA":  7456,
+        "RawName":  "GINGEMBRE",
+        "Famille":  "COCKTAILS"
+    },
+    {
+        "Qty":  127,
+        "CA":  9906,
+        "RawName":  "Pizza 5 Fromages",
+        "Famille":  "PIZZA"
+    },
+    {
+        "Qty":  709,
+        "CA":  26942,
+        "RawName":  "Crepe Nutella",
+        "Famille":  "CREPES SUCREE"
+    },
+    {
+        "Qty":  141,
+        "CA":  9870,
+        "RawName":  "Burger ROYAL",
+        "Famille":  "BURGERS"
+    },
+    {
+        "Qty":  240,
+        "CA":  4080,
+        "RawName":  "Poms",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  151,
+        "CA":  5738,
+        "RawName":  "Gauffre Nutella",
+        "Famille":  "GAUFFRES"
+    },
+    {
+        "Qty":  180,
+        "CA":  3060,
+        "RawName":  "Orangina",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  3,
+        "CA":  120,
+        "RawName":  "OMLETTE CHAMPIGNON",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  32,
+        "CA":  1280,
+        "RawName":  "SALADE FRUITS",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  496,
+        "CA":  31744,
+        "RawName":  "Pet-Dej Espagnol",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  36,
+        "CA":  360,
+        "RawName":  "AMUSE BOUCHE",
+        "Famille":  "SUPPLEMENT CUISINE"
+    },
+    {
+        "Qty":  4,
+        "CA":  80,
+        "RawName":  "SUPP KHLI3",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  360,
+        "CA":  18538,
+        "RawName":  "OMLETTE FROMAGE",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  332,
+        "CA":  11288,
+        "RawName":  "Mojito Citron",
+        "Famille":  "MOJITO"
+    },
+    {
+        "Qty":  187,
+        "CA":  12716,
+        "RawName":  "Pil Pil Espagnol",
+        "Famille":  "ENTREES CHAUDES"
+    },
+    {
+        "Qty":  565,
+        "CA":  2825,
+        "RawName":  "OEUFS BELDI",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  85,
+        "CA":  4837,
+        "RawName":  "Crepe Pecheur",
+        "Famille":  "CREPES SALEES"
+    },
+    {
+        "Qty":  133,
+        "CA":  9576,
+        "RawName":  "LASAGNE BOLOGNAISE",
+        "Famille":  "PASTA"
+    },
+    {
+        "Qty":  1,
+        "CA":  28,
+        "RawName":  "4 OEUFS",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  303,
+        "CA":  8484,
+        "RawName":  "Ice Tea Pèche",
+        "Famille":  "ICE TEA"
+    },
+    {
+        "Qty":  39,
+        "CA":  1638,
+        "RawName":  "Hawaien",
+        "Famille":  "SMOOTHIES"
+    },
+    {
+        "Qty":  5,
+        "CA":  100,
+        "RawName":  "TOAST FROMAGE",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  310,
+        "CA":  7750,
+        "RawName":  "Jus De Citron",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  125,
+        "CA":  5625,
+        "RawName":  "Crepe CHARCUTERIE",
+        "Famille":  "CREPES SALEES"
+    },
+    {
+        "Qty":  52,
+        "CA":  2392,
+        "RawName":  "Zaazaa",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  877,
+        "CA":  10524,
+        "RawName":  "Eau Minerale 0.5l",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  272,
+        "CA":  14688,
+        "RawName":  "POULARD",
+        "Famille":  "SANDWICHS CIABATTA"
+    },
+    {
+        "Qty":  225,
+        "CA":  19800,
+        "RawName":  "Pizza 4 Saisons",
+        "Famille":  "PIZZA"
+    },
+    {
+        "Qty":  505,
+        "CA":  72720,
+        "RawName":  "Brunch Duo",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  61,
+        "CA":  305,
+        "RawName":  "JBEN",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  77,
+        "CA":  462,
+        "RawName":  "MSEMEN NATURE",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  225,
+        "CA":  13050,
+        "RawName":  "PANINI MIX",
+        "Famille":  "PANINI"
+    },
+    {
+        "Qty":  146,
+        "CA":  12848,
+        "RawName":  "Pasta Fruits De Mer",
+        "Famille":  "PASTA"
+    },
+    {
+        "Qty":  79,
+        "CA":  2212,
+        "RawName":  "Ice Tea Citron",
+        "Famille":  "ICE TEA"
+    },
+    {
+        "Qty":  2,
+        "CA":  76,
+        "RawName":  "CROQUE",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  30,
+        "CA":  1200,
+        "RawName":  "Coupe Enfant",
+        "Famille":  "COUPE DE GLACE"
+    },
+    {
+        "Qty":  2,
+        "CA":  50,
+        "RawName":  "TOAST NUTELLA",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  7,
+        "CA":  140,
+        "RawName":  "AVOCAT",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  244,
+        "CA":  16592,
+        "RawName":  "AMERICAIN",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  360,
+        "CA":  8280,
+        "RawName":  "Ice Coffee Aromatise",
+        "Famille":  "ICE COFFEE"
+    },
+    {
+        "Qty":  304,
+        "CA":  13376,
+        "RawName":  "Pet-Dej Express",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  196,
+        "CA":  8232,
+        "RawName":  "Tropical",
+        "Famille":  "COCKTAILS"
+    },
+    {
+        "Qty":  222,
+        "CA":  14208,
+        "RawName":  "Couscous Vainde Avec Petit Lait",
+        "Famille":  "COUSCOUS VENDREDI"
+    },
+    {
+        "Qty":  87,
+        "CA":  4698,
+        "RawName":  "RUSSE",
+        "Famille":  "ENTREES FROIDES"
+    },
+    {
+        "Qty":  26,
+        "CA":  260,
+        "RawName":  "SUP FROMAGE",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  805,
+        "CA":  24150,
+        "RawName":  "TICKET MATCH",
+        "Famille":  "TICKET MATCH"
+    },
+    {
+        "Qty":  62,
+        "CA":  1116,
+        "RawName":  "Verveine au lait",
+        "Famille":  "THE"
+    },
+    {
+        "Qty":  55,
+        "CA":  2475,
+        "RawName":  "Coupe Amor",
+        "Famille":  "COUPE DE GLACE"
+    },
+    {
+        "Qty":  115,
+        "CA":  8510,
+        "RawName":  "Pizza Pepperoni",
+        "Famille":  "PIZZA"
+    },
+    {
+        "Qty":  79,
+        "CA":  3309,
+        "RawName":  "Sandwich Thon",
+        "Famille":  "SANDWICHS CIABATTA"
+    },
+    {
+        "Qty":  319,
+        "CA":  1914,
+        "RawName":  "VIENNOISERIE",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  34,
+        "CA":  1428,
+        "RawName":  "Milkshake Fraise",
+        "Famille":  "MILKSHAKE"
+    },
+    {
+        "Qty":  76,
+        "CA":  1444,
+        "RawName":  "Cafe Latte",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  36,
+        "CA":  540,
+        "RawName":  "The Noir",
+        "Famille":  "THE"
+    },
+    {
+        "Qty":  284,
+        "CA":  21300,
+        "RawName":  "Pasta Bolognaise",
+        "Famille":  "PASTA"
+    },
+    {
+        "Qty":  63,
+        "CA":  5544,
+        "RawName":  "PIZZA MOITIE MOITIE",
+        "Famille":  "PIZZA"
+    },
+    {
+        "Qty":  126,
+        "CA":  5292,
+        "RawName":  "Pina Colada",
+        "Famille":  "COCKTAILS"
+    },
+    {
+        "Qty":  120,
+        "CA":  3120,
+        "RawName":  "EAU GAZEUSE 75 CL",
+        "Famille":  "SODA"
+    },
+    {
+        "Qty":  34,
+        "CA":  272,
+        "RawName":  "NUTELLA",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  10,
+        "CA":  50,
+        "RawName":  "OLIVE",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  32,
+        "CA":  608,
+        "RawName":  "LAIT CASSE",
+        "Famille":  "BOISSONS CHAUDES"
+    },
+    {
+        "Qty":  34,
+        "CA":  3740,
+        "RawName":  "Pizza Burrata",
+        "Famille":  "PIZZA"
+    },
+    {
+        "Qty":  276,
+        "CA":  14352,
+        "RawName":  "Pet-Dej Continental",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  749,
+        "CA":  33705,
+        "RawName":  "Pet-Dej Beldi",
+        "Famille":  "PETIT DEJEUNER"
+    },
+    {
+        "Qty":  152,
+        "CA":  10336,
+        "RawName":  "BIG BURGER",
+        "Famille":  "BURGERS"
+    },
+    {
+        "Qty":  322,
+        "CA":  20930,
+        "RawName":  "Salade Cesar",
+        "Famille":  "ENTREES FROIDES"
+    },
+    {
+        "Qty":  2,
+        "CA":  76,
+        "RawName":  "HOLLANDAIS",
+        "Famille":  "A LA CARTE"
+    },
+    {
+        "Qty":  34,
+        "CA":  612,
+        "RawName":  "The Infusion",
+        "Famille":  "THE"
+    },
+    {
+        "Qty":  20,
+        "CA":  1100,
+        "RawName":  "MENU ENFANT PASTA NATURE",
+        "Famille":  "Menu Enfant"
+    },
+    {
+        "Qty":  45,
+        "CA":  225,
+        "RawName":  "AMLOU",
+        "Famille":  "SUPPLEMENT PTDEJ"
+    },
+    {
+        "Qty":  273,
+        "CA":  8736,
+        "RawName":  "Jus D\u0027Avocat AU LAIT",
+        "Famille":  "JUS"
+    },
+    {
+        "Qty":  6,
+        "CA":  300,
+        "RawName":  "COCKTAIL ORANGE ANN",
+        "Famille":  "JUS ANNIVERSAIRE"
+    },
+    {
+        "Qty":  28,
+        "CA":  1176,
+        "RawName":  "Milkshake Caramel",
+        "Famille":  "MILKSHAKE"
+    },
+    {
+        "Qty":  4,
+        "CA":  200,
+        "RawName":  "Pain Cake Grey Corner",
+        "Famille":  "PAIN CAKE"
+    },
+    {
+        "Qty":  22,
+        "CA":  924,
+        "RawName":  "Milkshake Chocolat",
+        "Famille":  "MILKSHAKE"
+    }
+]

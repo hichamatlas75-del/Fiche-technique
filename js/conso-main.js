@@ -182,13 +182,15 @@ document.addEventListener('DOMContentLoaded', () => {
       switchToTab('tab-comparator');
     }, 100);
   }
-  document.getElementById('print-date-val').textContent = new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const printDateEl = document.getElementById('print-date-val');
+  if (printDateEl) printDateEl.textContent = new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   loadRecipes();
   renderRecipeList();
   renderCalendar();
-  recalculateCurrentView();
 
   // Hydratation intégrale des 12 mois depuis IndexedDB puis vérification delta du dossier /ventes
+  // BUG-01 FIX : recalculateCurrentView() appelé UNIQUEMENT après hydratation complète
+  // pour éviter la race condition qui affichait 0 DH pendant plusieurs secondes.
   loadMonthlySalesDB(() => {
     renderCalendar();
     recalculateCurrentView();
@@ -281,18 +283,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // Gestion du Thème Clair / Sombre
   initThemeManager();
 
-  // Tri de tableau
-  let sortDirection = 1;
+  // Tri de tableau — BUG-07 FIX : direction mémorisée par colonne (évite reset cross-column)
+  const sortDirections = {};
   document.querySelectorAll('th.sortable').forEach(th => {
     th.addEventListener('click', () => {
       const type = th.dataset.sort;
-      sortDirection *= -1;
+      sortDirections[type] = -(sortDirections[type] || 1);
+      const dir = sortDirections[type];
       if (type === 'name') {
-        aggregatedIngredients.sort((a, b) => sortDirection * a.name.localeCompare(b.name));
+        aggregatedIngredients.sort((a, b) => dir * a.name.localeCompare(b.name));
       } else if (type === 'cat') {
-        aggregatedIngredients.sort((a, b) => sortDirection * a.category.localeCompare(b.category));
+        aggregatedIngredients.sort((a, b) => dir * a.category.localeCompare(b.category));
       } else if (type === 'qty') {
-        aggregatedIngredients.sort((a, b) => sortDirection * (a.totalQty - b.totalQty));
+        aggregatedIngredients.sort((a, b) => dir * (a.totalQty - b.totalQty));
       }
       renderSummaryTable();
     });
