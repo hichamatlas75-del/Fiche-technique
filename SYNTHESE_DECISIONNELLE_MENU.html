@@ -762,7 +762,262 @@
     .pill-blue { background: rgba(59, 130, 246, 0.15); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.35); }
     .pill-purple { background: rgba(168, 85, 247, 0.15); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.35); }
 
-  </style>
+  
+    /* ===================================================
+       RANKING TAB STYLES & PODIUM
+    =================================================== */
+    .ranking-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+    }
+    .ranking-sort-group {
+      display: flex;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .ranking-sort-btn {
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ranking-sort-btn.active {
+      background: var(--gold);
+      color: #000000;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    }
+    .category-pills-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 22px;
+      scrollbar-width: thin;
+    }
+    .cat-pill-btn {
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .cat-pill-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+    .cat-pill-btn.active {
+      background: var(--cyan);
+      color: #000000;
+      font-weight: 800;
+      border-color: var(--cyan);
+      box-shadow: 0 2px 10px rgba(6, 182, 212, 0.3);
+    }
+    .express-sales-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 0.25s ease-out;
+    }
+    .category-rank-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 25px;
+      box-shadow: var(--shadow);
+    }
+    .category-rank-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 20px;
+    }
+    .cat-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .cat-badge-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    .cat-stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .cat-stat-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+    .cat-stat-chip strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+    .podium-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .podium-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s;
+    }
+    .podium-card:hover {
+      transform: translateY(-2px);
+    }
+    .podium-card.first {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.03));
+      border-color: rgba(245, 158, 11, 0.5);
+    }
+    .podium-card.second {
+      background: linear-gradient(135deg, rgba(148, 163, 184, 0.12), rgba(148, 163, 184, 0.03));
+      border-color: rgba(148, 163, 184, 0.4);
+    }
+    .podium-card.third {
+      background: linear-gradient(135deg, rgba(180, 83, 9, 0.15), rgba(180, 83, 9, 0.03));
+      border-color: rgba(180, 83, 9, 0.4);
+    }
+    .podium-medal {
+      font-size: 1.5rem;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .podium-dish-name {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .podium-price {
+      font-size: 0.8rem;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .podium-metrics {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .rank-number-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.8rem;
+    }
+    .rank-num-1 { background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
+    .rank-num-2 { background: linear-gradient(135deg, #cbd5e1, #64748b); color: #000; }
+    .rank-num-3 { background: linear-gradient(135deg, #d97706, #78350f); color: #fff; }
+    .rank-num-other { background: rgba(255, 255, 255, 0.08); color: #94a3b8; }
+    .share-bar-container {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+    .share-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--gold));
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+    .qty-stepper {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .qty-step-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .qty-step-btn:hover {
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+    }
+    .sales-direct-input {
+      width: 65px;
+      padding: 3px 6px;
+      background: #0f172a;
+      border: 1px solid var(--gold);
+      color: #ffffff;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+</style>
 <body>
 
   <!-- BARRE DE NAVIGATION GLOBALE VERS LA SUITE DE LOGICIELS -->
@@ -987,6 +1242,7 @@
     <!-- NAVIGATION TABS -->
     <nav class="nav-tabs">
       <button class="tab-btn active" id="tab-btn-table" onclick="switchTab('table', this)">&#128203; Tableau Dynamique (193 Plats)</button>
+      <button class="tab-btn" id="tab-btn-ranking" onclick="switchTab('ranking', this)">&#127942; Classement Ventes par Cat&eacute;gorie</button>
       <button class="tab-btn" id="tab-btn-engineering" onclick="switchTab('engineering', this)">&#129517; Matrice Menu Engineering</button>
       <button class="tab-btn" id="tab-btn-charts" onclick="switchTab('charts', this)">&#128202; Graphiques &amp; Pareto 80/20</button>
       <button class="tab-btn" id="tab-btn-final" onclick="switchTab('final', this)">&#128081; Carte Finale Recommandée</button>
@@ -1039,6 +1295,121 @@
     </div>
 
     
+    
+    <!-- TAB CLASSEMENT DES VENTES PAR CATÉGORIE -->
+    <div id="tab-ranking" class="tab-content">
+      <div class="section-card">
+        <div class="table-toolbar" style="margin-bottom:15px;">
+          <div>
+            <div class="section-title">&#127942; Palmar&egrave;s &amp; Classement Dynamique des Ventes par Cat&eacute;gorie</div>
+            <div class="section-desc" style="margin-bottom:0;">Classement des plats au sein de leur famille de produits. Chaque nouvelle vente saisie met imm&eacute;diatement &agrave; jour le classement, les parts de march&eacute; et les podiums en direct.</div>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <button class="action-btn" onclick="toggleExpressSalesBox()" style="background:rgba(245,158,11,0.2); border-color:var(--gold); color:var(--gold-light);">
+              &#9999;&#65039; Saisie Express de Ventes
+            </button>
+            <button class="action-btn" id="btn-toggle-direct-edit" onclick="toggleRankingDirectEdit()" style="background:rgba(255,255,255,0.06);">
+              &#9881;&#65039; Mode Saisie Directe
+            </button>
+            <button class="action-btn" onclick="document.getElementById('ranking-file-input').click()">
+              &#128229; Importer Ventes (Excel/CSV/JSON)
+            </button>
+            <input type="file" id="ranking-file-input" accept=".xlsx,.xls,.csv,.json" style="display:none;" onchange="handleRankingFileSelect(event)">
+            <button class="action-btn" onclick="resetMenuSalesToBase()" style="background:rgba(239,68,68,0.15); border-color:rgba(239,68,68,0.3); color:#fca5a5;">
+              &#128260; R&eacute;tablir Ventes d'Origine
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI SUMMARY CARDS FOR RANKING -->
+        <div class="kpi-grid" style="margin-bottom:20px;">
+          <div class="kpi-card gold">
+            <div class="kpi-title">&#127942; Cat&eacute;gorie N&deg;1 en CA</div>
+            <div class="kpi-val" id="rank-kpi-top-cat-ca">-</div>
+            <div class="kpi-sub" id="rank-kpi-top-cat-ca-sub">-</div>
+          </div>
+          <div class="kpi-card cyan">
+            <div class="kpi-title">&#128230; Cat&eacute;gorie N&deg;1 en Volume</div>
+            <div class="kpi-val" id="rank-kpi-top-cat-vol">-</div>
+            <div class="kpi-sub" id="rank-kpi-top-cat-vol-sub">-</div>
+          </div>
+          <div class="kpi-card emerald">
+            <div class="kpi-title">&#11088; Plat N&deg;1 Toutes Cat&eacute;gories</div>
+            <div class="kpi-val" id="rank-kpi-best-dish" style="font-size:1.3rem;">-</div>
+            <div class="kpi-sub" id="rank-kpi-best-dish-sub">-</div>
+          </div>
+          <div class="kpi-card purple">
+            <div class="kpi-title">&#127869; Plat Restauration N&deg;1</div>
+            <div class="kpi-val" id="rank-kpi-best-food" style="font-size:1.3rem;">-</div>
+            <div class="kpi-sub" id="rank-kpi-best-food-sub">-</div>
+          </div>
+        </div>
+
+        <!-- EXPRESS SALES ENTRY BOX (FOLDABLE) -->
+        <div id="express-sales-card" class="express-sales-card" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <strong style="color:var(--gold-light); font-size:1.05rem;">&#9889; Saisie Express / Entr&eacute;e de Nouvelles Ventes</strong>
+            <button onclick="toggleExpressSalesBox()" style="background:none; border:none; color:#94a3b8; font-size:1.2rem; cursor:pointer;">&times;</button>
+          </div>
+          <p style="font-size:0.82rem; color:#cbd5e1; margin-bottom:14px;">Choisissez un plat, modifiez son nombre de ventes (ou ajoutez des ventes suppl&eacute;mentaires) et appliquez pour actualiser le classement instantan&eacute;ment :</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+            <div style="flex:2; min-width:240px;">
+              <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px;">S&eacute;lectionner le plat :</label>
+              <select id="express-dish-select" class="filter-select" style="width:100%;" onchange="syncExpressCurrentQty()">
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div style="flex:1; min-width:130px;">
+              <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px;">Ventes actuelles :</label>
+              <input type="text" id="express-current-qty" class="search-box" style="width:100%; background:rgba(255,255,255,0.05);" readonly value="0">
+            </div>
+            <div style="flex:1; min-width:140px;">
+              <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px;">Nouvelle Qte Totale :</label>
+              <input type="number" id="express-new-qty" class="search-box" style="width:100%;" min="0" placeholder="Ex: 450">
+            </div>
+            <div style="flex:1; min-width:140px;">
+              <label style="display:block; font-size:0.75rem; color:#94a3b8; margin-bottom:4px;">Ou Ajouter (+Qte) :</label>
+              <input type="number" id="express-add-qty" class="search-box" style="width:100%;" min="1" placeholder="+50">
+            </div>
+            <div>
+              <button class="action-btn" onclick="applyExpressSale()" style="background:var(--emerald); color:#000; font-weight:800; padding:10px 18px;">
+                &#10004;&#65039; Mettre &agrave; Jour le Palmar&egrave;s
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RANKING CONTROLS TOOLBAR -->
+        <div class="ranking-toolbar">
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <span style="font-size:0.85rem; font-weight:700; color:#cbd5e1;">Crit&egrave;re de Classement :</span>
+            <div class="ranking-sort-group">
+              <button class="ranking-sort-btn active" id="sort-btn-qty" onclick="setRankingSortMode('qty')">&#128230; Volume (Ventes)</button>
+              <button class="ranking-sort-btn" id="sort-btn-ca" onclick="setRankingSortMode('ca')">&#128176; Chiffre d'Affaires</button>
+              <button class="ranking-sort-btn" id="sort-btn-margin" onclick="setRankingSortMode('margin')">&#128142; Marge Brute</button>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <input type="text" id="ranking-search" class="search-box" placeholder="&#128269; Filtrer un plat..." oninput="renderCategoryRankings()">
+            <select id="ranking-filter-cat" class="filter-select" onchange="renderCategoryRankings()">
+              <option value="ALL">Toutes les Cat&eacute;gories (27)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- HORIZONTAL CATEGORY PILLS FOR FAST JUMP -->
+        <div class="category-pills-bar" id="category-pills-bar">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- CATEGORIES RANKINGS CONTAINER -->
+        <div id="ranking-categories-container">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
+    </div>
+
     <!-- TAB 2 : MATRICE MENU ENGINEERING -->
     <div id="tab-engineering" class="tab-content">
       <div class="section-card">
@@ -1295,6 +1666,7 @@
         if (activeContent) activeContent.classList.add('active');
         if (tabId === 'charts' || tabId === 'engineering') setTimeout(renderCharts, 40);
         if (tabId === 'final') renderFinalMenu();
+        if (tabId === 'ranking') renderCategoryRankings();
       } catch (err) { console.error('Error switching tab:', err); }
     }
     window.switchTab = switchTab;
@@ -1438,7 +1810,7 @@
         const baseTotalCA = menuData.reduce((acc, i) => acc + i.ca, 0);
         const kpiPareto = document.getElementById('kpi-pareto'); if (kpiPareto) kpiPareto.innerText = (baseTotalCA > 0 ? ((totalCA / baseTotalCA) * 100).toFixed(1) : 100) + '%';
 
-        renderMenuTable(); renderMenuEngineering(); renderCharts(); renderFinalMenu();
+        renderMenuTable(); renderMenuEngineering(); renderCharts(); renderFinalMenu(); renderCategoryRankings();
       } catch (err) { console.error('Error in updateSimulation:', err); }
     }
     window.updateSimulation = updateSimulation;
@@ -1737,6 +2109,456 @@
     document.addEventListener('DOMContentLoaded', () => { applyPreset('recommended'); });
     window.addEventListener('load', () => { updateSimulation(); });
 
-  </script>
+  
+
+    /* ===================================================
+       RANKING SYSTEM LOGIC (DYNAMIC SALES & CATEGORY PODIUMS)
+    =================================================== */
+    let rankingSortMode = 'qty'; // 'qty', 'ca', 'margin'
+    let rankingDirectEditMode = false;
+    let selectedRankingCategory = 'ALL';
+
+    const CATEGORY_ICONS = {
+      'PETIT DÉJEUNER': '🍳',
+      'ENTRÉES FROIDES': '🥗',
+      'ENTRÉES CHAUDES': '🍤',
+      'PLATS': '🥩',
+      'COUSCOUS VENDREDI': '🍲',
+      'SANDWICHS CIABATTA': '🥖',
+      'BURGERS': '🍔',
+      'PANINI': '🥪',
+      'PIZZA': '🍕',
+      'Pasta (Spaghettis, Tagliatelles, Linguines)': '🍝',
+      'CRÊPES et GAUFRES': '🥞',
+      'CRÊPES SALÉES': '🌯',
+      'GÂTEAUX': '🍰',
+      'BOISSONS CHAUDES': '☕',
+      'SODA': '🥤',
+      'EAU MINÉRALE': '💧',
+      'BOISSONS FRAÎCHES (JUS)': '🍹',
+      'ICE TEA': '🧃',
+      'ICE COFFEE': '🧊',
+      'FRAPPUCCINO': '🥤',
+      'COCKTAILS': '🍸',
+      'MOJITO': '🌿',
+      'SMOOTHIES': '🍓',
+      'SMOOTHIE – BOWL': '🥣',
+      'MILKSHAKES': '🍧',
+      'ORANGESHAKE': '🍊',
+      'COUPE DE GLACE': '🍨'
+    };
+
+    function setRankingSortMode(mode) {
+      rankingSortMode = mode;
+      document.querySelectorAll('.ranking-sort-btn').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById('sort-btn-' + mode);
+      if (activeBtn) activeBtn.classList.add('active');
+      renderCategoryRankings();
+    }
+    window.setRankingSortMode = setRankingSortMode;
+
+    function toggleRankingDirectEdit() {
+      rankingDirectEditMode = !rankingDirectEditMode;
+      const btn = document.getElementById('btn-toggle-direct-edit');
+      if (btn) {
+        if (rankingDirectEditMode) {
+          btn.style.background = 'rgba(245, 158, 11, 0.25)';
+          btn.style.borderColor = 'var(--gold)';
+          btn.style.color = 'var(--gold-light)';
+          btn.innerText = '✔️ Mode Saisie Directe Actif';
+        } else {
+          btn.style.background = 'rgba(255,255,255,0.06)';
+          btn.style.borderColor = 'var(--card-border)';
+          btn.style.color = '#cbd5e1';
+          btn.innerText = '⚙️ Mode Saisie Directe';
+        }
+      }
+      renderCategoryRankings();
+    }
+    window.toggleRankingDirectEdit = toggleRankingDirectEdit;
+
+    function toggleExpressSalesBox() {
+      const box = document.getElementById('express-sales-card');
+      if (!box) return;
+      const isHidden = box.style.display === 'none';
+      box.style.display = isHidden ? 'block' : 'none';
+      if (isHidden) {
+        populateExpressDishSelect();
+        syncExpressCurrentQty();
+      }
+    }
+    window.toggleExpressSalesBox = toggleExpressSalesBox;
+
+    function populateExpressDishSelect() {
+      const sel = document.getElementById('express-dish-select');
+      if (!sel) return;
+      const currentVal = sel.value;
+      sel.innerHTML = '';
+      const sorted = [...menuData].sort((a, b) => a.cat.localeCompare(b.cat) || a.name.localeCompare(b.name));
+      sorted.forEach(it => {
+        const opt = document.createElement('option');
+        opt.value = it.id;
+        opt.innerText = '[' + it.cat + '] ' + it.name + ' (' + it.price + ' DH)';
+        sel.appendChild(opt);
+      });
+      if (currentVal && menuData.some(m => m.id === currentVal)) sel.value = currentVal;
+    }
+
+    function syncExpressCurrentQty() {
+      const sel = document.getElementById('express-dish-select');
+      const curInput = document.getElementById('express-current-qty');
+      if (!sel || !curInput) return;
+      const item = menuData.find(m => m.id === sel.value);
+      if (item) {
+        curInput.value = item.qty + ' ventes (' + item.ca.toLocaleString('fr-FR') + ' DH)';
+      }
+    }
+    window.syncExpressCurrentQty = syncExpressCurrentQty;
+
+    function applyExpressSale() {
+      const sel = document.getElementById('express-dish-select');
+      const newQtyInput = document.getElementById('express-new-qty');
+      const addQtyInput = document.getElementById('express-add-qty');
+      if (!sel) return;
+      const item = menuData.find(m => m.id === sel.value);
+      if (!item) return;
+
+      const newQ = parseInt(newQtyInput?.value);
+      const addQ = parseInt(addQtyInput?.value);
+
+      if (!isNaN(newQ) && newQ >= 0) {
+        updateDishSales(item.id, newQ);
+        alert('Ventes de "' + item.name + '" mises à jour : ' + newQ + ' ventes !');
+      } else if (!isNaN(addQ) && addQ > 0) {
+        const updated = item.qty + addQ;
+        updateDishSales(item.id, updated);
+        alert('Ventes de "' + item.name + '" augmentées de +' + addQ + ' -> Total : ' + updated + ' ventes !');
+      } else {
+        alert('Veuillez renseigner une nouvelle quantité ou une valeur à ajouter.');
+        return;
+      }
+
+      if (newQtyInput) newQtyInput.value = '';
+      if (addQtyInput) addQtyInput.value = '';
+      syncExpressCurrentQty();
+    }
+    window.applyExpressSale = applyExpressSale;
+
+    function updateDishSales(id, newQty) {
+      const item = menuData.find(m => m.id === id);
+      if (!item) return;
+      item.qty = Math.max(0, parseInt(newQty) || 0);
+      item.ca = Math.round(item.qty * item.price * 100) / 100;
+      item.monthlyQty = Math.round((item.qty / 5.3) * 10) / 10;
+      item.weeklyQty = Math.round((item.qty / 23) * 10) / 10;
+      updateSimulation();
+    }
+    window.updateDishSales = updateDishSales;
+
+    function adjustDishSales(id, delta) {
+      const item = menuData.find(m => m.id === id);
+      if (item) {
+        updateDishSales(id, Math.max(0, item.qty + delta));
+      }
+    }
+    window.adjustDishSales = adjustDishSales;
+
+    function resetMenuSalesToBase() {
+      if (!confirm('Voulez-vous réinitialiser toutes les ventes aux valeurs réelles issues de l\'audit caisse ?')) return;
+      menuData = JSON.parse(JSON.stringify(INITIAL_MENU_DATA));
+      manualItemOverrides = {};
+      updateSimulation();
+      alert('Toutes les ventes ont été réinitialisées aux données caisse d\'origine !');
+    }
+    window.resetMenuSalesToBase = resetMenuSalesToBase;
+
+    function handleRankingFileSelect(e) {
+      if (e.target.files.length > 0) {
+        processFile(e.target.files[0]);
+      }
+    }
+    window.handleRankingFileSelect = handleRankingFileSelect;
+
+    function filterRankingCategory(cat) {
+      selectedRankingCategory = cat;
+      const sel = document.getElementById('ranking-filter-cat');
+      if (sel) sel.value = cat;
+      document.querySelectorAll('.cat-pill-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.cat === cat);
+      });
+      renderCategoryRankings();
+    }
+    window.filterRankingCategory = filterRankingCategory;
+
+    function renderCategoryRankings() {
+      try {
+        const container = document.getElementById('ranking-categories-container');
+        if (!container) return;
+
+        const search = (document.getElementById('ranking-search')?.value || '').toLowerCase().trim();
+        const catSelect = document.getElementById('ranking-filter-cat');
+        if (catSelect && catSelect.value) selectedRankingCategory = catSelect.value;
+
+        // Group active items by category
+        const groups = {};
+        menuData.forEach(item => {
+          const c = item.cat || 'AUTRES';
+          if (!groups[c]) groups[c] = [];
+          groups[c].push(item);
+        });
+
+        // Ensure category select options populated
+        if (catSelect && catSelect.options.length <= 1) {
+          const allCats = Object.keys(groups).sort();
+          allCats.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c;
+            opt.innerText = c + ' (' + groups[c].length + ')';
+            catSelect.appendChild(opt);
+          });
+        }
+
+        // Ensure pills bar populated
+        const pillsBar = document.getElementById('category-pills-bar');
+        if (pillsBar && pillsBar.children.length === 0) {
+          let pillsHtml = '<button class="cat-pill-btn active" data-cat="ALL" onclick="filterRankingCategory(\'ALL\')">Tous (' + menuData.length + ')</button>';
+          Object.keys(groups).sort().forEach(c => {
+            const icon = CATEGORY_ICONS[c] || '🏷️';
+            pillsHtml += '<button class="cat-pill-btn" data-cat="' + c + '" onclick="filterRankingCategory(\'' + c.replace(/'/g, "\\'") + '\')">' + icon + ' ' + c + '</button>';
+          });
+          pillsBar.innerHTML = pillsHtml;
+        }
+
+        // Global KPIs computation
+        let topCatCA = '', maxCatCA = -1;
+        let topCatVol = '', maxCatVol = -1;
+        let bestDishAll = null;
+        let bestDishFood = null;
+
+        const totalMenuCA = menuData.reduce((acc, i) => acc + i.simCA, 0);
+
+        Object.entries(groups).forEach(([c, items]) => {
+          const sumCA = items.reduce((s, i) => s + i.simCA, 0);
+          const sumQty = items.reduce((s, i) => s + i.simQty, 0);
+          if (sumCA > maxCatCA) { maxCatCA = sumCA; topCatCA = c; }
+          if (sumQty > maxCatVol) { maxCatVol = sumQty; topCatVol = c; }
+        });
+
+        const sortedGlobal = [...menuData].sort((a, b) => b.simQty - a.simQty);
+        if (sortedGlobal.length > 0) bestDishAll = sortedGlobal[0];
+
+        const sortedFood = sortedGlobal.filter(i => !['BOISSONS CHAUDES', 'SODA', 'EAU MINÉRALE', 'BOISSONS FRAÎCHES (JUS)', 'ICE TEA', 'ICE COFFEE', 'FRAPPUCCINO', 'COCKTAILS', 'MOJITO'].includes(i.cat));
+        if (sortedFood.length > 0) bestDishFood = sortedFood[0];
+
+        // Update KPIs
+        const elTopCatCA = document.getElementById('rank-kpi-top-cat-ca');
+        if (elTopCatCA) elTopCatCA.innerText = topCatCA || '-';
+        const elTopCatCASub = document.getElementById('rank-kpi-top-cat-ca-sub');
+        if (elTopCatCASub) elTopCatCASub.innerText = maxCatCA.toLocaleString('fr-FR') + ' DH (' + ((maxCatCA / totalMenuCA) * 100).toFixed(1) + '% du Menu)';
+
+        const elTopCatVol = document.getElementById('rank-kpi-top-cat-vol');
+        if (elTopCatVol) elTopCatVol.innerText = topCatVol || '-';
+        const elTopCatVolSub = document.getElementById('rank-kpi-top-cat-vol-sub');
+        if (elTopCatVolSub) elTopCatVolSub.innerText = maxCatVol.toLocaleString('fr-FR') + ' articles vendus';
+
+        const elBestDish = document.getElementById('rank-kpi-best-dish');
+        if (elBestDish && bestDishAll) elBestDish.innerText = bestDishAll.name;
+        const elBestDishSub = document.getElementById('rank-kpi-best-dish-sub');
+        if (elBestDishSub && bestDishAll) elBestDishSub.innerText = bestDishAll.simQty.toLocaleString('fr-FR') + ' v. • ' + bestDishAll.simCA.toLocaleString('fr-FR') + ' DH';
+
+        const elBestFood = document.getElementById('rank-kpi-best-food');
+        if (elBestFood && bestDishFood) elBestFood.innerText = bestDishFood.name;
+        const elBestFoodSub = document.getElementById('rank-kpi-best-food-sub');
+        if (elBestFoodSub && bestDishFood) elBestFoodSub.innerText = bestDishFood.simQty.toLocaleString('fr-FR') + ' v. • ' + bestDishFood.simCA.toLocaleString('fr-FR') + ' DH (' + bestDishFood.cat + ')';
+
+        // Order categories by total CA descending
+        const sortedCategoryNames = Object.keys(groups).sort((a, b) => {
+          const caA = groups[a].reduce((s, i) => s + i.simCA, 0);
+          const caB = groups[b].reduce((s, i) => s + i.simCA, 0);
+          return caB - caA;
+        });
+
+        let mainHtml = '';
+
+        sortedCategoryNames.forEach(catName => {
+          if (selectedRankingCategory !== 'ALL' && catName !== selectedRankingCategory) return;
+
+          let catItems = groups[catName];
+
+          // Filter by search if provided
+          if (search) {
+            catItems = catItems.filter(i => i.name.toLowerCase().includes(search) || (i.desc && i.desc.toLowerCase().includes(search)));
+            if (catItems.length === 0) return;
+          }
+
+          const catTotalQty = catItems.reduce((s, i) => s + i.simQty, 0);
+          const catTotalCA = catItems.reduce((s, i) => s + i.simCA, 0);
+          const catTotalMargin = catItems.reduce((s, i) => s + i.simMargin, 0);
+          const catShareOfMenu = totalMenuCA > 0 ? ((catTotalCA / totalMenuCA) * 100).toFixed(1) : 0;
+
+          // Sort items according to active ranking mode
+          catItems.sort((a, b) => {
+            if (rankingSortMode === 'ca') return b.simCA - a.simCA;
+            if (rankingSortMode === 'margin') return b.simMargin - a.simMargin;
+            return b.simQty - a.simQty; // default 'qty'
+          });
+
+          const maxItemMetric = catItems.length > 0 ? (rankingSortMode === 'ca' ? catItems[0].simCA : (rankingSortMode === 'margin' ? catItems[0].simMargin : catItems[0].simQty)) : 1;
+
+          const catIcon = CATEGORY_ICONS[catName] || '🏷️';
+
+          mainHtml += '<div class="category-rank-card">';
+          
+          // Header
+          mainHtml += '<div class="category-rank-header">' +
+            '<div class="cat-title-wrap">' +
+              '<div class="cat-badge-icon">' + catIcon + '</div>' +
+              '<div>' +
+                '<h3 style="color:#ffffff; font-size:1.18rem; font-weight:800; margin:0;">' + catName + '</h3>' +
+                '<span style="font-size:0.78rem; color:#94a3b8;">' + catItems.length + ' références &bull; ' + catShareOfMenu + '% du Chiffre d\'Affaires Global</span>' +
+              '</div>' +
+            '</div>' +
+            '<div class="cat-stats-row">' +
+              '<span class="cat-stat-chip">Volume : <strong>' + catTotalQty.toLocaleString('fr-FR') + ' v.</strong></span>' +
+              '<span class="cat-stat-chip">CA : <strong style="color:var(--gold-light);">' + catTotalCA.toLocaleString('fr-FR') + ' DH</strong></span>' +
+              '<span class="cat-stat-chip">Marge : <strong style="color:var(--emerald);">' + catTotalMargin.toLocaleString('fr-FR') + ' DH</strong></span>' +
+            '</div>' +
+          '</div>';
+
+          // Podium Top 3 (if >= 2 items)
+          if (catItems.length >= 2 && !search) {
+            mainHtml += '<div class="podium-container">';
+
+            // #1
+            const p1 = catItems[0];
+            const p1QtyPct = catTotalQty > 0 ? ((p1.simQty / catTotalQty) * 100).toFixed(1) : 0;
+            mainHtml += '<div class="podium-card first">' +
+              '<div>' +
+                '<div class="podium-medal">🥇 <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:#f59e0b;">Champion</span></div>' +
+                '<div class="podium-dish-name" title="' + p1.name + '">' + p1.name + '</div>' +
+                '<div class="podium-price">' + p1.simPrice + ' DH</div>' +
+              '</div>' +
+              '<div>' +
+                '<div class="share-bar-container"><div class="share-bar-fill" style="width:100%;"></div></div>' +
+                '<div class="podium-metrics">' +
+                  '<span><strong>' + p1.simQty + ' v</strong> (' + p1QtyPct + '%)</span>' +
+                  '<strong style="color:var(--gold-light);">' + p1.simCA.toLocaleString('fr-FR') + ' DH</strong>' +
+                '</div>' +
+              '</div>' +
+            '</div>';
+
+            // #2
+            if (catItems.length >= 2) {
+              const p2 = catItems[1];
+              const p2QtyPct = catTotalQty > 0 ? ((p2.simQty / catTotalQty) * 100).toFixed(1) : 0;
+              const p2ShareOfLead = maxItemMetric > 0 ? Math.round(((rankingSortMode === 'ca' ? p2.simCA : (rankingSortMode === 'margin' ? p2.simMargin : p2.simQty)) / maxItemMetric) * 100) : 0;
+              mainHtml += '<div class="podium-card second">' +
+                '<div>' +
+                  '<div class="podium-medal">🥈 <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:#cbd5e1;">2ème Place</span></div>' +
+                  '<div class="podium-dish-name" title="' + p2.name + '">' + p2.name + '</div>' +
+                  '<div class="podium-price">' + p2.simPrice + ' DH</div>' +
+                '</div>' +
+                '<div>' +
+                  '<div class="share-bar-container"><div class="share-bar-fill" style="width:' + p2ShareOfLead + '%; background:var(--cyan);"></div></div>' +
+                  '<div class="podium-metrics">' +
+                    '<span><strong>' + p2.simQty + ' v</strong> (' + p2QtyPct + '%)</span>' +
+                    '<strong style="color:var(--gold-light);">' + p2.simCA.toLocaleString('fr-FR') + ' DH</strong>' +
+                  '</div>' +
+                '</div>' +
+              '</div>';
+            }
+
+            // #3
+            if (catItems.length >= 3) {
+              const p3 = catItems[2];
+              const p3QtyPct = catTotalQty > 0 ? ((p3.simQty / catTotalQty) * 100).toFixed(1) : 0;
+              const p3ShareOfLead = maxItemMetric > 0 ? Math.round(((rankingSortMode === 'ca' ? p3.simCA : (rankingSortMode === 'margin' ? p3.simMargin : p3.simQty)) / maxItemMetric) * 100) : 0;
+              mainHtml += '<div class="podium-card third">' +
+                '<div>' +
+                  '<div class="podium-medal">🥉 <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:#d97706;">3ème Place</span></div>' +
+                  '<div class="podium-dish-name" title="' + p3.name + '">' + p3.name + '</div>' +
+                  '<div class="podium-price">' + p3.simPrice + ' DH</div>' +
+                '</div>' +
+                '<div>' +
+                  '<div class="share-bar-container"><div class="share-bar-fill" style="width:' + p3ShareOfLead + '%; background:var(--gold);"></div></div>' +
+                  '<div class="podium-metrics">' +
+                    '<span><strong>' + p3.simQty + ' v</strong> (' + p3QtyPct + '%)</span>' +
+                    '<strong style="color:var(--gold-light);">' + p3.simCA.toLocaleString('fr-FR') + ' DH</strong>' +
+                  '</div>' +
+                '</div>' +
+              '</div>';
+            }
+
+            mainHtml += '</div>';
+          }
+
+          // Full Table of Category
+          mainHtml += '<div class="table-container">' +
+            '<table class="custom-table">' +
+              '<thead>' +
+                '<tr>' +
+                  '<th style="width:60px; text-align:center;">Rang</th>' +
+                  '<th>Plat &amp; Prix</th>' +
+                  '<th style="width:190px;">Ventes &amp; Ajustement</th>' +
+                  '<th style="width:140px;">Part Famille (%)</th>' +
+                  '<th>Chiffre d\'Affaires</th>' +
+                  '<th>Marge Totale</th>' +
+                  '<th>Quadrant</th>' +
+                  '<th>Action</th>' +
+                '</tr>' +
+              '</thead>' +
+              '<tbody>';
+
+          catItems.forEach((item, rIdx) => {
+            const rank = rIdx + 1;
+            const rankBadgeClass = rank === 1 ? 'rank-num-1' : (rank === 2 ? 'rank-num-2' : (rank === 3 ? 'rank-num-3' : 'rank-num-other'));
+            const rankMedal = rank === 1 ? '🥇' : (rank === 2 ? '🥈' : (rank === 3 ? '🥉' : '#' + rank));
+
+            const qtySharePct = catTotalQty > 0 ? ((item.simQty / catTotalQty) * 100).toFixed(1) : 0;
+            const caSharePct = catTotalCA > 0 ? ((item.simCA / catTotalCA) * 100).toFixed(1) : 0;
+            const leadRatio = maxItemMetric > 0 ? Math.round(((rankingSortMode === 'ca' ? item.simCA : (rankingSortMode === 'margin' ? item.simMargin : item.simQty)) / maxItemMetric) * 100) : 0;
+
+            let quadBadge = item.quad === 'STAR' ? '<span class="pill pill-success">★ STAR</span>' : (item.quad === 'PLOWHORSE' ? '<span class="pill pill-blue">🐴 PLOWHORSE</span>' : (item.quad === 'PUZZLE' ? '<span class="pill pill-warning">🧩 PUZZLE</span>' : '<span class="pill pill-danger">🐕 DOG</span>'));
+
+            const salesDisplay = rankingDirectEditMode ?
+              '<input type="number" class="sales-direct-input" value="' + item.simQty + '" min="0" onchange="updateDishSales(\'' + item.id + '\', this.value)">' :
+              '<div class="qty-stepper">' +
+                '<button class="qty-step-btn" title="-10 ventes" onclick="adjustDishSales(\'' + item.id + '\', -10)">-10</button>' +
+                '<button class="qty-step-btn" title="-1 vente" onclick="adjustDishSales(\'' + item.id + '\', -1)">-</button>' +
+                '<strong style="min-width:45px; text-align:center; display:inline-block;">' + item.simQty + ' v</strong>' +
+                '<button class="qty-step-btn" title="+1 vente" onclick="adjustDishSales(\'' + item.id + '\', 1)">+</button>' +
+                '<button class="qty-step-btn" title="+10 ventes" onclick="adjustDishSales(\'' + item.id + '\', 10)">+10</button>' +
+              '</div>';
+
+            mainHtml += '<tr class="' + (item.isKept ? '' : 'row-removed') + '">' +
+              '<td style="text-align:center;"><span class="rank-number-badge ' + rankBadgeClass + '">' + rankMedal + '</span></td>' +
+              '<td>' +
+                '<strong>' + item.name + '</strong>' +
+                '<span style="display:block; font-size:0.75rem; color:var(--gold);">' + item.simPrice + ' DH' + (item.cost ? ' &bull; Coût: ' + item.cost.toFixed(1) + ' DH' : '') + '</span>' +
+              '</td>' +
+              '<td>' + salesDisplay + '</td>' +
+              '<td>' +
+                '<div style="display:flex; justify-content:space-between; font-size:0.75rem;"><span>' + qtySharePct + '% vol.</span><span style="color:#94a3b8;">' + caSharePct + '% CA</span></div>' +
+                '<div class="share-bar-container"><div class="share-bar-fill" style="width:' + leadRatio + '%;"></div></div>' +
+              '</td>' +
+              '<td><strong>' + item.simCA.toLocaleString('fr-FR') + ' DH</strong></td>' +
+              '<td style="color:var(--gold-light); font-weight:700;">' + item.simMargin.toLocaleString('fr-FR') + ' DH</td>' +
+              '<td>' + quadBadge + '</td>' +
+              '<td>' +
+                '<button class="dish-btn" style="background:' + (item.isKept ? 'rgba(239,68,68,0.2)' : 'rgba(16,185,129,0.2)') + '; border:1px solid ' + (item.isKept ? 'var(--ruby)' : 'var(--emerald)') + '; color:' + (item.isKept ? '#f87171' : '#34d399') + '; font-size:0.75rem; padding:4px 10px;" onclick="toggleDish(\'' + item.id + '\')">' + (item.isKept ? 'Retirer' : 'Réactiver') + '</button>' +
+              '</td>' +
+            '</tr>';
+          });
+
+          mainHtml += '</tbody></table></div></div>';
+        });
+
+        container.innerHTML = mainHtml;
+
+      } catch (err) { console.error('Error in renderCategoryRankings:', err); }
+    }
+    window.renderCategoryRankings = renderCategoryRankings;
+
+</script>
 </body>
 </html>
