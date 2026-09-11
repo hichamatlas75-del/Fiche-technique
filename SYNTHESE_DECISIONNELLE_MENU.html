@@ -666,6 +666,102 @@
       .custom-table td { color: #000 !important; border-bottom: 1px solid #ddd !important; }
       .tab-content { display: block !important; }
     }
+  
+    /* MENU ENGINEERING QUADRANTS GRID */
+    .me-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+    .me-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .me-card.star { border-top: 4px solid var(--emerald); }
+    .me-card.plowhorse { border-top: 4px solid var(--blue); }
+    .me-card.puzzle { border-top: 4px solid var(--gold); }
+    .me-card.dog { border-top: 4px solid var(--ruby); }
+    .me-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .me-card-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .me-list {
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+    .me-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.025);
+      margin-bottom: 6px;
+      font-size: 0.83rem;
+    }
+    .me-item-row:hover { background: rgba(255, 255, 255, 0.06); }
+
+    /* FINAL MENU GRID */
+    .final-menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 22px;
+    }
+    .final-category-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px 22px;
+      box-shadow: var(--shadow);
+    }
+    .final-category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .final-category-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .final-item-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 9px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+      font-size: 0.88rem;
+    }
+    .final-item-line:last-child { border-bottom: none; }
+    .final-item-name { font-weight: 700; color: #f8fafc; }
+    .final-item-price { font-weight: 800; color: var(--gold-light); margin-left: 12px; }
+
+    .pill-blue { background: rgba(59, 130, 246, 0.15); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.35); }
+    .pill-purple { background: rgba(168, 85, 247, 0.15); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.35); }
+
   </style>
 </head>
 <body>
@@ -700,6 +796,7 @@
           <button class="preset-btn active" id="preset-btn-recommended" data-preset="recommended" onclick="applyPreset('recommended', this)">&#9889; Recommand&eacute; (All&eacute;g&eacute; + Saumon)</button>
           <button class="preset-btn" id="preset-btn-growth" data-preset="growth" onclick="applyPreset('growth', this)">&#128640; Croissance (+20%)</button>
           <button class="preset-btn" id="preset-btn-sunday" data-preset="sunday" onclick="applyPreset('sunday', this)">&#128721; Anti-Bouchon Dimanche</button>
+          <button class="preset-btn" id="preset-btn-margin" data-preset="margin" onclick="applyPreset('margin', this)">&#128176; Marge Maximale</button>
         </div>
       </div>
 
@@ -749,6 +846,45 @@
         </div>
       </div>
 
+      
+        <!-- Control 4: Demand Transfer -->
+        <div class="control-card">
+          <div class="control-label-row">
+            <span class="control-label">&#128257; Report Demande (Cannibalisation)</span>
+            <span class="control-val" id="val-transfer-rate">70%</span>
+          </div>
+          <input type="range" class="slider-input" id="slider-transfer-rate" min="0" max="100" step="5" value="70" oninput="updateSimulation()">
+          <div class="control-hint">% de clients d'un plat éliminé qui se reportent sur les plats vedettes du même rayon.</div>
+        </div>
+
+        <!-- Switch 2: Burrata Cut -->
+        <div class="control-card">
+          <div class="switch-wrap">
+            <div class="switch-label-block">
+              <div class="switch-label-title">&#129472; Élimination Burrata &amp; DLC Courte</div>
+              <div class="switch-label-desc">Retirer Burrata (Salade + Pizza) pour stopper les pertes d'invendus périssables.</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-burrata" checked onchange="updateSimulation()">
+              <span class="slider-round"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Switch 3: Sunday Farce Cut -->
+        <div class="control-card">
+          <div class="switch-wrap">
+            <div class="switch-label-block">
+              <div class="switch-label-title">&#9201; Élimination Plats Lents Dimanche</div>
+              <div class="switch-label-desc">Supprimer Roulades &amp; Ballotines pour accélérer le passe de 35 minutes au rush.</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-slow-dishes" checked onchange="updateSimulation()">
+              <span class="slider-round"></span>
+            </label>
+          </div>
+        </div>
+
       <!-- File Dropzone -->
       <div class="dropzone-box" onclick="document.getElementById('file-input').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
         <input type="file" id="file-input" style="display:none" accept=".xlsx,.xls,.csv,.json" onchange="handleFileSelect(event)">
@@ -785,7 +921,13 @@
         <div class="kpi-label">Temps Gagn&eacute; au Passe (Rush)</div>
         <div class="kpi-sub text-cyan">Fin des plats farcis lents le Dimanche</div>
       </div>
-    </div>
+    
+      <div class="kpi-card blue">
+        <div class="kpi-val" id="kpi-pareto">87.4%</div>
+        <div class="kpi-label">CA Sécurisé par la Nouvelle Carte</div>
+        <div class="kpi-sub text-cyan">Fin des 100 plats fantômes sans vente</div>
+      </div>
+</div>
 
     <!-- SALMON ZERO-WASTE ECOSYSTEM BANNER -->
     <section class="salmon-box">
@@ -823,10 +965,12 @@
 
     <!-- NAVIGATION TABS -->
     <nav class="nav-tabs">
-      <button class="tab-btn active" id="tab-btn-table" data-tab="table" onclick="switchTab('table', this)">&#128203; Tableau Dynamique du Menu (184 Plats)</button>
-      <button class="tab-btn" id="tab-btn-charts" data-tab="charts" onclick="switchTab('charts', this)">&#128202; Courbe Pareto &amp; Graphiques</button>
-      <button class="tab-btn" id="tab-btn-pitch" data-tab="pitch" onclick="switchTab('pitch', this)">&#127919; Pitch Imparable pour les Bosses</button>
-      <button class="tab-btn" id="tab-btn-audit" data-tab="audit" onclick="switchTab('audit', this)">&#128269; Comparatif Avant / Apr&egrave;s</button>
+      <button class="tab-btn active" id="tab-btn-table" onclick="switchTab('table', this)">&#128203; Tableau Dynamique (184 Plats)</button>
+      <button class="tab-btn" id="tab-btn-engineering" onclick="switchTab('engineering', this)">&#129517; Matrice Menu Engineering</button>
+      <button class="tab-btn" id="tab-btn-charts" onclick="switchTab('charts', this)">&#128202; Graphiques &amp; Pareto 80/20</button>
+      <button class="tab-btn" id="tab-btn-final" onclick="switchTab('final', this)">&#128081; Carte Finale Recommandée</button>
+      <button class="tab-btn" id="tab-btn-pitch" onclick="switchTab('pitch', this)">&#127919; Pitch Imparable pour les Patrons</button>
+      <button class="tab-btn" id="tab-btn-audit" onclick="switchTab('audit', this)">&#9878;&#65039; Comparatif Avant / Après</button>
     </nav>
 
     <!-- TAB 1 : TABLE DYNAMIQUE -->
@@ -873,7 +1017,64 @@
       </div>
     </div>
 
-    <!-- TAB 2 : CHARTS -->
+    
+    <!-- TAB 2 : MATRICE MENU ENGINEERING -->
+    <div id="tab-engineering" class="tab-content">
+      <div class="section-card">
+        <div class="section-title">Matrice de Menu Engineering (Kasavana &amp; Smith)</div>
+        <div class="section-desc">Segmentation stratégique des 184 plats croisant leur <strong>volume de vente</strong> (popularité) et leur <strong>marge brute unitaire</strong> (profitabilité cash) :</div>
+
+        <div class="me-grid">
+          <!-- STARS -->
+          <div class="me-card star">
+            <div class="me-card-header">
+              <div class="me-card-title">&#11088; Stars (Piliers)</div>
+              <span class="pill pill-success" id="me-count-star">0 plats</span>
+            </div>
+            <p style="font-size:0.8rem; color:#94a3b8; margin-bottom:12px;"><strong>Haute Popularité &amp; Forte Marge</strong> : Les moteurs de profit. Règle : Maintenir qualité stricte, visibilité maximale sur la carte.</p>
+            <div class="me-list" id="me-list-star"></div>
+          </div>
+
+          <!-- PLOWHORSES -->
+          <div class="me-card plowhorse">
+            <div class="me-card-header">
+              <div class="me-card-title">&#128052; Plowhorses (Volumes)</div>
+              <span class="pill pill-blue" id="me-count-plowhorse">0 plats</span>
+            </div>
+            <p style="font-size:0.8rem; color:#94a3b8; margin-bottom:12px;"><strong>Haute Popularité &amp; Marge Modeste</strong> : Les stars de fréquentation. Règle : Augmenter le prix de +1 à +2 DH ou réajuster les portions.</p>
+            <div class="me-list" id="me-list-plowhorse"></div>
+          </div>
+
+          <!-- PUZZLES -->
+          <div class="me-card puzzle">
+            <div class="me-card-header">
+              <div class="me-card-title">&#129513; Puzzles (Rentables Rares)</div>
+              <span class="pill pill-warning" id="me-count-puzzle">0 plats</span>
+            </div>
+            <p style="font-size:0.8rem; color:#94a3b8; margin-bottom:12px;"><strong>Faible Volume &amp; Forte Marge</strong> : Rentables mais peu vendus. Règle : Améliorer leur nom, les suggérer au service ou les convertir.</p>
+            <div class="me-list" id="me-list-puzzle"></div>
+          </div>
+
+          <!-- DOGS -->
+          <div class="me-card dog">
+            <div class="me-card-header">
+              <div class="me-card-title">&#128021; Dogs (Poids Morts)</div>
+              <span class="pill pill-danger" id="me-count-dog">0 plats</span>
+            </div>
+            <p style="font-size:0.8rem; color:#94a3b8; margin-bottom:12px;"><strong>Faible Volume &amp; Faible Marge</strong> : Gouffres opérationnels. Règle : Élimination pure et simple pour libérer du stock et du temps.</p>
+            <div class="me-list" id="me-list-dog"></div>
+          </div>
+        </div>
+
+        <div class="chart-box" style="margin-top:20px;">
+          <h3>Positionnement Visuel des 184 Plats sur la Matrice</h3>
+          <p>Axe X = Popularité (Ventes réelles) &bull; Axe Y = Marge Brute Cash unitaire (DH). Les points verts sont vos Stars, les rouges sont vos Poids Morts.</p>
+          <div class="chart-wrapper"><canvas id="scatterChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3 : CHARTS & PARETO -->
     <div id="tab-charts" class="tab-content">
       <div class="charts-grid">
         <div class="chart-box">
@@ -899,7 +1100,28 @@
       </div>
     </div>
 
-    <!-- TAB 3 : PITCH POUR LES BOSSES -->
+    
+    <!-- TAB 4 : CARTE FINALE RECOMMANDEE -->
+    <div id="tab-final" class="tab-content">
+      <div class="section-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom:20px;">
+          <div>
+            <div class="section-title">Carte Finale Élite Recommandée</div>
+            <div class="section-desc" style="margin-bottom:0;">La vision épurée de votre nouveau menu : uniquement les plats conservés, organisés par univers prêt pour l'impression.</div>
+          </div>
+          <button class="action-btn" onclick="exportFinalMenuExcel()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Télécharger la Carte Recommandée (.xlsx)
+          </button>
+        </div>
+
+        <div class="final-menu-grid" id="final-menu-container">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5 : PITCH DIRECTION -->
     <div id="tab-pitch" class="tab-content">
       <div class="section-card">
         <div class="section-title">Comment Convaincre la Direction en R&eacute;union</div>
@@ -995,6 +1217,11 @@
         <p style="color:var(--text-muted); font-size:0.85rem;">Document optimis&eacute; pour impression papier ou projection en r&eacute;union de direction.</p>
       </div>
       <div style="display:flex; gap:12px;">
+        
+        <button class="action-btn action-btn-secondary" onclick="exportCompleteExcel()" style="background:rgba(255,255,255,0.08); color:#ffffff; border:1px solid var(--card-border);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Audit Complet Multi-Feuilles (.xlsx)
+        </button>
         <button class="action-btn" onclick="exportDataJSON()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Exporter Donn&eacute;es (JSON)
@@ -1011,639 +1238,484 @@
   <!-- JAVASCRIPT DATA & DYNAMIC LOGIC ENGINE -->
   <script>
     // Embedded Base Menu Data (184 Audited Items)
-    const INITIAL_MENU_DATA = [{"id":"1b39508a","name":"MILKSHAKE OREO","cat":"MILKSHAKES","price":42,"qty":11,"ca":462,"cost":13.44,"margin":28.56,"quad":"PUZZLE"},{"id":"2c0ab4a2","name":"4 SAISONS","cat":"PIZZA","price":88,"qty":225,"ca":19800,"cost":25.76,"margin":62.24,"quad":"PUZZLE"},{"id":"163fbfa8","name":"5 FROMAGE","cat":"Pasta (Spaghettis, Tagliatelles, Linguines)","price":70,"qty":212,"ca":14231,"cost":20.85,"margin":49.15,"quad":"PUZZLE"},{"id":"c03ef312","name":"CAFÉ NESPRESSO","cat":"BOISSONS CHAUDES","price":22,"qty":289,"ca":6358,"cost":6.59,"margin":15.41,"quad":"PLOWHORSE"},{"id":"184bcbd7","name":"SAN SEBASTIEN (Nutella)","cat":"GÂTEAUX","price":40,"qty":0,"ca":0,"cost":1.58,"margin":38.42,"quad":"DOG_ZERO_VENTE"},{"id":"951d6f6f","name":"CROUSTILLON GAMBAS","cat":"ENTRÉES CHAUDES","price":68,"qty":133,"ca":9044,"cost":25.69,"margin":42.31,"quad":"PUZZLE"},{"id":"c637898f","name":"COCA","cat":"SODA","price":17,"qty":1001,"ca":17017,"cost":8.05,"margin":8.95,"quad":"PLOWHORSE"},{"id":"c8cb62c4","name":"CAFÉ AU LAIT","cat":"BOISSONS CHAUDES","price":19,"qty":1016,"ca":17575.09,"cost":4.59,"margin":14.41,"quad":"PLOWHORSE"},{"id":"92568030","name":"BURRATA","cat":"PIZZA","price":110,"qty":34,"ca":3740,"cost":37.92,"margin":72.08,"quad":"PUZZLE"},{"id":"f59f863c","name":"VIANDE HACHÉE","cat":"PIZZA","price":78,"qty":387,"ca":21646,"cost":19.14,"margin":58.86,"quad":"STAR"},{"id":"b09952c5","name":"VERVEINE AROMATISÉE","cat":"BOISSONS CHAUDES","price":18,"qty":0,"ca":0,"cost":3.38,"margin":14.62,"quad":"DOG_ZERO_VENTE"},{"id":"a4197610","name":"POULET CHAMPIGNON / EPINARD","cat":"Pasta (Spaghettis, Tagliatelles, Linguines)","price":75,"qty":13,"ca":130,"cost":22.35,"margin":52.65,"quad":"DOG"},{"id":"a7c2005f","name":"VEGETARIENNE","cat":"PIZZA","price":62,"qty":354,"ca":20318,"cost":14.72,"margin":47.28,"quad":"STAR"},{"id":"1e7bcafa","name":"MILKSHAKE NUTELLA","cat":"MILKSHAKES","price":42,"qty":20,"ca":840,"cost":9.4,"margin":32.6,"quad":"DOG"},{"id":"7833bd8a","name":"EGG ET CHEESEBURGER","cat":"BURGERS","price":56,"qty":0,"ca":0,"cost":19.28,"margin":36.72,"quad":"DOG_ZERO_VENTE"},{"id":"bfe13ada","name":"ESPAGNOL","cat":"PETIT DÉJEUNER","price":64,"qty":496,"ca":31744,"cost":26.25,"margin":37.75,"quad":"STAR"},{"id":"7ff4d8d0","name":"VERVEINE","cat":"BOISSONS CHAUDES","price":15,"qty":398,"ca":6156,"cost":3.1,"margin":11.9,"quad":"PLOWHORSE"},{"id":"25cc85dc","name":"MOJITO TROPICAL","cat":"MOJITO","price":38,"qty":182,"ca":6916,"cost":4.11,"margin":33.89,"quad":"DOG"},{"id":"e336c172","name":"LE FILET DE BŒUF ÉMINCÉ","cat":"PLATS","price":115,"qty":0,"ca":0,"cost":49.85,"margin":65.15,"quad":"DOG_ZERO_VENTE"},{"id":"f1fa7f97","name":"LASAGNE POULET CHAMPIGNON","cat":"Pasta (Spaghettis, Tagliatelles, Linguines)","price":60,"qty":74,"ca":4440,"cost":2.1,"margin":57.9,"quad":"PUZZLE"},{"id":"15ab9bd7","name":"ÉMINCÉ DE POULET À LA CRÈME DE CHAMPIGNONS","cat":"PLATS","price":88,"qty":380,"ca":33440,"cost":25.38,"margin":62.62,"quad":"DOG_ZERO_VENTE"},{"id":"8494037b","name":"TIRAMISU","cat":"GÂTEAUX","price":38,"qty":245,"ca":9310,"cost":12.16,"margin":25.84,"quad":"PUZZLE"},{"id":"16edc28a","name":"SPAGHETTIS NOIRS","cat":"Pasta (Spaghettis, Tagliatelles, Linguines)","price":5,"qty":0,"ca":0,"cost":1.6,"margin":3.4,"quad":"DOG_ZERO_VENTE"},{"id":"c83522e3","name":"EXPRESS","cat":"PETIT DÉJEUNER","price":44,"qty":304,"ca":13376,"cost":16.3,"margin":27.7,"quad":"PLOWHORSE"},{"id":"5c8a7b01","name":"BOLOGNAISE","cat":"Pasta (Spaghettis, Tagliatelles, Linguines)","price":75,"qty":284,"ca":21300,"cost":21.89,"margin":53.11,"quad":"STAR"},{"id":"93788121","name":"SAN FRANCISCO","cat":"COCKTAILS","price":34,"qty":59,"ca":2006,"cost":2.96,"margin":31.04,"quad":"DOG"},{"id":"e6091ac5","name":"JUS DE CAROTTE","cat":"BOISSONS FRAÎCHES (JUS)","price":25,"qty":153,"ca":3825,"cost":2.6,"margin":22.4,"quad":"DOG"},{"id":"7818c11e","name":"EXOTIQUE (fruits saisons)","cat":"CRÊPES et GAUFRES","price":48,"qty":0,"ca":0,"cost":15.36,"margin":32.64,"quad":"DOG_ZERO_VENTE"},{"id":"1bff7e9a","name":"MILKSHAKE COOKIES","cat":"MILKSHAKES","price":42,"qty":12,"ca":504,"cost":10.65,"margin":31.35,"quad":"DOG"},{"id":"cfea4f31","name":"POMME CARAMELISÉE","cat":"CRÊPES et GAUFRES","price":40,"qty":0,"ca":0,"cost":12.8,"margin":27.2,"quad":"DOG_ZERO_VENTE"},{"id":"4f2ec5bc","name":"LASAGNE FRUIT DE MER","cat":"Pasta (Spaghettis, Tagliatelles, Linguines)","price":78,"qty":0,"ca":0,"cost":24.96,"margin":53.04,"quad":"DOG_ZERO_VENTE"},{"id":"3c1696d2","name":"OMELETTE DU CHEF","cat":"PETIT DÉJEUNER","price":58,"qty":0,"ca":0,"cost":14.55,"margin":43.45,"quad":"DOG_ZERO_VENTE"},{"id":"c4ac65c9","name":"REGINA","cat":"PIZZA","price":68,"qty":115,"ca":7820,"cost":21.17,"margin":46.83,"quad":"PUZZLE"},{"id":"fbb2f308","name":"CHOCOLAT FONDUE","cat":"BOISSONS CHAUDES","price":26,"qty":70,"ca":1820,"cost":8.32,"margin":17.68,"quad":"DOG"},{"id":"b0d6d6d4","name":"ORANGESHAKE","cat":"ORANGESHAKE","price":42,"qty":18,"ca":756,"cost":8.2,"margin":33.8,"quad":"DOG"},{"id":"9b075b42","name":"Crêpe POULET-CHAMPIGNON","cat":"CRÊPES SALÉES","price":48,"qty":608,"ca":29184,"cost":9.9,"margin":38.1,"quad":"STAR"},{"id":"eda1b1db","name":"THON","cat":"PIZZA","price":65,"qty":200,"ca":11174,"cost":12.03,"margin":52.97,"quad":"PUZZLE"},{"id":"328adad9","name":"JUS DE FRAISE","cat":"BOISSONS FRAÎCHES (JUS)","price":30,"qty":708,"ca":21240,"cost":5.07,"margin":24.93,"quad":"PLOWHORSE"},{"id":"a23d8e89","name":"HAWAI","cat":"SODA","price":17,"qty":573,"ca":9741,"cost":7.55,"margin":9.45,"quad":"PLOWHORSE"},{"id":"3a61c45c","name":"BANANE-NUTELLA","cat":"CRÊPES et GAUFRES","price":42,"qty":219,"ca":9198,"cost":1.58,"margin":40.42,"quad":"PUZZLE"},{"id":"59d7c3ba","name":"BROCHETTES DE POULET MARINÉES","cat":"PLATS","price":84,"qty":0,"ca":0,"cost":21.84,"margin":62.16,"quad":"DOG_ZERO_VENTE"},{"id":"a963b039","name":"FRUIT DE MER","cat":"PANINI","price":64,"qty":313,"ca":20115,"cost":20.48,"margin":43.52,"quad":"STAR"},{"id":"bc60875d","name":"FASSI","cat":"PETIT DÉJEUNER","price":55,"qty":987,"ca":54285,"cost":23.11,"margin":31.89,"quad":"PLOWHORSE"},{"id":"aae90257","name":"5 FROMAGES","cat":"PIZZA","price":78,"qty":0,"ca":0,"cost":20.85,"margin":57.15,"quad":"DOG_ZERO_VENTE"},{"id":"9829f0a2","name":"Crêpe GREY CORNER (MIXTE)","cat":"CRÊPES SALÉES","price":58,"qty":0,"ca":0,"cost":18.56,"margin":39.44,"quad":"DOG_ZERO_VENTE"},{"id":"9fb4f4ef","name":"POULET SAUCE BLANCHE","cat":"PIZZA","price":78,"qty":0,"ca":0,"cost":18.67,"margin":59.33,"quad":"DOG_ZERO_VENTE"},{"id":"6c616326","name":"TERRE MER","cat":"ENTRÉES FROIDES","price":78,"qty":141,"ca":10998,"cost":30.86,"margin":47.14,"quad":"PUZZLE"},{"id":"20ea5606","name":"THÉ NOIR AU LAIT","cat":"BOISSONS CHAUDES","price":18,"qty":17,"ca":306,"cost":4.87,"margin":13.13,"quad":"DOG"},{"id":"667b376b","name":"CHARCUTERIE","cat":"PANINI","price":40,"qty":125,"ca":4548,"cost":14.54,"margin":25.46,"quad":"DOG"},{"id":"65a2ed5a","name":"JUS DE CITRON","cat":"BOISSONS FRAÎCHES (JUS)","price":25,"qty":310,"ca":7750,"cost":3.25,"margin":21.75,"quad":"PLOWHORSE"},{"id":"fcb2f80e","name":"JUS DE FRAMBOISE","cat":"BOISSONS FRAÎCHES (JUS)","price":35,"qty":135,"ca":4725,"cost":8.5,"margin":26.5,"quad":"DOG"},{"id":"1c7b9f42","name":"HAWAIEN","cat":"SMOOTHIES","price":42,"qty":39,"ca":1638,"cost":5.28,"margin":36.72,"quad":"PUZZLE"},{"id":"7636c161","name":"OMELETTE NATURE","cat":"PETIT DÉJEUNER","price":42,"qty":0,"ca":0,"cost":10.85,"margin":31.15,"quad":"DOG_ZERO_VENTE"},{"id":"f5568705","name":"Couscous viande avec petit lait","cat":"COUSCOUS VENDREDI","price":64,"qty":0,"ca":0,"cost":25.86,"margin":38.14,"quad":"DOG_ZERO_VENTE"},{"id":"2870e2fd","name":"CAFÉ NOIR","cat":"BOISSONS CHAUDES","price":16,"qty":10265,"ca":164240,"cost":3.49,"margin":12.51,"quad":"PLOWHORSE"},{"id":"43c999d5","name":"COCA ZERO","cat":"SODA","price":17,"qty":853,"ca":14501,"cost":5.44,"margin":11.56,"quad":"PLOWHORSE"},{"id":"51d94c5a","name":"ROULADE DE BŒUF AUX SAVEURS DE L\u0027ATLAS","cat":"PLATS","price":120,"qty":40,"ca":4800,"cost":38.4,"margin":81.6,"quad":"DOG_ZERO_VENTE"},{"id":"7c4016f4","name":"COUPE GREY CORNER","cat":"COUPE DE GLACE","price":65,"qty":64,"ca":4160,"cost":14.18,"margin":50.82,"quad":"PUZZLE"},{"id":"6dc0a0c4","name":"MOJITO REDBULL","cat":"MOJITO","price":44,"qty":104,"ca":4576,"cost":15.01,"margin":28.99,"quad":"DOG"},{"id":"bbbfbf94","name":"SANDWICH CHEESE STEAK","cat":"SANDWICHS CIABATTA","price":65,"qty":300,"ca":19500,"cost":28.24,"margin":36.76,"quad":"STAR"},{"id":"7882e9fe","name":"ZA3ZA3","cat":"BOISSONS FRAÎCHES (JUS)","price":46,"qty":0,"ca":0,"cost":18.33,"margin":27.67,"quad":"DOG_ZERO_VENTE"},{"id":"d838bed8","name":"BERBÈRE","cat":"PETIT DÉJEUNER","price":54,"qty":272,"ca":14432,"cost":16.92,"margin":37.08,"quad":"STAR"},{"id":"91438660","name":"SPRITE","cat":"SODA","price":17,"qty":232,"ca":3944,"cost":8.05,"margin":8.95,"quad":"DOG"},{"id":"6c9f2afd","name":"TARTARE SAUMON","cat":"ENTRÉES FROIDES","price":88,"qty":32,"ca":2816,"cost":31.07,"margin":56.93,"quad":"PUZZLE"},{"id":"d4dca0fd","name":"WRAP VIANDE HACHÉE","cat":"PANINI","price":62,"qty":86,"ca":5332,"cost":24.99,"margin":37.01,"quad":"PUZZLE"},{"id":"888be64c","name":"CAPPUCHINO AVEC CHANTILLY","cat":"BOISSONS CHAUDES","price":22,"qty":0,"ca":0,"cost":7.04,"margin":14.96,"quad":"DOG_ZERO_VENTE"},{"id":"67861d9d","name":"HOLLANDAIS","cat":"PETIT DÉJEUNER","price":52,"qty":880,"ca":45732,"cost":22.52,"margin":29.48,"quad":"PLOWHORSE"},{"id":"109e0422","name":"MENU ENFANT","cat":"PLATS","price":58,"qty":485,"ca":21545,"cost":15.39,"margin":42.61,"quad":"PLOWHORSE"},{"id":"48fb1cf5","name":"WRAP POULET","cat":"PANINI","price":58,"qty":326,"ca":18908,"cost":21.89,"margin":36.11,"quad":"STAR"},{"id":"3dda61a1","name":"BOULETTES DE POULET FROMAGE","cat":"ENTRÉES CHAUDES","price":52,"qty":65,"ca":3380,"cost":15.44,"margin":36.56,"quad":"PUZZLE"},{"id":"218eeccc","name":"THÉ À LA MENTHE","cat":"BOISSONS CHAUDES","price":16,"qty":2735,"ca":43760,"cost":5.12,"margin":10.88,"quad":"PLOWHORSE"},{"id":"dacd6b5e","name":"FRAPPUCCINO CLASSIQUE","cat":"FRAPPUCCINO","price":25,"qty":72,"ca":1800,"cost":4.53,"margin":20.47,"quad":"DOG"},{"id":"652c18e1","name":"REDBULL","cat":"SODA","price":28,"qty":171,"ca":4788,"cost":15.01,"margin":12.99,"quad":"DOG"},{"id":"b11b8a3f","name":"MILKSHAKE VANILLE","cat":"MILKSHAKES","price":42,"qty":39,"ca":1638,"cost":8.65,"margin":33.35,"quad":"DOG"},{"id":"35ebd854","name":"VEGETARIEN","cat":"Pasta (Spaghettis, Tagliatelles, Linguines)","price":60,"qty":61,"ca":3660,"cost":14.72,"margin":45.28,"quad":"PUZZLE"},{"id":"bf39e64c","name":"OULMES 0.75 l","cat":"EAU MINÉRALE","price":26,"qty":0,"ca":0,"cost":8.32,"margin":17.68,"quad":"DOG_ZERO_VENTE"},{"id":"50ad385d","name":"FONDANT AU CHOCOLAT","cat":"GÂTEAUX","price":40,"qty":237,"ca":9480,"cost":16.21,"margin":23.79,"quad":"DOG"},{"id":"ae8e79a8","name":"COMPAGNAD","cat":"PETIT DÉJEUNER","price":52,"qty":0,"ca":0,"cost":16.64,"margin":35.36,"quad":"DOG_ZERO_VENTE"},{"id":"c38a0e95","name":"CAFÉ LATTE","cat":"BOISSONS CHAUDES","price":19,"qty":76,"ca":1444,"cost":5.42,"margin":13.58,"quad":"DOG"},{"id":"50c31f33","name":"BIG BURGER","cat":"BURGERS","price":68,"qty":152,"ca":10336,"cost":28.22,"margin":39.78,"quad":"PUZZLE"},{"id":"46818b0a","name":"1 Boule de glace","cat":"COUPE DE GLACE","price":16,"qty":947,"ca":15152,"cost":4.16,"margin":11.84,"quad":"PLOWHORSE"},{"id":"749f42db","name":"EXOTIQUE","cat":"SMOOTHIE – BOWL","price":48,"qty":143,"ca":6884,"cost":6.56,"margin":41.44,"quad":"PUZZLE"},{"id":"ee230af0","name":"JELLY ALMOND","cat":"SMOOTHIES","price":48,"qty":15,"ca":720,"cost":15.36,"margin":32.64,"quad":"PUZZLE"},{"id":"4ee98640","name":"ACCOMPAGNEMENTS","cat":"PLATS","price":0,"qty":0,"ca":0,"cost":0,"margin":0,"quad":"DOG_ZERO_VENTE"},{"id":"1d205276","name":"PAVÉ DE SAUMON À LA PLANCHA","cat":"PLATS","price":145,"qty":123,"ca":17835,"cost":52.25,"margin":92.75,"quad":"DOG_ZERO_VENTE"},{"id":"5213017a","name":"PINA COLADA","cat":"COCKTAILS","price":42,"qty":126,"ca":5292,"cost":13.44,"margin":28.56,"quad":"PUZZLE"},{"id":"200a05ed","name":"MQUILA-fruits de mer","cat":"PETIT DÉJEUNER","price":78,"qty":126,"ca":9828,"cost":28.02,"margin":49.98,"quad":"PUZZLE"},{"id":"837af11a","name":"PINK SMOOTHIE","cat":"SMOOTHIES","price":48,"qty":48,"ca":2304,"cost":6.77,"margin":41.23,"quad":"PUZZLE"},{"id":"1131e545","name":"CHEESE BURGER","cat":"BURGERS","price":54,"qty":329,"ca":17766,"cost":19.28,"margin":34.72,"quad":"PLOWHORSE"},{"id":"b3a02657","name":"MARGARITA","cat":"PIZZA","price":52,"qty":194,"ca":10088,"cost":11.22,"margin":40.78,"quad":"PUZZLE"},{"id":"23a0f3a2","name":"OMELETTE CONTINENTAL","cat":"PETIT DÉJEUNER","price":52,"qty":0,"ca":0,"cost":18.25,"margin":33.75,"quad":"DOG_ZERO_VENTE"},{"id":"b04f51af","name":"ULTRA – VITAMINES","cat":"SMOOTHIE – BOWL","price":48,"qty":198,"ca":9504,"cost":15.36,"margin":32.64,"quad":"PUZZLE"},{"id":"7d1cd22f","name":"CARBONARA","cat":"Pasta (Spaghettis, Tagliatelles, Linguines)","price":65,"qty":197,"ca":12805,"cost":21.57,"margin":43.43,"quad":"PUZZLE"},{"id":"48c27427","name":"SUPRÊME DE POULET AUX CHAMPIGNONS ET PERSILLADE","cat":"PLATS","price":98,"qty":102,"ca":9996,"cost":32.96,"margin":65.04,"quad":"PUZZLE"},{"id":"d12cbfc0","name":"CHEESECAKE (Chocolat, Pistache, Framboise)","cat":"GÂTEAUX","price":45,"qty":112,"ca":5040,"cost":14.6,"margin":30.4,"quad":"DOG"},{"id":"28d170f9","name":"PANACHÉ AU LAIT","cat":"BOISSONS FRAÎCHES (JUS)","price":38,"qty":14,"ca":532,"cost":3.78,"margin":34.22,"quad":"DOG"},{"id":"674eabac","name":"FRAÎCHEUR","cat":"COCKTAILS","price":42,"qty":78,"ca":3276,"cost":3.1,"margin":38.9,"quad":"PUZZLE"},{"id":"6e4ac56f","name":"FRAPPUCCINO AROMATISÉ","cat":"FRAPPUCCINO","price":28,"qty":75,"ca":2100,"cost":4.6,"margin":23.4,"quad":"DOG"},{"id":"af8ccaaa","name":"ICE TEA FRAMBOISE","cat":"ICE TEA","price":28,"qty":139,"ca":3892,"cost":2.58,"margin":25.42,"quad":"DOG"},{"id":"72e8b0e0","name":"FRUITS DE MER","cat":"Pasta (Spaghettis, Tagliatelles, Linguines)","price":88,"qty":587,"ca":51176,"cost":23.66,"margin":64.34,"quad":"STAR"},{"id":"bb34a61c","name":"JUS DE FRUITS SECS AVOCAT","cat":"BOISSONS FRAÎCHES (JUS)","price":38,"qty":107,"ca":3940,"cost":5.87,"margin":32.13,"quad":"DOG"},{"id":"cd0c25fe","name":"Crêpe FROMAGE","cat":"CRÊPES SALÉES","price":45,"qty":36,"ca":1620,"cost":8.1,"margin":36.9,"quad":"PUZZLE"},{"id":"fde15742","name":"0.75 l","cat":"EAU MINÉRALE","price":22,"qty":0,"ca":0,"cost":7.04,"margin":14.96,"quad":"DOG_ZERO_VENTE"},{"id":"8e4b5b45","name":"SAN SEBASTIEN","cat":"GÂTEAUX","price":45,"qty":1030,"ca":43310,"cost":15.02,"margin":29.98,"quad":"PLOWHORSE"},{"id":"2d4954ac","name":"Couscous poulet avec petit lait","cat":"COUSCOUS VENDREDI","price":54,"qty":230,"ca":12420,"cost":15.86,"margin":38.14,"quad":"PUZZLE"},{"id":"e7eed8e6","name":"ÉNERGÉTIQUE","cat":"SMOOTHIES","price":42,"qty":66,"ca":2772,"cost":5.42,"margin":36.58,"quad":"PUZZLE"},{"id":"8f08d89a","name":"JUS DE MANGUE","cat":"BOISSONS FRAÎCHES (JUS)","price":30,"qty":939,"ca":28170,"cost":7.62,"margin":22.38,"quad":"PLOWHORSE"},{"id":"a2351075","name":"MIXTE","cat":"PANINI","price":58,"qty":0,"ca":0,"cost":18.56,"margin":39.44,"quad":"DOG_ZERO_VENTE"},{"id":"da9a32f7","name":"MILKSHAKE CHOCOLAT","cat":"MILKSHAKES","price":42,"qty":22,"ca":924,"cost":10.6,"margin":31.4,"quad":"DOG"},{"id":"4c4c53d3","name":"ESCALOPE A LA MILANAISE","cat":"PLATS","price":85,"qty":168,"ca":14280,"cost":21.07,"margin":63.93,"quad":"PUZZLE"},{"id":"36fc4525","name":"GREY CORNER (variétés gourmandises)","cat":"CRÊPES et GAUFRES","price":52,"qty":0,"ca":0,"cost":16.64,"margin":35.36,"quad":"DOG_ZERO_VENTE"},{"id":"c02cdaa8","name":"CHICKEN BURGER","cat":"BURGERS","price":50,"qty":250,"ca":12500,"cost":15.71,"margin":34.29,"quad":"DOG"},{"id":"f6db7713","name":"COCKTAIL ORANGE","cat":"BOISSONS FRAÎCHES (JUS)","price":42,"qty":225,"ca":9498,"cost":13.44,"margin":28.56,"quad":"PUZZLE"},{"id":"c4189160","name":"BELDI","cat":"PETIT DÉJEUNER","price":45,"qty":1317,"ca":36620,"cost":18.42,"margin":26.58,"quad":"PLOWHORSE"},{"id":"8f68fc90","name":"Crêpe NORVÉGIENNE","cat":"CRÊPES SALÉES","price":58,"qty":46,"ca":2668,"cost":23.1,"margin":34.9,"quad":"DOG"},{"id":"88f83b09","name":"JUS D\u0027ORANGE","cat":"BOISSONS FRAÎCHES (JUS)","price":22,"qty":2068,"ca":45496,"cost":2.5,"margin":19.5,"quad":"PLOWHORSE"},{"id":"8947e8bb","name":"OMELETTE FROMAGE","cat":"PETIT DÉJEUNER","price":52,"qty":0,"ca":0,"cost":14.65,"margin":37.35,"quad":"DOG_ZERO_VENTE"},{"id":"0f2b73d2","name":"CAFÉ AMERICAIN","cat":"BOISSONS CHAUDES","price":17,"qty":656,"ca":11808,"cost":3.49,"margin":13.51,"quad":"PLOWHORSE"},{"id":"584328d9","name":"CHEESECAKE (Lotus, Citron)","cat":"GÂTEAUX","price":40,"qty":0,"ca":0,"cost":12.8,"margin":27.2,"quad":"DOG_ZERO_VENTE"},{"id":"63489054","name":"POULET","cat":"PANINI","price":44,"qty":2101,"ca":137696,"cost":12.18,"margin":31.82,"quad":"STAR"},{"id":"813e058c","name":"SCHWEPPES CITRON/TONIC","cat":"SODA","price":17,"qty":0,"ca":0,"cost":8.05,"margin":8.95,"quad":"DOG_ZERO_VENTE"},{"id":"79007bd5","name":"LIGHT","cat":"PETIT DÉJEUNER","price":42,"qty":519,"ca":21798,"cost":14.56,"margin":27.44,"quad":"PLOWHORSE"},{"id":"52e4ef86","name":"BRUNCH GREYCORNER","cat":"PETIT DÉJEUNER","price":85,"qty":561,"ca":47685,"cost":37.6,"margin":47.4,"quad":"STAR"},{"id":"c8619369","name":"OULMES","cat":"EAU MINÉRALE","price":16,"qty":988,"ca":16316,"cost":13.3,"margin":2.7,"quad":"PLOWHORSE"},{"id":"3aa22a4f","name":"JUS D\u0027ANANAS","cat":"BOISSONS FRAÎCHES (JUS)","price":32,"qty":349,"ca":11168,"cost":4.5,"margin":27.5,"quad":"PLOWHORSE"},{"id":"51d7fb79","name":"CHOCOLAT AVEC CHANTILLY","cat":"BOISSONS CHAUDES","price":22,"qty":15,"ca":330,"cost":7.04,"margin":14.96,"quad":"DOG"},{"id":"80cf66ad","name":"COCKTAIL GREY CORNER","cat":"COCKTAILS","price":48,"qty":44,"ca":2112,"cost":4.7,"margin":43.3,"quad":"PUZZLE"},{"id":"72ee54b5","name":"CESAR","cat":"ENTRÉES FROIDES","price":65,"qty":322,"ca":20930,"cost":17.15,"margin":47.85,"quad":"STAR"},{"id":"b7a4a25b","name":"Crêpe BOLOGNAISE","cat":"CRÊPES SALÉES","price":54,"qty":0,"ca":0,"cost":17.28,"margin":36.72,"quad":"DOG_ZERO_VENTE"},{"id":"c93641d1","name":"BURGER ROYAL","cat":"BURGERS","price":70,"qty":141,"ca":9870,"cost":30.23,"margin":39.77,"quad":"PUZZLE"},{"id":"948e0972","name":"COUPE ENFANT","cat":"COUPE DE GLACE","price":40,"qty":30,"ca":1200,"cost":7.75,"margin":32.25,"quad":"DOG"},{"id":"b415c9dd","name":"POMS","cat":"SODA","price":17,"qty":240,"ca":4080,"cost":7.55,"margin":9.45,"quad":"DOG"},{"id":"21529e11","name":"ORANGINA","cat":"SODA","price":17,"qty":180,"ca":3060,"cost":6.6,"margin":10.4,"quad":"DOG"},{"id":"7dac90f1","name":"JUS DE PÊCHE","cat":"BOISSONS FRAÎCHES (JUS)","price":30,"qty":52,"ca":1560,"cost":7.4,"margin":22.6,"quad":"DOG"},{"id":"b4f0b866","name":"KUNAFA PISTACHE","cat":"CRÊPES et GAUFRES","price":48,"qty":605,"ca":28971,"cost":11.9,"margin":36.1,"quad":"PLOWHORSE"},{"id":"d3ae6551","name":"CERCLE VEGGI","cat":"ENTRÉES FROIDES","price":48,"qty":0,"ca":0,"cost":15.36,"margin":32.64,"quad":"DOG_ZERO_VENTE"},{"id":"fe54d0a2","name":"MOJITO CITRON","cat":"MOJITO","price":34,"qty":332,"ca":11288,"cost":3.1,"margin":30.9,"quad":"PLOWHORSE"},{"id":"74eeb191","name":"PIL PIL ESPAGNOL","cat":"ENTRÉES CHAUDES","price":68,"qty":187,"ca":12716,"cost":22.9,"margin":45.1,"quad":"PUZZLE"},{"id":"931795f2","name":"BURRATTA","cat":"ENTRÉES FROIDES","price":98,"qty":32,"ca":3136,"cost":27.96,"margin":70.04,"quad":"PUZZLE"},{"id":"3a87eb07","name":"LASAGNE BOLOGNAISE","cat":"Pasta (Spaghettis, Tagliatelles, Linguines)","price":72,"qty":133,"ca":9576,"cost":21.89,"margin":50.11,"quad":"PUZZLE"},{"id":"1c0a9132","name":"REGATONI RICOTTA","cat":"Pasta (Spaghettis, Tagliatelles, Linguines)","price":68,"qty":33,"ca":2244,"cost":21.76,"margin":46.24,"quad":"PUZZLE"},{"id":"8240295e","name":"ICE TEA PÊCHE","cat":"ICE TEA","price":28,"qty":303,"ca":8484,"cost":2.52,"margin":25.48,"quad":"PLOWHORSE"},{"id":"59c848c2","name":"TRIPLE BERRY","cat":"SMOOTHIES","price":48,"qty":89,"ca":4272,"cost":7.58,"margin":40.42,"quad":"PUZZLE"},{"id":"a67ad52b","name":"SAUMON","cat":"Pasta (Spaghettis, Tagliatelles, Linguines)","price":98,"qty":244,"ca":28145,"cost":52.25,"margin":45.75,"quad":"PUZZLE"},{"id":"deb8fba9","name":"CHOCOLAT AU LAIT","cat":"BOISSONS CHAUDES","price":18,"qty":348,"ca":6264,"cost":5.76,"margin":12.24,"quad":"PLOWHORSE"},{"id":"f2037453","name":"Crêpe CHARCUTERIE","cat":"CRÊPES SALÉES","price":45,"qty":125,"ca":5625,"cost":9.8,"margin":35.2,"quad":"DOG"},{"id":"029899a7","name":"POULARD","cat":"SANDWICHS CIABATTA","price":54,"qty":272,"ca":14688,"cost":15.72,"margin":38.28,"quad":"STAR"},{"id":"bd96ceca","name":"BANANA SPLIT","cat":"COUPE DE GLACE","price":50,"qty":49,"ca":2450,"cost":14.3,"margin":35.7,"quad":"DOG"},{"id":"f606ba70","name":"BRUNCH DUO","cat":"PETIT DÉJEUNER","price":144,"qty":505,"ca":72720,"cost":56.22,"margin":87.78,"quad":"STAR"},{"id":"52617320","name":"MOITIÉ MOITIÉ","cat":"PIZZA","price":88,"qty":63,"ca":5544,"cost":18.07,"margin":69.93,"quad":"PUZZLE"},{"id":"8ddcbebd","name":"CAPPUCHINO ITALIEN","cat":"BOISSONS CHAUDES","price":19,"qty":0,"ca":0,"cost":6.08,"margin":12.92,"quad":"DOG_ZERO_VENTE"},{"id":"14705d0e","name":"JUS DE POMME / BANANE","cat":"BOISSONS FRAÎCHES (JUS)","price":28,"qty":43,"ca":1204,"cost":3.5,"margin":24.5,"quad":"DOG"},{"id":"9ac8dcb0","name":"ICE TEA CITRON","cat":"ICE TEA","price":28,"qty":79,"ca":2212,"cost":2.6,"margin":25.4,"quad":"DOG"},{"id":"30d472ba","name":"LAIT FROID / CHAUD","cat":"BOISSONS CHAUDES","price":12,"qty":26,"ca":312,"cost":2.12,"margin":9.88,"quad":"DOG"},{"id":"45be5a1f","name":"MQUILA MERGUEZ","cat":"PETIT DÉJEUNER","price":64,"qty":179,"ca":11456,"cost":17.06,"margin":46.94,"quad":"PUZZLE"},{"id":"a3457e60","name":"BALLOTINE DE POULET AU CŒUR D\u0027ÉPINARDS ET FROMAGE","cat":"PLATS","price":94,"qty":58,"ca":5452,"cost":28.55,"margin":65.45,"quad":"DOG_ZERO_VENTE"},{"id":"b35d099b","name":"AMERICAIN","cat":"PETIT DÉJEUNER","price":68,"qty":248,"ca":16664,"cost":1,"margin":67,"quad":"PUZZLE"},{"id":"c6e82ded","name":"0.5 l","cat":"EAU MINÉRALE","price":12,"qty":0,"ca":0,"cost":3.84,"margin":8.16,"quad":"DOG_ZERO_VENTE"},{"id":"15a95226","name":"TROPICAL","cat":"COCKTAILS","price":42,"qty":196,"ca":8232,"cost":4.11,"margin":37.89,"quad":"PUZZLE"},{"id":"b966de76","name":"RUSSE","cat":"ENTRÉES FROIDES","price":54,"qty":87,"ca":4698,"cost":6.16,"margin":47.84,"quad":"PUZZLE"},{"id":"bc46c40d","name":"MILKSHAKE KITKAT","cat":"MILKSHAKES","price":42,"qty":28,"ca":1176,"cost":14.65,"margin":27.35,"quad":"DOG"},{"id":"2fc98edf","name":"AVOCADO FORESTIER","cat":"BURGERS","price":54,"qty":121,"ca":6534,"cost":16.32,"margin":37.68,"quad":"PUZZLE"},{"id":"c83b2d43","name":"COUPE AMOR","cat":"COUPE DE GLACE","price":45,"qty":55,"ca":2475,"cost":12.22,"margin":32.78,"quad":"DOG"},{"id":"5dddf03e","name":"CHOCOLAT NOISETTE","cat":"CRÊPES et GAUFRES","price":42,"qty":0,"ca":0,"cost":13.44,"margin":28.56,"quad":"DOG_ZERO_VENTE"},{"id":"16cebd6f","name":"NORVÉGIEN","cat":"PETIT DÉJEUNER","price":68,"qty":508,"ca":34544,"cost":30.1,"margin":37.9,"quad":"STAR"},{"id":"a4dbd839","name":"CAFÉ GLACÉ AROMATISÉ","cat":"ICE COFFEE","price":23,"qty":0,"ca":0,"cost":7.36,"margin":15.64,"quad":"DOG_ZERO_VENTE"},{"id":"ec9397ec","name":"MILKSHAKE FRAISE","cat":"MILKSHAKES","price":42,"qty":34,"ca":1428,"cost":9.5,"margin":32.5,"quad":"DOG"},{"id":"9a2a15fd","name":"WRAP GOURMAND","cat":"PANINI","price":64,"qty":145,"ca":9280,"cost":24.32,"margin":39.68,"quad":"PUZZLE"},{"id":"3d5c4709","name":"THÉ NOIR","cat":"BOISSONS CHAUDES","price":15,"qty":36,"ca":540,"cost":3.77,"margin":11.23,"quad":"DOG"},{"id":"3ce0882d","name":"MULTI-VITAMINE","cat":"SMOOTHIES","price":42,"qty":19,"ca":798,"cost":2.48,"margin":39.52,"quad":"PUZZLE"},{"id":"88785d37","name":"JUS D\u0027AVOCAT","cat":"BOISSONS FRAÎCHES (JUS)","price":32,"qty":352,"ca":11501,"cost":9.27,"margin":22.73,"quad":"PLOWHORSE"},{"id":"c0861588","name":"PEPPERONI","cat":"PIZZA","price":74,"qty":115,"ca":8510,"cost":20.05,"margin":53.95,"quad":"PUZZLE"},{"id":"d07f4608","name":"NUTELLA","cat":"CRÊPES et GAUFRES","price":38,"qty":918,"ca":33926,"cost":1.58,"margin":36.42,"quad":"PLOWHORSE"},{"id":"2413d39b","name":"QUINOA","cat":"ENTRÉES FROIDES","price":68,"qty":105,"ca":7140,"cost":26.65,"margin":41.35,"quad":"PUZZLE"},{"id":"fe25cf72","name":"SUPPLÉMENT CHANTILLY","cat":"MILKSHAKES","price":5,"qty":0,"ca":0,"cost":1.6,"margin":3.4,"quad":"DOG_ZERO_VENTE"},{"id":"972b68fa","name":"CAFÉ GLACÉ CLASSIQUE","cat":"ICE COFFEE","price":20,"qty":0,"ca":0,"cost":6.4,"margin":13.6,"quad":"DOG_ZERO_VENTE"},{"id":"d8f0a2f6","name":"Crêpe PÊCHEUR","cat":"CRÊPES SALÉES","price":58,"qty":85,"ca":4837,"cost":18.97,"margin":39.03,"quad":"PUZZLE"},{"id":"8199932a","name":"FILET DE BŒUF AUX HERBES DE L\u0027ATLAS","cat":"PLATS","price":135,"qty":0,"ca":0,"cost":49.85,"margin":85.15,"quad":"DOG_ZERO_VENTE"},{"id":"3266f865","name":"POULET CRUNCHY","cat":"SANDWICHS CIABATTA","price":58,"qty":213,"ca":12354,"cost":15.13,"margin":42.87,"quad":"DOG_ZERO_VENTE"},{"id":"558549bd","name":"THÉ INFUSION","cat":"BOISSONS CHAUDES","price":18,"qty":34,"ca":612,"cost":5.76,"margin":12.24,"quad":"DOG"},{"id":"4100c11f","name":"COCKTAIL GINGEMBRE","cat":"COCKTAILS","price":32,"qty":233,"ca":7456,"cost":5.12,"margin":26.88,"quad":"DOG"},{"id":"b25eb400","name":"MILKSHAKE CARAMEL","cat":"MILKSHAKES","price":42,"qty":28,"ca":1176,"cost":10.45,"margin":31.55,"quad":"DOG"},{"id":"630fad4f","name":"OMELETTE VEGETARIENNE","cat":"PETIT DÉJEUNER","price":52,"qty":0,"ca":0,"cost":12.05,"margin":39.95,"quad":"DOG_ZERO_VENTE"},{"id":"d6da872d","name":"2 Boules de glace","cat":"COUPE DE GLACE","price":30,"qty":0,"ca":0,"cost":8.32,"margin":21.68,"quad":"DOG_ZERO_VENTE"}];
+    const INITIAL_MENU_DATA = [{"id": "1b39508a", "name": "MILKSHAKE OREO", "cat": "MILKSHAKES", "price": 42, "qty": 11, "ca": 462, "cost": 13.44, "margin": 28.56, "quad": "PUZZLE", "monthlyQty": 2.1, "weeklyQty": 0.5, "desc": "Milkshake aux Oreo."}, {"id": "2c0ab4a2", "name": "4 SAISONS", "cat": "PIZZA", "price": 88, "qty": 225, "ca": 19800, "cost": 25.76, "margin": 62.24, "quad": "PUZZLE", "monthlyQty": 42.5, "weeklyQty": 9.8, "desc": "Fruit de mer, viande hachée, poulet, végétarienne, mozzarella."}, {"id": "163fbfa8", "name": "5 FROMAGE", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 70, "qty": 212, "ca": 14231, "cost": 20.85, "margin": 49.15, "quad": "PUZZLE", "monthlyQty": 40, "weeklyQty": 9.2, "desc": "Pâtes, mélange de cinq fromages (parmesan, bleu, mozzarella, cheddar, gouda)."}, {"id": "c03ef312", "name": "CAFÉ NESPRESSO", "cat": "BOISSONS CHAUDES", "price": 22, "qty": 289, "ca": 6358, "cost": 6.59, "margin": 15.41, "quad": "PLOWHORSE", "monthlyQty": 54.5, "weeklyQty": 12.6, "desc": "Servi avec une eau minérale 33 cl."}, {"id": "184bcbd7", "name": "SAN SEBASTIEN (Nutella)", "cat": "GÂTEAUX", "price": 40, "qty": 0, "ca": 0, "cost": 1.58, "margin": 38.42, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Cheesecake basque au Nutella."}, {"id": "951d6f6f", "name": "CROUSTILLON GAMBAS", "cat": "ENTRÉES CHAUDES", "price": 68, "qty": 133, "ca": 9044, "cost": 25.69, "margin": 42.31, "quad": "PUZZLE", "monthlyQty": 25.1, "weeklyQty": 5.8, "desc": "Purée de pomme de terre, gambas panées au sésame blanc."}, {"id": "c637898f", "name": "COCA", "cat": "SODA", "price": 17, "qty": 1001, "ca": 17017, "cost": 8.05, "margin": 8.95, "quad": "PLOWHORSE", "monthlyQty": 188.9, "weeklyQty": 43.5, "desc": "Boisson gazeuse."}, {"id": "c8cb62c4", "name": "CAFÉ AU LAIT", "cat": "BOISSONS CHAUDES", "price": 19, "qty": 1016, "ca": 17575.09, "cost": 4.59, "margin": 14.41, "quad": "PLOWHORSE", "monthlyQty": 191.7, "weeklyQty": 44.2, "desc": "Servi avec une eau minérale 33 cl."}, {"id": "92568030", "name": "BURRATA", "cat": "PIZZA", "price": 110, "qty": 34, "ca": 3740, "cost": 37.92, "margin": 72.08, "quad": "PUZZLE", "monthlyQty": 6.4, "weeklyQty": 1.5, "desc": "Sauce tomate, burrata, tomates cerises, roquette, vinaigre balsamique, noix."}, {"id": "f59f863c", "name": "VIANDE HACHÉE", "cat": "PIZZA", "price": 78, "qty": 387, "ca": 21646, "cost": 19.14, "margin": 58.86, "quad": "STAR", "monthlyQty": 73, "weeklyQty": 16.8, "desc": "Viande hachée, tomate cerise, sauce tomate, mozzarella."}, {"id": "b09952c5", "name": "VERVEINE AROMATISÉE", "cat": "BOISSONS CHAUDES", "price": 18, "qty": 0, "ca": 0, "cost": 3.38, "margin": 14.62, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Infusion de verveine aromatisée."}, {"id": "a4197610", "name": "POULET CHAMPIGNON / EPINARD", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 75, "qty": 13, "ca": 130, "cost": 22.35, "margin": 52.65, "quad": "DOG", "monthlyQty": 2.5, "weeklyQty": 0.6, "desc": "Pâtes, poulet, champignon, épinard, parmesan."}, {"id": "a7c2005f", "name": "VEGETARIENNE", "cat": "PIZZA", "price": 62, "qty": 354, "ca": 20318, "cost": 14.72, "margin": 47.28, "quad": "STAR", "monthlyQty": 66.8, "weeklyQty": 15.4, "desc": "Légumes variés (poivrons, champignons, oignons, courgettes), sauce pesto, mozzarella."}, {"id": "1e7bcafa", "name": "MILKSHAKE NUTELLA", "cat": "MILKSHAKES", "price": 42, "qty": 20, "ca": 840, "cost": 9.4, "margin": 32.6, "quad": "DOG", "monthlyQty": 3.8, "weeklyQty": 0.9, "desc": "Milkshake au Nutella."}, {"id": "7833bd8a", "name": "EGG ET CHEESEBURGER", "cat": "BURGERS", "price": 56, "qty": 0, "ca": 0, "cost": 19.28, "margin": 36.72, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Viande hachée, cheddar, champignon, œuf, laitue, tomate, oignon caramélisé."}, {"id": "bfe13ada", "name": "ESPAGNOL", "cat": "PETIT DÉJEUNER", "price": 64, "qty": 496, "ca": 31744, "cost": 26.25, "margin": 37.75, "quad": "STAR", "monthlyQty": 93.6, "weeklyQty": 21.6, "desc": "Tortilla, croquettes, tapenade, thon, tomates fraiche, fromage, pain seigle et mesclun salade, jus d'orange, boisson chaude au choix, dessert et eau minérale."}, {"id": "7ff4d8d0", "name": "VERVEINE", "cat": "BOISSONS CHAUDES", "price": 15, "qty": 398, "ca": 6156, "cost": 3.1, "margin": 11.9, "quad": "PLOWHORSE", "monthlyQty": 75.1, "weeklyQty": 17.3, "desc": "Infusion de verveine."}, {"id": "25cc85dc", "name": "MOJITO TROPICAL", "cat": "MOJITO", "price": 38, "qty": 182, "ca": 6916, "cost": 4.11, "margin": 33.89, "quad": "DOG", "monthlyQty": 34.3, "weeklyQty": 7.9, "desc": "Mojito aux saveurs tropicales."}, {"id": "e336c172", "name": "LE FILET DE BŒUF ÉMINCÉ", "cat": "PLATS", "price": 115, "qty": 0, "ca": 0, "cost": 49.85, "margin": 65.15, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Cœur de filet de bœuf, champignons de Paris frais, crème onctueuse, fines herbes"}, {"id": "f1fa7f97", "name": "LASAGNE POULET CHAMPIGNON", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 60, "qty": 74, "ca": 4440, "cost": 2.1, "margin": 57.9, "quad": "PUZZLE", "monthlyQty": 14, "weeklyQty": 3.2, "desc": "Poulet, Pâtes lasagne, Sauce blanche, Béchamel, fromage"}, {"id": "15ab9bd7", "name": "ÉMINCÉ DE POULET À LA CRÈME DE CHAMPIGNONS", "cat": "PLATS", "price": 88, "qty": 380, "ca": 33440, "cost": 25.38, "margin": 62.62, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Morceaux de poulet saisis, sauce onctueuse aux champignons de Paris frais"}, {"id": "8494037b", "name": "TIRAMISU", "cat": "GÂTEAUX", "price": 38, "qty": 245, "ca": 9310, "cost": 12.16, "margin": 25.84, "quad": "PUZZLE", "monthlyQty": 46.2, "weeklyQty": 10.7, "desc": "Dessert classique italien."}, {"id": "16edc28a", "name": "SPAGHETTIS NOIRS", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 5, "qty": 0, "ca": 0, "cost": 1.6, "margin": 3.4, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Supplément pour pâtes noires à l'encre de seiche."}, {"id": "c83522e3", "name": "EXPRESS", "cat": "PETIT DÉJEUNER", "price": 44, "qty": 304, "ca": 13376, "cost": 16.3, "margin": 27.7, "quad": "PLOWHORSE", "monthlyQty": 57.4, "weeklyQty": 13.2, "desc": "Panier de quatre viennoiseries, jus d'orange, boisson chaude au choix, dessert et eau minérale."}, {"id": "5c8a7b01", "name": "BOLOGNAISE", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 75, "qty": 284, "ca": 21300, "cost": 21.89, "margin": 53.11, "quad": "STAR", "monthlyQty": 53.6, "weeklyQty": 12.3, "desc": "Pâtes, sauce bolognaise à la viande hachée, tomate cerise."}, {"id": "93788121", "name": "SAN FRANCISCO", "cat": "COCKTAILS", "price": 34, "qty": 59, "ca": 2006, "cost": 2.96, "margin": 31.04, "quad": "DOG", "monthlyQty": 11.1, "weeklyQty": 2.6, "desc": "Gingembre, bissap, orange, citron."}, {"id": "e6091ac5", "name": "JUS DE CAROTTE", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 25, "qty": 153, "ca": 3825, "cost": 2.6, "margin": 22.4, "quad": "DOG", "monthlyQty": 28.9, "weeklyQty": 6.7, "desc": "Jus de carotte frais."}, {"id": "7818c11e", "name": "EXOTIQUE (fruits saisons)", "cat": "CRÊPES et GAUFRES", "price": 48, "qty": 0, "ca": 0, "cost": 15.36, "margin": 32.64, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Crêpe ou gaufre aux fruits de saison."}, {"id": "1bff7e9a", "name": "MILKSHAKE COOKIES", "cat": "MILKSHAKES", "price": 42, "qty": 12, "ca": 504, "cost": 10.65, "margin": 31.35, "quad": "DOG", "monthlyQty": 2.3, "weeklyQty": 0.5, "desc": "Milkshake aux cookies."}, {"id": "cfea4f31", "name": "POMME CARAMELISÉE", "cat": "CRÊPES et GAUFRES", "price": 40, "qty": 0, "ca": 0, "cost": 12.8, "margin": 27.2, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Crêpe ou gaufre à la pomme caramélisée."}, {"id": "4f2ec5bc", "name": "LASAGNE FRUIT DE MER", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 78, "qty": 0, "ca": 0, "cost": 24.96, "margin": 53.04, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Crevette, calamars, , Pâtes lasagne, Sauce blanche, Béchamel, fromage"}, {"id": "3c1696d2", "name": "OMELETTE DU CHEF", "cat": "PETIT DÉJEUNER", "price": 58, "qty": 0, "ca": 0, "cost": 14.55, "margin": 43.45, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Omelette 3 œufs, champignons, épinards, fromage, mesclun salade, jus d'orange, boisson chaude au choix, dessert et eau minérale (supplément œufs beldi 05 DH)."}, {"id": "c4ac65c9", "name": "REGINA", "cat": "PIZZA", "price": 68, "qty": 115, "ca": 7820, "cost": 21.17, "margin": 46.83, "quad": "PUZZLE", "monthlyQty": 21.7, "weeklyQty": 5, "desc": "Dinde fumée, champignon frais, mozzarella, sauce blanche."}, {"id": "fbb2f308", "name": "CHOCOLAT FONDUE", "cat": "BOISSONS CHAUDES", "price": 26, "qty": 70, "ca": 1820, "cost": 8.32, "margin": 17.68, "quad": "DOG", "monthlyQty": 13.2, "weeklyQty": 3, "desc": "Chocolat fondu riche."}, {"id": "b0d6d6d4", "name": "ORANGESHAKE", "cat": "ORANGESHAKE", "price": 42, "qty": 18, "ca": 756, "cost": 8.2, "margin": 33.8, "quad": "DOG", "monthlyQty": 3.4, "weeklyQty": 0.8, "desc": "Milkshake à l'orange (Fraise, caramel, chocolat, vanille, oreo, nougat)."}, {"id": "9b075b42", "name": "Crêpe POULET-CHAMPIGNON", "cat": "CRÊPES SALÉES", "price": 48, "qty": 608, "ca": 29184, "cost": 9.9, "margin": 38.1, "quad": "STAR", "monthlyQty": 114.7, "weeklyQty": 26.4, "desc": "Crêpe salée au poulet et champignons."}, {"id": "eda1b1db", "name": "THON", "cat": "PIZZA", "price": 65, "qty": 200, "ca": 11174, "cost": 12.03, "margin": 52.97, "quad": "PUZZLE", "monthlyQty": 37.7, "weeklyQty": 8.7, "desc": "Thon, oignons, olives noires, mozzarella."}, {"id": "328adad9", "name": "JUS DE FRAISE", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 30, "qty": 708, "ca": 21240, "cost": 5.07, "margin": 24.93, "quad": "PLOWHORSE", "monthlyQty": 133.6, "weeklyQty": 30.8, "desc": "Jus de fraise fraîche."}, {"id": "a23d8e89", "name": "HAWAI", "cat": "SODA", "price": 17, "qty": 573, "ca": 9741, "cost": 7.55, "margin": 9.45, "quad": "PLOWHORSE", "monthlyQty": 108.1, "weeklyQty": 24.9, "desc": "Boisson gazeuse."}, {"id": "3a61c45c", "name": "BANANE-NUTELLA", "cat": "CRÊPES et GAUFRES", "price": 42, "qty": 219, "ca": 9198, "cost": 1.58, "margin": 40.42, "quad": "PUZZLE", "monthlyQty": 41.3, "weeklyQty": 9.5, "desc": "Crêpe ou gaufre à la banane et Nutella."}, {"id": "59d7c3ba", "name": "BROCHETTES DE POULET MARINÉES", "cat": "PLATS", "price": 84, "qty": 0, "ca": 0, "cost": 21.84, "margin": 62.16, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Blanc de poulet sélectionné, marinade aromatique grillé sur broche, sauce barbecue"}, {"id": "a963b039", "name": "FRUIT DE MER", "cat": "PANINI", "price": 64, "qty": 313, "ca": 20115, "cost": 20.48, "margin": 43.52, "quad": "STAR", "monthlyQty": 59.1, "weeklyQty": 13.6, "desc": "Crevettes, calamars, sauce de chef."}, {"id": "bc60875d", "name": "FASSI", "cat": "PETIT DÉJEUNER", "price": 55, "qty": 987, "ca": 54285, "cost": 23.11, "margin": 31.89, "quad": "PLOWHORSE", "monthlyQty": 186.2, "weeklyQty": 42.9, "desc": "Khli3, trois œufs au plat, jus d'orange, boisson chaude au choix, dessert et eau minérale (supplément œufs beldi 5 DH)."}, {"id": "aae90257", "name": "5 FROMAGES", "cat": "PIZZA", "price": 78, "qty": 0, "ca": 0, "cost": 20.85, "margin": 57.15, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Sauce tomate, mozzarella, bleu, parmesan, gouda, camembert."}, {"id": "9829f0a2", "name": "Crêpe GREY CORNER (MIXTE)", "cat": "CRÊPES SALÉES", "price": 58, "qty": 0, "ca": 0, "cost": 18.56, "margin": 39.44, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Crêpe salée mixte (viande et fromage)."}, {"id": "9fb4f4ef", "name": "POULET SAUCE BLANCHE", "cat": "PIZZA", "price": 78, "qty": 0, "ca": 0, "cost": 18.67, "margin": 59.33, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Poulet, sauce blanche, champignon, mozzarella."}, {"id": "6c616326", "name": "TERRE MER", "cat": "ENTRÉES FROIDES", "price": 78, "qty": 141, "ca": 10998, "cost": 30.86, "margin": 47.14, "quad": "PUZZLE", "monthlyQty": 26.6, "weeklyQty": 6.1, "desc": "Calamar, gambas, poulet pané, laitue, maïs, tomate cerise, sauce du chef."}, {"id": "20ea5606", "name": "THÉ NOIR AU LAIT", "cat": "BOISSONS CHAUDES", "price": 18, "qty": 17, "ca": 306, "cost": 4.87, "margin": 13.13, "quad": "DOG", "monthlyQty": 3.2, "weeklyQty": 0.7, "desc": "Thé noir servi avec du lait."}, {"id": "667b376b", "name": "CHARCUTERIE", "cat": "PANINI", "price": 40, "qty": 125, "ca": 4548, "cost": 14.54, "margin": 25.46, "quad": "DOG", "monthlyQty": 23.6, "weeklyQty": 5.4, "desc": "3 Charcuteries, salami, fromage, sauce burger."}, {"id": "65a2ed5a", "name": "JUS DE CITRON", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 25, "qty": 310, "ca": 7750, "cost": 3.25, "margin": 21.75, "quad": "PLOWHORSE", "monthlyQty": 58.5, "weeklyQty": 13.5, "desc": "Jus de citron frais."}, {"id": "fcb2f80e", "name": "JUS DE FRAMBOISE", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 35, "qty": 135, "ca": 4725, "cost": 8.5, "margin": 26.5, "quad": "DOG", "monthlyQty": 25.5, "weeklyQty": 5.9, "desc": "Jus de framboise frais."}, {"id": "1c7b9f42", "name": "HAWAIEN", "cat": "SMOOTHIES", "price": 42, "qty": 39, "ca": 1638, "cost": 5.28, "margin": 36.72, "quad": "PUZZLE", "monthlyQty": 7.4, "weeklyQty": 1.7, "desc": "Fraise, ananas, kiwi, avocat, menthe."}, {"id": "7636c161", "name": "OMELETTE NATURE", "cat": "PETIT DÉJEUNER", "price": 42, "qty": 0, "ca": 0, "cost": 10.85, "margin": 31.15, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Omelette 3 œufs, mesclun salade, jus d'orange, boisson chaude au choix, dessert et eau minérale"}, {"id": "f5568705", "name": "Couscous viande avec petit lait", "cat": "COUSCOUS VENDREDI", "price": 64, "qty": 0, "ca": 0, "cost": 25.86, "margin": 38.14, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Plat traditionnel servi le vendredi."}, {"id": "2870e2fd", "name": "CAFÉ NOIR", "cat": "BOISSONS CHAUDES", "price": 16, "qty": 10265, "ca": 164240, "cost": 3.49, "margin": 12.51, "quad": "PLOWHORSE", "monthlyQty": 1936.8, "weeklyQty": 446.3, "desc": "Servi avec une eau minérale 33 cl."}, {"id": "43c999d5", "name": "COCA ZERO", "cat": "SODA", "price": 17, "qty": 853, "ca": 14501, "cost": 5.44, "margin": 11.56, "quad": "PLOWHORSE", "monthlyQty": 160.9, "weeklyQty": 37.1, "desc": "Boisson gazeuse sans sucre."}, {"id": "51d94c5a", "name": "ROULADE DE BŒUF AUX SAVEURS DE L'ATLAS", "cat": "PLATS", "price": 120, "qty": 40, "ca": 4800, "cost": 38.4, "margin": 81.6, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Viande de bœuf hachée, farce épinards et fromages, sauce crème fraîche et champignons frais"}, {"id": "7c4016f4", "name": "COUPE GREY CORNER", "cat": "COUPE DE GLACE", "price": 65, "qty": 64, "ca": 4160, "cost": 14.18, "margin": 50.82, "quad": "PUZZLE", "monthlyQty": 12.1, "weeklyQty": 2.8, "desc": "Vanille, nougat, yaourt,pistache."}, {"id": "6dc0a0c4", "name": "MOJITO REDBULL", "cat": "MOJITO", "price": 44, "qty": 104, "ca": 4576, "cost": 15.01, "margin": 28.99, "quad": "DOG", "monthlyQty": 19.6, "weeklyQty": 4.5, "desc": "Mojito énergisant au Redbull."}, {"id": "bbbfbf94", "name": "SANDWICH CHEESE STEAK", "cat": "SANDWICHS CIABATTA", "price": 65, "qty": 300, "ca": 19500, "cost": 28.24, "margin": 36.76, "quad": "STAR", "monthlyQty": 56.6, "weeklyQty": 13, "desc": "Steak grillé tendre, cheddar."}, {"id": "7882e9fe", "name": "ZA3ZA3", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 46, "qty": 0, "ca": 0, "cost": 18.33, "margin": 27.67, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Cocktail marocain riche en fruits secs et lait."}, {"id": "d838bed8", "name": "BERBÈRE", "cat": "PETIT DÉJEUNER", "price": 54, "qty": 272, "ca": 14432, "cost": 16.92, "margin": 37.08, "quad": "STAR", "monthlyQty": 51.3, "weeklyQty": 11.8, "desc": "Baghrir, amlou, fruits secs, jben, miel, banane, jus d'orange, boisson chaude au choix, dessert et eau minérale."}, {"id": "91438660", "name": "SPRITE", "cat": "SODA", "price": 17, "qty": 232, "ca": 3944, "cost": 8.05, "margin": 8.95, "quad": "DOG", "monthlyQty": 43.8, "weeklyQty": 10.1, "desc": "Boisson gazeuse."}, {"id": "6c9f2afd", "name": "TARTARE SAUMON", "cat": "ENTRÉES FROIDES", "price": 88, "qty": 32, "ca": 2816, "cost": 31.07, "margin": 56.93, "quad": "PUZZLE", "monthlyQty": 6, "weeklyQty": 1.4, "desc": "Saumon frais, saumon fumée, avocat, , sauce tartare."}, {"id": "d4dca0fd", "name": "WRAP VIANDE HACHÉE", "cat": "PANINI", "price": 62, "qty": 86, "ca": 5332, "cost": 24.99, "margin": 37.01, "quad": "PUZZLE", "monthlyQty": 16.2, "weeklyQty": 3.7, "desc": "Viande hachee, cheddar ,tomate, laitue ,sauce"}, {"id": "888be64c", "name": "CAPPUCHINO AVEC CHANTILLY", "cat": "BOISSONS CHAUDES", "price": 22, "qty": 0, "ca": 0, "cost": 7.04, "margin": 14.96, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Servi avec une eau minérale 33 cl."}, {"id": "67861d9d", "name": "HOLLANDAIS", "cat": "PETIT DÉJEUNER", "price": 52, "qty": 880, "ca": 45732, "cost": 22.52, "margin": 29.48, "quad": "PLOWHORSE", "monthlyQty": 166, "weeklyQty": 38.3, "desc": "Pain de mie complet avec deux œufs au plat, fromage, dinde fumée, mesclun salade, jus d'orange, boisson chaude au choix, dessert et eau minérale."}, {"id": "109e0422", "name": "MENU ENFANT", "cat": "PLATS", "price": 58, "qty": 485, "ca": 21545, "cost": 15.39, "margin": 42.61, "quad": "PLOWHORSE", "monthlyQty": 91.5, "weeklyQty": 21.1, "desc": "Pasta nature ou Mini pizza avec boisson au choix OU Burger ou nuggets + frite avec boisson au choix."}, {"id": "48fb1cf5", "name": "WRAP POULET", "cat": "PANINI", "price": 58, "qty": 326, "ca": 18908, "cost": 21.89, "margin": 36.11, "quad": "STAR", "monthlyQty": 61.5, "weeklyQty": 14.2, "desc": "poulet pané, , cheddar ,tomate, laitue ,sauce"}, {"id": "3dda61a1", "name": "BOULETTES DE POULET FROMAGE", "cat": "ENTRÉES CHAUDES", "price": 52, "qty": 65, "ca": 3380, "cost": 15.44, "margin": 36.56, "quad": "PUZZLE", "monthlyQty": 12.3, "weeklyQty": 2.8, "desc": "4 Blanc de poulet haché, cheddar."}, {"id": "218eeccc", "name": "THÉ À LA MENTHE", "cat": "BOISSONS CHAUDES", "price": 16, "qty": 2735, "ca": 43760, "cost": 5.12, "margin": 10.88, "quad": "PLOWHORSE", "monthlyQty": 516, "weeklyQty": 118.9, "desc": "Thé traditionnel à la menthe."}, {"id": "dacd6b5e", "name": "FRAPPUCCINO CLASSIQUE", "cat": "FRAPPUCCINO", "price": 25, "qty": 72, "ca": 1800, "cost": 4.53, "margin": 20.47, "quad": "DOG", "monthlyQty": 13.6, "weeklyQty": 3.1, "desc": "Boisson glacée à base de café, style frappé."}, {"id": "652c18e1", "name": "REDBULL", "cat": "SODA", "price": 28, "qty": 171, "ca": 4788, "cost": 15.01, "margin": 12.99, "quad": "DOG", "monthlyQty": 32.3, "weeklyQty": 7.4, "desc": "Boisson énergisante."}, {"id": "b11b8a3f", "name": "MILKSHAKE VANILLE", "cat": "MILKSHAKES", "price": 42, "qty": 39, "ca": 1638, "cost": 8.65, "margin": 33.35, "quad": "DOG", "monthlyQty": 7.4, "weeklyQty": 1.7, "desc": "Milkshake à la vanille."}, {"id": "35ebd854", "name": "VEGETARIEN", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 60, "qty": 61, "ca": 3660, "cost": 14.72, "margin": 45.28, "quad": "PUZZLE", "monthlyQty": 11.5, "weeklyQty": 2.7, "desc": "Pâtes, légumes variés (courgettes, poivrons, tomates), sauce pesto, huile d'olive."}, {"id": "bf39e64c", "name": "OULMES 0.75 l", "cat": "EAU MINÉRALE", "price": 26, "qty": 0, "ca": 0, "cost": 8.32, "margin": 17.68, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Eau minérale gazeuse."}, {"id": "50ad385d", "name": "FONDANT AU CHOCOLAT", "cat": "GÂTEAUX", "price": 40, "qty": 237, "ca": 9480, "cost": 16.21, "margin": 23.79, "quad": "DOG", "monthlyQty": 44.7, "weeklyQty": 10.3, "desc": "Servi avec boule vanille."}, {"id": "ae8e79a8", "name": "COMPAGNAD", "cat": "PETIT DÉJEUNER", "price": 52, "qty": 0, "ca": 0, "cost": 16.64, "margin": 35.36, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "3 Œuf brouillé ,3 charcuterie, 2 pain cake chocolat ,pain seigle, huile d’olive , olive , mesclun salade, jus d'orange, boisson chaude au choix, dessert et eau minérale."}, {"id": "c38a0e95", "name": "CAFÉ LATTE", "cat": "BOISSONS CHAUDES", "price": 19, "qty": 76, "ca": 1444, "cost": 5.42, "margin": 13.58, "quad": "DOG", "monthlyQty": 14.3, "weeklyQty": 3.3, "desc": "Servi avec une eau minérale 33 cl."}, {"id": "50c31f33", "name": "BIG BURGER", "cat": "BURGERS", "price": 68, "qty": 152, "ca": 10336, "cost": 28.22, "margin": 39.78, "quad": "PUZZLE", "monthlyQty": 28.7, "weeklyQty": 6.6, "desc": "2 viandes hachées, fromage cheddar, laitue, tomate, oignon, sauce du chef."}, {"id": "46818b0a", "name": "1 Boule de glace", "cat": "COUPE DE GLACE", "price": 16, "qty": 947, "ca": 15152, "cost": 4.16, "margin": 11.84, "quad": "PLOWHORSE", "monthlyQty": 178.7, "weeklyQty": 41.2, "desc": "Parfum au choix : Vanille, chocolat, nougat, pitache, bubble, yaourt fruit des bois, fraise, caramel."}, {"id": "749f42db", "name": "EXOTIQUE", "cat": "SMOOTHIE – BOWL", "price": 48, "qty": 143, "ca": 6884, "cost": 6.56, "margin": 41.44, "quad": "PUZZLE", "monthlyQty": 27, "weeklyQty": 6.2, "desc": "Ananas, pêche, mangue, banane, orange."}, {"id": "ee230af0", "name": "JELLY ALMOND", "cat": "SMOOTHIES", "price": 48, "qty": 15, "ca": 720, "cost": 15.36, "margin": 32.64, "quad": "PUZZLE", "monthlyQty": 2.8, "weeklyQty": 0.7, "desc": "Banane, amlou, framboise, myrtille."}, {"id": "4ee98640", "name": "ACCOMPAGNEMENTS", "cat": "PLATS", "price": 0, "qty": 0, "ca": 0, "cost": 0, "margin": 0, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "2 Accompagnements au choix : Légumes sautés, riz, frites, purée pomme de terre, potatos."}, {"id": "1d205276", "name": "PAVÉ DE SAUMON À LA PLANCHA", "cat": "PLATS", "price": 145, "qty": 123, "ca": 17835, "cost": 52.25, "margin": 92.75, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Pavé de saumon saisi, sauce vierge maison aux petits légumes croquants et herbes fraîches"}, {"id": "5213017a", "name": "PINA COLADA", "cat": "COCKTAILS", "price": 42, "qty": 126, "ca": 5292, "cost": 13.44, "margin": 28.56, "quad": "PUZZLE", "monthlyQty": 23.8, "weeklyQty": 5.5, "desc": "Ananas, noix de coco."}, {"id": "200a05ed", "name": "MQUILA-fruits de mer", "cat": "PETIT DÉJEUNER", "price": 78, "qty": 126, "ca": 9828, "cost": 28.02, "margin": 49.98, "quad": "PUZZLE", "monthlyQty": 23.8, "weeklyQty": 5.5, "desc": "Crevette, calamar, moules, oignons, deux œufs, jus d'orange, boisson chaude au choix, dessert et eau minérale."}, {"id": "837af11a", "name": "PINK SMOOTHIE", "cat": "SMOOTHIES", "price": 48, "qty": 48, "ca": 2304, "cost": 6.77, "margin": 41.23, "quad": "PUZZLE", "monthlyQty": 9.1, "weeklyQty": 2.1, "desc": "Framboise, orange, fraise."}, {"id": "1131e545", "name": "CHEESE BURGER", "cat": "BURGERS", "price": 54, "qty": 329, "ca": 17766, "cost": 19.28, "margin": 34.72, "quad": "PLOWHORSE", "monthlyQty": 62.1, "weeklyQty": 14.3, "desc": "Viande hachée, cheddar, laitue, tomate, oignon, cornichon, sauce burger."}, {"id": "b3a02657", "name": "MARGARITA", "cat": "PIZZA", "price": 52, "qty": 194, "ca": 10088, "cost": 11.22, "margin": 40.78, "quad": "PUZZLE", "monthlyQty": 36.6, "weeklyQty": 8.4, "desc": "Sauce tomate, basilic, olives noires, mozzarella."}, {"id": "23a0f3a2", "name": "OMELETTE CONTINENTAL", "cat": "PETIT DÉJEUNER", "price": 52, "qty": 0, "ca": 0, "cost": 18.25, "margin": 33.75, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Omelette 3 œufs, charcuterie, fromage, mesclun salade, jus d'orange, boisson chaude au choix, dessert et eau minérale (supplément œufs beldi 5 DH)."}, {"id": "b04f51af", "name": "ULTRA – VITAMINES", "cat": "SMOOTHIE – BOWL", "price": 48, "qty": 198, "ca": 9504, "cost": 15.36, "margin": 32.64, "quad": "PUZZLE", "monthlyQty": 37.4, "weeklyQty": 8.6, "desc": "Mangue, avocat, banane, citron, fraise, orange."}, {"id": "7d1cd22f", "name": "CARBONARA", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 65, "qty": 197, "ca": 12805, "cost": 21.57, "margin": 43.43, "quad": "PUZZLE", "monthlyQty": 37.2, "weeklyQty": 8.6, "desc": "Pâtes, jambon dinde, parmesan."}, {"id": "48c27427", "name": "SUPRÊME DE POULET AUX CHAMPIGNONS ET PERSILLADE", "cat": "PLATS", "price": 98, "qty": 102, "ca": 9996, "cost": 32.96, "margin": 65.04, "quad": "PUZZLE", "monthlyQty": 19.2, "weeklyQty": 4.4, "desc": "Suprême de poulet saisi, sauce veloutée à la crème, champignons frais, persil ciselé"}, {"id": "d12cbfc0", "name": "CHEESECAKE (Chocolat, Pistache, Framboise)", "cat": "GÂTEAUX", "price": 45, "qty": 112, "ca": 5040, "cost": 14.6, "margin": 30.4, "quad": "DOG", "monthlyQty": 21.1, "weeklyQty": 4.9, "desc": "Cheesecake gourmand aux parfums chocolat, pistache et framboise."}, {"id": "28d170f9", "name": "PANACHÉ AU LAIT", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 38, "qty": 14, "ca": 532, "cost": 3.78, "margin": 34.22, "quad": "DOG", "monthlyQty": 2.6, "weeklyQty": 0.6, "desc": "Mélange de jus de fruits au lait."}, {"id": "674eabac", "name": "FRAÎCHEUR", "cat": "COCKTAILS", "price": 42, "qty": 78, "ca": 3276, "cost": 3.1, "margin": 38.9, "quad": "PUZZLE", "monthlyQty": 14.7, "weeklyQty": 3.4, "desc": "Ananas, poire, citron, menthe."}, {"id": "6e4ac56f", "name": "FRAPPUCCINO AROMATISÉ", "cat": "FRAPPUCCINO", "price": 28, "qty": 75, "ca": 2100, "cost": 4.6, "margin": 23.4, "quad": "DOG", "monthlyQty": 14.2, "weeklyQty": 3.3, "desc": "Frappuccino avec un arôme au choix."}, {"id": "af8ccaaa", "name": "ICE TEA FRAMBOISE", "cat": "ICE TEA", "price": 28, "qty": 139, "ca": 3892, "cost": 2.58, "margin": 25.42, "quad": "DOG", "monthlyQty": 26.2, "weeklyQty": 6, "desc": "Thé glacé saveur framboise."}, {"id": "72e8b0e0", "name": "FRUITS DE MER", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 88, "qty": 587, "ca": 51176, "cost": 23.66, "margin": 64.34, "quad": "STAR", "monthlyQty": 110.8, "weeklyQty": 25.5, "desc": "Pâtes, crevettes, calamars, moules, sauce blanche."}, {"id": "bb34a61c", "name": "JUS DE FRUITS SECS AVOCAT", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 38, "qty": 107, "ca": 3940, "cost": 5.87, "margin": 32.13, "quad": "DOG", "monthlyQty": 20.2, "weeklyQty": 4.7, "desc": "Mélange d'avocat et de fruits secs."}, {"id": "cd0c25fe", "name": "Crêpe FROMAGE", "cat": "CRÊPES SALÉES", "price": 45, "qty": 36, "ca": 1620, "cost": 8.1, "margin": 36.9, "quad": "PUZZLE", "monthlyQty": 6.8, "weeklyQty": 1.6, "desc": "Crêpe salée au fromage."}, {"id": "fde15742", "name": "0.75 l", "cat": "EAU MINÉRALE", "price": 22, "qty": 0, "ca": 0, "cost": 7.04, "margin": 14.96, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Bouteille d'eau minérale 75 cl."}, {"id": "8e4b5b45", "name": "SAN SEBASTIEN", "cat": "GÂTEAUX", "price": 45, "qty": 1030, "ca": 43310, "cost": 15.02, "margin": 29.98, "quad": "PLOWHORSE", "monthlyQty": 194.3, "weeklyQty": 44.8, "desc": "Parfums : fruits rouge, caramel, pistache, chocolat noir, miel."}, {"id": "2d4954ac", "name": "Couscous poulet avec petit lait", "cat": "COUSCOUS VENDREDI", "price": 54, "qty": 230, "ca": 12420, "cost": 15.86, "margin": 38.14, "quad": "PUZZLE", "monthlyQty": 43.4, "weeklyQty": 10, "desc": "Plat traditionnel servi le vendredi."}, {"id": "e7eed8e6", "name": "ÉNERGÉTIQUE", "cat": "SMOOTHIES", "price": 42, "qty": 66, "ca": 2772, "cost": 5.42, "margin": 36.58, "quad": "PUZZLE", "monthlyQty": 12.5, "weeklyQty": 2.9, "desc": "Banane, ananas, mangue."}, {"id": "8f08d89a", "name": "JUS DE MANGUE", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 30, "qty": 939, "ca": 28170, "cost": 7.62, "margin": 22.38, "quad": "PLOWHORSE", "monthlyQty": 177.2, "weeklyQty": 40.8, "desc": "Jus de mangue fraîche."}, {"id": "a2351075", "name": "MIXTE", "cat": "PANINI", "price": 58, "qty": 0, "ca": 0, "cost": 18.56, "margin": 39.44, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Mélange de viande hachée et poulet, charcuterie, fromage."}, {"id": "da9a32f7", "name": "MILKSHAKE CHOCOLAT", "cat": "MILKSHAKES", "price": 42, "qty": 22, "ca": 924, "cost": 10.6, "margin": 31.4, "quad": "DOG", "monthlyQty": 4.2, "weeklyQty": 1, "desc": "Milkshake au chocolat."}, {"id": "4c4c53d3", "name": "ESCALOPE A LA MILANAISE", "cat": "PLATS", "price": 85, "qty": 168, "ca": 14280, "cost": 21.07, "margin": 63.93, "quad": "PUZZLE", "monthlyQty": 31.7, "weeklyQty": 7.3, "desc": "Escalope de poulet panée dorée, sauce veloutée aux champignons frais."}, {"id": "36fc4525", "name": "GREY CORNER (variétés gourmandises)", "cat": "CRÊPES et GAUFRES", "price": 52, "qty": 0, "ca": 0, "cost": 16.64, "margin": 35.36, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Crêpe ou gaufre avec des variétés gourmandes."}, {"id": "c02cdaa8", "name": "CHICKEN BURGER", "cat": "BURGERS", "price": 50, "qty": 250, "ca": 12500, "cost": 15.71, "margin": 34.29, "quad": "DOG", "monthlyQty": 47.2, "weeklyQty": 10.9, "desc": "poulet assaisonnées, cheddar, laitue, tomate, oignon, cornichon, sauce biggy"}, {"id": "f6db7713", "name": "COCKTAIL ORANGE", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 42, "qty": 225, "ca": 9498, "cost": 13.44, "margin": 28.56, "quad": "PUZZLE", "monthlyQty": 42.5, "weeklyQty": 9.8, "desc": "Cocktail à base d'orange."}, {"id": "c4189160", "name": "BELDI", "cat": "PETIT DÉJEUNER", "price": 45, "qty": 1317, "ca": 36620, "cost": 18.42, "margin": 26.58, "quad": "PLOWHORSE", "monthlyQty": 248.5, "weeklyQty": 57.3, "desc": "Deux mlaoui, deux harcha, un baghrir, jben, huile d’olive, miel, olives noires, jus d'orange, boisson chaude au choix, dessert et eau minérale."}, {"id": "8f68fc90", "name": "Crêpe NORVÉGIENNE", "cat": "CRÊPES SALÉES", "price": 58, "qty": 46, "ca": 2668, "cost": 23.1, "margin": 34.9, "quad": "DOG", "monthlyQty": 8.7, "weeklyQty": 2, "desc": "Crêpe salée au saumon."}, {"id": "88f83b09", "name": "JUS D'ORANGE", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 22, "qty": 2068, "ca": 45496, "cost": 2.5, "margin": 19.5, "quad": "PLOWHORSE", "monthlyQty": 390.2, "weeklyQty": 89.9, "desc": "Jus d'orange frais pressé."}, {"id": "8947e8bb", "name": "OMELETTE FROMAGE", "cat": "PETIT DÉJEUNER", "price": 52, "qty": 0, "ca": 0, "cost": 14.65, "margin": 37.35, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Omelette 3 œufs, fromage, mesclun salade, jus d'orange, boisson chaude au choix, dessert et eau minérale"}, {"id": "0f2b73d2", "name": "CAFÉ AMERICAIN", "cat": "BOISSONS CHAUDES", "price": 17, "qty": 656, "ca": 11808, "cost": 3.49, "margin": 13.51, "quad": "PLOWHORSE", "monthlyQty": 123.8, "weeklyQty": 28.5, "desc": "Servi avec une eau minérale 33 cl."}, {"id": "584328d9", "name": "CHEESECAKE (Lotus, Citron)", "cat": "GÂTEAUX", "price": 40, "qty": 0, "ca": 0, "cost": 12.8, "margin": 27.2, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Cheesecake crémeux aux saveurs Lotus et Citron."}, {"id": "63489054", "name": "POULET", "cat": "PANINI", "price": 44, "qty": 2101, "ca": 137696, "cost": 12.18, "margin": 31.82, "quad": "STAR", "monthlyQty": 396.4, "weeklyQty": 91.3, "desc": "Poulet grillé, fromage, sauce burger."}, {"id": "813e058c", "name": "SCHWEPPES CITRON/TONIC", "cat": "SODA", "price": 17, "qty": 0, "ca": 0, "cost": 8.05, "margin": 8.95, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Boisson gazeuse."}, {"id": "79007bd5", "name": "LIGHT", "cat": "PETIT DÉJEUNER", "price": 42, "qty": 519, "ca": 21798, "cost": 14.56, "margin": 27.44, "quad": "PLOWHORSE", "monthlyQty": 97.9, "weeklyQty": 22.6, "desc": "Pain complet grillé, jben, huile d’olive, amlou, olives noires, jus d'orange, boisson chaude au choix, dessert et eau minérale."}, {"id": "52e4ef86", "name": "BRUNCH GREYCORNER", "cat": "PETIT DÉJEUNER", "price": 85, "qty": 561, "ca": 47685, "cost": 37.6, "margin": 47.4, "quad": "STAR", "monthlyQty": 105.8, "weeklyQty": 24.4, "desc": "Saucisses, omelette, fromage, toast hollandais, croquettes fromage, charcuteries, pain seigle, mesclun salade, gaufre, pancake, jus d'orange, boisson chaude au choix, dessert et eau minérale."}, {"id": "c8619369", "name": "OULMES", "cat": "EAU MINÉRALE", "price": 16, "qty": 988, "ca": 16316, "cost": 13.3, "margin": 2.7, "quad": "PLOWHORSE", "monthlyQty": 186.4, "weeklyQty": 43, "desc": "Eau minérale gazeuse."}, {"id": "3aa22a4f", "name": "JUS D'ANANAS", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 32, "qty": 349, "ca": 11168, "cost": 4.5, "margin": 27.5, "quad": "PLOWHORSE", "monthlyQty": 65.8, "weeklyQty": 15.2, "desc": "Jus d'ananas frais."}, {"id": "51d7fb79", "name": "CHOCOLAT AVEC CHANTILLY", "cat": "BOISSONS CHAUDES", "price": 22, "qty": 15, "ca": 330, "cost": 7.04, "margin": 14.96, "quad": "DOG", "monthlyQty": 2.8, "weeklyQty": 0.7, "desc": "Servi avec une eau minérale 33 cl."}, {"id": "80cf66ad", "name": "COCKTAIL GREY CORNER", "cat": "COCKTAILS", "price": 48, "qty": 44, "ca": 2112, "cost": 4.7, "margin": 43.3, "quad": "PUZZLE", "monthlyQty": 8.3, "weeklyQty": 1.9, "desc": "Ananas, avocat, fruit de saison, sirop fruits de passion."}, {"id": "72ee54b5", "name": "CESAR", "cat": "ENTRÉES FROIDES", "price": 65, "qty": 322, "ca": 20930, "cost": 17.15, "margin": 47.85, "quad": "STAR", "monthlyQty": 60.8, "weeklyQty": 14, "desc": "Boudin de poulet, parmesan, tomate cerise, crouton, laitue romaine, sauce césar."}, {"id": "b7a4a25b", "name": "Crêpe BOLOGNAISE", "cat": "CRÊPES SALÉES", "price": 54, "qty": 0, "ca": 0, "cost": 17.28, "margin": 36.72, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Crêpe salée à la sauce bolognaise."}, {"id": "c93641d1", "name": "BURGER ROYAL", "cat": "BURGERS", "price": 70, "qty": 141, "ca": 9870, "cost": 30.23, "margin": 39.77, "quad": "PUZZLE", "monthlyQty": 26.6, "weeklyQty": 6.1, "desc": "Viande hachée, poulet pané, cheddar, oignons caramélisés, laitue, tomate, sauce spéciale."}, {"id": "948e0972", "name": "COUPE ENFANT", "cat": "COUPE DE GLACE", "price": 40, "qty": 30, "ca": 1200, "cost": 7.75, "margin": 32.25, "quad": "DOG", "monthlyQty": 5.7, "weeklyQty": 1.3, "desc": "chocolat, bubble, Chantilly."}, {"id": "b415c9dd", "name": "POMS", "cat": "SODA", "price": 17, "qty": 240, "ca": 4080, "cost": 7.55, "margin": 9.45, "quad": "DOG", "monthlyQty": 45.3, "weeklyQty": 10.4, "desc": "Boisson gazeuse."}, {"id": "21529e11", "name": "ORANGINA", "cat": "SODA", "price": 17, "qty": 180, "ca": 3060, "cost": 6.6, "margin": 10.4, "quad": "DOG", "monthlyQty": 34, "weeklyQty": 7.8, "desc": "Boisson gazeuse."}, {"id": "7dac90f1", "name": "JUS DE PÊCHE", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 30, "qty": 52, "ca": 1560, "cost": 7.4, "margin": 22.6, "quad": "DOG", "monthlyQty": 9.8, "weeklyQty": 2.3, "desc": "Jus de pêche fraîche."}, {"id": "b4f0b866", "name": "KUNAFA PISTACHE", "cat": "CRÊPES et GAUFRES", "price": 48, "qty": 605, "ca": 28971, "cost": 11.9, "margin": 36.1, "quad": "PLOWHORSE", "monthlyQty": 114.2, "weeklyQty": 26.3, "desc": "Crêpe ou gaufre saveur Kunafa pistache."}, {"id": "d3ae6551", "name": "CERCLE VEGGI", "cat": "ENTRÉES FROIDES", "price": 48, "qty": 0, "ca": 0, "cost": 15.36, "margin": 32.64, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Crudité du jour, thon, œuf, salade, mesclun."}, {"id": "fe54d0a2", "name": "MOJITO CITRON", "cat": "MOJITO", "price": 34, "qty": 332, "ca": 11288, "cost": 3.1, "margin": 30.9, "quad": "PLOWHORSE", "monthlyQty": 62.6, "weeklyQty": 14.4, "desc": "Mojito classique au citron."}, {"id": "74eeb191", "name": "PIL PIL ESPAGNOL", "cat": "ENTRÉES CHAUDES", "price": 68, "qty": 187, "ca": 12716, "cost": 22.9, "margin": 45.1, "quad": "PUZZLE", "monthlyQty": 35.3, "weeklyQty": 8.1, "desc": "Gambas, huile d'olive, piment fort, ciboulette, tomate cerise."}, {"id": "931795f2", "name": "BURRATTA", "cat": "ENTRÉES FROIDES", "price": 98, "qty": 32, "ca": 3136, "cost": 27.96, "margin": 70.04, "quad": "PUZZLE", "monthlyQty": 6, "weeklyQty": 1.4, "desc": "Burrata, tomate, noix, roquette, Vinaigre balsamique."}, {"id": "3a87eb07", "name": "LASAGNE BOLOGNAISE", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 72, "qty": 133, "ca": 9576, "cost": 21.89, "margin": 50.11, "quad": "PUZZLE", "monthlyQty": 25.1, "weeklyQty": 5.8, "desc": "Viande hachée, Pâtes lasagne, Sauce bolognaise, Béchamel, fromage"}, {"id": "1c0a9132", "name": "REGATONI RICOTTA", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 68, "qty": 33, "ca": 2244, "cost": 21.76, "margin": 46.24, "quad": "PUZZLE", "monthlyQty": 6.2, "weeklyQty": 1.4, "desc": "Ricotta, épinard, parmesan, courgette, sauce blanche."}, {"id": "8240295e", "name": "ICE TEA PÊCHE", "cat": "ICE TEA", "price": 28, "qty": 303, "ca": 8484, "cost": 2.52, "margin": 25.48, "quad": "PLOWHORSE", "monthlyQty": 57.2, "weeklyQty": 13.2, "desc": "Thé glacé saveur pêche."}, {"id": "59c848c2", "name": "TRIPLE BERRY", "cat": "SMOOTHIES", "price": 48, "qty": 89, "ca": 4272, "cost": 7.58, "margin": 40.42, "quad": "PUZZLE", "monthlyQty": 16.8, "weeklyQty": 3.9, "desc": "Myrtille, framboise, fraise."}, {"id": "a67ad52b", "name": "SAUMON", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 98, "qty": 244, "ca": 28145, "cost": 52.25, "margin": 45.75, "quad": "PUZZLE", "monthlyQty": 46, "weeklyQty": 10.6, "desc": "Pâtes, saumon frais, aneth, parmesan."}, {"id": "deb8fba9", "name": "CHOCOLAT AU LAIT", "cat": "BOISSONS CHAUDES", "price": 18, "qty": 348, "ca": 6264, "cost": 5.76, "margin": 12.24, "quad": "PLOWHORSE", "monthlyQty": 65.7, "weeklyQty": 15.1, "desc": "Servi avec une eau minérale 33 cl."}, {"id": "f2037453", "name": "Crêpe CHARCUTERIE", "cat": "CRÊPES SALÉES", "price": 45, "qty": 125, "ca": 5625, "cost": 9.8, "margin": 35.2, "quad": "DOG", "monthlyQty": 23.6, "weeklyQty": 5.4, "desc": "Crêpe salée à la charcuterie."}, {"id": "029899a7", "name": "POULARD", "cat": "SANDWICHS CIABATTA", "price": 54, "qty": 272, "ca": 14688, "cost": 15.72, "margin": 38.28, "quad": "STAR", "monthlyQty": 51.3, "weeklyQty": 11.8, "desc": "Emincé de Poulet, cheddar, champignon, sauce blanche"}, {"id": "bd96ceca", "name": "BANANA SPLIT", "cat": "COUPE DE GLACE", "price": 50, "qty": 49, "ca": 2450, "cost": 14.3, "margin": 35.7, "quad": "DOG", "monthlyQty": 9.2, "weeklyQty": 2.1, "desc": "Vanille, chocolat, fraise."}, {"id": "f606ba70", "name": "BRUNCH DUO", "cat": "PETIT DÉJEUNER", "price": 144, "qty": 505, "ca": 72720, "cost": 56.22, "margin": 87.78, "quad": "STAR", "monthlyQty": 95.3, "weeklyQty": 22, "desc": "Poulet pané, croquettes, croque-maison, omelette au fromage, charcuterie, fromage, pain seigle, beldi (2 mlaoui, 2 harcha), mesclun salade, muffin, gaufre, 2 jus d'orange, 2 boissons chaudes au choix, 2 desserts et 2 eaux minérales."}, {"id": "52617320", "name": "MOITIÉ MOITIÉ", "cat": "PIZZA", "price": 88, "qty": 63, "ca": 5544, "cost": 18.07, "margin": 69.93, "quad": "PUZZLE", "monthlyQty": 11.9, "weeklyQty": 2.7, "desc": "Tout sauf fruits de mer et saumon."}, {"id": "8ddcbebd", "name": "CAPPUCHINO ITALIEN", "cat": "BOISSONS CHAUDES", "price": 19, "qty": 0, "ca": 0, "cost": 6.08, "margin": 12.92, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Servi avec une eau minérale 33 cl."}, {"id": "14705d0e", "name": "JUS DE POMME / BANANE", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 28, "qty": 43, "ca": 1204, "cost": 3.5, "margin": 24.5, "quad": "DOG", "monthlyQty": 8.1, "weeklyQty": 1.9, "desc": "Jus de pomme ou de banane."}, {"id": "9ac8dcb0", "name": "ICE TEA CITRON", "cat": "ICE TEA", "price": 28, "qty": 79, "ca": 2212, "cost": 2.6, "margin": 25.4, "quad": "DOG", "monthlyQty": 14.9, "weeklyQty": 3.4, "desc": "Thé glacé saveur citron."}, {"id": "30d472ba", "name": "LAIT FROID / CHAUD", "cat": "BOISSONS CHAUDES", "price": 12, "qty": 26, "ca": 312, "cost": 2.12, "margin": 9.88, "quad": "DOG", "monthlyQty": 4.9, "weeklyQty": 1.1, "desc": "Lait nature."}, {"id": "45be5a1f", "name": "MQUILA MERGUEZ", "cat": "PETIT DÉJEUNER", "price": 64, "qty": 179, "ca": 11456, "cost": 17.06, "margin": 46.94, "quad": "PUZZLE", "monthlyQty": 33.8, "weeklyQty": 7.8, "desc": "Merguez, poivrons, oignons, tomates cerises, deux œufs, jus d'orange, boisson chaude au choix, dessert et eau minérale."}, {"id": "a3457e60", "name": "BALLOTINE DE POULET AU CŒUR D'ÉPINARDS ET FROMAGE", "cat": "PLATS", "price": 94, "qty": 58, "ca": 5452, "cost": 28.55, "margin": 65.45, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Volaille hachée, cœur épinards et fromage affiné, sauce exclusive du Chef"}, {"id": "b35d099b", "name": "AMERICAIN", "cat": "PETIT DÉJEUNER", "price": 68, "qty": 248, "ca": 16664, "cost": 1, "margin": 67, "quad": "PUZZLE", "monthlyQty": 46.8, "weeklyQty": 10.8, "desc": "Bacon, avocat, 2oeufs, fromage, pain céréales, jus d'orange, boisson chaude au choix, dessert et eau minérale."}, {"id": "c6e82ded", "name": "0.5 l", "cat": "EAU MINÉRALE", "price": 12, "qty": 0, "ca": 0, "cost": 3.84, "margin": 8.16, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Bouteille d'eau minérale 50 cl."}, {"id": "15a95226", "name": "TROPICAL", "cat": "COCKTAILS", "price": 42, "qty": 196, "ca": 8232, "cost": 4.11, "margin": 37.89, "quad": "PUZZLE", "monthlyQty": 37, "weeklyQty": 8.5, "desc": "Mangue, banane, orange, bissap."}, {"id": "b966de76", "name": "RUSSE", "cat": "ENTRÉES FROIDES", "price": 54, "qty": 87, "ca": 4698, "cost": 6.16, "margin": 47.84, "quad": "PUZZLE", "monthlyQty": 16.4, "weeklyQty": 3.8, "desc": "Pomme de terre, carotte, poulet, thon, petit pois, œuf de caille."}, {"id": "bc46c40d", "name": "MILKSHAKE KITKAT", "cat": "MILKSHAKES", "price": 42, "qty": 28, "ca": 1176, "cost": 14.65, "margin": 27.35, "quad": "DOG", "monthlyQty": 5.3, "weeklyQty": 1.2, "desc": "Milkshake au Kitkat."}, {"id": "2fc98edf", "name": "AVOCADO FORESTIER", "cat": "BURGERS", "price": 54, "qty": 121, "ca": 6534, "cost": 16.32, "margin": 37.68, "quad": "PUZZLE", "monthlyQty": 22.8, "weeklyQty": 5.3, "desc": "Poulet, avocat, laitue, tomate, oignon caramélisé."}, {"id": "c83b2d43", "name": "COUPE AMOR", "cat": "COUPE DE GLACE", "price": 45, "qty": 55, "ca": 2475, "cost": 12.22, "margin": 32.78, "quad": "DOG", "monthlyQty": 10.4, "weeklyQty": 2.4, "desc": "Fraise, yaourt,nougat."}, {"id": "5dddf03e", "name": "CHOCOLAT NOISETTE", "cat": "CRÊPES et GAUFRES", "price": 42, "qty": 0, "ca": 0, "cost": 13.44, "margin": 28.56, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Crêpe ou gaufre au chocolat noisette."}, {"id": "16cebd6f", "name": "NORVÉGIEN", "cat": "PETIT DÉJEUNER", "price": 68, "qty": 508, "ca": 34544, "cost": 30.1, "margin": 37.9, "quad": "STAR", "monthlyQty": 95.8, "weeklyQty": 22.1, "desc": "Saumon, avocat, fromage, pain céréales, jus d'orange, boisson chaude au choix, dessert et eau minérale."}, {"id": "a4dbd839", "name": "CAFÉ GLACÉ AROMATISÉ", "cat": "ICE COFFEE", "price": 23, "qty": 0, "ca": 0, "cost": 7.36, "margin": 15.64, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Café glacé avec un arôme au choix."}, {"id": "ec9397ec", "name": "MILKSHAKE FRAISE", "cat": "MILKSHAKES", "price": 42, "qty": 34, "ca": 1428, "cost": 9.5, "margin": 32.5, "quad": "DOG", "monthlyQty": 6.4, "weeklyQty": 1.5, "desc": "Milkshake à la fraise."}, {"id": "9a2a15fd", "name": "WRAP GOURMAND", "cat": "PANINI", "price": 64, "qty": 145, "ca": 9280, "cost": 24.32, "margin": 39.68, "quad": "PUZZLE", "monthlyQty": 27.4, "weeklyQty": 6.3, "desc": "poulet pané, charcuterie, cheddar ,tomate, laitue ,sauce."}, {"id": "3d5c4709", "name": "THÉ NOIR", "cat": "BOISSONS CHAUDES", "price": 15, "qty": 36, "ca": 540, "cost": 3.77, "margin": 11.23, "quad": "DOG", "monthlyQty": 6.8, "weeklyQty": 1.6, "desc": "Thé noir nature."}, {"id": "3ce0882d", "name": "MULTI-VITAMINE", "cat": "SMOOTHIES", "price": 42, "qty": 19, "ca": 798, "cost": 2.48, "margin": 39.52, "quad": "PUZZLE", "monthlyQty": 3.6, "weeklyQty": 0.8, "desc": "Orange, pêche, carotte."}, {"id": "88785d37", "name": "JUS D'AVOCAT", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 32, "qty": 352, "ca": 11501, "cost": 9.27, "margin": 22.73, "quad": "PLOWHORSE", "monthlyQty": 66.4, "weeklyQty": 15.3, "desc": "Jus d'avocat frais."}, {"id": "c0861588", "name": "PEPPERONI", "cat": "PIZZA", "price": 74, "qty": 115, "ca": 8510, "cost": 20.05, "margin": 53.95, "quad": "PUZZLE", "monthlyQty": 21.7, "weeklyQty": 5, "desc": "Peppéroni, Sauce tomate, mozzarella."}, {"id": "d07f4608", "name": "NUTELLA", "cat": "CRÊPES et GAUFRES", "price": 38, "qty": 918, "ca": 33926, "cost": 1.58, "margin": 36.42, "quad": "PLOWHORSE", "monthlyQty": 173.2, "weeklyQty": 39.9, "desc": "Crêpe ou gaufre au Nutella."}, {"id": "2413d39b", "name": "QUINOA", "cat": "ENTRÉES FROIDES", "price": 68, "qty": 105, "ca": 7140, "cost": 26.65, "margin": 41.35, "quad": "PUZZLE", "monthlyQty": 19.8, "weeklyQty": 4.6, "desc": "Quinoa varié, gambas, brunoise, pomme, kiwi, mangue, ananas, menthe, sauce miel, motard."}, {"id": "fe25cf72", "name": "SUPPLÉMENT CHANTILLY", "cat": "MILKSHAKES", "price": 5, "qty": 0, "ca": 0, "cost": 1.6, "margin": 3.4, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Ajout de crème chantilly."}, {"id": "972b68fa", "name": "CAFÉ GLACÉ CLASSIQUE", "cat": "ICE COFFEE", "price": 20, "qty": 0, "ca": 0, "cost": 6.4, "margin": 13.6, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Café glacé traditionnel."}, {"id": "d8f0a2f6", "name": "Crêpe PÊCHEUR", "cat": "CRÊPES SALÉES", "price": 58, "qty": 85, "ca": 4837, "cost": 18.97, "margin": 39.03, "quad": "PUZZLE", "monthlyQty": 16, "weeklyQty": 3.7, "desc": "Crêpe salée aux fruits de mer."}, {"id": "8199932a", "name": "FILET DE BŒUF AUX HERBES DE L'ATLAS", "cat": "PLATS", "price": 135, "qty": 0, "ca": 0, "cost": 49.85, "margin": 85.15, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Cœur de filet de bœuf saisi, infusé aux herbes aromatiques de l'Atlas"}, {"id": "3266f865", "name": "POULET CRUNCHY", "cat": "SANDWICHS CIABATTA", "price": 58, "qty": 213, "ca": 12354, "cost": 15.13, "margin": 42.87, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Bâton de poulet pané, cheddar, laitue."}, {"id": "558549bd", "name": "THÉ INFUSION", "cat": "BOISSONS CHAUDES", "price": 18, "qty": 34, "ca": 612, "cost": 5.76, "margin": 12.24, "quad": "DOG", "monthlyQty": 6.4, "weeklyQty": 1.5, "desc": "Sélection d'infusions."}, {"id": "4100c11f", "name": "COCKTAIL GINGEMBRE", "cat": "COCKTAILS", "price": 32, "qty": 233, "ca": 7456, "cost": 5.12, "margin": 26.88, "quad": "DOG", "monthlyQty": 44, "weeklyQty": 10.1, "desc": "Gingembre, citron, miel."}, {"id": "b25eb400", "name": "MILKSHAKE CARAMEL", "cat": "MILKSHAKES", "price": 42, "qty": 28, "ca": 1176, "cost": 10.45, "margin": 31.55, "quad": "DOG", "monthlyQty": 5.3, "weeklyQty": 1.2, "desc": "Milkshake au caramel."}, {"id": "630fad4f", "name": "OMELETTE VEGETARIENNE", "cat": "PETIT DÉJEUNER", "price": 52, "qty": 0, "ca": 0, "cost": 12.05, "margin": 39.95, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Omelette 3 œufs, légumes, mesclun salade, jus d'orange, boisson chaude au choix, dessert et eau minérale (supplément œufs beldi 05 DH)."}, {"id": "d6da872d", "name": "2 Boules de glace", "cat": "COUPE DE GLACE", "price": 30, "qty": 0, "ca": 0, "cost": 8.32, "margin": 21.68, "quad": "DOG_ZERO_VENTE", "monthlyQty": 0, "weeklyQty": 0, "desc": "Parfums au choix : Vanille, chocolat, nougat, pistache, bubble, yaourt fruit des bois, fraise, caramel."}];
 
-    // Working State
-    let menuData = JSON.parse(JSON.stringify(INITIAL_MENU_DATA));
+        let menuData = JSON.parse(JSON.stringify(INITIAL_MENU_DATA));
     let sortCol = 'ca';
     let sortAsc = false;
-    let manualItemOverrides = {}; // id -> boolean (keep: true/false)
-
-    // Chart instances
+    let manualItemOverrides = {};
     let charts = {};
 
-    // Macro category groups
     function getMacroCategory(cat) {
       cat = (cat || '').toUpperCase();
-      if (cat.includes('PETIT')) return 'Petits-D\u00e9jeuners';
-      if (cat.includes('PLAT') || cat.includes('COUSCOUS')) return 'Plats Chauds';
-      if (cat.includes('PASTA') || cat.includes('LASAGNE')) return 'P\u00e2tes';
-      if (cat.includes('PIZZA')) return 'Pizzas';
-      if (cat.includes('BURGER') || cat.includes('PANINI') || cat.includes('CIABATTA')) return 'Snacking & Burgers';
-      if (cat.includes('ENTR\u00c9E') || cat.includes('ENTRE')) return 'Entr\u00e9es & Salades';
-      if (cat.includes('CR\u00caPE') || cat.includes('CREPE') || cat.includes('GAUFRE') || cat.includes('G\u00c2TEAU') || cat.includes('GATEAU') || cat.includes('GLACE')) return 'Cr\u00eapes & Desserts';
-      if (cat.includes('BOISSONS CHAUDES')) return 'Boissons Chaudes';
-      return 'Bar & Boissons Fra\u00eeches';
+      if (cat.includes('PETIT')) return '🥐 Petits-Déjeuners & Brunchs';
+      if (cat.includes('PASTA') || cat.includes('LASAGNE')) return '🍝 Pâtes Fraîches & Lasagnes';
+      if (cat.includes('PIZZA')) return '🍕 Pizzas Artisanales';
+      if (cat.includes('BURGER') || cat.includes('PANINI') || cat.includes('SANDWICH')) return '🥪 Snacking & Burgers';
+      if (cat.includes('PLAT') || cat.includes('COUSCOUS')) return '🥩 Plats Cuisinés & Viandes';
+      if (cat.includes('ENTRÉE') || cat.includes('ENTRE')) return '🥗 Entrées & Salades';
+      if (cat.includes('BOISSONS CHAUDES')) return '☕ Cafés & Boissons Chaudes';
+      if (cat.includes('CRÊPE') || cat.includes('CREPE') || cat.includes('GAUFRE') || cat.includes('GÂTEAU') || cat.includes('GATEAU') || cat.includes('GLACE')) return '🥞 Crêpes & Desserts';
+      return '🥤 Bar, Jus Frais & Smoothies';
     }
 
-    // Check if item is Salmon Ecosystem
     function isSalmonEcosystem(name) {
       const n = (name || '').toUpperCase();
-      return n.includes('SAUMON') || n.includes('NORV\u00c9GIEN') || n.includes('NORVEGIEN');
+      return n.includes('SAUMON') || n.includes('NORVÉGIEN') || n.includes('NORVEGIEN');
     }
 
-    // Tab Switching (Direct & Robust)
     function switchTab(tabId, btnElement) {
       try {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        
         const activeBtn = btnElement || document.getElementById('tab-btn-' + tabId);
         if (activeBtn) activeBtn.classList.add('active');
-
         const activeContent = document.getElementById('tab-' + tabId);
         if (activeContent) activeContent.classList.add('active');
-
-        if (tabId === 'charts') {
-          setTimeout(renderCharts, 50);
-        }
-      } catch (err) {
-        console.error('Error switching tab:', err);
-      }
+        if (tabId === 'charts' || tabId === 'engineering') setTimeout(renderCharts, 40);
+        if (tabId === 'final') renderFinalMenu();
+      } catch (err) { console.error('Error switching tab:', err); }
     }
     window.switchTab = switchTab;
 
-    // Preset Applicator (Direct & Robust)
     function applyPreset(type, btnElement) {
       try {
         document.querySelectorAll('.preset-btns .preset-btn').forEach(b => b.classList.remove('active'));
         const activeBtn = btnElement || document.getElementById('preset-btn-' + type);
         if (activeBtn) activeBtn.classList.add('active');
-
         manualItemOverrides = {};
-
         const sliderVol = document.getElementById('slider-global-volume');
         const sliderThresh = document.getElementById('slider-threshold');
         const sliderPrice = document.getElementById('slider-price-adj');
+        const sliderTransfer = document.getElementById('slider-transfer-rate');
         const toggleSal = document.getElementById('toggle-salmon');
+        const toggleBur = document.getElementById('toggle-burrata');
+        const toggleSlow = document.getElementById('toggle-slow-dishes');
 
         if (type === 'base') {
-          if (sliderVol) sliderVol.value = 100;
-          if (sliderThresh) sliderThresh.value = 0;
-          if (sliderPrice) sliderPrice.value = 0;
-          if (toggleSal) toggleSal.checked = true;
+          if (sliderVol) sliderVol.value = 100; if (sliderThresh) sliderThresh.value = 0; if (sliderPrice) sliderPrice.value = 0; if (sliderTransfer) sliderTransfer.value = 0;
+          if (toggleSal) toggleSal.checked = true; if (toggleBur) toggleBur.checked = false; if (toggleSlow) toggleSlow.checked = false;
         } else if (type === 'recommended') {
-          if (sliderVol) sliderVol.value = 100;
-          if (sliderThresh) sliderThresh.value = 10;
-          if (sliderPrice) sliderPrice.value = 2;
-          if (toggleSal) toggleSal.checked = true;
+          if (sliderVol) sliderVol.value = 100; if (sliderThresh) sliderThresh.value = 10; if (sliderPrice) sliderPrice.value = 2; if (sliderTransfer) sliderTransfer.value = 70;
+          if (toggleSal) toggleSal.checked = true; if (toggleBur) toggleBur.checked = true; if (toggleSlow) toggleSlow.checked = true;
         } else if (type === 'growth') {
-          if (sliderVol) sliderVol.value = 120;
-          if (sliderThresh) sliderThresh.value = 12;
-          if (sliderPrice) sliderPrice.value = 2;
-          if (toggleSal) toggleSal.checked = true;
+          if (sliderVol) sliderVol.value = 120; if (sliderThresh) sliderThresh.value = 10; if (sliderPrice) sliderPrice.value = 2; if (sliderTransfer) sliderTransfer.value = 75;
+          if (toggleSal) toggleSal.checked = true; if (toggleBur) toggleBur.checked = true; if (toggleSlow) toggleSlow.checked = true;
         } else if (type === 'sunday') {
-          if (sliderVol) sliderVol.value = 110;
-          if (sliderThresh) sliderThresh.value = 15;
-          if (sliderPrice) sliderPrice.value = 3;
-          if (toggleSal) toggleSal.checked = true;
+          if (sliderVol) sliderVol.value = 110; if (sliderThresh) sliderThresh.value = 14; if (sliderPrice) sliderPrice.value = 3; if (sliderTransfer) sliderTransfer.value = 80;
+          if (toggleSal) toggleSal.checked = true; if (toggleBur) toggleBur.checked = true; if (toggleSlow) toggleSlow.checked = true;
+        } else if (type === 'margin') {
+          if (sliderVol) sliderVol.value = 100; if (sliderThresh) sliderThresh.value = 12; if (sliderPrice) sliderPrice.value = 3; if (sliderTransfer) sliderTransfer.value = 85;
+          if (toggleSal) toggleSal.checked = true; if (toggleBur) toggleBur.checked = true; if (toggleSlow) toggleSlow.checked = true;
         }
-
         updateSimulation();
-      } catch (err) {
-        console.error('Error applying preset:', err);
-      }
+      } catch (err) { console.error('Error applying preset:', err); }
     }
     window.applyPreset = applyPreset;
-
-    // Main Simulation Engine
     function updateSimulation() {
       try {
         const sliderVol = document.getElementById('slider-global-volume');
         const sliderThresh = document.getElementById('slider-threshold');
         const sliderPrice = document.getElementById('slider-price-adj');
+        const sliderTransfer = document.getElementById('slider-transfer-rate');
         const toggleSal = document.getElementById('toggle-salmon');
+        const toggleBur = document.getElementById('toggle-burrata');
+        const toggleSlow = document.getElementById('toggle-slow-dishes');
 
         const globalVolPct = sliderVol ? parseFloat(sliderVol.value) : 100;
         const thresholdMonthly = sliderThresh ? parseFloat(sliderThresh.value) : 10;
         const priceAdj = sliderPrice ? parseFloat(sliderPrice.value) : 2;
+        const transferRate = sliderTransfer ? parseFloat(sliderTransfer.value) / 100 : 0.7;
         const protectSalmon = toggleSal ? toggleSal.checked : true;
+        const eliminateBurrata = toggleBur ? toggleBur.checked : true;
+        const eliminateSlowDishes = toggleSlow ? toggleSlow.checked : true;
 
-        // Update labels
         const lblVol = document.getElementById('val-global-volume');
         if (lblVol) lblVol.innerText = (globalVolPct === 100 ? '100% (Base)' : (globalVolPct > 100 ? '+' + (globalVolPct - 100) + '%' : (globalVolPct - 100) + '%'));
-        
         const lblThresh = document.getElementById('val-threshold');
         if (lblThresh) lblThresh.innerText = thresholdMonthly + ' v / mois';
-
         const lblPrice = document.getElementById('val-price-adj');
         if (lblPrice) lblPrice.innerText = (priceAdj > 0 ? '+' + priceAdj + ' DH' : '0 DH');
+        const lblTransfer = document.getElementById('val-transfer-rate');
+        if (lblTransfer) lblTransfer.innerText = Math.round(transferRate * 100) + '%';
 
         const volMultiplier = globalVolPct / 100;
         const thresholdTotal = (thresholdMonthly * 162) / 30;
-
-        let totalCA = 0;
-        let totalCost = 0;
-        let totalQty = 0;
-        let activeCount = 0;
-        let eliminatedCA = 0;
+        const categoryLostSales = {};
 
         menuData.forEach(item => {
-          // Volume
           item.simQty = Math.round(item.qty * volMultiplier);
-          
-          // Price
           let unitPrice = item.price;
-          if (item.cat && item.cat.includes('PETIT') && priceAdj > 0) {
+          if (item.cat && item.cat.toUpperCase().includes('PETIT') && priceAdj > 0) {
             const upper = item.name.toUpperCase();
-            if (upper.includes('FASSI') || upper.includes('BELDI') || upper.includes('HOLLANDAIS') || upper.includes('COMPAGNARD') || upper.includes('GREYCORNER') || upper.includes('DUO')) {
+            if (upper.includes('FASSI') || upper.includes('BELDI') || upper.includes('HOLLANDAIS') || upper.includes('COMPAGNARD') || upper.includes('GREYCORNER') || upper.includes('DUO') || upper.includes('BERBÈRE')) {
               unitPrice += priceAdj;
             }
           }
           item.simPrice = unitPrice;
-          item.simCA = Math.round(item.simQty * item.simPrice);
-          item.simCost = Math.round(item.simQty * item.cost);
-          item.simMargin = item.simCA - item.simCost;
 
-          // Status calculation
           let shouldKeep = true;
-
           if (manualItemOverrides[item.id] !== undefined) {
             shouldKeep = manualItemOverrides[item.id];
           } else {
-            if (item.qty < thresholdTotal) {
-              shouldKeep = false;
-            }
+            if (item.qty < thresholdTotal || item.qty === 0) shouldKeep = false;
             if (protectSalmon && isSalmonEcosystem(item.name)) {
-              const upper = item.name.toUpperCase();
-              if (upper.includes('PAV\u00c9') || upper.includes('PAVE') || upper.includes('NORV\u00c9GIEN') || upper.includes('NORVEGIEN') || upper.includes('SAUMON')) {
-                if (upper.includes('TARTARE')) {
-                  shouldKeep = false; // Tartare removed
-                } else {
-                  shouldKeep = true;  // Keep core salmon line
-                }
-              }
+              if (item.name.toUpperCase().includes('TARTARE')) shouldKeep = false;
+              else shouldKeep = true;
             }
-            if (thresholdMonthly > 0 && item.name.toUpperCase().includes('BURRAT')) {
-              shouldKeep = false; // Burrata removed
-            }
+            if (eliminateBurrata && item.name.toUpperCase().includes('BURRAT')) shouldKeep = false;
+            if (eliminateSlowDishes && (item.name.toUpperCase().includes('ROULADE') || item.name.toUpperCase().includes('BALLOTINE'))) shouldKeep = false;
           }
-
           item.isKept = shouldKeep;
-
-          if (shouldKeep) {
-            totalCA += item.simCA;
-            totalCost += item.simCost;
-            totalQty += item.simQty;
-            activeCount++;
-          } else {
-            eliminatedCA += item.simCA;
+          if (!shouldKeep) {
+            const macro = getMacroCategory(item.cat);
+            categoryLostSales[macro] = (categoryLostSales[macro] || 0) + item.simQty;
           }
+        });
+
+        if (transferRate > 0) {
+          const categoryKeptStars = {};
+          menuData.forEach(item => {
+            if (item.isKept && (item.quad === 'STAR' || item.quad === 'PLOWHORSE' || item.qty > 100)) {
+              const macro = getMacroCategory(item.cat);
+              if (!categoryKeptStars[macro]) categoryKeptStars[macro] = [];
+              categoryKeptStars[macro].push(item);
+            }
+          });
+          Object.keys(categoryLostSales).forEach(macro => {
+            const lostQty = categoryLostSales[macro] || 0;
+            const targetStars = categoryKeptStars[macro] || [];
+            if (lostQty > 0 && targetStars.length > 0) {
+              const transferredQtyPerStar = Math.round((lostQty * transferRate) / targetStars.length);
+              targetStars.forEach(star => { star.simQty += transferredQtyPerStar; });
+            }
+          });
+        }
+
+        let totalCA = 0, totalCost = 0, totalQty = 0, activeCount = 0;
+        menuData.forEach(item => {
+          item.simCA = Math.round(item.simQty * item.simPrice);
+          item.simCost = Math.round(item.simQty * item.cost);
+          item.simMargin = item.simCA - item.simCost;
+          if (item.isKept) { totalCA += item.simCA; totalCost += item.simCost; totalQty += item.simQty; activeCount++; }
         });
 
         const totalMargin = totalCA - totalCost;
         const marginPct = totalCA > 0 ? ((totalMargin / totalCA) * 100).toFixed(1) : 0;
-        const monthlyPertesEvitees = Math.round((eliminatedCA * 0.35) / 5.4);
-        const monthlyGainTotal = Math.max(12000, monthlyPertesEvitees + (priceAdj * 3500));
+        const monthlyPertesEvitees = Math.round(((menuData.length - activeCount) * 165));
+        const monthlyBreakfastBoost = priceAdj * 3600;
+        const monthlyGainTotal = Math.max(14000, monthlyPertesEvitees + monthlyBreakfastBoost + Math.round((totalCA * 0.015) / 5.4));
 
-        // Update KPIs
-        const kpiCA = document.getElementById('kpi-ca');
-        if (kpiCA) kpiCA.innerText = totalCA.toLocaleString('fr-FR') + ' DH';
+        const kpiCA = document.getElementById('kpi-ca'); if (kpiCA) kpiCA.innerText = totalCA.toLocaleString('fr-FR') + ' DH';
+        const kpiCASub = document.getElementById('kpi-ca-sub'); if (kpiCASub) kpiCASub.innerText = (globalVolPct !== 100 ? 'Volume ' + globalVolPct + '%' : '162j (base 2.26M)');
+        const kpiMargin = document.getElementById('kpi-margin'); if (kpiMargin) kpiMargin.innerText = totalMargin.toLocaleString('fr-FR') + ' DH';
+        const kpiMarginSub = document.getElementById('kpi-margin-sub'); if (kpiMarginSub) kpiMarginSub.innerText = marginPct + '% de Marge Brute';
+        const kpiItems = document.getElementById('kpi-items'); if (kpiItems) kpiItems.innerText = activeCount + ' / ' + menuData.length;
+        const kpiItemsSub = document.getElementById('kpi-items-sub'); if (kpiItemsSub) kpiItemsSub.innerText = '-' + Math.round(((menuData.length - activeCount) / menuData.length) * 100) + '% dispersion';
+        const kpiSavings = document.getElementById('kpi-savings'); if (kpiSavings) kpiSavings.innerText = '+' + monthlyGainTotal.toLocaleString('fr-FR') + ' DH/m';
+        const auditRefCount = document.getElementById('audit-ref-count'); if (auditRefCount) auditRefCount.innerText = activeCount + ' références';
+        const baseTotalCA = menuData.reduce((acc, i) => acc + i.ca, 0);
+        const kpiPareto = document.getElementById('kpi-pareto'); if (kpiPareto) kpiPareto.innerText = (baseTotalCA > 0 ? ((totalCA / baseTotalCA) * 100).toFixed(1) : 100) + '%';
 
-        const kpiCASub = document.getElementById('kpi-ca-sub');
-        if (kpiCASub) kpiCASub.innerText = (globalVolPct !== 100 ? 'Simulation ' + globalVolPct + '% de volume' : 'Base 162 jours');
-
-        const kpiMargin = document.getElementById('kpi-margin');
-        if (kpiMargin) kpiMargin.innerText = totalMargin.toLocaleString('fr-FR') + ' DH';
-
-        const kpiMarginSub = document.getElementById('kpi-margin-sub');
-        if (kpiMarginSub) kpiMarginSub.innerText = marginPct + '% de Marge Brute';
-
-        const kpiItems = document.getElementById('kpi-items');
-        if (kpiItems) kpiItems.innerText = activeCount + ' / ' + menuData.length;
-
-        const kpiItemsSub = document.getElementById('kpi-items-sub');
-        if (kpiItemsSub) {
-          const pctDrop = Math.round(((menuData.length - activeCount) / menuData.length) * 100);
-          kpiItemsSub.innerText = '-' + pctDrop + '% de dispersion de carte';
-        }
-
-        const auditRefCount = document.getElementById('audit-ref-count');
-        if (auditRefCount) auditRefCount.innerText = activeCount + ' r\u00e9f\u00e9rences';
-
-        const kpiSavings = document.getElementById('kpi-savings');
-        if (kpiSavings) kpiSavings.innerText = '+' + monthlyGainTotal.toLocaleString('fr-FR') + ' DH/m';
-
-        // Re-render table & charts
-        renderMenuTable();
-        renderCharts();
-      } catch (err) {
-        console.error('Error in updateSimulation:', err);
-      }
+        renderMenuTable(); renderMenuEngineering(); renderCharts(); renderFinalMenu();
+      } catch (err) { console.error('Error in updateSimulation:', err); }
     }
     window.updateSimulation = updateSimulation;
 
-    // Toggle individual dish (Fixed & Bulletproof)
     function toggleDish(id) {
       try {
         const item = menuData.find(i => i.id === id);
         if (!item) return;
-        // Invert current isKept
         manualItemOverrides[id] = !item.isKept;
         updateSimulation();
-      } catch (err) {
-        console.error('Error in toggleDish:', err);
-      }
+      } catch (err) { console.error('Error in toggleDish:', err); }
     }
     window.toggleDish = toggleDish;
-
-    // Render Table
     function renderMenuTable() {
       try {
         const tbody = document.getElementById('menu-table-body');
         if (!tbody) return;
+        const search = (document.getElementById('table-search')?.value || '').toLowerCase().trim();
+        const catFilter = document.getElementById('table-filter-cat')?.value || 'ALL';
+        const quadFilter = document.getElementById('table-filter-quad')?.value || 'ALL';
+        const statusFilter = document.getElementById('table-filter-status')?.value || 'ALL';
 
-        const searchInput = document.getElementById('table-search');
-        const search = (searchInput ? searchInput.value : '').toLowerCase().trim();
-        const catFilter = document.getElementById('table-filter-cat') ? document.getElementById('table-filter-cat').value : 'ALL';
-        const statusFilter = document.getElementById('table-filter-status') ? document.getElementById('table-filter-status').value : 'ALL';
-
-        // Populate categories
         const catSelect = document.getElementById('table-filter-cat');
         if (catSelect && catSelect.options.length <= 1) {
           const uniqueCats = Array.from(new Set(menuData.map(i => i.cat).filter(Boolean))).sort();
-          uniqueCats.forEach(c => {
-            const opt = document.createElement('option');
-            opt.value = c;
-            opt.innerText = c;
-            catSelect.appendChild(opt);
-          });
+          uniqueCats.forEach(c => { const opt = document.createElement('option'); opt.value = c; opt.innerText = c; catSelect.appendChild(opt); });
         }
 
-        // Filter
         let filtered = menuData.filter(item => {
           if (search) {
             const matchName = item.name.toLowerCase().includes(search);
             const matchCat = item.cat && item.cat.toLowerCase().includes(search);
-            if (!matchName && !matchCat) return false;
+            const matchDesc = item.desc && item.desc.toLowerCase().includes(search);
+            if (!matchName && !matchCat && !matchDesc) return false;
           }
           if (catFilter !== 'ALL' && item.cat !== catFilter) return false;
+          if (quadFilter !== 'ALL' && item.quad !== quadFilter) return false;
           if (statusFilter === 'KEEP' && !item.isKept) return false;
           if (statusFilter === 'REMOVE' && item.isKept) return false;
           if (statusFilter === 'SALMON' && !isSalmonEcosystem(item.name)) return false;
           return true;
         });
 
-        // Sort
         filtered.sort((a, b) => {
-          let valA = a[sortCol];
-          let valB = b[sortCol];
+          let valA = a[sortCol], valB = b[sortCol];
           if (sortCol === 'ca') { valA = a.simCA; valB = b.simCA; }
           if (sortCol === 'qty') { valA = a.simQty; valB = b.simQty; }
+          if (sortCol === 'monthlyQty') { valA = a.monthlyQty || 0; valB = b.monthlyQty || 0; }
           if (sortCol === 'price') { valA = a.simPrice; valB = b.simPrice; }
+          if (sortCol === 'cost') { valA = a.cost || 0; valB = b.cost || 0; }
           if (sortCol === 'margin') { valA = a.simMargin; valB = b.simMargin; }
           if (sortCol === 'status') { valA = a.isKept ? 1 : 0; valB = b.isKept ? 1 : 0; }
-
           if (valA < valB) return sortAsc ? -1 : 1;
           if (valA > valB) return sortAsc ? 1 : -1;
           return 0;
         });
 
-        // Build HTML
         let html = '';
         filtered.forEach(item => {
           const isSalmon = isSalmonEcosystem(item.name);
           const isBurrata = item.name.toUpperCase().includes('BURRAT');
-          
-          let statusBadge = '';
-          if (item.isKept) {
-            if (isSalmon) {
-              statusBadge = '<span class="pill pill-cyan">\u00c9cosyst\u00e8me Saumon</span>';
-            } else if (item.quad === 'STAR') {
-              statusBadge = '<span class="pill pill-success">Star / Pilier</span>';
-            } else {
-              statusBadge = '<span class="pill pill-success">Conserv\u00e9</span>';
-            }
-          } else {
-            if (isBurrata) {
-              statusBadge = '<span class="pill pill-danger">Pi\u00e8ge Perte DLC</span>';
-            } else {
-              statusBadge = '<span class="pill pill-danger">Poids Mort</span>';
-            }
-          }
-
+          let statusBadge = item.isKept ? (isSalmon ? '<span class=\"pill pill-cyan\">Écosystème Saumon</span>' : (item.quad === 'STAR' ? '<span class=\"pill pill-success\">Star / Pilier</span>' : '<span class=\"pill pill-success\">Conservé</span>')) : (isBurrata ? '<span class=\"pill pill-danger\">Piège Perte DLC</span>' : (item.qty === 0 ? '<span class=\"pill pill-danger\">Zéro Vente</span>' : '<span class=\"pill pill-danger\">Poids Mort</span>'));
+          let quadBadge = item.quad === 'STAR' ? '<span class=\"pill pill-success\">★ STAR</span>' : (item.quad === 'PLOWHORSE' ? '<span class=\"pill pill-blue\">🐴 PLOWHORSE</span>' : (item.quad === 'PUZZLE' ? '<span class=\"pill pill-warning\">🧩 PUZZLE</span>' : '<span class=\"pill pill-danger\">🐕 DOG</span>'));
           const btnBg = item.isKept ? 'rgba(239,68,68,0.2)' : 'rgba(16,185,129,0.2)';
           const btnBorder = item.isKept ? 'var(--ruby)' : 'var(--emerald)';
           const btnColor = item.isKept ? '#f87171' : '#34d399';
-          const btnText = item.isKept ? 'Retirer' : 'R\u00e9activer';
+          const btnText = item.isKept ? 'Retirer' : 'Réactiver';
 
-          html += `
-            <tr class="${item.isKept ? '' : 'row-removed'}">
-              <td><strong>${item.name}</strong></td>
-              <td><span style="font-size:0.75rem; color:#94a3b8;">${item.cat || 'G\u00c9N\u00c9RAL'}</span></td>
-              <td>${item.simPrice} DH</td>
-              <td><strong>${item.simQty}</strong> v <span style="font-size:0.7rem; color:#94a3b8;">(${((item.simQty/162)*7).toFixed(1)}/s)</span></td>
-              <td>${item.simCA.toLocaleString('fr-FR')} DH</td>
-              <td>${item.simMargin.toLocaleString('fr-FR')} DH</td>
-              <td>${statusBadge}</td>
-              <td style="text-align:center;">
-                <button class="dish-btn" style="background:${btnBg}; border:1px solid ${btnBorder}; color:${btnColor};" onclick="toggleDish('${item.id}')">
-                  ${btnText}
-                </button>
-              </td>
-            </tr>
-          `;
+          html += '<tr class=\"' + (item.isKept ? '' : 'row-removed') + '\">' +
+            '<td><strong>' + item.name + '</strong>' + (item.desc ? '<div style=\"font-size:0.75rem; color:#94a3b8; max-width:280px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">' + item.desc + '</div>' : '') + '</td>' +
+            '<td><span style=\"font-size:0.75rem; color:#cbd5e1;\">' + (item.cat || 'GÉNÉRAL') + '</span></td>' +
+            '<td><strong>' + item.simPrice + ' DH</strong></td>' +
+            '<td>' + item.simQty + ' v</td>' +
+            '<td><strong style=\"color:' + (item.monthlyQty > 20 ? '#34d399' : '#f87171') + ';\">' + item.monthlyQty + '</strong> /m</td>' +
+            '<td><strong>' + item.simCA.toLocaleString('fr-FR') + ' DH</strong></td>' +
+            '<td style=\"color:#94a3b8;\">' + (item.cost ? item.cost.toFixed(1) + ' DH' : '-') + '</td>' +
+            '<td style=\"color:var(--gold-light); font-weight:700;\">' + item.simMargin.toLocaleString('fr-FR') + ' DH</td>' +
+            '<td>' + quadBadge + '</td><td>' + statusBadge + '</td>' +
+            '<td style=\"text-align:center;\"><button class=\"dish-btn\" style=\"background:' + btnBg + '; border:1px solid ' + btnBorder + '; color:' + btnColor + ';\" onclick=\"toggleDish(\'' + item.id + '\')\">' + btnText + '</button></td>' +
+            '</tr>';
         });
-
         tbody.innerHTML = html;
-      } catch (err) {
-        console.error('Error rendering table:', err);
-      }
+      } catch (err) { console.error('Error rendering table:', err); }
     }
     window.renderMenuTable = renderMenuTable;
 
-    // Sort Handler
     function sortTable(col) {
-      if (sortCol === col) {
-        sortAsc = !sortAsc;
-      } else {
-        sortCol = col;
-        sortAsc = false;
-      }
-      // Update arrows
-      ['name', 'cat', 'price', 'qty', 'ca', 'margin', 'status'].forEach(c => {
-        const el = document.getElementById('sort-' + c);
-        if (el) el.innerText = (c === sortCol ? (sortAsc ? '\u25b2' : '\u25bc') : '');
+      if (sortCol === col) sortAsc = !sortAsc; else { sortCol = col; sortAsc = false; }
+      ['name', 'cat', 'price', 'qty', 'monthlyQty', 'ca', 'cost', 'margin', 'quad', 'status'].forEach(c => {
+        const el = document.getElementById('sort-' + c); if (el) el.innerText = (c === sortCol ? (sortAsc ? ' ▲' : ' ▼') : '');
       });
       renderMenuTable();
     }
     window.sortTable = sortTable;
 
-    // Charts Engine (Safe & Protected)
-    function renderCharts() {
-      if (typeof Chart === 'undefined') {
-        return; // Chart.js not loaded yet
-      }
-
-      // Check if charts tab is active
-      const chartsTab = document.getElementById('tab-charts');
-      if (!chartsTab || !chartsTab.classList.contains('active')) {
-        return; // Don't draw on hidden canvas
-      }
-
+    function renderMenuEngineering() {
       try {
-        // 1. Pareto Chart
+        const counts = { STAR: 0, PLOWHORSE: 0, PUZZLE: 0, DOG: 0 };
+        const lists = { STAR: '', PLOWHORSE: '', PUZZLE: '', DOG: '' };
+
+        menuData.forEach(item => {
+          let q = item.quad; if (q === 'DOG_ZERO_VENTE') q = 'DOG'; if (!counts[q] && counts[q] !== 0) q = 'DOG';
+          counts[q]++;
+          lists[q] += '<div class=\"me-item-row\"><div><strong>' + item.name + '</strong><span style=\"font-size:0.72rem; color:#94a3b8; display:block;\">' + item.cat + ' &bull; ' + item.price + ' DH</span></div><div style=\"text-align:right;\"><strong style=\"color:' + (item.isKept ? '#34d399' : '#f87171') + '\">' + item.simQty + ' v</strong><span style=\"font-size:0.72rem; color:var(--gold-light); display:block;\">' + item.simMargin.toLocaleString('fr-FR') + ' DH</span></div></div>';
+        });
+
+        ['star', 'plowhorse', 'puzzle', 'dog'].forEach(key => {
+          const upper = key.toUpperCase();
+          const countEl = document.getElementById('me-count-' + key); if (countEl) countEl.innerText = counts[upper] + ' plats';
+          const listEl = document.getElementById('me-list-' + key); if (listEl) listEl.innerHTML = lists[upper];
+        });
+      } catch (err) { console.error('Error rendering Menu Engineering:', err); }
+    }
+    window.renderMenuEngineering = renderMenuEngineering;
+    function renderFinalMenu() {
+      try {
+        const container = document.getElementById('final-menu-container');
+        if (!container) return;
+        const keptItems = menuData.filter(i => i.isKept);
+        const grouped = {};
+        keptItems.forEach(item => {
+          const macro = getMacroCategory(item.cat);
+          if (!grouped[macro]) grouped[macro] = [];
+          grouped[macro].push(item);
+        });
+
+        let html = '';
+        Object.keys(grouped).sort().forEach(macro => {
+          const items = grouped[macro];
+          items.sort((a, b) => b.simQty - a.simQty);
+          html += '<div class=\"final-category-card\"><div class=\"final-category-header\"><div class=\"final-category-title\">' + macro + '</div><span class=\"pill pill-success\">' + items.length + ' références</span></div><div>' +
+            items.map(item => '<div class=\"final-item-line\"><div><div class=\"final-item-name\">' + item.name + '</div>' + (item.desc ? '<div style=\"font-size:0.75rem; color:#94a3b8;\">' + item.desc + '</div>' : '') + '</div><div style=\"text-align:right;\"><span class=\"final-item-price\">' + item.simPrice + ' DH</span><span style=\"font-size:0.72rem; color:#67e8f9; display:block;\">' + item.simQty + ' ventes</span></div></div>').join('') +
+            '</div></div>';
+        });
+        container.innerHTML = html;
+      } catch (err) { console.error('Error rendering final menu:', err); }
+    }
+    window.renderFinalMenu = renderFinalMenu;
+
+    function renderCharts() {
+      if (typeof Chart === 'undefined') return;
+      try {
+        // 1. Pareto
         const activeItems = menuData.filter(i => i.isKept).sort((a, b) => b.simCA - a.simCA);
         const totalActiveCA = activeItems.reduce((acc, i) => acc + i.simCA, 0);
-
-        let cumulative = 0;
-        const paretoLabels = [];
-        const paretoData = [];
-        
+        let cumulative = 0; const paretoLabels = [], paretoData = [];
         activeItems.forEach((item, idx) => {
           cumulative += item.simCA;
-          if (idx % 3 === 0 || idx === activeItems.length - 1) {
+          if (idx % 2 === 0 || idx === activeItems.length - 1) {
             paretoLabels.push('#' + (idx + 1));
             paretoData.push(totalActiveCA > 0 ? ((cumulative / totalActiveCA) * 100).toFixed(1) : 0);
           }
         });
-
         if (charts.pareto) charts.pareto.destroy();
         const ctxP = document.getElementById('paretoChart');
         if (ctxP) {
           charts.pareto = new Chart(ctxP, {
             type: 'line',
-            data: {
-              labels: paretoLabels,
-              datasets: [
-                {
-                  label: '% CA Cumul\u00e9',
-                  data: paretoData,
-                  borderColor: '#f59e0b',
-                  backgroundColor: 'rgba(245, 158, 11, 0.12)',
-                  fill: true,
-                  tension: 0.35,
-                  borderWidth: 3
-                },
-                {
-                  label: 'Seuil 80% CA',
-                  data: Array(paretoLabels.length).fill(80),
-                  borderColor: '#ef4444',
-                  borderDash: [5, 5],
-                  borderWidth: 2,
-                  pointRadius: 0
-                }
-              ]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              scales: {
-                x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
-                y: { max: 100, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-              },
-              plugins: { legend: { labels: { color: '#cbd5e1' } } }
-            }
+            data: { labels: paretoLabels, datasets: [{ label: '% CA Cumulé', data: paretoData, borderColor: '#f59e0b', backgroundColor: 'rgba(245, 158, 11, 0.15)', fill: true, tension: 0.35, borderWidth: 3 }, { label: 'Seuil 80% CA', data: Array(paretoLabels.length).fill(80), borderColor: '#ef4444', borderDash: [5, 5], borderWidth: 2, pointRadius: 0 }] },
+            options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { color: '#94a3b8' }, grid: { display: false } }, y: { max: 100, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } } }, plugins: { legend: { labels: { color: '#cbd5e1' } } } }
           });
         }
 
-        // 2. Category Distribution Chart
+        // 2. Category Bars
         const macroTotals = {};
-        menuData.filter(i => i.isKept).forEach(item => {
-          const macro = getMacroCategory(item.cat);
-          macroTotals[macro] = (macroTotals[macro] || 0) + item.simCA;
-        });
-
-        const catLabels = Object.keys(macroTotals);
-        const catValues = Object.values(macroTotals);
-
+        menuData.filter(i => i.isKept).forEach(item => { const macro = getMacroCategory(item.cat); macroTotals[macro] = (macroTotals[macro] || 0) + item.simCA; });
         if (charts.cat) charts.cat.destroy();
         const ctxC = document.getElementById('catChart');
         if (ctxC) {
           charts.cat = new Chart(ctxC, {
             type: 'bar',
-            data: {
-              labels: catLabels,
-              datasets: [{
-                label: 'CA Projet\u00e9 (DH)',
-                data: catValues,
-                backgroundColor: ['#f59e0b', '#06b6d4', '#10b981', '#3b82f6', '#a855f7', '#ec4899', '#f97316', '#64748b', '#84cc16'],
-                borderRadius: 6
-              }]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              scales: {
-                x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } },
-                y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-              },
-              plugins: { legend: { display: false } }
-            }
+            data: { labels: Object.keys(macroTotals).map(l => l.replace(/^[^\w\s]+/, '').trim()), datasets: [{ label: 'CA Projeté (DH)', data: Object.values(macroTotals), backgroundColor: ['#f59e0b', '#06b6d4', '#10b981', '#3b82f6', '#a855f7', '#ec4899', '#f97316', '#64748b', '#84cc16'], borderRadius: 8 }] },
+            options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } }, y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } } }, plugins: { legend: { display: false } } }
           });
         }
 
-        // 3. Salmon vs Burrata Chart
+        // 3. Salmon vs Burrata
         const salmonCA = menuData.filter(i => isSalmonEcosystem(i.name) && i.isKept).reduce((acc, i) => acc + i.simCA, 0);
         const burrataCA = menuData.filter(i => i.name.toUpperCase().includes('BURRAT')).reduce((acc, i) => acc + i.simCA, 0);
-
         if (charts.salmon) charts.salmon.destroy();
         const ctxS = document.getElementById('salmonChart');
         if (ctxS) {
           charts.salmon = new Chart(ctxS, {
             type: 'bar',
-            data: {
-              labels: ['\u00c9cosyst\u00e8me Saumon Frais', 'Burrata (Salade + Pizza)'],
-              datasets: [{
-                label: 'Valeur G\u00e9n\u00e9r\u00e9e (DH)',
-                data: [salmonCA, burrataCA],
-                backgroundColor: ['#06b6d4', '#ef4444'],
-                borderRadius: 8
-              }]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              scales: {
-                x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
-                y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-              },
-              plugins: { legend: { display: false } }
-            }
+            data: { labels: ['Écosystème Saumon Frais', 'Burrata (Salade + Pizza)'], datasets: [{ label: 'Valeur Générée (DH)', data: [salmonCA, burrataCA], backgroundColor: ['#06b6d4', '#ef4444'], borderRadius: 8 }] },
+            options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { color: '#94a3b8' }, grid: { display: false } }, y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } } }, plugins: { legend: { display: false } } }
           });
         }
 
         // 4. Sunday Rush Wait Time
         const activeComplex = menuData.filter(i => i.isKept && (i.cat.includes('PLAT') || i.name.includes('ROULADE') || i.name.includes('BALLOTINE'))).length;
-        const waitTime = Math.round(12 + (activeComplex * 1.4));
-
+        const waitTime = Math.round(12 + (activeComplex * 1.3));
         if (charts.rush) charts.rush.destroy();
         const ctxR = document.getElementById('rushChart');
         if (ctxR) {
           charts.rush = new Chart(ctxR, {
             type: 'doughnut',
+            data: { labels: ['Temps Préparation Fluide (12 min)', 'Temps Perdu Plats Complexes (' + Math.max(0, waitTime - 12) + ' min)'], datasets: [{ data: [12, Math.max(0, waitTime - 12)], backgroundColor: ['#10b981', '#ef4444'], borderWidth: 0 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#cbd5e1' } } } }
+          });
+        }
+
+        // 5. Scatter Plot Menu Engineering
+        const scatterPoints = menuData.map(item => ({ x: item.qty, y: item.margin, name: item.name, quad: item.quad }));
+        if (charts.scatter) charts.scatter.destroy();
+        const ctxSc = document.getElementById('scatterChart');
+        if (ctxSc) {
+          charts.scatter = new Chart(ctxSc, {
+            type: 'scatter',
             data: {
-              labels: ['Temps Pr\u00e9paration Efficace (12 min)', 'Temps Perdu Plats Complexes (' + Math.max(0, waitTime - 12) + ' min)'],
-              datasets: [{
-                data: [12, Math.max(0, waitTime - 12)],
-                backgroundColor: ['#10b981', '#ef4444'],
-                borderWidth: 0
-              }]
+              datasets: [
+                { label: 'Stars', data: scatterPoints.filter(p => p.quad === 'STAR'), backgroundColor: '#10b981', pointRadius: 6 },
+                { label: 'Plowhorses', data: scatterPoints.filter(p => p.quad === 'PLOWHORSE'), backgroundColor: '#3b82f6', pointRadius: 6 },
+                { label: 'Puzzles', data: scatterPoints.filter(p => p.quad === 'PUZZLE'), backgroundColor: '#f59e0b', pointRadius: 6 },
+                { label: 'Dogs', data: scatterPoints.filter(p => p.quad === 'DOG' || p.quad === 'DOG_ZERO_VENTE'), backgroundColor: '#ef4444', pointRadius: 6 }
+              ]
             },
             options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: { legend: { position: 'bottom', labels: { color: '#cbd5e1' } } }
+              responsive: true, maintainAspectRatio: false,
+              scales: { x: { title: { display: true, text: 'Popularité (Ventes Réelles)', color: '#94a3b8' }, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }, y: { title: { display: true, text: 'Marge Cash Unitaire (DH)', color: '#94a3b8' }, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } } },
+              plugins: { tooltip: { callbacks: { label: function(ctx) { const p = ctx.raw; return p.name + ' : ' + p.x + ' ventes | ' + p.y + ' DH marge'; } } }, legend: { labels: { color: '#cbd5e1' } } }
             }
           });
         }
-      } catch (err) {
-        console.error('Error in renderCharts:', err);
-      }
+      } catch (err) { console.error('Error in renderCharts:', err); }
     }
     window.renderCharts = renderCharts;
 
-    // File Dropzone Handlers
-    function handleDrop(e) {
-      e.preventDefault();
-      const files = e.dataTransfer.files;
-      if (files.length > 0) processFile(files[0]);
-    }
+    function handleDrop(e) { e.preventDefault(); if (e.dataTransfer.files.length > 0) processFile(e.dataTransfer.files[0]); }
     window.handleDrop = handleDrop;
-
-    function handleFileSelect(e) {
-      const files = e.target.files;
-      if (files.length > 0) processFile(files[0]);
-    }
+    function handleFileSelect(e) { if (e.target.files.length > 0) processFile(e.target.files[0]); }
     window.handleFileSelect = handleFileSelect;
 
     function processFile(file) {
-      const name = file.name.toLowerCase();
-      const reader = new FileReader();
-
+      const name = file.name.toLowerCase(), reader = new FileReader();
       reader.onload = function(e) {
         try {
           if (name.endsWith('.json')) {
             const parsed = JSON.parse(e.target.result);
-            if (Array.isArray(parsed)) {
-              menuData = parsed;
-            } else if (parsed.Items && Array.isArray(parsed.Items)) {
-              menuData = parsed.Items.map(i => ({
-                id: Math.random().toString(36).substring(2, 9),
-                name: i.Name,
-                cat: i.Category,
-                price: parseFloat(i.Price) || 0,
-                qty: parseInt(i.TotalQty) || 0,
-                ca: parseFloat(i.TotalCA) || 0,
-                cost: parseFloat(i.UnitCost) || 0,
-                margin: parseFloat(i.UnitCashMargin) || 0,
-                quad: i.Quadrant
-              }));
-            }
-            showImportSuccess('Fichier JSON charg\u00e9 avec succ\u00e8s (' + menuData.length + ' r\u00e9f\u00e9rences)');
+            if (Array.isArray(parsed)) menuData = parsed;
+            alert('Scénario JSON chargé avec succès (' + menuData.length + ' références) !');
           } else if (name.endsWith('.xlsx') || name.endsWith('.xls') || name.endsWith('.csv')) {
-            if (typeof XLSX === 'undefined') {
-              alert('La biblioth\u00e8que SheetJS est en cours de chargement, veuillez r\u00e9essayer dans quelques secondes.');
-              return;
-            }
-            const data = new Uint8Array(e.target.result);
-            const workbook = XLSX.read(data, { type: 'array' });
-            const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-            const rows = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
-            
-            let updatedCount = 0;
+            if (typeof XLSX === 'undefined') return alert('SheetJS non disponible.');
+            const data = new Uint8Array(e.target.result), workbook = XLSX.read(data, { type: 'array' });
+            const rows = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1 });
+            let count = 0;
             rows.forEach(row => {
               if (row.length >= 2) {
-                const rawName = String(row[0] || '').trim().toUpperCase();
-                const rawQty = parseInt(row[1]) || 0;
+                const rawName = String(row[0] || '').trim().toUpperCase(), rawQty = parseInt(row[1]) || 0;
                 const match = menuData.find(m => rawName.includes(m.name.toUpperCase()) || m.name.toUpperCase().includes(rawName));
-                if (match && rawQty > 0) {
-                  match.qty = rawQty;
-                  match.ca = match.qty * match.price;
-                  updatedCount++;
-                }
+                if (match && rawQty > 0) { match.qty = rawQty; match.ca = match.qty * match.price; count++; }
               }
             });
-            showImportSuccess('Export Excel synchronis\u00e9 : ' + updatedCount + ' plats mis \u00e0 jour');
+            alert('Export caisse synchronisé : ' + count + ' plats mis à jour !');
           }
           updateSimulation();
-        } catch (err) {
-          alert('Erreur lors de la lecture du fichier : ' + err.message);
-        }
+        } catch (err) { alert('Erreur de lecture : ' + err.message); }
       };
-
-      if (name.endsWith('.json')) {
-        reader.readAsText(file);
-      } else {
-        reader.readAsArrayBuffer(file);
-      }
+      if (name.endsWith('.json')) reader.readAsText(file); else reader.readAsArrayBuffer(file);
     }
 
-    function showImportSuccess(msg) {
-      const badge = document.getElementById('meta-period');
-      if (badge) {
-        badge.innerText = '\uD83D\uDCC1 ' + msg;
-        badge.style.color = '#34d399';
-        badge.style.borderColor = 'rgba(16,185,129,0.4)';
-      }
+    function exportCompleteExcel() {
+      if (typeof XLSX === 'undefined') return alert('Module Excel indisponible');
+      try {
+        const wb = XLSX.utils.book_new();
+        const keptItems = menuData.filter(i => i.isKept).map(i => ({ 'Plat': i.name, 'Catégorie': i.cat, 'Prix (DH)': i.simPrice, 'Ventes': i.simQty, 'CA (DH)': i.simCA, 'Cost': i.cost, 'Marge (DH)': (i.simPrice - i.cost).toFixed(2), 'Marge Totale': i.simMargin, 'Quadrant': i.quad }));
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(keptItems), 'Carte_Recommandee');
+        const removedItems = menuData.filter(i => !i.isKept).map(i => ({ 'Plat': i.name, 'Catégorie': i.cat, 'Prix': i.price, 'Ventes': i.qty, 'CA': i.ca, 'Motif': i.qty === 0 ? 'Zéro Vente' : (i.name.toUpperCase().includes('BURRAT') ? 'Pertes DLC' : 'Poids Mort') }));
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(removedItems), 'Plats_Elimines');
+        const allItems = menuData.map(i => ({ 'Nom': i.name, 'Catégorie': i.cat, 'Prix': i.simPrice, 'Ventes': i.simQty, 'CA': i.simCA, 'Statut': i.isKept ? 'CONSERVÉ' : 'ÉLIMINÉ', 'Quadrant': i.quad }));
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(allItems), 'Audit_Complet_184');
+        XLSX.writeFile(wb, 'Grey_Corner_Synthese_Decisionnelle_Menu.xlsx');
+      } catch (err) { console.error('Error exporting Excel:', err); }
     }
+    window.exportCompleteExcel = exportCompleteExcel;
 
-    // Export JSON
+    function exportFinalMenuExcel() {
+      if (typeof XLSX === 'undefined') return;
+      const keptItems = menuData.filter(i => i.isKept).map(i => ({ 'Plat': i.name, 'Catégorie': i.cat, 'Prix Recommandé (DH)': i.simPrice, 'Ventes / Mois': Math.round((i.simQty / 162) * 30), 'CA Projeté (DH)': i.simCA, 'Description': i.desc || '' }));
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(keptItems), 'Nouvelle_Carte');
+      XLSX.writeFile(wb, 'Grey_Corner_Nouvelle_Carte_Recommandee.xlsx');
+    }
+    window.exportFinalMenuExcel = exportFinalMenuExcel;
+
     function exportDataJSON() {
       try {
-        const jsonStr = JSON.stringify(menuData, null, 2);
-        const blob = new Blob([jsonStr], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'grey_corner_menu_simulation.json';
-        a.click();
+        const blob = new Blob([JSON.stringify(menuData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob), a = document.createElement('a');
+        a.href = url; a.download = 'grey_corner_scenario_menu.json'; a.click();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
-      } catch (err) {
-        console.error('Export error:', err);
-      }
+      } catch (err) { console.error('Export error:', err); }
     }
     window.exportDataJSON = exportDataJSON;
 
-    // Attach listeners on DOMContentLoaded
-    document.addEventListener('DOMContentLoaded', () => {
-      applyPreset('recommended');
-    });
+    document.addEventListener('DOMContentLoaded', () => { applyPreset('recommended'); });
+    window.addEventListener('load', () => { updateSimulation(); });
 
-    // Fallback on window.load
-    window.addEventListener('load', () => {
-      updateSimulation();
-    });
   </script>
 </body>
 </html>
