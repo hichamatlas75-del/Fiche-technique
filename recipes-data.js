@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-12T12:47:27.961Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-12T17:42:29.685Z
  */
 
 (function(global) {
@@ -2496,11 +2496,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 26.25,
+        "cost": 28.56,
         "sellPrice": 64,
-        "foodCost": 41,
-        "margin": 59,
-        "grossMarginDH": 37.75,
+        "foodCost": 44.6,
+        "margin": 55.4,
+        "grossMarginDH": 35.44,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-espagnol.jpg"
@@ -2696,11 +2696,11 @@ const DATA = [
           "Poivron : 50 g"
         ],
         "price": "48 DH",
-        "cost": 16.48,
+        "cost": 19.37,
         "sellPrice": 48,
-        "foodCost": 34.3,
-        "margin": 65.7,
-        "grossMarginDH": 31.52,
+        "foodCost": 40.4,
+        "margin": 59.6,
+        "grossMarginDH": 28.63,
         "__key": "ef",
         "__images": [
           "images/entree-veggi.jpg"
@@ -2726,11 +2726,11 @@ const DATA = [
           "Concombre : 10 g"
         ],
         "price": "54 DH",
-        "cost": 19.04,
+        "cost": 24.82,
         "sellPrice": 54,
-        "foodCost": 35.3,
-        "margin": 64.7,
-        "grossMarginDH": 34.96,
+        "foodCost": 46,
+        "margin": 54,
+        "grossMarginDH": 29.18,
         "__key": "ef",
         "__images": [
           "images/entree-russe.jpg"
@@ -2858,10 +2858,10 @@ const DATA = [
         ],
         "price": "48 DH",
         "sellPrice": 48,
-        "cost": 12.28,
-        "foodCost": 25.6,
-        "margin": 74.4,
-        "grossMarginDH": 35.72,
+        "cost": 15.17,
+        "foodCost": 31.6,
+        "margin": 68.4,
+        "grossMarginDH": 32.83,
         "__key": "ef",
         "__images": [
           "images/placeholder.svg"
@@ -3727,11 +3727,11 @@ const DATA = [
           "FRITTES : 200 g"
         ],
         "price": "48 DH",
-        "cost": 12.03,
+        "cost": 17.23,
         "sellPrice": 48,
-        "foodCost": 25.1,
-        "margin": 74.9,
-        "grossMarginDH": 35.97,
+        "foodCost": 35.9,
+        "margin": 64.1,
+        "grossMarginDH": 30.77,
         "__key": "sw",
         "__images": [
           "images/sand-thon.jpg"
@@ -3895,11 +3895,11 @@ const DATA = [
           "SAUCE TOMATE : 50 g"
         ],
         "price": "65 DH",
-        "cost": 11.93,
+        "cost": 18.86,
         "sellPrice": 65,
-        "foodCost": 18.4,
-        "margin": 81.6,
-        "grossMarginDH": 53.07,
+        "foodCost": 29,
+        "margin": 71,
+        "grossMarginDH": 46.14,
         "__key": "pz",
         "__images": [
           "images/pizza-thon.jpg"
@@ -10898,7 +10898,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "thon": {
-    "cost": 0.05825,
+    "cost": 0.116,
     "unit": "g"
   },
   "anchois": {
