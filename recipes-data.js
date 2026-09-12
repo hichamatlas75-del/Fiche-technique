@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-12T17:42:29.685Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-12T17:52:20.326Z
  */
 
 (function(global) {
@@ -2485,7 +2485,7 @@ const DATA = [
           "Tortilla : 1 p",
           "Croquettes : 2 p",
           "Tapenade : 20 g",
-          "Thon : 40 g",
+          "Thon : 20 g",
           "Tomates : 60 g",
           "Fromage : 40 g",
           "Pain seigle : 2 tr",
@@ -2496,11 +2496,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 28.56,
+        "cost": 26.24,
         "sellPrice": 64,
-        "foodCost": 44.6,
-        "margin": 55.4,
-        "grossMarginDH": 35.44,
+        "foodCost": 41,
+        "margin": 59,
+        "grossMarginDH": 37.76,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-espagnol.jpg"
@@ -2690,17 +2690,17 @@ const DATA = [
           "Carotte : 40 g",
           "Brocoli : 50 g",
           "Radis : 60 g",
-          "Thon : 50 g",
+          "Thon : 40 g",
           "Sauce Vinaigrette : 200 g",
           "Maïs : 30 g",
           "Poivron : 50 g"
         ],
         "price": "48 DH",
-        "cost": 19.37,
+        "cost": 18.21,
         "sellPrice": 48,
-        "foodCost": 40.4,
-        "margin": 59.6,
-        "grossMarginDH": 28.63,
+        "foodCost": 37.9,
+        "margin": 62.1,
+        "grossMarginDH": 29.79,
         "__key": "ef",
         "__images": [
           "images/entree-veggi.jpg"
@@ -2719,18 +2719,18 @@ const DATA = [
           "Cornichon : 24 g",
           "Œufs de Caille : 1 p",
           "Mayonnaise : 30 g",
-          "Thon : 100 g",
+          "Thon : 30 g",
           "Maïs : 50 g",
           "Radis : 14 g",
           "Poivron : 10 g",
           "Concombre : 10 g"
         ],
         "price": "54 DH",
-        "cost": 24.82,
+        "cost": 16.7,
         "sellPrice": 54,
-        "foodCost": 46,
-        "margin": 54,
-        "grossMarginDH": 29.18,
+        "foodCost": 30.9,
+        "margin": 69.1,
+        "grossMarginDH": 37.3,
         "__key": "ef",
         "__images": [
           "images/entree-russe.jpg"
@@ -2851,17 +2851,17 @@ const DATA = [
           "Carotte : 40 g",
           "Brocoli : 50 g",
           "Radis : 60 g",
-          "Thon : 50 g",
+          "Thon : 40 g",
           "Vinaigrette : 40 ml",
           "Maïs : 30 g",
           "Poivron : 50 g"
         ],
         "price": "48 DH",
         "sellPrice": 48,
-        "cost": 15.17,
-        "foodCost": 31.6,
-        "margin": 68.4,
-        "grossMarginDH": 32.83,
+        "cost": 14.01,
+        "foodCost": 29.2,
+        "margin": 70.8,
+        "grossMarginDH": 33.99,
         "__key": "ef",
         "__images": [
           "images/placeholder.svg"
@@ -3720,18 +3720,18 @@ const DATA = [
         "prepTime": 8,
         "tech": [
           "Pain : 1 p",
-          "Thon : 90 g",
+          "Thon : 60 g",
           "Mayonnaise : 25 g",
           "Tomate : 30 g",
           "Salade : 20 g",
           "FRITTES : 200 g"
         ],
         "price": "48 DH",
-        "cost": 17.23,
+        "cost": 13.75,
         "sellPrice": 48,
-        "foodCost": 35.9,
-        "margin": 64.1,
-        "grossMarginDH": 30.77,
+        "foodCost": 28.6,
+        "margin": 71.4,
+        "grossMarginDH": 34.25,
         "__key": "sw",
         "__images": [
           "images/sand-thon.jpg"
@@ -3888,18 +3888,18 @@ const DATA = [
         "image": "images/pizza-thon.jpg",
         "prepTime": 15,
         "tech": [
-          "Thon : 120 g",
+          "Thon : 60 g",
           "Tomate : 30 g",
           "pate : 330 g",
           "MOZARELLA : 150 g",
           "SAUCE TOMATE : 50 g"
         ],
         "price": "65 DH",
-        "cost": 18.86,
+        "cost": 11.9,
         "sellPrice": 65,
-        "foodCost": 29,
-        "margin": 71,
-        "grossMarginDH": 46.14,
+        "foodCost": 18.3,
+        "margin": 81.7,
+        "grossMarginDH": 53.1,
         "__key": "pz",
         "__images": [
           "images/pizza-thon.jpg"
@@ -7418,7 +7418,7 @@ const BASE_RECIPES = [
       "Tortilla : 1 p",
       "Croquettes : 2 p",
       "Tapenade : 20 g",
-      "Thon : 40 g",
+      "Thon : 20 g",
       "Tomates : 60 g",
       "Fromage : 40 g",
       "Pain seigle : 2 tr",
@@ -7427,7 +7427,9 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 64,
+    "price": "64 DH"
   },
   {
     "id": "pdj_mquila_merguez",
@@ -7527,11 +7529,13 @@ const BASE_RECIPES = [
       "Carotte : 40 g",
       "Brocoli : 50 g",
       "Radis : 60 g",
-      "Thon : 50 g",
+      "Thon : 40 g",
       "Sauce Vinaigrette : 200 g",
       "Maïs : 30 g",
       "Poivron : 50 g"
-    ]
+    ],
+    "sellPrice": 48,
+    "price": "48 DH"
   },
   {
     "id": "ef_salade_russe",
@@ -7546,12 +7550,14 @@ const BASE_RECIPES = [
       "Cornichon : 24 g",
       "Œufs de Caille : 1 p",
       "Mayonnaise : 30 g",
-      "Thon : 100 g",
+      "Thon : 30 g",
       "Maïs : 50 g",
       "Radis : 14 g",
       "Poivron : 10 g",
       "Concombre : 10 g"
-    ]
+    ],
+    "sellPrice": 54,
+    "price": "54 DH"
   },
   {
     "id": "ef_salade_cesar",
@@ -8032,12 +8038,14 @@ const BASE_RECIPES = [
     "category": "SANDWICHS",
     "ingredients": [
       "Pain : 1 p",
-      "Thon : 90 g",
+      "Thon : 60 g",
       "Mayonnaise : 25 g",
       "Tomate : 30 g",
       "Salade : 20 g",
       "FRITTES : 200 g"
-    ]
+    ],
+    "sellPrice": 48,
+    "price": "48 DH"
   },
   {
     "id": "sw_poulet",
@@ -8109,12 +8117,14 @@ const BASE_RECIPES = [
     "name": "PIZZA THON",
     "category": "PIZZA",
     "ingredients": [
-      "Thon : 120 g",
+      "Thon : 60 g",
       "Tomate : 30 g",
       "pate : 330 g",
       "MOZARELLA : 150 g",
       "SAUCE TOMATE : 50 g"
-    ]
+    ],
+    "sellPrice": 65,
+    "price": "65 DH"
   },
   {
     "id": "pz_vegetarienne",
@@ -8883,11 +8893,13 @@ const BASE_RECIPES = [
       "Carotte : 40 g",
       "Brocoli : 50 g",
       "Radis : 60 g",
-      "Thon : 50 g",
+      "Thon : 40 g",
       "Vinaigrette : 40 ml",
       "Maïs : 30 g",
       "Poivron : 50 g"
-    ]
+    ],
+    "sellPrice": 48,
+    "price": "48 DH"
   },
   {
     "id": "ef_salade_burrata",
