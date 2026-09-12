@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-12T11:38:27.808Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-12T12:47:27.961Z
  */
 
 (function(global) {
@@ -2171,7 +2171,7 @@ const DATA = [
         "image": "images/petit-dej-gc.jpg",
         "prepTime": 15,
         "tech": [
-          "Merguez : 115 g",
+          "Merguez : 80 g",
           "OEUFS : 3 P",
           "Fromage : 30 g",
           "Toast hollandais : 1 p",
@@ -2187,11 +2187,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "85 DH",
-        "cost": 42.35,
+        "cost": 40.22,
         "sellPrice": 85,
-        "foodCost": 49.8,
-        "margin": 50.2,
-        "grossMarginDH": 42.65,
+        "foodCost": 47.3,
+        "margin": 52.7,
+        "grossMarginDH": 44.78,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-gc.jpg"
@@ -2520,11 +2520,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 19.64,
+        "cost": 20.84,
         "sellPrice": 64,
-        "foodCost": 30.7,
-        "margin": 69.3,
-        "grossMarginDH": 44.36,
+        "foodCost": 32.6,
+        "margin": 67.4,
+        "grossMarginDH": 43.16,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-mquila.jpg"
@@ -2660,10 +2660,10 @@ const DATA = [
         ],
         "price": "50 DH",
         "sellPrice": 50,
-        "cost": 11.34,
-        "foodCost": 22.7,
-        "margin": 77.3,
-        "grossMarginDH": 38.66,
+        "cost": 12.54,
+        "foodCost": 25.1,
+        "margin": 74.9,
+        "grossMarginDH": 37.46,
         "__key": "pdj",
         "__images": [
           "images/placeholder.svg"
@@ -5847,10 +5847,10 @@ const DATA = [
         ],
         "price": "25 DH",
         "sellPrice": 25,
-        "cost": 7.6,
-        "foodCost": 30.4,
-        "margin": 69.6,
-        "grossMarginDH": 17.4,
+        "cost": 8.8,
+        "foodCost": 35.2,
+        "margin": 64.8,
+        "grossMarginDH": 16.2,
         "__key": "sup",
         "__images": [
           "images/placeholder.svg"
@@ -7222,7 +7222,7 @@ const BASE_RECIPES = [
     "name": "BRUNCH GREYCORNER",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "Merguez : 115 g",
+      "Merguez : 80 g",
       "OEUFS : 3 P",
       "Fromage : 30 g",
       "Toast hollandais : 1 p",
@@ -10785,7 +10785,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "merguez": {
-    "cost": 0.095,
+    "cost": 0.11,
     "unit": "g"
   },
   "saucisse": {
