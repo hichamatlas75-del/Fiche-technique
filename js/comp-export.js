@@ -5,6 +5,7 @@
 
   // Exporter le tableau comparatif en Excel (.xlsx)
   window.exportComparisonToExcel = function() {
+    if (typeof window.flushPendingAutoSave === 'function') window.flushPendingAutoSave();
     if (typeof XLSX === 'undefined') {
       alert("La librairie Excel est en cours de chargement. Veuillez réessayer.");
       return;
@@ -130,6 +131,7 @@
   // Exporter le fichier complet recipes-data.js (Téléchargement local)
   function downloadUpdatedRecipesDataJs() {
     try {
+      if (typeof window.flushPendingAutoSave === 'function') window.flushPendingAutoSave();
       const content = buildUpdatedRecipesDataJsString();
       const blob = new Blob([content], { type: "application/javascript;charset=utf-8" });
       const url = URL.createObjectURL(blob);
@@ -167,6 +169,7 @@
     }
 
     try {
+      if (typeof window.flushPendingAutoSave === 'function') window.flushPendingAutoSave();
       const fileContent = buildUpdatedRecipesDataJsString();
       const owner = 'hichamatlas75-del';
       const repo = 'Fiche-technique';
@@ -251,12 +254,16 @@
   function initComparatorApp() {
     initData();
 
-    // Recherche
+    // Recherche avec debounce fluide
     const searchInput = document.getElementById('search-comparator');
     if (searchInput) {
+      let searchTimer = null;
       searchInput.addEventListener('input', (e) => {
-        searchQuery = e.target.value;
-        renderRecipeCards();
+        if (searchTimer) clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+          searchQuery = e.target.value;
+          renderRecipeCards();
+        }, 150);
       });
     }
 
@@ -273,7 +280,10 @@
     // Bouton de sauvegarde globale
     const saveAllBtn = document.getElementById('btn-save-all');
     if (saveAllBtn) {
-      saveAllBtn.addEventListener('click', () => saveEdits(true));
+      saveAllBtn.addEventListener('click', () => {
+        if (typeof window.flushPendingAutoSave === 'function') window.flushPendingAutoSave();
+        saveEdits(true);
+      });
     }
 
     // Écoute de mise à jour des prix d'achat

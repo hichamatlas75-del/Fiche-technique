@@ -384,11 +384,11 @@ var rowsHTML = filtered.map((recipe, idx) => {
               </div>
               <div class="fin-row">
                 <span>Food Cost Standard :</span>
-                <span class="badge ${stdFCClass}">${recipe.standard.foodCost.toFixed(1)} %</span>
+                <span id="std-fc-${idx}" class="badge ${stdFCClass}">${recipe.standard.foodCost.toFixed(1)} %</span>
               </div>
               <div class="fin-row">
                 <span>Écart vs Grey Corner :</span>
-                <strong class="${recipe.standard.diffDH > 0 ? 'text-gold' : 'text-success'}">${recipe.standard.diffDH > 0 ? '+' + recipe.standard.diffDH.toFixed(2) : recipe.standard.diffDH.toFixed(2)} DH</strong>
+                <strong id="std-diff-${idx}" class="${recipe.standard.diffDH > 0 ? 'text-gold' : 'text-success'}">${recipe.standard.diffDH > 0 ? '+' + recipe.standard.diffDH.toFixed(2) : recipe.standard.diffDH.toFixed(2)} DH</strong>
               </div>
             </div>
 

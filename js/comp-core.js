@@ -120,7 +120,9 @@ var hasUnsavedChanges = false; // AM-03: suivi des modifications non sauvegardé
       // 4. Émettre les signaux de synchronisation temps réel inter-onglets
       try {
         localStorage.setItem('gc_sync_ping', Date.now().toString());
-        window.dispatchEvent(new CustomEvent('gc:recipe-updated', { detail: { action: 'save' } }));
+        window.dispatchEvent(new CustomEvent('gc:recipe-updated', { 
+          detail: { action: 'save', source: 'comp-core', isManual: isManualSave } 
+        }));
       } catch (e) {}
 
       // AM-03: marquer comme sauvegardé
@@ -326,6 +328,15 @@ var hasUnsavedChanges = false; // AM-03: suivi des modifications non sauvegardé
     window.allRecipes = allRecipes;
     window.editedRecipes = editedRecipes;
 
+    const allRecipesMap = new Map();
+    allRecipes.forEach(r => {
+      if (r && r.name) {
+        allRecipesMap.set(cleanText(r.name), r);
+        allRecipesMap.set(r.name, r);
+      }
+    });
+    window.allRecipesMap = allRecipesMap;
+
     if (typeof renderCategoriesBar === 'function') renderCategoriesBar();
     else if (window.renderCategoriesBar) window.renderCategoriesBar();
 
@@ -415,11 +426,14 @@ var sumPrice = 0;
       if (drawerCount) drawerCount.textContent = totalItems;
     }
 
-    // Déclencher l'analyse permanente de l'agent intelligent
-    if (typeof window.renderAIOptimizerAgent === 'function') {
-      window.renderAIOptimizerAgent();
-    } else if (typeof renderAIOptimizerAgent === 'function') {
-      renderAIOptimizerAgent();
+    // Déclencher l'analyse de l'agent intelligent UNIQUEMENT s'il est affiché pour éviter tout blocage d'interface
+    const aiWrapper = document.getElementById('ai-agent-wrapper');
+    if (aiWrapper && aiWrapper.style.display !== 'none') {
+      if (typeof window.renderAIOptimizerAgent === 'function') {
+        window.renderAIOptimizerAgent();
+      } else if (typeof renderAIOptimizerAgent === 'function') {
+        renderAIOptimizerAgent();
+      }
     }
   }
 
@@ -439,11 +453,21 @@ var sumPrice = 0;
           e.key === keys.DELETED ||
           e.key === keys.PRICES ||
           e.key === keys.SYNC_PING) {
+        // Ne jamais interrompre l'utilisateur en cours de frappe dans un champ
+        const active = document.activeElement;
+        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable)) {
+          return;
+        }
         initData();
       }
     });
 
-    window.addEventListener('gc:recipe-updated', function() {
+    window.addEventListener('gc:recipe-updated', function(e) {
+      // Si l'événement provient de notre propre onglet (comp-core / comp-editor),
+      // les données en mémoire sont déjà à jour ! Ne pas réinitialiser et détruire le DOM !
+      if (e && e.detail && (e.detail.source === 'comp-core' || e.detail.source === 'comp-editor')) {
+        return;
+      }
       initData();
     });
   }
