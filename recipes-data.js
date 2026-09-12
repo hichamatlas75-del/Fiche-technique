@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-12T09:37:14.325Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-12T09:42:29.712Z
  */
 
 (function(global) {
@@ -2536,7 +2536,7 @@ const DATA = [
         "prepTime": 12,
         "tech": [
           "crevettes : 140 g",
-          "calamars congelé : 120 g",
+          "calamars : 120 g",
           "moules : 80 g",
           "Œufs : 2 p",
           "Jus : 200 ml",
@@ -3651,7 +3651,7 @@ const DATA = [
         "price": "64 DH",
         "sellPrice": 64,
         "tech": [
-          "Crevettes   : 150 g",
+          "Crevettes CHAIR  : 40 g",
           "Calamar congelé : 120 g",
           "Pesto : 20 g",
           "Mozzarella : 40 g",
@@ -3660,10 +3660,10 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_fruits_de_mer",
-        "cost": 23.93,
-        "foodCost": 37.4,
-        "margin": 62.6,
-        "grossMarginDH": 40.07
+        "cost": 24.08,
+        "foodCost": 37.6,
+        "margin": 62.4,
+        "grossMarginDH": 39.92
       },
       {
         "name": "PANINI SAUMON",
@@ -3696,19 +3696,19 @@ const DATA = [
         "prepTime": 14,
         "tech": [
           "Pain : 1 p",
-          "Crevette  : 150 g",
-          "calamar congelé : 120 g",
+          "Crevette chair : 40 g",
+          "calamar chair : 40 g",
           "Sauce cocktail : 50 g",
           "Salade : 20 g",
           "Tomate : 20 g",
           "FRITTES : 200 g"
         ],
         "price": "65 DH",
-        "cost": 22.27,
+        "cost": 22.42,
         "sellPrice": 65,
-        "foodCost": 34.3,
-        "margin": 65.7,
-        "grossMarginDH": 42.73,
+        "foodCost": 34.5,
+        "margin": 65.5,
+        "grossMarginDH": 42.58,
         "__key": "sw",
         "__images": [
           "images/sand-fruitsmer.jpg"
@@ -4116,18 +4116,18 @@ const DATA = [
         "prepTime": 18,
         "tech": [
           "Crème fraîche : 40 ml",
-          "Crevette  : 150 g",
-          "calamar congelé : 120 g",
+          "Crevette chair : 40 g",
+          "calamar chair : 40 g",
           "PATE : 330 g",
           "PESTO : 50 g",
           "MOZZARELLA : 150 g"
         ],
         "price": "88 DH",
-        "cost": 27.31,
+        "cost": 27.46,
         "sellPrice": 88,
-        "foodCost": 31,
-        "margin": 69,
-        "grossMarginDH": 60.69,
+        "foodCost": 31.2,
+        "margin": 68.8,
+        "grossMarginDH": 60.54,
         "__key": "pz",
         "__images": [
           "images/pizza-fruitsmer.jpg"
@@ -4413,16 +4413,16 @@ const DATA = [
           "Pâtes : 125 g",
           "Crème fraîche : 200 ml",
           "Parmesan : 30 g",
-          "Crevette  : 150 g",
-          "calamar congelé : 120 g",
+          "Crevette chair : 40 g",
+          "calamar chair : 40 g",
           "PESTO : 50 g"
         ],
         "price": "88 DH",
-        "cost": 30.24,
+        "cost": 30.39,
         "sellPrice": 88,
-        "foodCost": 34.4,
-        "margin": 65.6,
-        "grossMarginDH": 57.76,
+        "foodCost": 34.5,
+        "margin": 65.5,
+        "grossMarginDH": 57.61,
         "__key": "pae",
         "__images": [
           "images/pasta-fruitsmer.jpg"
@@ -7447,7 +7447,7 @@ const BASE_RECIPES = [
     "category": "PETIT DÉJEUNER",
     "ingredients": [
       "crevettes : 140 g",
-      "calamars congelé : 120 g",
+      "calamars : 120 g",
       "moules : 80 g",
       "Œufs : 2 p",
       "Jus : 200 ml",
@@ -7986,7 +7986,7 @@ const BASE_RECIPES = [
     "name": "PANINI FRUITS DE MER",
     "category": "PANINIS",
     "ingredients": [
-      "Crevettes   : 150 g",
+      "Crevettes CHAIR  : 40 g",
       "Calamar congelé : 120 g",
       "Pesto : 20 g",
       "Mozzarella : 40 g",
@@ -8014,8 +8014,8 @@ const BASE_RECIPES = [
     "category": "SANDWICHS",
     "ingredients": [
       "Pain : 1 p",
-      "Crevette  : 150 g",
-      "calamar congelé : 120 g",
+      "Crevette chair : 40 g",
+      "calamar chair : 40 g",
       "Sauce cocktail : 50 g",
       "Salade : 20 g",
       "Tomate : 20 g",
@@ -8233,8 +8233,8 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Crème fraîche : 40 ml",
-      "Crevette  : 150 g",
-      "calamar congelé : 120 g",
+      "Crevette chair : 40 g",
+      "calamar chair : 40 g",
       "PATE : 330 g",
       "PESTO : 50 g",
       "MOZZARELLA : 150 g"
@@ -8390,8 +8390,8 @@ const BASE_RECIPES = [
       "Pâtes : 125 g",
       "Crème fraîche : 200 ml",
       "Parmesan : 30 g",
-      "Crevette  : 150 g",
-      "calamar congelé : 120 g",
+      "Crevette chair : 40 g",
+      "calamar chair : 40 g",
       "PESTO : 50 g"
     ]
   },
