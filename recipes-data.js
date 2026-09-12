@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-12T09:49:40.231Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-12T11:38:27.808Z
  */
 
 (function(global) {
@@ -2171,7 +2171,7 @@ const DATA = [
         "image": "images/petit-dej-gc.jpg",
         "prepTime": 15,
         "tech": [
-          "Merguez : 65 g",
+          "Merguez : 115 g",
           "OEUFS : 3 P",
           "Fromage : 30 g",
           "Toast hollandais : 1 p",
@@ -2187,11 +2187,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "85 DH",
-        "cost": 37.6,
+        "cost": 42.35,
         "sellPrice": 85,
-        "foodCost": 44.2,
-        "margin": 55.8,
-        "grossMarginDH": 47.4,
+        "foodCost": 49.8,
+        "margin": 50.2,
+        "grossMarginDH": 42.65,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-gc.jpg"
@@ -2511,7 +2511,7 @@ const DATA = [
         "image": "images/petit-dej-mquila.jpg",
         "prepTime": 12,
         "tech": [
-          "Merguez : 65 g",
+          "Merguez : 80 g",
           "Poivrons/oignons : 120 g",
           "Œufs : 2 p",
           "Jus : 200 ml",
@@ -2520,11 +2520,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 18.22,
+        "cost": 19.64,
         "sellPrice": 64,
-        "foodCost": 28.5,
-        "margin": 71.5,
-        "grossMarginDH": 45.78,
+        "foodCost": 30.7,
+        "margin": 69.3,
+        "grossMarginDH": 44.36,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-mquila.jpg"
@@ -2654,16 +2654,16 @@ const DATA = [
         "image": "images/placeholder.svg",
         "prepTime": 5,
         "tech": [
-          "Merguez : 65 g",
+          "Merguez : 80 g",
           "Poivrons/oignons : 120 g",
           "Œufs : 2 p"
         ],
-        "price": "64 DH",
-        "sellPrice": 64,
-        "cost": 9.91,
-        "foodCost": 15.5,
-        "margin": 84.5,
-        "grossMarginDH": 54.09,
+        "price": "50 DH",
+        "sellPrice": 50,
+        "cost": 11.34,
+        "foodCost": 22.7,
+        "margin": 77.3,
+        "grossMarginDH": 38.66,
         "__key": "pdj",
         "__images": [
           "images/placeholder.svg"
@@ -5843,14 +5843,14 @@ const DATA = [
         "image": "images/placeholder.svg",
         "prepTime": 5,
         "tech": [
-          "Merguez : 100 g"
+          "Merguez : 80 g"
         ],
-        "price": "",
-        "sellPrice": 0,
-        "cost": 9.5,
-        "foodCost": 0,
-        "margin": 0,
-        "grossMarginDH": 0,
+        "price": "25 DH",
+        "sellPrice": 25,
+        "cost": 7.6,
+        "foodCost": 30.4,
+        "margin": 69.6,
+        "grossMarginDH": 17.4,
         "__key": "sup",
         "__images": [
           "images/placeholder.svg"
@@ -7222,7 +7222,7 @@ const BASE_RECIPES = [
     "name": "BRUNCH GREYCORNER",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "Merguez : 65 g",
+      "Merguez : 115 g",
       "OEUFS : 3 P",
       "Fromage : 30 g",
       "Toast hollandais : 1 p",
@@ -7236,7 +7236,9 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 85,
+    "price": "85 DH"
   },
   {
     "id": "pdj_brunch_duo",
@@ -7432,14 +7434,16 @@ const BASE_RECIPES = [
     "name": "MQUILA-MERGUEZ",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "Merguez : 65 g",
+      "Merguez : 80 g",
       "Poivrons/oignons : 120 g",
       "Œufs : 2 p",
       "Jus : 200 ml",
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 64,
+    "price": "64 DH"
   },
   {
     "id": "pdj_mquila_fruits_de_mer",
@@ -8806,10 +8810,12 @@ const BASE_RECIPES = [
     "name": "MQILA MERGUEZ",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "Merguez : 65 g",
+      "Merguez : 80 g",
       "Poivrons/oignons : 120 g",
       "Œufs : 2 p"
-    ]
+    ],
+    "sellPrice": 50,
+    "price": "50 DH"
   },
   {
     "id": "rec_1788200259401",
@@ -9439,8 +9445,10 @@ const BASE_RECIPES = [
     "name": "3 MERGUEZ",
     "category": "SUPPLÉMENTS & EXTRAS",
     "ingredients": [
-      "Merguez : 100 g"
-    ]
+      "Merguez : 80 g"
+    ],
+    "sellPrice": 25,
+    "price": "25 DH"
   },
   {
     "id": "sup_champignon",
