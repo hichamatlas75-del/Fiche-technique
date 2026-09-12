@@ -18,3 +18,8 @@ Desktop.ini
 
 # OneDrive reparse point
 GitHub
+
+# Secret tokens & keys
+*token*
+*.pat
+*.secret
