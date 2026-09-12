@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-12T17:52:20.326Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-12T17:53:01.064Z
  */
 
 (function(global) {
@@ -2496,11 +2496,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 26.24,
+        "cost": 26.94,
         "sellPrice": 64,
-        "foodCost": 41,
-        "margin": 59,
-        "grossMarginDH": 37.76,
+        "foodCost": 42.1,
+        "margin": 57.9,
+        "grossMarginDH": 37.06,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-espagnol.jpg"
@@ -11075,7 +11075,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece"
   },
   "tortilla": {
-    "cost": 1.8,
+    "cost": 2.5,
     "unit": "piece"
   },
   "pate a pizza": {
