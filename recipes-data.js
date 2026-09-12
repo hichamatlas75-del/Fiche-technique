@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-11T14:29:33.723Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-12T09:37:14.325Z
  */
 
 (function(global) {
@@ -2536,7 +2536,7 @@ const DATA = [
         "prepTime": 12,
         "tech": [
           "crevettes : 140 g",
-          "calamars : 120 g",
+          "calamars congelé : 120 g",
           "moules : 80 g",
           "Œufs : 2 p",
           "Jus : 200 ml",
@@ -3193,11 +3193,11 @@ const DATA = [
           "Huile : 60 ml"
         ],
         "price": "115 DH",
-        "cost": 43.19,
+        "cost": 39.44,
         "sellPrice": 115,
-        "foodCost": 37.6,
-        "margin": 62.4,
-        "grossMarginDH": 71.81,
+        "foodCost": 34.3,
+        "margin": 65.7,
+        "grossMarginDH": 75.56,
         "__key": "pl",
         "__images": [
           "images/plat-eminceboeuf.jpg",
@@ -3219,11 +3219,11 @@ const DATA = [
           "Frites : 200 g"
         ],
         "price": "135 DH",
-        "cost": 55.25,
+        "cost": 49.85,
         "sellPrice": 135,
-        "foodCost": 40.9,
-        "margin": 59.1,
-        "grossMarginDH": 79.75,
+        "foodCost": 36.9,
+        "margin": 63.1,
+        "grossMarginDH": 85.15,
         "__key": "pl",
         "__images": [
           "images/plat-filet.jpg",
@@ -3651,7 +3651,7 @@ const DATA = [
         "price": "64 DH",
         "sellPrice": 64,
         "tech": [
-          "Crevettes CHAIR  : 40 g",
+          "Crevettes   : 150 g",
           "Calamar congelé : 120 g",
           "Pesto : 20 g",
           "Mozzarella : 40 g",
@@ -3660,10 +3660,10 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_fruits_de_mer",
-        "cost": 24.08,
-        "foodCost": 37.6,
-        "margin": 62.4,
-        "grossMarginDH": 39.92
+        "cost": 23.93,
+        "foodCost": 37.4,
+        "margin": 62.6,
+        "grossMarginDH": 40.07
       },
       {
         "name": "PANINI SAUMON",
@@ -3696,19 +3696,19 @@ const DATA = [
         "prepTime": 14,
         "tech": [
           "Pain : 1 p",
-          "Crevette chair : 40 g",
-          "calamar chair : 40 g",
+          "Crevette  : 150 g",
+          "calamar congelé : 120 g",
           "Sauce cocktail : 50 g",
           "Salade : 20 g",
           "Tomate : 20 g",
           "FRITTES : 200 g"
         ],
         "price": "65 DH",
-        "cost": 22.42,
+        "cost": 22.27,
         "sellPrice": 65,
-        "foodCost": 34.5,
-        "margin": 65.5,
-        "grossMarginDH": 42.58,
+        "foodCost": 34.3,
+        "margin": 65.7,
+        "grossMarginDH": 42.73,
         "__key": "sw",
         "__images": [
           "images/sand-fruitsmer.jpg"
@@ -3796,11 +3796,11 @@ const DATA = [
           "FRITTES : 200 g"
         ],
         "price": "64 DH",
-        "cost": 24.78,
+        "cost": 22.92,
         "sellPrice": 64,
-        "foodCost": 38.7,
-        "margin": 61.3,
-        "grossMarginDH": 39.22,
+        "foodCost": 35.8,
+        "margin": 64.2,
+        "grossMarginDH": 41.08,
         "__key": "sw",
         "__images": [
           "images/sand-cheesesteak.jpg"
@@ -4116,18 +4116,18 @@ const DATA = [
         "prepTime": 18,
         "tech": [
           "Crème fraîche : 40 ml",
-          "Crevette chair : 40 g",
-          "calamar chair : 40 g",
+          "Crevette  : 150 g",
+          "calamar congelé : 120 g",
           "PATE : 330 g",
           "PESTO : 50 g",
           "MOZZARELLA : 150 g"
         ],
         "price": "88 DH",
-        "cost": 27.46,
+        "cost": 27.31,
         "sellPrice": 88,
-        "foodCost": 31.2,
-        "margin": 68.8,
-        "grossMarginDH": 60.54,
+        "foodCost": 31,
+        "margin": 69,
+        "grossMarginDH": 60.69,
         "__key": "pz",
         "__images": [
           "images/pizza-fruitsmer.jpg"
@@ -4413,16 +4413,16 @@ const DATA = [
           "Pâtes : 125 g",
           "Crème fraîche : 200 ml",
           "Parmesan : 30 g",
-          "Crevette chair : 40 g",
-          "calamar chair : 40 g",
+          "Crevette  : 150 g",
+          "calamar congelé : 120 g",
           "PESTO : 50 g"
         ],
         "price": "88 DH",
-        "cost": 30.39,
+        "cost": 30.24,
         "sellPrice": 88,
-        "foodCost": 34.5,
-        "margin": 65.5,
-        "grossMarginDH": 57.61,
+        "foodCost": 34.4,
+        "margin": 65.6,
+        "grossMarginDH": 57.76,
         "__key": "pae",
         "__images": [
           "images/pasta-fruitsmer.jpg"
@@ -4718,10 +4718,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 9.2,
-        "foodCost": 21.9,
-        "margin": 78.1,
-        "grossMarginDH": 32.8,
+        "cost": 9.4,
+        "foodCost": 22.4,
+        "margin": 77.6,
+        "grossMarginDH": 32.6,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4889,10 +4889,10 @@ const DATA = [
         ],
         "price": "38 DH",
         "sellPrice": 38,
-        "cost": 15,
-        "foodCost": 39.5,
-        "margin": 60.5,
-        "grossMarginDH": 23,
+        "cost": 15.48,
+        "foodCost": 40.7,
+        "margin": 59.3,
+        "grossMarginDH": 22.52,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4931,10 +4931,10 @@ const DATA = [
         ],
         "price": "32 DH",
         "sellPrice": 32,
-        "cost": 10.5,
-        "foodCost": 32.8,
-        "margin": 67.2,
-        "grossMarginDH": 21.5,
+        "cost": 10.82,
+        "foodCost": 33.8,
+        "margin": 66.2,
+        "grossMarginDH": 21.18,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4953,10 +4953,10 @@ const DATA = [
         ],
         "price": "50 DH",
         "sellPrice": 50,
-        "cost": 14.15,
-        "foodCost": 28.3,
-        "margin": 71.7,
-        "grossMarginDH": 35.85,
+        "cost": 14.35,
+        "foodCost": 28.7,
+        "margin": 71.3,
+        "grossMarginDH": 35.65,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -4977,11 +4977,11 @@ const DATA = [
           "Nutella : 120 g"
         ],
         "price": "38 DH",
-        "cost": 10.8,
+        "cost": 11.28,
         "sellPrice": 38,
-        "foodCost": 28.4,
-        "margin": 71.6,
-        "grossMarginDH": 27.2,
+        "foodCost": 29.7,
+        "margin": 70.3,
+        "grossMarginDH": 26.72,
         "__key": "cr",
         "__images": []
       },
@@ -4995,11 +4995,11 @@ const DATA = [
           "Pistaches concassées : 0 g"
         ],
         "price": "48 DH",
-        "cost": 19.8,
+        "cost": 23.55,
         "sellPrice": 48,
-        "foodCost": 41.3,
-        "margin": 58.8,
-        "grossMarginDH": 28.2,
+        "foodCost": 49.1,
+        "margin": 50.9,
+        "grossMarginDH": 24.45,
         "__key": "cr",
         "__images": []
       },
@@ -5154,10 +5154,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 12.2,
-        "foodCost": 29,
-        "margin": 71,
-        "grossMarginDH": 29.8,
+        "cost": 12.68,
+        "foodCost": 30.2,
+        "margin": 69.8,
+        "grossMarginDH": 29.32,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5194,10 +5194,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 10.8,
-        "foodCost": 25.7,
-        "margin": 74.3,
-        "grossMarginDH": 31.2,
+        "cost": 11.04,
+        "foodCost": 26.3,
+        "margin": 73.7,
+        "grossMarginDH": 30.96,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5215,10 +5215,10 @@ const DATA = [
         ],
         "price": "48 DH",
         "sellPrice": 48,
-        "cost": 7.9,
-        "foodCost": 16.5,
-        "margin": 83.5,
-        "grossMarginDH": 40.1,
+        "cost": 8.14,
+        "foodCost": 17,
+        "margin": 83,
+        "grossMarginDH": 39.86,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5236,10 +5236,10 @@ const DATA = [
         ],
         "price": "52 DH",
         "sellPrice": 52,
-        "cost": 9.55,
-        "foodCost": 18.4,
-        "margin": 81.6,
-        "grossMarginDH": 42.45,
+        "cost": 9.79,
+        "foodCost": 18.8,
+        "margin": 81.2,
+        "grossMarginDH": 42.21,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5276,10 +5276,10 @@ const DATA = [
         ],
         "price": "38 DH",
         "sellPrice": 38,
-        "cost": 10.8,
-        "foodCost": 28.4,
-        "margin": 71.6,
-        "grossMarginDH": 27.2,
+        "cost": 11.28,
+        "foodCost": 29.7,
+        "margin": 70.3,
+        "grossMarginDH": 26.72,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5297,10 +5297,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 10.42,
-        "foodCost": 24.8,
-        "margin": 75.2,
-        "grossMarginDH": 31.58,
+        "cost": 10.82,
+        "foodCost": 25.8,
+        "margin": 74.2,
+        "grossMarginDH": 31.18,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5319,10 +5319,10 @@ const DATA = [
         ],
         "price": "48 DH",
         "sellPrice": 48,
-        "cost": 18.45,
-        "foodCost": 38.4,
-        "margin": 61.6,
-        "grossMarginDH": 29.55,
+        "cost": 21.7,
+        "foodCost": 45.2,
+        "margin": 54.8,
+        "grossMarginDH": 26.3,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5340,10 +5340,10 @@ const DATA = [
         ],
         "price": "48 DH",
         "sellPrice": 48,
-        "cost": 6.4,
-        "foodCost": 13.3,
-        "margin": 86.7,
-        "grossMarginDH": 41.6,
+        "cost": 6.56,
+        "foodCost": 13.7,
+        "margin": 86.3,
+        "grossMarginDH": 41.44,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5361,10 +5361,10 @@ const DATA = [
         ],
         "price": "42 DH",
         "sellPrice": 42,
-        "cost": 10.8,
-        "foodCost": 25.7,
-        "margin": 74.3,
-        "grossMarginDH": 31.2,
+        "cost": 11.04,
+        "foodCost": 26.3,
+        "margin": 73.7,
+        "grossMarginDH": 30.96,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5708,10 +5708,10 @@ const DATA = [
         ],
         "price": "7 DH",
         "sellPrice": 7,
-        "cost": 1.5,
-        "foodCost": 21.4,
-        "margin": 78.6,
-        "grossMarginDH": 5.5,
+        "cost": 1.58,
+        "foodCost": 22.6,
+        "margin": 77.4,
+        "grossMarginDH": 5.42,
         "__key": "sup",
         "__images": [
           "images/placeholder.svg"
@@ -6289,7 +6289,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 9.1,
+        "cost": 9.5,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -7447,7 +7447,7 @@ const BASE_RECIPES = [
     "category": "PETIT DÉJEUNER",
     "ingredients": [
       "crevettes : 140 g",
-      "calamars : 120 g",
+      "calamars congelé : 120 g",
       "moules : 80 g",
       "Œufs : 2 p",
       "Jus : 200 ml",
@@ -7737,9 +7737,7 @@ const BASE_RECIPES = [
       "Fokacha : 150 g",
       "Frites : 200 g",
       "Huile : 60 ml"
-    ],
-    "sellPrice": 115,
-    "price": "115 DH"
+    ]
   },
   {
     "id": "pl_filet_de_boeuf",
@@ -7753,9 +7751,7 @@ const BASE_RECIPES = [
       "Légumes : 220 g",
       "Fokacha : 150 g",
       "Frites : 200 g"
-    ],
-    "sellPrice": 135,
-    "price": "135 DH"
+    ]
   },
   {
     "id": "pl_pave_de_saumon",
@@ -7990,7 +7986,7 @@ const BASE_RECIPES = [
     "name": "PANINI FRUITS DE MER",
     "category": "PANINIS",
     "ingredients": [
-      "Crevettes CHAIR  : 40 g",
+      "Crevettes   : 150 g",
       "Calamar congelé : 120 g",
       "Pesto : 20 g",
       "Mozzarella : 40 g",
@@ -8018,8 +8014,8 @@ const BASE_RECIPES = [
     "category": "SANDWICHS",
     "ingredients": [
       "Pain : 1 p",
-      "Crevette chair : 40 g",
-      "calamar chair : 40 g",
+      "Crevette  : 150 g",
+      "calamar congelé : 120 g",
       "Sauce cocktail : 50 g",
       "Salade : 20 g",
       "Tomate : 20 g",
@@ -8076,9 +8072,7 @@ const BASE_RECIPES = [
       "CHAMPIGNONS : 50 g",
       "FILET : 62 g",
       "FRITTES : 200 g"
-    ],
-    "sellPrice": 64,
-    "price": "64 DH"
+    ]
   },
   {
     "id": "sw_viande_hachee",
@@ -8239,8 +8233,8 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Crème fraîche : 40 ml",
-      "Crevette chair : 40 g",
-      "calamar chair : 40 g",
+      "Crevette  : 150 g",
+      "calamar congelé : 120 g",
       "PATE : 330 g",
       "PESTO : 50 g",
       "MOZZARELLA : 150 g"
@@ -8396,8 +8390,8 @@ const BASE_RECIPES = [
       "Pâtes : 125 g",
       "Crème fraîche : 200 ml",
       "Parmesan : 30 g",
-      "Crevette chair : 40 g",
-      "calamar chair : 40 g",
+      "Crevette  : 150 g",
+      "calamar congelé : 120 g",
       "PESTO : 50 g"
     ]
   },
@@ -8481,9 +8475,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte à crêpe : 1 p",
       "Nutella : 120 g"
-    ],
-    "sellPrice": 38,
-    "price": "38 DH"
+    ]
   },
   {
     "id": "cr_crepe_kunafa_pistache",
@@ -8494,9 +8486,7 @@ const BASE_RECIPES = [
       "Pâte de pistache :  150 g",
       "Kunafa croustillante : 30 g",
       "Pistaches concassées : 0 g"
-    ],
-    "sellPrice": 48,
-    "price": "48 DH"
+    ]
   },
   {
     "id": "cr_crepe_fromage",
@@ -8754,9 +8744,7 @@ const BASE_RECIPES = [
       "Pâte à crêpe : 1 p",
       "Nutella : 120 g",
       "BANANE : 100 g"
-    ],
-    "sellPrice": 42,
-    "price": "42 DH"
+    ]
   },
   {
     "id": "rec_1788199584604",
@@ -8811,9 +8799,7 @@ const BASE_RECIPES = [
     "category": "AUTRE",
     "ingredients": [
       "NUTELLA : 20 g"
-    ],
-    "sellPrice": 7,
-    "price": "7 DH"
+    ]
   },
   {
     "id": "rec_1788200166784",
@@ -9119,9 +9105,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pâte à gaufre : 1 p",
       "Nutella : 120 g"
-    ],
-    "sellPrice": 38,
-    "price": "38 DH"
+    ]
   },
   {
     "id": "cr_gaufre_nutela_banane",
@@ -9131,9 +9115,7 @@ const BASE_RECIPES = [
       "Pâte à gaufre : 1 p",
       "Nutella : 100 g",
       "Banane : 80 g"
-    ],
-    "sellPrice": 42,
-    "price": "42 DH"
+    ]
   },
   {
     "id": "cr_gaufre_kunafa_pistache",
@@ -9144,9 +9126,7 @@ const BASE_RECIPES = [
       "Kunafa : 40 g",
       "Pate de Pistache : 130 g",
       "Sirop : 20 ml"
-    ],
-    "sellPrice": 48,
-    "price": "48 DH"
+    ]
   },
   {
     "id": "cr_gaufre_exotique",
@@ -9323,9 +9303,7 @@ const BASE_RECIPES = [
     "ingredients": [
       "Pancakes : 3 p",
       "Nutella : 120 g"
-    ],
-    "sellPrice": 38,
-    "price": "38 DH"
+    ]
   },
   {
     "id": "des_pain_cake_fruits",
@@ -9345,9 +9323,7 @@ const BASE_RECIPES = [
       "Pancakes : 2 p",
       "Nutella : 80 g",
       "Smarties : 10 g"
-    ],
-    "sellPrice": 32,
-    "price": "32 DH"
+    ]
   },
   {
     "id": "des_pain_cake_gc",
@@ -10789,11 +10765,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "filet de boeuf": {
-    "cost": 0.22,
+    "cost": 0.19,
     "unit": "g"
   },
   "filet": {
-    "cost": 0.22,
+    "cost": 0.19,
     "unit": "g"
   },
   "viande tajine": {
@@ -11724,11 +11700,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "nutella": {
-    "cost": 0.075,
+    "cost": 0.079,
     "unit": "g"
   },
   "pate de pistache": {
-    "cost": 0.115,
+    "cost": 0.14,
     "unit": "g"
   },
   "kunafa": {
