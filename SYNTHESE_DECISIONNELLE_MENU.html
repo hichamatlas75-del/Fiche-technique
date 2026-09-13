@@ -1129,6 +1129,81 @@
       box-shadow: 0 0 14px rgba(245, 158, 11, 0.3);
     }
 
+    /* === SIMULATEUR PRIX PAR CATEGORIE === */
+    .cat-price-sim-panel {
+      margin-top: 20px;
+      background: linear-gradient(135deg, rgba(168,85,247,0.08), rgba(15,23,42,0.9));
+      border: 1px solid rgba(168,85,247,0.35);
+      border-radius: 14px;
+      padding: 20px 24px;
+    }
+    .cat-price-sim-title {
+      font-size: 1.1rem; font-weight: 800; color: #d8b4fe;
+      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+    }
+    .cat-price-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .cat-price-row {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .cat-price-row-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cat-price-name {
+      font-size: 0.82rem; font-weight: 700; color: #e2e8f0;
+    }
+    .cat-price-val {
+      font-size: 0.78rem; background: rgba(168,85,247,0.2); color: #d8b4fe;
+      border: 1px solid rgba(168,85,247,0.4); padding: 2px 8px; border-radius: 6px; font-weight: 800;
+    }
+    .cat-price-btns {
+      display: flex; gap: 5px; flex-wrap: wrap;
+    }
+    .cat-price-btn {
+      padding: 4px 10px; font-size: 0.72rem; font-weight: 800;
+      background: rgba(168,85,247,0.12); border: 1px solid rgba(168,85,247,0.35);
+      color: #d8b4fe; border-radius: 6px; cursor: pointer; transition: all 0.15s;
+    }
+    .cat-price-btn:hover { background: rgba(168,85,247,0.3); color: #fff; }
+    .cat-price-btn.active { background: #a855f7; color: #fff; border-color: #a855f7; }
+    .cat-price-btn.reset-btn {
+      background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.15);
+      color: #94a3b8;
+    }
+    .cat-price-btn.reset-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .cat-price-impact-dashboard {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(168,85,247,0.3);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .cat-impact-kpi {
+      text-align: center;
+    }
+    .cat-impact-kpi-label {
+      font-size: 0.72rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;
+    }
+    .cat-impact-kpi-val {
+      font-size: 1.4rem; font-weight: 900; color: #d8b4fe;
+    }
+    .cat-impact-kpi-sub {
+      font-size: 0.72rem; color: #94a3b8; margin-top: 2px;
+    }
 </style>
 <body>
 
@@ -1163,9 +1238,12 @@
     <p>Simulateur d&eacute;cisionnel connect&eacute; aux ventes r&eacute;elles (162 jours post-mars : 2 266 910 DH). Modifiez les volumes futurs, ajustez les prix et simulez en temps r&eacute;el le d&eacute;graissage de la carte pour convaincre vos patrons.</p>
     
     <div class="header-meta">
-      <span id="meta-period">&#128197; P&eacute;riode : 162 jours (Avril - Sept 2026)</span>
-      <span id="meta-items">&#127869; 193 R&eacute;f&eacute;rences Audit&eacute;es</span>
-      <span id="meta-ca">&#128176; 2 266 910 DH CA Audit&eacute;</span>
+      <span id="meta-period">&#128197; Période : 162 jours (Avril - Sept 2026)</span>
+      <span id="meta-items">&#127869; 193 Références Auditées</span>
+      <span id="meta-ca">&#128176; 2 266 910 DH CA Audité</span>
+      <span id="meta-health-score" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(6,182,212,0.15)); border-color:rgba(16,185,129,0.4); cursor:help;" title="Score de Santé du Menu = % plats actifs + taux marge + concentration Pareto + ratio Stars">
+        &#129504; Score Santé Menu : <strong id="health-score-value" style="color:#34d399;">—</strong>/100
+      </span>
     </div>
   </header>
 
@@ -1337,6 +1415,44 @@
           <button class="action-btn" onclick="resetMenuSalesToBase()" style="background:rgba(255,255,255,0.06); color:#cbd5e1; border:1px solid var(--card-border); padding:10px 14px; border-radius:8px; font-size:0.82rem;">
             🔄 Réinitialiser Base
           </button>
+        </div>
+      </div>
+      <!-- SIMULATEUR DE PRIX PAR CATÉGORIE -->
+      <div class="cat-price-sim-panel" id="cat-price-sim-panel">
+        <div class="cat-price-sim-title">
+          <span style="font-size:1.6rem;">💹</span>
+          <div>
+            <div>Simulation Prix par Grande Famille de Produits</div>
+            <div style="font-size:0.78rem; color:#94a3b8; font-weight:400; margin-top:2px;">Appliquez +1, +2, +3 DH sur une catégorie entière et voyez l'impact instantané sur le CA et la marge.</div>
+          </div>
+        </div>
+
+        <div class="cat-price-grid" id="cat-price-grid">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Dashboard d'impact total -->
+        <div class="cat-price-impact-dashboard" id="cat-price-impact-dashboard">
+          <div class="cat-impact-kpi">
+            <div class="cat-impact-kpi-label">💰 Gain CA Additionnel / Mois</div>
+            <div class="cat-impact-kpi-val" id="catprice-gain-ca">+0 DH</div>
+            <div class="cat-impact-kpi-sub">Sur la base des ventes actuelles</div>
+          </div>
+          <div class="cat-impact-kpi">
+            <div class="cat-impact-kpi-label">💎 Gain Marge Additionnel / Mois</div>
+            <div class="cat-impact-kpi-val" id="catprice-gain-margin">+0 DH</div>
+            <div class="cat-impact-kpi-sub">100% cash pur</div>
+          </div>
+          <div class="cat-impact-kpi">
+            <div class="cat-impact-kpi-label">📅 Gain Projeté / An</div>
+            <div class="cat-impact-kpi-val" id="catprice-gain-year">+0 DH</div>
+            <div class="cat-impact-kpi-sub">Trésorerie nette annuelle</div>
+          </div>
+          <div class="cat-impact-kpi">
+            <div class="cat-impact-kpi-label">🍽️ Catégories Ajustées</div>
+            <div class="cat-impact-kpi-val" id="catprice-adjusted-count" style="color:#fbbf24;">0</div>
+            <div class="cat-impact-kpi-sub">sur <span id="catprice-total-cats">8</span> familles</div>
+          </div>
         </div>
       </div>
     </section>
@@ -2265,6 +2381,38 @@
         const baseTotalCA = menuData.reduce((acc, i) => acc + i.ca, 0);
         const kpiPareto = document.getElementById('kpi-pareto'); if (kpiPareto) kpiPareto.innerText = (baseTotalCA > 0 ? ((totalCA / baseTotalCA) * 100).toFixed(1) : 100) + '%';
 
+        // === CALCUL DU MENU HEALTH SCORE /100 ===
+        try {
+          const totalItems = menuData.filter(i => !SUPPLEMENT_ONLY_IDS || !SUPPLEMENT_ONLY_IDS.has(i.id)).length;
+          // Composante 1: % plats actifs (max 25pts)
+          const pctActive = activeCount / Math.max(1, totalItems);
+          const scoreActive = Math.round(Math.min(25, pctActive * 25 + (pctActive > 0.3 ? 5 : 0)));
+          // Composante 2: Taux marge brute (max 25pts)
+          const marginRate = totalCA > 0 ? (totalMargin / totalCA) : 0;
+          const scoreMargin = Math.round(Math.min(25, marginRate * 35));
+          // Composante 3: Concentration Pareto - les 20% top font >70% du CA (max 25pts)
+          const sortedByCA = menuData.filter(i => i.isKept).sort((a,b) => (b.simCA||0) - (a.simCA||0));
+          const top20count = Math.max(1, Math.round(sortedByCA.length * 0.2));
+          const top20CA = sortedByCA.slice(0, top20count).reduce((s,i) => s + (i.simCA||0), 0);
+          const paretoRatio = totalCA > 0 ? top20CA / totalCA : 0;
+          const scorePareto = Math.round(Math.min(25, paretoRatio > 0.65 ? 25 : paretoRatio * 38));
+          // Composante 4: Ratio Stars / (Stars + Dogs) (max 25pts)
+          const stars = menuData.filter(i => i.isKept && (i.quad === 'STAR')).length;
+          const dogs = menuData.filter(i => i.isKept && (i.quad === 'DOG' || i.quad === 'DOG_ZERO_VENTE')).length;
+          const starRatio = (stars + dogs) > 0 ? stars / (stars + dogs) : 0.5;
+          const scoreStar = Math.round(Math.min(25, starRatio * 28));
+          const healthScore = Math.min(100, scoreActive + scoreMargin + scorePareto + scoreStar);
+          const hsEl = document.getElementById('health-score-value');
+          if (hsEl) {
+            hsEl.innerText = healthScore;
+            hsEl.style.color = healthScore >= 70 ? '#34d399' : (healthScore >= 40 ? '#fbbf24' : '#f87171');
+            const scoreParentSpan = document.getElementById('meta-health-score');
+            if (scoreParentSpan) {
+              scoreParentSpan.style.borderColor = healthScore >= 70 ? 'rgba(52,211,153,0.5)' : (healthScore >= 40 ? 'rgba(251,191,36,0.5)' : 'rgba(248,113,113,0.5)');
+            }
+          }
+        } catch(e) {}
+        if (typeof updateCatPriceImpact === 'function') updateCatPriceImpact();
         renderMenuTable(); renderMenuEngineering(); renderCharts(); renderFinalMenu(); renderCategoryRankings();
       } catch (err) { console.error('Error in updateSimulation:', err); }
     }
@@ -2469,7 +2617,7 @@
         }
 
         // 5. Scatter Plot Menu Engineering
-        const scatterPoints = menuData.map(item => ({ x: item.qty, y: item.margin, name: item.name, quad: item.quad }));
+        const scatterPoints = menuData.map(item => ({ x: item.qty, y: item.margin, name: item.name, quad: item.quad, _name: item.name, _cat: item.cat }));
         if (charts.scatter) charts.scatter.destroy();
         const ctxSc = document.getElementById('scatterChart');
         if (ctxSc) {
@@ -2486,7 +2634,21 @@
             options: {
               responsive: true, maintainAspectRatio: false,
               scales: { x: { title: { display: true, text: 'Popularité (Ventes Réelles)', color: '#94a3b8' }, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }, y: { title: { display: true, text: 'Marge Cash Unitaire (DH)', color: '#94a3b8' }, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } } },
-              plugins: { tooltip: { callbacks: { label: function(ctx) { const p = ctx.raw; return p.name + ' : ' + p.x + ' ventes | ' + p.y + ' DH marge'; } } }, legend: { labels: { color: '#cbd5e1' } } }
+              plugins: {
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const p = ctx.raw;
+                      return [
+                        (p._name || 'Plat inconnu'),
+                        `📂 ${p._cat || ''}`,
+                        `📊 ${Math.round(p.x)} ventes · Marge ${p.y.toFixed(0)} DH/u`
+                      ];
+                    }
+                  }
+                },
+                legend: { labels: { color: '#cbd5e1' } }
+              }
             }
           });
         }
@@ -2561,7 +2723,10 @@
     }
     window.exportDataJSON = exportDataJSON;
 
-    document.addEventListener('DOMContentLoaded', () => { applyPreset('recommended'); });
+    document.addEventListener('DOMContentLoaded', () => {
+      applyPreset('recommended');
+      setTimeout(() => initCatPriceSim(), 400);
+    });
     window.addEventListener('load', () => { updateSimulation(); });
 
   
@@ -2722,10 +2887,135 @@
       if (!confirm('Voulez-vous réinitialiser toutes les ventes aux valeurs réelles issues de l\'audit caisse ?')) return;
       menuData = JSON.parse(JSON.stringify(INITIAL_MENU_DATA));
       manualItemOverrides = {};
-      updateSimulation();
-      alert('Toutes les ventes ont été réinitialisées aux données caisse d\'origine !');
+      customPriceDeltas = {};
+      // Réappliquer le filtre calendrier actif (sinon les qty restent à 0 sur un filtre mensuel)
+      if (typeof selectCalendarPeriod === 'function') {
+        selectCalendarPeriod(currentCalendarPeriod || 'ALL');
+      } else {
+        updateSimulation();
+      }
+      const toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed; bottom:24px; right:24px; background:linear-gradient(135deg,#10b981,#059669); color:#fff; padding:14px 22px; border-radius:12px; font-weight:800; font-size:0.95rem; z-index:99999; box-shadow:0 8px 25px rgba(0,0,0,0.4); animation:fadeIn 0.3s ease;';
+      toast.innerHTML = '✅ Ventes réinitialisées aux données caisse d\'origine !';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3500);
     }
     window.resetMenuSalesToBase = resetMenuSalesToBase;
+
+    // =========================================================
+    // SIMULATEUR DE PRIX PAR CATÉGORIE
+    // =========================================================
+    const CAT_PRICE_GROUPS = [
+      { key: 'PETIT_DEJ', label: '☕ Petit-Déjeuner', emoji: '☕', color: '#f59e0b', match: cat => cat && cat.toUpperCase().includes('PETIT') },
+      { key: 'PLATS', label: '🍽️ Plats Restauration', emoji: '🍽️', color: '#10b981', match: cat => cat && (cat.toUpperCase() === 'PLATS' || cat.toUpperCase().includes('COUSCOUS')) },
+      { key: 'SANDWICHS', label: '🥖 Sandwichs Ciabatta', emoji: '🥖', color: '#3b82f6', match: cat => cat && cat.toUpperCase().includes('SANDWICH') },
+      { key: 'BURGERS', label: '🍔 Burgers', emoji: '🍔', color: '#ef4444', match: cat => cat && cat.toUpperCase() === 'BURGERS' },
+      { key: 'PANINI', label: '🌯 Panini & Wraps', emoji: '🌯', color: '#8b5cf6', match: cat => cat && cat.toUpperCase() === 'PANINI' },
+      { key: 'PIZZA', label: '🍕 Pizzas', emoji: '🍕', color: '#ec4899', match: cat => cat && cat.toUpperCase() === 'PIZZA' },
+      { key: 'PASTA', label: '🍝 Pasta & Lasagnes', emoji: '🍝', color: '#06b6d4', match: cat => cat && (cat.toLowerCase().includes('pasta') || cat.toLowerCase().includes('spaghetti') || cat.toLowerCase().includes('tagliatelle')) },
+      { key: 'CREPES', label: '🥞 Crêpes & Gaufres', emoji: '🥞', color: '#14b8a6', match: cat => cat && (cat.toUpperCase().includes('CRÊPE') || cat.toUpperCase().includes('CREPE') || cat.toUpperCase().includes('GAUFRE')) },
+      { key: 'BOISSONS', label: '🥤 Boissons', emoji: '🥤', color: '#6366f1', match: cat => cat && (cat.toUpperCase().includes('BOISSON') || cat.toUpperCase().includes('JUS') || cat.toUpperCase().includes('MILKSHAKE') || cat.toUpperCase().includes('CAFÉ') || cat.toUpperCase().includes('CAFE') || cat.toUpperCase().includes('FRAPPE')) },
+      { key: 'DESSERTS', label: '🍰 Desserts', emoji: '🍰', color: '#f43f5e', match: cat => cat && (cat.toUpperCase().includes('DESSERT') || cat.toUpperCase().includes('GLACE') || cat.toUpperCase().includes('TIRAMISU')) },
+    ];
+
+    // Delta prix par catégorie (séparé de customPriceDeltas pour une gestion propre)
+    let catPriceDeltas = {}; // { 'PETIT_DEJ': 2, 'PIZZA': 3, ... }
+
+    function initCatPriceSim() {
+      const grid = document.getElementById('cat-price-grid');
+      if (!grid) return;
+      grid.innerHTML = CAT_PRICE_GROUPS.map(grp => {
+        const items = menuData.filter(i => grp.match(i.cat) && !i.isSupplementOnly && i.qty > 0);
+        if (items.length === 0) return '';
+        const avgPrice = items.length > 0 ? Math.round(items.reduce((s,i) => s + i.price, 0) / items.length) : 0;
+        const delta = catPriceDeltas[grp.key] || 0;
+        return `<div class="cat-price-row" id="catrow-${grp.key}">
+          <div class="cat-price-row-header">
+            <span class="cat-price-name">${grp.label}</span>
+            <span class="cat-price-val" id="catval-${grp.key}">${delta === 0 ? 'Non modifié' : '+' + delta + ' DH'}</span>
+          </div>
+          <div style="font-size:0.72rem; color:#94a3b8;">${items.length} plat(s) · Prix moy. ${avgPrice} DH</div>
+          <div class="cat-price-btns">
+            <button class="cat-price-btn${delta===0?' reset-btn':''} ${delta===0?'active':''}" onclick="setCatPriceDelta('${grp.key}', 0)">0 DH</button>
+            <button class="cat-price-btn${delta===1?' active':''}" onclick="setCatPriceDelta('${grp.key}', 1)">+1 DH</button>
+            <button class="cat-price-btn${delta===2?' active':''}" onclick="setCatPriceDelta('${grp.key}', 2)">+2 DH</button>
+            <button class="cat-price-btn${delta===3?' active':''}" onclick="setCatPriceDelta('${grp.key}', 3)">+3 DH</button>
+            <button class="cat-price-btn${delta===5?' active':''}" onclick="setCatPriceDelta('${grp.key}', 5)">+5 DH</button>
+            <button class="cat-price-btn${delta===10?' active':''}" onclick="setCatPriceDelta('${grp.key}', 10)">+10 DH</button>
+          </div>
+        </div>`;
+      }).join('');
+      updateCatPriceImpact();
+    }
+    window.initCatPriceSim = initCatPriceSim;
+
+    function setCatPriceDelta(catKey, delta) {
+      catPriceDeltas[catKey] = delta;
+      // Appliquer les deltas aux customPriceDeltas de chaque plat de la catégorie
+      const grp = CAT_PRICE_GROUPS.find(g => g.key === catKey);
+      if (!grp) return;
+      menuData.forEach(item => {
+        if (grp.match(item.cat) && !item.isSupplementOnly) {
+          // Nettoyer l'ancien delta catégorie et appliquer le nouveau
+          // On conserve les deltas individuels du modal prix
+          if (!item._baseCatDeltaKey) item._baseCatDeltaKey = {};
+          const oldCatDelta = item._baseCatDeltaKey[catKey] || 0;
+          if (!customPriceDeltas) customPriceDeltas = {};
+          // Retirer l'ancien et appliquer le nouveau
+          customPriceDeltas[item.id] = (customPriceDeltas[item.id] || 0) - oldCatDelta + delta;
+          if (customPriceDeltas[item.id] === 0) delete customPriceDeltas[item.id];
+          item._baseCatDeltaKey[catKey] = delta;
+        }
+      });
+      // Rafraîchir l'affichage de la grille et l'impact
+      initCatPriceSim();
+      updateSimulation();
+    }
+    window.setCatPriceDelta = setCatPriceDelta;
+
+    function updateCatPriceImpact() {
+      // Calculer le gain CA et marge additionnels des deltas catégories
+      let gainCA = 0, gainMargin = 0, adjustedCats = 0;
+      const activeDays = (typeof PERIOD_METADATA !== 'undefined' && PERIOD_METADATA[currentCalendarPeriod]) ? PERIOD_METADATA[currentCalendarPeriod].days : 162;
+      CAT_PRICE_GROUPS.forEach(grp => {
+        const delta = catPriceDeltas[grp.key] || 0;
+        if (delta === 0) return;
+        adjustedCats++;
+        const items = menuData.filter(i => grp.match(i.cat) && !i.isSupplementOnly && i.isKept !== false);
+        items.forEach(item => {
+          const monthlyVol = Math.round((item.qty / activeDays) * 30);
+          gainCA += delta * monthlyVol;
+          gainMargin += delta * monthlyVol; // 100% marge car coût = 0 sur ajustement prix
+        });
+      });
+      const el1 = document.getElementById('catprice-gain-ca'); if (el1) el1.innerText = '+' + gainCA.toLocaleString('fr-FR') + ' DH';
+      const el2 = document.getElementById('catprice-gain-margin'); if (el2) el2.innerText = '+' + gainMargin.toLocaleString('fr-FR') + ' DH';
+      const el3 = document.getElementById('catprice-gain-year'); if (el3) el3.innerText = '+' + (gainCA * 12).toLocaleString('fr-FR') + ' DH';
+      const el4 = document.getElementById('catprice-adjusted-count'); if (el4) el4.innerText = adjustedCats;
+      // Colorier dynamiquement selon le gain
+      [el1, el2, el3].forEach(el => { if (el) el.style.color = gainCA > 0 ? '#34d399' : '#d8b4fe'; });
+    }
+    window.updateCatPriceImpact = updateCatPriceImpact;
+
+    function resetAllCatPrices() {
+      // Retirer tous les deltas catégorie des customPriceDeltas
+      CAT_PRICE_GROUPS.forEach(grp => {
+        const oldDelta = catPriceDeltas[grp.key] || 0;
+        if (oldDelta === 0) return;
+        menuData.forEach(item => {
+          if (grp.match(item.cat) && !item.isSupplementOnly) {
+            if (!customPriceDeltas) customPriceDeltas = {};
+            customPriceDeltas[item.id] = (customPriceDeltas[item.id] || 0) - oldDelta;
+            if (customPriceDeltas[item.id] <= 0) delete customPriceDeltas[item.id];
+            if (item._baseCatDeltaKey) delete item._baseCatDeltaKey[grp.key];
+          }
+        });
+      });
+      catPriceDeltas = {};
+      initCatPriceSim();
+      updateSimulation();
+    }
+    window.resetAllCatPrices = resetAllCatPrices;
 
     function handleRankingFileSelect(e) {
       if (e.target.files.length > 0) {
@@ -3842,6 +4132,10 @@
     // Initialization hook for new tabs
     window.addEventListener('load', () => {
       setTimeout(() => {
+        // Auto-remplir la date dans l'onglet Objectifs
+        const todayDay = new Date().getDate();
+        const goalDaysEl = document.getElementById('goal-days-input');
+        if (goalDaysEl) goalDaysEl.value = todayDay;
         renderTrendsModule();
         updateGoals();
       }, 500);
