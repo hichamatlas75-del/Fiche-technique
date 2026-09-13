@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-12T17:53:01.064Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-13T19:39:28.064Z
  */
 
 (function(global) {
@@ -2187,11 +2187,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "85 DH",
-        "cost": 40.22,
+        "cost": 39.02,
         "sellPrice": 85,
-        "foodCost": 47.3,
-        "margin": 52.7,
-        "grossMarginDH": 44.78,
+        "foodCost": 45.9,
+        "margin": 54.1,
+        "grossMarginDH": 45.98,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-gc.jpg"
@@ -2496,11 +2496,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 26.94,
+        "cost": 25.09,
         "sellPrice": 64,
-        "foodCost": 42.1,
-        "margin": 57.9,
-        "grossMarginDH": 37.06,
+        "foodCost": 39.2,
+        "margin": 60.8,
+        "grossMarginDH": 38.91,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-espagnol.jpg"
@@ -2520,11 +2520,11 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "64 DH",
-        "cost": 20.84,
+        "cost": 19.64,
         "sellPrice": 64,
-        "foodCost": 32.6,
-        "margin": 67.4,
-        "grossMarginDH": 43.16,
+        "foodCost": 30.7,
+        "margin": 69.3,
+        "grossMarginDH": 44.36,
         "__key": "pdj",
         "__images": [
           "images/petit-dej-mquila.jpg"
@@ -2660,10 +2660,10 @@ const DATA = [
         ],
         "price": "50 DH",
         "sellPrice": 50,
-        "cost": 12.54,
-        "foodCost": 25.1,
-        "margin": 74.9,
-        "grossMarginDH": 37.46,
+        "cost": 11.34,
+        "foodCost": 22.7,
+        "margin": 77.3,
+        "grossMarginDH": 38.66,
         "__key": "pdj",
         "__images": [
           "images/placeholder.svg"
@@ -2696,11 +2696,11 @@ const DATA = [
           "Poivron : 50 g"
         ],
         "price": "48 DH",
-        "cost": 18.21,
+        "cost": 15.9,
         "sellPrice": 48,
-        "foodCost": 37.9,
-        "margin": 62.1,
-        "grossMarginDH": 29.79,
+        "foodCost": 33.1,
+        "margin": 66.9,
+        "grossMarginDH": 32.1,
         "__key": "ef",
         "__images": [
           "images/entree-veggi.jpg"
@@ -2726,11 +2726,11 @@ const DATA = [
           "Concombre : 10 g"
         ],
         "price": "54 DH",
-        "cost": 16.7,
+        "cost": 14.97,
         "sellPrice": 54,
-        "foodCost": 30.9,
-        "margin": 69.1,
-        "grossMarginDH": 37.3,
+        "foodCost": 27.7,
+        "margin": 72.3,
+        "grossMarginDH": 39.03,
         "__key": "ef",
         "__images": [
           "images/entree-russe.jpg"
@@ -2858,10 +2858,10 @@ const DATA = [
         ],
         "price": "48 DH",
         "sellPrice": 48,
-        "cost": 14.01,
-        "foodCost": 29.2,
-        "margin": 70.8,
-        "grossMarginDH": 33.99,
+        "cost": 11.7,
+        "foodCost": 24.4,
+        "margin": 75.6,
+        "grossMarginDH": 36.3,
         "__key": "ef",
         "__images": [
           "images/placeholder.svg"
@@ -3237,7 +3237,6 @@ const DATA = [
         "prepTime": 18,
         "tech": [
           "Saumon : 180 g",
-          "Crevette : 80 g",
           "Crème fraîche : 70 ml",
           "Parmesan : 20 g",
           "Beurre : 40 g",
@@ -3246,11 +3245,11 @@ const DATA = [
           "Frites : 200 g"
         ],
         "price": "145 DH",
-        "cost": 52.25,
+        "cost": 47.85,
         "sellPrice": 145,
-        "foodCost": 36,
-        "margin": 64,
-        "grossMarginDH": 92.75,
+        "foodCost": 33,
+        "margin": 67,
+        "grossMarginDH": 97.15,
         "__key": "pl",
         "__images": [
           "images/plat-saumon.jpg",
@@ -3727,11 +3726,11 @@ const DATA = [
           "FRITTES : 200 g"
         ],
         "price": "48 DH",
-        "cost": 13.75,
+        "cost": 10.29,
         "sellPrice": 48,
-        "foodCost": 28.6,
-        "margin": 71.4,
-        "grossMarginDH": 34.25,
+        "foodCost": 21.4,
+        "margin": 78.6,
+        "grossMarginDH": 37.71,
         "__key": "sw",
         "__images": [
           "images/sand-thon.jpg"
@@ -3895,11 +3894,11 @@ const DATA = [
           "SAUCE TOMATE : 50 g"
         ],
         "price": "65 DH",
-        "cost": 11.9,
+        "cost": 8.43,
         "sellPrice": 65,
-        "foodCost": 18.3,
-        "margin": 81.7,
-        "grossMarginDH": 53.1,
+        "foodCost": 13,
+        "margin": 87,
+        "grossMarginDH": 56.57,
         "__key": "pz",
         "__images": [
           "images/pizza-thon.jpg"
@@ -5847,10 +5846,10 @@ const DATA = [
         ],
         "price": "25 DH",
         "sellPrice": 25,
-        "cost": 8.8,
-        "foodCost": 35.2,
-        "margin": 64.8,
-        "grossMarginDH": 16.2,
+        "cost": 7.6,
+        "foodCost": 30.4,
+        "margin": 69.6,
+        "grossMarginDH": 17.4,
         "__key": "sup",
         "__images": [
           "images/placeholder.svg"
@@ -7769,14 +7768,15 @@ const BASE_RECIPES = [
     "category": "PLATS",
     "ingredients": [
       "Saumon : 180 g",
-      "Crevette : 80 g",
       "Crème fraîche : 70 ml",
       "Parmesan : 20 g",
       "Beurre : 40 g",
       "Légumes : 220 g",
       "Fokacha : 150 g",
       "Frites : 200 g"
-    ]
+    ],
+    "sellPrice": 145,
+    "price": "145 DH"
   },
   {
     "id": "pl_menu_enfant_plat",
@@ -8003,7 +8003,9 @@ const BASE_RECIPES = [
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
-    ]
+    ],
+    "sellPrice": 64,
+    "price": "64 DH"
   },
   {
     "id": "pa_saumon",
@@ -8030,7 +8032,9 @@ const BASE_RECIPES = [
       "Salade : 20 g",
       "Tomate : 20 g",
       "FRITTES : 200 g"
-    ]
+    ],
+    "sellPrice": 65,
+    "price": "65 DH"
   },
   {
     "id": "sw_thon",
@@ -8252,7 +8256,9 @@ const BASE_RECIPES = [
       "PATE : 330 g",
       "PESTO : 50 g",
       "MOZZARELLA : 150 g"
-    ]
+    ],
+    "sellPrice": 88,
+    "price": "88 DH"
   },
   {
     "id": "pz_saumon",
@@ -8407,7 +8413,9 @@ const BASE_RECIPES = [
       "Crevette  : 150 g",
       "calamar  : 120 g",
       "PESTO : 50 g"
-    ]
+    ],
+    "sellPrice": 88,
+    "price": "88 DH"
   },
   {
     "id": "pae_saumon",
@@ -10797,7 +10805,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "merguez": {
-    "cost": 0.11,
+    "cost": 0.095,
     "unit": "g"
   },
   "saucisse": {
@@ -10910,7 +10918,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "thon": {
-    "cost": 0.116,
+    "cost": 0.05825,
     "unit": "g"
   },
   "anchois": {
@@ -11075,7 +11083,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece"
   },
   "tortilla": {
-    "cost": 2.5,
+    "cost": 1.8,
     "unit": "piece"
   },
   "pate a pizza": {
