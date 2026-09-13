@@ -7,858 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js">
-    // =========================================================
-    // NOUVEAUX MODULES : AUTO-WATCHER, PROJECTIONS, OBJECTIFS & RAPPORT
-    // =========================================================
-
-    const SALMON_PROTECTED_IDS = new Set(['1d205276', 'a67ad52b', 'piz_saumon_66', 'pan_saumon_58', '16cebd6f']);
-    const SUPPLEMENT_ONLY_IDS = new Set(['4ee98640', '16edc28a']);
-
-    let projectionChartInstance = null;
-    let velocityChartInstance = null;
-
-    // --- AUTO-WATCHER : Chargement Ventes depuis ./ventes ---
-    async function loadVentesFromFolder() {
-      try {
-        if (window.showOpenFilePicker) {
-          const [fileHandle] = await window.showOpenFilePicker({
-            types: [{
-              description: 'Ventes du Jour (JSON)',
-              accept: { 'application/json': ['.json'] }
-            }],
-            multiple: false
-          });
-          const file = await fileHandle.getFile();
-          const text = await file.text();
-          const json = JSON.parse(text);
-          applyDailySalesData(json, file.name);
-        } else {
-          const input = document.createElement('input');
-          input.type = 'file';
-          input.accept = '.json';
-          input.onchange = async (e) => {
-            if (e.target.files.length > 0) {
-              const file = e.target.files[0];
-              const text = await file.text();
-              const json = JSON.parse(text);
-              applyDailySalesData(json, file.name);
-            }
-          };
-          input.click();
-        }
-      } catch (err) {
-        if (err.name !== 'AbortError') {
-          alert('Erreur lors du chargement des ventes : ' + err.message);
-        }
-      }
-    }
-    window.loadVentesFromFolder = loadVentesFromFolder;
-
-    function applyDailySalesData(payload, fileName) {
-      try {
-        // Validation stricte : Exclusion de l'Ancien Menu (Janvier, Février, Mars 2026)
-        const lowerFile = (fileName || '').toLowerCase();
-        const isOldPeriod = lowerFile.includes('202601') || lowerFile.includes('202602') || lowerFile.includes('202603') ||
-                            lowerFile.includes('2026-01') || lowerFile.includes('2026-02') || lowerFile.includes('2026-03') ||
-                            lowerFile.includes('janvier') || lowerFile.includes('fevrier') || lowerFile.includes('mars');
-        const isOldPayloadDate = payload && payload.date && (payload.date.startsWith('2026-01') || payload.date.startsWith('2026-02') || payload.date.startsWith('2026-03'));
-
-        if (isOldPeriod || isOldPayloadDate) {
-          alert("⛔ Fichier rejeté : Ce fichier appartient à l'ANCIEN MENU (Janvier, Février ou Mars 2026).\n\nLe simulateur décisionnel est étalonné exclusivement sur le menu actuel post-mars (à partir du 01 Avril 2026).");
-          const statusEl = document.getElementById('watcher-status');
-          if (statusEl) {
-            statusEl.innerHTML = "⛔ <strong style='color:#f87171;'>Fichier ignoré (" + fileName + ")</strong> : Ventes de l'ancien menu (Jan/Fév/Mars 2026) exclues.";
-          }
-          return;
-        }
-
-        let entries = [];
-        if (Array.isArray(payload)) {
-          entries = payload;
-        } else if (payload && Array.isArray(payload.items)) {
-          entries = payload.items;
-        } else {
-          alert('Format non reconnu. Attendu : tableau d\'articles avec id et qty_journee.');
-          return;
-        }
-
-        let updatedCount = 0;
-        let dayTotalCA = 0;
-        let dayTotalQty = 0;
-        const reportRows = [];
-
-        entries.forEach(entry => {
-          const it = menuData.find(m => m.id === entry.id);
-          if (it) {
-            const addQ = parseInt(entry.qty_journee) || 0;
-            if (addQ > 0) {
-              it.qty += addQ;
-              it.ca = Math.round(it.qty * it.price);
-              it.monthlyQty = Math.round((it.qty / 5.3) * 10) / 10;
-              it.weeklyQty = Math.round((it.qty / 23) * 10) / 10;
-              updatedCount++;
-              dayTotalQty += addQ;
-              const caItem = addQ * it.price;
-              dayTotalCA += caItem;
-              reportRows.push({ name: it.name, cat: it.cat, price: it.price, qty: addQ, ca: caItem });
-            }
-          }
-        });
-
-        updateSimulation();
-
-        // Update status UI
-        const statusEl = document.getElementById('watcher-status');
-        if (statusEl) {
-          statusEl.innerHTML = '✅ <strong style="color:#34d399;">' + updatedCount + ' articles mis à jour</strong> depuis <em>' + fileName + '</em> (' + dayTotalQty + ' ventes, ' + dayTotalCA.toLocaleString('fr-FR') + ' DH de CA journalier).';
-        }
-        const badgeEl = document.getElementById('watcher-badge');
-        if (badgeEl) badgeEl.style.display = 'inline-block';
-
-        // Render Report
-        renderDailyReport(reportRows, dayTotalCA, dayTotalQty, fileName);
-
-        // Update Trends & Goals
-        renderTrendsModule();
-        updateGoals();
-
-        // Switch to report tab
-        switchTab('report', document.getElementById('tab-btn-report'));
-
-      } catch (err) {
-        console.error('Error applying daily sales:', err);
-        alert('Erreur lors du traitement du fichier : ' + err.message);
-      }
-    }
-
-    // --- RAPPORT JOURNALIER ---
-    function renderDailyReport(rows, totalCA, totalQty, fileName) {
-      const container = document.getElementById('daily-report-body');
-      if (!container) return;
-
-      rows.sort((a, b) => b.ca - a.ca);
-      const top5 = rows.slice(0, 5);
-      const today = new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
-      let topHtml = '';
-      top5.forEach((r, idx) => {
-        const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
-        topHtml += '<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px dashed rgba(255,255,255,0.06);">' +
-          '<div>' + medals[idx] + ' <strong>' + r.name + '</strong> <span style="font-size:0.75rem; color:#94a3b8;">[' + r.cat + ']</span></div>' +
-          '<div style="text-align:right;"><strong>' + r.ca.toLocaleString('fr-FR') + ' DH</strong> <span style="font-size:0.75rem; color:var(--gold-light);">(' + r.qty + ' v.)</span></div>' +
-        '</div>';
-      });
-
-      let fullTableRows = '';
-      rows.forEach(r => {
-        fullTableRows += '<tr>' +
-          '<td><strong>' + r.name + '</strong></td>' +
-          '<td><span style="font-size:0.75rem; color:#94a3b8;">' + r.cat + '</span></td>' +
-          '<td>' + r.price + ' DH</td>' +
-          '<td><strong style="color:var(--cyan);">' + r.qty + '</strong></td>' +
-          '<td><strong style="color:var(--gold-light);">' + r.ca.toLocaleString('fr-FR') + ' DH</strong></td>' +
-        '</tr>';
-      });
-
-      container.innerHTML = '<div class="report-card">' +
-        '<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom:20px; border-bottom:1px solid var(--card-border); padding-bottom:16px;">' +
-          '<div>' +
-            '<div style="font-size:1.35rem; font-weight:800; color:#fff;">Clôture du ' + today + '</div>' +
-            '<div style="font-size:0.8rem; color:#94a3b8;">Source : <code>' + fileName + '</code> &bull; ' + rows.length + ' références vendues</div>' +
-          '</div>' +
-          '<div style="text-align:right;">' +
-            '<div style="font-size:1.8rem; font-weight:800; color:var(--gold-light);">' + totalCA.toLocaleString('fr-FR') + ' DH</div>' +
-            '<div style="font-size:0.8rem; color:var(--emerald); font-weight:700;">' + totalQty + ' articles servis</div>' +
-          '</div>' +
-        '</div>' +
-
-        '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:20px; margin-bottom:24px;">' +
-          '<div style="background:rgba(0,0,0,0.25); border:1px solid var(--card-border); border-radius:12px; padding:18px;">' +
-            '<div style="font-size:0.95rem; font-weight:800; color:var(--gold-light); margin-bottom:12px;">🏆 Top 5 des Ventes du Jour (par CA)</div>' +
-            topHtml +
-          '</div>' +
-          '<div style="background:rgba(0,0,0,0.25); border:1px solid var(--card-border); border-radius:12px; padding:18px;">' +
-            '<div style="font-size:0.95rem; font-weight:800; color:#67e8f9; margin-bottom:12px;">💡 Synthèse Décisionnelle du Jour</div>' +
-            '<ul style="font-size:0.85rem; color:#cbd5e1; line-height:1.7; padding-left:18px;">' +
-              '<li>Chiffre d\'Affaires journalier intégré à la base historique.</li>' +
-              '<li>Toutes les marges et parts de marché sont recalculées en temps réel.</li>' +
-              '<li>Les projections 30 et 90 jours ont été ajustées avec ce volume récent.</li>' +
-              '<li>Règle zéro déchet Saumon vérifiée : approvisionnement fluide.</li>' +
-            '</ul>' +
-          '</div>' +
-        '</div>' +
-
-        '<div class="table-container">' +
-          '<table class="custom-table">' +
-            '<thead><tr><th>Plat</th><th>Rayon</th><th>Prix</th><th>Ventes du Jour</th><th>CA du Jour</th></tr></thead>' +
-            '<tbody>' + fullTableRows + '</tbody>' +
-          '</table>' +
-        '</div>' +
-      '</div>';
-    }
-
-    // --- TENDANCES & PROJECTIONS ---
-    function renderTrendsModule() {
-      try {
-        const totalCA = menuData.reduce((s, i) => s + (i.simCA || i.ca), 0);
-        // Base period: 162 days
-        const dailyAvg = totalCA / 162;
-
-        const projPessimist30 = Math.round(dailyAvg * 30 * 0.85);
-        const projNeutral30 = Math.round(dailyAvg * 30 * 1.0);
-        const projOptimist30 = Math.round(dailyAvg * 30 * 1.2);
-
-        const projPessimist90 = Math.round(dailyAvg * 90 * 0.85);
-        const projNeutral90 = Math.round(dailyAvg * 90 * 1.0);
-        const projOptimist90 = Math.round(dailyAvg * 90 * 1.2);
-
-        const elPess = document.getElementById('proj-val-pessimist');
-        const elNeut = document.getElementById('proj-val-neutral');
-        const elOpt = document.getElementById('proj-val-optimist');
-        if (elPess) elPess.innerText = projPessimist90.toLocaleString('fr-FR') + ' DH (90j)';
-        if (elNeut) elNeut.innerText = projNeutral90.toLocaleString('fr-FR') + ' DH (90j)';
-        if (elOpt) elOpt.innerText = projOptimist90.toLocaleString('fr-FR') + ' DH (90j)';
-
-        const elPess30 = document.getElementById('proj-val-pessimist-30');
-        const elNeut30 = document.getElementById('proj-val-neutral-30');
-        const elOpt30 = document.getElementById('proj-val-optimist-30');
-        if (elPess30) elPess30.innerText = projPessimist30.toLocaleString('fr-FR') + ' DH';
-        if (elNeut30) elNeut30.innerText = projNeutral30.toLocaleString('fr-FR') + ' DH';
-        if (elOpt30) elOpt30.innerText = projOptimist30.toLocaleString('fr-FR') + ' DH';
-
-        // Projection Line Chart (30 days cumulated)
-        const ctxProj = document.getElementById('projectionChart');
-        if (ctxProj) {
-          if (projectionChartInstance) projectionChartInstance.destroy();
-          const days = [5, 10, 15, 20, 25, 30];
-          projectionChartInstance = new Chart(ctxProj, {
-            type: 'line',
-            data: {
-              labels: days.map(d => 'J+' + d),
-              datasets: [
-                {
-                  label: 'Pessimiste (-15%)',
-                  data: days.map(d => Math.round(dailyAvg * d * 0.85)),
-                  borderColor: '#ef4444',
-                  backgroundColor: 'rgba(239, 68, 68, 0.05)',
-                  tension: 0.3,
-                  borderWidth: 2
-                },
-                {
-                  label: 'Tendance Neutre',
-                  data: days.map(d => Math.round(dailyAvg * d)),
-                  borderColor: '#06b6d4',
-                  backgroundColor: 'rgba(6, 182, 212, 0.1)',
-                  tension: 0.3,
-                  borderWidth: 2.5
-                },
-                {
-                  label: 'Optimiste (+20%)',
-                  data: days.map(d => Math.round(dailyAvg * d * 1.2)),
-                  borderColor: '#10b981',
-                  backgroundColor: 'rgba(16, 185, 129, 0.05)',
-                  tension: 0.3,
-                  borderWidth: 2
-                }
-              ]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: { legend: { labels: { color: '#cbd5e1' } } },
-              scales: {
-                x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
-                y: { ticks: { color: '#94a3b8', callback: v => v.toLocaleString('fr-FR') + ' DH' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-              }
-            }
-          });
-        }
-
-        // Velocity Bar Chart by Category
-        const ctxVel = document.getElementById('velocityChart');
-        if (ctxVel) {
-          if (velocityChartInstance) velocityChartInstance.destroy();
-          const catMap = {};
-          menuData.forEach(item => {
-            const c = item.cat || 'AUTRES';
-            catMap[c] = (catMap[c] || 0) + (item.simQty || item.qty);
-          });
-          const sortedCats = Object.entries(catMap).sort((a, b) => b[1] - a[1]).slice(0, 7);
-
-          velocityChartInstance = new Chart(ctxVel, {
-            type: 'bar',
-            data: {
-              labels: sortedCats.map(c => c[0]),
-              datasets: [{
-                label: 'Ventes / Jour estimées',
-                data: sortedCats.map(c => Math.round((c[1] / 162) * 10) / 10),
-                backgroundColor: 'rgba(245, 158, 11, 0.7)',
-                borderColor: '#f59e0b',
-                borderRadius: 6
-              }]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: { legend: { display: false } },
-              scales: {
-                x: { ticks: { color: '#94a3b8', maxRotation: 25 }, grid: { display: false } },
-                y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-              }
-            }
-          });
-        }
-
-        // Decline & Rising Lists
-        const activeItems = menuData.filter(i => !SUPPLEMENT_ONLY_IDS.has(i.id));
-        const declining = activeItems.filter(i => i.monthlyQty < 10 && i.qty > 0).slice(0, 6);
-        const rising = activeItems.filter(i => i.monthlyQty >= 50 && (i.quad === 'STAR' || i.margin >= 35)).slice(0, 6);
-
-        const declineContainer = document.getElementById('decline-list-container');
-        if (declineContainer) {
-          declineContainer.innerHTML = declining.map(i =>
-            '<div class="trend-card-item">' +
-              '<div><strong>' + i.name + '</strong><span style="display:block; font-size:0.75rem; color:#94a3b8;">' + i.cat + ' &bull; ' + i.price + ' DH</span></div>' +
-              '<div style="text-align:right;"><span style="color:#f87171; font-weight:800;">' + i.monthlyQty + ' v/mois</span><span style="display:block; font-size:0.72rem; color:#94a3b8;">' + i.qty + ' total</span></div>' +
-            '</div>'
-          ).join('');
-        }
-
-        const risingContainer = document.getElementById('rising-list-container');
-        if (risingContainer) {
-          risingContainer.innerHTML = rising.map(i =>
-            '<div class="trend-card-item">' +
-              '<div><strong>' + i.name + '</strong><span style="display:block; font-size:0.75rem; color:#94a3b8;">' + i.cat + ' &bull; Marge ' + (i.margin ? i.margin.toFixed(0) : '-') + ' DH</span></div>' +
-              '<div style="text-align:right;"><span style="color:#34d399; font-weight:800;">' + i.monthlyQty + ' v/mois</span><span style="display:block; font-size:0.72rem; color:var(--gold-light);">' + (i.ca || 0).toLocaleString('fr-FR') + ' DH</span></div>' +
-            '</div>'
-          ).join('');
-        }
-
-      } catch (err) { console.error('Error rendering trends:', err); }
-    }
-
-    // --- OBJECTIFS & ALERTES ---
-    function updateGoals() {
-      try {
-        const target = parseFloat(document.getElementById('goal-target-input')?.value) || 450000;
-        const daysElapsed = parseFloat(document.getElementById('goal-days-input')?.value) || 15;
-        const realized = parseFloat(document.getElementById('goal-realized-input')?.value) || 238000;
-
-        const pct = target > 0 ? Math.round((realized / target) * 1000) / 10 : 0;
-        const daysInMonth = 30;
-        const daysRemaining = Math.max(1, daysInMonth - daysElapsed);
-        const requiredRemaining = Math.max(0, target - realized);
-        const paceRequired = Math.round(requiredRemaining / daysRemaining);
-        const paceCurrent = Math.round(realized / Math.max(1, daysElapsed));
-        const projTotal = Math.round(realized + (paceCurrent * daysRemaining));
-
-        const pctEl = document.getElementById('goal-pct-display');
-        const fillEl = document.getElementById('goal-bar-fill');
-        if (pctEl) pctEl.innerText = pct + '%';
-        if (fillEl) {
-          fillEl.style.width = Math.min(100, pct) + '%';
-          fillEl.style.background = pct >= 80 ? 'linear-gradient(90deg, #10b981, #06b6d4)' : (pct >= 50 ? 'linear-gradient(90deg, #f59e0b, #10b981)' : 'linear-gradient(90deg, #ef4444, #f59e0b)');
-        }
-
-        const reqEl = document.getElementById('goal-pace-required');
-        const curEl = document.getElementById('goal-pace-current');
-        const totEl = document.getElementById('goal-projection-total');
-        if (reqEl) reqEl.innerHTML = 'Rythme Requis : <strong>' + paceRequired.toLocaleString('fr-FR') + ' DH / jour</strong>';
-        if (curEl) curEl.innerHTML = 'Rythme Actuel : <strong>' + paceCurrent.toLocaleString('fr-FR') + ' DH / jour</strong>';
-        if (totEl) totEl.innerHTML = 'Projection Fin de Mois : <strong style="color:' + (projTotal >= target ? 'var(--emerald)' : 'var(--ruby)') + ';">' + projTotal.toLocaleString('fr-FR') + ' DH</strong>';
-
-        // Auto-generate Alerts
-        const alertsList = document.getElementById('goal-alerts-list');
-        const alertCountEl = document.getElementById('goal-alerts-count');
-        const alerts = [];
-
-        if (paceCurrent < paceRequired) {
-          alerts.push({
-            type: 'danger',
-            icon: '🚨',
-            title: 'Déficit de Rythme Journalier',
-            desc: 'Le rythme actuel (' + paceCurrent.toLocaleString('fr-FR') + ' DH/j) est inférieur de ' + (paceRequired - paceCurrent).toLocaleString('fr-FR') + ' DH/j à l\'objectif. Pousser les ventes Stars en salle.'
-          });
-        } else {
-          alerts.push({
-            type: 'success',
-            icon: '🚀',
-            title: 'Rythme en Avance sur l\'Objectif',
-            desc: 'Le restaurant tourne à ' + paceCurrent.toLocaleString('fr-FR') + ' DH/jour vs ' + paceRequired.toLocaleString('fr-FR') + ' DH requis. Capacité d\'atteindre ' + projTotal.toLocaleString('fr-FR') + ' DH.'
-          });
-        }
-
-        // Check flagged costs
-        const flaggedCount = menuData.filter(i => i.costFlagged).length;
-        if (flaggedCount > 0) {
-          alerts.push({
-            type: 'warning',
-            icon: '⚠️',
-            title: flaggedCount + ' Plats avec Coûts Provisoires Estimés',
-            desc: 'Des fiches techniques doivent être ajustées pour fiabiliser la marge exacte de ces articles (ex: Nutella, Lasagne, Américain).'
-          });
-        }
-
-        // Check dog items
-        const dogItemsCount = menuData.filter(i => i.monthlyQty < 5 && !SUPPLEMENT_ONLY_IDS.has(i.id)).length;
-        if (dogItemsCount > 10) {
-          alerts.push({
-            type: 'warning',
-            icon: '✂️',
-            title: dogItemsCount + ' Références Poids Morts Détectées',
-            desc: 'Ces plats vendent moins d\'une fois par semaine. Activez le seuil d\'élimination pour libérer le stock.'
-          });
-        }
-
-        if (alertCountEl) alertCountEl.innerText = alerts.length;
-        if (alertsList) {
-          alertsList.innerHTML = alerts.map(a =>
-            '<div class="alert-banner ' + a.type + '">' +
-              '<div><strong>' + a.icon + ' ' + a.title + '</strong><div style="font-size:0.8rem; margin-top:3px;">' + a.desc + '</div></div>' +
-            '</div>'
-          ).join('');
-        }
-
-      } catch (err) { console.error('Error in updateGoals:', err); }
-    }
-    window.updateGoals = updateGoals;
-
-    // Initialization hook for new tabs
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        renderTrendsModule();
-        updateGoals();
-      }, 500);
-    });
-
-</script>
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js">
-    // =========================================================
-    // NOUVEAUX MODULES : AUTO-WATCHER, PROJECTIONS, OBJECTIFS & RAPPORT
-    // =========================================================
-
-    const SALMON_PROTECTED_IDS = new Set(['1d205276', 'a67ad52b', 'piz_saumon_66', 'pan_saumon_58', '16cebd6f']);
-    const SUPPLEMENT_ONLY_IDS = new Set(['4ee98640', '16edc28a']);
-
-    let projectionChartInstance = null;
-    let velocityChartInstance = null;
-
-    // --- AUTO-WATCHER : Chargement Ventes depuis ./ventes ---
-    async function loadVentesFromFolder() {
-      try {
-        if (window.showOpenFilePicker) {
-          const [fileHandle] = await window.showOpenFilePicker({
-            types: [{
-              description: 'Ventes du Jour (JSON)',
-              accept: { 'application/json': ['.json'] }
-            }],
-            multiple: false
-          });
-          const file = await fileHandle.getFile();
-          const text = await file.text();
-          const json = JSON.parse(text);
-          applyDailySalesData(json, file.name);
-        } else {
-          const input = document.createElement('input');
-          input.type = 'file';
-          input.accept = '.json';
-          input.onchange = async (e) => {
-            if (e.target.files.length > 0) {
-              const file = e.target.files[0];
-              const text = await file.text();
-              const json = JSON.parse(text);
-              applyDailySalesData(json, file.name);
-            }
-          };
-          input.click();
-        }
-      } catch (err) {
-        if (err.name !== 'AbortError') {
-          alert('Erreur lors du chargement des ventes : ' + err.message);
-        }
-      }
-    }
-    window.loadVentesFromFolder = loadVentesFromFolder;
-
-    function applyDailySalesData(payload, fileName) {
-      try {
-        // Validation stricte : Exclusion de l'Ancien Menu (Janvier, Février, Mars 2026)
-        const lowerFile = (fileName || '').toLowerCase();
-        const isOldPeriod = lowerFile.includes('202601') || lowerFile.includes('202602') || lowerFile.includes('202603') ||
-                            lowerFile.includes('2026-01') || lowerFile.includes('2026-02') || lowerFile.includes('2026-03') ||
-                            lowerFile.includes('janvier') || lowerFile.includes('fevrier') || lowerFile.includes('mars');
-        const isOldPayloadDate = payload && payload.date && (payload.date.startsWith('2026-01') || payload.date.startsWith('2026-02') || payload.date.startsWith('2026-03'));
-
-        if (isOldPeriod || isOldPayloadDate) {
-          alert("⛔ Fichier rejeté : Ce fichier appartient à l'ANCIEN MENU (Janvier, Février ou Mars 2026).\n\nLe simulateur décisionnel est étalonné exclusivement sur le menu actuel post-mars (à partir du 01 Avril 2026).");
-          const statusEl = document.getElementById('watcher-status');
-          if (statusEl) {
-            statusEl.innerHTML = "⛔ <strong style='color:#f87171;'>Fichier ignoré (" + fileName + ")</strong> : Ventes de l'ancien menu (Jan/Fév/Mars 2026) exclues.";
-          }
-          return;
-        }
-
-        let entries = [];
-        if (Array.isArray(payload)) {
-          entries = payload;
-        } else if (payload && Array.isArray(payload.items)) {
-          entries = payload.items;
-        } else {
-          alert('Format non reconnu. Attendu : tableau d\'articles avec id et qty_journee.');
-          return;
-        }
-
-        let updatedCount = 0;
-        let dayTotalCA = 0;
-        let dayTotalQty = 0;
-        const reportRows = [];
-
-        entries.forEach(entry => {
-          const it = menuData.find(m => m.id === entry.id);
-          if (it) {
-            const addQ = parseInt(entry.qty_journee) || 0;
-            if (addQ > 0) {
-              it.qty += addQ;
-              it.ca = Math.round(it.qty * it.price);
-              it.monthlyQty = Math.round((it.qty / 5.3) * 10) / 10;
-              it.weeklyQty = Math.round((it.qty / 23) * 10) / 10;
-              updatedCount++;
-              dayTotalQty += addQ;
-              const caItem = addQ * it.price;
-              dayTotalCA += caItem;
-              reportRows.push({ name: it.name, cat: it.cat, price: it.price, qty: addQ, ca: caItem });
-            }
-          }
-        });
-
-        updateSimulation();
-
-        // Update status UI
-        const statusEl = document.getElementById('watcher-status');
-        if (statusEl) {
-          statusEl.innerHTML = '✅ <strong style="color:#34d399;">' + updatedCount + ' articles mis à jour</strong> depuis <em>' + fileName + '</em> (' + dayTotalQty + ' ventes, ' + dayTotalCA.toLocaleString('fr-FR') + ' DH de CA journalier).';
-        }
-        const badgeEl = document.getElementById('watcher-badge');
-        if (badgeEl) badgeEl.style.display = 'inline-block';
-
-        // Render Report
-        renderDailyReport(reportRows, dayTotalCA, dayTotalQty, fileName);
-
-        // Update Trends & Goals
-        renderTrendsModule();
-        updateGoals();
-
-        // Switch to report tab
-        switchTab('report', document.getElementById('tab-btn-report'));
-
-      } catch (err) {
-        console.error('Error applying daily sales:', err);
-        alert('Erreur lors du traitement du fichier : ' + err.message);
-      }
-    }
-
-    // --- RAPPORT JOURNALIER ---
-    function renderDailyReport(rows, totalCA, totalQty, fileName) {
-      const container = document.getElementById('daily-report-body');
-      if (!container) return;
-
-      rows.sort((a, b) => b.ca - a.ca);
-      const top5 = rows.slice(0, 5);
-      const today = new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
-      let topHtml = '';
-      top5.forEach((r, idx) => {
-        const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
-        topHtml += '<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px dashed rgba(255,255,255,0.06);">' +
-          '<div>' + medals[idx] + ' <strong>' + r.name + '</strong> <span style="font-size:0.75rem; color:#94a3b8;">[' + r.cat + ']</span></div>' +
-          '<div style="text-align:right;"><strong>' + r.ca.toLocaleString('fr-FR') + ' DH</strong> <span style="font-size:0.75rem; color:var(--gold-light);">(' + r.qty + ' v.)</span></div>' +
-        '</div>';
-      });
-
-      let fullTableRows = '';
-      rows.forEach(r => {
-        fullTableRows += '<tr>' +
-          '<td><strong>' + r.name + '</strong></td>' +
-          '<td><span style="font-size:0.75rem; color:#94a3b8;">' + r.cat + '</span></td>' +
-          '<td>' + r.price + ' DH</td>' +
-          '<td><strong style="color:var(--cyan);">' + r.qty + '</strong></td>' +
-          '<td><strong style="color:var(--gold-light);">' + r.ca.toLocaleString('fr-FR') + ' DH</strong></td>' +
-        '</tr>';
-      });
-
-      container.innerHTML = '<div class="report-card">' +
-        '<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom:20px; border-bottom:1px solid var(--card-border); padding-bottom:16px;">' +
-          '<div>' +
-            '<div style="font-size:1.35rem; font-weight:800; color:#fff;">Clôture du ' + today + '</div>' +
-            '<div style="font-size:0.8rem; color:#94a3b8;">Source : <code>' + fileName + '</code> &bull; ' + rows.length + ' références vendues</div>' +
-          '</div>' +
-          '<div style="text-align:right;">' +
-            '<div style="font-size:1.8rem; font-weight:800; color:var(--gold-light);">' + totalCA.toLocaleString('fr-FR') + ' DH</div>' +
-            '<div style="font-size:0.8rem; color:var(--emerald); font-weight:700;">' + totalQty + ' articles servis</div>' +
-          '</div>' +
-        '</div>' +
-
-        '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:20px; margin-bottom:24px;">' +
-          '<div style="background:rgba(0,0,0,0.25); border:1px solid var(--card-border); border-radius:12px; padding:18px;">' +
-            '<div style="font-size:0.95rem; font-weight:800; color:var(--gold-light); margin-bottom:12px;">🏆 Top 5 des Ventes du Jour (par CA)</div>' +
-            topHtml +
-          '</div>' +
-          '<div style="background:rgba(0,0,0,0.25); border:1px solid var(--card-border); border-radius:12px; padding:18px;">' +
-            '<div style="font-size:0.95rem; font-weight:800; color:#67e8f9; margin-bottom:12px;">💡 Synthèse Décisionnelle du Jour</div>' +
-            '<ul style="font-size:0.85rem; color:#cbd5e1; line-height:1.7; padding-left:18px;">' +
-              '<li>Chiffre d\'Affaires journalier intégré à la base historique.</li>' +
-              '<li>Toutes les marges et parts de marché sont recalculées en temps réel.</li>' +
-              '<li>Les projections 30 et 90 jours ont été ajustées avec ce volume récent.</li>' +
-              '<li>Règle zéro déchet Saumon vérifiée : approvisionnement fluide.</li>' +
-            '</ul>' +
-          '</div>' +
-        '</div>' +
-
-        '<div class="table-container">' +
-          '<table class="custom-table">' +
-            '<thead><tr><th>Plat</th><th>Rayon</th><th>Prix</th><th>Ventes du Jour</th><th>CA du Jour</th></tr></thead>' +
-            '<tbody>' + fullTableRows + '</tbody>' +
-          '</table>' +
-        '</div>' +
-      '</div>';
-    }
-
-    // --- TENDANCES & PROJECTIONS ---
-    function renderTrendsModule() {
-      try {
-        const totalCA = menuData.reduce((s, i) => s + (i.simCA || i.ca), 0);
-        // Base period: 162 days
-        const dailyAvg = totalCA / 162;
-
-        const projPessimist30 = Math.round(dailyAvg * 30 * 0.85);
-        const projNeutral30 = Math.round(dailyAvg * 30 * 1.0);
-        const projOptimist30 = Math.round(dailyAvg * 30 * 1.2);
-
-        const projPessimist90 = Math.round(dailyAvg * 90 * 0.85);
-        const projNeutral90 = Math.round(dailyAvg * 90 * 1.0);
-        const projOptimist90 = Math.round(dailyAvg * 90 * 1.2);
-
-        const elPess = document.getElementById('proj-val-pessimist');
-        const elNeut = document.getElementById('proj-val-neutral');
-        const elOpt = document.getElementById('proj-val-optimist');
-        if (elPess) elPess.innerText = projPessimist90.toLocaleString('fr-FR') + ' DH (90j)';
-        if (elNeut) elNeut.innerText = projNeutral90.toLocaleString('fr-FR') + ' DH (90j)';
-        if (elOpt) elOpt.innerText = projOptimist90.toLocaleString('fr-FR') + ' DH (90j)';
-
-        const elPess30 = document.getElementById('proj-val-pessimist-30');
-        const elNeut30 = document.getElementById('proj-val-neutral-30');
-        const elOpt30 = document.getElementById('proj-val-optimist-30');
-        if (elPess30) elPess30.innerText = projPessimist30.toLocaleString('fr-FR') + ' DH';
-        if (elNeut30) elNeut30.innerText = projNeutral30.toLocaleString('fr-FR') + ' DH';
-        if (elOpt30) elOpt30.innerText = projOptimist30.toLocaleString('fr-FR') + ' DH';
-
-        // Projection Line Chart (30 days cumulated)
-        const ctxProj = document.getElementById('projectionChart');
-        if (ctxProj) {
-          if (projectionChartInstance) projectionChartInstance.destroy();
-          const days = [5, 10, 15, 20, 25, 30];
-          projectionChartInstance = new Chart(ctxProj, {
-            type: 'line',
-            data: {
-              labels: days.map(d => 'J+' + d),
-              datasets: [
-                {
-                  label: 'Pessimiste (-15%)',
-                  data: days.map(d => Math.round(dailyAvg * d * 0.85)),
-                  borderColor: '#ef4444',
-                  backgroundColor: 'rgba(239, 68, 68, 0.05)',
-                  tension: 0.3,
-                  borderWidth: 2
-                },
-                {
-                  label: 'Tendance Neutre',
-                  data: days.map(d => Math.round(dailyAvg * d)),
-                  borderColor: '#06b6d4',
-                  backgroundColor: 'rgba(6, 182, 212, 0.1)',
-                  tension: 0.3,
-                  borderWidth: 2.5
-                },
-                {
-                  label: 'Optimiste (+20%)',
-                  data: days.map(d => Math.round(dailyAvg * d * 1.2)),
-                  borderColor: '#10b981',
-                  backgroundColor: 'rgba(16, 185, 129, 0.05)',
-                  tension: 0.3,
-                  borderWidth: 2
-                }
-              ]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: { legend: { labels: { color: '#cbd5e1' } } },
-              scales: {
-                x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
-                y: { ticks: { color: '#94a3b8', callback: v => v.toLocaleString('fr-FR') + ' DH' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-              }
-            }
-          });
-        }
-
-        // Velocity Bar Chart by Category
-        const ctxVel = document.getElementById('velocityChart');
-        if (ctxVel) {
-          if (velocityChartInstance) velocityChartInstance.destroy();
-          const catMap = {};
-          menuData.forEach(item => {
-            const c = item.cat || 'AUTRES';
-            catMap[c] = (catMap[c] || 0) + (item.simQty || item.qty);
-          });
-          const sortedCats = Object.entries(catMap).sort((a, b) => b[1] - a[1]).slice(0, 7);
-
-          velocityChartInstance = new Chart(ctxVel, {
-            type: 'bar',
-            data: {
-              labels: sortedCats.map(c => c[0]),
-              datasets: [{
-                label: 'Ventes / Jour estimées',
-                data: sortedCats.map(c => Math.round((c[1] / 162) * 10) / 10),
-                backgroundColor: 'rgba(245, 158, 11, 0.7)',
-                borderColor: '#f59e0b',
-                borderRadius: 6
-              }]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: { legend: { display: false } },
-              scales: {
-                x: { ticks: { color: '#94a3b8', maxRotation: 25 }, grid: { display: false } },
-                y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-              }
-            }
-          });
-        }
-
-        // Decline & Rising Lists
-        const activeItems = menuData.filter(i => !SUPPLEMENT_ONLY_IDS.has(i.id));
-        const declining = activeItems.filter(i => i.monthlyQty < 10 && i.qty > 0).slice(0, 6);
-        const rising = activeItems.filter(i => i.monthlyQty >= 50 && (i.quad === 'STAR' || i.margin >= 35)).slice(0, 6);
-
-        const declineContainer = document.getElementById('decline-list-container');
-        if (declineContainer) {
-          declineContainer.innerHTML = declining.map(i =>
-            '<div class="trend-card-item">' +
-              '<div><strong>' + i.name + '</strong><span style="display:block; font-size:0.75rem; color:#94a3b8;">' + i.cat + ' &bull; ' + i.price + ' DH</span></div>' +
-              '<div style="text-align:right;"><span style="color:#f87171; font-weight:800;">' + i.monthlyQty + ' v/mois</span><span style="display:block; font-size:0.72rem; color:#94a3b8;">' + i.qty + ' total</span></div>' +
-            '</div>'
-          ).join('');
-        }
-
-        const risingContainer = document.getElementById('rising-list-container');
-        if (risingContainer) {
-          risingContainer.innerHTML = rising.map(i =>
-            '<div class="trend-card-item">' +
-              '<div><strong>' + i.name + '</strong><span style="display:block; font-size:0.75rem; color:#94a3b8;">' + i.cat + ' &bull; Marge ' + (i.margin ? i.margin.toFixed(0) : '-') + ' DH</span></div>' +
-              '<div style="text-align:right;"><span style="color:#34d399; font-weight:800;">' + i.monthlyQty + ' v/mois</span><span style="display:block; font-size:0.72rem; color:var(--gold-light);">' + (i.ca || 0).toLocaleString('fr-FR') + ' DH</span></div>' +
-            '</div>'
-          ).join('');
-        }
-
-      } catch (err) { console.error('Error rendering trends:', err); }
-    }
-
-    // --- OBJECTIFS & ALERTES ---
-    function updateGoals() {
-      try {
-        const target = parseFloat(document.getElementById('goal-target-input')?.value) || 450000;
-        const daysElapsed = parseFloat(document.getElementById('goal-days-input')?.value) || 15;
-        const realized = parseFloat(document.getElementById('goal-realized-input')?.value) || 238000;
-
-        const pct = target > 0 ? Math.round((realized / target) * 1000) / 10 : 0;
-        const daysInMonth = 30;
-        const daysRemaining = Math.max(1, daysInMonth - daysElapsed);
-        const requiredRemaining = Math.max(0, target - realized);
-        const paceRequired = Math.round(requiredRemaining / daysRemaining);
-        const paceCurrent = Math.round(realized / Math.max(1, daysElapsed));
-        const projTotal = Math.round(realized + (paceCurrent * daysRemaining));
-
-        const pctEl = document.getElementById('goal-pct-display');
-        const fillEl = document.getElementById('goal-bar-fill');
-        if (pctEl) pctEl.innerText = pct + '%';
-        if (fillEl) {
-          fillEl.style.width = Math.min(100, pct) + '%';
-          fillEl.style.background = pct >= 80 ? 'linear-gradient(90deg, #10b981, #06b6d4)' : (pct >= 50 ? 'linear-gradient(90deg, #f59e0b, #10b981)' : 'linear-gradient(90deg, #ef4444, #f59e0b)');
-        }
-
-        const reqEl = document.getElementById('goal-pace-required');
-        const curEl = document.getElementById('goal-pace-current');
-        const totEl = document.getElementById('goal-projection-total');
-        if (reqEl) reqEl.innerHTML = 'Rythme Requis : <strong>' + paceRequired.toLocaleString('fr-FR') + ' DH / jour</strong>';
-        if (curEl) curEl.innerHTML = 'Rythme Actuel : <strong>' + paceCurrent.toLocaleString('fr-FR') + ' DH / jour</strong>';
-        if (totEl) totEl.innerHTML = 'Projection Fin de Mois : <strong style="color:' + (projTotal >= target ? 'var(--emerald)' : 'var(--ruby)') + ';">' + projTotal.toLocaleString('fr-FR') + ' DH</strong>';
-
-        // Auto-generate Alerts
-        const alertsList = document.getElementById('goal-alerts-list');
-        const alertCountEl = document.getElementById('goal-alerts-count');
-        const alerts = [];
-
-        if (paceCurrent < paceRequired) {
-          alerts.push({
-            type: 'danger',
-            icon: '🚨',
-            title: 'Déficit de Rythme Journalier',
-            desc: 'Le rythme actuel (' + paceCurrent.toLocaleString('fr-FR') + ' DH/j) est inférieur de ' + (paceRequired - paceCurrent).toLocaleString('fr-FR') + ' DH/j à l\'objectif. Pousser les ventes Stars en salle.'
-          });
-        } else {
-          alerts.push({
-            type: 'success',
-            icon: '🚀',
-            title: 'Rythme en Avance sur l\'Objectif',
-            desc: 'Le restaurant tourne à ' + paceCurrent.toLocaleString('fr-FR') + ' DH/jour vs ' + paceRequired.toLocaleString('fr-FR') + ' DH requis. Capacité d\'atteindre ' + projTotal.toLocaleString('fr-FR') + ' DH.'
-          });
-        }
-
-        // Check flagged costs
-        const flaggedCount = menuData.filter(i => i.costFlagged).length;
-        if (flaggedCount > 0) {
-          alerts.push({
-            type: 'warning',
-            icon: '⚠️',
-            title: flaggedCount + ' Plats avec Coûts Provisoires Estimés',
-            desc: 'Des fiches techniques doivent être ajustées pour fiabiliser la marge exacte de ces articles (ex: Nutella, Lasagne, Américain).'
-          });
-        }
-
-        // Check dog items
-        const dogItemsCount = menuData.filter(i => i.monthlyQty < 5 && !SUPPLEMENT_ONLY_IDS.has(i.id)).length;
-        if (dogItemsCount > 10) {
-          alerts.push({
-            type: 'warning',
-            icon: '✂️',
-            title: dogItemsCount + ' Références Poids Morts Détectées',
-            desc: 'Ces plats vendent moins d\'une fois par semaine. Activez le seuil d\'élimination pour libérer le stock.'
-          });
-        }
-
-        if (alertCountEl) alertCountEl.innerText = alerts.length;
-        if (alertsList) {
-          alertsList.innerHTML = alerts.map(a =>
-            '<div class="alert-banner ' + a.type + '">' +
-              '<div><strong>' + a.icon + ' ' + a.title + '</strong><div style="font-size:0.8rem; margin-top:3px;">' + a.desc + '</div></div>' +
-            '</div>'
-          ).join('');
-        }
-
-      } catch (err) { console.error('Error in updateGoals:', err); }
-    }
-    window.updateGoals = updateGoals;
-
-    // Initialization hook for new tabs
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        renderTrendsModule();
-        updateGoals();
-      }, 500);
-    });
-
-</script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <style>
     :root {
       --bg: #070b14;
@@ -2087,14 +1237,14 @@
               <span style="font-size:0.75rem; background:rgba(6,182,212,0.15); color:#67e8f9; border:1px solid rgba(6,182,212,0.3); padding:2px 8px; border-radius:6px;">Dossier ./ventes</span>
             </div>
             <div id="watcher-status" style="font-size:0.8rem; color:#94a3b8; margin-top:3px;">
-              Le watcher PowerShell surveille le dossier des ventes et génère automatiquement les données après la clôture.
+              Sélectionnez directement votre fichier de clôture caisse Excel (.xlsx ou .xls). Les ventes de l'ancien menu (Jan/Fév/Mars 2026) sont automatiquement filtrées.
             </div>
           </div>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
           <div id="watcher-badge" style="display:none; background:rgba(16,185,129,0.2); border:1px solid #10b981; border-radius:8px; padding:5px 12px; color:#34d399; font-size:0.8rem; font-weight:800; animation:pulse 1.5s infinite;">🟢 Nouvelles Ventes Prêtes</div>
-          <button class="action-btn" onclick="loadVentesFromFolder()" style="background:var(--emerald); color:#000; font-weight:800; padding:10px 18px; border-radius:8px; font-size:0.86rem;">
-            ⬇️ Charger Ventes du Jour
+          <button class="action-btn" onclick="loadVentesFromFolder()" style="background:linear-gradient(135deg, #10b981, #059669); color:#ffffff; font-weight:800; padding:10px 20px; border-radius:8px; font-size:0.88rem; box-shadow:0 4px 14px rgba(16,185,129,0.35); display:inline-flex; align-items:center; gap:8px;">
+            <span>📊</span> <span>Charger Ventes du Jour (Excel .xlsx / .xls)</span>
           </button>
           <button class="action-btn" onclick="resetMenuSalesToBase()" style="background:rgba(255,255,255,0.06); color:#cbd5e1; border:1px solid var(--card-border); padding:10px 14px; border-radius:8px; font-size:0.82rem;">
             🔄 Réinitialiser Base
@@ -2211,6 +1361,9 @@
             <div class="section-desc" style="margin-bottom:0;">Classement des plats au sein de leur famille de produits. Chaque nouvelle vente saisie met imm&eacute;diatement &agrave; jour le classement, les parts de march&eacute; et les podiums en direct.</div>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <button class="action-btn" onclick="openPriceSimModal()" style="background:linear-gradient(135deg, rgba(245,158,11,0.25), rgba(16,185,129,0.2)); border:1px solid var(--gold); color:var(--gold-light); font-weight:800; display:inline-flex; align-items:center; gap:6px; box-shadow:0 0 12px rgba(245,158,11,0.2);">
+              <span>💰</span> <span>Simuler Ajustement Prix (+1, +2, +3 DH...)</span>
+            </button>
             <button class="action-btn" id="btn-toggle-direct-edit" onclick="toggleRankingDirectEdit()" style="background:rgba(255,255,255,0.06);">⚙️ Mode Saisie Directe</button>
             <button class="action-btn" onclick="resetMenuSalesToBase()" style="background:rgba(239,68,68,0.15); border-color:rgba(239,68,68,0.3); color:#fca5a5;">
               &#128260; R&eacute;tablir Ventes d'Origine
@@ -2605,9 +1758,137 @@
             <p style="color:#94a3b8; font-size:0.85rem; max-width:540px; margin:0 auto 18px;">
               Déposez votre export de caisse (.xlsx) dans le dossier <code>./ventes</code> ou cliquez ci-dessous pour charger les ventes du jour générées par le watcher.
             </p>
-            <button class="action-btn" onclick="loadVentesFromFolder()" style="margin:0 auto; background:var(--emerald); color:#000;">
-              ⬇️ Charger Ventes du Jour (JSON)
+            <button class="action-btn" onclick="loadVentesFromFolder()" style="margin:0 auto; background:linear-gradient(135deg, #10b981, #059669); color:#ffffff; font-weight:800; padding:12px 24px; border-radius:8px; display:inline-flex; align-items:center; gap:8px;">
+              <span>📊</span> <span>Charger Fichier Caisse Excel (.xlsx / .xls)</span>
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- MODAL SIMULATION AJUSTEMENT PRIX & IMPACT MARGE -->
+    <div id="modal-price-sim" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); backdrop-filter:blur(6px); z-index:9999; justify-content:center; align-items:center; padding:20px; overflow-y:auto;">
+      <div style="background:linear-gradient(145deg, #0f172a, #1e293b); border:1px solid var(--gold); border-radius:18px; max-width:840px; width:100%; box-shadow:0 25px 50px -12px rgba(0,0,0,0.8); overflow:hidden; animation:fadeIn 0.25s ease;">
+        <!-- Header -->
+        <div style="background:rgba(245,158,11,0.1); border-bottom:1px solid rgba(245,158,11,0.3); padding:18px 24px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="font-size:1.8rem;">💰</span>
+            <div>
+              <h3 style="margin:0; font-size:1.25rem; font-weight:800; color:#ffffff;">Simulateur d'Ajustement Prix &amp; Impact Marge</h3>
+              <span style="font-size:0.8rem; color:#94a3b8;">Testez l'impact direct d'une augmentation de +1, +2, +3 DH... sur la marge unitaire et le gain net annuel</span>
+            </div>
+          </div>
+          <button onclick="closePriceSimModal()" style="background:none; border:none; color:#94a3b8; font-size:1.6rem; cursor:pointer; padding:4px 8px; border-radius:6px;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">✕</button>
+        </div>
+
+        <!-- Body -->
+        <div style="padding:24px;">
+          <!-- 1. Sélecteur Plat ou Catégorie -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-bottom:20px;">
+            <div>
+              <label style="display:block; font-size:0.75rem; font-weight:800; color:var(--gold-light); margin-bottom:6px; text-transform:uppercase;">Plat Ciblé</label>
+              <select id="price-sim-dish-select" class="search-box" style="width:100%; font-size:0.95rem; font-weight:700; background:#0b1120;" onchange="onPriceSimDishChanged()">
+                <!-- Populated by JS -->
+              </select>
+            </div>
+            <div>
+              <label style="display:block; font-size:0.75rem; font-weight:800; color:#94a3b8; margin-bottom:6px; text-transform:uppercase;">Ou Tester sur Toute une Catégorie</label>
+              <select id="price-sim-cat-select" class="search-box" style="width:100%; font-size:0.95rem; font-weight:700; background:#0b1120;" onchange="onPriceSimCategoryChanged()">
+                <option value="">-- Plat individuel uniquement --</option>
+                <!-- Populated by JS -->
+              </select>
+            </div>
+          </div>
+
+          <!-- 2. Boutons d'Ajustement Rapide (+1, +2, +3 DH...) -->
+          <div style="background:rgba(255,255,255,0.03); border:1px solid var(--card-border); border-radius:14px; padding:18px; margin-bottom:22px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
+              <span style="font-size:0.86rem; font-weight:800; color:#cbd5e1;">Ajustement du Prix :</span>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;" id="price-pills-container">
+                <button class="preset-btn" id="btn-pill-1" onclick="setPriceSimDelta(1)">+1 DH</button>
+                <button class="preset-btn active" id="btn-pill-2" onclick="setPriceSimDelta(2)">+2 DH</button>
+                <button class="preset-btn" id="btn-pill-3" onclick="setPriceSimDelta(3)">+3 DH</button>
+                <button class="preset-btn" id="btn-pill-4" onclick="setPriceSimDelta(4)">+4 DH</button>
+                <button class="preset-btn" id="btn-pill-5" onclick="setPriceSimDelta(5)">+5 DH</button>
+                <button class="preset-btn" id="btn-pill-10" onclick="setPriceSimDelta(10)">+10 DH</button>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-size:0.8rem; color:#94a3b8;">Ajustement libre :</span>
+                <div style="display:flex; align-items:center;">
+                  <button class="qty-step-btn" onclick="adjustPriceSimDelta(-1)">-</button>
+                  <input type="number" id="price-sim-delta-input" value="2" step="0.5" style="width:70px; text-align:center; font-weight:800; font-size:1.1rem; color:var(--gold-light); background:#0b1120; border:1px solid var(--card-border); border-radius:6px; padding:5px 6px;" oninput="onPriceSimCustomDelta()">
+                  <span style="margin-left:6px; font-weight:700; color:#fff;">DH</span>
+                  <button class="qty-step-btn" style="margin-left:8px;" onclick="adjustPriceSimDelta(1)">+</button>
+                </div>
+              </div>
+              <div style="font-size:0.8rem; color:#94a3b8;">
+                Nouveau prix direct :
+                <input type="number" id="price-sim-direct-price" style="width:85px; text-align:center; font-weight:800; font-size:1.05rem; color:var(--emerald); background:#0b1120; border:1px solid var(--card-border); border-radius:6px; padding:5px 6px;" oninput="onPriceSimDirectPrice()">
+                <span style="color:#fff; font-weight:700;">DH</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Dashboard d'Impact Live (Avant vs Après) -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; margin-bottom:20px;">
+            <!-- Prix Unitaire -->
+            <div class="kpi-card gold" style="padding:16px;">
+              <div style="font-size:0.75rem; text-transform:uppercase; color:#f59e0b; font-weight:800;">Prix Unitaire</div>
+              <div style="display:flex; align-items:baseline; gap:8px; margin:6px 0;">
+                <span id="psim-old-price" style="font-size:1.15rem; color:#94a3b8; text-decoration:line-through;">55 DH</span>
+                <span style="color:#fff;">➔</span>
+                <span id="psim-new-price" style="font-size:1.5rem; font-weight:900; color:var(--gold-light);">57 DH</span>
+              </div>
+              <div style="font-size:0.75rem; color:#94a3b8;">Ajustement : <strong id="psim-delta-label" style="color:var(--gold-light);">+2 DH</strong></div>
+            </div>
+
+            <!-- Marge Unitaire -->
+            <div class="kpi-card emerald" style="padding:16px;">
+              <div style="font-size:0.75rem; text-transform:uppercase; color:#34d399; font-weight:800;">Marge Cash / Portion</div>
+              <div style="display:flex; align-items:baseline; gap:8px; margin:6px 0;">
+                <span id="psim-old-margin" style="font-size:1.15rem; color:#94a3b8; text-decoration:line-through;">+31.89 DH</span>
+                <span style="color:#fff;">➔</span>
+                <span id="psim-new-margin" style="font-size:1.5rem; font-weight:900; color:var(--emerald);">+33.89 DH</span>
+              </div>
+              <div style="font-size:0.75rem; color:#94a3b8;">Marge brute : <strong id="psim-fc-label" style="color:var(--emerald);">+6.3% de cash</strong></div>
+            </div>
+
+            <!-- Gain Additionnel / Mois -->
+            <div class="kpi-card cyan" style="padding:16px;">
+              <div style="font-size:0.75rem; text-transform:uppercase; color:#67e8f9; font-weight:800;">Gain Net / Mois</div>
+              <div id="psim-gain-month" style="font-size:1.5rem; font-weight:900; color:var(--cyan); margin:6px 0;">+372 DH / m</div>
+              <div style="font-size:0.75rem; color:#94a3b8;">Sur base de <span id="psim-vol-month" style="font-weight:700; color:#fff;">186</span> ventes/m</div>
+            </div>
+
+            <!-- Gain Additionnel Annuel -->
+            <div class="kpi-card purple" style="padding:16px;">
+              <div style="font-size:0.75rem; text-transform:uppercase; color:#c084fc; font-weight:800;">Gain Net Annuel</div>
+              <div id="psim-gain-year" style="font-size:1.5rem; font-weight:900; color:#c084fc; margin:6px 0;">+4 468 DH / an</div>
+              <div style="font-size:0.75rem; color:#94a3b8;">100% de marge nette pure</div>
+            </div>
+          </div>
+
+          <!-- 4. Analyse Stratégique d'Élasticité -->
+          <div id="psim-elasticity-box" style="background:rgba(6,182,212,0.06); border:1px solid rgba(6,182,212,0.25); border-radius:10px; padding:14px 18px; margin-bottom:20px; font-size:0.84rem; color:#cbd5e1; line-height:1.6;">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- 5. Actions Footer -->
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; border-top:1px solid var(--card-border); padding-top:16px;">
+            <button class="action-btn" onclick="resetPriceSimDish()" style="background:rgba(255,255,255,0.05); color:#94a3b8;">
+              🔄 Rétablir Prix d'Origine
+            </button>
+            <div style="display:flex; gap:10px;">
+              <button class="action-btn" onclick="applyPriceSimToModel()" style="background:var(--emerald); color:#000; font-weight:800; padding:10px 18px;">
+                ✅ Appliquer au Simulateur
+              </button>
+              <button class="action-btn" onclick="closePriceSimModal()" style="background:rgba(255,255,255,0.08); padding:10px 16px;">
+                Fermer
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -2647,6 +1928,7 @@
     let sortCol = 'ca';
     let sortAsc = false;
     let manualItemOverrides = {};
+    let customPriceDeltas = {}; // { [dishId]: priceDeltaDH }
     let charts = {};
 
     function getMacroCategory(cat) {
@@ -2756,6 +2038,7 @@
               unitPrice += priceAdj;
             }
           }
+          if (customPriceDeltas && customPriceDeltas[item.id]) { unitPrice += customPriceDeltas[item.id]; }
           item.simPrice = unitPrice;
 
           let shouldKeep = true;
@@ -3545,7 +2828,7 @@
               '<td style="text-align:center;"><span class="rank-number-badge ' + rankBadgeClass + '">' + rankMedal + '</span></td>' +
               '<td>' +
                 '<strong>' + item.name + '</strong>' + (item.costFlagged ? ' <span class=\"cost-flagged\" title=\"Coût estimé provisoire à réviser avec la fiche technique\">⚠️ Coût estimé</span>' : '') +
-                '<span style="display:block; font-size:0.75rem; color:var(--gold);">' + item.simPrice + ' DH' + (item.cost ? ' &bull; Coût: ' + item.cost.toFixed(1) + ' DH' : '') + '</span>' +
+                '<span style="display:block; font-size:0.75rem; color:var(--gold);">' + item.simPrice + ' DH' + (customPriceDeltas && customPriceDeltas[item.id] ? ' <span style="color:var(--emerald); font-weight:800; font-size:0.72rem;">(+' + customPriceDeltas[item.id] + ' DH)</span>' : '') + (item.cost ? ' &bull; Coût: ' + item.cost.toFixed(1) + ' DH' : '') + '</span>' +
               '</td>' +
               '<td>' + salesDisplay + '</td>' +
               '<td>' +
@@ -3556,7 +2839,7 @@
               '<td style="color:var(--gold-light); font-weight:700;">' + item.simMargin.toLocaleString('fr-FR') + ' DH</td>' +
               '<td>' + quadBadge + '</td>' +
               '<td>' +
-                '<button class="dish-btn" style="background:' + (item.isKept ? 'rgba(239,68,68,0.2)' : 'rgba(16,185,129,0.2)') + '; border:1px solid ' + (item.isKept ? 'var(--ruby)' : 'var(--emerald)') + '; color:' + (item.isKept ? '#f87171' : '#34d399') + '; font-size:0.75rem; padding:4px 10px;" onclick="toggleDish(\'' + item.id + '\')">' + (item.isKept ? 'Retirer' : 'Réactiver') + '</button>' +
+                '<button class="dish-btn" style="background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.45); color:var(--gold-light); font-size:0.75rem; padding:4px 8px; margin-right:6px; font-weight:700;" title="Simuler ajustement prix" onclick="openPriceSimModal(\'' + item.id + '\')">💵 Simuler Prix</button>' + '<button class="dish-btn" style="background:' + (item.isKept ? 'rgba(239,68,68,0.2)' : 'rgba(16,185,129,0.2)') + '; border:1px solid ' + (item.isKept ? 'var(--ruby)' : 'var(--emerald)') + '; color:' + (item.isKept ? '#f87171' : '#34d399') + '; font-size:0.75rem; padding:4px 10px;" onclick="toggleDish(\'' + item.id + '\')">' + (item.isKept ? 'Retirer' : 'Réactiver') + '</button>' +
               '</td>' +
             '</tr>';
           });
@@ -3581,119 +2864,527 @@
     let projectionChartInstance = null;
     let velocityChartInstance = null;
 
-    // --- AUTO-WATCHER : Chargement Ventes depuis ./ventes ---
+    
+    // =========================================================
+    // IMPORTATEUR DIRECT EXCEL (.XLSX / .XLS) POUR LES VENTES DU JOUR
+    // =========================================================
+
+    const OLD_MENU_ARTICLES_BLACKLIST = new Set([
+      'MIEL', '2 OEUFS', 'OMLETTE NATURE', 'OMLETTE FR CHARCUTERIE', '6 CROQUETTES FROMAGE',
+      'AMLOU', 'AMUSE BOUCHE', 'BANANE ORANGE', 'CAFE PERSONNEL', 'CAFE AU LAIT PERSONNEL',
+      'CAFE DOUBLE', 'CAFE MOITIE', 'CAFE SEPARE', '2 BOULE DE GLACE', '3 BOULES DE GLACE',
+      'BOULE DE GLACE', 'SUPPLEMENT OEUF BELDI', 'SUPPLEMENT CHARCUTERIE', 'SUPPLEMENT FROMAGE',
+      'THE PERSONNEL', 'JUS PERSONNEL', 'MENU PERSONNEL'
+    ]);
+
+    function normalizeDishName(str) {
+      if (!str) return '';
+      return String(str).toUpperCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^A-Z0-9]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    // Mapping rapide nom caisse -> id de nos 193 plats
+    const CAISSE_NAME_LOOKUP = {};
+    menuData.forEach(item => {
+      const clean = normalizeDishName(item.name);
+      CAISSE_NAME_LOOKUP[clean] = item.id;
+      // Variantes courantes
+      if (clean.startsWith('CREPE ')) CAISSE_NAME_LOOKUP[clean.replace('CREPE ', '')] = item.id;
+      if (clean.startsWith('PIZZA ')) CAISSE_NAME_LOOKUP[clean.replace('PIZZA ', '')] = item.id;
+      if (clean.startsWith('PASTA ')) CAISSE_NAME_LOOKUP[clean.replace('PASTA ', '')] = item.id;
+      if (clean.startsWith('SANDWICH ')) CAISSE_NAME_LOOKUP[clean.replace('SANDWICH ', '')] = item.id;
+    });
+    // Alias spécifiques caisse
+    CAISSE_NAME_LOOKUP['PAVE DE SAUMON'] = '1d205276';
+    CAISSE_NAME_LOOKUP['PAVE SAUMON'] = '1d205276';
+    CAISSE_NAME_LOOKUP['PAVE DE SAUMON A LA PLANCHA'] = '1d205276';
+    CAISSE_NAME_LOOKUP['FILET DE BOEUF'] = '8199932a';
+    CAISSE_NAME_LOOKUP['THE MENTHE'] = '218eeccc';
+    CAISSE_NAME_LOOKUP['THE A LA MENTHE'] = '218eeccc';
+    CAISSE_NAME_LOOKUP['CAFE NOIR'] = '2870e2fd';
+    CAISSE_NAME_LOOKUP['CAFE AU LAIT'] = 'c8cb62c4';
+    CAISSE_NAME_LOOKUP['FASSI'] = 'bc60875d';
+    CAISSE_NAME_LOOKUP['HOLLANDAIS'] = '67861d9d';
+    CAISSE_NAME_LOOKUP['NORVEGIEN'] = '16cebd6f';
+    CAISSE_NAME_LOOKUP['BELDI'] = 'c4189160';
+
+    function matchCaisseProductToMenu(rawName) {
+      const clean = normalizeDishName(rawName);
+      if (!clean) return null;
+      if (OLD_MENU_ARTICLES_BLACKLIST.has(clean)) return null;
+
+      // 1. Match direct
+      if (CAISSE_NAME_LOOKUP[clean]) return CAISSE_NAME_LOOKUP[clean];
+
+      // 2. Recherche exacte dans menuData
+      const exact = menuData.find(m => normalizeDishName(m.name) === clean);
+      if (exact) return exact.id;
+
+      // 3. Match fuzzy (inclusion)
+      if (clean.length >= 4) {
+        for (const [k, id] of Object.entries(CAISSE_NAME_LOOKUP)) {
+          if (k.length >= 4 && (k.includes(clean) || clean.includes(k))) {
+            return id;
+          }
+        }
+      }
+      return null;
+    }
+
     async function loadVentesFromFolder() {
       try {
-        if (window.showOpenFilePicker) {
-          const [fileHandle] = await window.showOpenFilePicker({
-            types: [{
-              description: 'Ventes du Jour (JSON)',
-              accept: { 'application/json': ['.json'] }
-            }],
-            multiple: false
-          });
-          const file = await fileHandle.getFile();
-          const text = await file.text();
-          const json = JSON.parse(text);
-          applyDailySalesData(json, file.name);
-        } else {
-          const input = document.createElement('input');
-          input.type = 'file';
-          input.accept = '.json';
-          input.onchange = async (e) => {
-            if (e.target.files.length > 0) {
-              const file = e.target.files[0];
-              const text = await file.text();
-              const json = JSON.parse(text);
-              applyDailySalesData(json, file.name);
-            }
-          };
-          input.click();
-        }
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.xlsx,.xls,.csv,.json';
+        input.onchange = async (e) => {
+          if (!e.target.files || e.target.files.length === 0) return;
+          const file = e.target.files[0];
+          await processSalesFile(file);
+        };
+        input.click();
       } catch (err) {
         if (err.name !== 'AbortError') {
-          alert('Erreur lors du chargement des ventes : ' + err.message);
+          alert('Erreur sélection fichier : ' + err.message);
         }
       }
     }
     window.loadVentesFromFolder = loadVentesFromFolder;
 
-    function applyDailySalesData(payload, fileName) {
-      try {
-        // Validation stricte : Exclusion de l'Ancien Menu (Janvier, Février, Mars 2026)
-        const lowerFile = (fileName || '').toLowerCase();
-        const isOldPeriod = lowerFile.includes('202601') || lowerFile.includes('202602') || lowerFile.includes('202603') ||
-                            lowerFile.includes('2026-01') || lowerFile.includes('2026-02') || lowerFile.includes('2026-03') ||
-                            lowerFile.includes('janvier') || lowerFile.includes('fevrier') || lowerFile.includes('mars');
-        const isOldPayloadDate = payload && payload.date && (payload.date.startsWith('2026-01') || payload.date.startsWith('2026-02') || payload.date.startsWith('2026-03'));
+    async function processSalesFile(file) {
+      const fileName = file.name || '';
+      const lowerFile = fileName.toLowerCase();
 
-        if (isOldPeriod || isOldPayloadDate) {
-          alert("⛔ Fichier rejeté : Ce fichier appartient à l'ANCIEN MENU (Janvier, Février ou Mars 2026).\n\nLe simulateur décisionnel est étalonné exclusivement sur le menu actuel post-mars (à partir du 01 Avril 2026).");
-          const statusEl = document.getElementById('watcher-status');
-          if (statusEl) {
-            statusEl.innerHTML = "⛔ <strong style='color:#f87171;'>Fichier ignoré (" + fileName + ")</strong> : Ventes de l'ancien menu (Jan/Fév/Mars 2026) exclues.";
-          }
-          return;
-        }
+      // 1. TEST D'EXCLUSION STRICTE DE L'ANCIEN MENU (Janvier, Février, Mars 2026)
+      const isOldPeriod = lowerFile.includes('202601') || lowerFile.includes('202602') || lowerFile.includes('202603') ||
+                          lowerFile.includes('2026-01') || lowerFile.includes('2026-02') || lowerFile.includes('2026-03') ||
+                          lowerFile.includes('janvier') || lowerFile.includes('fevrier') || lowerFile.includes('mars');
 
-        let entries = [];
-        if (Array.isArray(payload)) {
-          entries = payload;
-        } else if (payload && Array.isArray(payload.items)) {
-          entries = payload.items;
-        } else {
-          alert('Format non reconnu. Attendu : tableau d\'articles avec id et qty_journee.');
-          return;
-        }
-
-        let updatedCount = 0;
-        let dayTotalCA = 0;
-        let dayTotalQty = 0;
-        const reportRows = [];
-
-        entries.forEach(entry => {
-          const it = menuData.find(m => m.id === entry.id);
-          if (it) {
-            const addQ = parseInt(entry.qty_journee) || 0;
-            if (addQ > 0) {
-              it.qty += addQ;
-              it.ca = Math.round(it.qty * it.price);
-              it.monthlyQty = Math.round((it.qty / 5.3) * 10) / 10;
-              it.weeklyQty = Math.round((it.qty / 23) * 10) / 10;
-              updatedCount++;
-              dayTotalQty += addQ;
-              const caItem = addQ * it.price;
-              dayTotalCA += caItem;
-              reportRows.push({ name: it.name, cat: it.cat, price: it.price, qty: addQ, ca: caItem });
-            }
-          }
-        });
-
-        updateSimulation();
-
-        // Update status UI
+      if (isOldPeriod) {
+        alert("⛔ FICHIER REJETÉ : Ce fichier appartient à l'ANCIEN MENU (Janvier, Février ou Mars 2026).\n\nLe simulateur fonctionne exclusivement avec les ventes du menu actuel post-mars (à partir du 01 Avril 2026).");
         const statusEl = document.getElementById('watcher-status');
         if (statusEl) {
-          statusEl.innerHTML = '✅ <strong style="color:#34d399;">' + updatedCount + ' articles mis à jour</strong> depuis <em>' + fileName + '</em> (' + dayTotalQty + ' ventes, ' + dayTotalCA.toLocaleString('fr-FR') + ' DH de CA journalier).';
+          statusEl.innerHTML = "⛔ <strong style='color:#f87171;'>Fichier rejeté (" + fileName + ")</strong> : Ventes de l'ancien menu (Jan/Fév/Mars 2026) exclues.";
         }
-        const badgeEl = document.getElementById('watcher-badge');
-        if (badgeEl) badgeEl.style.display = 'inline-block';
+        return;
+      }
 
-        // Render Report
-        renderDailyReport(reportRows, dayTotalCA, dayTotalQty, fileName);
+      const ext = fileName.split('.').pop().toLowerCase();
 
-        // Update Trends & Goals
-        renderTrendsModule();
-        updateGoals();
+      // CAS A : Fichier JSON
+      if (ext === 'json') {
+        const text = await file.text();
+        try {
+          const json = JSON.parse(text);
+          applyDailySalesData(json, fileName);
+        } catch (err) {
+          alert('Erreur lecture JSON : ' + err.message);
+        }
+        return;
+      }
 
-        // Switch to report tab
-        switchTab('report', document.getElementById('tab-btn-report'));
+      // CAS B : Fichier EXCEL (.xlsx, .xls) ou CSV
+      if (typeof XLSX === 'undefined') {
+        alert("La bibliothèque SheetJS (XLSX) n'est pas chargée. Vérifiez votre connexion internet.");
+        return;
+      }
 
-      } catch (err) {
-        console.error('Error applying daily sales:', err);
-        alert('Erreur lors du traitement du fichier : ' + err.message);
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+
+          if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
+            alert("Le classeur Excel ne contient aucune feuille de calcul.");
+            return;
+          }
+
+          // Sélection de la première feuille de vente
+          const firstSheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[firstSheetName];
+          const rawRows = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
+
+          if (!rawRows || rawRows.length === 0) {
+            alert("La feuille Excel '" + firstSheetName + "' est vide.");
+            return;
+          }
+
+          // Détection automatique des colonnes
+          const firstRow = rawRows[0];
+          const keys = Object.keys(firstRow);
+
+          let nameKey = keys.find(k => /produit|article|designation|libelle|item|nom|plat/i.test(k));
+          let qtyKey = keys.find(k => /qte|quantite|qty|vente|vendu|count|nb/i.test(k));
+          let dateKey = keys.find(k => /date|jour|cloture|periode/i.test(k));
+          let idKey = keys.find(k => /^id$/i.test(k));
+
+          if (!nameKey && !idKey) nameKey = keys[1] || keys[0];
+          if (!qtyKey) qtyKey = keys[3] || keys[2];
+
+          // Agrégation des ventes
+          const aggregatedSales = {};
+          let skippedOldDates = 0;
+          let skippedOldArticles = 0;
+          let totalImportedQty = 0;
+
+          rawRows.forEach(row => {
+            // Filtrage date si présente dans la ligne
+            if (dateKey && row[dateKey]) {
+              const dStr = String(row[dateKey]);
+              if (/2026-0?[1-3][-/]|20260?[1-3]\d{2}|0?[1-3]\/2026/i.test(dStr)) {
+                skippedOldDates++;
+                return;
+              }
+            }
+
+            const rawName = idKey && row[idKey] ? row[idKey] : String(row[nameKey] || '').trim();
+            if (!rawName) return;
+
+            const cleanN = normalizeDishName(rawName);
+            if (OLD_MENU_ARTICLES_BLACKLIST.has(cleanN)) {
+              skippedOldArticles++;
+              return;
+            }
+
+            // Extraction quantité numérique
+            let rawQ = String(row[qtyKey] || '').replace(/[^\d.-]/g, '');
+            let q = parseFloat(rawQ) || 0;
+            if (q <= 0) return;
+
+            let matchedId = idKey && row[idKey] ? row[idKey] : matchCaisseProductToMenu(rawName);
+            if (matchedId) {
+              aggregatedSales[matchedId] = (aggregatedSales[matchedId] || 0) + Math.round(q);
+              totalImportedQty += Math.round(q);
+            }
+          });
+
+          // Convertir en format de mise à jour
+          const entries = Object.entries(aggregatedSales).map(([id, q]) => ({
+            id: id,
+            qty_journee: q
+          }));
+
+          if (entries.length === 0) {
+            alert("Aucun article du menu actuel n'a pu être reconnu dans ce fichier Excel.");
+            return;
+          }
+
+          let extraInfo = '';
+          if (skippedOldDates > 0) extraInfo += ' (' + skippedOldDates + ' lignes de Jan/Fév/Mars exclues)';
+          if (skippedOldArticles > 0) extraInfo += ' (' + skippedOldArticles + ' anciens articles rejetés)';
+
+          applyDailySalesData(entries, fileName + extraInfo);
+
+        } catch (err) {
+          console.error("Error parsing Excel:", err);
+          alert("Erreur lors de l'analyse du fichier Excel : " + err.message);
+        }
+      };
+
+      reader.readAsArrayBuffer(file);
+    }
+    window.processSalesFile = processSalesFile;
+
+    // =========================================================
+    // SIMULATEUR D'AJUSTEMENT PRIX & IMPACT MARGE (+1, +2, +3 DH...)
+    // =========================================================
+
+    let currentSimDishId = null;
+    let currentSimDelta = 2;
+
+    function openPriceSimModal(dishId) {
+      const modal = document.getElementById('modal-price-sim');
+      if (!modal) return;
+
+      const dishSelect = document.getElementById('price-sim-dish-select');
+      const catSelect = document.getElementById('price-sim-cat-select');
+
+      // Populate dishes select if empty
+      if (dishSelect && dishSelect.options.length === 0) {
+        // Sort dishes by category then name
+        const sorted = [...menuData].sort((a, b) => {
+          if (a.cat === b.cat) return a.name.localeCompare(b.name);
+          return a.cat.localeCompare(b.cat);
+        });
+
+        sorted.forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d.id;
+          opt.innerText = '[' + d.cat + '] ' + d.name + ' (' + d.price + ' DH)';
+          dishSelect.appendChild(opt);
+        });
+      }
+
+      // Populate categories select if empty
+      if (catSelect && catSelect.options.length <= 1) {
+        const cats = [...new Set(menuData.map(d => d.cat))].sort();
+        cats.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c;
+          opt.innerText = 'Toute la catégorie : ' + c;
+          catSelect.appendChild(opt);
+        });
+      }
+
+      // Set target dish
+      if (dishId) {
+        currentSimDishId = dishId;
+        if (dishSelect) dishSelect.value = dishId;
+      } else {
+        currentSimDishId = dishSelect ? dishSelect.value : menuData[0]?.id;
+      }
+
+      // Reset category select to single dish mode
+      if (catSelect) catSelect.value = '';
+
+      // Default delta
+      if (customPriceDeltas[currentSimDishId]) {
+        currentSimDelta = customPriceDeltas[currentSimDishId];
+      } else {
+        currentSimDelta = 2;
+      }
+
+      updatePricePillActiveState();
+      updatePriceSimDisplay();
+
+      modal.style.display = 'flex';
+    }
+    window.openPriceSimModal = openPriceSimModal;
+
+    function closePriceSimModal() {
+      const modal = document.getElementById('modal-price-sim');
+      if (modal) modal.style.display = 'none';
+    }
+    window.closePriceSimModal = closePriceSimModal;
+
+    function setPriceSimDelta(delta) {
+      currentSimDelta = parseFloat(delta) || 0;
+      updatePricePillActiveState();
+      updatePriceSimDisplay();
+    }
+    window.setPriceSimDelta = setPriceSimDelta;
+
+    function adjustPriceSimDelta(step) {
+      currentSimDelta = Math.round((currentSimDelta + step) * 10) / 10;
+      updatePricePillActiveState();
+      updatePriceSimDisplay();
+    }
+    window.adjustPriceSimDelta = adjustPriceSimDelta;
+
+    function onPriceSimCustomDelta() {
+      const input = document.getElementById('price-sim-delta-input');
+      if (input) {
+        currentSimDelta = parseFloat(input.value) || 0;
+        updatePricePillActiveState();
+        updatePriceSimDisplay();
       }
     }
+    window.onPriceSimCustomDelta = onPriceSimCustomDelta;
+
+    function onPriceSimDirectPrice() {
+      const input = document.getElementById('price-sim-direct-price');
+      const dish = menuData.find(d => d.id === currentSimDishId);
+      if (input && dish) {
+        const targetPrice = parseFloat(input.value) || dish.price;
+        currentSimDelta = Math.round((targetPrice - dish.price) * 10) / 10;
+        updatePricePillActiveState();
+        updatePriceSimDisplay();
+      }
+    }
+    window.onPriceSimDirectPrice = onPriceSimDirectPrice;
+
+    function onPriceSimDishChanged() {
+      const sel = document.getElementById('price-sim-dish-select');
+      if (sel && sel.value) {
+        currentSimDishId = sel.value;
+        const catSelect = document.getElementById('price-sim-cat-select');
+        if (catSelect) catSelect.value = '';
+        if (customPriceDeltas[currentSimDishId]) {
+          currentSimDelta = customPriceDeltas[currentSimDishId];
+        }
+        updatePricePillActiveState();
+        updatePriceSimDisplay();
+      }
+    }
+    window.onPriceSimDishChanged = onPriceSimDishChanged;
+
+    function onPriceSimCategoryChanged() {
+      const catSelect = document.getElementById('price-sim-cat-select');
+      if (catSelect && catSelect.value) {
+        // Category mode
+        updatePriceSimDisplay();
+      }
+    }
+    window.onPriceSimCategoryChanged = onPriceSimCategoryChanged;
+
+    function updatePricePillActiveState() {
+      const pills = [1, 2, 3, 4, 5, 10];
+      pills.forEach(p => {
+        const btn = document.getElementById('btn-pill-' + p);
+        if (btn) {
+          if (currentSimDelta === p) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
+      });
+      const deltaInput = document.getElementById('price-sim-delta-input');
+      if (deltaInput && document.activeElement !== deltaInput) {
+        deltaInput.value = currentSimDelta;
+      }
+    }
+
+    function updatePriceSimDisplay() {
+      const catSelect = document.getElementById('price-sim-cat-select');
+      const isCatMode = catSelect && catSelect.value !== '';
+      const selectedCat = isCatMode ? catSelect.value : null;
+
+      const delta = currentSimDelta;
+      const directInput = document.getElementById('price-sim-direct-price');
+
+      if (!isCatMode) {
+        const dish = menuData.find(d => d.id === currentSimDishId);
+        if (!dish) return;
+
+        const oldP = dish.price;
+        const newP = Math.round((oldP + delta) * 10) / 10;
+        const cost = dish.cost || 0;
+        const oldMargin = oldP - cost;
+        const newMargin = newP - cost;
+        const marginGainPct = oldMargin > 0 ? Math.round(((newMargin - oldMargin) / oldMargin) * 1000) / 10 : 0;
+        const monthlyV = dish.monthlyQty || Math.round(dish.qty / 5.3);
+
+        const gainMonth = Math.round(monthlyV * delta);
+        const gainYear = Math.round(gainMonth * 12);
+
+        // Update UI
+        const elOldP = document.getElementById('psim-old-price');
+        const elNewP = document.getElementById('psim-new-price');
+        const elDeltaL = document.getElementById('psim-delta-label');
+        if (elOldP) elOldP.innerText = oldP + ' DH';
+        if (elNewP) elNewP.innerText = newP + ' DH';
+        if (elDeltaL) elDeltaL.innerText = (delta >= 0 ? '+' : '') + delta + ' DH';
+
+        const elOldM = document.getElementById('psim-old-margin');
+        const elNewM = document.getElementById('psim-new-margin');
+        const elFcL = document.getElementById('psim-fc-label');
+        if (elOldM) elOldM.innerText = '+' + oldMargin.toFixed(1) + ' DH';
+        if (elNewM) elNewM.innerText = '+' + newMargin.toFixed(1) + ' DH';
+        if (elFcL) elFcL.innerText = (marginGainPct >= 0 ? '+' : '') + marginGainPct + '% de cash unitaire';
+
+        const elGainM = document.getElementById('psim-gain-month');
+        const elGainY = document.getElementById('psim-gain-year');
+        const elVolM = document.getElementById('psim-vol-month');
+        if (elGainM) elGainM.innerText = (gainMonth >= 0 ? '+' : '') + gainMonth.toLocaleString('fr-FR') + ' DH / m';
+        if (elGainY) elGainY.innerText = (gainYear >= 0 ? '+' : '') + gainYear.toLocaleString('fr-FR') + ' DH / an';
+        if (elVolM) elVolM.innerText = monthlyV;
+
+        if (directInput && document.activeElement !== directInput) {
+          directInput.value = newP;
+        }
+
+        // Elasticity advice
+        const elBox = document.getElementById('psim-elasticity-box');
+        if (elBox) {
+          let advice = '';
+          if (dish.quad === 'STAR') {
+            advice = '⭐ <strong>Produit STAR (' + dish.name + ')</strong> : Forte popularité et excellente rentabilité. Une hausse modérée de <strong>+' + delta + ' DH</strong> est généralement acceptée par la clientèle sans impact perceptible sur le volume. <em>Gain net direct sans risque : +' + gainYear.toLocaleString('fr-FR') + ' DH/an.</em>';
+          } else if (dish.quad === 'PLOWHORSE') {
+            advice = '🐴 <strong>Plowhorse à fort débit (' + dish.name + ' - ' + monthlyV + ' v/mois)</strong> : Le plus fort effet de levier financier ! Chaque dirham supplémentaire tombe à 100% dans la marge nette. <em>Impact immédiat : +' + gainMonth.toLocaleString('fr-FR') + ' DH chaque mois.</em>';
+          } else if (dish.quad === 'PUZZLE') {
+            advice = '🧩 <strong>Produit PUZZLE (' + dish.name + ')</strong> : Marge unitaire déjà confortable. Pour ce produit, il est conseillé de travailler la visibilité en salle et la formation des serveurs avant d\'augmenter le prix.';
+          } else {
+            advice = '🐕 <strong>Produit DOG (' + dish.name + ')</strong> : Faible vente (' + monthlyV + ' v/mois). Une hausse de prix ne suffira pas à compenser le manque de rotation. Privilégier son remplacement ou son élimination.';
+          }
+          elBox.innerHTML = advice;
+        }
+
+      } else {
+        // Category mode
+        const catDishes = menuData.filter(d => d.cat === selectedCat);
+        const totalMonthlyV = catDishes.reduce((s, d) => s + (d.monthlyQty || Math.round(d.qty / 5.3)), 0);
+        const gainMonth = Math.round(totalMonthlyV * delta);
+        const gainYear = Math.round(gainMonth * 12);
+
+        const elOldP = document.getElementById('psim-old-price');
+        const elNewP = document.getElementById('psim-new-price');
+        const elDeltaL = document.getElementById('psim-delta-label');
+        if (elOldP) elOldP.innerText = catDishes.length + ' plats';
+        if (elNewP) elNewP.innerText = 'Tous +' + delta + ' DH';
+        if (elDeltaL) elDeltaL.innerText = '+' + delta + ' DH / plat';
+
+        const elOldM = document.getElementById('psim-old-margin');
+        const elNewM = document.getElementById('psim-new-margin');
+        const elFcL = document.getElementById('psim-fc-label');
+        if (elOldM) elOldM.innerText = 'Global';
+        if (elNewM) elNewM.innerText = 'Rayon entier';
+        if (elFcL) elFcL.innerText = catDishes.length + ' références impactées';
+
+        const elGainM = document.getElementById('psim-gain-month');
+        const elGainY = document.getElementById('psim-gain-year');
+        const elVolM = document.getElementById('psim-vol-month');
+        if (elGainM) elGainM.innerText = '+' + gainMonth.toLocaleString('fr-FR') + ' DH / m';
+        if (elGainY) elGainY.innerText = '+' + gainYear.toLocaleString('fr-FR') + ' DH / an';
+        if (elVolM) elVolM.innerText = totalMonthlyV;
+
+        const elBox = document.getElementById('psim-elasticity-box');
+        if (elBox) {
+          elBox.innerHTML = '📁 <strong>Ajustement Collectif sur tout le rayon ' + selectedCat + '</strong> : En appliquant <strong>+' + delta + ' DH</strong> sur les ' + catDishes.length + ' références, vous générez un surcroît de trésorerie net de <strong>+' + gainYear.toLocaleString('fr-FR') + ' DH par an</strong> sur la base du volume moyen actuel (' + totalMonthlyV + ' ventes/mois).';
+        }
+      }
+    }
+
+    function applyPriceSimToModel() {
+      const catSelect = document.getElementById('price-sim-cat-select');
+      const isCatMode = catSelect && catSelect.value !== '';
+      const delta = currentSimDelta;
+
+      if (isCatMode) {
+        const cat = catSelect.value;
+        menuData.filter(d => d.cat === cat).forEach(d => {
+          customPriceDeltas[d.id] = delta;
+        });
+        alert('✅ Ajustement de +' + delta + ' DH appliqué à tous les plats de la catégorie "' + cat + '" !');
+      } else {
+        const dish = menuData.find(d => d.id === currentSimDishId);
+        if (!dish) return;
+        customPriceDeltas[dish.id] = delta;
+        alert('✅ Ajustement de +' + delta + ' DH appliqué à "' + dish.name + '" (Nouveau prix simulé : ' + (dish.price + delta) + ' DH).');
+      }
+
+      updateSimulation();
+      renderCategoryRankings();
+      renderTrendsModule();
+      closePriceSimModal();
+    }
+    window.applyPriceSimToModel = applyPriceSimToModel;
+
+    function resetPriceSimDish() {
+      const catSelect = document.getElementById('price-sim-cat-select');
+      const isCatMode = catSelect && catSelect.value !== '';
+
+      if (isCatMode) {
+        const cat = catSelect.value;
+        menuData.filter(d => d.cat === cat).forEach(d => {
+          delete customPriceDeltas[d.id];
+        });
+        alert('🔄 Prix de base rétablis pour la catégorie "' + cat + '".');
+      } else {
+        const dish = menuData.find(d => d.id === currentSimDishId);
+        if (!dish) return;
+        delete customPriceDeltas[dish.id];
+        alert('🔄 Prix de base rétabli pour "' + dish.name + '".');
+      }
+
+      currentSimDelta = 0;
+      updatePricePillActiveState();
+      updatePriceSimDisplay();
+      updateSimulation();
+      renderCategoryRankings();
+      renderTrendsModule();
+    }
+    window.resetPriceSimDish = resetPriceSimDish;
 
     // --- RAPPORT JOURNALIER ---
     function renderDailyReport(rows, totalCA, totalQty, fileName) {
