@@ -128,6 +128,11 @@ var hasUnsavedChanges = false; // AM-03: suivi des modifications non sauvegardé
       // AM-03: marquer comme sauvegardé
       hasUnsavedChanges = false;
 
+      // Sauvegarde Cloud Supabase
+      if (isManualSave && typeof window !== 'undefined' && window.GC_Supabase && typeof window.GC_Supabase.saveEditedRecipesToCloud === 'function') {
+        window.GC_Supabase.saveEditedRecipesToCloud(editedRecipes);
+      }
+
       if (isManualSave) {
         // AM-02 FIX : Toast non bloquant
         if (window.GC_Toast) {

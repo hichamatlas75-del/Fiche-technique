@@ -335,6 +335,19 @@ function saveRecipeFromModal(silent = false) {
     });
   }
 
+  // Sauvegarde Cloud Supabase
+  if (typeof window !== 'undefined' && window.GC_Supabase && typeof window.GC_Supabase.saveRecipeToCloud === 'function') {
+    window.GC_Supabase.saveRecipeToCloud({
+      name: name,
+      category: catKey,
+      sell_price: sellPrice,
+      cost: fcCalc.cost,
+      food_cost: fcCalc.foodCost,
+      gross_margin: fcCalc.grossMarginDH,
+      ingredients: ingredients
+    });
+  }
+
   // 5. Émettre signal de synchronisation temps réel inter-modules et inter-onglets
   try {
     localStorage.setItem(GC_STORAGE_KEYS.SYNC_PING, Date.now().toString());

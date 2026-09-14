@@ -167,20 +167,12 @@
           <span>💾 Sauvegarde &amp; Actions</span>
         </div>
         <button type="button" class="gc-drawer-action-btn success" onclick="window.saveAllEdits ? window.saveAllEdits() : (window.saveEdits ? window.saveEdits() : null); GC_BurgerMenu.close();">
-          <span>💾</span>
-          <span>Enregistrer les Fiches</span>
-        </button>
-        <button type="button" class="gc-drawer-action-btn" onclick="window.syncDirectToGitHub ? window.syncDirectToGitHub() : null; GC_BurgerMenu.close();">
           <span>☁️</span>
-          <span>Pousser sur GitHub</span>
+          <span>Enregistrer les Fiches (Supabase)</span>
         </button>
         <button type="button" class="gc-drawer-action-btn" onclick="window.exportComparisonToExcel ? window.exportComparisonToExcel() : null; GC_BurgerMenu.close();">
           <span>📥</span>
           <span>Exporter Comparatif (.xlsx)</span>
-        </button>
-        <button type="button" class="gc-drawer-action-btn" onclick="window.downloadUpdatedRecipesDataJs ? window.downloadUpdatedRecipesDataJs() : window.exportUpdatedRecipesDataJS(); GC_BurgerMenu.close();">
-          <span>📁</span>
-          <span>Exporter recipes-data.js</span>
         </button>
         <button type="button" class="gc-drawer-action-btn" onclick="openPricesModal(); GC_BurgerMenu.close();">
           <span>💲</span>
@@ -252,14 +244,8 @@
         <button class="btn btn-primary" onclick="openPricesModal()" style="background:#0284c7; color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:800; cursor:pointer; box-shadow:0 4px 10px rgba(2,132,199,0.3);" title="Consulter, modifier et exporter les prix d'achat des matières premières">
           💲 Prix d'Achat Matières Premières
         </button>
-        <button class="btn btn-success" id="btn-save-all" onclick="window.saveAllEdits ? window.saveAllEdits() : (window.saveEdits ? window.saveEdits() : null)" style="background:#16a34a; color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:800; cursor:pointer; box-shadow:0 4px 10px rgba(22,163,74,0.3);" title="Sauvegarder les fiches techniques modifiées">
-          💾 Enregistrer les Fiches
-        </button>
-        <button class="btn" id="btn-github-sync" onclick="window.syncDirectToGitHub()" style="background:#0f172a; color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:800; cursor:pointer; box-shadow:0 4px 10px rgba(15,23,42,0.3);" title="Enregistrer et synchroniser directement les fiches sur GitHub (Codebase)">
-          ☁️ Pousser sur GitHub
-        </button>
-        <button class="btn btn-secondary" onclick="window.downloadUpdatedRecipesDataJs ? window.downloadUpdatedRecipesDataJs() : window.exportUpdatedRecipesDataJS()" style="padding:10px 14px; font-weight:700; border-radius:10px; border:1px solid var(--border); background:var(--paper); color:var(--text); cursor:pointer;" title="Télécharger le fichier JS complet prêt à remplacer recipes-data.js">
-          📁 Exporter recipes-data.js
+        <button class="btn btn-success" id="btn-save-all" onclick="window.saveAllEdits ? window.saveAllEdits() : (window.saveEdits ? window.saveEdits() : null)" style="background:#16a34a; color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:800; cursor:pointer; box-shadow:0 4px 10px rgba(22,163,74,0.3);" title="Sauvegarder immédiatement les fiches techniques dans Supabase Cloud">
+          ☁️ Enregistrer les Fiches (Supabase)
         </button>
         <button class="btn btn-secondary" onclick="window.exportComparisonToExcel()" style="padding:10px 14px; font-weight:700; border-radius:10px; border:1px solid var(--border); background:var(--paper); color:var(--text); cursor:pointer;">
           📥 Exporter Comparatif (.xlsx)

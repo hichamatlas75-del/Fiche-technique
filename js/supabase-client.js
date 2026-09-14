@@ -129,6 +129,92 @@
     },
 
     /**
+     * Sauvegarde une fiche technique unitaire vers Supabase Cloud
+     */
+    saveRecipeToCloud: async function(recipeObj) {
+      try {
+        const id = recipeObj.id || (recipeObj.category + '_' + recipeObj.name).toLowerCase().replace(/[^a-z0-9]/g, '_');
+        const payload = [{
+          id: id,
+          name: recipeObj.name,
+          category: recipeObj.category || 'Général',
+          sell_price: recipeObj.sell_price || recipeObj.sellPrice || 0,
+          cost: recipeObj.cost || 0,
+          food_cost: recipeObj.food_cost || recipeObj.foodCost || 0,
+          gross_margin: recipeObj.gross_margin || recipeObj.grossMarginDH || 0,
+          ingredients: recipeObj.ingredients || recipeObj.tech || [],
+          is_active: true,
+          updated_at: new Date().toISOString()
+        }];
+        const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/recipes', {
+          method: 'POST',
+          headers: this.getHeaders({ 'Prefer': 'resolution=merge-duplicates' }),
+          body: JSON.stringify(payload)
+        });
+        if (global.GC_Toast) {
+          global.GC_Toast.show('☁️ Fiche "' + recipeObj.name + '" synchronisée dans Supabase Cloud !', 'success');
+        }
+        return res.ok;
+      } catch (err) {
+        console.error('[GC_Supabase] Erreur sauvegarde recette:', err);
+        return false;
+      }
+    },
+
+    /**
+     * Sauvegarde les fiches techniques modifiées (depuis le comparateur) vers Supabase Cloud
+     */
+    saveEditedRecipesToCloud: async function(editedMap) {
+      try {
+        const rows = [];
+        const baseList = (global.BASE_RECIPES || []).concat(global.allRecipes || []);
+        for (const [name, edit] of Object.entries(editedMap || {})) {
+          if (!edit || !Array.isArray(edit.tech)) continue;
+          const found = baseList.find(r => r && (r.name === name || (global.cleanText && global.cleanText(r.name) === global.cleanText(name))));
+          const cat = found ? (found.category || 'Général') : 'Général';
+          const id = (cat + '_' + name).toLowerCase().replace(/[^a-z0-9]/g, '_');
+          const sellPrice = edit.sellPrice || (found ? found.sellPrice : 0) || 0;
+          let cost = 0, foodCost = 0, grossMargin = 0;
+          if (typeof global.calculateRecipeFoodCost === 'function') {
+            const fc = global.calculateRecipeFoodCost(edit.tech, sellPrice);
+            cost = fc.cost;
+            foodCost = fc.foodCost;
+            grossMargin = fc.grossMarginDH;
+          }
+          rows.push({
+            id: id,
+            name: name,
+            category: cat,
+            sell_price: sellPrice,
+            cost: cost,
+            food_cost: foodCost,
+            gross_margin: grossMargin,
+            ingredients: edit.tech,
+            is_active: true,
+            updated_at: new Date().toISOString()
+          });
+        }
+        if (rows.length === 0) return true;
+
+        for (let i = 0; i < rows.length; i += 100) {
+          const chunk = rows.slice(i, i + 100);
+          await fetch(SUPABASE_CONFIG.url + '/rest/v1/recipes', {
+            method: 'POST',
+            headers: this.getHeaders({ 'Prefer': 'resolution=merge-duplicates' }),
+            body: JSON.stringify(chunk)
+          });
+        }
+        if (global.GC_Toast) {
+          global.GC_Toast.show('☁️ ' + rows.length + ' fiches synchronisées dans Supabase Cloud !', 'success');
+        }
+        return true;
+      } catch (err) {
+        console.error('[GC_Supabase] Erreur synchronisation fiches:', err);
+        return false;
+      }
+    },
+
+    /**
      * Écoute en temps réel les changements (Realtime)
      */
     setupRealtime: function() {
