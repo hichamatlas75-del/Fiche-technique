@@ -29,14 +29,15 @@ function debouncedRenderKPIs() {
 }
 
 // Forcer l'application immédiate de toute sauvegarde en attente
-window.flushPendingAutoSave = function() {
+function flushPendingAutoSave() {
   if (_saveDebounceTimer) {
     clearTimeout(_saveDebounceTimer);
     _saveDebounceTimer = null;
     const saveFn = window.saveEdits || (typeof saveEdits === 'function' ? saveEdits : null);
     if (saveFn) saveFn(false);
   }
-};
+}
+window.flushPendingAutoSave = flushPendingAutoSave;
 
 // Génération des champs de saisie pour chaque ingrédient
 function renderIngredientsEditorHTML(techArray, recipeName, idx) {

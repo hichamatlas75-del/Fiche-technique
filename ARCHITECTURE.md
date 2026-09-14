@@ -27,8 +27,6 @@ js/
 ├── supabase-client.js         # Connecteur Supabase Cloud & Realtime (Direction & persistance live)
 ├── burger-menu.js             # Gestionnaire universel de tiroir latéral (drawer) et navigation mobile
 ├── proposed-standards.js      # Base des standards internationaux F&B & algorithme d ajustement des portions
-│
-├── kitchen.js                 # Module Cuisine archivé (kitchen_kds_archive.html)
 ├── audit-flash-page.js        # Module d audit d inventaire physique inopiné (audit.html)
 │
 ├── conso-state.js             # Déstockage : État global (activeRecipes, monthlySalesDB), chargement/sauvegarde
