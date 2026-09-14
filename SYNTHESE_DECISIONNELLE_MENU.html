@@ -1235,10 +1235,10 @@
       <span class="live-dot"></span> Moteur D&eacute;cisionnel &amp; Projections Dynamiques
     </div>
     <h1>Grey Corner &mdash; Pilotage Dynamique &amp; All&egrave;gement du Menu</h1>
-    <p>Simulateur d&eacute;cisionnel connect&eacute; aux ventes r&eacute;elles (162 jours post-mars : 2 266 910 DH). Modifiez les volumes futurs, ajustez les prix et simulez en temps r&eacute;el le d&eacute;graissage de la carte pour convaincre vos patrons.</p>
+    <p>Simulateur d&eacute;cisionnel connect&eacute; aux ventes r&eacute;elles (166 jours post-mars : 2 266 910 DH). Modifiez les volumes futurs, ajustez les prix et simulez en temps r&eacute;el le d&eacute;graissage de la carte pour convaincre vos patrons.</p>
     
     <div class="header-meta">
-      <span id="meta-period">&#128197; Période : 162 jours (Avril - Sept 2026)</span>
+      <span id="meta-period">&#128197; Période : 166 jours (Avril - 13 Septembre 2026)</span>
       <span id="meta-items">&#127869; 193 Références Auditées</span>
       <span id="meta-ca">&#128176; 2 266 910 DH CA Audité</span>
       <span id="meta-health-score" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(6,182,212,0.15)); border-color:rgba(16,185,129,0.4); cursor:help;" title="Score de Santé du Menu = % plats actifs + taux marge + concentration Pareto + ratio Stars">
@@ -1263,7 +1263,7 @@
             <span id="calendar-active-badge" style="background:rgba(245,158,11,0.2); color:var(--gold-light); font-size:0.75rem; padding:3px 10px; border-radius:6px; border:1px solid rgba(245,158,11,0.4); font-weight:800;">🌐 CUMUL COMPLET (AVRIL - SEPTEMBRE)</span>
           </div>
           <div id="calendar-period-desc" style="font-size:0.8rem; color:#94a3b8; margin-top:3px;">
-            Analysez un mois spécifique (Avril à Septembre 2026) ou le cumul global des 162 jours. Les volumes, marges et seuils s'adaptent instantanément.
+            Analysez un mois spécifique (Avril à Septembre 2026) ou le cumul global des 166 jours. Les volumes, marges et seuils s'adaptent instantanément.
           </div>
         </div>
       </div>
@@ -1271,7 +1271,7 @@
       <!-- Boutons de sélection rapide du mois -->
       <div class="calendar-pills" style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
         <button class="cal-pill active" id="btn-period-ALL" onclick="selectCalendarPeriod('ALL')">
-          <span>🌐</span> <span>Cumul 162j (Avr-Sept)</span>
+          <span>🌐</span> <span>Cumul 166j (Avr-13 Sept)</span>
         </button>
         <button class="cal-pill" id="btn-period-2026-04" onclick="selectCalendarPeriod('2026-04')">
           <span>🌸</span> <span>Avril 2026</span>
@@ -1465,7 +1465,7 @@
       <div class="kpi-card gold">
         <div class="kpi-val" id="kpi-ca">2 266 910 DH</div>
         <div class="kpi-label">Chiffre d'Affaires Projet&eacute;</div>
-        <div class="kpi-sub text-gold" id="kpi-ca-sub">Base 162 jours post-mars</div>
+        <div class="kpi-sub text-gold" id="kpi-ca-sub">Base 166 jours post-mars</div>
       </div>
       <div class="kpi-card emerald">
         <div class="kpi-val" id="kpi-margin">1 582 400 DH</div>
@@ -2239,13 +2239,13 @@
     // =========================================================
 
     const PERIOD_METADATA = {
-      'ALL':     { name: 'Cumul Global (Avril à Septembre)', days: 162, label: '162 jours (Avril - Sept 2026)', badge: '🌐 CUMUL COMPLET (162 JOURS)' },
+      'ALL':     { name: 'Cumul Global (Avril à Septembre)', days: 166, label: '166 jours (Avril - 13 Septembre 2026)', badge: '🌐 CUMUL COMPLET (166 JOURS)' },
       '2026-04': { name: 'Avril 2026', days: 30, label: 'Avril 2026 (30 jours)', badge: '🌸 AVRIL 2026 (30 JOURS)' },
       '2026-05': { name: 'Mai 2026', days: 31, label: 'Mai 2026 (31 jours)', badge: '🌿 MAI 2026 (31 JOURS)' },
       '2026-06': { name: 'Juin 2026', days: 30, label: 'Juin 2026 (30 jours)', badge: '☀️ JUIN 2026 (30 JOURS)' },
       '2026-07': { name: 'Juillet 2026', days: 31, label: 'Juillet 2026 (31 jours)', badge: '🏖️ JUILLET 2026 (31 JOURS)' },
       '2026-08': { name: 'Août 2026', days: 31, label: 'Août 2026 (31 jours)', badge: '🔥 AOÛT 2026 (31 JOURS)' },
-      '2026-09': { name: 'Septembre 2026', days: 12, label: 'Septembre 2026 (12 jours)', badge: '🍂 SEPTEMBRE 2026 (12 JOURS)' }
+      '2026-09': { name: 'Septembre 2026', days: 13, label: 'Septembre 2026 (13 jours)', badge: '🍂 SEPTEMBRE 2026 (13 JOURS)' }
     };
 
     let currentCalendarPeriod = 'ALL';
@@ -2272,7 +2272,7 @@
       const descEl = document.getElementById('calendar-period-desc');
       if (descEl) {
         if (period === 'ALL') {
-          descEl.innerText = "Affichage du cumul global d'Avril à Septembre (162 jours). Toutes les analyses portent sur l'ensemble de la période post-mars.";
+          descEl.innerText = "Affichage du cumul global d'Avril à Septembre (166 jours). Toutes les analyses portent sur l'ensemble de la période post-mars.";
         } else {
           descEl.innerText = "Affichage isolé des ventes de " + meta.name + " (" + meta.days + " jours). Volumes, marges, classements et matrices Kasavana sont recalculés pour ce mois.";
         }
@@ -4010,8 +4010,9 @@
     function renderTrendsModule() {
       try {
         const totalCA = menuData.reduce((s, i) => s + (i.simCA || i.ca), 0);
-        // Base period: 162 days
-        const dailyAvg = totalCA / 162;
+        // Active period days (13 days for Sept, 166 for ALL)
+        const currentDays = (typeof PERIOD_METADATA !== 'undefined' && PERIOD_METADATA[currentCalendarPeriod]) ? PERIOD_METADATA[currentCalendarPeriod].days : 166;
+        const dailyAvg = totalCA / currentDays;
 
         const projPessimist30 = Math.round(dailyAvg * 30 * 0.85);
         const projNeutral30 = Math.round(dailyAvg * 30 * 1.0);
@@ -4100,7 +4101,7 @@
               labels: sortedCats.map(c => c[0]),
               datasets: [{
                 label: 'Ventes / Jour estimées',
-                data: sortedCats.map(c => Math.round((c[1] / 162) * 10) / 10),
+                data: sortedCats.map(c => Math.round((c[1] / (typeof currentDays !== 'undefined' ? currentDays : 166)) * 10) / 10),
                 backgroundColor: 'rgba(245, 158, 11, 0.7)',
                 borderColor: '#f59e0b',
                 borderRadius: 6
