@@ -1398,22 +1398,22 @@
         <div style="display:flex; align-items:center; gap:12px;">
           <div id="watcher-dot" style="width:12px; height:12px; border-radius:50%; background:var(--emerald); box-shadow:0 0 12px var(--emerald); animation:pulse 2s infinite; flex-shrink:0;"></div>
           <div>
-            <div style="font-weight:800; color:#ffffff; font-size:0.95rem; display:flex; align-items:center; gap:8px;">
+            <div style="font-weight:800; color:#ffffff; font-size:0.95rem; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
               <span>📁 Synchronisation Automatique Caisse</span>
-              <span style="font-size:0.75rem; background:rgba(6,182,212,0.15); color:#67e8f9; border:1px solid rgba(6,182,212,0.3); padding:2px 8px; border-radius:6px;">Dossier ./ventes</span>
+              <span style="font-size:0.75rem; background:rgba(16,185,129,0.2); color:#34d399; border:1px solid rgba(16,185,129,0.3); padding:2px 8px; border-radius:6px;">Dossier ./ventes</span>
+              <span id="watcher-auto-badge" style="font-size:0.75rem; background:rgba(6,182,212,0.2); color:#67e8f9; border:1px solid rgba(6,182,212,0.3); padding:2px 8px; border-radius:6px;">⚡ Auto-chargé</span>
             </div>
             <div id="watcher-status" style="font-size:0.8rem; color:#94a3b8; margin-top:3px;">
-              Sélectionnez directement votre fichier de clôture caisse Excel (.xlsx ou .xls). Les ventes de l'ancien menu (Jan/Fév/Mars 2026) sont automatiquement filtrées.
+              Dernier jour synchronis&eacute; : <strong id="watcher-latest-date" style="color:var(--gold-light);">13 Septembre 2026</strong> &bull; <span id="watcher-latest-meta">Fin_Journée_20260913.xls (14 629 DH &bull; 518 articles)</span>
             </div>
           </div>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-          <div id="watcher-badge" style="display:none; background:rgba(16,185,129,0.2); border:1px solid #10b981; border-radius:8px; padding:5px 12px; color:#34d399; font-size:0.8rem; font-weight:800; animation:pulse 1.5s infinite;">🟢 Nouvelles Ventes Prêtes</div>
-          <button class="action-btn" onclick="loadVentesFromFolder()" style="background:linear-gradient(135deg, #10b981, #059669); color:#ffffff; font-weight:800; padding:10px 20px; border-radius:8px; font-size:0.88rem; box-shadow:0 4px 14px rgba(16,185,129,0.35); display:inline-flex; align-items:center; gap:8px;">
-            <span>📊</span> <span>Charger Ventes du Jour (Excel .xlsx / .xls)</span>
+          <button class="action-btn" onclick="autoLoadLatestDailySales(true)" style="background:linear-gradient(135deg, rgba(16,185,129,0.2), rgba(6,182,212,0.2)); border:1px solid var(--emerald); color:#34d399; font-weight:800; padding:10px 16px; border-radius:8px; font-size:0.84rem; display:inline-flex; align-items:center; gap:6px;">
+            <span>🔄</span> <span>Actualiser Dernier Jour</span>
           </button>
           <button class="action-btn" onclick="resetMenuSalesToBase()" style="background:rgba(255,255,255,0.06); color:#cbd5e1; border:1px solid var(--card-border); padding:10px 14px; border-radius:8px; font-size:0.82rem;">
-            🔄 Réinitialiser Base
+            🔄 R&eacute;initialiser Base
           </button>
         </div>
       </div>
@@ -1997,21 +1997,11 @@
         </div>
 
         <div id="daily-report-body">
-          <div class="report-card" style="text-align:center; padding:40px 20px;">
-            <div style="font-size:2.5rem; margin-bottom:12px;">📁</div>
-            <div style="font-size:1.15rem; font-weight:800; color:#ffffff; margin-bottom:8px;">Aucune vente journalière importée pour le moment</div>
-            <p style="color:#94a3b8; font-size:0.85rem; max-width:540px; margin:0 auto 18px;">
-              Déposez votre export de caisse (.xlsx) dans le dossier <code>./ventes</code> ou cliquez ci-dessous pour charger les ventes du jour générées par le watcher.
-            </p>
-            <button class="action-btn" onclick="loadVentesFromFolder()" style="margin:0 auto; background:linear-gradient(135deg, #10b981, #059669); color:#ffffff; font-weight:800; padding:12px 24px; border-radius:8px; display:inline-flex; align-items:center; gap:8px;">
-              <span>📊</span> <span>Charger Fichier Caisse Excel (.xlsx / .xls)</span>
-            </button>
-          </div>
+          <!-- Populated automatically by autoLoadLatestDailySales -->
         </div>
       </div>
     </div>
 
-    
     <!-- MODAL SIMULATION AJUSTEMENT PRIX & IMPACT MARGE -->
     <div id="modal-price-sim" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); backdrop-filter:blur(6px); z-index:9999; justify-content:center; align-items:center; padding:20px; overflow-y:auto;">
       <div style="background:linear-gradient(145deg, #0f172a, #1e293b); border:1px solid var(--gold); border-radius:18px; max-width:840px; width:100%; box-shadow:0 25px 50px -12px rgba(0,0,0,0.8); overflow:hidden; animation:fadeIn 0.25s ease;">
@@ -2768,6 +2758,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       applyPreset('recommended');
       setTimeout(() => initCatPriceSim(), 400);
+      setTimeout(() => autoLoadLatestDailySales(false), 200);
     });
     window.addEventListener('load', () => { updateSimulation(); });
 
@@ -3882,8 +3873,75 @@
     }
     window.resetPriceSimDish = resetPriceSimDish;
 
+
+    // =========================================================
+    // DERNIER JOUR DE VENTE (CHARGEMENT AUTOMATIQUE DOSSIER VENTES)
+    // =========================================================
+    const LATEST_DAILY_SALES = {"date": "13 Septembre 2026", "dateKey": "20260913", "fileName": "Fin_Journée_20260913.xls", "filePath": "ventes/2026-09/Fin_Journée_20260913.xls", "totalCA": 14629, "totalQty": 518, "totalItems": 85, "items": [{"id": "2870e2fd", "name": "CAFÉ NOIR", "cat": "BOISSONS CHAUDES", "price": 16, "qty": 79, "ca": 1168}, {"id": "f606ba70", "name": "BRUNCH DUO", "cat": "PETIT DÉJEUNER", "price": 144, "qty": 8, "ca": 1152}, {"id": "bc60875d", "name": "FASSI", "cat": "PETIT DÉJEUNER", "price": 55, "qty": 20, "ca": 1100}, {"id": "d838bed8", "name": "BERBÈRE", "cat": "PETIT DÉJEUNER", "price": 54, "qty": 10, "ca": 540}, {"id": "3c1696d2", "name": "OMELETTE DU CHEF", "cat": "PETIT DÉJEUNER", "price": 58, "qty": 9, "ca": 522}, {"id": "52e4ef86", "name": "BRUNCH GREYCORNER", "cat": "PETIT DÉJEUNER", "price": 85, "qty": 6, "ca": 510}, {"id": "67861d9d", "name": "HOLLANDAIS", "cat": "PETIT DÉJEUNER", "price": 52, "qty": 9, "ca": 468}, {"id": "pet_compagnard_12", "name": "COMPAGNARD", "cat": "PETIT DÉJEUNER", "price": 52, "qty": 9, "ca": 468}, {"id": "88f83b09", "name": "JUS D'ORANGE", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 22, "qty": 21, "ca": 418}, {"id": "16cebd6f", "name": "NORVÉGIEN", "cat": "PETIT DÉJEUNER", "price": 68, "qty": 6, "ca": 408}, {"id": "bfe13ada", "name": "ESPAGNOL", "cat": "PETIT DÉJEUNER", "price": 64, "qty": 6, "ca": 384}, {"id": "c4189160", "name": "BELDI", "cat": "PETIT DÉJEUNER", "price": 45, "qty": 8, "ca": 360}, {"id": "8947e8bb", "name": "OMELETTE FROMAGE", "cat": "PETIT DÉJEUNER", "price": 52, "qty": 6, "ca": 298}, {"id": "3a61c45c", "name": "BANANE-NUTELLA", "cat": "CRÊPES et GAUFRES", "price": 42, "qty": 7, "ca": 294}, {"id": "pet_menuenfant_20", "name": "MENU ENFANT", "cat": "PETIT DÉJEUNER", "price": 40, "qty": 7, "ca": 280}, {"id": "8f08d89a", "name": "JUS DE MANGUE", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 30, "qty": 9, "ca": 270}, {"id": "d07f4608", "name": "NUTELLA", "cat": "CRÊPES et GAUFRES", "price": 38, "qty": 7, "ca": 266}, {"id": "23a0f3a2", "name": "OMELETTE CONTINENTAL", "cat": "PETIT DÉJEUNER", "price": 52, "qty": 5, "ca": 260}, {"id": "218eeccc", "name": "THÉ À LA MENTHE", "cat": "BOISSONS CHAUDES", "price": 16, "qty": 83, "ca": 256}, {"id": "184bcbd7", "name": "SAN SEBASTIEN (Nutella)", "cat": "GÂTEAUX", "price": 40, "qty": 6, "ca": 240}, {"id": "7636c161", "name": "OMELETTE NATURE", "cat": "PETIT DÉJEUNER", "price": 42, "qty": 6, "ca": 232}, {"id": "46818b0a", "name": "1 Boule de glace", "cat": "COUPE DE GLACE", "price": 16, "qty": 12, "ca": 192}, {"id": "b4f0b866", "name": "KUNAFA PISTACHE", "cat": "CRÊPES et GAUFRES", "price": 48, "qty": 4, "ca": 192}, {"id": "328adad9", "name": "JUS DE FRAISE", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 30, "qty": 6, "ca": 180}, {"id": "a4197610", "name": "POULET CHAMPIGNON / EPINARD", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 75, "qty": 2, "ca": 150}, {"id": "9b075b42", "name": "Crêpe POULET-CHAMPIGNON", "cat": "CRÊPES SALÉES", "price": 48, "qty": 3, "ca": 144}, {"id": "3aa22a4f", "name": "JUS D'ANANAS", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 32, "qty": 4, "ca": 128}, {"id": "deb8fba9", "name": "CHOCOLAT AU LAIT", "cat": "BOISSONS CHAUDES", "price": 18, "qty": 21, "ca": 126}, {"id": "d8f0a2f6", "name": "Crêpe PÊCHEUR", "cat": "CRÊPES SALÉES", "price": 58, "qty": 2, "ca": 116}, {"id": "8240295e", "name": "ICE TEA PÊCHE", "cat": "ICE TEA", "price": 28, "qty": 4, "ca": 112}, {"id": "0f2b73d2", "name": "CAFÉ AMERICAIN", "cat": "BOISSONS CHAUDES", "price": 17, "qty": 11, "ca": 108}, {"id": "029899a7", "name": "POULARD", "cat": "SANDWICHS CIABATTA", "price": 54, "qty": 2, "ca": 108}, {"id": "b3a02657", "name": "MARGARITA", "cat": "PIZZA", "price": 52, "qty": 2, "ca": 104}, {"id": "43c999d5", "name": "COCA ZERO", "cat": "SODA", "price": 17, "qty": 6, "ca": 102}, {"id": "c02cdaa8", "name": "CHICKEN BURGER", "cat": "BURGERS", "price": 50, "qty": 2, "ca": 100}, {"id": "c8619369", "name": "OULMES", "cat": "EAU MINÉRALE", "price": 16, "qty": 6, "ca": 96}, {"id": "c8cb62c4", "name": "CAFÉ AU LAIT", "cat": "BOISSONS CHAUDES", "price": 19, "qty": 32, "ca": 95}, {"id": "a4dbd839", "name": "CAFÉ GLACÉ AROMATISÉ", "cat": "ICE COFFEE", "price": 23, "qty": 4, "ca": 92}, {"id": "c83b2d43", "name": "COUPE AMOR", "cat": "COUPE DE GLACE", "price": 45, "qty": 2, "ca": 90}, {"id": "f2037453", "name": "Crêpe CHARCUTERIE", "cat": "CRÊPES SALÉES", "price": 45, "qty": 2, "ca": 90}, {"id": "pan_viandehach_60", "name": "VIANDE HACHÉE", "cat": "PANINI", "price": 54, "qty": 2, "ca": 90}, {"id": "63489054", "name": "POULET", "cat": "PANINI", "price": 44, "qty": 2, "ca": 88}, {"id": "2c0ab4a2", "name": "4 SAISONS", "cat": "PIZZA", "price": 88, "qty": 1, "ca": 88}, {"id": "piz_fruitsdeme_67", "name": "FRUITS DE MER", "cat": "PIZZA", "price": 88, "qty": 1, "ca": 88}, {"id": "15a95226", "name": "TROPICAL", "cat": "COCKTAILS", "price": 42, "qty": 2, "ca": 84}, {"id": "f6db7713", "name": "COCKTAIL ORANGE", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 42, "qty": 2, "ca": 84}, {"id": "e7eed8e6", "name": "ÉNERGÉTIQUE", "cat": "SMOOTHIES", "price": 42, "qty": 2, "ca": 84}, {"id": "65a2ed5a", "name": "JUS DE CITRON", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 25, "qty": 3, "ca": 75}, {"id": "5c8a7b01", "name": "BOLOGNAISE", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 75, "qty": 1, "ca": 75}, {"id": "74eeb191", "name": "PIL PIL ESPAGNOL", "cat": "ENTRÉES CHAUDES", "price": 68, "qty": 1, "ca": 68}, {"id": "fe54d0a2", "name": "MOJITO CITRON", "cat": "MOJITO", "price": 34, "qty": 2, "ca": 68}, {"id": "b35d099b", "name": "AMERICAIN", "cat": "PETIT DÉJEUNER", "price": 68, "qty": 1, "ca": 68}, {"id": "c637898f", "name": "COCA", "cat": "SODA", "price": 17, "qty": 4, "ca": 68}, {"id": "7c4016f4", "name": "COUPE GREY CORNER", "cat": "COUPE DE GLACE", "price": 65, "qty": 1, "ca": 65}, {"id": "7d1cd22f", "name": "CARBONARA", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 65, "qty": 1, "ca": 65}, {"id": "bbbfbf94", "name": "SANDWICH CHEESE STEAK", "cat": "SANDWICHS CIABATTA", "price": 65, "qty": 1, "ca": 65}, {"id": "9a2a15fd", "name": "WRAP GOURMAND", "cat": "PANINI", "price": 64, "qty": 1, "ca": 64}, {"id": "d6da872d", "name": "2 Boules de glace", "cat": "COUPE DE GLACE", "price": 30, "qty": 2, "ca": 60}, {"id": "f1fa7f97", "name": "LASAGNE POULET CHAMPIGNON", "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)", "price": 60, "qty": 1, "ca": 60}, {"id": "3266f865", "name": "POULET CRUNCHY", "cat": "SANDWICHS CIABATTA", "price": 58, "qty": 1, "ca": 58}, {"id": "af8ccaaa", "name": "ICE TEA FRAMBOISE", "cat": "ICE TEA", "price": 28, "qty": 2, "ca": 56}, {"id": "2fc98edf", "name": "AVOCADO FORESTIER", "cat": "BURGERS", "price": 54, "qty": 1, "ca": 54}, {"id": "b966de76", "name": "RUSSE", "cat": "ENTRÉES FROIDES", "price": 54, "qty": 1, "ca": 54}, {"id": "630fad4f", "name": "OMELETTE VEGETARIENNE", "cat": "PETIT DÉJEUNER", "price": 52, "qty": 1, "ca": 52}, {"id": "bf39e64c", "name": "OULMES 0.75 l", "cat": "EAU MINÉRALE", "price": 26, "qty": 2, "ca": 52}, {"id": "bd96ceca", "name": "BANANA SPLIT", "cat": "COUPE DE GLACE", "price": 50, "qty": 1, "ca": 50}, {"id": "80cf66ad", "name": "COCKTAIL GREY CORNER", "cat": "COCKTAILS", "price": 48, "qty": 1, "ca": 48}, {"id": "san_thon_50", "name": "THON", "cat": "SANDWICHS CIABATTA", "price": 48, "qty": 1, "ca": 48}, {"id": "cd0c25fe", "name": "Crêpe FROMAGE", "cat": "CRÊPES SALÉES", "price": 45, "qty": 1, "ca": 45}, {"id": "5213017a", "name": "PINA COLADA", "cat": "COCKTAILS", "price": 42, "qty": 1, "ca": 42}, {"id": "1b39508a", "name": "MILKSHAKE OREO", "cat": "MILKSHAKES", "price": 42, "qty": 1, "ca": 42}, {"id": "1e7bcafa", "name": "MILKSHAKE NUTELLA", "cat": "MILKSHAKES", "price": 42, "qty": 1, "ca": 42}, {"id": "948e0972", "name": "COUPE ENFANT", "cat": "COUPE DE GLACE", "price": 40, "qty": 1, "ca": 40}, {"id": "667b376b", "name": "CHARCUTERIE", "cat": "PANINI", "price": 40, "qty": 1, "ca": 40}, {"id": "25cc85dc", "name": "MOJITO TROPICAL", "cat": "MOJITO", "price": 38, "qty": 1, "ca": 38}, {"id": "c6e82ded", "name": "0.5 l", "cat": "EAU MINÉRALE", "price": 12, "qty": 3, "ca": 36}, {"id": "a23d8e89", "name": "HAWAI", "cat": "SODA", "price": 17, "qty": 2, "ca": 34}, {"id": "7ff4d8d0", "name": "VERVEINE", "cat": "BOISSONS CHAUDES", "price": 15, "qty": 3, "ca": 30}, {"id": "e6091ac5", "name": "JUS DE CAROTTE", "cat": "BOISSONS FRAÎCHES (JUS)", "price": 25, "qty": 1, "ca": 25}, {"id": "51d7fb79", "name": "CHOCOLAT AVEC CHANTILLY", "cat": "BOISSONS CHAUDES", "price": 22, "qty": 1, "ca": 22}, {"id": "boi_cappuccino_113", "name": "CAPPUCCINO AVEC CHANTILLY", "cat": "BOISSONS CHAUDES", "price": 22, "qty": 1, "ca": 22}, {"id": "fde15742", "name": "0.75 l", "cat": "EAU MINÉRALE", "price": 22, "qty": 1, "ca": 22}, {"id": "91438660", "name": "SPRITE", "cat": "SODA", "price": 17, "qty": 1, "ca": 17}, {"id": "21529e11", "name": "ORANGINA", "cat": "SODA", "price": 17, "qty": 1, "ca": 17}, {"id": "b415c9dd", "name": "POMS", "cat": "SODA", "price": 17, "qty": 1, "ca": 17}]};
+
+    function applyDailySalesData(payload, fileName) {
+      try {
+        let rows = [];
+        let totalCA = 0;
+        let totalQty = 0;
+        let dateStr = '';
+        if (payload && payload.items && Array.isArray(payload.items)) {
+          rows = payload.items;
+          totalCA = payload.totalCA || rows.reduce((s, r) => s + (r.ca || 0), 0);
+          totalQty = payload.totalQty || rows.reduce((s, r) => s + (r.qty || 0), 0);
+          dateStr = payload.date || '';
+          fileName = payload.fileName || fileName;
+        } else if (Array.isArray(payload)) {
+          payload.forEach(entry => {
+            const it = menuData.find(m => m.id === entry.id);
+            if (it) {
+              const q = parseInt(entry.qty_journee || entry.qty) || 0;
+              if (q > 0) {
+                const ca = parseInt(entry.ca) || Math.round(q * it.price);
+                rows.push({ id: it.id, name: it.name, cat: it.cat, price: it.price, qty: q, ca: ca });
+                totalCA += ca;
+                totalQty += q;
+              }
+            }
+          });
+        }
+        renderDailyReport(rows, totalCA, totalQty, fileName, dateStr);
+      } catch (err) {
+        console.error('Error in applyDailySalesData:', err);
+      }
+    }
+    window.applyDailySalesData = applyDailySalesData;
+
+    async function autoLoadLatestDailySales(isManualRefresh = false) {
+      let data = null;
+      try {
+        const res = await fetch('ventes/dernier_jour_ventes.json?t=' + Date.now());
+        if (res.ok) {
+          data = await res.json();
+        }
+      } catch (e) {}
+      if (!data && typeof LATEST_DAILY_SALES !== 'undefined') {
+        data = LATEST_DAILY_SALES;
+      }
+      if (data) {
+        applyDailySalesData(data, data.fileName || 'Fin_Journée_20260913.xls');
+        const wDate = document.getElementById('watcher-latest-date');
+        if (wDate && data.date) wDate.innerText = data.date;
+        const wMeta = document.getElementById('watcher-latest-meta');
+        if (wMeta) wMeta.innerText = (data.fileName || '') + ' (' + data.totalCA.toLocaleString('fr-FR') + ' DH • ' + data.totalQty + ' articles)';
+        if (isManualRefresh) {
+          const toast = document.createElement('div');
+          toast.style.cssText = 'position:fixed; bottom:24px; right:24px; background:linear-gradient(135deg,#10b981,#059669); color:#fff; padding:14px 22px; border-radius:12px; font-weight:800; font-size:0.95rem; z-index:99999; box-shadow:0 8px 25px rgba(0,0,0,0.4); animation:fadeIn 0.3s ease;';
+          toast.innerHTML = '✅ Dernier jour synchronisé : ' + (data.date || '') + ' (' + data.totalCA.toLocaleString('fr-FR') + ' DH) !';
+          document.body.appendChild(toast);
+          setTimeout(() => toast.remove(), 3500);
+        }
+      }
+    }
+    window.autoLoadLatestDailySales = autoLoadLatestDailySales;
+
     // --- RAPPORT JOURNALIER ---
-    function renderDailyReport(rows, totalCA, totalQty, fileName) {
+    function renderDailyReport(rows, totalCA, totalQty, fileName, dateStr) {
       const container = document.getElementById('daily-report-body');
       if (!container) return;
 
@@ -3914,7 +3972,7 @@
       container.innerHTML = '<div class="report-card">' +
         '<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom:20px; border-bottom:1px solid var(--card-border); padding-bottom:16px;">' +
           '<div>' +
-            '<div style="font-size:1.35rem; font-weight:800; color:#fff;">Clôture du ' + today + '</div>' +
+            '<div style="font-size:1.35rem; font-weight:800; color:#fff;">Clôture du ' + (dateStr || today) + '</div>' +
             '<div style="font-size:0.8rem; color:#94a3b8;">Source : <code>' + fileName + '</code> &bull; ' + rows.length + ' références vendues</div>' +
           '</div>' +
           '<div style="text-align:right;">' +

@@ -39,6 +39,12 @@ $syncAction = {
         if (Test-Path $orgScript) {
             & $orgScript
         }
+
+        # 1b. Génération automatique du dernier jour de vente
+        $genScript = Join-Path $PSScriptRoot "generate_latest_day.py"
+        if (Test-Path $genScript) {
+            python $genScript
+        }
         
         # 2. Ajout des fichiers et commit
         git add ventes/
