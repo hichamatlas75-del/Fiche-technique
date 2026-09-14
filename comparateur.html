@@ -23,6 +23,9 @@
 <script src="js/prices-modal.js?v=v8.2"></script>
 <script src="js/proposed-standards.js?v=v8.2"></script>
 <script src="js/burger-menu.js?v=v8.2"></script>
+<!-- Supabase Backend Cloud & Realtime (Direction) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js?v=v8.2"></script>
 <!-- Modules Comparateur & Benchmark (Architecture Modulaire v8.2) -->
 <script src="js/comp-core.js?v=v8.2"></script>
 <script src="js/comp-ai.js?v=v8.2"></script>
@@ -54,7 +57,6 @@
         <button class="btn btn-secondary" onclick="window.GC_PricesModal ? window.GC_PricesModal.open() : (window.openPricesModal ? window.openPricesModal() : null)" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
         <button class="btn btn-secondary" onclick="window.forceCacheRefresh()" title="Forcer la mise à jour et recharger les dernières données">🔄 Actualiser</button>
         <button id="theme-toggle" class="btn btn-secondary" title="Basculer le thème">🌓 Thème</button>
-        <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">🍽️ Cuisine</a>
         <a href="consommation.html" class="btn btn-secondary" style="text-decoration:none;">📊 Déstockage</a>
         <a href="audit.html" class="btn btn-secondary" style="text-decoration:none;">⚡ Audit Flash</a>
         <a href="SYNTHESE_DECISIONNELLE_MENU.html" class="btn btn-secondary" style="text-decoration:none; border-color:rgba(245,158,11,0.5); color:#fbbf24; font-weight:700;" title="Cockpit Décisionnel &amp; Allègement du Menu (Direction)">👑 Cockpit Direction</a>
@@ -188,18 +190,8 @@
       <!-- SECTION 4 : NAVIGATION GLOBALE -->
       <div class="gc-drawer-section">
         <div class="gc-drawer-section-title">
-          <span>🌐 Modules du Système</span>
+          <span>🌐 Modules du Système (Direction)</span>
         </div>
-        <a href="index.html" class="gc-drawer-nav-item">
-          <div class="gc-drawer-nav-content">
-            <span class="gc-drawer-nav-icon">🍽️</span>
-            <div class="gc-drawer-nav-text">
-              <span class="gc-drawer-nav-main">Cuisine &amp; Fiches Techniques</span>
-              <span class="gc-drawer-nav-desc">Consultation fiches &amp; pesées</span>
-            </div>
-          </div>
-          <span>➔</span>
-        </a>
         <a href="consommation.html" class="gc-drawer-nav-item">
           <div class="gc-drawer-nav-content">
             <span class="gc-drawer-nav-icon">📊</span>

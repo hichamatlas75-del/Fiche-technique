@@ -24,10 +24,11 @@ js/
 ├── core-utils.js              # Socle utilitaire commun (formatage, toast, wake lock, cleanText, escapeHtml)
 ├── ingredient-costs.js        # Coûts unitaires des matières premières & moteur calculateRecipeFoodCost
 ├── prices-modal.js            # Modale universelle de consultation/édition de la mercuriale des prix d achat
+├── supabase-client.js         # Connecteur Supabase Cloud & Realtime (Direction & persistance live)
 ├── burger-menu.js             # Gestionnaire universel de tiroir latéral (drawer) et navigation mobile
 ├── proposed-standards.js      # Base des standards internationaux F&B & algorithme d ajustement des portions
 │
-├── kitchen.js                 # Écran Cuisine (KDS) : minuteurs audio, lightbox, mode tablette
+├── kitchen.js                 # Module Cuisine archivé (kitchen_kds_archive.html)
 ├── audit-flash-page.js        # Module d audit d inventaire physique inopiné (audit.html)
 │
 ├── conso-state.js             # Déstockage : État global (activeRecipes, monthlySalesDB), chargement/sauvegarde
@@ -50,14 +51,8 @@ js/
 
 ## 3. Découpage & Responsabilités des Pages
 
-### A. Écran Cuisine (`index.html`)
-- **Rôle** : Consultation opérationnelle pour chefs de poste et cuisiniers.
-- **Scripts chargés** :
-  1. `recipes-data.js`
-  2. `js/ingredient-costs.js`
-  3. `js/core-utils.js`
-  4. `js/prices-modal.js`
-  5. `js/kitchen.js` (avec `defer`)
+### A. Point d'Entrée & Redirection (`index.html`)
+- **Rôle** : Redirection instantanée vers le Cockpit Direction (`consommation.html`). L'écran cuisine a été désactivé pour focaliser l'application 100% sur la Direction, le Contrôle de Gestion et le Déstockage (archive conservée sous `kitchen_kds_archive.html`).
 
 ### B. Déstockage & Consommation (`consommation.html`)
 - **Rôle** : Suivi des ventes réelles, calcul du déstockage théorique, analyse Menu Engineering et rentabilité F&B.

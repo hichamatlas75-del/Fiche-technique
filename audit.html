@@ -20,6 +20,9 @@
 <script src="js/ingredient-costs.js?v=v8.2"></script>
 <script src="js/core-utils.js?v=v8.2"></script>
 <script src="js/prices-modal.js?v=v8.2"></script>
+<!-- Supabase Backend Cloud & Realtime (Direction) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js?v=v8.2"></script>
 
 <style>
   .audit-page-container {
@@ -184,7 +187,6 @@
         <button class="btn btn-secondary" onclick="window.GC_PricesModal ? window.GC_PricesModal.open() : (window.openPricesModal ? window.openPricesModal() : null)" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
         <button class="btn btn-secondary" onclick="window.forceCacheRefresh()" title="Forcer la mise à jour et recharger les dernières données">🔄 Actualiser</button>
         <button id="theme-toggle" class="btn btn-secondary" title="Basculer le thème">🌓 Thème</button>
-        <a href="index.html" class="btn btn-secondary" style="text-decoration:none;">🍽️ Cuisine</a>
         <a href="consommation.html" class="btn btn-secondary" style="text-decoration:none;">📊 Déstockage</a>
         <a href="comparateur.html" class="btn btn-secondary" style="text-decoration:none;">⚖️ Normes &amp; Comparateur</a>
         <a href="SYNTHESE_DECISIONNELLE_MENU.html" class="btn btn-secondary" style="text-decoration:none; border-color:rgba(245,158,11,0.5); color:#fbbf24; font-weight:700;" title="Cockpit Décisionnel &amp; Allègement du Menu (Direction)">👑 Cockpit Direction</a>

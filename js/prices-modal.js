@@ -233,11 +233,14 @@
       label: name
     };
 
-    // Sauvegarde immédiate dans GC_Store
+    // Sauvegarde immédiate dans GC_Store & Supabase Cloud
     if (global.GC_Store) {
       global.GC_Store.saveCustomPrices(window.INGREDIENT_UNIT_COSTS);
     } else {
       localStorage.setItem('gc_ingredient_prices_v1', JSON.stringify(window.INGREDIENT_UNIT_COSTS));
+    }
+    if (global.GC_Supabase && typeof global.GC_Supabase.saveIngredientToCloud === 'function') {
+      global.GC_Supabase.saveIngredientToCloud(key, unitCost, internalUnit, name);
     }
 
     nameInput.value = '';
@@ -281,6 +284,9 @@
       global.GC_Store.saveCustomPrices(window.INGREDIENT_UNIT_COSTS);
     } else {
       localStorage.setItem('gc_ingredient_prices_v1', JSON.stringify(window.INGREDIENT_UNIT_COSTS));
+    }
+    if (global.GC_Supabase && typeof global.GC_Supabase.saveAllIngredientsToCloud === 'function') {
+      global.GC_Supabase.saveAllIngredientsToCloud(window.INGREDIENT_UNIT_COSTS);
     }
 
     notifyCallbacks();
