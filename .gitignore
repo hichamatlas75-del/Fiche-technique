@@ -20,6 +20,7 @@ Desktop.ini
 GitHub
 
 # Secret tokens & keys
+.env*
 *token*
 *.pat
 *.secret

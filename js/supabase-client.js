@@ -16,9 +16,13 @@
 
     // Headers standards pour les requêtes Supabase REST
     getHeaders: function(extra) {
+      const token = (global.GC_Auth && typeof global.GC_Auth.getAccessToken === 'function')
+        ? global.GC_Auth.getAccessToken()
+        : SUPABASE_CONFIG.anonKey;
+
       return Object.assign({
         'apikey': SUPABASE_CONFIG.anonKey,
-        'Authorization': 'Bearer ' + SUPABASE_CONFIG.anonKey,
+        'Authorization': 'Bearer ' + token,
         'Content-Type': 'application/json'
       }, extra || {});
     },
