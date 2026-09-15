@@ -26,15 +26,29 @@ jobs:
         run: |
           node ./scripts/organize_and_update_manifest.js
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: |
+          pip install xlrd
+
+      - name: Generate latest day sales JSON and update synthesis
+        run: |
+          python ./scripts/generate_latest_day.py
+
       - name: Commit and push changes if needed
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add ventes/
+          git add ventes/ SYNTHESE_DECISIONNELLE_MENU.html
           if git diff --staged --quiet; then
             echo 'Everything is already organized and manifest.json is up to date.'
           else
-            git commit -m 'chore: auto-update ventes/manifest.json [skip ci]'
+            git commit -m 'chore: auto-update ventes manifest & dernier jour [skip ci]'
             git pull --rebase origin main
             git push origin main
           fi
+

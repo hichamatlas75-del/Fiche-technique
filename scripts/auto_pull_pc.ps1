@@ -21,6 +21,11 @@ try {
         Add-LogEntry "[OK] PC deja a jour avec GitHub."
     } elseif ($clean -match "Updating" -or $clean -match "Fast-forward") {
         Add-LogEntry "[MAJ] Nouvelles ventes telechargees avec succes !"
+        $genScript = Join-Path $PSScriptRoot "generate_latest_day.py"
+        if (Test-Path $genScript) {
+            python $genScript 2>&1 | Out-Null
+            Add-LogEntry "[MAJ] Dernier jour de vente recalcule et injecte dans Synthese !"
+        }
     } elseif ($clean -match "Could not resolve" -or $clean -match "Failed to connect") {
         Add-LogEntry "[WARN] Pas de connexion Internet. Prochain essai planifie."
     } else {

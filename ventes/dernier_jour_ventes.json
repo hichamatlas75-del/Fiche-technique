@@ -1,195 +1,147 @@
 {
-  "date": "13 Septembre 2026",
-  "dateKey": "20260913",
-  "fileName": "Fin_Journée_20260913.xls",
-  "filePath": "ventes/2026-09/Fin_Journée_20260913.xls",
-  "totalCA": 14629,
-  "totalQty": 518,
-  "totalItems": 85,
+  "date": "14 Septembre 2026",
+  "dateKey": "20260914",
+  "fileName": "Fin_Journée_20260914.xls",
+  "filePath": "ventes/2026-09/Fin_Journée_20260914.xls",
+  "totalCA": 9215,
+  "totalQty": 291,
+  "totalItems": 74,
   "items": [
     {
       "id": "2870e2fd",
       "name": "CAFÉ NOIR",
       "cat": "BOISSONS CHAUDES",
       "price": 16,
-      "qty": 79,
-      "ca": 1168
-    },
-    {
-      "id": "f606ba70",
-      "name": "BRUNCH DUO",
-      "cat": "PETIT DÉJEUNER",
-      "price": 144,
-      "qty": 8,
-      "ca": 1152
-    },
-    {
-      "id": "bc60875d",
-      "name": "FASSI",
-      "cat": "PETIT DÉJEUNER",
-      "price": 55,
-      "qty": 20,
-      "ca": 1100
-    },
-    {
-      "id": "d838bed8",
-      "name": "BERBÈRE",
-      "cat": "PETIT DÉJEUNER",
-      "price": 54,
-      "qty": 10,
-      "ca": 540
-    },
-    {
-      "id": "3c1696d2",
-      "name": "OMELETTE DU CHEF",
-      "cat": "PETIT DÉJEUNER",
-      "price": 58,
-      "qty": 9,
-      "ca": 522
-    },
-    {
-      "id": "52e4ef86",
-      "name": "BRUNCH GREYCORNER",
-      "cat": "PETIT DÉJEUNER",
-      "price": 85,
-      "qty": 6,
-      "ca": 510
-    },
-    {
-      "id": "67861d9d",
-      "name": "HOLLANDAIS",
-      "cat": "PETIT DÉJEUNER",
-      "price": 52,
-      "qty": 9,
-      "ca": 468
-    },
-    {
-      "id": "pet_compagnard_12",
-      "name": "COMPAGNARD",
-      "cat": "PETIT DÉJEUNER",
-      "price": 52,
-      "qty": 9,
-      "ca": 468
+      "qty": 62,
+      "ca": 960
     },
     {
       "id": "88f83b09",
       "name": "JUS D'ORANGE",
       "cat": "BOISSONS FRAÎCHES (JUS)",
       "price": 22,
-      "qty": 21,
-      "ca": 418
+      "qty": 22,
+      "ca": 440
     },
     {
-      "id": "16cebd6f",
-      "name": "NORVÉGIEN",
+      "id": "piz_fruitsdeme_67",
+      "name": "FRUITS DE MER",
+      "cat": "PIZZA",
+      "price": 88,
+      "qty": 4,
+      "ca": 352
+    },
+    {
+      "id": "e336c172",
+      "name": "LE FILET DE BŒUF ÉMINCÉ",
+      "cat": "PLATS",
+      "price": 115,
+      "qty": 3,
+      "ca": 345
+    },
+    {
+      "id": "bc60875d",
+      "name": "FASSI",
       "cat": "PETIT DÉJEUNER",
-      "price": 68,
+      "price": 55,
       "qty": 6,
-      "ca": 408
+      "ca": 330
     },
     {
-      "id": "bfe13ada",
-      "name": "ESPAGNOL",
-      "cat": "PETIT DÉJEUNER",
-      "price": 64,
-      "qty": 6,
-      "ca": 384
-    },
-    {
-      "id": "c4189160",
-      "name": "BELDI",
-      "cat": "PETIT DÉJEUNER",
-      "price": 45,
-      "qty": 8,
-      "ca": 360
-    },
-    {
-      "id": "8947e8bb",
-      "name": "OMELETTE FROMAGE",
+      "id": "pet_compagnard_12",
+      "name": "COMPAGNARD",
       "cat": "PETIT DÉJEUNER",
       "price": 52,
       "qty": 6,
-      "ca": 298
-    },
-    {
-      "id": "3a61c45c",
-      "name": "BANANE-NUTELLA",
-      "cat": "CRÊPES et GAUFRES",
-      "price": 42,
-      "qty": 7,
-      "ca": 294
-    },
-    {
-      "id": "pet_menuenfant_20",
-      "name": "MENU ENFANT",
-      "cat": "PETIT DÉJEUNER",
-      "price": 40,
-      "qty": 7,
-      "ca": 280
-    },
-    {
-      "id": "8f08d89a",
-      "name": "JUS DE MANGUE",
-      "cat": "BOISSONS FRAÎCHES (JUS)",
-      "price": 30,
-      "qty": 9,
-      "ca": 270
-    },
-    {
-      "id": "d07f4608",
-      "name": "NUTELLA",
-      "cat": "CRÊPES et GAUFRES",
-      "price": 38,
-      "qty": 7,
-      "ca": 266
-    },
-    {
-      "id": "23a0f3a2",
-      "name": "OMELETTE CONTINENTAL",
-      "cat": "PETIT DÉJEUNER",
-      "price": 52,
-      "qty": 5,
-      "ca": 260
+      "ca": 312
     },
     {
       "id": "218eeccc",
       "name": "THÉ À LA MENTHE",
       "cat": "BOISSONS CHAUDES",
       "price": 16,
-      "qty": 83,
-      "ca": 256
+      "qty": 32,
+      "ca": 288
     },
     {
-      "id": "184bcbd7",
-      "name": "SAN SEBASTIEN (Nutella)",
-      "cat": "GÂTEAUX",
-      "price": 40,
-      "qty": 6,
-      "ca": 240
-    },
-    {
-      "id": "7636c161",
-      "name": "OMELETTE NATURE",
-      "cat": "PETIT DÉJEUNER",
-      "price": 42,
-      "qty": 6,
-      "ca": 232
-    },
-    {
-      "id": "46818b0a",
-      "name": "1 Boule de glace",
-      "cat": "COUPE DE GLACE",
-      "price": 16,
-      "qty": 12,
-      "ca": 192
+      "id": "59d7c3ba",
+      "name": "BROCHETTES DE POULET MARINÉES",
+      "cat": "PLATS",
+      "price": 84,
+      "qty": 3,
+      "ca": 252
     },
     {
       "id": "b4f0b866",
       "name": "KUNAFA PISTACHE",
       "cat": "CRÊPES et GAUFRES",
       "price": 48,
+      "qty": 5,
+      "ca": 240
+    },
+    {
+      "id": "1131e545",
+      "name": "CHEESE BURGER",
+      "cat": "BURGERS",
+      "price": 54,
       "qty": 4,
+      "ca": 216
+    },
+    {
+      "id": "67861d9d",
+      "name": "HOLLANDAIS",
+      "cat": "PETIT DÉJEUNER",
+      "price": 52,
+      "qty": 4,
+      "ca": 208
+    },
+    {
+      "id": "74eeb191",
+      "name": "PIL PIL ESPAGNOL",
+      "cat": "ENTRÉES CHAUDES",
+      "price": 68,
+      "qty": 3,
+      "ca": 204
+    },
+    {
+      "id": "72ee54b5",
+      "name": "CESAR",
+      "cat": "ENTRÉES FROIDES",
+      "price": 65,
+      "qty": 3,
+      "ca": 195
+    },
+    {
+      "id": "bbbfbf94",
+      "name": "SANDWICH CHEESE STEAK",
+      "cat": "SANDWICHS CIABATTA",
+      "price": 65,
+      "qty": 3,
+      "ca": 195
+    },
+    {
+      "id": "a963b039",
+      "name": "FRUIT DE MER",
+      "cat": "PANINI",
+      "price": 64,
+      "qty": 3,
+      "ca": 194
+    },
+    {
+      "id": "9a2a15fd",
+      "name": "WRAP GOURMAND",
+      "cat": "PANINI",
+      "price": 64,
+      "qty": 3,
       "ca": 192
+    },
+    {
+      "id": "piz_saumon_66",
+      "name": "SAUMON",
+      "cat": "PIZZA",
+      "price": 94,
+      "qty": 2,
+      "ca": 188
     },
     {
       "id": "328adad9",
@@ -200,6 +152,14 @@
       "ca": 180
     },
     {
+      "id": "15ab9bd7",
+      "name": "ÉMINCÉ DE POULET À LA CRÈME DE CHAMPIGNONS",
+      "cat": "PLATS",
+      "price": 88,
+      "qty": 2,
+      "ca": 176
+    },
+    {
       "id": "a4197610",
       "name": "POULET CHAMPIGNON / EPINARD",
       "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)",
@@ -208,75 +168,91 @@
       "ca": 150
     },
     {
-      "id": "9b075b42",
-      "name": "Crêpe POULET-CHAMPIGNON",
-      "cat": "CRÊPES SALÉES",
-      "price": 48,
-      "qty": 3,
+      "id": "3a87eb07",
+      "name": "LASAGNE BOLOGNAISE",
+      "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)",
+      "price": 72,
+      "qty": 2,
       "ca": 144
     },
     {
-      "id": "3aa22a4f",
-      "name": "JUS D'ANANAS",
-      "cat": "BOISSONS FRAÎCHES (JUS)",
-      "price": 32,
-      "qty": 4,
-      "ca": 128
-    },
-    {
-      "id": "deb8fba9",
-      "name": "CHOCOLAT AU LAIT",
-      "cat": "BOISSONS CHAUDES",
-      "price": 18,
-      "qty": 21,
-      "ca": 126
-    },
-    {
-      "id": "d8f0a2f6",
-      "name": "Crêpe PÊCHEUR",
-      "cat": "CRÊPES SALÉES",
-      "price": 58,
+      "id": "163fbfa8",
+      "name": "5 FROMAGE",
+      "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)",
+      "price": 70,
       "qty": 2,
-      "ca": 116
-    },
-    {
-      "id": "8240295e",
-      "name": "ICE TEA PÊCHE",
-      "cat": "ICE TEA",
-      "price": 28,
-      "qty": 4,
-      "ca": 112
-    },
-    {
-      "id": "0f2b73d2",
-      "name": "CAFÉ AMERICAIN",
-      "cat": "BOISSONS CHAUDES",
-      "price": 17,
-      "qty": 11,
-      "ca": 108
-    },
-    {
-      "id": "029899a7",
-      "name": "POULARD",
-      "cat": "SANDWICHS CIABATTA",
-      "price": 54,
-      "qty": 2,
-      "ca": 108
-    },
-    {
-      "id": "b3a02657",
-      "name": "MARGARITA",
-      "cat": "PIZZA",
-      "price": 52,
-      "qty": 2,
-      "ca": 104
+      "ca": 140
     },
     {
       "id": "43c999d5",
       "name": "COCA ZERO",
       "cat": "SODA",
       "price": 17,
-      "qty": 6,
+      "qty": 8,
+      "ca": 136
+    },
+    {
+      "id": "7c4016f4",
+      "name": "COUPE GREY CORNER",
+      "cat": "COUPE DE GLACE",
+      "price": 65,
+      "qty": 2,
+      "ca": 130
+    },
+    {
+      "id": "d4dca0fd",
+      "name": "WRAP VIANDE HACHÉE",
+      "cat": "PANINI",
+      "price": 62,
+      "qty": 2,
+      "ca": 124
+    },
+    {
+      "id": "d6da872d",
+      "name": "2 Boules de glace",
+      "cat": "COUPE DE GLACE",
+      "price": 30,
+      "qty": 4,
+      "ca": 120
+    },
+    {
+      "id": "8f08d89a",
+      "name": "JUS DE MANGUE",
+      "cat": "BOISSONS FRAÎCHES (JUS)",
+      "price": 30,
+      "qty": 4,
+      "ca": 120
+    },
+    {
+      "id": "9829f0a2",
+      "name": "Crêpe GREY CORNER (MIXTE)",
+      "cat": "CRÊPES SALÉES",
+      "price": 58,
+      "qty": 2,
+      "ca": 116
+    },
+    {
+      "id": "c8cb62c4",
+      "name": "CAFÉ AU LAIT",
+      "cat": "BOISSONS CHAUDES",
+      "price": 19,
+      "qty": 9,
+      "ca": 114
+    },
+    {
+      "id": "8947e8bb",
+      "name": "OMELETTE FROMAGE",
+      "cat": "PETIT DÉJEUNER",
+      "price": 52,
+      "qty": 2,
+      "ca": 104
+    },
+    {
+      "id": "fe54d0a2",
+      "name": "MOJITO CITRON",
+      "cat": "MOJITO",
+      "price": 34,
+      "qty": 3,
       "ca": 102
     },
     {
@@ -288,84 +264,52 @@
       "ca": 100
     },
     {
-      "id": "c8619369",
-      "name": "OULMES",
-      "cat": "EAU MINÉRALE",
-      "price": 16,
-      "qty": 6,
+      "id": "9b075b42",
+      "name": "Crêpe POULET-CHAMPIGNON",
+      "cat": "CRÊPES SALÉES",
+      "price": 48,
+      "qty": 2,
       "ca": 96
     },
     {
-      "id": "c8cb62c4",
-      "name": "CAFÉ AU LAIT",
+      "id": "d3ae6551",
+      "name": "CERCLE VEGGI",
+      "cat": "ENTRÉES FROIDES",
+      "price": 48,
+      "qty": 2,
+      "ca": 96
+    },
+    {
+      "id": "3aa22a4f",
+      "name": "JUS D'ANANAS",
+      "cat": "BOISSONS FRAÎCHES (JUS)",
+      "price": 32,
+      "qty": 3,
+      "ca": 96
+    },
+    {
+      "id": "deb8fba9",
+      "name": "CHOCOLAT AU LAIT",
       "cat": "BOISSONS CHAUDES",
-      "price": 19,
-      "qty": 32,
-      "ca": 95
+      "price": 18,
+      "qty": 8,
+      "ca": 90
     },
     {
-      "id": "a4dbd839",
-      "name": "CAFÉ GLACÉ AROMATISÉ",
-      "cat": "ICE COFFEE",
-      "price": 23,
-      "qty": 4,
-      "ca": 92
-    },
-    {
-      "id": "c83b2d43",
-      "name": "COUPE AMOR",
-      "cat": "COUPE DE GLACE",
+      "id": "c4189160",
+      "name": "BELDI",
+      "cat": "PETIT DÉJEUNER",
       "price": 45,
       "qty": 2,
       "ca": 90
     },
     {
-      "id": "f2037453",
-      "name": "Crêpe CHARCUTERIE",
-      "cat": "CRÊPES SALÉES",
-      "price": 45,
-      "qty": 2,
-      "ca": 90
-    },
-    {
-      "id": "pan_viandehach_60",
-      "name": "VIANDE HACHÉE",
-      "cat": "PANINI",
-      "price": 54,
-      "qty": 2,
-      "ca": 90
-    },
-    {
-      "id": "63489054",
-      "name": "POULET",
-      "cat": "PANINI",
-      "price": 44,
-      "qty": 2,
-      "ca": 88
-    },
-    {
-      "id": "2c0ab4a2",
-      "name": "4 SAISONS",
-      "cat": "PIZZA",
-      "price": 88,
-      "qty": 1,
-      "ca": 88
-    },
-    {
-      "id": "piz_fruitsdeme_67",
-      "name": "FRUITS DE MER",
-      "cat": "PIZZA",
-      "price": 88,
-      "qty": 1,
-      "ca": 88
-    },
-    {
-      "id": "15a95226",
-      "name": "TROPICAL",
-      "cat": "COCKTAILS",
-      "price": 42,
-      "qty": 2,
-      "ca": 84
+      "id": "c637898f",
+      "name": "COCA",
+      "cat": "SODA",
+      "price": 17,
+      "qty": 5,
+      "ca": 85
     },
     {
       "id": "f6db7713",
@@ -376,20 +320,12 @@
       "ca": 84
     },
     {
-      "id": "e7eed8e6",
-      "name": "ÉNERGÉTIQUE",
-      "cat": "SMOOTHIES",
-      "price": 42,
-      "qty": 2,
-      "ca": 84
-    },
-    {
-      "id": "65a2ed5a",
-      "name": "JUS DE CITRON",
-      "cat": "BOISSONS FRAÎCHES (JUS)",
-      "price": 25,
+      "id": "652c18e1",
+      "name": "REDBULL",
+      "cat": "SODA",
+      "price": 28,
       "qty": 3,
-      "ca": 75
+      "ca": 84
     },
     {
       "id": "5c8a7b01",
@@ -400,84 +336,44 @@
       "ca": 75
     },
     {
-      "id": "74eeb191",
-      "name": "PIL PIL ESPAGNOL",
+      "id": "a4dbd839",
+      "name": "CAFÉ GLACÉ AROMATISÉ",
+      "cat": "ICE COFFEE",
+      "price": 23,
+      "qty": 3,
+      "ca": 69
+    },
+    {
+      "id": "50c31f33",
+      "name": "BIG BURGER",
+      "cat": "BURGERS",
+      "price": 68,
+      "qty": 1,
+      "ca": 68
+    },
+    {
+      "id": "951d6f6f",
+      "name": "CROUSTILLON GAMBAS",
       "cat": "ENTRÉES CHAUDES",
       "price": 68,
       "qty": 1,
       "ca": 68
     },
     {
-      "id": "fe54d0a2",
-      "name": "MOJITO CITRON",
-      "cat": "MOJITO",
-      "price": 34,
-      "qty": 2,
-      "ca": 68
-    },
-    {
-      "id": "b35d099b",
-      "name": "AMERICAIN",
+      "id": "16cebd6f",
+      "name": "NORVÉGIEN",
       "cat": "PETIT DÉJEUNER",
       "price": 68,
       "qty": 1,
       "ca": 68
     },
     {
-      "id": "c637898f",
-      "name": "COCA",
-      "cat": "SODA",
-      "price": 17,
+      "id": "c8619369",
+      "name": "OULMES",
+      "cat": "EAU MINÉRALE",
+      "price": 16,
       "qty": 4,
-      "ca": 68
-    },
-    {
-      "id": "7c4016f4",
-      "name": "COUPE GREY CORNER",
-      "cat": "COUPE DE GLACE",
-      "price": 65,
-      "qty": 1,
-      "ca": 65
-    },
-    {
-      "id": "7d1cd22f",
-      "name": "CARBONARA",
-      "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)",
-      "price": 65,
-      "qty": 1,
-      "ca": 65
-    },
-    {
-      "id": "bbbfbf94",
-      "name": "SANDWICH CHEESE STEAK",
-      "cat": "SANDWICHS CIABATTA",
-      "price": 65,
-      "qty": 1,
-      "ca": 65
-    },
-    {
-      "id": "9a2a15fd",
-      "name": "WRAP GOURMAND",
-      "cat": "PANINI",
-      "price": 64,
-      "qty": 1,
       "ca": 64
-    },
-    {
-      "id": "d6da872d",
-      "name": "2 Boules de glace",
-      "cat": "COUPE DE GLACE",
-      "price": 30,
-      "qty": 2,
-      "ca": 60
-    },
-    {
-      "id": "f1fa7f97",
-      "name": "LASAGNE POULET CHAMPIGNON",
-      "cat": "Pasta (Spaghettis, Tagliatelles, Linguines)",
-      "price": 60,
-      "qty": 1,
-      "ca": 60
     },
     {
       "id": "3266f865",
@@ -488,12 +384,20 @@
       "ca": 58
     },
     {
-      "id": "af8ccaaa",
-      "name": "ICE TEA FRAMBOISE",
-      "cat": "ICE TEA",
-      "price": 28,
-      "qty": 2,
+      "id": "7833bd8a",
+      "name": "EGG ET CHEESEBURGER",
+      "cat": "BURGERS",
+      "price": 56,
+      "qty": 1,
       "ca": 56
+    },
+    {
+      "id": "0f2b73d2",
+      "name": "CAFÉ AMERICAIN",
+      "cat": "BOISSONS CHAUDES",
+      "price": 17,
+      "qty": 4,
+      "ca": 54
     },
     {
       "id": "2fc98edf",
@@ -504,12 +408,20 @@
       "ca": 54
     },
     {
-      "id": "b966de76",
-      "name": "RUSSE",
-      "cat": "ENTRÉES FROIDES",
+      "id": "san_viandehach_48",
+      "name": "VIANDE HACHÉE",
+      "cat": "SANDWICHS CIABATTA",
       "price": 54,
       "qty": 1,
       "ca": 54
+    },
+    {
+      "id": "23a0f3a2",
+      "name": "OMELETTE CONTINENTAL",
+      "cat": "PETIT DÉJEUNER",
+      "price": 52,
+      "qty": 1,
+      "ca": 52
     },
     {
       "id": "630fad4f",
@@ -520,73 +432,57 @@
       "ca": 52
     },
     {
-      "id": "bf39e64c",
-      "name": "OULMES 0.75 l",
-      "cat": "EAU MINÉRALE",
-      "price": 26,
+      "id": "65a2ed5a",
+      "name": "JUS DE CITRON",
+      "cat": "BOISSONS FRAÎCHES (JUS)",
+      "price": 25,
       "qty": 2,
-      "ca": 52
-    },
-    {
-      "id": "bd96ceca",
-      "name": "BANANA SPLIT",
-      "cat": "COUPE DE GLACE",
-      "price": 50,
-      "qty": 1,
       "ca": 50
     },
     {
-      "id": "80cf66ad",
-      "name": "COCKTAIL GREY CORNER",
-      "cat": "COCKTAILS",
-      "price": 48,
+      "id": "63489054",
+      "name": "POULET",
+      "cat": "PANINI",
+      "price": 44,
       "qty": 1,
-      "ca": 48
+      "ca": 44
     },
     {
-      "id": "san_thon_50",
-      "name": "THON",
-      "cat": "SANDWICHS CIABATTA",
-      "price": 48,
-      "qty": 1,
-      "ca": 48
+      "id": "fde15742",
+      "name": "0.75 l",
+      "cat": "EAU MINÉRALE",
+      "price": 22,
+      "qty": 2,
+      "ca": 44
     },
     {
-      "id": "cd0c25fe",
-      "name": "Crêpe FROMAGE",
-      "cat": "CRÊPES SALÉES",
-      "price": 45,
-      "qty": 1,
-      "ca": 45
-    },
-    {
-      "id": "5213017a",
-      "name": "PINA COLADA",
+      "id": "15a95226",
+      "name": "TROPICAL",
       "cat": "COCKTAILS",
       "price": 42,
       "qty": 1,
       "ca": 42
     },
     {
-      "id": "1b39508a",
-      "name": "MILKSHAKE OREO",
-      "cat": "MILKSHAKES",
+      "id": "3a61c45c",
+      "name": "BANANE-NUTELLA",
+      "cat": "CRÊPES et GAUFRES",
       "price": 42,
       "qty": 1,
       "ca": 42
     },
     {
-      "id": "1e7bcafa",
-      "name": "MILKSHAKE NUTELLA",
-      "cat": "MILKSHAKES",
+      "id": "3ce0882d",
+      "name": "MULTI-VITAMINE",
+      "cat": "SMOOTHIES",
       "price": 42,
       "qty": 1,
       "ca": 42
     },
     {
-      "id": "948e0972",
-      "name": "COUPE ENFANT",
-      "cat": "COUPE DE GLACE",
+      "id": "184bcbd7",
+      "name": "SAN SEBASTIEN (Nutella)",
+      "cat": "GÂTEAUX",
       "price": 40,
       "qty": 1,
       "ca": 40
@@ -600,36 +496,36 @@
       "ca": 40
     },
     {
-      "id": "25cc85dc",
-      "name": "MOJITO TROPICAL",
-      "cat": "MOJITO",
+      "id": "d07f4608",
+      "name": "NUTELLA",
+      "cat": "CRÊPES et GAUFRES",
       "price": 38,
       "qty": 1,
       "ca": 38
     },
     {
-      "id": "c6e82ded",
-      "name": "0.5 l",
-      "cat": "EAU MINÉRALE",
-      "price": 12,
-      "qty": 3,
-      "ca": 36
+      "id": "fcb2f80e",
+      "name": "JUS DE FRAMBOISE",
+      "cat": "BOISSONS FRAÎCHES (JUS)",
+      "price": 35,
+      "qty": 1,
+      "ca": 35
     },
     {
-      "id": "a23d8e89",
-      "name": "HAWAI",
-      "cat": "SODA",
-      "price": 17,
-      "qty": 2,
-      "ca": 34
+      "id": "9ac8dcb0",
+      "name": "ICE TEA CITRON",
+      "cat": "ICE TEA",
+      "price": 28,
+      "qty": 1,
+      "ca": 28
     },
     {
-      "id": "7ff4d8d0",
-      "name": "VERVEINE",
-      "cat": "BOISSONS CHAUDES",
-      "price": 15,
-      "qty": 3,
-      "ca": 30
+      "id": "8240295e",
+      "name": "ICE TEA PÊCHE",
+      "cat": "ICE TEA",
+      "price": 28,
+      "qty": 1,
+      "ca": 28
     },
     {
       "id": "e6091ac5",
@@ -640,44 +536,28 @@
       "ca": 25
     },
     {
-      "id": "51d7fb79",
-      "name": "CHOCOLAT AVEC CHANTILLY",
+      "id": "c03ef312",
+      "name": "CAFÉ NESPRESSO",
       "cat": "BOISSONS CHAUDES",
       "price": 22,
       "qty": 1,
       "ca": 22
     },
     {
-      "id": "boi_cappuccino_113",
-      "name": "CAPPUCCINO AVEC CHANTILLY",
+      "id": "972b68fa",
+      "name": "CAFÉ GLACÉ CLASSIQUE",
+      "cat": "ICE COFFEE",
+      "price": 20,
+      "qty": 1,
+      "ca": 20
+    },
+    {
+      "id": "b09952c5",
+      "name": "VERVEINE AROMATISÉE",
       "cat": "BOISSONS CHAUDES",
-      "price": 22,
+      "price": 18,
       "qty": 1,
-      "ca": 22
-    },
-    {
-      "id": "fde15742",
-      "name": "0.75 l",
-      "cat": "EAU MINÉRALE",
-      "price": 22,
-      "qty": 1,
-      "ca": 22
-    },
-    {
-      "id": "91438660",
-      "name": "SPRITE",
-      "cat": "SODA",
-      "price": 17,
-      "qty": 1,
-      "ca": 17
-    },
-    {
-      "id": "21529e11",
-      "name": "ORANGINA",
-      "cat": "SODA",
-      "price": 17,
-      "qty": 1,
-      "ca": 17
+      "ca": 18
     },
     {
       "id": "b415c9dd",
@@ -686,6 +566,38 @@
       "price": 17,
       "qty": 1,
       "ca": 17
+    },
+    {
+      "id": "a23d8e89",
+      "name": "HAWAI",
+      "cat": "SODA",
+      "price": 17,
+      "qty": 1,
+      "ca": 17
+    },
+    {
+      "id": "46818b0a",
+      "name": "1 Boule de glace",
+      "cat": "COUPE DE GLACE",
+      "price": 16,
+      "qty": 1,
+      "ca": 16
+    },
+    {
+      "id": "3d5c4709",
+      "name": "THÉ NOIR",
+      "cat": "BOISSONS CHAUDES",
+      "price": 15,
+      "qty": 1,
+      "ca": 15
+    },
+    {
+      "id": "c6e82ded",
+      "name": "0.5 l",
+      "cat": "EAU MINÉRALE",
+      "price": 12,
+      "qty": 1,
+      "ca": 12
     }
   ]
 }

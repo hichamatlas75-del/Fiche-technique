@@ -212,3 +212,22 @@ with open(out_path, 'w', encoding='utf-8') as f:
     json.dump(result, f, ensure_ascii=False, indent=2)
 
 print(f"Généré {out_path} : {len(items_report)} plats, {total_qty} articles, {total_ca:,} DH.")
+
+# Inscription directe dans SYNTHESE_DECISIONNELLE_MENU.html pour supporter le mode local file://
+minified_json = json.dumps(result, ensure_ascii=False)
+html_updated = re.sub(
+    r'const LATEST_DAILY_SALES\s*=\s*\{.*?\};',
+    f'const LATEST_DAILY_SALES = {minified_json};',
+    html
+)
+# Mise à jour du header affiché par défaut
+formatted_ca = f"{total_ca:,}".replace(',', ' ')
+html_updated = re.sub(
+    r'Dernier jour synchronis&eacute;\s*:\s*<strong id="watcher-latest-date"[^>]*>.*?</strong>\s*&bull;\s*<span id="watcher-latest-meta">.*?</span>',
+    f'Dernier jour synchronis&eacute; : <strong id="watcher-latest-date" style="color:var(--gold-light);">{friendly_date}</strong> &bull; <span id="watcher-latest-meta">{base_name} ({formatted_ca} DH &bull; {total_qty} articles)</span>',
+    html_updated
+)
+with open(html_path, 'w', encoding='utf-8') as f:
+    f.write(html_updated)
+print(f"SYNTHESE_DECISIONNELLE_MENU.html synchronisé avec succès ({friendly_date}).")
+
