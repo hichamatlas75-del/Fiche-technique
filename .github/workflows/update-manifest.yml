@@ -43,6 +43,13 @@ jobs:
         run: |
           python ./scripts/sync_sales_to_supabase.py --latest
 
+      - name: Send daily summary to WhatsApp
+        env:
+          WHATSAPP_PHONE: ${{ secrets.WHATSAPP_PHONE }}
+          WHATSAPP_APIKEY: ${{ secrets.WHATSAPP_APIKEY }}
+        run: |
+          python ./scripts/send_whatsapp_summary.py
+
       - name: Commit and push changes if needed
         run: |
           git config --global user.name 'github-actions[bot]'
