@@ -48,25 +48,41 @@
      * Charge les prix et ingrédients depuis Supabase et met à jour INGREDIENT_UNIT_COSTS
      */
     syncIngredientsFromCloud: async function() {
-      const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs?select=*', {
-        headers: this.getHeaders()
-      });
-      if (!res.ok) throw new Error('HTTP error ' + res.status);
-      const data = await res.json();
-      if (Array.isArray(data) && data.length > 0) {
-        if (!global.INGREDIENT_UNIT_COSTS) global.INGREDIENT_UNIT_COSTS = {};
-        data.forEach(item => {
-          global.INGREDIENT_UNIT_COSTS[item.id] = {
-            cost: Number(item.cost),
-            unit: item.unit,
-            label: item.label
-          };
+      try {
+        const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs?select=*', {
+          headers: this.getHeaders()
         });
-        // Cache local de secours
-        if (global.GC_Store) {
-          global.GC_Store.saveCustomPrices(global.INGREDIENT_UNIT_COSTS);
+        if (!res.ok) throw new Error('HTTP error ' + res.status);
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          if (!global.INGREDIENT_UNIT_COSTS) global.INGREDIENT_UNIT_COSTS = {};
+          data.forEach(item => {
+            global.INGREDIENT_UNIT_COSTS[item.id] = {
+              cost: Number(item.cost),
+              unit: item.unit,
+              label: item.label
+            };
+          });
+          // Cache local de secours
+          if (global.GC_Store) {
+            global.GC_Store.saveCustomPrices(global.INGREDIENT_UNIT_COSTS);
+          } else if (typeof localStorage !== 'undefined') {
+            localStorage.setItem('gc_ingredient_prices_v1', JSON.stringify(global.INGREDIENT_UNIT_COSTS));
+          }
+          console.log('[GC_Supabase] ' + data.length + ' matières synchronisées depuis le Cloud.');
+
+          // Notifier immédiatement les vues et fiches ouvertes
+          if (global.GC_PricesModal) {
+            if (typeof global.GC_PricesModal.isOpen === 'function' && global.GC_PricesModal.isOpen() && typeof global.GC_PricesModal.renderTable === 'function') {
+              global.GC_PricesModal.renderTable();
+            }
+            if (typeof global.GC_PricesModal.notify === 'function') {
+              global.GC_PricesModal.notify();
+            }
+          }
         }
-        console.log('[GC_Supabase] ' + data.length + ' matières synchronisées depuis le Cloud.');
+      } catch (err) {
+        console.warn('[GC_Supabase] Synchronisation matières cloud ignorée:', err.message);
       }
     },
 
@@ -96,6 +112,44 @@
     },
 
     /**
+     * Sauvegarde rapide d'une sélection de matières modifiées vers Supabase Cloud
+     */
+    saveModifiedIngredientsToCloud: async function(keys, costsObj) {
+      try {
+        if (!keys || keys.length === 0) return true;
+        const costs = costsObj || global.INGREDIENT_UNIT_COSTS || {};
+        const rows = [];
+        keys.forEach(k => {
+          const def = costs[k];
+          if (def) {
+            rows.push({
+              id: k,
+              cost: typeof def.cost === 'number' ? def.cost : 0,
+              unit: def.unit || 'kg',
+              label: def.label || k,
+              category: def.category || 'Général',
+              updated_at: new Date().toISOString()
+            });
+          }
+        });
+        if (rows.length === 0) return true;
+        const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs', {
+          method: 'POST',
+          headers: this.getHeaders({ 'Prefer': 'resolution=merge-duplicates' }),
+          body: JSON.stringify(rows)
+        });
+        if (!res.ok) {
+          console.error('[GC_Supabase] Erreur HTTP sauvegarde ciblée:', res.status, res.statusText);
+          return false;
+        }
+        return true;
+      } catch (err) {
+        console.error('[GC_Supabase] Erreur sauvegarde ciblée:', err);
+        return false;
+      }
+    },
+
+    /**
      * Sauvegarde toute la mercuriale vers Supabase (ex: bouton Enregistrer de la modale)
      */
     saveAllIngredientsToCloud: async function(costsObj) {
@@ -110,17 +164,18 @@
             updated_at: new Date().toISOString()
           });
         }
-        // Envoi par paquets de 100
+        // Envoi par paquets de 100 avec vérification de statut
         for (let i = 0; i < rows.length; i += 100) {
           const chunk = rows.slice(i, i + 100);
-          await fetch(SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs', {
+          const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs', {
             method: 'POST',
             headers: this.getHeaders({ 'Prefer': 'resolution=merge-duplicates' }),
             body: JSON.stringify(chunk)
           });
-        }
-        if (global.GC_Toast) {
-          global.GC_Toast.show('☁️ Mercuriale synchronisée avec Supabase !', 'success');
+          if (!res.ok) {
+            console.error('[GC_Supabase] Erreur HTTP chunk ' + i + ':', res.status, res.statusText);
+            return false;
+          }
         }
         return true;
       } catch (err) {
@@ -363,11 +418,25 @@
                 unit: payload.new.unit,
                 label: payload.new.label
               };
-              if (global.GC_PricesModal && typeof global.GC_PricesModal.renderTable === 'function') {
-                global.GC_PricesModal.renderTable();
+              if (global.GC_Store) {
+                global.GC_Store.saveCustomPrices(global.INGREDIENT_UNIT_COSTS);
+              } else if (typeof localStorage !== 'undefined') {
+                localStorage.setItem('gc_ingredient_prices_v1', JSON.stringify(global.INGREDIENT_UNIT_COSTS));
               }
+              if (global.GC_PricesModal) {
+                if (typeof global.GC_PricesModal.isOpen === 'function' && global.GC_PricesModal.isOpen() && typeof global.GC_PricesModal.renderTable === 'function') {
+                  global.GC_PricesModal.renderTable();
+                }
+                if (typeof global.GC_PricesModal.notify === 'function') {
+                  global.GC_PricesModal.notify();
+                }
+              }
+              const unitLabel = payload.new.unit === 'g' ? 'kg' : (payload.new.unit === 'ml' ? 'L' : 'p');
+              const displayPrice = (payload.new.unit === 'g' || payload.new.unit === 'ml')
+                ? (Number(payload.new.cost) * 1000).toFixed(2)
+                : Number(payload.new.cost).toFixed(2);
               if (global.GC_Toast) {
-                global.GC_Toast.show('⚡ Prix mis à jour en direct : ' + payload.new.label, 'info');
+                global.GC_Toast.show(`⚡ Prix mis à jour en direct : ${payload.new.label || payload.new.id} (${displayPrice} DH/${unitLabel})`, 'info');
               }
             }
           })

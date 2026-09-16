@@ -1,4 +1,4 @@
-﻿/**
+/**
  * GREY CORNER — Coûts Ingrédients et Calculateur de Food Cost
  * Extrait de recipes-data.js pour modularité
  * Ce fichier contient : INGREDIENT_CATEGORIES, INGREDIENT_UNIT_COSTS, calculateRecipeFoodCost()
@@ -569,11 +569,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "filet de boeuf": {
-    "cost": 0.19,
+    "cost": 0.18,
     "unit": "g"
   },
   "filet": {
-    "cost": 0.19,
+    "cost": 0.18,
     "unit": "g"
   },
   "viande tajine": {

@@ -2283,7 +2283,7 @@ Voici quelques suggestions que vous pouvez me poser :<br>
       const list = rawV5 ? JSON.parse(rawV5) : JSON.parse(JSON.stringify(window.BASE_RECIPES || []));
       list.push(recipeObj);
       localStorage.setItem(window.GC_STORAGE_KEYS ? window.GC_STORAGE_KEYS.RECIPES : 'gc_recipes_db_v5', JSON.stringify(list));
-      localStorage.setItem('gc_recipes_db_version', (typeof RECIPES_DB_VERSION !== 'undefined' ? RECIPES_DB_VERSION : 'v8.2_20260907'));
+      localStorage.setItem('gc_recipes_db_version', (typeof RECIPES_DB_VERSION !== 'undefined' ? RECIPES_DB_VERSION : 'v8.3_20260916'));
     } catch(e) {}
 
     try {

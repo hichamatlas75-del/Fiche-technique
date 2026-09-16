@@ -3193,11 +3193,11 @@ const DATA = [
           "Huile : 60 ml"
         ],
         "price": "115 DH",
-        "cost": 39.44,
+        "cost": 38.19,
         "sellPrice": 115,
-        "foodCost": 34.3,
-        "margin": 65.7,
-        "grossMarginDH": 75.56,
+        "foodCost": 33.2,
+        "margin": 66.8,
+        "grossMarginDH": 76.81,
         "__key": "pl",
         "__images": [
           "images/plat-eminceboeuf.jpg",
@@ -3219,11 +3219,11 @@ const DATA = [
           "Frites : 200 g"
         ],
         "price": "135 DH",
-        "cost": 49.85,
+        "cost": 48.05,
         "sellPrice": 135,
-        "foodCost": 36.9,
-        "margin": 63.1,
-        "grossMarginDH": 85.15,
+        "foodCost": 35.6,
+        "margin": 64.4,
+        "grossMarginDH": 86.95,
         "__key": "pl",
         "__images": [
           "images/plat-filet.jpg",
@@ -3795,11 +3795,11 @@ const DATA = [
           "FRITTES : 200 g"
         ],
         "price": "64 DH",
-        "cost": 22.92,
+        "cost": 22.3,
         "sellPrice": 64,
-        "foodCost": 35.8,
-        "margin": 64.2,
-        "grossMarginDH": 41.08,
+        "foodCost": 34.8,
+        "margin": 65.2,
+        "grossMarginDH": 41.7,
         "__key": "sw",
         "__images": [
           "images/sand-cheesesteak.jpg"
@@ -10793,11 +10793,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "filet de boeuf": {
-    "cost": 0.19,
+    "cost": 0.18,
     "unit": "g"
   },
   "filet": {
-    "cost": 0.19,
+    "cost": 0.18,
     "unit": "g"
   },
   "viande tajine": {

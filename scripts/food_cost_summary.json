@@ -4947,15 +4947,15 @@
     "category": "PLATS",
     "name": "EMINCE DE BŒUF",
     "sellPrice": 115,
-    "cost": 39.44,
-    "foodCostPct": 34.3,
-    "marginPct": 65.7,
-    "grossMarginDH": 75.56,
+    "cost": 38.19,
+    "foodCostPct": 33.2,
+    "marginPct": 66.8,
+    "grossMarginDH": 76.81,
     "details": [
       {
         "ingredient": "FILET DE Bœuf",
         "quantity": "125 g",
-        "cost": 23.75
+        "cost": 22.5
       },
       {
         "ingredient": "Champignons",
@@ -4998,15 +4998,15 @@
     "category": "PLATS",
     "name": "FILET DE BŒUF",
     "sellPrice": 135,
-    "cost": 49.85,
-    "foodCostPct": 36.9,
-    "marginPct": 63.1,
-    "grossMarginDH": 85.15,
+    "cost": 48.05,
+    "foodCostPct": 35.6,
+    "marginPct": 64.4,
+    "grossMarginDH": 86.95,
     "details": [
       {
         "ingredient": "Filet",
         "quantity": "180 g",
-        "cost": 34.2
+        "cost": 32.4
       },
       {
         "ingredient": "Beurre",
@@ -6082,10 +6082,10 @@
     "category": "SANDWICHS",
     "name": "SANDWICH CHEESE STEAK",
     "sellPrice": 64,
-    "cost": 22.92,
-    "foodCostPct": 35.8,
-    "marginPct": 64.2,
-    "grossMarginDH": 41.08,
+    "cost": 22.3,
+    "foodCostPct": 34.8,
+    "marginPct": 65.2,
+    "grossMarginDH": 41.7,
     "details": [
       {
         "ingredient": "Pain",
@@ -6110,7 +6110,7 @@
       {
         "ingredient": "FILET",
         "quantity": "62 g",
-        "cost": 11.78
+        "cost": 11.16
       },
       {
         "ingredient": "FRITTES",

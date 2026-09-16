@@ -31,7 +31,7 @@ var currentSalesData = [];
 var currentSalesFilter = 'all'; // 'all', 'matched', 'unmatched'
 var aggregatedIngredients = [];
 
-const RECIPES_DB_VERSION = 'v8.2_20260907';
+const RECIPES_DB_VERSION = 'v8.3_20260916';
 
 const cleanText = (typeof window !== 'undefined' && typeof window.cleanText === 'function')
   ? window.cleanText

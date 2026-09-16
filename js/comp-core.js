@@ -90,7 +90,7 @@ var hasUnsavedChanges = false; // AM-03: suivi des modifications non sauvegardé
       });
 
       localStorage.setItem(window.GC_STORAGE_KEYS.RECIPES, JSON.stringify(baseList));
-      const dbVer = (typeof window.RECIPES_DB_VERSION !== 'undefined') ? window.RECIPES_DB_VERSION : 'v8.2_20260907';
+      const dbVer = (typeof window.RECIPES_DB_VERSION !== 'undefined') ? window.RECIPES_DB_VERSION : 'v8.3_20260916';
       localStorage.setItem('gc_recipes_db_version', dbVer);
 
       // 3. Mettre à jour window.DATA et window.CATEGORIES_DATA en mémoire

@@ -8,6 +8,7 @@
 
   let modalEl = null;
   let onUpdateCallbacks = [];
+  const modifiedKeys = new Set();
 
   function registerPricesUpdateCallback(cb) {
     if (typeof cb === 'function' && !onUpdateCallbacks.includes(cb)) {
@@ -99,7 +100,7 @@
             <button type="button" class="btn" style="background:#0284c7; color:#fff; border:none; padding:8px 14px; border-radius:8px; font-weight:700; cursor:pointer; min-height:40px;" onclick="window.GC_PricesModal.downloadRecipesDataJS()" title="Télécharger le fichier recipes-data.js mis à jour pour le commit Git">
               📁 Télécharger .js
             </button>
-            <button type="button" class="btn btn-primary" style="background:#16a34a; color:#fff; border:none; padding:8px 18px; border-radius:8px; font-weight:800; cursor:pointer; min-height:40px;" onclick="window.GC_PricesModal.saveAll()">
+            <button type="button" id="gc-prices-save-btn" class="btn btn-primary" style="background:#16a34a; color:#fff; border:none; padding:8px 18px; border-radius:8px; font-weight:800; cursor:pointer; min-height:40px;" onclick="window.GC_PricesModal.saveAll()">
               💾 Enregistrer les Prix
             </button>
           </div>
@@ -172,7 +173,18 @@
     const row = input.closest('tr');
     const preview = row ? row.querySelector('.unit-cost-preview') : null;
     const unit = input.getAttribute('data-unit');
+    const k = input.getAttribute('data-ing-key');
     const val = parseFloat(input.value) || 0;
+
+    // Mise à jour immédiate en mémoire (évite la perte lors d'un filtrage dans la barre de recherche)
+    if (k && window.INGREDIENT_UNIT_COSTS && window.INGREDIENT_UNIT_COSTS[k]) {
+      if (unit === 'g' || unit === 'ml') {
+        window.INGREDIENT_UNIT_COSTS[k].cost = val / 1000;
+      } else {
+        window.INGREDIENT_UNIT_COSTS[k].cost = val;
+      }
+      modifiedKeys.add(k);
+    }
 
     if (preview) {
       if (unit === 'g') {
@@ -195,7 +207,7 @@
     }
   }
 
-  function confirmAdd() {
+  async function confirmAdd() {
     const nameInput = document.getElementById('gc-new-price-name');
     const unitInput = document.getElementById('gc-new-price-unit');
     const valInput = document.getElementById('gc-new-price-val');
@@ -205,7 +217,6 @@
     const buyPrice = parseFloat(valInput?.value) || 0;
 
     if (!name) {
-      // Validation : garder alert() car requiert interaction utilisateur
       alert("Veuillez saisir le nom de l'ingrédient.");
       return;
     }
@@ -240,15 +251,15 @@
       localStorage.setItem('gc_ingredient_prices_v1', JSON.stringify(window.INGREDIENT_UNIT_COSTS));
     }
     if (global.GC_Supabase && typeof global.GC_Supabase.saveIngredientToCloud === 'function') {
-      global.GC_Supabase.saveIngredientToCloud(key, unitCost, internalUnit, name);
+      await global.GC_Supabase.saveIngredientToCloud(key, unitCost, internalUnit, name);
     }
+    modifiedKeys.delete(key);
 
     nameInput.value = '';
     valInput.value = '';
     toggleAddForm();
     renderTable();
     notifyCallbacks();
-    // AM-02 FIX : Toast non bloquant au lieu de alert()
     if (window.GC_Toast) {
       window.GC_Toast.show(`Ingrédient "${name}" ajouté à la mercuriale !`, 'success');
     } else {
@@ -256,48 +267,85 @@
     }
   }
 
-  function saveAll() {
-    const inputs = document.querySelectorAll('#gc-prices-table-tbody input[data-ing-key]');
-    if (!window.INGREDIENT_UNIT_COSTS) window.INGREDIENT_UNIT_COSTS = {};
+  async function saveAll() {
+    const saveBtn = document.getElementById('gc-prices-save-btn');
+    const originalBtnText = saveBtn ? saveBtn.innerHTML : '💾 Enregistrer les Prix';
+    if (saveBtn) {
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = '⏳ Synchronisation...';
+    }
 
-    inputs.forEach(inp => {
-      const k = inp.getAttribute('data-ing-key');
-      const unit = inp.getAttribute('data-unit');
-      const buyPrice = parseFloat(inp.value) || 0;
+    try {
+      const inputs = document.querySelectorAll('#gc-prices-table-tbody input[data-ing-key]');
+      if (!window.INGREDIENT_UNIT_COSTS) window.INGREDIENT_UNIT_COSTS = {};
 
-      if (window.INGREDIENT_UNIT_COSTS[k]) {
-        if (unit === 'g' || unit === 'ml') {
-          window.INGREDIENT_UNIT_COSTS[k].cost = buyPrice / 1000;
-        } else {
-          window.INGREDIENT_UNIT_COSTS[k].cost = buyPrice;
+      inputs.forEach(inp => {
+        const k = inp.getAttribute('data-ing-key');
+        const unit = inp.getAttribute('data-unit');
+        const buyPrice = parseFloat(inp.value) || 0;
+
+        if (window.INGREDIENT_UNIT_COSTS[k]) {
+          if (unit === 'g' || unit === 'ml') {
+            window.INGREDIENT_UNIT_COSTS[k].cost = buyPrice / 1000;
+          } else {
+            window.INGREDIENT_UNIT_COSTS[k].cost = buyPrice;
+          }
+          modifiedKeys.add(k);
+        }
+      });
+
+      // Élimination définitive de tous les doublons obsolètes (BUG-04 FIX : liste centralisée)
+      const obsoleteKeys = window.OBSOLETE_INGREDIENT_KEYS || new Set();
+      obsoleteKeys.forEach(k => {
+        delete window.INGREDIENT_UNIT_COSTS[k];
+      });
+
+      // 1. Sauvegarde locale immédiate (offline-first)
+      if (global.GC_Store) {
+        global.GC_Store.saveCustomPrices(window.INGREDIENT_UNIT_COSTS);
+      } else {
+        localStorage.setItem('gc_ingredient_prices_v1', JSON.stringify(window.INGREDIENT_UNIT_COSTS));
+      }
+
+      // 2. Synchronisation Cloud Supabase
+      let cloudSuccess = false;
+      if (global.GC_Supabase) {
+        if (modifiedKeys.size > 0 && modifiedKeys.size <= 25 && typeof global.GC_Supabase.saveModifiedIngredientsToCloud === 'function') {
+          cloudSuccess = await global.GC_Supabase.saveModifiedIngredientsToCloud(Array.from(modifiedKeys), window.INGREDIENT_UNIT_COSTS);
+        } else if (typeof global.GC_Supabase.saveAllIngredientsToCloud === 'function') {
+          cloudSuccess = await global.GC_Supabase.saveAllIngredientsToCloud(window.INGREDIENT_UNIT_COSTS);
         }
       }
-    });
 
-    // Élimination définitive de tous les doublons obsolètes (BUG-04 FIX : liste centralisée)
-    const obsoleteKeys = window.OBSOLETE_INGREDIENT_KEYS || new Set();
-    obsoleteKeys.forEach(k => {
-      delete window.INGREDIENT_UNIT_COSTS[k];
-    });
+      modifiedKeys.clear();
+      notifyCallbacks();
 
-    if (global.GC_Store) {
-      global.GC_Store.saveCustomPrices(window.INGREDIENT_UNIT_COSTS);
-    } else {
-      localStorage.setItem('gc_ingredient_prices_v1', JSON.stringify(window.INGREDIENT_UNIT_COSTS));
-    }
-    if (global.GC_Supabase && typeof global.GC_Supabase.saveAllIngredientsToCloud === 'function') {
-      global.GC_Supabase.saveAllIngredientsToCloud(window.INGREDIENT_UNIT_COSTS);
-    }
+      if (cloudSuccess) {
+        if (window.GC_Toast) {
+          window.GC_Toast.show('☁️ Prix des matières enregistrés et synchronisés avec Supabase !', 'success');
+        } else {
+          alert("☁️ Prix des matières premières enregistrés et synchronisés avec Supabase Cloud !");
+        }
+      } else {
+        if (window.GC_Toast) {
+          window.GC_Toast.show('💾 Prix enregistrés localement. (Mode hors-ligne ou attente réseau)', 'warning');
+        } else {
+          alert("💾 Prix enregistrés localement.");
+        }
+      }
 
-    notifyCallbacks();
-    // AM-02 FIX : Toast non bloquant
-    if (window.GC_Toast) {
-      window.GC_Toast.show('Prix des matières enregistrés ! Food Costs recalculés.', 'success');
-    } else {
-      alert("💾 Prix des matières premières enregistrés ! Les Food Costs et marges ont été recalculés en direct.");
+      if (modalEl) modalEl.style.display = 'none';
+    } catch (err) {
+      console.error('[PricesModal] Erreur sauvegarde prix:', err);
+      if (window.GC_Toast) {
+        window.GC_Toast.show('⚠️ Erreur lors de l\'enregistrement : ' + err.message, 'error');
+      }
+    } finally {
+      if (saveBtn) {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = originalBtnText;
+      }
     }
-    // BUG-03 FIX : close() résolvait vers window.close() natif dans l'IIFE — fermeture explicite
-    if (modalEl) modalEl.style.display = 'none';
   }
 
 
@@ -361,6 +409,9 @@
   const GC_PricesModal = {
     open: open,
     close: close,
+    isOpen: () => !!(modalEl && modalEl.style.display === 'flex'),
+    renderTable: renderTable,
+    notify: notifyCallbacks,
     filterTable: filterTable,
     toggleAddForm: toggleAddForm,
     confirmAdd: confirmAdd,
