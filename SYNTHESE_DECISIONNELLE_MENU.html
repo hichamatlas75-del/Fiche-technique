@@ -1301,8 +1301,8 @@
           Simulateur de Ventes Futures &amp; Projections <span>en Direct</span>
         </div>
         <div class="preset-btns">
-          <button class="preset-btn" id="preset-btn-base" data-preset="base" onclick="applyPreset('base', this)">&#128202; Base Actuelle</button>
-          <button class="preset-btn active" id="preset-btn-recommended" data-preset="recommended" onclick="applyPreset('recommended', this)">&#9889; Recommand&eacute; (All&eacute;g&eacute; + Saumon)</button>
+          <button class="preset-btn active" id="preset-btn-base" data-preset="base" onclick="applyPreset('base', this)">&#128202; Base Actuelle</button>
+          <button class="preset-btn" id="preset-btn-recommended" data-preset="recommended" onclick="applyPreset('recommended', this)">&#9889; Recommand&eacute; (All&eacute;g&eacute; + Saumon)</button>
           <button class="preset-btn" id="preset-btn-growth" data-preset="growth" onclick="applyPreset('growth', this)">&#128640; Croissance (+20%)</button>
           <button class="preset-btn" id="preset-btn-sunday" data-preset="sunday" onclick="applyPreset('sunday', this)">&#128721; Anti-Bouchon Dimanche</button>
           <button class="preset-btn" id="preset-btn-margin" data-preset="margin" onclick="applyPreset('margin', this)">&#128176; Marge Maximale</button>
@@ -1324,9 +1324,9 @@
         <div class="control-card">
           <div class="control-label-row">
             <span class="control-label">&#9986; Seuil d'&Eacute;limination Poids Morts</span>
-            <span class="control-val" id="val-threshold">10 v / mois</span>
+            <span class="control-val" id="val-threshold">0 v / mois</span>
           </div>
-          <input type="range" class="slider-input" id="slider-threshold" min="0" max="40" step="2" value="10" oninput="updateSimulation()">
+          <input type="range" class="slider-input" id="slider-threshold" min="0" max="40" step="2" value="0" oninput="updateSimulation()">
           <div class="control-hint">D&eacute;sactive automatiquement les plats vendant moins que ce quota mensuel.</div>
         </div>
 
@@ -1334,9 +1334,9 @@
         <div class="control-card">
           <div class="control-label-row">
             <span class="control-label">&#9749; Ajustement Piliers P'tit-Dej</span>
-            <span class="control-val" id="val-price-adj">+2 DH</span>
+            <span class="control-val" id="val-price-adj">0 DH</span>
           </div>
-          <input type="range" class="slider-input" id="slider-price-adj" min="0" max="6" step="1" value="2" oninput="updateSimulation()">
+          <input type="range" class="slider-input" id="slider-price-adj" min="0" max="6" step="1" value="0" oninput="updateSimulation()">
           <div class="control-hint">Test de r&eacute;ajustement (+2 DH) sur les formules &agrave; fort volume (Fassi, Beldi, Hollandais...).</div>
         </div>
 
@@ -1360,9 +1360,9 @@
         <div class="control-card">
           <div class="control-label-row">
             <span class="control-label">&#128257; Report Demande (Cannibalisation)</span>
-            <span class="control-val" id="val-transfer-rate">70%</span>
+            <span class="control-val" id="val-transfer-rate">0%</span>
           </div>
-          <input type="range" class="slider-input" id="slider-transfer-rate" min="0" max="100" step="5" value="70" oninput="updateSimulation()">
+          <input type="range" class="slider-input" id="slider-transfer-rate" min="0" max="100" step="5" value="0" oninput="updateSimulation()">
           <div class="control-hint">% de clients d'un plat éliminé qui se reportent sur les plats vedettes du même rayon.</div>
         </div>
 
@@ -1374,7 +1374,7 @@
               <div class="switch-label-desc">Retirer Burrata (Salade + Pizza) pour stopper les pertes d'invendus périssables.</div>
             </div>
             <label class="switch">
-              <input type="checkbox" id="toggle-burrata" checked onchange="updateSimulation()">
+              <input type="checkbox" id="toggle-burrata" onchange="updateSimulation()">
               <span class="slider-round"></span>
             </label>
           </div>
@@ -1388,7 +1388,7 @@
               <div class="switch-label-desc">Supprimer Roulades &amp; Ballotines pour accélérer le passe de 35 minutes au rush.</div>
             </div>
             <label class="switch">
-              <input type="checkbox" id="toggle-slow-dishes" checked onchange="updateSimulation()">
+              <input type="checkbox" id="toggle-slow-dishes" onchange="updateSimulation()">
               <span class="slider-round"></span>
             </label>
           </div>
@@ -1454,7 +1454,7 @@
           <div class="cat-impact-kpi">
             <div class="cat-impact-kpi-label">🍽️ Catégories Ajustées</div>
             <div class="cat-impact-kpi-val" id="catprice-adjusted-count" style="color:#fbbf24;">0</div>
-            <div class="cat-impact-kpi-sub">sur <span id="catprice-total-cats">8</span> familles</div>
+            <div class="cat-impact-kpi-sub">sur <span id="catprice-total-cats">12</span> familles</div>
           </div>
         </div>
       </div>
@@ -2004,127 +2004,195 @@
 
     <!-- MODAL SIMULATION AJUSTEMENT PRIX & IMPACT MARGE -->
     <div id="modal-price-sim" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); backdrop-filter:blur(6px); z-index:9999; justify-content:center; align-items:center; padding:20px; overflow-y:auto;">
-      <div style="background:linear-gradient(145deg, #0f172a, #1e293b); border:1px solid var(--gold); border-radius:18px; max-width:840px; width:100%; box-shadow:0 25px 50px -12px rgba(0,0,0,0.8); overflow:hidden; animation:fadeIn 0.25s ease;">
+      <div style="background:linear-gradient(145deg, #0f172a, #1e293b); border:1px solid var(--gold); border-radius:18px; max-width:960px; width:100%; box-shadow:0 25px 50px -12px rgba(0,0,0,0.8); overflow:hidden; animation:fadeIn 0.25s ease;">
         <!-- Header -->
         <div style="background:rgba(245,158,11,0.1); border-bottom:1px solid rgba(245,158,11,0.3); padding:18px 24px; display:flex; justify-content:space-between; align-items:center;">
           <div style="display:flex; align-items:center; gap:12px;">
             <span style="font-size:1.8rem;">💰</span>
             <div>
               <h3 style="margin:0; font-size:1.25rem; font-weight:800; color:#ffffff;">Simulateur d'Ajustement Prix &amp; Impact Marge</h3>
-              <span style="font-size:0.8rem; color:#94a3b8;">Testez l'impact direct d'une augmentation de +1, +2, +3 DH... sur la marge unitaire et le gain net annuel</span>
+              <span style="font-size:0.8rem; color:#94a3b8;">Simulez des augmentations par famille de produits (+1, +2, +3 DH...) ou plat par plat et visualisez l'impact net</span>
             </div>
           </div>
           <button onclick="closePriceSimModal()" style="background:none; border:none; color:#94a3b8; font-size:1.6rem; cursor:pointer; padding:4px 8px; border-radius:6px;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">✕</button>
         </div>
 
+        <!-- Onglets Navigation Modal -->
+        <div style="display:flex; background:rgba(15,23,42,0.6); padding:10px 24px; gap:10px; border-bottom:1px solid var(--card-border);">
+          <button id="psim-tab-btn-cat" class="preset-btn active" onclick="switchPriceSimModalTab('cat')" style="font-size:0.86rem; font-weight:800; padding:8px 18px; display:inline-flex; align-items:center; gap:8px;">
+            <span>📁</span> <span>Par Catégorie / Famille (+1, +2 DH...)</span>
+          </button>
+          <button id="psim-tab-btn-dish" class="preset-btn" onclick="switchPriceSimModalTab('dish')" style="font-size:0.86rem; font-weight:800; padding:8px 18px; display:inline-flex; align-items:center; gap:8px;">
+            <span>🍽️</span> <span>Plat Individuel (Zoom &amp; Élasticité)</span>
+          </button>
+        </div>
+
         <!-- Body -->
         <div style="padding:24px;">
-          <!-- 1. Sélecteur Plat ou Catégorie -->
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-bottom:20px;">
-            <div>
-              <label style="display:block; font-size:0.75rem; font-weight:800; color:var(--gold-light); margin-bottom:6px; text-transform:uppercase;">Plat Ciblé</label>
-              <select id="price-sim-dish-select" class="search-box" style="width:100%; font-size:0.95rem; font-weight:700; background:#0b1120;" onchange="onPriceSimDishChanged()">
-                <!-- Populated by JS -->
-              </select>
-            </div>
-            <div>
-              <label style="display:block; font-size:0.75rem; font-weight:800; color:#94a3b8; margin-bottom:6px; text-transform:uppercase;">Ou Tester sur Toute une Catégorie</label>
-              <select id="price-sim-cat-select" class="search-box" style="width:100%; font-size:0.95rem; font-weight:700; background:#0b1120;" onchange="onPriceSimCategoryChanged()">
-                <option value="">-- Plat individuel uniquement --</option>
-                <!-- Populated by JS -->
-              </select>
-            </div>
-          </div>
 
-          <!-- 2. Boutons d'Ajustement Rapide (+1, +2, +3 DH...) -->
-          <div style="background:rgba(255,255,255,0.03); border:1px solid var(--card-border); border-radius:14px; padding:18px; margin-bottom:22px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
-              <span style="font-size:0.86rem; font-weight:800; color:#cbd5e1;">Ajustement du Prix :</span>
-              <div style="display:flex; gap:8px; flex-wrap:wrap;" id="price-pills-container">
-                <button class="preset-btn" id="btn-pill-1" onclick="setPriceSimDelta(1)">+1 DH</button>
-                <button class="preset-btn active" id="btn-pill-2" onclick="setPriceSimDelta(2)">+2 DH</button>
-                <button class="preset-btn" id="btn-pill-3" onclick="setPriceSimDelta(3)">+3 DH</button>
-                <button class="preset-btn" id="btn-pill-4" onclick="setPriceSimDelta(4)">+4 DH</button>
-                <button class="preset-btn" id="btn-pill-5" onclick="setPriceSimDelta(5)">+5 DH</button>
-                <button class="preset-btn" id="btn-pill-10" onclick="setPriceSimDelta(10)">+10 DH</button>
+          <!-- ONGLET 1: PAR CATÉGORIE -->
+          <div id="psim-tab-cat">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+              <div style="font-size:0.85rem; color:#cbd5e1;">
+                Appliquez directement un ajustement sur toute une famille (ex: <strong>+1 DH pour Boissons Chaudes</strong>, <strong>+2 DH pour Petits Déjeuners</strong>...).
               </div>
+              <button class="cat-price-btn reset-btn" onclick="resetAllCatPrices()" style="padding:6px 14px; font-size:0.8rem; display:inline-flex; align-items:center; gap:6px;">
+                <span>🔄</span> <span>Tout remettre à 0 DH</span>
+              </button>
             </div>
-            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
-              <div style="display:flex; align-items:center; gap:8px;">
-                <span style="font-size:0.8rem; color:#94a3b8;">Ajustement libre :</span>
-                <div style="display:flex; align-items:center;">
-                  <button class="qty-step-btn" onclick="adjustPriceSimDelta(-1)">-</button>
-                  <input type="number" id="price-sim-delta-input" value="2" step="0.5" style="width:70px; text-align:center; font-weight:800; font-size:1.1rem; color:var(--gold-light); background:#0b1120; border:1px solid var(--card-border); border-radius:6px; padding:5px 6px;" oninput="onPriceSimCustomDelta()">
-                  <span style="margin-left:6px; font-weight:700; color:#fff;">DH</span>
-                  <button class="qty-step-btn" style="margin-left:8px;" onclick="adjustPriceSimDelta(1)">+</button>
+
+            <!-- Grille des Catégories -->
+            <div id="modal-cat-price-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:12px; max-height:410px; overflow-y:auto; padding-right:6px; margin-bottom:18px;">
+              <!-- Dynamically populated by renderModalCatPriceGrid() -->
+            </div>
+
+            <!-- Synthèse d'impact financier de l'onglet Catégories -->
+            <div style="background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.25); border-radius:14px; padding:16px 20px; margin-bottom:18px;">
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; text-align:center;">
+                <div>
+                  <div style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase; font-weight:700;">Familles Ajustées</div>
+                  <div id="modal-cat-count" style="font-size:1.4rem; font-weight:800; color:var(--gold-light); margin-top:2px;">0 / 12</div>
+                  <div style="font-size:0.72rem; color:#64748b;" id="modal-cat-items-count">0 plats impactés</div>
+                </div>
+                <div>
+                  <div style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase; font-weight:700;">💰 Gain CA &amp; Marge / Mois</div>
+                  <div id="modal-cat-gain-month" style="font-size:1.4rem; font-weight:800; color:var(--emerald); margin-top:2px;">+0 DH / m</div>
+                  <div style="font-size:0.72rem; color:#64748b;">100% de cash pur direct</div>
+                </div>
+                <div>
+                  <div style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase; font-weight:700;">📅 Gain Net Projeté / An</div>
+                  <div id="modal-cat-gain-year" style="font-size:1.4rem; font-weight:800; color:var(--cyan); margin-top:2px;">+0 DH / an</div>
+                  <div style="font-size:0.72rem; color:#64748b;">Trésorerie nette annuelle</div>
                 </div>
               </div>
-              <div style="font-size:0.8rem; color:#94a3b8;">
-                Nouveau prix direct :
-                <input type="number" id="price-sim-direct-price" style="width:85px; text-align:center; font-weight:800; font-size:1.05rem; color:var(--emerald); background:#0b1120; border:1px solid var(--card-border); border-radius:6px; padding:5px 6px;" oninput="onPriceSimDirectPrice()">
-                <span style="color:#fff; font-weight:700;">DH</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 3. Dashboard d'Impact Live (Avant vs Après) -->
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; margin-bottom:20px;">
-            <!-- Prix Unitaire -->
-            <div class="kpi-card gold" style="padding:16px;">
-              <div style="font-size:0.75rem; text-transform:uppercase; color:#f59e0b; font-weight:800;">Prix Unitaire</div>
-              <div style="display:flex; align-items:baseline; gap:8px; margin:6px 0;">
-                <span id="psim-old-price" style="font-size:1.15rem; color:#94a3b8; text-decoration:line-through;">55 DH</span>
-                <span style="color:#fff;">➔</span>
-                <span id="psim-new-price" style="font-size:1.5rem; font-weight:900; color:var(--gold-light);">57 DH</span>
-              </div>
-              <div style="font-size:0.75rem; color:#94a3b8;">Ajustement : <strong id="psim-delta-label" style="color:var(--gold-light);">+2 DH</strong></div>
             </div>
 
-            <!-- Marge Unitaire -->
-            <div class="kpi-card emerald" style="padding:16px;">
-              <div style="font-size:0.75rem; text-transform:uppercase; color:#34d399; font-weight:800;">Marge Cash / Portion</div>
-              <div style="display:flex; align-items:baseline; gap:8px; margin:6px 0;">
-                <span id="psim-old-margin" style="font-size:1.15rem; color:#94a3b8; text-decoration:line-through;">+31.89 DH</span>
-                <span style="color:#fff;">➔</span>
-                <span id="psim-new-margin" style="font-size:1.5rem; font-weight:900; color:var(--emerald);">+33.89 DH</span>
-              </div>
-              <div style="font-size:0.75rem; color:#94a3b8;">Marge brute : <strong id="psim-fc-label" style="color:var(--emerald);">+6.3% de cash</strong></div>
-            </div>
-
-            <!-- Gain Additionnel / Mois -->
-            <div class="kpi-card cyan" style="padding:16px;">
-              <div style="font-size:0.75rem; text-transform:uppercase; color:#67e8f9; font-weight:800;">Gain Net / Mois</div>
-              <div id="psim-gain-month" style="font-size:1.5rem; font-weight:900; color:var(--cyan); margin:6px 0;">+372 DH / m</div>
-              <div style="font-size:0.75rem; color:#94a3b8;">Sur base de <span id="psim-vol-month" style="font-weight:700; color:#fff;">186</span> ventes/m</div>
-            </div>
-
-            <!-- Gain Additionnel Annuel -->
-            <div class="kpi-card purple" style="padding:16px;">
-              <div style="font-size:0.75rem; text-transform:uppercase; color:#c084fc; font-weight:800;">Gain Net Annuel</div>
-              <div id="psim-gain-year" style="font-size:1.5rem; font-weight:900; color:#c084fc; margin:6px 0;">+4 468 DH / an</div>
-              <div style="font-size:0.75rem; color:#94a3b8;">100% de marge nette pure</div>
-            </div>
-          </div>
-
-          <!-- 4. Analyse Stratégique d'Élasticité -->
-          <div id="psim-elasticity-box" style="background:rgba(6,182,212,0.06); border:1px solid rgba(6,182,212,0.25); border-radius:10px; padding:14px 18px; margin-bottom:20px; font-size:0.84rem; color:#cbd5e1; line-height:1.6;">
-            <!-- Rendered dynamically -->
-          </div>
-
-          <!-- 5. Actions Footer -->
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; border-top:1px solid var(--card-border); padding-top:16px;">
-            <button class="action-btn" onclick="resetPriceSimDish()" style="background:rgba(255,255,255,0.05); color:#94a3b8;">
-              🔄 Rétablir Prix d'Origine
-            </button>
-            <div style="display:flex; gap:10px;">
-              <button class="action-btn" onclick="applyPriceSimToModel()" style="background:var(--emerald); color:#000; font-weight:800; padding:10px 18px;">
-                ✅ Appliquer au Simulateur
+            <!-- Footer Onglet Catégories -->
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; border-top:1px solid var(--card-border); padding-top:16px;">
+              <button class="action-btn" onclick="resetAllCatPrices()" style="background:rgba(255,255,255,0.05); color:#94a3b8;">
+                🔄 Réinitialiser Tous les Prix Catégories
               </button>
-              <button class="action-btn" onclick="closePriceSimModal()" style="background:rgba(255,255,255,0.08); padding:10px 16px;">
-                Fermer
-              </button>
+              <div style="display:flex; gap:10px;">
+                <button class="action-btn" onclick="applyCatPriceSimAndClose()" style="background:var(--emerald); color:#000; font-weight:800; padding:10px 20px;">
+                  ✅ Appliquer au Simulateur
+                </button>
+                <button class="action-btn" onclick="closePriceSimModal()" style="background:rgba(255,255,255,0.08); padding:10px 16px;">
+                  Fermer
+                </button>
+              </div>
             </div>
           </div>
+
+          <!-- ONGLET 2: PLAT INDIVIDUEL -->
+          <div id="psim-tab-dish" style="display:none;">
+            <!-- 1. Sélecteur Plat ou Catégorie -->
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-bottom:20px;">
+              <div>
+                <label style="display:block; font-size:0.75rem; font-weight:800; color:var(--gold-light); margin-bottom:6px; text-transform:uppercase;">Plat Ciblé</label>
+                <select id="price-sim-dish-select" class="search-box" style="width:100%; font-size:0.95rem; font-weight:700; background:#0b1120;" onchange="onPriceSimDishChanged()">
+                  <!-- Populated by JS -->
+                </select>
+              </div>
+              <div>
+                <label style="display:block; font-size:0.75rem; font-weight:800; color:#94a3b8; margin-bottom:6px; text-transform:uppercase;">Ou Tester sur Toute une Catégorie</label>
+                <select id="price-sim-cat-select" class="search-box" style="width:100%; font-size:0.95rem; font-weight:700; background:#0b1120;" onchange="onPriceSimCategoryChanged()">
+                  <option value="">-- Plat individuel uniquement --</option>
+                  <!-- Populated by JS -->
+                </select>
+              </div>
+            </div>
+
+            <!-- 2. Boutons d'Ajustement Rapide (+1, +2, +3 DH...) -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid var(--card-border); border-radius:14px; padding:18px; margin-bottom:22px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
+                <span style="font-size:0.86rem; font-weight:800; color:#cbd5e1;">Ajustement du Prix :</span>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;" id="price-pills-container">
+                  <button class="preset-btn" id="btn-pill-1" onclick="setPriceSimDelta(1)">+1 DH</button>
+                  <button class="preset-btn active" id="btn-pill-2" onclick="setPriceSimDelta(2)">+2 DH</button>
+                  <button class="preset-btn" id="btn-pill-3" onclick="setPriceSimDelta(3)">+3 DH</button>
+                  <button class="preset-btn" id="btn-pill-4" onclick="setPriceSimDelta(4)">+4 DH</button>
+                  <button class="preset-btn" id="btn-pill-5" onclick="setPriceSimDelta(5)">+5 DH</button>
+                  <button class="preset-btn" id="btn-pill-10" onclick="setPriceSimDelta(10)">+10 DH</button>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span style="font-size:0.8rem; color:#94a3b8;">Ajustement libre :</span>
+                  <div style="display:flex; align-items:center;">
+                    <button class="qty-step-btn" onclick="adjustPriceSimDelta(-1)">-</button>
+                    <input type="number" id="price-sim-delta-input" value="2" step="0.5" style="width:70px; text-align:center; font-weight:800; font-size:1.1rem; color:var(--gold-light); background:#0b1120; border:1px solid var(--card-border); border-radius:6px; padding:5px 6px;" oninput="onPriceSimCustomDelta()">
+                    <span style="margin-left:6px; font-weight:700; color:#fff;">DH</span>
+                    <button class="qty-step-btn" style="margin-left:8px;" onclick="adjustPriceSimDelta(1)">+</button>
+                  </div>
+                </div>
+                <div style="font-size:0.8rem; color:#94a3b8;">
+                  Nouveau prix direct :
+                  <input type="number" id="price-sim-direct-price" style="width:85px; text-align:center; font-weight:800; font-size:1.05rem; color:var(--emerald); background:#0b1120; border:1px solid var(--card-border); border-radius:6px; padding:5px 6px;" oninput="onPriceSimDirectPrice()">
+                  <span style="color:#fff; font-weight:700;">DH</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Dashboard d'Impact Live (Avant vs Après) -->
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; margin-bottom:20px;">
+              <!-- Prix Unitaire -->
+              <div class="kpi-card gold" style="padding:16px;">
+                <div style="font-size:0.75rem; text-transform:uppercase; color:#f59e0b; font-weight:800;">Prix Unitaire</div>
+                <div style="display:flex; align-items:baseline; gap:8px; margin:6px 0;">
+                  <span id="psim-old-price" style="font-size:1.15rem; color:#94a3b8; text-decoration:line-through;">55 DH</span>
+                  <span style="color:#fff;">➔</span>
+                  <span id="psim-new-price" style="font-size:1.5rem; font-weight:900; color:var(--gold-light);">57 DH</span>
+                </div>
+                <div style="font-size:0.75rem; color:#94a3b8;">Ajustement : <strong id="psim-delta-label" style="color:var(--gold-light);">+2 DH</strong></div>
+              </div>
+
+              <!-- Marge Unitaire -->
+              <div class="kpi-card emerald" style="padding:16px;">
+                <div style="font-size:0.75rem; text-transform:uppercase; color:#34d399; font-weight:800;">Marge Cash / Portion</div>
+                <div style="display:flex; align-items:baseline; gap:8px; margin:6px 0;">
+                  <span id="psim-old-margin" style="font-size:1.15rem; color:#94a3b8; text-decoration:line-through;">+31.89 DH</span>
+                  <span style="color:#fff;">➔</span>
+                  <span id="psim-new-margin" style="font-size:1.5rem; font-weight:900; color:var(--emerald);">+33.89 DH</span>
+                </div>
+                <div style="font-size:0.75rem; color:#94a3b8;">Marge brute : <strong id="psim-fc-label" style="color:var(--emerald);">+6.3% de cash</strong></div>
+              </div>
+
+              <!-- Gain Additionnel / Mois -->
+              <div class="kpi-card cyan" style="padding:16px;">
+                <div style="font-size:0.75rem; text-transform:uppercase; color:#67e8f9; font-weight:800;">Gain Net / Mois</div>
+                <div id="psim-gain-month" style="font-size:1.5rem; font-weight:900; color:var(--cyan); margin:6px 0;">+372 DH / m</div>
+                <div style="font-size:0.75rem; color:#94a3b8;">Sur base de <span id="psim-vol-month" style="font-weight:700; color:#fff;">186</span> ventes/m</div>
+              </div>
+
+              <!-- Gain Additionnel Annuel -->
+              <div class="kpi-card purple" style="padding:16px;">
+                <div style="font-size:0.75rem; text-transform:uppercase; color:#c084fc; font-weight:800;">Gain Net Annuel</div>
+                <div id="psim-gain-year" style="font-size:1.5rem; font-weight:900; color:#c084fc; margin:6px 0;">+4 468 DH / an</div>
+                <div style="font-size:0.75rem; color:#94a3b8;">100% de marge nette pure</div>
+              </div>
+            </div>
+
+            <!-- 4. Analyse Stratégique d'Élasticité -->
+            <div id="psim-elasticity-box" style="background:rgba(6,182,212,0.06); border:1px solid rgba(6,182,212,0.25); border-radius:10px; padding:14px 18px; margin-bottom:20px; font-size:0.84rem; color:#cbd5e1; line-height:1.6;">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <!-- 5. Actions Footer Plat -->
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; border-top:1px solid var(--card-border); padding-top:16px;">
+              <button class="action-btn" onclick="resetPriceSimDish()" style="background:rgba(255,255,255,0.05); color:#94a3b8;">
+                🔄 Rétablir Prix d'Origine
+              </button>
+              <div style="display:flex; gap:10px;">
+                <button class="action-btn" onclick="applyPriceSimToModel()" style="background:var(--emerald); color:#000; font-weight:800; padding:10px 18px;">
+                  ✅ Appliquer au Simulateur
+                </button>
+                <button class="action-btn" onclick="closePriceSimModal()" style="background:rgba(255,255,255,0.08); padding:10px 16px;">
+                  Fermer
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -2216,6 +2284,7 @@
         if (type === 'base') {
           if (sliderVol) sliderVol.value = 100; if (sliderThresh) sliderThresh.value = 0; if (sliderPrice) sliderPrice.value = 0; if (sliderTransfer) sliderTransfer.value = 0;
           if (toggleSal) toggleSal.checked = true; if (toggleBur) toggleBur.checked = false; if (toggleSlow) toggleSlow.checked = false;
+          if (typeof resetAllCatPricesSilent === 'function') resetAllCatPricesSilent();
         } else if (type === 'recommended') {
           if (sliderVol) sliderVol.value = 100; if (sliderThresh) sliderThresh.value = 10; if (sliderPrice) sliderPrice.value = 2; if (sliderTransfer) sliderTransfer.value = 70;
           if (toggleSal) toggleSal.checked = true; if (toggleBur) toggleBur.checked = true; if (toggleSlow) toggleSlow.checked = true;
@@ -2399,18 +2468,21 @@
         const marginPct = totalCA > 0 ? ((totalMargin / totalCA) * 100).toFixed(1) : 0;
         const monthlyPertesEvitees = Math.round(((menuData.length - activeCount) * 165));
         const monthlyBreakfastBoost = priceAdj * 3600;
-        const monthlyGainTotal = Math.max(14000, monthlyPertesEvitees + monthlyBreakfastBoost + Math.round((totalCA * 0.015) / 5.4));
+        const isBaseConfig = (activeCount >= menuData.length - 2 && priceAdj === 0 && thresholdMonthly === 0 && (!customPriceDeltas || Object.values(customPriceDeltas).every(v => !v)));
+        const monthlyGainTotal = isBaseConfig ? 0 : (monthlyPertesEvitees + monthlyBreakfastBoost + Math.max(0, Math.round((totalCA - (menuData.reduce((acc, i) => acc + i.ca, 0))) / 5.4)));
 
         const kpiCA = document.getElementById('kpi-ca'); if (kpiCA) kpiCA.innerText = totalCA.toLocaleString('fr-FR') + ' DH';
-        const kpiCASub = document.getElementById('kpi-ca-sub'); if (kpiCASub) kpiCASub.innerText = (globalVolPct !== 100 ? 'Volume ' + globalVolPct + '%' : '162j (base 2.26M)');
+        const kpiCASub = document.getElementById('kpi-ca-sub'); if (kpiCASub) kpiCASub.innerText = (globalVolPct !== 100 ? 'Volume ' + globalVolPct + '%' : '166j (base 2.26M)');
         const kpiMargin = document.getElementById('kpi-margin'); if (kpiMargin) kpiMargin.innerText = totalMargin.toLocaleString('fr-FR') + ' DH';
         const kpiMarginSub = document.getElementById('kpi-margin-sub'); if (kpiMarginSub) kpiMarginSub.innerText = marginPct + '% de Marge Brute';
         const kpiItems = document.getElementById('kpi-items'); if (kpiItems) kpiItems.innerText = activeCount + ' / ' + menuData.length;
-        const kpiItemsSub = document.getElementById('kpi-items-sub'); if (kpiItemsSub) kpiItemsSub.innerText = '-' + Math.round(((menuData.length - activeCount) / menuData.length) * 100) + '% dispersion';
-        const kpiSavings = document.getElementById('kpi-savings'); if (kpiSavings) kpiSavings.innerText = '+' + monthlyGainTotal.toLocaleString('fr-FR') + ' DH/m';
+        const kpiItemsSub = document.getElementById('kpi-items-sub'); if (kpiItemsSub) kpiItemsSub.innerText = isBaseConfig ? '100% de la carte actuelle' : '-' + Math.round(((menuData.length - activeCount) / menuData.length) * 100) + '% dispersion';
+        const kpiSavings = document.getElementById('kpi-savings'); if (kpiSavings) kpiSavings.innerText = isBaseConfig ? '0 DH / m' : '+' + monthlyGainTotal.toLocaleString('fr-FR') + ' DH/m';
+        const kpiSavingsSub = document.getElementById('kpi-savings-sub'); if (kpiSavingsSub) kpiSavingsSub.innerText = isBaseConfig ? 'Données d\'origine (Base réelle)' : 'Fin des pertes DLC + Optimisation prix';
+        const kpiTime = document.getElementById('kpi-time'); if (kpiTime) kpiTime.innerText = isBaseConfig ? '0 min' : '-35 min';
         const auditRefCount = document.getElementById('audit-ref-count'); if (auditRefCount) auditRefCount.innerText = activeCount + ' références';
         const baseTotalCA = menuData.reduce((acc, i) => acc + i.ca, 0);
-        const kpiPareto = document.getElementById('kpi-pareto'); if (kpiPareto) kpiPareto.innerText = (baseTotalCA > 0 ? ((totalCA / baseTotalCA) * 100).toFixed(1) : 100) + '%';
+        const kpiPareto = document.getElementById('kpi-pareto'); if (kpiPareto) kpiPareto.innerText = isBaseConfig ? '100%' : ((baseTotalCA > 0 ? ((totalCA / baseTotalCA) * 100).toFixed(1) : 100) + '%');
 
         // === CALCUL DU MENU HEALTH SCORE /100 ===
         try {
@@ -2756,7 +2828,7 @@
     window.exportDataJSON = exportDataJSON;
 
     document.addEventListener('DOMContentLoaded', () => {
-      applyPreset('recommended');
+      applyPreset('base');
       setTimeout(() => initCatPriceSim(), 400);
       setTimeout(() => autoLoadLatestDailySales(false), 200);
     });
@@ -2941,82 +3013,129 @@
     // SIMULATEUR DE PRIX PAR CATÉGORIE
     // =========================================================
     const CAT_PRICE_GROUPS = [
-      { key: 'PETIT_DEJ', label: '☕ Petit-Déjeuner', emoji: '☕', color: '#f59e0b', match: cat => cat && cat.toUpperCase().includes('PETIT') },
-      { key: 'PLATS', label: '🍽️ Plats Restauration', emoji: '🍽️', color: '#10b981', match: cat => cat && (cat.toUpperCase() === 'PLATS' || cat.toUpperCase().includes('COUSCOUS')) },
-      { key: 'SANDWICHS', label: '🥖 Sandwichs Ciabatta', emoji: '🥖', color: '#3b82f6', match: cat => cat && cat.toUpperCase().includes('SANDWICH') },
-      { key: 'BURGERS', label: '🍔 Burgers', emoji: '🍔', color: '#ef4444', match: cat => cat && cat.toUpperCase() === 'BURGERS' },
-      { key: 'PANINI', label: '🌯 Panini & Wraps', emoji: '🌯', color: '#8b5cf6', match: cat => cat && cat.toUpperCase() === 'PANINI' },
-      { key: 'PIZZA', label: '🍕 Pizzas', emoji: '🍕', color: '#ec4899', match: cat => cat && cat.toUpperCase() === 'PIZZA' },
-      { key: 'PASTA', label: '🍝 Pasta & Lasagnes', emoji: '🍝', color: '#06b6d4', match: cat => cat && (cat.toLowerCase().includes('pasta') || cat.toLowerCase().includes('spaghetti') || cat.toLowerCase().includes('tagliatelle')) },
-      { key: 'CREPES', label: '🥞 Crêpes & Gaufres', emoji: '🥞', color: '#14b8a6', match: cat => cat && (cat.toUpperCase().includes('CRÊPE') || cat.toUpperCase().includes('CREPE') || cat.toUpperCase().includes('GAUFRE')) },
-      { key: 'BOISSONS', label: '🥤 Boissons', emoji: '🥤', color: '#6366f1', match: cat => cat && (cat.toUpperCase().includes('BOISSON') || cat.toUpperCase().includes('JUS') || cat.toUpperCase().includes('MILKSHAKE') || cat.toUpperCase().includes('CAFÉ') || cat.toUpperCase().includes('CAFE') || cat.toUpperCase().includes('FRAPPE')) },
-      { key: 'DESSERTS', label: '🍰 Desserts', emoji: '🍰', color: '#f43f5e', match: cat => cat && (cat.toUpperCase().includes('DESSERT') || cat.toUpperCase().includes('GLACE') || cat.toUpperCase().includes('TIRAMISU')) },
+      { key: 'BOISSONS_CHAUDES', label: '☕ Boissons Chaudes (Cafés, Thés)', emoji: '☕', color: '#f59e0b', match: cat => cat === 'BOISSONS CHAUDES' },
+      { key: 'PETIT_DEJ', label: '🍳 Petits Déjeuners & Formules', emoji: '🍳', color: '#fbbf24', match: cat => cat === 'PETIT DÉJEUNER' },
+      { key: 'BOISSONS_FROIDES', label: '🥤 Boissons Fraîches & Jus & Shakes', emoji: '🥤', color: '#06b6d4', match: cat => ['SODA', 'EAU MINÉRALE', 'BOISSONS FRAÎCHES (JUS)', 'ICE TEA', 'ICE COFFEE', 'FRAPPUCCINO', 'COCKTAILS', 'MOJITO', 'SMOOTHIES', 'SMOOTHIE – BOWL', 'MILKSHAKES', 'ORANGESHAKE'].includes(cat) },
+      { key: 'ENTREES', label: '🥗 Entrées Froides & Chaudes', emoji: '🥗', color: '#10b981', match: cat => cat === 'ENTRÉES FROIDES' || cat === 'ENTRÉES CHAUDES' },
+      { key: 'PLATS', label: '🥩 Plats Cuisinés & Couscous', emoji: '🥩', color: '#3b82f6', match: cat => cat === 'PLATS' || cat === 'COUSCOUS VENDREDI' },
+      { key: 'SANDWICHS', label: '🥖 Sandwichs Ciabatta', emoji: '🥖', color: '#6366f1', match: cat => cat === 'SANDWICHS CIABATTA' },
+      { key: 'BURGERS', label: '🍔 Burgers', emoji: '🍔', color: '#ef4444', match: cat => cat === 'BURGERS' },
+      { key: 'PANINI', label: '🌯 Panini & Wraps', emoji: '🌯', color: '#8b5cf6', match: cat => cat === 'PANINI' },
+      { key: 'PIZZA', label: '🍕 Pizzas', emoji: '🍕', color: '#ec4899', match: cat => cat === 'PIZZA' },
+      { key: 'PASTA', label: '🍝 Pâtes & Lasagnes', emoji: '🍝', color: '#14b8a6', match: cat => cat === 'Pasta (Spaghettis, Tagliatelles, Linguines)' },
+      { key: 'CREPES', label: '🥞 Crêpes & Gaufres', emoji: '🥞', color: '#f97316', match: cat => cat === 'CRÊPES et GAUFRES' || cat === 'CRÊPES SALÉES' },
+      { key: 'DESSERTS', label: '🍰 Gâteaux & Desserts & Glaces', emoji: '🍰', color: '#f43f5e', match: cat => cat === 'GÂTEAUX' || cat === 'COUPE DE GLACE' },
     ];
 
     // Delta prix par catégorie (séparé de customPriceDeltas pour une gestion propre)
-    let catPriceDeltas = {}; // { 'PETIT_DEJ': 2, 'PIZZA': 3, ... }
+    let catPriceDeltas = {}; // { 'BOISSONS_CHAUDES': 1, 'PETIT_DEJ': 2, ... }
 
     function initCatPriceSim() {
       const grid = document.getElementById('cat-price-grid');
-      if (!grid) return;
-      grid.innerHTML = CAT_PRICE_GROUPS.map(grp => {
-        const items = menuData.filter(i => grp.match(i.cat) && !i.isSupplementOnly && (i.qty > 0 || i.baseQty > 0));
-        if (items.length === 0) return '';
-        const avgPrice = items.length > 0 ? Math.round(items.reduce((s,i) => s + i.price, 0) / items.length) : 0;
-        const delta = catPriceDeltas[grp.key] || 0;
-        return `<div class="cat-price-row" id="catrow-${grp.key}">
-          <div class="cat-price-row-header">
-            <span class="cat-price-name">${grp.label}</span>
-            <span class="cat-price-val" id="catval-${grp.key}">${delta === 0 ? 'Non modifié' : '+' + delta + ' DH'}</span>
-          </div>
-          <div style="font-size:0.72rem; color:#94a3b8;">${items.length} plat(s) · Prix moy. ${avgPrice} DH</div>
-          <div class="cat-price-btns">
-            <button class="cat-price-btn${delta===0?' reset-btn':''} ${delta===0?'active':''}" onclick="setCatPriceDelta('${grp.key}', 0)">0 DH</button>
-            <button class="cat-price-btn${delta===1?' active':''}" onclick="setCatPriceDelta('${grp.key}', 1)">+1 DH</button>
-            <button class="cat-price-btn${delta===2?' active':''}" onclick="setCatPriceDelta('${grp.key}', 2)">+2 DH</button>
-            <button class="cat-price-btn${delta===3?' active':''}" onclick="setCatPriceDelta('${grp.key}', 3)">+3 DH</button>
-            <button class="cat-price-btn${delta===5?' active':''}" onclick="setCatPriceDelta('${grp.key}', 5)">+5 DH</button>
-            <button class="cat-price-btn${delta===10?' active':''}" onclick="setCatPriceDelta('${grp.key}', 10)">+10 DH</button>
-          </div>
-        </div>`;
-      }).join('');
+      const activeDays = (typeof PERIOD_METADATA !== 'undefined' && PERIOD_METADATA[currentCalendarPeriod]) ? PERIOD_METADATA[currentCalendarPeriod].days : 166;
+      if (grid) {
+        grid.innerHTML = CAT_PRICE_GROUPS.map(grp => {
+          const items = menuData.filter(i => grp.match(i.cat) && !i.isSupplementOnly && (i.qty > 0 || i.baseQty > 0));
+          if (items.length === 0) return '';
+          const avgPrice = items.length > 0 ? Math.round(items.reduce((s,i) => s + i.price, 0) / items.length) : 0;
+          const monthlyVol = Math.round(items.reduce((s, i) => s + ((i.qty > 0 ? i.qty : (i.baseQty || 0)) / activeDays) * 30, 0));
+          const delta = catPriceDeltas[grp.key] || 0;
+          return `<div class="cat-price-row" id="catrow-${grp.key}">
+            <div class="cat-price-row-header">
+              <span class="cat-price-name">${grp.label}</span>
+              <span class="cat-price-val" id="catval-${grp.key}">${delta === 0 ? 'Non modifié' : '+' + delta + ' DH'}</span>
+            </div>
+            <div style="font-size:0.72rem; color:#94a3b8; display:flex; justify-content:space-between; align-items:center;">
+              <span>${items.length} plat(s) · Prix moy. ${avgPrice} DH</span>
+              <span style="color:${delta > 0 ? '#34d399' : '#64748b'}; font-weight:700;">${delta > 0 ? '+' + (delta * monthlyVol).toLocaleString('fr-FR') + ' DH/m' : ''}</span>
+            </div>
+            <div class="cat-price-btns">
+              <button class="cat-price-btn${delta===0?' reset-btn':''} ${delta===0?'active':''}" onclick="setCatPriceDelta('${grp.key}', 0)">0 DH</button>
+              <button class="cat-price-btn${delta===1?' active':''}" onclick="setCatPriceDelta('${grp.key}', 1)">+1 DH</button>
+              <button class="cat-price-btn${delta===2?' active':''}" onclick="setCatPriceDelta('${grp.key}', 2)">+2 DH</button>
+              <button class="cat-price-btn${delta===3?' active':''}" onclick="setCatPriceDelta('${grp.key}', 3)">+3 DH</button>
+              <button class="cat-price-btn${delta===5?' active':''}" onclick="setCatPriceDelta('${grp.key}', 5)">+5 DH</button>
+              <button class="cat-price-btn${delta===10?' active':''}" onclick="setCatPriceDelta('${grp.key}', 10)">+10 DH</button>
+            </div>
+          </div>`;
+        }).join('');
+      }
+      renderModalCatPriceGrid();
       updateCatPriceImpact();
     }
     window.initCatPriceSim = initCatPriceSim;
 
+    function renderModalCatPriceGrid() {
+      const grid = document.getElementById('modal-cat-price-grid');
+      if (!grid) return;
+      const activeDays = (typeof PERIOD_METADATA !== 'undefined' && PERIOD_METADATA[currentCalendarPeriod]) ? PERIOD_METADATA[currentCalendarPeriod].days : 166;
+      grid.innerHTML = CAT_PRICE_GROUPS.map(grp => {
+        const items = menuData.filter(i => grp.match(i.cat) && !i.isSupplementOnly && (i.qty > 0 || i.baseQty > 0));
+        if (items.length === 0) return '';
+        const avgPrice = Math.round(items.reduce((s,i) => s + i.price, 0) / items.length);
+        const monthlyVol = Math.round(items.reduce((s, i) => s + ((i.qty > 0 ? i.qty : (i.baseQty || 0)) / activeDays) * 30, 0));
+        const delta = catPriceDeltas[grp.key] || 0;
+        const gainMonthly = Math.round(delta * monthlyVol);
+        return `
+          <div class="cat-price-row" id="mcatrow-${grp.key}" style="border-left:3px solid ${grp.color}; background:rgba(15,23,42,0.85); padding:10px 12px; border-radius:10px;">
+            <div class="cat-price-row-header" style="margin-bottom:2px;">
+              <span class="cat-price-name" style="color:#f8fafc; font-weight:800; font-size:0.84rem;">${grp.label}</span>
+              <span class="cat-price-val" id="mcatval-${grp.key}" style="${delta > 0 ? 'background:rgba(16,185,129,0.25); color:#34d399; border-color:rgba(16,185,129,0.5);' : ''}">${delta === 0 ? '0 DH' : '+' + delta + ' DH'}</span>
+            </div>
+            <div style="font-size:0.73rem; color:#94a3b8; display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span>${items.length} plats · ~${monthlyVol.toLocaleString('fr-FR')} v/m (Moy. ${avgPrice} DH)</span>
+              <span style="font-weight:700; color:${delta > 0 ? '#34d399' : '#64748b'};">${delta > 0 ? '+' + gainMonthly.toLocaleString('fr-FR') + ' DH/m' : ''}</span>
+            </div>
+            <div class="cat-price-btns" style="display:flex; gap:4px; align-items:center; flex-wrap:wrap;">
+              <button class="cat-price-btn${delta===0?' reset-btn':''} ${delta===0?'active':''}" onclick="setCatPriceDelta('${grp.key}', 0)">0</button>
+              <button class="cat-price-btn${delta===1?' active':''}" onclick="setCatPriceDelta('${grp.key}', 1)">+1 DH</button>
+              <button class="cat-price-btn${delta===2?' active':''}" onclick="setCatPriceDelta('${grp.key}', 2)">+2 DH</button>
+              <button class="cat-price-btn${delta===3?' active':''}" onclick="setCatPriceDelta('${grp.key}', 3)">+3 DH</button>
+              <button class="cat-price-btn${delta===5?' active':''}" onclick="setCatPriceDelta('${grp.key}', 5)">+5 DH</button>
+              <div style="display:inline-flex; align-items:center; margin-left:auto;">
+                <input type="number" min="0" max="30" step="0.5" value="${delta > 0 ? delta : ''}" placeholder="+DH" 
+                  style="width:50px; text-align:center; background:#0b1120; border:1px solid ${delta > 0 ? 'var(--emerald)' : 'var(--card-border)'}; color:${delta > 0 ? '#34d399' : '#cbd5e1'}; border-radius:6px; font-weight:800; font-size:0.78rem; padding:3px 4px;"
+                  onchange="setCatPriceDelta('${grp.key}', parseFloat(this.value) || 0)">
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    window.renderModalCatPriceGrid = renderModalCatPriceGrid;
+
     function setCatPriceDelta(catKey, delta) {
+      delta = parseFloat(delta) || 0;
       catPriceDeltas[catKey] = delta;
       // Appliquer les deltas aux customPriceDeltas de chaque plat de la catégorie
       const grp = CAT_PRICE_GROUPS.find(g => g.key === catKey);
       if (!grp) return;
       menuData.forEach(item => {
         if (grp.match(item.cat) && !item.isSupplementOnly) {
-          // Nettoyer l'ancien delta catégorie et appliquer le nouveau
-          // On conserve les deltas individuels du modal prix
           if (!item._baseCatDeltaKey) item._baseCatDeltaKey = {};
           const oldCatDelta = item._baseCatDeltaKey[catKey] || 0;
           if (!customPriceDeltas) customPriceDeltas = {};
-          // Retirer l'ancien et appliquer le nouveau
           customPriceDeltas[item.id] = (customPriceDeltas[item.id] || 0) - oldCatDelta + delta;
           if (customPriceDeltas[item.id] === 0) delete customPriceDeltas[item.id];
           item._baseCatDeltaKey[catKey] = delta;
         }
       });
-      // Rafraîchir l'affichage de la grille et l'impact
       initCatPriceSim();
       updateSimulation();
+      if (typeof renderCategoryRankings === 'function') renderCategoryRankings();
     }
     window.setCatPriceDelta = setCatPriceDelta;
 
     function updateCatPriceImpact() {
       // Calculer le gain CA et marge additionnels des deltas catégories
-      let gainCA = 0, gainMargin = 0, adjustedCats = 0;
-      const activeDays = (typeof PERIOD_METADATA !== 'undefined' && PERIOD_METADATA[currentCalendarPeriod]) ? PERIOD_METADATA[currentCalendarPeriod].days : 162;
+      let gainCA = 0, gainMargin = 0, adjustedCats = 0, totalImpactedItems = 0;
+      const activeDays = (typeof PERIOD_METADATA !== 'undefined' && PERIOD_METADATA[currentCalendarPeriod]) ? PERIOD_METADATA[currentCalendarPeriod].days : 166;
       CAT_PRICE_GROUPS.forEach(grp => {
         const delta = catPriceDeltas[grp.key] || 0;
         if (delta === 0) return;
         adjustedCats++;
         const items = menuData.filter(i => grp.match(i.cat) && !i.isSupplementOnly && i.isKept !== false);
+        totalImpactedItems += items.length;
         items.forEach(item => {
           const effectiveQty = item.qty > 0 ? item.qty : (item.baseQty || 0);
           const monthlyVol = Math.round((effectiveQty / activeDays) * 30);
@@ -3024,17 +3143,22 @@
           gainMargin += delta * monthlyVol; // 100% marge car coût = 0 sur ajustement prix
         });
       });
+      // Dashboard inline
       const el1 = document.getElementById('catprice-gain-ca'); if (el1) el1.innerText = '+' + gainCA.toLocaleString('fr-FR') + ' DH';
       const el2 = document.getElementById('catprice-gain-margin'); if (el2) el2.innerText = '+' + gainMargin.toLocaleString('fr-FR') + ' DH';
       const el3 = document.getElementById('catprice-gain-year'); if (el3) el3.innerText = '+' + (gainCA * 12).toLocaleString('fr-FR') + ' DH';
       const el4 = document.getElementById('catprice-adjusted-count'); if (el4) el4.innerText = adjustedCats;
-      // Colorier dynamiquement selon le gain
       [el1, el2, el3].forEach(el => { if (el) el.style.color = gainCA > 0 ? '#34d399' : '#d8b4fe'; });
+
+      // Dashboard modal
+      const melCount = document.getElementById('modal-cat-count'); if (melCount) melCount.innerText = adjustedCats + ' / ' + CAT_PRICE_GROUPS.length;
+      const melItems = document.getElementById('modal-cat-items-count'); if (melItems) melItems.innerText = totalImpactedItems + ' plats modifiés';
+      const melM = document.getElementById('modal-cat-gain-month'); if (melM) melM.innerText = (gainCA > 0 ? '+' : '') + gainCA.toLocaleString('fr-FR') + ' DH / m';
+      const melY = document.getElementById('modal-cat-gain-year'); if (melY) melY.innerText = (gainCA > 0 ? '+' : '') + (gainCA * 12).toLocaleString('fr-FR') + ' DH / an';
     }
     window.updateCatPriceImpact = updateCatPriceImpact;
 
-    function resetAllCatPrices() {
-      // Retirer tous les deltas catégorie des customPriceDeltas
+    function resetAllCatPricesSilent() {
       CAT_PRICE_GROUPS.forEach(grp => {
         const oldDelta = catPriceDeltas[grp.key] || 0;
         if (oldDelta === 0) return;
@@ -3048,10 +3172,32 @@
         });
       });
       catPriceDeltas = {};
+      renderModalCatPriceGrid();
+      updateCatPriceImpact();
+    }
+    window.resetAllCatPricesSilent = resetAllCatPricesSilent;
+
+    function resetAllCatPrices() {
+      resetAllCatPricesSilent();
       initCatPriceSim();
       updateSimulation();
+      if (typeof renderCategoryRankings === 'function') renderCategoryRankings();
     }
     window.resetAllCatPrices = resetAllCatPrices;
+
+    function applyCatPriceSimAndClose() {
+      updateSimulation();
+      if (typeof renderCategoryRankings === 'function') renderCategoryRankings();
+      if (typeof renderTrendsModule === 'function') renderTrendsModule();
+      closePriceSimModal();
+      const adjustedCats = Object.keys(catPriceDeltas).filter(k => catPriceDeltas[k] > 0).length;
+      const toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed; bottom:24px; right:24px; background:linear-gradient(135deg,#10b981,#059669); color:#fff; padding:14px 22px; border-radius:12px; font-weight:800; font-size:0.95rem; z-index:99999; box-shadow:0 8px 25px rgba(0,0,0,0.4); animation:fadeIn 0.3s ease;';
+      toast.innerHTML = '✅ Ajustement prix appliqué (' + adjustedCats + ' familles modifiées) !';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3500);
+    }
+    window.applyCatPriceSimAndClose = applyCatPriceSimAndClose;
 
     function handleRankingFileSelect(e) {
       if (e.target.files.length > 0) {
@@ -3581,6 +3727,31 @@
 
     let currentSimDishId = null;
     let currentSimDelta = 2;
+    let currentPriceSimTab = 'cat';
+
+    function switchPriceSimModalTab(tab) {
+      currentPriceSimTab = tab;
+      const btnCat = document.getElementById('psim-tab-btn-cat');
+      const btnDish = document.getElementById('psim-tab-btn-dish');
+      const tabCat = document.getElementById('psim-tab-cat');
+      const tabDish = document.getElementById('psim-tab-dish');
+
+      if (tab === 'cat') {
+        if (btnCat) btnCat.classList.add('active');
+        if (btnDish) btnDish.classList.remove('active');
+        if (tabCat) tabCat.style.display = 'block';
+        if (tabDish) tabDish.style.display = 'none';
+        renderModalCatPriceGrid();
+        updateCatPriceImpact();
+      } else {
+        if (btnCat) btnCat.classList.remove('active');
+        if (btnDish) btnDish.classList.add('active');
+        if (tabCat) tabCat.style.display = 'none';
+        if (tabDish) tabDish.style.display = 'block';
+        updatePriceSimDisplay();
+      }
+    }
+    window.switchPriceSimModalTab = switchPriceSimModalTab;
 
     function openPriceSimModal(dishId) {
       const modal = document.getElementById('modal-price-sim');
@@ -3616,26 +3787,23 @@
         });
       }
 
-      // Set target dish
+      // Set target dish or category tab
       if (dishId) {
         currentSimDishId = dishId;
         if (dishSelect) dishSelect.value = dishId;
+        if (catSelect) catSelect.value = '';
+        currentSimDelta = (customPriceDeltas && customPriceDeltas[currentSimDishId]) ? customPriceDeltas[currentSimDishId] : 2;
+        updatePricePillActiveState();
+        updatePriceSimDisplay();
+        switchPriceSimModalTab('dish');
       } else {
         currentSimDishId = dishSelect ? dishSelect.value : menuData[0]?.id;
+        if (catSelect) catSelect.value = '';
+        currentSimDelta = (customPriceDeltas && customPriceDeltas[currentSimDishId]) ? customPriceDeltas[currentSimDishId] : 2;
+        updatePricePillActiveState();
+        updatePriceSimDisplay();
+        switchPriceSimModalTab('cat');
       }
-
-      // Reset category select to single dish mode
-      if (catSelect) catSelect.value = '';
-
-      // Default delta
-      if (customPriceDeltas[currentSimDishId]) {
-        currentSimDelta = customPriceDeltas[currentSimDishId];
-      } else {
-        currentSimDelta = 2;
-      }
-
-      updatePricePillActiveState();
-      updatePriceSimDisplay();
 
       modal.style.display = 'flex';
     }
