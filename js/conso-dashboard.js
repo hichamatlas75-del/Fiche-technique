@@ -520,77 +520,138 @@ let chartMetric = 'qty'; // 'qty' ou 'ca'
 // Liste universelle des catégories normalisées du restaurant
 const GC_CATEGORIES = [
   { id: 'all', label: 'Toutes les Catégories', icon: '📁' },
-  { id: 'petit-dej', label: 'Petit Déjeuner & Brunch', icon: '🥐' },
   { id: 'plat', label: 'Plats (Viandes & Poissons)', icon: '🥩' },
+  { id: 'crepe-gaufre', label: 'Gaufres & Crêpes', icon: '🧇' },
+  { id: 'burger', label: 'Burgers & Sandwiches', icon: '🍔' },
   { id: 'pizza', label: 'Pizzas', icon: '🍕' },
   { id: 'pasta', label: 'Pasta & Pâtes', icon: '🍝' },
-  { id: 'burger', label: 'Burgers & Sandwiches', icon: '🍔' },
-  { id: 'salade', label: 'Salades Composées', icon: '🥗' },
+  { id: 'salade', label: 'Salades & Entrées', icon: '🥗' },
+  { id: 'petit-dej', label: 'Petit Déjeuner & Brunch', icon: '🥐' },
   { id: 'boisson', label: 'Bar, Cafés & Boissons', icon: '☕' },
-  { id: 'dessert', label: 'Desserts & Douceurs', icon: '🍰' }
+  { id: 'dessert', label: 'Desserts & Pâtisseries', icon: '🍰' },
+  { id: 'supplement', label: 'Suppléments & À la Carte', icon: '➕' }
 ];
+window.GC_CATEGORIES = GC_CATEGORIES;
 
-// Détection intelligente de la catégorie d'un plat ou d'une vente
+// Détection intelligente et stricte de la catégorie d'un plat ou d'une vente
 function detectProductCategory(product, family, matchedRecipe) {
   const p = (product || '').toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   const f = (family || '').toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   const rCat = (matchedRecipe && matchedRecipe.category ? matchedRecipe.category : '').toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-  // 1. PETIT DÉJEUNER / BRUNCH
-  if (rCat.includes('PETIT') || rCat.includes('DEJEUNER') || f.includes('PETIT') || f.includes('DEJEUNER') || f.includes('BRUNCH') ||
-      p.includes('BRUNCH') || p.includes('PETIT DEJ') || p.includes('OMELETTE') || p.includes('CROQUE') || p.includes('MLAOU') ||
-      p.includes('HARCHA') || p.includes('BELDI') || p.includes('FORMULE MATIN')) {
-    return 'petit-dej';
+  // 1. GAUFRES & CRÊPES (catégorie dédiée demandée)
+  if (rCat.includes('CREPE') || rCat.includes('GAUFRE') ||
+      f.includes('CREPE') || f.includes('GAUFRE') || f.includes('GAUFFRE') ||
+      p.includes('GAUFRE') || p.includes('GAUFFRE') || p.includes('CREPE') || p.includes('PANCAKE') || p.includes('KUNAFA')) {
+    return 'crepe-gaufre';
   }
 
-  // 2. PIZZA
-  if (rCat.includes('PIZZA') || f.includes('PIZZA') || p.includes('PIZZA') || p.includes('CALZONE')) {
-    return 'pizza';
+  // 2. SUPPLÉMENTS, EXTRAS & BOULANGERIE À LA CARTE
+  if (rCat.includes('SUPPLEMENT') || rCat.includes('A LA CARTE') || rCat.includes('EXTRA') || rCat.includes('BOULANGERIE') ||
+      f.includes('SUPPLEMENT') || f.includes('A LA CARTE') || f.includes('EXTRA') ||
+      p.startsWith('SUPP') || p.includes('SUPPLEMENT') || p.includes('SUPPLIMENT') || p.includes('EXTRA ') ||
+      p.includes('DIVERS CUISINE') || p.includes('DIVERS BAR') || p.includes('AMUSE BOUCHE') ||
+      p.includes('PAIN CEREAL') || p.includes('PAIN GRILLE') || p.includes('BAGHRIR') ||
+      p.includes('MSEMEN') || p.includes('MSSEMEN') || p.includes('TOAST NUTELLA') || p.includes('CONFITURE') ||
+      p.includes('AMLOU') || p.includes('LA VACHE QUI RIT') || p.includes('FROMAGE ROUGE TAJ') ||
+      p.includes('PARMESAN FROMAGE') || p.includes('RIZ NATURE') || p.includes('LEGUMES SAUTEES') ||
+      (p === 'NUTELLA' && f.includes('SUPPLEMENT')) || (p === 'BEURRE' && f.includes('SUPPLEMENT')) ||
+      (p === 'MIEL' && f.includes('SUPPLEMENT')) || (p === 'JBEN' && f.includes('SUPPLEMENT')) ||
+      p === '3 MERGUEZ' || p === 'LBEN' || p === 'CORNFLEX' || p === 'HUILE OLIVE') {
+    if (!p.includes('COUSCOUS')) return 'supplement';
   }
 
-  // 3. PASTA / PÂTES
-  if (rCat.includes('PASTA') || rCat.includes('PATE') || f.includes('PASTA') || f.includes('PATE') ||
-      p.includes('PASTA') || p.includes('TAGLIATELLE') || p.includes('SPAGHETTI') || p.includes('PENNE') ||
-      p.includes('LASAGNE') || p.includes('TORTELLINI') || p.includes('RAVIOLI') || p.includes('MACARONI') || p.includes('FETTUCCINE')) {
-    return 'pasta';
-  }
-
-  // 4. BURGERS & SANDWICHES
-  if (rCat.includes('BURGER') || f.includes('BURGER') || p.includes('BURGER') || p.includes('SANDWICH') || p.includes('PANINI') || p.includes('TACOS') || p.includes('SMASH')) {
+  // 3. BURGERS, SANDWICHS, WRAPS, PANINIS, CIABATTAS
+  if (rCat.includes('BURGER') || rCat.includes('SANDWICH') || rCat.includes('PANINI') || rCat.includes('WRAP') ||
+      f.includes('BURGER') || f.includes('SANDWICH') || f.includes('PANINI') || f.includes('WRAP') || f.includes('CIABATTA') ||
+      p.includes('BURGER') || p.includes('SANDWICH') || p.includes('PANINI') || p.includes('WRAP') ||
+      p.includes('TACOS') || p.includes('SMASH') || p.includes('CIABATTA') || p.includes('POULARD') ||
+      p.includes('CHEESE STEAK') || p.includes('LE GOURMAND') || p.includes('HOT DOG') || p.includes('CLUB')) {
     return 'burger';
   }
 
-  // 5. SALADES
-  if (rCat.includes('SALADE') || f.includes('SALADE') || p.includes('SALADE') || p.includes('CESAR') || p.includes('CAESAR') || p.includes('BURRATA') || p.includes('BOWL')) {
-    return 'salade';
+  // 4. PIZZAS
+  if (rCat.includes('PIZZA') || f.includes('PIZZA') || p.includes('PIZZA') || p.includes('CALZONE') ||
+      p.includes('MARGARITA') || p.includes('REGINA')) {
+    return 'pizza';
   }
 
-  // 6. DESSERTS / CRÊPES / DOUCEURS
-  if (rCat.includes('DESSERT') || rCat.includes('CREPE') || rCat.includes('GAUFRE') || f.includes('DESSERT') || f.includes('CREPE') || f.includes('GAUFRE') ||
-      p.includes('DESSERT') || p.includes('FONDANT') || p.includes('TIRAMISU') || p.includes('CHEESECAKE') || p.includes('CREPE') ||
-      p.includes('GAUFRE') || p.includes('PANCAKE') || p.includes('GLACE') || p.includes('MUFFIN') || p.includes('TARTE') || p.includes('BROWNIE')) {
+  // 5. PASTA & PÂTES
+  if (rCat.includes('PASTA') || rCat.includes('PATE') || f.includes('PASTA') || f.includes('PATE') ||
+      p.includes('PASTA') || p.includes('TAGLIATELLE') || p.includes('SPAGHETTI') || p.includes('PENNE') ||
+      p.includes('LASAGNE') || p.includes('TORTELLINI') || p.includes('RAVIOLI') || p.includes('MACARONI') ||
+      p.includes('FETTUCCINE') || p.includes('LINGUINE') || p.includes('BOLOGNAISE') || p.includes('CARBONARA')) {
+    return 'pasta';
+  }
+
+  // 6. DESSERTS, PÂTISSERIES & COUPE DE GLACES (exclut expressément cafés glacés et milkshakes)
+  if (rCat.includes('DESSERT') || rCat.includes('GATEAU') || rCat.includes('PATISSERIE') ||
+      f.includes('DESSERT') || f.includes('GATEAU') || f.includes('GLACE') || f.includes('PAIN CAKE') ||
+      p.includes('DESSERT') || p.includes('FONDANT') || p.includes('TIRAMISU') || p.includes('CHEESECAKE') ||
+      p.includes('CHEESE CAKE') ||
+      ((p.includes('GLACE') || p.includes('COUPE') || p.includes('BOULE')) && !p.includes('CAFE') && !p.includes('COFFEE')) ||
+      p.includes('MUFFIN') || p.includes('TARTE') || p.includes('BROWNIE') || p.includes('SAN SEBASTIEN') ||
+      p.includes('MOELLEUX') || p.includes('PROFITEROLE') || p.includes('CARROT CAKE') ||
+      (p.includes('COOKIE') && !p.includes('MILKSHAKE')) || p.includes('BANANA SPLIT')) {
     return 'dessert';
   }
 
-  // 7. BAR, BOISSONS, CAFÉS
+  // 7. BAR, BOISSONS, CAFÉS, THÉS, ICE TEA, COCKTAILS, JUS, SODAS
   if (rCat.includes('BOISSON') || rCat.includes('CAFE') || rCat.includes('BAR') || rCat.includes('JUS') ||
-      f.includes('BOISSON') || f.includes('CAFE') || f.includes('BAR') || f.includes('JUS') || f.includes('SODA') || f.includes('EAU') ||
-      p.includes('CAFE') || p.includes('ESPRESSO') || p.includes('THE') || p.includes('JUS') || p.includes('MOJITO') || p.includes('COCKTAIL') ||
-      p.includes('MOCKTAIL') || p.includes('SMOOTHIE') || p.includes('MILKSHAKE') || p.includes('SIDI') || p.includes('COCA') || p.includes('SPRITE') ||
-      p.includes('EAU') || p.includes('RED BULL') || p.includes('CAPPUCCINO')) {
+      rCat.includes('SODA') || rCat.includes('EAU') || rCat.includes('ICE TEA') || rCat.includes('COCKTAIL') ||
+      rCat.includes('MOCKTAIL') || rCat.includes('SMOOTHIE') || rCat.includes('MILKSHAKE') || rCat.includes('FRAPPE') ||
+      f.includes('BOISSON') || f.includes('CAFE') || f.includes('BAR') || f.includes('JUS') ||
+      f.includes('SODA') || f.includes('EAU') || f.includes('ICE TEA') || f.includes('ICE COFFEE') ||
+      f.includes('COCKTAIL') || f.includes('SMOOTHIE') || f.includes('MILKSHAKE') || f.includes('MOJITO') ||
+      f.includes('FRAPPUCCINO') || f === 'THE' || f.includes(' THE') || f.includes('THE ') ||
+      p.includes('CAFE') || p.includes('COFFEE') || p.includes('ESPRESSO') || p.includes('NESPRESSO') ||
+      p.includes('ICE TEA') || p.includes('ICE COFFEE') || p.includes('THE ') || p.endsWith(' THE') || p === 'THE' ||
+      p.includes('THE A LA MENTHE') || p.includes('THE NOIR') || p.includes('THE VERT') ||
+      p.includes('JUS') || p.includes('MOJITO') || p.includes('COCKTAIL') || p.includes('MOCKTAIL') ||
+      p.includes('SMOOTHIE') || p.includes('MILKSHAKE') || p.includes('SIDI') || p.includes('COCA') ||
+      p.includes('SPRITE') || p.includes('FANTA') || p.includes('HAWAI') || p.includes('POMS') ||
+      p.includes('EAU') || p.includes('RED BULL') || p.includes('REDBULL') || p.includes('CAPPUCCINO') ||
+      p.includes('LATTE') || p.includes('AMERICANO') || p.includes('ALLONGE') || p.includes('VERVEINE') ||
+      p.includes('TISANE') || p.includes('INFUSION') || p.includes('OULMES') || p.includes('FRAPPUCCINO') ||
+      p.includes('ORANGINA') || p.includes('SCHWEPPES') || p.includes('SIGNATURE GREY CORNER') ||
+      p.includes('PINA COLADA') || p.includes('SAN FRANCISCO') || p.includes('TRIPLE BERRY') ||
+      p.includes('ENERGETIQUE') || p.includes('MULTI-VITAMINE') || p.includes('HAWAIEN') ||
+      p.includes('DETOX') || p.includes('GINGEMBRE') || p.includes('FRAICHEUR') ||
+      p.includes('0.5 L') || p.includes('0.75 L') || p.includes('33 CL') || p.includes('75 CL') ||
+      p.includes('CITRONNADE') || p.includes('AVOCAT JUS') || p.includes('ZAAZAA')) {
     return 'boisson';
   }
 
-  // 8. PLATS PRINCIPAUX (Viandes, Volailles, Poissons)
-  if (rCat.includes('PLAT') || rCat.includes('VIANDE') || rCat.includes('POISSON') ||
-      f.includes('PLAT') || f.includes('VIANDE') || f.includes('POISSON') ||
+  // 8. PETIT DÉJEUNER & BRUNCH
+  if (rCat.includes('PETIT') || rCat.includes('DEJEUNER') || f.includes('PETIT') || f.includes('DEJEUNER') || f.includes('BRUNCH') ||
+      p.includes('BRUNCH') || p.includes('PETIT DEJ') || p.includes('OMELETTE') || p.includes('OMLETTE') ||
+      p.includes('CROQUE') || p.includes('MLAOU') || p.includes('HARCHA') || p.includes('FORMULE MATIN') ||
+      p.includes('BELDI') || p.includes('FASSI') || p.includes('BERBERE') || p.includes('HOLLANDAIS') ||
+      p.includes('ESPAGNOL') || p.includes('NORVEGIEN') || p.includes('COMPAGNARD') || p.includes('AMERICAIN') ||
+      p.includes('MENU ENFANT') || p.includes('MQILA')) {
+    return 'petit-dej';
+  }
+
+  // 9. SALADES & ENTRÉES
+  if (rCat.includes('SALADE') || rCat.includes('ENTREE') || f.includes('SALADE') || f.includes('ENTREE') ||
+      p.includes('SALADE') || p.includes('CESAR') || p.includes('CAESAR') || p.includes('BURRATA') ||
+      p.includes('BOWL') || p.includes('PIL PIL') || p.includes('CROUSTILLON') || p.includes('CARPACCIO') ||
+      p.includes('TARTARE') || p.includes('RUSSE')) {
+    return 'salade';
+  }
+
+  // 10. PLATS PRINCIPAUX STRICTS (Viandes, Poissons, Volailles, Tajines, Couscous)
+  if (rCat.includes('PLAT') || f.includes('PLATS') || f.includes('PLAT') || f.includes('COUSCOUS') ||
       p.includes('FILET') || p.includes('STEAK') || p.includes('BOEUF') || p.includes('POULET') ||
       p.includes('SAUMON') || p.includes('CALAMAR') || p.includes('GAMBAS') || p.includes('CREVETTE') ||
-      p.includes('ESCALOPE') || p.includes('TAJINE') || p.includes('EMINCE') || p.includes('PAVE')) {
+      p.includes('ESCALOPE') || p.includes('TAJINE') || p.includes('EMINCE') || p.includes('PAVE') ||
+      p.includes('BROCHETTE') || p.includes('CORDON BLEU') || p.includes('ENTRECOTE') || p.includes('FAJITAS') ||
+      p.includes('SOURIS D AGNEAU') || p.includes('COUSCOUS') || p.includes('ROULADE') || p.includes('MEDAILLON') ||
+      p.includes('MAGRET') || p.includes('PLAT ')) {
     return 'plat';
   }
 
-  return 'plat';
+  return 'supplement';
 }
 
 function renderSalesCategoryPillBar() {

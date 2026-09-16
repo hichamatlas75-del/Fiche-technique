@@ -151,6 +151,7 @@ window.exportComparatorToExcel = exportComparatorToExcel;
 window.onSalesCategoryPillClick = onSalesCategoryPillClick;
 window.renderSalesCategoryPillBar = renderSalesCategoryPillBar;
 window.detectProductCategory = detectProductCategory;
+window.GC_CATEGORIES = GC_CATEGORIES;
 
 window.setMenuEngQuadrantFilter = setMenuEngQuadrantFilter;
 window.onMenuEngFamilyFilterChange = onMenuEngFamilyFilterChange;
