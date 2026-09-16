@@ -15,8 +15,8 @@
     config: SUPABASE_CONFIG,
 
     // Headers standards pour les requêtes Supabase REST
-    getHeaders: function(extra) {
-      const token = (global.GC_Auth && typeof global.GC_Auth.getAccessToken === 'function')
+    getHeaders: function(extra, forceAnon = false) {
+      const token = (!forceAnon && global.GC_Auth && typeof global.GC_Auth.getAccessToken === 'function')
         ? global.GC_Auth.getAccessToken()
         : SUPABASE_CONFIG.anonKey;
 
@@ -25,6 +25,33 @@
         'Authorization': 'Bearer ' + token,
         'Content-Type': 'application/json'
       }, extra || {});
+    },
+
+    /**
+     * Exécute un fetch Supabase avec repli automatique (fallback) :
+     * Si l'Authorization avec token utilisateur échoue (ex: token expiré 401, RLS 403),
+     * on retente immédiatement et de façon transparente avec SUPABASE_CONFIG.anonKey.
+     */
+    fetchWithFallback: async function(url, options = {}) {
+      const opt = Object.assign({}, options);
+      const customHeaders = opt.headers || {};
+
+      opt.headers = this.getHeaders(customHeaders, false);
+      let res;
+      try {
+        res = await fetch(url, opt);
+      } catch (networkErr) {
+        throw networkErr;
+      }
+
+      if (res && (res.status === 401 || res.status === 403)) {
+        console.warn(`[GC_Supabase] Rejet ${res.status} avec token auth. Repli immédiat sur clé anon publique...`);
+        const fallbackOpt = Object.assign({}, options);
+        fallbackOpt.headers = this.getHeaders(customHeaders, true);
+        res = await fetch(url, fallbackOpt);
+      }
+
+      return res;
     },
 
     /**
@@ -49,9 +76,7 @@
      */
     syncIngredientsFromCloud: async function() {
       try {
-        const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs?select=*', {
-          headers: this.getHeaders()
-        });
+        const res = await this.fetchWithFallback(SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs?select=*');
         if (!res.ok) throw new Error('HTTP error ' + res.status);
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
@@ -99,9 +124,9 @@
           category: category || 'Général',
           updated_at: new Date().toISOString()
         }];
-        const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs', {
+        const res = await this.fetchWithFallback(SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs', {
           method: 'POST',
-          headers: this.getHeaders({ 'Prefer': 'resolution=merge-duplicates' }),
+          headers: { 'Prefer': 'resolution=merge-duplicates' },
           body: JSON.stringify(payload)
         });
         return res.ok;
@@ -133,9 +158,9 @@
           }
         });
         if (rows.length === 0) return true;
-        const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs', {
+        const res = await this.fetchWithFallback(SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs', {
           method: 'POST',
-          headers: this.getHeaders({ 'Prefer': 'resolution=merge-duplicates' }),
+          headers: { 'Prefer': 'resolution=merge-duplicates' },
           body: JSON.stringify(rows)
         });
         if (!res.ok) {
@@ -167,9 +192,9 @@
         // Envoi par paquets de 100 avec vérification de statut
         for (let i = 0; i < rows.length; i += 100) {
           const chunk = rows.slice(i, i + 100);
-          const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs', {
+          const res = await this.fetchWithFallback(SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs', {
             method: 'POST',
-            headers: this.getHeaders({ 'Prefer': 'resolution=merge-duplicates' }),
+            headers: { 'Prefer': 'resolution=merge-duplicates' },
             body: JSON.stringify(chunk)
           });
           if (!res.ok) {
@@ -189,9 +214,7 @@
      */
     syncRecipesFromCloud: async function() {
       try {
-        const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/recipes?is_active=eq.true&select=*', {
-          headers: this.getHeaders()
-        });
+        const res = await this.fetchWithFallback(SUPABASE_CONFIG.url + '/rest/v1/recipes?is_active=eq.true&select=*');
         if (!res.ok) throw new Error('HTTP error ' + res.status);
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
@@ -247,9 +270,9 @@
           updated_at: new Date().toISOString()
         }];
 
-        const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/recipes', {
+        const res = await this.fetchWithFallback(SUPABASE_CONFIG.url + '/rest/v1/recipes', {
           method: 'POST',
-          headers: this.getHeaders({ 'Prefer': 'resolution=merge-duplicates' }),
+          headers: { 'Prefer': 'resolution=merge-duplicates' },
           body: JSON.stringify(payload)
         });
 
@@ -283,9 +306,8 @@
       try {
         const rowId = (id && !id.startsWith('rec_')) ? id : (name ? ('_' + name.toLowerCase().replace(/[^a-z0-9]/g, '_')) : '');
         const url = SUPABASE_CONFIG.url + '/rest/v1/recipes?' + (rowId ? `id=eq.${encodeURIComponent(rowId)}` : `name=eq.${encodeURIComponent(name)}`);
-        const res = await fetch(url, {
-          method: 'DELETE',
-          headers: this.getHeaders()
+        const res = await this.fetchWithFallback(url, {
+          method: 'DELETE'
         });
         if (global.GC_Toast) {
           global.GC_Toast.show('🗑️ Fiche supprimée de Supabase Cloud', 'info');
@@ -328,9 +350,9 @@
 
         for (let i = 0; i < rows.length; i += 100) {
           const chunk = rows.slice(i, i + 100);
-          const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/recipes', {
+          const res = await this.fetchWithFallback(SUPABASE_CONFIG.url + '/rest/v1/recipes', {
             method: 'POST',
-            headers: this.getHeaders({ 'Prefer': 'resolution=merge-duplicates' }),
+            headers: { 'Prefer': 'resolution=merge-duplicates' },
             body: JSON.stringify(chunk)
           });
           if (!res.ok) {
@@ -385,9 +407,9 @@
 
         for (let i = 0; i < rows.length; i += 100) {
           const chunk = rows.slice(i, i + 100);
-          await fetch(SUPABASE_CONFIG.url + '/rest/v1/recipes', {
+          await this.fetchWithFallback(SUPABASE_CONFIG.url + '/rest/v1/recipes', {
             method: 'POST',
-            headers: this.getHeaders({ 'Prefer': 'resolution=merge-duplicates' }),
+            headers: { 'Prefer': 'resolution=merge-duplicates' },
             body: JSON.stringify(chunk)
           });
         }

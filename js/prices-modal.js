@@ -285,12 +285,12 @@
         const buyPrice = parseFloat(inp.value) || 0;
 
         if (window.INGREDIENT_UNIT_COSTS[k]) {
-          if (unit === 'g' || unit === 'ml') {
-            window.INGREDIENT_UNIT_COSTS[k].cost = buyPrice / 1000;
-          } else {
-            window.INGREDIENT_UNIT_COSTS[k].cost = buyPrice;
+          const oldCost = window.INGREDIENT_UNIT_COSTS[k].cost || 0;
+          const newCost = (unit === 'g' || unit === 'ml') ? (buyPrice / 1000) : buyPrice;
+          if (Math.abs(oldCost - newCost) > 0.00001) {
+            window.INGREDIENT_UNIT_COSTS[k].cost = newCost;
+            modifiedKeys.add(k);
           }
-          modifiedKeys.add(k);
         }
       });
 
