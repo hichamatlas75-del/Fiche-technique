@@ -1045,6 +1045,7 @@
       <div class="nav-actions" style="gap:8px; flex-wrap:wrap;">
         <button class="btn" style="background:#10b981; color:#fff; border-color:#10b981; font-weight:800;" onclick="window.GC_PricesModal ? window.GC_PricesModal.open() : openPricesModal()" title="Ouvrir la mercuriale et ajuster les prix d'achat des ingrédients">💲 Prix Matières Premières</button>
         <button id="btn-add-recipe" class="btn btn-primary">➕ Nouvelle Fiche Technique</button>
+        <button class="btn" style="background:#0284c7; color:#fff; border-color:#0284c7; font-weight:800;" onclick="window.syncAllRecipesToSupabase(this)" title="Synchroniser toutes les fiches techniques actives vers Supabase Cloud (Direction)">☁️ Synchroniser vers Supabase</button>
         <button class="btn" onclick="exportRecipesJSON()" title="Télécharger les fiches techniques en fichier JSON">💾 Exporter Fiches (JSON)</button>
         <button class="btn" onclick="document.getElementById('recipes-import-file').click()" title="Charger un fichier de fiches techniques JSON">📂 Importer Fiches</button>
         <input type="file" id="recipes-import-file" accept=".json" style="display:none;" onchange="importRecipesJSON(event)" />

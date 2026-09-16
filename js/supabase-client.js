@@ -33,6 +33,7 @@
     init: async function() {
       try {
         await this.syncIngredientsFromCloud();
+        await this.syncRecipesFromCloud();
         this.isOnline = true;
         this.updateUiBadge(true);
         this.setupRealtime();
@@ -129,34 +130,165 @@
     },
 
     /**
+     * Charge les fiches techniques depuis Supabase et met à jour activeRecipes si des fiches modifiées existent
+     */
+    syncRecipesFromCloud: async function() {
+      try {
+        const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/recipes?is_active=eq.true&select=*', {
+          headers: this.getHeaders()
+        });
+        if (!res.ok) throw new Error('HTTP error ' + res.status);
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          console.log('[GC_Supabase] ' + data.length + ' fiches techniques récupérées depuis Supabase Cloud.');
+          if (typeof window !== 'undefined' && Array.isArray(window.activeRecipes)) {
+            let updatedCount = 0;
+            data.forEach(cloudR => {
+              if (!cloudR || !cloudR.name) return;
+              const idx = window.activeRecipes.findIndex(r => r && (r.id === cloudR.id || (window.cleanText && window.cleanText(r.name) === window.cleanText(cloudR.name))));
+              if (idx >= 0 && Array.isArray(cloudR.ingredients) && cloudR.ingredients.length > 0) {
+                window.activeRecipes[idx].ingredients = cloudR.ingredients;
+                window.activeRecipes[idx].sellPrice = cloudR.sell_price;
+                window.activeRecipes[idx].cost = cloudR.cost;
+                window.activeRecipes[idx].foodCost = cloudR.food_cost;
+                window.activeRecipes[idx].grossMarginDH = cloudR.gross_margin;
+                updatedCount++;
+              }
+            });
+            if (updatedCount > 0 && typeof window.renderRecipeList === 'function') {
+              window.renderRecipeList();
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('[GC_Supabase] Synchronisation fiches cloud ignorée:', err.message);
+      }
+    },
+
+    /**
      * Sauvegarde une fiche technique unitaire vers Supabase Cloud
      */
     saveRecipeToCloud: async function(recipeObj) {
       try {
-        const id = recipeObj.id || (recipeObj.category + '_' + recipeObj.name).toLowerCase().replace(/[^a-z0-9]/g, '_');
+        if (!recipeObj || !recipeObj.name) {
+          console.warn('[GC_Supabase] Fiche invalide reçue pour sauvegarde Cloud');
+          return false;
+        }
+        const cat = recipeObj.category || 'Général';
+        const id = (recipeObj.id && !recipeObj.id.startsWith('rec_'))
+          ? recipeObj.id
+          : ((cat + '_' + recipeObj.name).toLowerCase().replace(/[^a-z0-9]/g, '_'));
+
         const payload = [{
           id: id,
           name: recipeObj.name,
-          category: recipeObj.category || 'Général',
+          category: cat,
           sell_price: recipeObj.sell_price || recipeObj.sellPrice || 0,
-          cost: recipeObj.cost || 0,
-          food_cost: recipeObj.food_cost || recipeObj.foodCost || 0,
-          gross_margin: recipeObj.gross_margin || recipeObj.grossMarginDH || 0,
+          cost: typeof recipeObj.cost === 'number' ? recipeObj.cost : 0,
+          food_cost: typeof recipeObj.food_cost === 'number' ? recipeObj.food_cost : (recipeObj.foodCost || 0),
+          gross_margin: typeof recipeObj.gross_margin === 'number' ? recipeObj.gross_margin : (recipeObj.grossMarginDH || 0),
           ingredients: recipeObj.ingredients || recipeObj.tech || [],
           is_active: true,
           updated_at: new Date().toISOString()
         }];
+
         const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/recipes', {
           method: 'POST',
           headers: this.getHeaders({ 'Prefer': 'resolution=merge-duplicates' }),
           body: JSON.stringify(payload)
         });
+
+        if (!res.ok) {
+          const errTxt = await res.text();
+          console.error('[GC_Supabase] Erreur HTTP sauvegarde recette:', res.status, errTxt);
+          if (global.GC_Toast) {
+            global.GC_Toast.show('⚠️ Erreur synchronisation Supabase (' + res.status + ')', 'error');
+          }
+          return false;
+        }
+
+        console.log('[GC_Supabase] Fiche synchronisée avec succès dans Supabase:', recipeObj.name);
         if (global.GC_Toast) {
           global.GC_Toast.show('☁️ Fiche "' + recipeObj.name + '" synchronisée dans Supabase Cloud !', 'success');
         }
-        return res.ok;
+        return true;
       } catch (err) {
         console.error('[GC_Supabase] Erreur sauvegarde recette:', err);
+        if (global.GC_Toast) {
+          global.GC_Toast.show('⚠️ Erreur réseau Supabase: ' + err.message, 'error');
+        }
+        return false;
+      }
+    },
+
+    /**
+     * Supprime ou désactive une fiche technique de Supabase Cloud
+     */
+    deleteRecipeFromCloud: async function(id, name) {
+      try {
+        const rowId = (id && !id.startsWith('rec_')) ? id : (name ? ('_' + name.toLowerCase().replace(/[^a-z0-9]/g, '_')) : '');
+        const url = SUPABASE_CONFIG.url + '/rest/v1/recipes?' + (rowId ? `id=eq.${encodeURIComponent(rowId)}` : `name=eq.${encodeURIComponent(name)}`);
+        const res = await fetch(url, {
+          method: 'DELETE',
+          headers: this.getHeaders()
+        });
+        if (global.GC_Toast) {
+          global.GC_Toast.show('🗑️ Fiche supprimée de Supabase Cloud', 'info');
+        }
+        return res.ok;
+      } catch (err) {
+        console.error('[GC_Supabase] Erreur suppression recette:', err);
+        return false;
+      }
+    },
+
+    /**
+     * Sauvegarde l'ensemble des fiches techniques actives vers Supabase Cloud
+     */
+    saveAllActiveRecipesToCloud: async function(recipesList) {
+      try {
+        const list = recipesList || global.activeRecipes || [];
+        if (!Array.isArray(list) || list.length === 0) return false;
+
+        const rows = [];
+        for (const r of list) {
+          if (!r || !r.name) continue;
+          const cat = r.category || 'Général';
+          const id = (r.id && !r.id.startsWith('rec_')) ? r.id : ((cat + '_' + r.name).toLowerCase().replace(/[^a-z0-9]/g, '_'));
+          rows.push({
+            id: id,
+            name: r.name,
+            category: cat,
+            sell_price: r.sellPrice || r.sell_price || 0,
+            cost: typeof r.cost === 'number' ? r.cost : 0,
+            food_cost: typeof r.foodCost === 'number' ? r.foodCost : 0,
+            gross_margin: typeof r.grossMarginDH === 'number' ? r.grossMarginDH : 0,
+            ingredients: r.ingredients || r.tech || [],
+            is_active: true,
+            updated_at: new Date().toISOString()
+          });
+        }
+
+        if (rows.length === 0) return true;
+
+        for (let i = 0; i < rows.length; i += 100) {
+          const chunk = rows.slice(i, i + 100);
+          const res = await fetch(SUPABASE_CONFIG.url + '/rest/v1/recipes', {
+            method: 'POST',
+            headers: this.getHeaders({ 'Prefer': 'resolution=merge-duplicates' }),
+            body: JSON.stringify(chunk)
+          });
+          if (!res.ok) {
+            console.error('[GC_Supabase] Erreur chunk ' + i + ':', await res.text());
+          }
+        }
+
+        if (global.GC_Toast) {
+          global.GC_Toast.show('☁️ ' + rows.length + ' fiches synchronisées dans Supabase Cloud !', 'success');
+        }
+        return true;
+      } catch (err) {
+        console.error('[GC_Supabase] Erreur synchronisation fiches globales:', err);
         return false;
       }
     },
@@ -236,6 +368,33 @@
               }
               if (global.GC_Toast) {
                 global.GC_Toast.show('⚡ Prix mis à jour en direct : ' + payload.new.label, 'info');
+              }
+            }
+          })
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'recipes' }, payload => {
+            console.log('[GC_Supabase Realtime] Mise à jour fiche recette détectée:', payload);
+            if (payload.new && payload.new.name && Array.isArray(window.activeRecipes)) {
+              const r = payload.new;
+              const idx = window.activeRecipes.findIndex(x => x && (x.id === r.id || (window.cleanText && window.cleanText(x.name) === window.cleanText(r.name))));
+              const recipeObj = {
+                id: r.id,
+                name: r.name,
+                category: r.category,
+                ingredients: r.ingredients || [],
+                sellPrice: r.sell_price || 0,
+                cost: r.cost || 0,
+                foodCost: r.food_cost || 0,
+                grossMarginDH: r.gross_margin || 0
+              };
+              if (idx >= 0) {
+                window.activeRecipes[idx] = recipeObj;
+              } else {
+                window.activeRecipes.push(recipeObj);
+              }
+              if (typeof window.saveRecipes === 'function') window.saveRecipes();
+              if (typeof window.renderRecipeList === 'function') window.renderRecipeList();
+              if (global.GC_Toast) {
+                global.GC_Toast.show('⚡ Fiche mise à jour en direct : ' + r.name, 'info');
               }
             }
           })

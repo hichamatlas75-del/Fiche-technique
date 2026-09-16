@@ -246,6 +246,11 @@ function deleteRecipe(id) {
     }
   } catch (e) {}
 
+  // 6b. Suppression Cloud Supabase
+  if (typeof window !== 'undefined' && window.GC_Supabase && typeof window.GC_Supabase.deleteRecipeFromCloud === 'function') {
+    window.GC_Supabase.deleteRecipeFromCloud(id, name);
+  }
+
   // 7. Émettre signal de synchronisation temps réel
   try {
     localStorage.setItem(GC_STORAGE_KEYS.SYNC_PING, Date.now().toString());
@@ -338,8 +343,9 @@ function saveRecipeFromModal(silent = false) {
   // Sauvegarde Cloud Supabase
   if (typeof window !== 'undefined' && window.GC_Supabase && typeof window.GC_Supabase.saveRecipeToCloud === 'function') {
     window.GC_Supabase.saveRecipeToCloud({
+      id: recipeObj.id,
       name: name,
-      category: catKey,
+      category: category,
       sell_price: sellPrice,
       cost: fcCalc.cost,
       food_cost: fcCalc.foodCost,
@@ -577,11 +583,42 @@ function exportRecipesJSON() {
   URL.revokeObjectURL(url);
 }
 
+async function syncAllRecipesToSupabase(btn) {
+  if (!window.GC_Supabase || typeof window.GC_Supabase.saveAllActiveRecipesToCloud !== 'function') {
+    alert("Le connecteur Supabase Cloud n'est pas disponible.");
+    return;
+  }
+  const originalText = btn ? btn.innerHTML : '';
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Envoi Supabase...';
+  }
+  try {
+    const ok = await window.GC_Supabase.saveAllActiveRecipesToCloud(activeRecipes);
+    if (ok) {
+      if (typeof window.GC_Toast !== 'undefined') {
+        window.GC_Toast.show('☁️ ' + activeRecipes.length + ' fiches synchronisées dans Supabase Cloud !', 'success');
+      } else {
+        alert('✅ ' + activeRecipes.length + ' fiches techniques synchronisées avec succès dans Supabase Cloud !');
+      }
+    } else {
+      alert("Erreur lors de la synchronisation des fiches vers Supabase.");
+    }
+  } catch (e) {
+    alert("Erreur de synchronisation : " + e.message);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+    }
+  }
+}
+
 function importRecipesJSON(event) {
   const file = event.target.files[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = (e) => {
+  reader.onload = async (e) => {
     try {
       const data = JSON.parse(e.target.result);
       if (Array.isArray(data) && data.length > 0) {
@@ -589,7 +626,11 @@ function importRecipesJSON(event) {
         saveRecipes();
         renderRecipeList();
         recalculateCurrentView();
-        alert(`✅ ${data.length} fiches techniques importées et enregistrées avec succès !`);
+        // Sauvegarde automatique vers Supabase Cloud
+        if (typeof window !== 'undefined' && window.GC_Supabase && typeof window.GC_Supabase.saveAllActiveRecipesToCloud === 'function') {
+          await window.GC_Supabase.saveAllActiveRecipesToCloud(activeRecipes);
+        }
+        alert(`✅ ${data.length} fiches techniques importées et synchronisées avec succès !`);
       } else {
         alert("Le fichier JSON ne contient pas de liste de fiches techniques valide.");
       }
@@ -686,6 +727,7 @@ if (typeof window !== 'undefined') {
   window.editRecipe = editRecipe;
   window.openRecipeEditor = openRecipeEditor;
   window.renderRecipeList = renderRecipeList;
+  window.syncAllRecipesToSupabase = syncAllRecipesToSupabase;
 }
 
 
