@@ -33,11 +33,15 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          pip install xlrd
+          pip install xlrd openpyxl
 
       - name: Generate latest day sales JSON and update synthesis
         run: |
           python ./scripts/generate_latest_day.py
+
+      - name: Sync latest sales to Supabase Cloud
+        run: |
+          python ./scripts/sync_sales_to_supabase.py --latest
 
       - name: Commit and push changes if needed
         run: |
