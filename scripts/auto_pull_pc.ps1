@@ -26,6 +26,11 @@ try {
             python $genScript 2>&1 | Out-Null
             Add-LogEntry "[MAJ] Dernier jour de vente recalcule et injecte dans Synthese !"
         }
+        $syncSupabase = Join-Path $PSScriptRoot "sync_sales_to_supabase.py"
+        if (Test-Path $syncSupabase) {
+            python $syncSupabase --latest 2>&1 | Out-Null
+            Add-LogEntry "[MAJ] Dernier jour de vente synchronise vers Supabase Cloud !"
+        }
     } elseif ($clean -match "Could not resolve" -or $clean -match "Failed to connect") {
         Add-LogEntry "[WARN] Pas de connexion Internet. Prochain essai planifie."
     } else {

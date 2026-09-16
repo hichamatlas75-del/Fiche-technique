@@ -424,6 +424,50 @@
     },
 
     /**
+     * Sauvegarde une journée de ventes (clôture caisse) vers Supabase Cloud
+     */
+    saveDailySalesToCloud: async function(saleDate, totalRevenue, totalItems, items, totalTickets) {
+      try {
+        if (!saleDate) return false;
+        const payload = [{
+          sale_date: saleDate,
+          total_revenue: typeof totalRevenue === 'number' ? totalRevenue : parseFloat(totalRevenue) || 0,
+          total_tickets: totalTickets || 0,
+          total_items: typeof totalItems === 'number' ? totalItems : parseInt(totalItems, 10) || 0,
+          items: Array.isArray(items) ? items : [],
+          created_at: new Date().toISOString()
+        }];
+        const res = await this.fetchWithFallback(SUPABASE_CONFIG.url + '/rest/v1/daily_sales', {
+          method: 'POST',
+          headers: { 'Prefer': 'resolution=merge-duplicates' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          console.log(`[GC_Supabase] Ventes du ${saleDate} enregistrées dans Supabase Cloud (${payload[0].total_revenue} DH).`);
+        }
+        return res.ok;
+      } catch (err) {
+        console.error('[GC_Supabase] Erreur sauvegarde daily_sales:', err);
+        return false;
+      }
+    },
+
+    /**
+     * Récupère l'historique des ventes journalières depuis Supabase Cloud
+     */
+    syncDailySalesFromCloud: async function(limit = 180) {
+      try {
+        const res = await this.fetchWithFallback(SUPABASE_CONFIG.url + `/rest/v1/daily_sales?select=*&order=sale_date.desc&limit=${limit}`);
+        if (!res.ok) throw new Error('HTTP error ' + res.status);
+        const data = await res.json();
+        return Array.isArray(data) ? data : [];
+      } catch (err) {
+        console.warn('[GC_Supabase] Impossible de récupérer daily_sales:', err.message);
+        return [];
+      }
+    },
+
+    /**
      * Écoute en temps réel les changements (Realtime)
      */
     setupRealtime: function() {
@@ -431,6 +475,12 @@
         const client = global.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
         client
           .channel('schema-db-changes')
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'daily_sales' }, payload => {
+            console.log('[GC_Supabase Realtime] Clôture de ventes reçue:', payload);
+            if (payload.new && payload.new.sale_date && global.GC_Toast) {
+              global.GC_Toast.show(`📅 Ventes du ${payload.new.sale_date} synchronisées (${payload.new.total_revenue} DH)`, 'info');
+            }
+          })
           .on('postgres_changes', { event: '*', schema: 'public', table: 'ingredient_costs' }, payload => {
             console.log('[GC_Supabase Realtime] Mise à jour prix détectée:', payload);
             if (payload.new && payload.new.id) {

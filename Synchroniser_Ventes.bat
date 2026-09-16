@@ -28,6 +28,13 @@ if %ERRORLEVEL% EQU 0 (
     powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\organize_and_update_manifest.ps1"
 )
 
+:: 2.bis Synchronisation automatique de la journee de caisse vers Supabase Cloud
+echo [*] Synchronisation automatique du jour de caisse vers Supabase Cloud...
+where python >nul 2>&1
+if %ERRORLEVEL% EQU 0 (
+    python "%~dp0scripts\sync_sales_to_supabase.py" --latest
+)
+
 :: 3. Ajout des fichiers a Git
 echo [*] Preparation des commits Git dans ventes/...
 git add ventes/

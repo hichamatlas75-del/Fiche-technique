@@ -100,4 +100,17 @@ console.log(`✅ SYNCHRONISATION DES FICHIERS DE VENTES TERMINÉE`);
 console.log(`- Fichiers reclassés : ${movedCount}`);
 console.log(`- Total fichiers inventoriés : ${allSalesFiles.length}`);
 console.log(`- Manifest mis à jour : ventes/manifest.json`);
+
+// Synchronisation automatique vers Supabase Cloud
+try {
+  const { execSync } = require('child_process');
+  const pyScript = path.join(__dirname, 'sync_sales_to_supabase.py');
+  if (fs.existsSync(pyScript)) {
+    console.log(`- Envoi vers Supabase Cloud (daily_sales)...`);
+    execSync(`python "${pyScript}" --latest`, { stdio: 'inherit' });
+  }
+} catch (e) {
+  console.log(`[Supabase Cloud] Synchronisation ignorée (hors-ligne ou Python indisponible)`);
+}
+
 console.log(`======================================================\n`);

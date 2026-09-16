@@ -143,6 +143,26 @@ async function handleUploadedFiles(fileList) {
         monthlySalesDB[extractedDate] = rows;
         loadedFilesCount++;
         lastLoadedDate = extractedDate;
+
+        // Synchronisation automatique immédiate vers Supabase Cloud
+        if (window.GC_Supabase && typeof window.GC_Supabase.saveDailySalesToCloud === 'function') {
+          let totCA = 0;
+          let totQty = 0;
+          const itemsPayload = rows.map(r => {
+            const lineCA = (typeof r.total === 'number' ? r.total : ((r.qty || 1) * (r.price || 0)));
+            totCA += lineCA;
+            totQty += (r.qty || 1);
+            return {
+              id: (r.product || '').toLowerCase().replace(/[^a-z0-9]/g, '_'),
+              name: r.product,
+              cat: r.family || '',
+              price: r.price || 0,
+              qty: r.qty || 1,
+              ca: Math.round(lineCA * 100) / 100
+            };
+          });
+          window.GC_Supabase.saveDailySalesToCloud(extractedDate, Math.round(totCA * 100) / 100, Math.round(totQty), itemsPayload);
+        }
       }
     } catch (err) {
       console.warn("Erreur lors de la lecture du fichier : " + file.name, err);
