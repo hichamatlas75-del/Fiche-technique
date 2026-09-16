@@ -33,6 +33,7 @@ echo [*] Synchronisation automatique du jour de caisse vers Supabase Cloud...
 where python >nul 2>&1
 if %ERRORLEVEL% EQU 0 (
     python "%~dp0scripts\sync_sales_to_supabase.py" --latest
+    python "%~dp0scripts\send_telegram_summary.py"
 )
 
 :: 3. Ajout des fichiers a Git
