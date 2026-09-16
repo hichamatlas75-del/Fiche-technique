@@ -2726,11 +2726,11 @@ const DATA = [
           "Concombre : 10 g"
         ],
         "price": "54 DH",
-        "cost": 14.97,
+        "cost": 15.22,
         "sellPrice": 54,
-        "foodCost": 27.7,
-        "margin": 72.3,
-        "grossMarginDH": 39.03,
+        "foodCost": 28.2,
+        "margin": 71.8,
+        "grossMarginDH": 38.78,
         "__key": "ef",
         "__images": [
           "images/entree-russe.jpg"
@@ -2750,11 +2750,11 @@ const DATA = [
           "Parmesan : 30 g"
         ],
         "price": "65 DH",
-        "cost": 17.15,
+        "cost": 17.8,
         "sellPrice": 65,
-        "foodCost": 26.4,
-        "margin": 73.6,
-        "grossMarginDH": 47.85,
+        "foodCost": 27.4,
+        "margin": 72.6,
+        "grossMarginDH": 47.2,
         "__key": "ef",
         "__images": [
           "images/entree-caesar.jpg",
@@ -2905,10 +2905,10 @@ const DATA = [
         ],
         "price": "54 DH",
         "sellPrice": 54,
-        "cost": 6.16,
-        "foodCost": 11.4,
-        "margin": 88.6,
-        "grossMarginDH": 47.84,
+        "cost": 6.41,
+        "foodCost": 11.9,
+        "margin": 88.1,
+        "grossMarginDH": 47.59,
         "__key": "ef",
         "__images": [
           "images/placeholder.svg"
@@ -2932,11 +2932,11 @@ const DATA = [
           "Edam : 25 g"
         ],
         "price": "52 DH",
-        "cost": 13.75,
+        "cost": 14.75,
         "sellPrice": 52,
-        "foodCost": 26.4,
-        "margin": 73.6,
-        "grossMarginDH": 38.25,
+        "foodCost": 28.4,
+        "margin": 71.6,
+        "grossMarginDH": 37.25,
         "__key": "ec",
         "__images": [
           "images/entree-boulette-poulet.webp"
@@ -3005,10 +3005,10 @@ const DATA = [
         ],
         "price": "52 DH",
         "sellPrice": 52,
-        "cost": 15.44,
-        "foodCost": 29.7,
-        "margin": 70.3,
-        "grossMarginDH": 36.56,
+        "cost": 16.44,
+        "foodCost": 31.6,
+        "margin": 68.4,
+        "grossMarginDH": 35.56,
         "__key": "ec",
         "__images": [
           "images/placeholder.svg"
@@ -3055,11 +3055,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "84 DH",
-        "cost": 21.84,
+        "cost": 22.84,
         "sellPrice": 84,
-        "foodCost": 26,
-        "margin": 74,
-        "grossMarginDH": 62.16,
+        "foodCost": 27.2,
+        "margin": 72.8,
+        "grossMarginDH": 61.16,
         "__key": "pl",
         "__images": [
           "images/plat-brochette.jpg",
@@ -3082,11 +3082,11 @@ const DATA = [
           "Huile : 50 ml"
         ],
         "price": "88 DH",
-        "cost": 25.38,
+        "cost": 26.18,
         "sellPrice": 88,
-        "foodCost": 28.8,
-        "margin": 71.2,
-        "grossMarginDH": 62.62,
+        "foodCost": 29.8,
+        "margin": 70.3,
+        "grossMarginDH": 61.82,
         "__key": "pl",
         "__images": [
           "images/plat-emincepoulet.jpg",
@@ -3109,11 +3109,11 @@ const DATA = [
           "Frites : 200 g"
         ],
         "price": "94 DH",
-        "cost": 28.55,
+        "cost": 29.55,
         "sellPrice": 94,
-        "foodCost": 30.4,
-        "margin": 69.6,
-        "grossMarginDH": 65.45,
+        "foodCost": 31.4,
+        "margin": 68.6,
+        "grossMarginDH": 64.45,
         "__key": "pl",
         "__images": [
           "images/plat-ballotine.jpg",
@@ -3141,11 +3141,11 @@ const DATA = [
           "Beurre : 40 g"
         ],
         "price": "98 DH",
-        "cost": 32.96,
+        "cost": 33.86,
         "sellPrice": 98,
-        "foodCost": 33.6,
-        "margin": 66.4,
-        "grossMarginDH": 65.04,
+        "foodCost": 34.6,
+        "margin": 65.4,
+        "grossMarginDH": 64.14,
         "__key": "pl",
         "__images": [
           "images/plat-supreme.webp"
@@ -3166,11 +3166,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "85 DH",
-        "cost": 21.07,
+        "cost": 21.67,
         "sellPrice": 85,
-        "foodCost": 24.8,
-        "margin": 75.2,
-        "grossMarginDH": 63.93,
+        "foodCost": 25.5,
+        "margin": 74.5,
+        "grossMarginDH": 63.33,
         "__key": "pl",
         "__images": [
           "images/plat-milanaise.jpg",
@@ -3323,10 +3323,10 @@ const DATA = [
         ],
         "price": "84 DH",
         "sellPrice": 84,
-        "cost": 18.34,
-        "foodCost": 21.8,
-        "margin": 78.2,
-        "grossMarginDH": 65.66,
+        "cost": 19.34,
+        "foodCost": 23,
+        "margin": 77,
+        "grossMarginDH": 64.66,
         "__key": "pl",
         "__images": [
           "images/placeholder.svg"
@@ -3353,11 +3353,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "50 DH",
-        "cost": 15.71,
+        "cost": 16.31,
         "sellPrice": 50,
-        "foodCost": 31.4,
-        "margin": 68.6,
-        "grossMarginDH": 34.29,
+        "foodCost": 32.6,
+        "margin": 67.4,
+        "grossMarginDH": 33.69,
         "__key": "bg",
         "__images": [
           "images/burger-cheese.jpg"
@@ -3403,11 +3403,11 @@ const DATA = [
           "Pain : 1 p"
         ],
         "price": "54 DH",
-        "cost": 16.32,
+        "cost": 16.92,
         "sellPrice": 54,
-        "foodCost": 30.2,
-        "margin": 69.8,
-        "grossMarginDH": 37.68,
+        "foodCost": 31.3,
+        "margin": 68.7,
+        "grossMarginDH": 37.08,
         "__key": "bg",
         "__images": [
           "images/burger-avocado.jpg"
@@ -3508,11 +3508,11 @@ const DATA = [
           "Sauce burger : 60 ml"
         ],
         "price": "58 DH",
-        "cost": 21.89,
+        "cost": 22.49,
         "sellPrice": 58,
-        "foodCost": 37.7,
-        "margin": 62.3,
-        "grossMarginDH": 36.11,
+        "foodCost": 38.8,
+        "margin": 61.2,
+        "grossMarginDH": 35.51,
         "__key": "wr",
         "__images": [
           "images/Wrap-poulet.jpg"
@@ -3558,11 +3558,11 @@ const DATA = [
           "Sauce burger : 60 ml"
         ],
         "price": "64 DH",
-        "cost": 24.32,
+        "cost": 24.92,
         "sellPrice": 64,
-        "foodCost": 38,
-        "margin": 62,
-        "grossMarginDH": 39.68,
+        "foodCost": 38.9,
+        "margin": 61.1,
+        "grossMarginDH": 39.08,
         "__key": "wr",
         "__images": [
           "images/Wrap-gourmand.jpg"
@@ -3604,10 +3604,10 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_poulet",
-        "cost": 12.04,
-        "foodCost": 27.4,
-        "margin": 72.6,
-        "grossMarginDH": 31.96
+        "cost": 12.39,
+        "foodCost": 28.2,
+        "margin": 71.8,
+        "grossMarginDH": 31.61
       },
       {
         "name": "PANINI VIANDE HACHÉE",
@@ -3640,10 +3640,10 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_gourmand",
-        "cost": 19.04,
-        "foodCost": 29.8,
-        "margin": 70.3,
-        "grossMarginDH": 44.96
+        "cost": 19.29,
+        "foodCost": 30.1,
+        "margin": 69.9,
+        "grossMarginDH": 44.71
       },
       {
         "name": "PANINI FRUITS DE MER",
@@ -3749,11 +3749,11 @@ const DATA = [
           "FRITTES : 200 g"
         ],
         "price": "48 DH",
-        "cost": 12.18,
+        "cost": 12.68,
         "sellPrice": 48,
-        "foodCost": 25.4,
-        "margin": 74.6,
-        "grossMarginDH": 35.82,
+        "foodCost": 26.4,
+        "margin": 73.6,
+        "grossMarginDH": 35.32,
         "__key": "sw",
         "__images": [
           "images/sand-poulet.jpg"
@@ -3772,11 +3772,11 @@ const DATA = [
           "FRITTES : 200 g"
         ],
         "price": "58 DH",
-        "cost": 15.13,
+        "cost": 15.73,
         "sellPrice": 58,
-        "foodCost": 26.1,
-        "margin": 73.9,
-        "grossMarginDH": 42.87,
+        "foodCost": 27.1,
+        "margin": 72.9,
+        "grossMarginDH": 42.27,
         "__key": "sw",
         "__images": [
           "images/sand-crunchy.jpg"
@@ -3844,10 +3844,10 @@ const DATA = [
         ],
         "price": "54 DH",
         "sellPrice": 54,
-        "cost": 15.72,
-        "foodCost": 29.1,
-        "margin": 70.9,
-        "grossMarginDH": 38.28,
+        "cost": 16.12,
+        "foodCost": 29.9,
+        "margin": 70.1,
+        "grossMarginDH": 37.88,
         "__key": "sw",
         "__images": [
           "images/placeholder.svg"
@@ -4027,11 +4027,11 @@ const DATA = [
           "Sauce blanche : 40 g"
         ],
         "price": "78 DH",
-        "cost": 18.67,
+        "cost": 19.27,
         "sellPrice": 78,
-        "foodCost": 23.9,
-        "margin": 76.1,
-        "grossMarginDH": 59.33,
+        "foodCost": 24.7,
+        "margin": 75.3,
+        "grossMarginDH": 58.73,
         "__key": "pz",
         "__images": [
           "images/pizza-pouletblanche.jpg"
@@ -4052,11 +4052,11 @@ const DATA = [
           "Champignon : 60 g"
         ],
         "price": "88 DH",
-        "cost": 25.76,
+        "cost": 25.96,
         "sellPrice": 88,
-        "foodCost": 29.3,
-        "margin": 70.7,
-        "grossMarginDH": 62.24,
+        "foodCost": 29.5,
+        "margin": 70.5,
+        "grossMarginDH": 62.04,
         "__key": "pz",
         "__images": [
           "images/pizza-4saisons.jpg"
@@ -4074,11 +4074,11 @@ const DATA = [
           "CREME FRAICHE : 40 g"
         ],
         "price": "88 DH",
-        "cost": 18.07,
+        "cost": 18.32,
         "sellPrice": 88,
-        "foodCost": 20.5,
-        "margin": 79.5,
-        "grossMarginDH": 69.93,
+        "foodCost": 20.8,
+        "margin": 79.2,
+        "grossMarginDH": 69.68,
         "__key": "pz",
         "__images": [
           "images/pizza-moitiemoitie.jpg"
@@ -4200,11 +4200,11 @@ const DATA = [
           "mozzarella : 40 g"
         ],
         "price": "60 DH",
-        "cost": 19.44,
+        "cost": 19.84,
         "sellPrice": 60,
-        "foodCost": 32.4,
-        "margin": 67.6,
-        "grossMarginDH": 40.56,
+        "foodCost": 33.1,
+        "margin": 66.9,
+        "grossMarginDH": 40.16,
         "__key": "pae",
         "__images": [
           "images/lasagne-poulet.jpeg"
@@ -4394,11 +4394,11 @@ const DATA = [
           "Parmesan : 30 g"
         ],
         "price": "75 DH",
-        "cost": 22.35,
+        "cost": 22.95,
         "sellPrice": 75,
-        "foodCost": 29.8,
-        "margin": 70.2,
-        "grossMarginDH": 52.65,
+        "foodCost": 30.6,
+        "margin": 69.4,
+        "grossMarginDH": 52.05,
         "__key": "pae",
         "__images": [
           "images/pasta-poulet.jpg"
@@ -5031,11 +5031,11 @@ const DATA = [
           "Crème fraîche : 40 ml"
         ],
         "price": "48 DH",
-        "cost": 9.9,
+        "cost": 10.25,
         "sellPrice": 48,
-        "foodCost": 20.6,
-        "margin": 79.4,
-        "grossMarginDH": 38.1,
+        "foodCost": 21.4,
+        "margin": 78.6,
+        "grossMarginDH": 37.75,
         "__key": "cr",
         "__images": []
       },
@@ -5132,10 +5132,10 @@ const DATA = [
         ],
         "price": "58 DH",
         "sellPrice": 58,
-        "cost": 17.5,
-        "foodCost": 30.2,
-        "margin": 69.8,
-        "grossMarginDH": 40.5,
+        "cost": 17.75,
+        "foodCost": 30.6,
+        "margin": 69.4,
+        "grossMarginDH": 40.25,
         "__key": "cr",
         "__images": [
           "images/placeholder.svg"
@@ -5588,10 +5588,10 @@ const DATA = [
         ],
         "price": "54 DH",
         "sellPrice": 54,
-        "cost": 15.86,
-        "foodCost": 29.4,
-        "margin": 70.6,
-        "grossMarginDH": 38.14,
+        "cost": 16.86,
+        "foodCost": 31.2,
+        "margin": 68.8,
+        "grossMarginDH": 37.14,
         "__key": "sup",
         "__images": [
           "images/placeholder.svg"
@@ -5669,7 +5669,7 @@ const DATA = [
         ],
         "price": "",
         "sellPrice": 0,
-        "cost": 4,
+        "cost": 4.4,
         "foodCost": 0,
         "margin": 0,
         "grossMarginDH": 0,
@@ -10745,15 +10745,15 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "blanc de poulet": {
-    "cost": 0.05,
+    "cost": 0.055,
     "unit": "g"
   },
   "poulet": {
-    "cost": 0.05,
+    "cost": 0.055,
     "unit": "g"
   },
   "poulet hache": {
-    "cost": 0.05,
+    "cost": 0.055,
     "unit": "g"
   },
   "poulet pane": {
@@ -10761,11 +10761,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "poulet emince": {
-    "cost": 0.05,
+    "cost": 0.055,
     "unit": "g"
   },
   "poulet grille": {
-    "cost": 0.05,
+    "cost": 0.055,
     "unit": "g"
   },
   "volaille": {

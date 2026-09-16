@@ -4074,10 +4074,10 @@
     "category": "ENTRÉES FROIDES",
     "name": "Salade Russe",
     "sellPrice": 54,
-    "cost": 14.97,
-    "foodCostPct": 27.7,
-    "marginPct": 72.3,
-    "grossMarginDH": 39.03,
+    "cost": 15.22,
+    "foodCostPct": 28.2,
+    "marginPct": 71.8,
+    "grossMarginDH": 38.78,
     "details": [
       {
         "ingredient": "Pomme de Terre",
@@ -4092,7 +4092,7 @@
       {
         "ingredient": "Poulet",
         "quantity": "50 g",
-        "cost": 2.5
+        "cost": 2.75
       },
       {
         "ingredient": "Petit Pois",
@@ -4150,10 +4150,10 @@
     "category": "ENTRÉES FROIDES",
     "name": "Salade César",
     "sellPrice": 65,
-    "cost": 17.15,
-    "foodCostPct": 26.4,
-    "marginPct": 73.6,
-    "grossMarginDH": 47.85,
+    "cost": 17.8,
+    "foodCostPct": 27.4,
+    "marginPct": 72.6,
+    "grossMarginDH": 47.2,
     "details": [
       {
         "ingredient": "Salade Romaine",
@@ -4168,7 +4168,7 @@
       {
         "ingredient": "Poulet",
         "quantity": "130 g",
-        "cost": 6.5
+        "cost": 7.15
       },
       {
         "ingredient": "Croûtons",
@@ -4461,10 +4461,10 @@
     "category": "ENTRÉES FROIDES",
     "name": "RUSSE",
     "sellPrice": 54,
-    "cost": 6.16,
-    "foodCostPct": 11.4,
-    "marginPct": 88.6,
-    "grossMarginDH": 47.84,
+    "cost": 6.41,
+    "foodCostPct": 11.9,
+    "marginPct": 88.1,
+    "grossMarginDH": 47.59,
     "details": [
       {
         "ingredient": "Pomme de terre",
@@ -4489,7 +4489,7 @@
       {
         "ingredient": "Poulet",
         "quantity": "50 g",
-        "cost": 2.5
+        "cost": 2.75
       },
       {
         "ingredient": "Mayonnaise",
@@ -4502,15 +4502,15 @@
     "category": "ENTRÉES CHAUDES",
     "name": "BOULETTE DE POULET AU FROMAGE",
     "sellPrice": 52,
-    "cost": 13.75,
-    "foodCostPct": 26.4,
-    "marginPct": 73.6,
-    "grossMarginDH": 38.25,
+    "cost": 14.75,
+    "foodCostPct": 28.4,
+    "marginPct": 71.6,
+    "grossMarginDH": 37.25,
     "details": [
       {
         "ingredient": "Poulet",
         "quantity": "200 g",
-        "cost": 10
+        "cost": 11
       },
       {
         "ingredient": "Farine",
@@ -4620,15 +4620,15 @@
     "category": "ENTRÉES CHAUDES",
     "name": "BOULETTES DE POULET FR",
     "sellPrice": 52,
-    "cost": 15.44,
-    "foodCostPct": 29.7,
-    "marginPct": 70.3,
-    "grossMarginDH": 36.56,
+    "cost": 16.44,
+    "foodCostPct": 31.6,
+    "marginPct": 68.4,
+    "grossMarginDH": 35.56,
     "details": [
       {
         "ingredient": "Poulet haché",
         "quantity": "200 g",
-        "cost": 10
+        "cost": 11
       },
       {
         "ingredient": "Sauce",
@@ -4677,15 +4677,15 @@
     "category": "PLATS",
     "name": "BROCHETTES DE POULET",
     "sellPrice": 84,
-    "cost": 21.84,
-    "foodCostPct": 26,
-    "marginPct": 74,
-    "grossMarginDH": 62.16,
+    "cost": 22.84,
+    "foodCostPct": 27.2,
+    "marginPct": 72.8,
+    "grossMarginDH": 61.16,
     "details": [
       {
         "ingredient": "Blanc de poulet",
         "quantity": "200 g",
-        "cost": 10
+        "cost": 11
       },
       {
         "ingredient": "Sauce barbecue",
@@ -4718,15 +4718,15 @@
     "category": "PLATS",
     "name": "EMINCE DE POULET",
     "sellPrice": 88,
-    "cost": 25.38,
-    "foodCostPct": 28.8,
-    "marginPct": 71.2,
-    "grossMarginDH": 62.62,
+    "cost": 26.18,
+    "foodCostPct": 29.8,
+    "marginPct": 70.3,
+    "grossMarginDH": 61.82,
     "details": [
       {
         "ingredient": "Poulet",
         "quantity": "160 g",
-        "cost": 8
+        "cost": 8.8
       },
       {
         "ingredient": "Champignons",
@@ -4769,15 +4769,15 @@
     "category": "PLATS",
     "name": "BALLOTINE DE POULET",
     "sellPrice": 94,
-    "cost": 28.55,
-    "foodCostPct": 30.4,
-    "marginPct": 69.6,
-    "grossMarginDH": 65.45,
+    "cost": 29.55,
+    "foodCostPct": 31.4,
+    "marginPct": 68.6,
+    "grossMarginDH": 64.45,
     "details": [
       {
         "ingredient": "Poulet",
         "quantity": "200 g",
-        "cost": 10
+        "cost": 11
       },
       {
         "ingredient": "Épinard",
@@ -4820,15 +4820,15 @@
     "category": "PLATS",
     "name": "SUPRÊME DE POULET",
     "sellPrice": 98,
-    "cost": 32.96,
-    "foodCostPct": 33.6,
-    "marginPct": 66.4,
-    "grossMarginDH": 65.04,
+    "cost": 33.86,
+    "foodCostPct": 34.6,
+    "marginPct": 65.4,
+    "grossMarginDH": 64.14,
     "details": [
       {
         "ingredient": "Blanc de poulet",
         "quantity": "180 g",
-        "cost": 9
+        "cost": 9.9
       },
       {
         "ingredient": "Champignon",
@@ -4896,15 +4896,15 @@
     "category": "PLATS",
     "name": "ESCALOPE A LA MILANAISE",
     "sellPrice": 85,
-    "cost": 21.07,
-    "foodCostPct": 24.8,
-    "marginPct": 75.2,
-    "grossMarginDH": 63.93,
+    "cost": 21.67,
+    "foodCostPct": 25.5,
+    "marginPct": 74.5,
+    "grossMarginDH": 63.33,
     "details": [
       {
         "ingredient": "Poulet",
         "quantity": "120 g",
-        "cost": 6
+        "cost": 6.6
       },
       {
         "ingredient": "Chapelure",
@@ -5197,15 +5197,15 @@
     "category": "PLATS",
     "name": "BROCHETTE DE POULET",
     "sellPrice": 84,
-    "cost": 18.34,
-    "foodCostPct": 21.8,
-    "marginPct": 78.2,
-    "grossMarginDH": 65.66,
+    "cost": 19.34,
+    "foodCostPct": 23,
+    "marginPct": 77,
+    "grossMarginDH": 64.66,
     "details": [
       {
         "ingredient": "Poulet",
         "quantity": "200 g",
-        "cost": 10
+        "cost": 11
       },
       {
         "ingredient": "Frites",
@@ -5228,15 +5228,15 @@
     "category": "BURGERS",
     "name": "CHICKEN BURGER",
     "sellPrice": 50,
-    "cost": 15.71,
-    "foodCostPct": 31.4,
-    "marginPct": 68.6,
-    "grossMarginDH": 34.29,
+    "cost": 16.31,
+    "foodCostPct": 32.6,
+    "marginPct": 67.4,
+    "grossMarginDH": 33.69,
     "details": [
       {
         "ingredient": "poulet",
         "quantity": "120 g",
-        "cost": 6
+        "cost": 6.6
       },
       {
         "ingredient": "Sauce blanche",
@@ -5325,15 +5325,15 @@
     "category": "BURGERS",
     "name": "AVOCADO FORESTIER",
     "sellPrice": 54,
-    "cost": 16.32,
-    "foodCostPct": 30.2,
-    "marginPct": 69.8,
-    "grossMarginDH": 37.68,
+    "cost": 16.92,
+    "foodCostPct": 31.3,
+    "marginPct": 68.7,
+    "grossMarginDH": 37.08,
     "details": [
       {
         "ingredient": "Poulet",
         "quantity": "120 g",
-        "cost": 6
+        "cost": 6.6
       },
       {
         "ingredient": "Avocat",
@@ -5519,15 +5519,15 @@
     "category": "WRAPS",
     "name": "WRAP POULET",
     "sellPrice": 58,
-    "cost": 21.89,
-    "foodCostPct": 37.7,
-    "marginPct": 62.3,
-    "grossMarginDH": 36.11,
+    "cost": 22.49,
+    "foodCostPct": 38.8,
+    "marginPct": 61.2,
+    "grossMarginDH": 35.51,
     "details": [
       {
         "ingredient": "Poulet",
         "quantity": "120 g",
-        "cost": 6
+        "cost": 6.6
       },
       {
         "ingredient": "Œuf",
@@ -5616,15 +5616,15 @@
     "category": "WRAPS",
     "name": "WRAP GOURMAND",
     "sellPrice": 64,
-    "cost": 24.32,
-    "foodCostPct": 38,
-    "marginPct": 62,
-    "grossMarginDH": 39.68,
+    "cost": 24.92,
+    "foodCostPct": 38.9,
+    "marginPct": 61.1,
+    "grossMarginDH": 39.08,
     "details": [
       {
         "ingredient": "Poulet",
         "quantity": "120 g",
-        "cost": 6
+        "cost": 6.6
       },
       {
         "ingredient": "Charcuterie",
@@ -5708,15 +5708,15 @@
     "category": "PANINIS",
     "name": "PANINI POULET",
     "sellPrice": 44,
-    "cost": 12.04,
-    "foodCostPct": 27.4,
-    "marginPct": 72.6,
-    "grossMarginDH": 31.96,
+    "cost": 12.39,
+    "foodCostPct": 28.2,
+    "marginPct": 71.8,
+    "grossMarginDH": 31.61,
     "details": [
       {
         "ingredient": "Poulet",
         "quantity": "70 g",
-        "cost": 3.5
+        "cost": 3.85
       },
       {
         "ingredient": "Mozzarella",
@@ -5780,10 +5780,10 @@
     "category": "PANINIS",
     "name": "PANINI GOURMAND",
     "sellPrice": 64,
-    "cost": 19.04,
-    "foodCostPct": 29.8,
-    "marginPct": 70.3,
-    "grossMarginDH": 44.96,
+    "cost": 19.29,
+    "foodCostPct": 30.1,
+    "marginPct": 69.9,
+    "grossMarginDH": 44.71,
     "details": [
       {
         "ingredient": "Viande",
@@ -5793,7 +5793,7 @@
       {
         "ingredient": "Poulet",
         "quantity": "50 g",
-        "cost": 2.5
+        "cost": 2.75
       },
       {
         "ingredient": "Charcuterie",
@@ -6000,10 +6000,10 @@
     "category": "SANDWICHS",
     "name": "SANDWICH POULET",
     "sellPrice": 48,
-    "cost": 12.18,
-    "foodCostPct": 25.4,
-    "marginPct": 74.6,
-    "grossMarginDH": 35.82,
+    "cost": 12.68,
+    "foodCostPct": 26.4,
+    "marginPct": 73.6,
+    "grossMarginDH": 35.32,
     "details": [
       {
         "ingredient": "Pain",
@@ -6013,7 +6013,7 @@
       {
         "ingredient": "Poulet",
         "quantity": "100 g",
-        "cost": 5
+        "cost": 5.5
       },
       {
         "ingredient": "Tomate",
@@ -6041,10 +6041,10 @@
     "category": "SANDWICHS",
     "name": "SANDWICH POULET CRUNCHY",
     "sellPrice": 58,
-    "cost": 15.13,
-    "foodCostPct": 26.1,
-    "marginPct": 73.9,
-    "grossMarginDH": 42.87,
+    "cost": 15.73,
+    "foodCostPct": 27.1,
+    "marginPct": 72.9,
+    "grossMarginDH": 42.27,
     "details": [
       {
         "ingredient": "Pain",
@@ -6054,7 +6054,7 @@
       {
         "ingredient": "Poulet crunchy",
         "quantity": "120 g",
-        "cost": 6
+        "cost": 6.6
       },
       {
         "ingredient": "Cheddar",
@@ -6169,10 +6169,10 @@
     "category": "SANDWICHS",
     "name": "SANDWICH POULARD",
     "sellPrice": 54,
-    "cost": 15.72,
-    "foodCostPct": 29.1,
-    "marginPct": 70.9,
-    "grossMarginDH": 38.28,
+    "cost": 16.12,
+    "foodCostPct": 29.9,
+    "marginPct": 70.1,
+    "grossMarginDH": 37.88,
     "details": [
       {
         "ingredient": "Pain",
@@ -6182,7 +6182,7 @@
       {
         "ingredient": "Poulet",
         "quantity": "80 g",
-        "cost": 4
+        "cost": 4.4
       },
       {
         "ingredient": "Fromage",
@@ -6467,10 +6467,10 @@
     "category": "PIZZA",
     "name": "PIZZA POULET (SAUCE BLANCHE)",
     "sellPrice": 78,
-    "cost": 18.67,
-    "foodCostPct": 23.9,
-    "marginPct": 76.1,
-    "grossMarginDH": 59.33,
+    "cost": 19.27,
+    "foodCostPct": 24.7,
+    "marginPct": 75.3,
+    "grossMarginDH": 58.73,
     "details": [
       {
         "ingredient": "Pâte",
@@ -6485,7 +6485,7 @@
       {
         "ingredient": "Poulet",
         "quantity": "120 g",
-        "cost": 6
+        "cost": 6.6
       },
       {
         "ingredient": "Champignon",
@@ -6503,10 +6503,10 @@
     "category": "PIZZA",
     "name": "PIZZA 4 SAISONS",
     "sellPrice": 88,
-    "cost": 25.76,
-    "foodCostPct": 29.3,
-    "marginPct": 70.7,
-    "grossMarginDH": 62.24,
+    "cost": 25.96,
+    "foodCostPct": 29.5,
+    "marginPct": 70.5,
+    "grossMarginDH": 62.04,
     "details": [
       {
         "ingredient": "Pâte",
@@ -6536,7 +6536,7 @@
       {
         "ingredient": "Poulet",
         "quantity": "40 g",
-        "cost": 2
+        "cost": 2.2
       },
       {
         "ingredient": "Légumes",
@@ -6554,10 +6554,10 @@
     "category": "PIZZA",
     "name": "PIZZA MOITIÉ MOITIÉ",
     "sellPrice": 88,
-    "cost": 18.07,
-    "foodCostPct": 20.5,
-    "marginPct": 79.5,
-    "grossMarginDH": 69.93,
+    "cost": 18.32,
+    "foodCostPct": 20.8,
+    "marginPct": 79.2,
+    "grossMarginDH": 69.68,
     "details": [
       {
         "ingredient": "Pâte",
@@ -6572,7 +6572,7 @@
       {
         "ingredient": "POULET",
         "quantity": "50 g",
-        "cost": 2.5
+        "cost": 2.75
       },
       {
         "ingredient": "MOZZARELLA",
@@ -6749,10 +6749,10 @@
     "category": "PÂTES",
     "name": "LASAGNE POULET",
     "sellPrice": 60,
-    "cost": 19.44,
-    "foodCostPct": 32.4,
-    "marginPct": 67.6,
-    "grossMarginDH": 40.56,
+    "cost": 19.84,
+    "foodCostPct": 33.1,
+    "marginPct": 66.9,
+    "grossMarginDH": 40.16,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -6762,7 +6762,7 @@
       {
         "ingredient": "poulet",
         "quantity": "80 g",
-        "cost": 4
+        "cost": 4.4
       },
       {
         "ingredient": "Parmesan",
@@ -7147,10 +7147,10 @@
     "category": "PÂTES",
     "name": "PASTA POULET CHAMPIGNON / ÉPINARD",
     "sellPrice": 75,
-    "cost": 22.35,
-    "foodCostPct": 29.8,
-    "marginPct": 70.2,
-    "grossMarginDH": 52.65,
+    "cost": 22.95,
+    "foodCostPct": 30.6,
+    "marginPct": 69.4,
+    "grossMarginDH": 52.05,
     "details": [
       {
         "ingredient": "Pâtes",
@@ -7160,7 +7160,7 @@
       {
         "ingredient": "Poulet",
         "quantity": "120 g",
-        "cost": 6
+        "cost": 6.6
       },
       {
         "ingredient": "Champignons",
@@ -8023,10 +8023,10 @@
     "category": "CRÊPES",
     "name": "CRÊPE POULET CHAMPIGNON",
     "sellPrice": 48,
-    "cost": 9.9,
-    "foodCostPct": 20.6,
-    "marginPct": 79.4,
-    "grossMarginDH": 38.1,
+    "cost": 10.25,
+    "foodCostPct": 21.4,
+    "marginPct": 78.6,
+    "grossMarginDH": 37.75,
     "details": [
       {
         "ingredient": "Pâte à crêpe",
@@ -8036,7 +8036,7 @@
       {
         "ingredient": "Blanc de poulet",
         "quantity": "70 g",
-        "cost": 3.5
+        "cost": 3.85
       },
       {
         "ingredient": "Champignons",
@@ -8193,10 +8193,10 @@
     "category": "CRÊPES",
     "name": "CREPE GREY CORNER SALEE",
     "sellPrice": 58,
-    "cost": 17.5,
-    "foodCostPct": 30.2,
-    "marginPct": 69.8,
-    "grossMarginDH": 40.5,
+    "cost": 17.75,
+    "foodCostPct": 30.6,
+    "marginPct": 69.4,
+    "grossMarginDH": 40.25,
     "details": [
       {
         "ingredient": "Pâte à crêpe",
@@ -8216,7 +8216,7 @@
       {
         "ingredient": "poulet",
         "quantity": "50 g",
-        "cost": 2.5
+        "cost": 2.75
       },
       {
         "ingredient": "Mozzarella",
@@ -8752,10 +8752,10 @@
     "category": "SUPPLÉMENTS & EXTRAS",
     "name": "COUSCOUS POULET AVEC PETIT LAIT",
     "sellPrice": 54,
-    "cost": 15.86,
-    "foodCostPct": 29.4,
-    "marginPct": 70.6,
-    "grossMarginDH": 38.14,
+    "cost": 16.86,
+    "foodCostPct": 31.2,
+    "marginPct": 68.8,
+    "grossMarginDH": 37.14,
     "details": [
       {
         "ingredient": "Semoule couscous",
@@ -8765,7 +8765,7 @@
       {
         "ingredient": "Poulet",
         "quantity": "200 g",
-        "cost": 10
+        "cost": 11
       },
       {
         "ingredient": "Légumes couscous",
@@ -8856,7 +8856,7 @@
     "category": "SUPPLÉMENTS & EXTRAS",
     "name": "SUPPLÉMENT POULET",
     "sellPrice": 0,
-    "cost": 4,
+    "cost": 4.4,
     "foodCostPct": 0,
     "marginPct": 0,
     "grossMarginDH": 0,
@@ -8864,7 +8864,7 @@
       {
         "ingredient": "Poulet émincé",
         "quantity": "80 g",
-        "cost": 4
+        "cost": 4.4
       }
     ]
   },

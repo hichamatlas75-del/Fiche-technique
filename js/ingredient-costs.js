@@ -521,15 +521,15 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "blanc de poulet": {
-    "cost": 0.05,
+    "cost": 0.055,
     "unit": "g"
   },
   "poulet": {
-    "cost": 0.05,
+    "cost": 0.055,
     "unit": "g"
   },
   "poulet hache": {
-    "cost": 0.05,
+    "cost": 0.055,
     "unit": "g"
   },
   "poulet pane": {
@@ -537,11 +537,11 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g"
   },
   "poulet emince": {
-    "cost": 0.05,
+    "cost": 0.055,
     "unit": "g"
   },
   "poulet grille": {
-    "cost": 0.05,
+    "cost": 0.055,
     "unit": "g"
   },
   "volaille": {
