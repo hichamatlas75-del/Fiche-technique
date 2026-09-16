@@ -395,6 +395,34 @@ async function loadMonthlySalesDB(onLoadedCallback) {
     console.warn('[IndexedDB] Erreur hydratation ventes:', e);
   }
 
+  // 3. Étape Cloud : Si la base locale a peu de données (< 10 jours), hydrater depuis Supabase Cloud
+  try {
+    if (Object.keys(monthlySalesDB).length < 10 && window.GC_Supabase && typeof window.GC_Supabase.syncDailySalesFromCloud === 'function') {
+      const cloudSales = await window.GC_Supabase.syncDailySalesFromCloud(180);
+      if (Array.isArray(cloudSales) && cloudSales.length > 0) {
+        let addedCount = 0;
+        cloudSales.forEach(day => {
+          if (day && day.sale_date && Array.isArray(day.items) && !monthlySalesDB[day.sale_date]) {
+            monthlySalesDB[day.sale_date] = day.items.map(it => ({
+              family: it.cat || 'Général',
+              product: it.name || it.product,
+              price: it.price || 0,
+              qty: it.qty || 1,
+              total: it.ca || ((it.qty || 1) * (it.price || 0))
+            }));
+            addedCount++;
+          }
+        });
+        if (addedCount > 0) {
+          console.log(`[GC_Supabase] ${addedCount} journées de ventes hydratées depuis Supabase Cloud !`);
+          saveMonthlySalesDB();
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('[Supabase Cloud] Hydratation ventes ignorée:', e);
+  }
+
   if (typeof onLoadedCallback === 'function') {
     onLoadedCallback(monthlySalesDB);
   }
