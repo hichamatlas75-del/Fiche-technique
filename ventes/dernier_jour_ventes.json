@@ -3,9 +3,9 @@
   "dateKey": "20260915",
   "fileName": "Fin_Journée_20260915.xls",
   "filePath": "ventes/2026-09/Fin_Journée_20260915.xls",
-  "totalCA": 8302,
-  "totalQty": 262,
-  "totalItems": 73,
+  "totalCA": 9554,
+  "totalQty": 300,
+  "totalItems": 95,
   "items": [
     {
       "id": "2870e2fd",
@@ -120,6 +120,14 @@
       "ca": 176
     },
     {
+      "id": "pet_dej_light",
+      "name": "Pet-Dej Light",
+      "cat": "DIVERS",
+      "price": 42.0,
+      "qty": 4,
+      "ca": 168
+    },
+    {
       "id": "9fb4f4ef",
       "name": "POULET SAUCE BLANCHE",
       "cat": "PIZZA",
@@ -168,6 +176,22 @@
       "ca": 140
     },
     {
+      "id": "filet_de_boeuf",
+      "name": "Filet De Boeuf",
+      "cat": "DIVERS",
+      "price": 135.0,
+      "qty": 1,
+      "ca": 135
+    },
+    {
+      "id": "pet_dej_express",
+      "name": "Pet-Dej Express",
+      "cat": "DIVERS",
+      "price": 44.0,
+      "qty": 3,
+      "ca": 132
+    },
+    {
       "id": "a963b039",
       "name": "FRUIT DE MER",
       "cat": "PANINI",
@@ -190,6 +214,14 @@
       "price": 42,
       "qty": 3,
       "ca": 126
+    },
+    {
+      "id": "pizza_veget_arienne",
+      "name": "Pizza Veget Arienne",
+      "cat": "DIVERS",
+      "price": 62.0,
+      "qty": 2,
+      "ca": 124
     },
     {
       "id": "9829f0a2",
@@ -230,6 +262,22 @@
       "price": 17,
       "qty": 6,
       "ca": 102
+    },
+    {
+      "id": "mojito",
+      "name": "MOJITO",
+      "cat": "DIVERS",
+      "price": 50.0,
+      "qty": 2,
+      "ca": 100
+    },
+    {
+      "id": "supreme_de_poulet",
+      "name": "SUPREME DE POULET",
+      "cat": "DIVERS",
+      "price": 98.0,
+      "qty": 1,
+      "ca": 98
     },
     {
       "id": "b4f0b866",
@@ -352,6 +400,14 @@
       "ca": 65
     },
     {
+      "id": "gingembre",
+      "name": "GINGEMBRE",
+      "cat": "DIVERS",
+      "price": 32.0,
+      "qty": 2,
+      "ca": 64
+    },
+    {
       "id": "3aa22a4f",
       "name": "JUS D'ANANAS",
       "cat": "BOISSONS FRAÎCHES (JUS)",
@@ -398,6 +454,22 @@
       "price": 19,
       "qty": 5,
       "ca": 57
+    },
+    {
+      "id": "jus_de_banane",
+      "name": "Jus De Banane",
+      "cat": "DIVERS",
+      "price": 28.0,
+      "qty": 2,
+      "ca": 56
+    },
+    {
+      "id": "menu_enfant_pizza",
+      "name": "Menu Enfant Pizza",
+      "cat": "DIVERS",
+      "price": 55.0,
+      "qty": 1,
+      "ca": 55
     },
     {
       "id": "bc60875d",
@@ -464,6 +536,14 @@
       "ca": 48
     },
     {
+      "id": "pain_cake_fruits_de_saison",
+      "name": "Pain Cake Fruits De Saison",
+      "cat": "DIVERS",
+      "price": 48.0,
+      "qty": 1,
+      "ca": 48
+    },
+    {
       "id": "c8619369",
       "name": "OULMES",
       "cat": "EAU MINÉRALE",
@@ -520,10 +600,26 @@
       "ca": 40
     },
     {
+      "id": "gauffre_nutella",
+      "name": "Gauffre Nutella",
+      "cat": "DIVERS",
+      "price": 38.0,
+      "qty": 1,
+      "ca": 38
+    },
+    {
       "id": "fcb2f80e",
       "name": "JUS DE FRAMBOISE",
       "cat": "BOISSONS FRAÎCHES (JUS)",
       "price": 35,
+      "qty": 1,
+      "ca": 35
+    },
+    {
+      "id": "jus_d_avocat_orange",
+      "name": "JUS D AVOCAT ORANGE",
+      "cat": "DIVERS",
+      "price": 35.0,
       "qty": 1,
       "ca": 35
     },
@@ -544,6 +640,30 @@
       "ca": 34
     },
     {
+      "id": "schwepps_tonic",
+      "name": "SCHWEPPS TONIC",
+      "cat": "DIVERS",
+      "price": 17.0,
+      "qty": 2,
+      "ca": 34
+    },
+    {
+      "id": "jus_d_avocat_au_lait",
+      "name": "Jus D'Avocat AU LAIT",
+      "cat": "DIVERS",
+      "price": 32.0,
+      "qty": 1,
+      "ca": 32
+    },
+    {
+      "id": "divers_bar",
+      "name": "DIVERS BAR",
+      "cat": "DIVERS",
+      "price": 24.0,
+      "qty": 2,
+      "ca": 32
+    },
+    {
       "id": "d6da872d",
       "name": "2 Boules de glace",
       "cat": "COUPE DE GLACE",
@@ -557,6 +677,22 @@
       "cat": "BOISSONS FRAÎCHES (JUS)",
       "price": 30,
       "qty": 1,
+      "ca": 30
+    },
+    {
+      "id": "frites",
+      "name": "FRITES",
+      "cat": "DIVERS",
+      "price": 15.0,
+      "qty": 2,
+      "ca": 30
+    },
+    {
+      "id": "potatos",
+      "name": "POTATOS",
+      "cat": "DIVERS",
+      "price": 15.0,
+      "qty": 2,
       "ca": 30
     },
     {
@@ -576,6 +712,22 @@
       "ca": 23
     },
     {
+      "id": "cafe_moitie",
+      "name": "CAFE MOITIE",
+      "cat": "DIVERS",
+      "price": 19.0,
+      "qty": 1,
+      "ca": 19
+    },
+    {
+      "id": "the_m3achab",
+      "name": "THE M3ACHAB",
+      "cat": "DIVERS",
+      "price": 16.0,
+      "qty": 1,
+      "ca": 16
+    },
+    {
       "id": "7ff4d8d0",
       "name": "VERVEINE",
       "cat": "BOISSONS CHAUDES",
@@ -590,6 +742,30 @@
       "price": 15,
       "qty": 1,
       "ca": 15
+    },
+    {
+      "id": "viennoiserie",
+      "name": "VIENNOISERIE",
+      "cat": "DIVERS",
+      "price": 6.0,
+      "qty": 1,
+      "ca": 6
+    },
+    {
+      "id": "319b9d3e",
+      "name": "Cappuccino Italien",
+      "cat": "DIVERS",
+      "price": 0.0,
+      "qty": 2,
+      "ca": 0
+    },
+    {
+      "id": "cafe_separe",
+      "name": "CAFE SEPARE",
+      "cat": "DIVERS",
+      "price": 0.0,
+      "qty": 3,
+      "ca": 0
     }
   ]
 }

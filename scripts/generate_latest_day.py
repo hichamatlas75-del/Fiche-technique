@@ -158,27 +158,43 @@ for r in range(1, sh.nrows):
                 matched_id = dish_map.get(n_prod[len(prefix):])
                 if matched_id: break
     
-    if matched_id and matched_id in menu_by_id:
-        if matched_id not in aggregated:
-            aggregated[matched_id] = {'qty': 0, 'ca': 0.0}
-        aggregated[matched_id]['qty'] += int(round(qty))
-        aggregated[matched_id]['ca'] += total
+    if not matched_id:
+        matched_id = n_prod.lower().replace(' ', '_')
+    
+    if matched_id not in aggregated:
+        item_name = prod
+        item_cat = "DIVERS"
+        item_price = round(total / qty, 2) if qty > 0 else 0.0
+        if matched_id in menu_by_id:
+            item_name = menu_by_id[matched_id]['name']
+            item_cat = menu_by_id[matched_id].get('cat', 'DIVERS')
+            item_price = menu_by_id[matched_id].get('price', item_price)
+        aggregated[matched_id] = {
+            'id': matched_id,
+            'name': item_name,
+            'cat': item_cat,
+            'price': item_price,
+            'qty': 0,
+            'ca': 0.0
+        }
+    
+    aggregated[matched_id]['qty'] += int(round(qty))
+    aggregated[matched_id]['ca'] += total
 
 items_report = []
 total_ca = 0
 total_qty = 0
 
 for did, data in aggregated.items():
-    it = menu_by_id[did]
+    ca = int(round(data['ca']))
     q = data['qty']
-    ca = int(round(data['ca'])) if data['ca'] > 0 else int(round(q * it['price']))
     total_ca += ca
     total_qty += q
     items_report.append({
-        'id': did,
-        'name': it['name'],
-        'cat': it['cat'],
-        'price': it['price'],
+        'id': data['id'],
+        'name': data['name'],
+        'cat': data['cat'],
+        'price': data['price'],
         'qty': q,
         'ca': ca
     })
