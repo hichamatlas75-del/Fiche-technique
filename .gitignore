@@ -2,6 +2,8 @@
 node_modules/
 npm-debug.log*
 *.log
+__pycache__/
+*.py[cod]
 
 # OS & Editors
 .DS_Store
