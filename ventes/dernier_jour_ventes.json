@@ -122,7 +122,7 @@
     {
       "id": "pet_dej_light",
       "name": "Pet-Dej Light",
-      "cat": "DIVERS",
+      "cat": "PETIT DEJEUNER",
       "price": 42.0,
       "qty": 4,
       "ca": 168
@@ -178,7 +178,7 @@
     {
       "id": "filet_de_boeuf",
       "name": "Filet De Boeuf",
-      "cat": "DIVERS",
+      "cat": "PLATS",
       "price": 135.0,
       "qty": 1,
       "ca": 135
@@ -186,7 +186,7 @@
     {
       "id": "pet_dej_express",
       "name": "Pet-Dej Express",
-      "cat": "DIVERS",
+      "cat": "PETIT DEJEUNER",
       "price": 44.0,
       "qty": 3,
       "ca": 132
@@ -218,7 +218,7 @@
     {
       "id": "pizza_veget_arienne",
       "name": "Pizza Veget Arienne",
-      "cat": "DIVERS",
+      "cat": "PIZZA",
       "price": 62.0,
       "qty": 2,
       "ca": 124
@@ -266,7 +266,7 @@
     {
       "id": "mojito",
       "name": "MOJITO",
-      "cat": "DIVERS",
+      "cat": "JUS ANNIVERSAIRE",
       "price": 50.0,
       "qty": 2,
       "ca": 100
@@ -274,7 +274,7 @@
     {
       "id": "supreme_de_poulet",
       "name": "SUPREME DE POULET",
-      "cat": "DIVERS",
+      "cat": "PLATS",
       "price": 98.0,
       "qty": 1,
       "ca": 98
@@ -402,7 +402,7 @@
     {
       "id": "gingembre",
       "name": "GINGEMBRE",
-      "cat": "DIVERS",
+      "cat": "COCKTAILS",
       "price": 32.0,
       "qty": 2,
       "ca": 64
@@ -458,7 +458,7 @@
     {
       "id": "jus_de_banane",
       "name": "Jus De Banane",
-      "cat": "DIVERS",
+      "cat": "JUS",
       "price": 28.0,
       "qty": 2,
       "ca": 56
@@ -466,7 +466,7 @@
     {
       "id": "menu_enfant_pizza",
       "name": "Menu Enfant Pizza",
-      "cat": "DIVERS",
+      "cat": "Menu Enfant",
       "price": 55.0,
       "qty": 1,
       "ca": 55
@@ -538,7 +538,7 @@
     {
       "id": "pain_cake_fruits_de_saison",
       "name": "Pain Cake Fruits De Saison",
-      "cat": "DIVERS",
+      "cat": "PAIN CAKE",
       "price": 48.0,
       "qty": 1,
       "ca": 48
@@ -602,7 +602,7 @@
     {
       "id": "gauffre_nutella",
       "name": "Gauffre Nutella",
-      "cat": "DIVERS",
+      "cat": "GAUFFRES",
       "price": 38.0,
       "qty": 1,
       "ca": 38
@@ -618,7 +618,7 @@
     {
       "id": "jus_d_avocat_orange",
       "name": "JUS D AVOCAT ORANGE",
-      "cat": "DIVERS",
+      "cat": "JUS",
       "price": 35.0,
       "qty": 1,
       "ca": 35
@@ -642,7 +642,7 @@
     {
       "id": "schwepps_tonic",
       "name": "SCHWEPPS TONIC",
-      "cat": "DIVERS",
+      "cat": "SODA",
       "price": 17.0,
       "qty": 2,
       "ca": 34
@@ -650,7 +650,7 @@
     {
       "id": "jus_d_avocat_au_lait",
       "name": "Jus D'Avocat AU LAIT",
-      "cat": "DIVERS",
+      "cat": "JUS",
       "price": 32.0,
       "qty": 1,
       "ca": 32
@@ -658,7 +658,7 @@
     {
       "id": "divers_bar",
       "name": "DIVERS BAR",
-      "cat": "DIVERS",
+      "cat": "SODA",
       "price": 24.0,
       "qty": 2,
       "ca": 32
@@ -682,7 +682,7 @@
     {
       "id": "frites",
       "name": "FRITES",
-      "cat": "DIVERS",
+      "cat": "SUPPLEMENT CUISINE",
       "price": 15.0,
       "qty": 2,
       "ca": 30
@@ -690,7 +690,7 @@
     {
       "id": "potatos",
       "name": "POTATOS",
-      "cat": "DIVERS",
+      "cat": "SUPPLEMENT CUISINE",
       "price": 15.0,
       "qty": 2,
       "ca": 30
@@ -714,7 +714,7 @@
     {
       "id": "cafe_moitie",
       "name": "CAFE MOITIE",
-      "cat": "DIVERS",
+      "cat": "BOISSONS CHAUDES",
       "price": 19.0,
       "qty": 1,
       "ca": 19
@@ -722,7 +722,7 @@
     {
       "id": "the_m3achab",
       "name": "THE M3ACHAB",
-      "cat": "DIVERS",
+      "cat": "THE",
       "price": 16.0,
       "qty": 1,
       "ca": 16
@@ -746,7 +746,7 @@
     {
       "id": "viennoiserie",
       "name": "VIENNOISERIE",
-      "cat": "DIVERS",
+      "cat": "A LA CARTE",
       "price": 6.0,
       "qty": 1,
       "ca": 6
@@ -754,7 +754,7 @@
     {
       "id": "319b9d3e",
       "name": "Cappuccino Italien",
-      "cat": "DIVERS",
+      "cat": "BOISSONS CHAUDES",
       "price": 0.0,
       "qty": 2,
       "ca": 0
@@ -762,7 +762,7 @@
     {
       "id": "cafe_separe",
       "name": "CAFE SEPARE",
-      "cat": "DIVERS",
+      "cat": "BOISSONS CHAUDES",
       "price": 0.0,
       "qty": 3,
       "ca": 0

@@ -136,6 +136,7 @@ sh = wb.sheet_by_index(0)
 
 aggregated = {}
 for r in range(1, sh.nrows):
+    fam = str(sh.cell_value(r, 0)).strip()
     prod = str(sh.cell_value(r, 1)).strip()
     if not prod or prod.upper() in ['TOTAL', 'SOMME', 'MONTANT']:
         continue
@@ -163,11 +164,11 @@ for r in range(1, sh.nrows):
     
     if matched_id not in aggregated:
         item_name = prod
-        item_cat = "DIVERS"
+        item_cat = fam or "DIVERS"
         item_price = round(total / qty, 2) if qty > 0 else 0.0
         if matched_id in menu_by_id:
             item_name = menu_by_id[matched_id]['name']
-            item_cat = menu_by_id[matched_id].get('cat', 'DIVERS')
+            item_cat = menu_by_id[matched_id].get('cat', fam or 'DIVERS')
             item_price = menu_by_id[matched_id].get('price', item_price)
         aggregated[matched_id] = {
             'id': matched_id,

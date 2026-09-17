@@ -56,19 +56,63 @@ def format_telegram_message(data):
     total_qty = data.get("totalQty", 0)
     items = data.get("items", [])
 
-    top_items_text = ""
-    for idx, it in enumerate(items[:3], 1):
-        medal = ["1️⃣", "2️⃣", "3️⃣"][idx - 1]
-        top_items_text += f"{medal} {it.get('name', 'Article')} ({it.get('qty', 0)} vendus — {round(it.get('ca', 0)):,} DH)\n"
+    avg_price = (total_ca / total_qty) if total_qty > 0 else 0
+
+    # Agrégation par Famille / Catégorie
+    by_cat = {}
+    for it in items:
+        cat = it.get("cat", "DIVERS").strip().upper()
+        if not cat:
+            cat = "DIVERS"
+        if cat not in by_cat:
+            by_cat[cat] = {"ca": 0.0, "qty": 0}
+        by_cat[cat]["ca"] += it.get("ca", 0)
+        by_cat[cat]["qty"] += it.get("qty", 0)
+
+    # Top 5 Familles du jour
+    sorted_cats = sorted(by_cat.items(), key=lambda x: x[1]["ca"], reverse=True)[:5]
+    top_cats_text = ""
+    for idx, (c_name, c_data) in enumerate(sorted_cats, 1):
+        c_ca = round(c_data["ca"])
+        c_q = c_data["qty"]
+        pct = round((c_data["ca"] / total_ca * 100)) if total_ca > 0 else 0
+        top_cats_text += f"{idx}. *{c_name}* : `{c_ca:,} DH` ({c_q} portions — {pct}%)\n"
+
+    # Trouver la Star Boisson et la Star Food
+    drink_keywords = ["BOISSON", "CAFE", "CAFÉ", "THE", "THÉ", "JUS", "SODA", "MOJITO", "COCKTAIL", "EAU", "MILKSHAKE", "BAR", "ICE"]
+    star_drink = None
+    star_food = None
+
+    for it in items:
+        cat_upper = it.get("cat", "").upper()
+        is_drink = any(k in cat_upper for k in drink_keywords)
+        if is_drink and not star_drink:
+            star_drink = it
+        elif not is_drink and not star_food:
+            star_food = it
+        if star_drink and star_food:
+            break
+
+    stars_text = ""
+    if star_food:
+        stars_text += f"🍽️ *Star Food :* {star_food['name']} ({star_food['qty']} vendus — `{round(star_food['ca']):,} DH`)\n"
+    if star_drink:
+        stars_text += f"☕ *Star Boisson :* {star_drink['name']} ({star_drink['qty']} vendus — `{round(star_drink['ca']):,} DH`)\n"
+
+    looker_url = "https://lookerstudio.google.com/reporting/c41210bf-df18-4e25-999c-e30e8e7f896b"
 
     msg = f"""☕ *GREY CORNER — Clôture du {date_str}*
 ━━━━━━━━━━━━━━━━━━━━
-💰 *CA Réalisé :* `{round(total_ca):,} DH`
-🍽️ *Articles servis :* `{total_qty} portions`
+💵 *Chiffre d'Affaires :* `{round(total_ca):,} DH`
+📦 *Volume servi :* `{total_qty} articles`
+🧾 *Prix moyen / article :* `{round(avg_price, 1)} DH`
 
-🏆 *Top 3 des Ventes :*
-{top_items_text}
-☁️ _Données 100% synchronisées dans Supabase & Google Looker Studio !_"""
+🏷️ *TOP 5 FAMILLES DU JOUR :*
+{top_cats_text}
+⭐ *PRODUITS PHARES :*
+{stars_text}
+📊 [Ouvrir le Dashboard Looker Studio]({looker_url})
+☁️ _Données 100% synchronisées Supabase_"""
 
     return msg.strip()
 
