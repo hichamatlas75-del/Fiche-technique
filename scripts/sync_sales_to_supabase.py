@@ -328,11 +328,30 @@ def sync_sales(start_date="2026-04-01", end_date="2026-09-15"):
 
 if __name__ == "__main__":
     if "--latest" in sys.argv:
-        today = "2026-09-15"
-        sync_sales(start_date=today, end_date=today)
+        manifest_path = os.path.join(REPO_DIR, "ventes", "dernier_jour_ventes.json")
+        target = None
+        if os.path.exists(manifest_path):
+            try:
+                with open(manifest_path, "r", encoding="utf-8") as f:
+                    dj = json.load(f)
+                    dk = dj.get("dateKey", "")
+                    if len(dk) == 8:
+                        target = f"{dk[:4]}-{dk[4:6]}-{dk[6:]}"
+            except Exception:
+                pass
+        if not target:
+            files = sorted(glob.glob(os.path.join(REPO_DIR, "ventes", "2026-*", "*.xls*")))
+            for f in reversed(files):
+                m = re.search(r"2026\d{4}", os.path.basename(f))
+                if m:
+                    dk = m.group(0)
+                    target = f"{dk[:4]}-{dk[4:6]}-{dk[6:]}"
+                    break
+        target = target or "2026-09-16"
+        sync_sales(start_date=target, end_date=target)
     elif "--date" in sys.argv:
         idx = sys.argv.index("--date")
         target_date = sys.argv[idx + 1]
         sync_sales(start_date=target_date, end_date=target_date)
     else:
-        sync_sales(start_date="2026-04-01", end_date="2026-09-15")
+        sync_sales(start_date="2026-04-01", end_date="2026-09-30")
