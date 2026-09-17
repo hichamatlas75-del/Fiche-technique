@@ -592,6 +592,96 @@
     .pill-danger { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
     .pill-cyan { background: rgba(6, 182, 212, 0.15); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.3); }
 
+    /* Widget Réajustement des Prix dans le Tableau */
+    .price-reaj-widget {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(15, 23, 42, 0.9);
+      padding: 3px 5px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: all 0.2s ease;
+    }
+    .price-reaj-widget:hover {
+      border-color: rgba(245, 158, 11, 0.5);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
+    }
+    .price-reaj-widget.has-delta {
+      border-color: rgba(16, 185, 129, 0.55);
+      background: rgba(16, 185, 129, 0.12);
+    }
+    .reaj-step-btn {
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 5px;
+      color: #cbd5e1;
+      font-size: 0.73rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .reaj-step-btn:hover {
+      background: rgba(245, 158, 11, 0.3);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.6);
+      transform: scale(1.06);
+    }
+    .reaj-step-btn:active {
+      transform: scale(0.92);
+    }
+    .reaj-step-btn.plus-two {
+      width: 27px;
+      font-size: 0.7rem;
+    }
+    .reaj-input {
+      width: 52px;
+      height: 24px;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 5px;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-align: center;
+      padding: 0 2px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .reaj-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.35);
+      background: #000000;
+    }
+    .reaj-reset-btn {
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: 4px;
+      color: #f87171;
+      font-size: 0.68rem;
+      font-weight: 800;
+      cursor: pointer;
+      margin-left: 2px;
+      transition: all 0.15s;
+    }
+    .reaj-reset-btn:hover {
+      background: rgba(239, 68, 68, 0.4);
+      color: #ffffff;
+    }
+
     /* Charts Grid */
     .charts-grid {
       display: grid;
@@ -1521,7 +1611,7 @@
             <div class="section-title">Tableau Interactif du Menu</div>
             <div class="section-desc" style="margin-bottom:0;">Activez ou d&eacute;sactivez un plat individuellement pour tester son impact direct sur le CA et la marge :</div>
           </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
             <input type="text" id="table-search" class="search-box" placeholder="&#128269; Rechercher un plat..." oninput="renderMenuTable()">
             <select id="table-filter-cat" class="filter-select" onchange="renderMenuTable()">
               <option value="ALL">Toutes les Cat&eacute;gories</option>
@@ -1532,12 +1622,20 @@
               <option value="PLOWHORSE">&#128052; Plowhorses (Populaires mais Marge Faible)</option>
               <option value="PUZZLE">&#129513; Puzzles (Forte Marge mais Moins Vendus)</option>
               <option value="DOG">&#128021; Dogs / Poids Morts (&Agrave; &Eacute;liminer)</option>
+            </select>
             <select id="table-filter-status" class="filter-select" onchange="renderMenuTable()">
               <option value="ALL">Tous les Statuts</option>
               <option value="KEEP">Conserv&eacute;s uniquement</option>
               <option value="REMOVE">&Eacute;limin&eacute;s uniquement</option>
               <option value="SALMON">&Eacute;cosyst&egrave;me Saumon</option>
+              <option value="REAJUSTED">🎯 Prix Réajustés uniquement</option>
             </select>
+            <div id="table-reaj-summary" style="display:none; align-items:center; gap:8px; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.35); border-radius:8px; padding:6px 12px; font-size:0.8rem; color:#34d399; font-weight:700;">
+              <span>🎯 <strong id="table-reaj-count">0</strong> plat(s) réajusté(s)</span>
+              <span>&bull;</span>
+              <span>Impact Cash : <strong id="table-reaj-gain">+0 DH</strong> / mois</span>
+              <button type="button" onclick="resetAllDishPriceDeltas()" style="background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.4); color:#f87171; border-radius:4px; padding:2px 6px; font-size:0.7rem; font-weight:800; cursor:pointer;" title="Réinitialiser tous les réajustements">Annuler Tout</button>
+            </div>
           </div>
         </div>
 
@@ -1547,7 +1645,9 @@
               <tr>
                 <th onclick="sortTable('name')">Plat / R&eacute;f&eacute;rence <span id="sort-name"></span></th>
                 <th onclick="sortTable('cat')">Rayon <span id="sort-cat"></span></th>
-                <th onclick="sortTable('price')">Prix <span id="sort-price"></span></th>
+                <th onclick="sortTable('price')">Prix Actuel <span id="sort-price"></span></th>
+                <th onclick="sortTable('priceDelta')" style="min-width:185px; color:var(--gold-light);">🎯 R&eacute;ajustement Prix <span id="sort-priceDelta"></span></th>
+                <th onclick="sortTable('simPrice')" style="color:#34d399;">Nouveau Prix <span id="sort-simPrice"></span></th>
                 <th onclick="sortTable('qty')">Ventes Simul&eacute;es <span id="sort-qty"></span></th>
                 <th onclick="sortTable('ca')">CA Projet&eacute; <span id="sort-ca">&#9660;</span></th>
                 <th onclick="sortTable('margin')">Marge Totale <span id="sort-margin"></span></th>
@@ -1765,6 +1865,20 @@
           <button class="action-btn" onclick="exportFinalMenuExcel()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Télécharger la Carte Recommandée (.xlsx)
+          </button>
+        </div>
+
+        <!-- BANNIÈRE RÉCAPITULATIVE DES RÉAJUSTEMENTS DE PRIX -->
+        <div id="final-reaj-kpi-banner" style="display:none; background:linear-gradient(135deg, rgba(16,185,129,0.15), rgba(6,182,212,0.1)); border:1px solid rgba(16,185,129,0.35); border-radius:10px; padding:12px 18px; margin-bottom:20px; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="font-size:1.5rem;">🎯</span>
+            <div>
+              <div style="font-weight:800; color:#34d399; font-size:0.95rem;"><span id="final-reaj-count">0</span> plats avec prix réajustés pour la carte recommandée</div>
+              <div style="font-size:0.8rem; color:#cbd5e1;">Gain net direct de trésorerie : <strong id="final-reaj-monthly" style="color:var(--gold-light); font-size:0.9rem;">+0 DH</strong> / mois (<strong id="final-reaj-yearly" style="color:var(--gold-light);">+0 DH</strong> / an)</div>
+            </div>
+          </div>
+          <button type="button" class="action-btn" onclick="exportFinalMenuExcel()" style="background:var(--emerald); color:#ffffff; font-weight:800; border:none; padding:8px 16px; display:inline-flex; align-items:center; gap:6px;">
+            <span>📥</span> <span>Télécharger (.xlsx) avec Prix Réajustés</span>
           </button>
         </div>
 
@@ -2558,6 +2672,7 @@
           if (statusFilter === 'KEEP' && !item.isKept) return false;
           if (statusFilter === 'REMOVE' && item.isKept) return false;
           if (statusFilter === 'SALMON' && !isSalmonEcosystem(item.name)) return false;
+          if (statusFilter === 'REAJUSTED' && (!customPriceDeltas || !customPriceDeltas[item.id] || customPriceDeltas[item.id] === 0)) return false;
           return true;
         });
 
@@ -2566,7 +2681,9 @@
           if (sortCol === 'ca') { valA = a.simCA; valB = b.simCA; }
           if (sortCol === 'qty') { valA = a.simQty; valB = b.simQty; }
           if (sortCol === 'monthlyQty') { valA = a.monthlyQty || 0; valB = b.monthlyQty || 0; }
-          if (sortCol === 'price') { valA = a.simPrice; valB = b.simPrice; }
+          if (sortCol === 'price') { valA = a.price; valB = b.price; }
+          if (sortCol === 'priceDelta') { valA = (customPriceDeltas && customPriceDeltas[a.id]) || 0; valB = (customPriceDeltas && customPriceDeltas[b.id]) || 0; }
+          if (sortCol === 'simPrice') { valA = a.simPrice; valB = b.simPrice; }
           if (sortCol === 'cost') { valA = a.cost || 0; valB = b.cost || 0; }
           if (sortCol === 'margin') { valA = a.simMargin; valB = b.simMargin; }
           if (sortCol === 'status') { valA = a.isKept ? 1 : 0; valB = b.isKept ? 1 : 0; }
@@ -2586,32 +2703,134 @@
           const btnColor = item.isKept ? '#f87171' : '#34d399';
           const btnText = item.isKept ? 'Retirer' : 'Réactiver';
 
+          const delta = (customPriceDeltas && customPriceDeltas[item.id]) ? customPriceDeltas[item.id] : 0;
+          const monthlyVol = item.monthlyQty || Math.round(item.simQty / 5.3);
+          const monthlyCashGain = Math.round(delta * monthlyVol);
+
+          // Widget Réajustement Prix
+          const reajWidgetHtml = '<div class=\"price-reaj-widget' + (delta !== 0 ? ' has-delta' : '') + '\">' +
+            '<button type=\"button\" class=\"reaj-step-btn\" onclick=\"adjustDishPriceDelta(\'' + item.id + '\', -1)\" title=\"Diminuer de 1 DH\">-1</button>' +
+            '<input type=\"text\" class=\"reaj-input\" value=\"' + (delta !== 0 ? (delta > 0 ? '+' + delta : delta) : '') + '\" placeholder=\"0 DH\" title=\"Saisir un ajustement (ex: +2) ou le nouveau prix cible (ex: ' + (item.price + 2) + ')\" onchange=\"setDishPriceDelta(\'' + item.id + '\', this.value)\">' +
+            '<button type=\"button\" class=\"reaj-step-btn\" onclick=\"adjustDishPriceDelta(\'' + item.id + '\', 1)\" title=\"Augmenter de 1 DH\">+1</button>' +
+            '<button type=\"button\" class=\"reaj-step-btn plus-two\" onclick=\"adjustDishPriceDelta(\'' + item.id + '\', 2)\" title=\"Augmenter de 2 DH\">+2</button>' +
+            (delta !== 0 ? '<button type=\"button\" class=\"reaj-reset-btn\" onclick=\"resetDishPriceDelta(\'' + item.id + '\')\" title=\"Annuler le réajustement\">✕</button>' : '') +
+            '</div>' +
+            (delta !== 0 ? '<div style=\"font-size:0.71rem; color:' + (delta > 0 ? '#34d399' : '#f87171') + '; font-weight:700; margin-top:2px;\">' + (delta > 0 ? '+' : '') + monthlyCashGain.toLocaleString('fr-FR') + ' DH/m</div>' : '');
+
+          // Nouveau Prix simulé
+          let newPriceHtml = '';
+          if (delta > 0) {
+            newPriceHtml = '<strong style=\"color:#34d399; font-size:0.95rem;\">' + item.simPrice + ' DH</strong><span style=\"font-size:0.7rem; font-weight:700; color:#10b981; display:block;\">(+' + delta + ' DH)</span>';
+          } else if (delta < 0) {
+            newPriceHtml = '<strong style=\"color:#f87171; font-size:0.95rem;\">' + item.simPrice + ' DH</strong><span style=\"font-size:0.7rem; font-weight:700; color:#ef4444; display:block;\">(' + delta + ' DH)</span>';
+          } else {
+            newPriceHtml = '<strong style=\"color:#cbd5e1; font-size:0.95rem;\">' + item.simPrice + ' DH</strong>';
+          }
+
           html += '<tr class=\"' + (item.isKept ? '' : 'row-removed') + '\">' +
-            '<td><strong>' + item.name + '</strong>' + (item.costFlagged ? ' <span class=\"cost-flagged\" title=\"Coût estimé provisoire à réviser avec la fiche technique\">⚠️ Coût estimé</span>' : '') + (item.desc ? '<div style=\"font-size:0.75rem; color:#94a3b8; max-width:280px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">' + item.desc + '</div>' : '') + '</td>' +
+            '<td><strong>' + item.name + '</strong>' + (item.costFlagged ? ' <span class=\"cost-flagged\" title=\"Coût estimé provisoire à réviser avec la fiche technique\">⚠️ Coût estimé</span>' : '') + (item.desc ? '<div style=\"font-size:0.75rem; color:#94a3b8; max-width:260px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;\">' + item.desc + '</div>' : '') + '</td>' +
             '<td><span style=\"font-size:0.75rem; color:#cbd5e1;\">' + (item.cat || 'GÉNÉRAL') + '</span></td>' +
-            '<td><strong>' + item.simPrice + ' DH</strong></td>' +
-            '<td>' + item.simQty + ' v</td>' +
-            '<td><strong style=\"color:' + (item.monthlyQty > 20 ? '#34d399' : '#f87171') + ';\">' + item.monthlyQty + '</strong> /m</td>' +
+            '<td><strong style=\"color:' + (delta !== 0 ? '#94a3b8; text-decoration:line-through;' : '#f8fafc;') + '\">' + item.price + ' DH</strong></td>' +
+            '<td>' + reajWidgetHtml + '</td>' +
+            '<td>' + newPriceHtml + '</td>' +
+            '<td><div><strong>' + item.simQty + ' v</strong></div><div style=\"font-size:0.75rem; color:' + (item.monthlyQty > 20 ? '#34d399' : '#f87171') + '; font-weight:700;\">' + item.monthlyQty + ' /m</div></td>' +
             '<td><strong>' + item.simCA.toLocaleString('fr-FR') + ' DH</strong></td>' +
-            '<td style=\"color:#94a3b8;\">' + (item.cost ? item.cost.toFixed(1) + ' DH' : '-') + '</td>' +
-            '<td style=\"color:var(--gold-light); font-weight:700;\">' + item.simMargin.toLocaleString('fr-FR') + ' DH</td>' +
-            '<td>' + quadBadge + '</td><td>' + statusBadge + '</td>' +
+            '<td><div style=\"color:var(--gold-light); font-weight:700;\">' + item.simMargin.toLocaleString('fr-FR') + ' DH</div><div style=\"font-size:0.72rem; color:#94a3b8;\">Coût: ' + (item.cost ? item.cost.toFixed(1) + ' DH' : '-') + '</div></td>' +
+            '<td><div>' + quadBadge + '</div><div style=\"margin-top:3px;\">' + statusBadge + '</div></td>' +
             '<td style=\"text-align:center;\"><button class=\"dish-btn\" style=\"background:' + btnBg + '; border:1px solid ' + btnBorder + '; color:' + btnColor + ';\" onclick=\"toggleDish(\'' + item.id + '\')\">' + btnText + '</button></td>' +
             '</tr>';
         });
         tbody.innerHTML = html;
+
+        // Mise à jour du bandeau récapitulatif dans la barre d'outils
+        const reajIds = Object.keys(customPriceDeltas || {}).filter(id => customPriceDeltas[id] && customPriceDeltas[id] !== 0);
+        const sumEl = document.getElementById('table-reaj-summary');
+        if (sumEl) {
+          if (reajIds.length > 0) {
+            sumEl.style.display = 'inline-flex';
+            const countEl = document.getElementById('table-reaj-count');
+            if (countEl) countEl.innerText = reajIds.length;
+            let totalGain = 0;
+            reajIds.forEach(id => {
+              const itm = menuData.find(d => d.id === id);
+              if (itm && itm.isKept !== false) {
+                totalGain += (customPriceDeltas[id] || 0) * (itm.monthlyQty || Math.round(itm.simQty / 5.3));
+              }
+            });
+            const gainEl = document.getElementById('table-reaj-gain');
+            if (gainEl) gainEl.innerText = (totalGain >= 0 ? '+' : '') + Math.round(totalGain).toLocaleString('fr-FR') + ' DH';
+          } else {
+            sumEl.style.display = 'none';
+          }
+        }
       } catch (err) { console.error('Error rendering table:', err); }
     }
     window.renderMenuTable = renderMenuTable;
 
     function sortTable(col) {
       if (sortCol === col) sortAsc = !sortAsc; else { sortCol = col; sortAsc = false; }
-      ['name', 'cat', 'price', 'qty', 'monthlyQty', 'ca', 'cost', 'margin', 'quad', 'status'].forEach(c => {
+      ['name', 'cat', 'price', 'priceDelta', 'simPrice', 'qty', 'monthlyQty', 'ca', 'cost', 'margin', 'quad', 'status'].forEach(c => {
         const el = document.getElementById('sort-' + c); if (el) el.innerText = (c === sortCol ? (sortAsc ? ' ▲' : ' ▼') : '');
       });
       renderMenuTable();
     }
     window.sortTable = sortTable;
+
+    function setDishPriceDelta(dishId, val) {
+      const dish = menuData.find(d => d.id === dishId);
+      if (!dish) return;
+      if (!customPriceDeltas) customPriceDeltas = {};
+
+      if (val === '' || val === null || val === undefined) {
+        delete customPriceDeltas[dishId];
+      } else {
+        let num = parseFloat(String(val).replace(',', '.').replace('+', '').trim());
+        if (isNaN(num)) {
+          delete customPriceDeltas[dishId];
+        } else {
+          // Si l'utilisateur saisit directement le prix cible (ex: tape 18 sur un plat à 16 DH)
+          if (num > dish.price * 0.6 && num >= 10 && num !== dish.price) {
+            num = Math.round((num - dish.price) * 10) / 10;
+          } else if (num === dish.price) {
+            num = 0;
+          }
+          if (num === 0) {
+            delete customPriceDeltas[dishId];
+          } else {
+            customPriceDeltas[dishId] = Math.round(num * 10) / 10;
+          }
+        }
+      }
+      updateSimulation();
+      renderMenuTable();
+      if (typeof renderCategoryRankings === 'function') renderCategoryRankings();
+      if (typeof renderFinalMenu === 'function') renderFinalMenu();
+    }
+    window.setDishPriceDelta = setDishPriceDelta;
+
+    function adjustDishPriceDelta(dishId, step) {
+      if (!customPriceDeltas) customPriceDeltas = {};
+      const current = customPriceDeltas[dishId] || 0;
+      const next = Math.round((current + step) * 10) / 10;
+      setDishPriceDelta(dishId, next);
+    }
+    window.adjustDishPriceDelta = adjustDishPriceDelta;
+
+    function resetDishPriceDelta(dishId) {
+      setDishPriceDelta(dishId, 0);
+    }
+    window.resetDishPriceDelta = resetDishPriceDelta;
+
+    function resetAllDishPriceDeltas() {
+      if (confirm('Voulez-vous réinitialiser tous les réajustements de prix individuels ?')) {
+        customPriceDeltas = {};
+        updateSimulation();
+        renderMenuTable();
+        if (typeof renderCategoryRankings === 'function') renderCategoryRankings();
+        if (typeof renderFinalMenu === 'function') renderFinalMenu();
+      }
+    }
+    window.resetAllDishPriceDeltas = resetAllDishPriceDeltas;
 
     function renderMenuEngineering() {
       try {
@@ -2644,12 +2863,48 @@
           grouped[macro].push(item);
         });
 
+        // Mise à jour de la bannière récapitulative des réajustements de prix
+        const bannerEl = document.getElementById('final-reaj-kpi-banner');
+        if (bannerEl) {
+          const reajKept = keptItems.filter(i => customPriceDeltas && customPriceDeltas[i.id] && customPriceDeltas[i.id] !== 0);
+          if (reajKept.length > 0) {
+            bannerEl.style.display = 'flex';
+            const countEl = document.getElementById('final-reaj-count');
+            if (countEl) countEl.innerText = reajKept.length;
+            let monthlyGain = 0;
+            reajKept.forEach(i => {
+              const mVol = i.monthlyQty || Math.round((i.simQty / 162) * 30);
+              monthlyGain += (customPriceDeltas[i.id] || 0) * mVol;
+            });
+            const mEl = document.getElementById('final-reaj-monthly');
+            const yEl = document.getElementById('final-reaj-yearly');
+            if (mEl) mEl.innerText = (monthlyGain >= 0 ? '+' : '') + Math.round(monthlyGain).toLocaleString('fr-FR') + ' DH';
+            if (yEl) yEl.innerText = (monthlyGain >= 0 ? '+' : '') + Math.round(monthlyGain * 12).toLocaleString('fr-FR') + ' DH';
+          } else {
+            bannerEl.style.display = 'none';
+          }
+        }
+
         let html = '';
         Object.keys(grouped).sort().forEach(macro => {
           const items = grouped[macro];
           items.sort((a, b) => b.simQty - a.simQty);
           html += '<div class=\"final-category-card\"><div class=\"final-category-header\"><div class=\"final-category-title\">' + macro + '</div><span class=\"pill pill-success\">' + items.length + ' références</span></div><div>' +
-            items.map(item => '<div class=\"final-item-line\"><div><div class=\"final-item-name\">' + item.name + '</div>' + (item.desc ? '<div style=\"font-size:0.75rem; color:#94a3b8;\">' + item.desc + '</div>' : '') + '</div><div style=\"text-align:right;\"><span class=\"final-item-price\">' + item.simPrice + ' DH</span><span style=\"font-size:0.72rem; color:#67e8f9; display:block;\">' + item.simQty + ' ventes</span></div></div>').join('') +
+            items.map(item => {
+              const delta = (customPriceDeltas && customPriceDeltas[item.id]) ? customPriceDeltas[item.id] : 0;
+              let priceDisplay = '';
+              if (delta !== 0) {
+                const deltaSign = delta > 0 ? '+' : '';
+                priceDisplay = '<div style=\"display:flex; align-items:baseline; gap:6px; justify-content:flex-end;\">' +
+                  '<span style=\"font-size:0.75rem; color:#94a3b8; text-decoration:line-through;\">' + item.price + ' DH</span>' +
+                  '<span class=\"final-item-price\" style=\"color:#34d399;\">' + item.simPrice + ' DH</span>' +
+                  '<span style=\"font-size:0.7rem; font-weight:800; color:' + (delta > 0 ? '#10b981' : '#f87171') + '; background:' + (delta > 0 ? 'rgba(16,185,129,0.15)' : 'rgba(239,68,68,0.15)') + '; padding:1px 6px; border-radius:4px;\">' + deltaSign + delta + ' DH</span>' +
+                  '</div>';
+              } else {
+                priceDisplay = '<span class=\"final-item-price\">' + item.simPrice + ' DH</span>';
+              }
+              return '<div class=\"final-item-line\"><div><div class=\"final-item-name\">' + item.name + '</div>' + (item.desc ? '<div style=\"font-size:0.75rem; color:#94a3b8;\">' + item.desc + '</div>' : '') + '</div><div style=\"text-align:right;\">' + priceDisplay + '<span style=\"font-size:0.72rem; color:#67e8f9; display:block;\">' + item.simQty + ' ventes</span></div></div>';
+            }).join('') +
             '</div></div>';
         });
         container.innerHTML = html;
@@ -2797,11 +3052,39 @@
       if (typeof XLSX === 'undefined') return alert('Module Excel indisponible');
       try {
         const wb = XLSX.utils.book_new();
-        const keptItems = menuData.filter(i => i.isKept).map(i => ({ 'Plat': i.name, 'Catégorie': i.cat, 'Prix (DH)': i.simPrice, 'Ventes': i.simQty, 'CA (DH)': i.simCA, 'Cost': i.cost, 'Marge (DH)': (i.simPrice - i.cost).toFixed(2), 'Marge Totale': i.simMargin, 'Quadrant': i.quad }));
+        const keptItems = menuData.filter(i => i.isKept).map(i => {
+          const delta = (customPriceDeltas && customPriceDeltas[i.id]) ? customPriceDeltas[i.id] : 0;
+          return {
+            'Plat': i.name,
+            'Catégorie': i.cat,
+            'Prix Initial (DH)': i.price,
+            'Réajustement (DH)': delta !== 0 ? (delta > 0 ? '+' : '') + delta + ' DH' : 'Inchangé',
+            'Nouveau Prix Recommandé (DH)': i.simPrice,
+            'Ventes': i.simQty,
+            'CA (DH)': i.simCA,
+            'Cost (DH)': i.cost || '-',
+            'Marge Unitaire (DH)': (i.simPrice - (i.cost || 0)).toFixed(2),
+            'Marge Totale (DH)': i.simMargin,
+            'Quadrant': i.quad
+          };
+        });
         XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(keptItems), 'Carte_Recommandee');
         const removedItems = menuData.filter(i => !i.isKept).map(i => ({ 'Plat': i.name, 'Catégorie': i.cat, 'Prix': i.price, 'Ventes': i.qty, 'CA': i.ca, 'Motif': i.qty === 0 ? 'Zéro Vente' : (i.name.toUpperCase().includes('BURRAT') ? 'Pertes DLC' : 'Poids Mort') }));
         XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(removedItems), 'Plats_Elimines');
-        const allItems = menuData.map(i => ({ 'Nom': i.name, 'Catégorie': i.cat, 'Prix': i.simPrice, 'Ventes': i.simQty, 'CA': i.simCA, 'Statut': i.isKept ? 'CONSERVÉ' : 'ÉLIMINÉ', 'Quadrant': i.quad }));
+        const allItems = menuData.map(i => {
+          const delta = (customPriceDeltas && customPriceDeltas[i.id]) ? customPriceDeltas[i.id] : 0;
+          return {
+            'Nom': i.name,
+            'Catégorie': i.cat,
+            'Prix Initial': i.price,
+            'Réajustement': delta !== 0 ? (delta > 0 ? '+' : '') + delta + ' DH' : '0 DH',
+            'Prix Simulé': i.simPrice,
+            'Ventes': i.simQty,
+            'CA': i.simCA,
+            'Statut': i.isKept ? 'CONSERVÉ' : 'ÉLIMINÉ',
+            'Quadrant': i.quad
+          };
+        });
         XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(allItems), 'Audit_Complet_193');
         XLSX.writeFile(wb, 'Grey_Corner_Synthese_Decisionnelle_Menu.xlsx');
       } catch (err) { console.error('Error exporting Excel:', err); }
@@ -2809,11 +3092,32 @@
     window.exportCompleteExcel = exportCompleteExcel;
 
     function exportFinalMenuExcel() {
-      if (typeof XLSX === 'undefined') return;
-      const keptItems = menuData.filter(i => i.isKept).map(i => ({ 'Plat': i.name, 'Catégorie': i.cat, 'Prix Recommandé (DH)': i.simPrice, 'Ventes / Mois': Math.round((i.simQty / 162) * 30), 'CA Projeté (DH)': i.simCA, 'Description': i.desc || '' }));
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(keptItems), 'Nouvelle_Carte');
-      XLSX.writeFile(wb, 'Grey_Corner_Nouvelle_Carte_Recommandee.xlsx');
+      if (typeof XLSX === 'undefined') return alert('Module Excel indisponible');
+      try {
+        const keptItems = menuData.filter(i => i.isKept).map(i => {
+          const delta = (customPriceDeltas && customPriceDeltas[i.id]) ? customPriceDeltas[i.id] : 0;
+          const monthlyVol = Math.round((i.simQty / 162) * 30);
+          const monthlyCashGain = Math.round(delta * monthlyVol);
+          return {
+            'Plat': i.name,
+            'Catégorie': i.cat,
+            'Prix Initial (DH)': i.price,
+            'Réajustement des Prix (DH)': delta !== 0 ? (delta > 0 ? '+' : '') + delta + ' DH' : 'Inchangé',
+            'Nouveau Prix Recommandé (DH)': i.simPrice,
+            'Ventes / Mois': monthlyVol,
+            'Gain Cash / Mois (DH)': delta !== 0 ? (monthlyCashGain > 0 ? '+' : '') + monthlyCashGain + ' DH' : '0 DH',
+            'CA Projeté (DH)': i.simCA,
+            'Coût Matière (DH)': i.cost ? i.cost.toFixed(1) : '-',
+            'Marge Unitaire (DH)': (i.simPrice - (i.cost || 0)).toFixed(1),
+            'Statut Prix': delta !== 0 ? 'PRIX RÉAJUSTÉ' : 'PRIX INITIAL',
+            'Quadrant': i.quad,
+            'Description': i.desc || ''
+          };
+        });
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(keptItems), 'Carte_Recommandee');
+        XLSX.writeFile(wb, 'Grey_Corner_Nouvelle_Carte_Recommandee.xlsx');
+      } catch (err) { console.error('Error exporting Excel:', err); }
     }
     window.exportFinalMenuExcel = exportFinalMenuExcel;
 
