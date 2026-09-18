@@ -242,9 +242,14 @@
 
       this.injectUserHeaderBadge(user);
 
-      // Déclencher la synchronisation des données connectées
-      if (global.GC_Supabase && typeof global.GC_Supabase.syncIngredientsFromCloud === 'function') {
-        global.GC_Supabase.syncIngredientsFromCloud().catch(e => console.warn('[Supabase Sync]', e));
+      // Déclencher la synchronisation complète des données connectées (Matières + Fiches)
+      if (global.GC_Supabase) {
+        if (typeof global.GC_Supabase.syncIngredientsFromCloud === 'function') {
+          global.GC_Supabase.syncIngredientsFromCloud().catch(e => console.warn('[Supabase Sync Ingredients]', e));
+        }
+        if (typeof global.GC_Supabase.syncRecipesFromCloud === 'function') {
+          global.GC_Supabase.syncRecipesFromCloud().catch(e => console.warn('[Supabase Sync Recipes]', e));
+        }
       }
 
       if (global.GC_Toast) {

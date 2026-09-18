@@ -4,19 +4,23 @@ color 0E
 cd /d "%~dp0"
 
 echo ======================================================================
-echo    GREY CORNER - SYNCHRONISATION COMPLETE (PC <-> GITHUB)
+echo    GREY CORNER - SYNCHRONISATION COMPLETE (SUPABASE <-> PC <-> GITHUB)
 echo ======================================================================
 echo.
-echo [1/3] Telechargement des modifications faites depuis le web/mobile...
+echo [1/4] Synchronisation des donnees depuis Supabase Cloud...
+node scripts/pull-supabase.js 2>nul
+
+echo.
+echo [2/4] Telechargement des modifications faites depuis le web/mobile...
 git pull --rebase origin main
 
 echo.
-echo [2/3] Verification des modifications locales du PC...
+echo [3/4] Verification des modifications locales du PC...
 git add .
-git commit -m "Synchronisation PC <-> GitHub" 2>nul
+git commit -m "Synchronisation Supabase + PC <-> GitHub" 2>nul
 
 echo.
-echo [3/3] Envoi des modifications vers GitHub...
+echo [4/4] Envoi des modifications vers GitHub...
 git push origin main
 
 echo.

@@ -31,7 +31,7 @@ var currentSalesData = [];
 var currentSalesFilter = 'all'; // 'all', 'matched', 'unmatched'
 var aggregatedIngredients = [];
 
-const RECIPES_DB_VERSION = 'v8.3_20260916';
+const RECIPES_DB_VERSION = 'v8.6_20260918';
 
 const cleanText = (typeof window !== 'undefined' && typeof window.cleanText === 'function')
   ? window.cleanText
@@ -160,6 +160,9 @@ function loadRecipes() {
         if (r.sellPrice) break;
       }
     }
+    if (!r.ingredients && r.tech) r.ingredients = r.tech.slice();
+    if (!r.tech && r.ingredients) r.tech = r.ingredients.slice();
+
     if (typeof calculateRecipeFoodCost === 'function' && (r.ingredients || r.tech)) {
       const fc = calculateRecipeFoodCost(r.ingredients || r.tech || [], r.sellPrice || 0);
       r.cost = fc.cost;

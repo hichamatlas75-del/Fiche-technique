@@ -76,25 +76,79 @@
      */
     syncIngredientsFromCloud: async function() {
       try {
-        const res = await this.fetchWithFallback(SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs?select=*');
+        const url = SUPABASE_CONFIG.url + '/rest/v1/ingredient_costs?select=*&order=updated_at.asc&_ts=' + Date.now();
+        const res = await this.fetchWithFallback(url, { cache: 'no-store' });
         if (!res.ok) throw new Error('HTTP error ' + res.status);
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
           if (!global.INGREDIENT_UNIT_COSTS) global.INGREDIENT_UNIT_COSTS = {};
           data.forEach(item => {
+            if (!item || !item.id) return;
+            const costVal = Number(item.cost) || 0;
+            const unitVal = item.unit || 'kg';
+            const labelVal = item.label || item.id;
+
             global.INGREDIENT_UNIT_COSTS[item.id] = {
-              cost: Number(item.cost),
-              unit: item.unit,
-              label: item.label
+              cost: costVal,
+              unit: unitVal,
+              label: labelVal
             };
+
+            if (typeof global.cleanText === 'function') {
+              const cK = global.cleanText(item.id);
+              if (cK && cK !== item.id) {
+                global.INGREDIENT_UNIT_COSTS[cK] = {
+                  cost: costVal,
+                  unit: unitVal,
+                  label: labelVal
+                };
+              }
+            }
           });
+
           // Cache local de secours
-          if (global.GC_Store) {
+          if (global.GC_Store && typeof global.GC_Store.saveCustomPrices === 'function') {
             global.GC_Store.saveCustomPrices(global.INGREDIENT_UNIT_COSTS);
           } else if (typeof localStorage !== 'undefined') {
             localStorage.setItem('gc_ingredient_prices_v1', JSON.stringify(global.INGREDIENT_UNIT_COSTS));
           }
           console.log('[GC_Supabase] ' + data.length + ' matières synchronisées depuis le Cloud.');
+
+          // Recalculer le Food Cost de toutes les recettes actives en mémoire
+          if (typeof window !== 'undefined' && Array.isArray(window.activeRecipes) && typeof window.calculateRecipeFoodCost === 'function') {
+            window.activeRecipes.forEach(r => {
+              if (!r) return;
+              const ings = r.ingredients || r.tech || [];
+              if (ings.length > 0) {
+                const fc = window.calculateRecipeFoodCost(ings, r.sellPrice || 0);
+                r.cost = fc.cost;
+                r.foodCost = fc.foodCost;
+                r.margin = fc.margin;
+                r.grossMarginDH = fc.grossMarginDH;
+              }
+            });
+            if (typeof window.saveRecipes === 'function') window.saveRecipes();
+            if (typeof window.renderRecipeList === 'function') window.renderRecipeList();
+            if (typeof window.renderSummaryTable === 'function') window.renderSummaryTable();
+            if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
+          }
+
+          // Recalculer pour le comparateur si présent
+          if (typeof window !== 'undefined' && Array.isArray(window.allRecipes) && typeof window.calculateRecipeFoodCost === 'function') {
+            window.allRecipes.forEach(r => {
+              if (!r) return;
+              const ings = r.tech || r.ingredients || [];
+              if (ings.length > 0) {
+                const fc = window.calculateRecipeFoodCost(ings, r.sellPrice || 0);
+                r.cost = fc.cost;
+                r.foodCost = fc.foodCost;
+                r.margin = fc.margin;
+                r.grossMarginDH = fc.grossMarginDH;
+              }
+            });
+            if (typeof window.renderCards === 'function') window.renderCards();
+            if (typeof window.updateSummaryTable === 'function') window.updateSummaryTable();
+          }
 
           // Notifier immédiatement les vues et fiches ouvertes
           if (global.GC_PricesModal) {
@@ -214,28 +268,156 @@
      */
     syncRecipesFromCloud: async function() {
       try {
-        const res = await this.fetchWithFallback(SUPABASE_CONFIG.url + '/rest/v1/recipes?is_active=eq.true&select=*');
+        const url = SUPABASE_CONFIG.url + '/rest/v1/recipes?is_active=eq.true&select=*&order=updated_at.asc&_ts=' + Date.now();
+        const res = await this.fetchWithFallback(url, { cache: 'no-store' });
         if (!res.ok) throw new Error('HTTP error ' + res.status);
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
           console.log('[GC_Supabase] ' + data.length + ' fiches techniques récupérées depuis Supabase Cloud.');
-          if (typeof window !== 'undefined' && Array.isArray(window.activeRecipes)) {
+
+          // Dédupliquer par nom normalisé : le plus récent l'emporte toujours
+          const latestMap = new Map();
+          data.forEach(cloudR => {
+            if (!cloudR || !cloudR.name) return;
+            const cleanName = (typeof global.cleanText === 'function') ? global.cleanText(cloudR.name) : cloudR.name.toLowerCase().trim();
+            latestMap.set(cleanName, cloudR);
+          });
+
+          // 1. Mettre à jour activeRecipes (consommation.html)
+          if (typeof window !== 'undefined') {
+            if (!Array.isArray(window.activeRecipes)) window.activeRecipes = [];
             let updatedCount = 0;
-            data.forEach(cloudR => {
-              if (!cloudR || !cloudR.name) return;
-              const idx = window.activeRecipes.findIndex(r => r && (r.id === cloudR.id || (window.cleanText && window.cleanText(r.name) === window.cleanText(cloudR.name))));
-              if (idx >= 0 && Array.isArray(cloudR.ingredients) && cloudR.ingredients.length > 0) {
-                window.activeRecipes[idx].ingredients = cloudR.ingredients;
-                window.activeRecipes[idx].sellPrice = cloudR.sell_price;
-                window.activeRecipes[idx].cost = cloudR.cost;
-                window.activeRecipes[idx].foodCost = cloudR.food_cost;
-                window.activeRecipes[idx].grossMarginDH = cloudR.gross_margin;
+            let addedCount = 0;
+
+            latestMap.forEach((cloudR, cleanName) => {
+              const idx = window.activeRecipes.findIndex(r => r && (r.id === cloudR.id || ((typeof global.cleanText === 'function') && global.cleanText(r.name) === cleanName)));
+              const ingList = Array.isArray(cloudR.ingredients) ? cloudR.ingredients.slice() : [];
+              const sPrice = Number(cloudR.sell_price) || 0;
+              let cost = Number(cloudR.cost) || 0;
+              let fc = Number(cloudR.food_cost) || 0;
+              let gm = Number(cloudR.gross_margin) || 0;
+
+              // Recalculer Food Cost précis si le moteur est prêt
+              if (typeof global.calculateRecipeFoodCost === 'function' && ingList.length > 0) {
+                const calc = global.calculateRecipeFoodCost(ingList, sPrice);
+                cost = calc.cost;
+                fc = calc.foodCost;
+                gm = calc.grossMarginDH;
+              }
+
+              if (idx >= 0) {
+                const target = window.activeRecipes[idx];
+                target.id = cloudR.id || target.id;
+                target.name = cloudR.name;
+                target.category = cloudR.category || target.category || 'AUTRE';
+                target.ingredients = ingList.slice();
+                target.tech = ingList.slice();
+                target.sellPrice = sPrice;
+                target.cost = cost;
+                target.foodCost = fc;
+                target.grossMarginDH = gm;
                 updatedCount++;
+              } else {
+                window.activeRecipes.push({
+                  id: cloudR.id || ('rec_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5)),
+                  name: cloudR.name,
+                  category: cloudR.category || 'AUTRE',
+                  ingredients: ingList.slice(),
+                  tech: ingList.slice(),
+                  sellPrice: sPrice,
+                  cost: cost,
+                  foodCost: fc,
+                  grossMarginDH: gm
+                });
+                addedCount++;
               }
             });
-            if (updatedCount > 0 && typeof window.renderRecipeList === 'function') {
-              window.renderRecipeList();
+
+            // Reconstruire l'index de recherche par nom
+            if (typeof global.cleanText === 'function') {
+              window.recipeNameIndex = new Map();
+              window.activeRecipes.forEach(r => {
+                if (r && r.name) window.recipeNameIndex.set(global.cleanText(r.name), r);
+              });
             }
+
+            // Persistance locale immédiate (offline-first & anti-reload wipe)
+            if (typeof window.saveRecipes === 'function') {
+              window.saveRecipes();
+            } else if (typeof localStorage !== 'undefined') {
+              localStorage.setItem('gc_recipes_db_v5', JSON.stringify(window.activeRecipes));
+            }
+
+            // Mettre à jour window.DATA et window.CATEGORIES_DATA
+            const allData = window.CATEGORIES_DATA || window.DATA || [];
+            if (Array.isArray(allData)) {
+              latestMap.forEach((cloudR, cleanName) => {
+                let found = false;
+                for (const cat of allData) {
+                  const it = (cat.items || []).find(i => (typeof global.cleanText === 'function') && global.cleanText(i.name) === cleanName);
+                  if (it) {
+                    it.tech = Array.isArray(cloudR.ingredients) ? cloudR.ingredients.slice() : it.tech;
+                    it.ingredients = it.tech.slice();
+                    it.sellPrice = Number(cloudR.sell_price) || it.sellPrice || 0;
+                    it.price = it.sellPrice + ' DH';
+                    it.cost = Number(cloudR.cost) || it.cost || 0;
+                    it.foodCost = Number(cloudR.food_cost) || it.foodCost || 0;
+                    it.grossMarginDH = Number(cloudR.gross_margin) || it.grossMarginDH || 0;
+                    found = true;
+                    break;
+                  }
+                }
+                if (!found) {
+                  let targetCat = allData.find(c => c.category === cloudR.category) || allData.find(c => c.category === 'AUTRE') || allData[0];
+                  if (targetCat) {
+                    if (!targetCat.items) targetCat.items = [];
+                    targetCat.items.push({
+                      name: cloudR.name,
+                      image: 'images/placeholder.svg',
+                      prepTime: 5,
+                      tech: Array.isArray(cloudR.ingredients) ? cloudR.ingredients.slice() : [],
+                      ingredients: Array.isArray(cloudR.ingredients) ? cloudR.ingredients.slice() : [],
+                      price: (cloudR.sell_price || 0) + ' DH',
+                      sellPrice: Number(cloudR.sell_price) || 0,
+                      cost: Number(cloudR.cost) || 0,
+                      foodCost: Number(cloudR.food_cost) || 0,
+                      grossMarginDH: Number(cloudR.gross_margin) || 0
+                    });
+                  }
+                }
+              });
+            }
+
+            // Rafraîchir les vues du Cockpit
+            if (typeof window.renderRecipeList === 'function') window.renderRecipeList();
+            if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
+            if (typeof window.renderSummaryTable === 'function') window.renderSummaryTable();
+          }
+
+          // 2. Mettre à jour allRecipes (comparateur.html)
+          if (typeof window !== 'undefined' && Array.isArray(window.allRecipes)) {
+            latestMap.forEach((cloudR, cleanName) => {
+              const cIdx = window.allRecipes.findIndex(r => r && (r.id === cloudR.id || ((typeof global.cleanText === 'function') && global.cleanText(r.name) === cleanName)));
+              const ingList = Array.isArray(cloudR.ingredients) ? cloudR.ingredients.slice() : [];
+              const compObj = {
+                id: cloudR.id,
+                name: cloudR.name,
+                category: cloudR.category || 'AUTRE',
+                tech: ingList.slice(),
+                ingredients: ingList.slice(),
+                sellPrice: Number(cloudR.sell_price) || 0,
+                cost: Number(cloudR.cost) || 0,
+                foodCost: Number(cloudR.food_cost) || 0,
+                grossMarginDH: Number(cloudR.gross_margin) || 0
+              };
+              if (cIdx >= 0) {
+                Object.assign(window.allRecipes[cIdx], compObj);
+              } else {
+                window.allRecipes.push(compObj);
+              }
+            });
+            if (typeof window.renderCards === 'function') window.renderCards();
+            if (typeof window.updateSummaryTable === 'function') window.updateSummaryTable();
           }
         }
       } catch (err) {
@@ -256,6 +438,12 @@
         const id = (recipeObj.id && !recipeObj.id.startsWith('rec_'))
           ? recipeObj.id
           : ((cat + '_' + recipeObj.name).toLowerCase().replace(/[^a-z0-9]/g, '_'));
+
+        // Nettoyer d'éventuels doublons historiques avec le même nom
+        try {
+          const checkUrl = SUPABASE_CONFIG.url + '/rest/v1/recipes?name=eq.' + encodeURIComponent(recipeObj.name) + '&id=neq.' + encodeURIComponent(id);
+          await this.fetchWithFallback(checkUrl, { method: 'DELETE' });
+        } catch(delErr) {}
 
         const payload = [{
           id: id,
@@ -298,6 +486,8 @@
         return false;
       }
     },
+
+
 
     /**
      * Supprime ou désactive une fiche technique de Supabase Cloud
@@ -485,16 +675,52 @@
             console.log('[GC_Supabase Realtime] Mise à jour prix détectée:', payload);
             if (payload.new && payload.new.id) {
               if (!global.INGREDIENT_UNIT_COSTS) global.INGREDIENT_UNIT_COSTS = {};
+              const costVal = Number(payload.new.cost) || 0;
+              const unitVal = payload.new.unit || 'kg';
+              const labelVal = payload.new.label || payload.new.id;
+
               global.INGREDIENT_UNIT_COSTS[payload.new.id] = {
-                cost: Number(payload.new.cost),
-                unit: payload.new.unit,
-                label: payload.new.label
+                cost: costVal,
+                unit: unitVal,
+                label: labelVal
               };
-              if (global.GC_Store) {
+
+              if (typeof global.cleanText === 'function') {
+                const cK = global.cleanText(payload.new.id);
+                if (cK && cK !== payload.new.id) {
+                  global.INGREDIENT_UNIT_COSTS[cK] = {
+                    cost: costVal,
+                    unit: unitVal,
+                    label: labelVal
+                  };
+                }
+              }
+
+              if (global.GC_Store && typeof global.GC_Store.saveCustomPrices === 'function') {
                 global.GC_Store.saveCustomPrices(global.INGREDIENT_UNIT_COSTS);
               } else if (typeof localStorage !== 'undefined') {
                 localStorage.setItem('gc_ingredient_prices_v1', JSON.stringify(global.INGREDIENT_UNIT_COSTS));
               }
+
+              // Recalculer le Food Cost de toutes les recettes actives en mémoire
+              if (typeof window !== 'undefined' && Array.isArray(window.activeRecipes) && typeof window.calculateRecipeFoodCost === 'function') {
+                window.activeRecipes.forEach(r => {
+                  if (!r) return;
+                  const ings = r.ingredients || r.tech || [];
+                  if (ings.length > 0) {
+                    const fc = window.calculateRecipeFoodCost(ings, r.sellPrice || 0);
+                    r.cost = fc.cost;
+                    r.foodCost = fc.foodCost;
+                    r.margin = fc.margin;
+                    r.grossMarginDH = fc.grossMarginDH;
+                  }
+                });
+                if (typeof window.saveRecipes === 'function') window.saveRecipes();
+                if (typeof window.renderRecipeList === 'function') window.renderRecipeList();
+                if (typeof window.renderSummaryTable === 'function') window.renderSummaryTable();
+                if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
+              }
+
               if (global.GC_PricesModal) {
                 if (typeof global.GC_PricesModal.isOpen === 'function' && global.GC_PricesModal.isOpen() && typeof global.GC_PricesModal.renderTable === 'function') {
                   global.GC_PricesModal.renderTable();
@@ -514,26 +740,49 @@
           })
           .on('postgres_changes', { event: '*', schema: 'public', table: 'recipes' }, payload => {
             console.log('[GC_Supabase Realtime] Mise à jour fiche recette détectée:', payload);
-            if (payload.new && payload.new.name && Array.isArray(window.activeRecipes)) {
+            if (payload.new && payload.new.name && typeof window !== 'undefined' && Array.isArray(window.activeRecipes)) {
               const r = payload.new;
-              const idx = window.activeRecipes.findIndex(x => x && (x.id === r.id || (window.cleanText && window.cleanText(x.name) === window.cleanText(r.name))));
+              const idx = window.activeRecipes.findIndex(x => x && (x.id === r.id || ((typeof global.cleanText === 'function') && global.cleanText(x.name) === global.cleanText(r.name))));
+              const ingList = Array.isArray(r.ingredients) ? r.ingredients.slice() : [];
+              const sPrice = Number(r.sell_price) || 0;
+              let cost = Number(r.cost) || 0;
+              let fc = Number(r.food_cost) || 0;
+              let gm = Number(r.gross_margin) || 0;
+
+              if (typeof global.calculateRecipeFoodCost === 'function' && ingList.length > 0) {
+                const calc = global.calculateRecipeFoodCost(ingList, sPrice);
+                cost = calc.cost;
+                fc = calc.foodCost;
+                gm = calc.grossMarginDH;
+              }
+
               const recipeObj = {
                 id: r.id,
                 name: r.name,
-                category: r.category,
-                ingredients: r.ingredients || [],
-                sellPrice: r.sell_price || 0,
-                cost: r.cost || 0,
-                foodCost: r.food_cost || 0,
-                grossMarginDH: r.gross_margin || 0
+                category: r.category || 'AUTRE',
+                ingredients: ingList.slice(),
+                tech: ingList.slice(),
+                sellPrice: sPrice,
+                cost: cost,
+                foodCost: fc,
+                grossMarginDH: gm
               };
+
               if (idx >= 0) {
                 window.activeRecipes[idx] = recipeObj;
               } else {
                 window.activeRecipes.push(recipeObj);
               }
+
+              if (typeof global.cleanText === 'function') {
+                if (!window.recipeNameIndex) window.recipeNameIndex = new Map();
+                window.recipeNameIndex.set(global.cleanText(r.name), recipeObj);
+              }
+
               if (typeof window.saveRecipes === 'function') window.saveRecipes();
               if (typeof window.renderRecipeList === 'function') window.renderRecipeList();
+              if (typeof window.renderSummaryTable === 'function') window.renderSummaryTable();
+              if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
               if (global.GC_Toast) {
                 global.GC_Toast.show('⚡ Fiche mise à jour en direct : ' + r.name, 'info');
               }

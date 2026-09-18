@@ -126,549 +126,443 @@ const INGREDIENT_CATEGORIES = {
 const INGREDIENT_UNIT_COSTS = {
   "eau": {
     "cost": 0,
-    "unit": "ml"
+    "unit": "ml",
+    "label": "eau"
   },
   "eau chaude": {
     "cost": 0,
-    "unit": "ml"
+    "unit": "ml",
+    "label": "eau chaude"
   },
   "eau bouillante": {
     "cost": 0,
-    "unit": "ml"
+    "unit": "ml",
+    "label": "eau bouillante"
   },
   "glace pilee": {
     "cost": 0,
-    "unit": "g"
+    "unit": "g",
+    "label": "glace pilee"
   },
   "glacons": {
     "cost": 0,
-    "unit": "g"
+    "unit": "g",
+    "label": "glacons"
   },
   "glaçon": {
     "cost": 0,
-    "unit": "g"
+    "unit": "g",
+    "label": "glaçon"
   },
   "glaçons": {
     "cost": 0,
-    "unit": "g"
+    "unit": "g",
+    "label": "glaçons"
+  },
+  "curacao bleu": {
+    "cost": 0.04,
+    "unit": "ml",
+    "label": "curacao bleu"
+  },
+  "sucre de canne": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "sucre de canne"
   },
   "eau gazeuse": {
-    "cost": 0.008,
-    "unit": "ml"
+    "cost": 0.01,
+    "unit": "ml",
+    "label": "eau gazeuse"
   },
   "eau gazeuse oulmes": {
-    "cost": 0.008,
-    "unit": "ml"
+    "cost": 0.01,
+    "unit": "ml",
+    "label": "eau gazeuse oulmes"
   },
   "eau minerale": {
-    "cost": 0.003,
-    "unit": "ml"
+    "cost": 0,
+    "unit": "ml",
+    "label": "eau minerale"
   },
   "bouteille eau minerale 33cl": {
     "cost": 1.8,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "bouteille eau minerale 33cl"
+  },
+  "coulis chocolat": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "coulis chocolat"
   },
   "eau minerale 33cl": {
     "cost": 1.8,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "eau minerale 33cl"
   },
   "bouteille eau minerale 50cl": {
     "cost": 2.73,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "bouteille eau minerale 50cl"
   },
   "bouteille eau minerale 75cl": {
     "cost": 10.4,
-    "unit": "piece"
-  },
-  "bouteille oulmes 33/50cl": {
-    "cost": 4,
-    "unit": "piece"
-  },
-  "bouteille oulmes 75cl": {
-    "cost": 12.3,
-    "unit": "piece"
-  },
-  "sauce vinaigrette": {
-    "cost": 0.025,
-    "unit": "g"
-  },
-  "vinaigrette": {
-    "cost": 0.025,
-    "unit": "g"
-  },
-  "vinaigre balsamique": {
-    "cost": 0.015,
-    "unit": "ml"
-  },
-  "sauce tomate": {
-    "cost": 0.00875,
-    "unit": "g"
-  },
-  "sauce blanche": {
-    "cost": 0.025,
-    "unit": "ml"
-  },
-  "sauce pesto": {
-    "cost": 0.045,
-    "unit": "g"
+    "unit": "piece",
+    "label": "bouteille eau minerale 75cl"
   },
   "pesto": {
-    "cost": 0.045,
-    "unit": "g"
-  },
-  "sauce burger": {
-    "cost": 0.028,
-    "unit": "g"
-  },
-  "sauce": {
-    "cost": 0.028,
-    "unit": "g"
-  },
-  "sauce exclusive": {
-    "cost": 0.035,
-    "unit": "g"
-  },
-  "sauce exclusive du chef": {
-    "cost": 0.035,
-    "unit": "g"
-  },
-  "sauce cocktail": {
-    "cost": 0.03,
-    "unit": "g"
-  },
-  "mayonnaise": {
-    "cost": 0.018,
-    "unit": "g"
-  },
-  "ketchup": {
-    "cost": 0.33,
-    "unit": "piece"
-  },
-  "moutarde": {
-    "cost": 0.0215,
-    "unit": "g"
-  },
-  "demi-glace": {
-    "cost": 0.045,
-    "unit": "ml"
-  },
-  "demi glace": {
-    "cost": 0.045,
-    "unit": "ml"
-  },
-  "huile d'olive": {
-    "cost": 0.04,
-    "unit": "ml"
-  },
-  "huile": {
-    "cost": 0.0156,
-    "unit": "ml"
-  },
-  "coca-cola": {
-    "cost": 7.55,
-    "unit": "piece"
-  },
-  "coca-cola (canette 33cl)": {
-    "cost": 7.55,
-    "unit": "piece"
-  },
-  "coca-cola zero (canette 33cl)": {
-    "cost": 7.55,
-    "unit": "piece"
-  },
-  "sprite (canette 33cl)": {
-    "cost": 7.55,
-    "unit": "piece"
-  },
-  "hawai canette": {
-    "cost": 7.55,
-    "unit": "piece"
-  },
-  "hawai": {
-    "cost": 7.55,
-    "unit": "piece"
-  },
-  "poms (canette 33cl)": {
-    "cost": 7.55,
-    "unit": "piece"
-  },
-  "poms": {
-    "cost": 7.55,
-    "unit": "piece"
-  },
-  "schweppes (canette 33cl)": {
-    "cost": 7.55,
-    "unit": "piece"
-  },
-  "schweppes": {
-    "cost": 7.55,
-    "unit": "piece"
-  },
-  "orangina (canette 33cl)": {
-    "cost": 6.35,
-    "unit": "piece"
-  },
-  "orangina": {
-    "cost": 6.35,
-    "unit": "piece"
-  },
-  "red bull (canette 250ml)": {
-    "cost": 13.96,
-    "unit": "piece"
-  },
-  "red bull": {
-    "cost": 13.96,
-    "unit": "piece"
-  },
-  "jus d'orange": {
-    "cost": 0.01,
-    "unit": "ml"
-  },
-  "jus d'orange presse": {
-    "cost": 0.01,
-    "unit": "ml"
+    "cost": 0.05,
+    "unit": "g",
+    "label": "pesto"
   },
   "jus de citron": {
     "cost": 0.01,
-    "unit": "ml"
+    "unit": "ml",
+    "label": "jus de citron"
   },
   "jus de citron presse": {
     "cost": 0.01,
-    "unit": "ml"
+    "unit": "ml",
+    "label": "jus de citron presse"
   },
   "jus de citron vert": {
-    "cost": 0.015,
-    "unit": "ml"
+    "cost": 0.02,
+    "unit": "ml",
+    "label": "jus de citron vert"
   },
   "jus d'ananas": {
-    "cost": 0.015,
-    "unit": "ml"
+    "cost": 0.02,
+    "unit": "ml",
+    "label": "jus d'ananas"
   },
   "jus de pomme": {
-    "cost": 0.012,
-    "unit": "ml"
+    "cost": 0.01,
+    "unit": "ml",
+    "label": "jus de pomme"
   },
   "jus de cranberry": {
-    "cost": 0.018,
-    "unit": "ml"
+    "cost": 0.02,
+    "unit": "ml",
+    "label": "jus de cranberry"
   },
   "jus de mangue": {
-    "cost": 0.018,
-    "unit": "ml"
+    "cost": 0.02,
+    "unit": "ml",
+    "label": "jus de mangue"
   },
   "lait de coco": {
     "cost": 0.03,
-    "unit": "ml"
+    "unit": "ml",
+    "label": "lait de coco"
   },
   "eau de coco": {
     "cost": 0.02,
-    "unit": "ml"
+    "unit": "ml",
+    "label": "eau de coco"
   },
   "lait": {
-    "cost": 0.00917,
-    "unit": "ml"
+    "cost": 0.01,
+    "unit": "ml",
+    "label": "lait"
   },
   "lait chaud": {
-    "cost": 0.00917,
-    "unit": "ml"
+    "cost": 0.01,
+    "unit": "ml",
+    "label": "lait chaud"
   },
   "lait uht": {
-    "cost": 0.00917,
-    "unit": "ml"
+    "cost": 0.01,
+    "unit": "ml",
+    "label": "lait uht"
   },
   "mousse de lait": {
-    "cost": 0.00917,
-    "unit": "ml"
+    "cost": 0.01,
+    "unit": "ml",
+    "label": "mousse de lait"
   },
   "creme": {
-    "cost": 0.025,
-    "unit": "ml"
+    "cost": 0.03,
+    "unit": "ml",
+    "label": "creme"
+  },
+  "sauce exclusive du chef": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "sauce exclusive du chef"
+  },
+  "sauce cocktail": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "sauce cocktail"
+  },
+  "mayonnaise": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "mayonnaise"
+  },
+  "bouteille oulmes 33/50cl": {
+    "cost": 4,
+    "unit": "piece",
+    "label": "bouteille oulmes 33/50cl"
+  },
+  "bouteille oulmes 75cl": {
+    "cost": 12.3,
+    "unit": "piece",
+    "label": "bouteille oulmes 75cl"
+  },
+  "sauce vinaigrette": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "sauce vinaigrette"
+  },
+  "coulis caramel": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "coulis caramel"
+  },
+  "vinaigrette": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "vinaigrette"
+  },
+  "vinaigre balsamique": {
+    "cost": 0.02,
+    "unit": "ml",
+    "label": "vinaigre balsamique"
+  },
+  "sauce tomate": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "sauce tomate"
+  },
+  "sauce blanche": {
+    "cost": 0.03,
+    "unit": "ml",
+    "label": "sauce blanche"
+  },
+  "coulis fruits rouges": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "coulis fruits rouges"
+  },
+  "coulis chocolat chaud": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "coulis chocolat chaud"
+  },
+  "sauce pesto": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "sauce pesto"
+  },
+  "sauce burger": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "sauce burger"
+  },
+  "sauce": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "sauce"
+  },
+  "sauce exclusive": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "sauce exclusive"
+  },
+  "ketchup": {
+    "cost": 0.33,
+    "unit": "piece",
+    "label": "ketchup"
+  },
+  "moutarde": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "moutarde"
+  },
+  "demi-glace": {
+    "cost": 0.05,
+    "unit": "ml",
+    "label": "demi-glace"
+  },
+  "demi glace": {
+    "cost": 0.05,
+    "unit": "ml",
+    "label": "demi glace"
+  },
+  "huile d'olive": {
+    "cost": 0.04,
+    "unit": "ml",
+    "label": "huile d'olive"
+  },
+  "huile": {
+    "cost": 0.02,
+    "unit": "ml",
+    "label": "huile"
+  },
+  "coca-cola": {
+    "cost": 7.55,
+    "unit": "piece",
+    "label": "coca-cola"
+  },
+  "coca-cola (canette 33cl)": {
+    "cost": 7.55,
+    "unit": "piece",
+    "label": "coca-cola (canette 33cl)"
+  },
+  "coca-cola zero (canette 33cl)": {
+    "cost": 7.55,
+    "unit": "piece",
+    "label": "coca-cola zero (canette 33cl)"
+  },
+  "sprite (canette 33cl)": {
+    "cost": 7.55,
+    "unit": "piece",
+    "label": "sprite (canette 33cl)"
+  },
+  "hawai canette": {
+    "cost": 7.55,
+    "unit": "piece",
+    "label": "hawai canette"
+  },
+  "hawai": {
+    "cost": 7.55,
+    "unit": "piece",
+    "label": "hawai"
+  },
+  "poms (canette 33cl)": {
+    "cost": 7.55,
+    "unit": "piece",
+    "label": "poms (canette 33cl)"
+  },
+  "poms": {
+    "cost": 7.55,
+    "unit": "piece",
+    "label": "poms"
+  },
+  "schweppes (canette 33cl)": {
+    "cost": 7.55,
+    "unit": "piece",
+    "label": "schweppes (canette 33cl)"
+  },
+  "schweppes": {
+    "cost": 7.55,
+    "unit": "piece",
+    "label": "schweppes"
+  },
+  "orangina (canette 33cl)": {
+    "cost": 6.35,
+    "unit": "piece",
+    "label": "orangina (canette 33cl)"
+  },
+  "orangina": {
+    "cost": 6.35,
+    "unit": "piece",
+    "label": "orangina"
+  },
+  "red bull (canette 250ml)": {
+    "cost": 13.96,
+    "unit": "piece",
+    "label": "red bull (canette 250ml)"
+  },
+  "red bull": {
+    "cost": 13.96,
+    "unit": "piece",
+    "label": "red bull"
+  },
+  "jus d'orange": {
+    "cost": 0.01,
+    "unit": "ml",
+    "label": "jus d'orange"
   },
   "creme fraiche": {
-    "cost": 0.025,
-    "unit": "ml"
+    "cost": 0.03,
+    "unit": "ml",
+    "label": "creme fraiche"
   },
   "creme chantilly": {
     "cost": 0.03,
-    "unit": "g"
+    "unit": "g",
+    "label": "creme chantilly"
   },
   "chantilly": {
     "cost": 0.03,
-    "unit": "g"
+    "unit": "g",
+    "label": "chantilly"
   },
   "leben": {
-    "cost": 0.009,
-    "unit": "ml"
+    "cost": 0.01,
+    "unit": "ml",
+    "label": "leben"
   },
   "petit lait": {
-    "cost": 0.009,
-    "unit": "ml"
+    "cost": 0.01,
+    "unit": "ml",
+    "label": "petit lait"
   },
   "infusion the noir": {
-    "cost": 0.0021000000000000003,
-    "unit": "ml"
+    "cost": 0,
+    "unit": "ml",
+    "label": "infusion the noir"
   },
   "infusion the vert": {
-    "cost": 0.0021000000000000003,
-    "unit": "ml"
+    "cost": 0,
+    "unit": "ml",
+    "label": "infusion the vert"
   },
   "infusion the fruits rouges": {
-    "cost": 0.0025,
-    "unit": "ml"
+    "cost": 0,
+    "unit": "ml",
+    "label": "infusion the fruits rouges"
+  },
+  "jus d'orange presse": {
+    "cost": 0.01,
+    "unit": "ml",
+    "label": "jus d'orange presse"
   },
   "infusion": {
     "cost": 1.1,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "infusion"
   },
-  "sirop": {
-    "cost": 0.035,
-    "unit": "ml"
+  "fondant chocolat coeur coulant": {
+    "cost": 12,
+    "unit": "piece",
+    "label": "fondant chocolat coeur coulant"
   },
-  "sirop de canne": {
-    "cost": 0.035,
-    "unit": "ml"
+  "cheesecake": {
+    "cost": 14,
+    "unit": "piece",
+    "label": "cheesecake"
   },
-  "sirop de sucre de canne": {
-    "cost": 0.035,
-    "unit": "ml"
+  "cheesecake san sebastian": {
+    "cost": 14,
+    "unit": "piece",
+    "label": "cheesecake san sebastian"
   },
-  "sirop sucre de canne": {
-    "cost": 0.035,
-    "unit": "ml"
+  "cheesecake chocolat": {
+    "cost": 14,
+    "unit": "piece",
+    "label": "cheesecake chocolat"
   },
-  "sucre de canne": {
-    "cost": 0.035,
-    "unit": "g"
-  },
-  "sirop caramel": {
-    "cost": 0.035,
-    "unit": "ml"
-  },
-  "sirop noisette": {
-    "cost": 0.035,
-    "unit": "ml"
-  },
-  "sirop vanille": {
-    "cost": 0.035,
-    "unit": "ml"
-  },
-  "sirop fraise": {
-    "cost": 0.035,
-    "unit": "ml"
-  },
-  "sirop framboise": {
-    "cost": 0.035,
-    "unit": "ml"
-  },
-  "sirop peche": {
-    "cost": 0.035,
-    "unit": "ml"
-  },
-  "sirop de peche": {
-    "cost": 0.035,
-    "unit": "ml"
-  },
-  "sirop de citron": {
-    "cost": 0.035,
-    "unit": "ml"
-  },
-  "sirop passion": {
-    "cost": 0.035,
-    "unit": "ml"
-  },
-  "sirop de passion": {
-    "cost": 0.035,
-    "unit": "ml"
-  },
-  "sirop mojito": {
-    "cost": 0.035,
-    "unit": "ml"
-  },
-  "sirop menthe": {
-    "cost": 0.024,
-    "unit": "ml"
-  },
-  "sirop grenadine": {
-    "cost": 0.023,
-    "unit": "ml"
-  },
-  "sirop de grenadine": {
-    "cost": 0.023,
-    "unit": "ml"
-  },
-  "sirop curaçao bleu": {
-    "cost": 0.035,
-    "unit": "ml"
-  },
-  "curacao bleu": {
-    "cost": 0.035,
-    "unit": "ml"
-  },
-  "coulis chocolat": {
-    "cost": 0.034,
-    "unit": "g"
-  },
-  "coulis chocolat chaud": {
-    "cost": 0.034,
-    "unit": "g"
-  },
-  "coulis caramel": {
-    "cost": 0.032,
-    "unit": "g"
-  },
-  "coulis fruits rouges": {
-    "cost": 0.035,
-    "unit": "g"
-  },
-  "blanc de poulet": {
-    "cost": 0.055,
-    "unit": "g"
-  },
-  "poulet": {
-    "cost": 0.055,
-    "unit": "g"
-  },
-  "poulet hache": {
-    "cost": 0.055,
-    "unit": "g"
-  },
-  "poulet pane": {
-    "cost": 0.053,
-    "unit": "g"
-  },
-  "poulet emince": {
-    "cost": 0.055,
-    "unit": "g"
-  },
-  "poulet grille": {
-    "cost": 0.055,
-    "unit": "g"
+  "base frappe vanille": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "base frappe vanille"
   },
   "volaille": {
-    "cost": 0.065,
-    "unit": "g"
+    "cost": 0.07,
+    "unit": "g",
+    "label": "volaille"
   },
   "volaille hachee": {
-    "cost": 0.065,
-    "unit": "g"
+    "cost": 0.07,
+    "unit": "g",
+    "label": "volaille hachee"
   },
   "viande hachee": {
     "cost": 0.1,
-    "unit": "g"
-  },
-  "viande": {
-    "cost": 0.1,
-    "unit": "g"
-  },
-  "steak de boeuf": {
-    "cost": 0.1,
-    "unit": "g"
-  },
-  "emince de boeuf": {
-    "cost": 0.11,
-    "unit": "g"
-  },
-  "filet de boeuf": {
-    "cost": 0.18,
-    "unit": "g"
-  },
-  "filet": {
-    "cost": 0.18,
-    "unit": "g"
-  },
-  "viande tajine": {
-    "cost": 0.09,
-    "unit": "g"
-  },
-  "merguez": {
-    "cost": 0.095,
-    "unit": "g"
-  },
-  "saucisse": {
-    "cost": 0.105,
-    "unit": "g"
-  },
-  "saucisses": {
-    "cost": 0.105,
-    "unit": "g"
-  },
-  "khli3": {
-    "cost": 0.11,
-    "unit": "g"
-  },
-  "charcuterie": {
-    "cost": 0.06,
-    "unit": "g"
-  },
-  "charcuteries": {
-    "cost": 0.06,
-    "unit": "g"
-  },
-  "charcuterie de dinde": {
-    "cost": 0.065,
-    "unit": "g"
-  },
-  "jambon de dinde": {
-    "cost": 0.085,
-    "unit": "g"
-  },
-  "salami": {
-    "cost": 0.085,
-    "unit": "g"
-  },
-  "bacon": {
-    "cost": 0.1,
-    "unit": "g"
-  },
-  "bacon de boeuf": {
-    "cost": 0.1,
-    "unit": "g"
-  },
-  "pepperoni": {
-    "cost": 0.12,
-    "unit": "g"
-  },
-  "peperoni": {
-    "cost": 0.12,
-    "unit": "g"
-  },
-  "nuggets": {
-    "cost": 0.053,
-    "unit": "g"
-  },
-  "saumon brut": {
-    "cost": 0.13,
     "unit": "g",
-    "label": "Saumon Brut (Avec carcasse)"
-  },
-  "saumon frais net": {
-    "cost": 0.18,
-    "unit": "g",
-    "label": "Saumon Frais Net (Pavé / Filet)"
-  },
-  "saumon fume": {
-    "cost": 0.28,
-    "unit": "g"
-  },
-  "crevettes brut": {
-    "cost": 0.055,
-    "unit": "g",
-    "label": "Crevettes Brut (Avec coquille / Réception)"
-  },
-  "crevettes net": {
-    "cost": 0.21,
-    "unit": "g",
-    "label": "Crevettes Net (Chair décortiquée)"
-  },
-  "gambas brut": {
-    "cost": 0.055,
-    "unit": "g",
-    "label": "Gambas Brut (Avec coquille)"
-  },
-  "gambas net": {
-    "cost": 0.21,
-    "unit": "g",
-    "label": "Gambas Net (Chair décortiquée / Pochée)"
+    "label": "viande hachee"
   },
   "gambas pane": {
     "cost": 0.18,
@@ -676,82 +570,99 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "Gambas Pané"
   },
   "calamar brut": {
-    "cost": 0.052,
+    "cost": 0.05,
     "unit": "g",
     "label": "Calamar Brut (Congelé / Réception)"
   },
   "calamar net": {
-    "cost": 0.156,
+    "cost": 0.16,
     "unit": "g",
     "label": "Calamar Net (Chair / Égoutté)"
   },
   "moules": {
-    "cost": 0.055,
-    "unit": "g"
+    "cost": 0.06,
+    "unit": "g",
+    "label": "moules"
   },
   "palourde": {
-    "cost": 0.075,
-    "unit": "g"
+    "cost": 0.08,
+    "unit": "g",
+    "label": "palourde"
   },
   "thon": {
-    "cost": 0.05825,
-    "unit": "g"
+    "cost": 0.06,
+    "unit": "g",
+    "label": "thon"
   },
   "anchois": {
-    "cost": 0.109,
-    "unit": "g"
+    "cost": 0.11,
+    "unit": "g",
+    "label": "anchois"
   },
   "mozzarella": {
-    "cost": 0.055,
-    "unit": "g"
+    "cost": 0.06,
+    "unit": "g",
+    "label": "mozzarella"
   },
   "parmesan": {
     "cost": 0.15,
-    "unit": "g"
+    "unit": "g",
+    "label": "parmesan"
   },
   "fromage rouge": {
-    "cost": 0.095,
-    "unit": "g"
+    "cost": 0.1,
+    "unit": "g",
+    "label": "fromage rouge"
   },
   "fromage": {
-    "cost": 0.095,
-    "unit": "g"
+    "cost": 0.1,
+    "unit": "g",
+    "label": "fromage"
   },
   "fromage blanc": {
-    "cost": 0.035,
-    "unit": "g"
+    "cost": 0.04,
+    "unit": "g",
+    "label": "fromage blanc"
   },
   "fromage variete": {
     "cost": 0.09,
-    "unit": "g"
+    "unit": "g",
+    "label": "fromage variete"
   },
   "fromages": {
     "cost": 0.09,
-    "unit": "g"
+    "unit": "g",
+    "label": "fromages"
   },
   "edam": {
     "cost": 0.09,
-    "unit": "g"
+    "unit": "g",
+    "label": "edam"
   },
   "gouda": {
     "cost": 0.09,
-    "unit": "g"
+    "unit": "g",
+    "label": "gouda"
   },
   "cheddar": {
-    "cost": 0.085,
-    "unit": "g"
+    "cost": 0.09,
+    "unit": "g",
+    "label": "cheddar"
   },
   "bleu": {
     "cost": 0.12,
-    "unit": "g"
+    "unit": "g",
+    "label": "bleu"
   },
   "brie": {
     "cost": 0.11,
-    "unit": "g"
+    "unit": "g",
+    "label": "brie"
   },
   "camembert": {
     "cost": 0.11,
-    "unit": "g"
+    "unit": "g",
+    "label": "camembert"
   },
   "burrata": {
     "cost": 25,
@@ -760,876 +671,543 @@ const INGREDIENT_UNIT_COSTS = {
   },
   "jben": {
     "cost": 0.04,
-    "unit": "g"
+    "unit": "g",
+    "label": "jben"
   },
   "ricotta": {
     "cost": 0.04,
-    "unit": "g"
+    "unit": "g",
+    "label": "ricotta"
   },
   "mascarpone": {
     "cost": 0.13,
-    "unit": "g"
+    "unit": "g",
+    "label": "mascarpone"
   },
   "yaourt grec nature": {
     "cost": 0.03,
-    "unit": "g"
+    "unit": "g",
+    "label": "yaourt grec nature"
   },
   "yaourt": {
     "cost": 0.03,
-    "unit": "g"
+    "unit": "g",
+    "label": "yaourt"
   },
   "beurre": {
     "cost": 0.08,
-    "unit": "g"
+    "unit": "g",
+    "label": "beurre"
   },
   "oeuf": {
     "cost": 1.27,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "oeuf"
   },
   "oeufs": {
     "cost": 1.27,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "oeufs"
   },
   "œuf": {
     "cost": 1.27,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "œuf"
   },
   "œufs": {
     "cost": 1.27,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "œufs"
   },
   "oeufs frais": {
     "cost": 1.27,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "oeufs frais"
   },
   "oeufs au plat": {
     "cost": 1.27,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "oeufs au plat"
   },
   "oeuf brouille": {
     "cost": 1.27,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "oeuf brouille"
   },
   "oeuf baldi": {
     "cost": 2.7,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "oeuf baldi"
   },
   "oeufs de caille": {
     "cost": 0.69,
-    "unit": "piece"
-  },
-  "pain burger": {
-    "cost": 2.5,
-    "unit": "piece"
-  },
-  "pain de mie complet": {
-    "cost": 0.78,
-    "unit": "piece"
-  },
-  "pain de mie": {
-    "cost": 0.78,
-    "unit": "piece"
-  },
-  "pain complet": {
-    "cost": 0.78,
-    "unit": "piece"
-  },
-  "pain seigle": {
-    "cost": 0.94,
-    "unit": "piece"
-  },
-  "pain cereales": {
-    "cost": 0.94,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "oeufs de caille"
   },
   "pain cereal": {
     "cost": 0.94,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "pain cereal"
+  },
+  "poivrons": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "poivrons"
+  },
+  "oignon": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "oignon"
+  },
+  "oignons": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "oignons"
+  },
+  "oignon/ail": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "oignon/ail"
+  },
+  "ail": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "ail"
+  },
+  "carotte": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "carotte"
+  },
+  "carottes fraiches": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "carottes fraiches"
+  },
+  "concombre": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "concombre"
   },
   "pain ciabatta": {
     "cost": 2.2,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "pain ciabatta"
   },
   "pain panini": {
     "cost": 2,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "pain panini"
   },
   "pain": {
     "cost": 2,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "pain"
   },
   "tortilla": {
     "cost": 1.8,
-    "unit": "piece"
+    "unit": "piece",
+    "label": "tortilla"
   },
   "pate a pizza": {
-    "cost": 0.004,
-    "unit": "g"
+    "cost": 0,
+    "unit": "g",
+    "label": "pate a pizza"
   },
   "pate": {
-    "cost": 0.032,
-    "unit": "g"
+    "cost": 0.03,
+    "unit": "g",
+    "label": "pate"
   },
   "spaghetti": {
-    "cost": 0.018,
-    "unit": "g"
+    "cost": 0.02,
+    "unit": "g",
+    "label": "spaghetti"
   },
   "spaghettis": {
-    "cost": 0.018,
-    "unit": "g"
+    "cost": 0.02,
+    "unit": "g",
+    "label": "spaghettis"
   },
   "pates": {
-    "cost": 0.032,
-    "unit": "g"
+    "cost": 0.03,
+    "unit": "g",
+    "label": "pates"
   },
   "pasta": {
-    "cost": 0.032,
+    "cost": 0.03,
     "unit": "g",
     "label": "Pâtes / Pasta (Sèche)"
   },
   "pates lasagne": {
     "cost": 0.03,
-    "unit": "g"
+    "unit": "g",
+    "label": "pates lasagne"
   },
   "tagliatelle": {
-    "cost": 0.044,
-    "unit": "g"
+    "cost": 0.04,
+    "unit": "g",
+    "label": "tagliatelle"
   },
   "tagliatelles": {
-    "cost": 0.044,
-    "unit": "g"
+    "cost": 0.04,
+    "unit": "g",
+    "label": "tagliatelles"
   },
   "linguine": {
-    "cost": 0.036,
-    "unit": "g"
-  },
-  "linguines": {
-    "cost": 0.036,
-    "unit": "g"
-  },
-  "rigatoni": {
-    "cost": 0.036,
-    "unit": "g"
-  },
-  "spaghettis noirs": {
-    "cost": 0.07,
-    "unit": "g"
-  },
-  "frites": {
-    "cost": 0.0175,
-    "unit": "g"
-  },
-  "potatos": {
-    "cost": 0.027,
-    "unit": "g"
-  },
-  "puree de pomme de terre": {
-    "cost": 0.0175,
-    "unit": "g"
-  },
-  "puree": {
-    "cost": 0.0175,
-    "unit": "g"
-  },
-  "pomme de terre": {
-    "cost": 0.007,
-    "unit": "g"
+    "cost": 0.04,
+    "unit": "g",
+    "label": "linguine"
   },
   "riz basmati": {
-    "cost": 0.027,
-    "unit": "g"
+    "cost": 0.03,
+    "unit": "g",
+    "label": "riz basmati"
   },
   "riz": {
-    "cost": 0.027,
-    "unit": "g"
+    "cost": 0.03,
+    "unit": "g",
+    "label": "riz"
   },
   "quinoa": {
-    "cost": 0.055,
-    "unit": "g"
+    "cost": 0.06,
+    "unit": "g",
+    "label": "quinoa"
   },
   "quinoa blanc": {
-    "cost": 0.055,
-    "unit": "g"
+    "cost": 0.06,
+    "unit": "g",
+    "label": "quinoa blanc"
   },
   "quinoa noir": {
-    "cost": 0.055,
-    "unit": "g"
+    "cost": 0.06,
+    "unit": "g",
+    "label": "quinoa noir"
   },
   "semoule": {
-    "cost": 0.0078,
-    "unit": "g"
-  },
-  "semoule couscous": {
-    "cost": 0.0078,
-    "unit": "g"
-  },
-  "croissant": {
-    "cost": 2,
-    "unit": "piece"
-  },
-  "pain au chocolat": {
-    "cost": 2,
-    "unit": "piece"
-  },
-  "viennoiserie": {
-    "cost": 2,
-    "unit": "piece"
-  },
-  "muffin": {
-    "cost": 3.5,
-    "unit": "piece"
-  },
-  "gaufre": {
-    "cost": 3,
-    "unit": "piece"
-  },
-  "pancake": {
-    "cost": 2,
-    "unit": "piece"
-  },
-  "pate a crepe": {
-    "cost": 1.8,
-    "unit": "piece"
-  },
-  "baghrir": {
-    "cost": 1.2,
-    "unit": "piece"
-  },
-  "harcha": {
-    "cost": 1.2,
-    "unit": "piece"
-  },
-  "mlaoui": {
-    "cost": 1.5,
-    "unit": "piece"
-  },
-  "msemen": {
-    "cost": 1.5,
-    "unit": "piece"
-  },
-  "pain cake": {
-    "cost": 2.5,
-    "unit": "piece"
-  },
-  "toast hollandais": {
-    "cost": 2.5,
-    "unit": "piece"
-  },
-  "croquettes fromage": {
-    "cost": 3,
-    "unit": "piece"
-  },
-  "croquettes": {
-    "cost": 3,
-    "unit": "piece"
-  },
-  "croque maison": {
-    "cost": 6.5,
-    "unit": "piece"
-  },
-  "salade": {
-    "cost": 0.008,
-    "unit": "g"
-  },
-  "salade rouge": {
     "cost": 0.01,
-    "unit": "g"
-  },
-  "salade mesclun": {
-    "cost": 0.012,
-    "unit": "g"
-  },
-  "laitue": {
-    "cost": 0.008,
-    "unit": "g"
-  },
-  "mesclun": {
-    "cost": 0.012,
-    "unit": "g"
-  },
-  "mesclun salade": {
-    "cost": 0.012,
-    "unit": "g"
-  },
-  "roquette": {
-    "cost": 0.015,
-    "unit": "g"
-  },
-  "epinard": {
-    "cost": 0.015,
-    "unit": "g"
-  },
-  "epinards": {
-    "cost": 0.015,
-    "unit": "g"
-  },
-  "tomate": {
-    "cost": 0.006,
-    "unit": "g"
-  },
-  "tomates": {
-    "cost": 0.006,
-    "unit": "g"
-  },
-  "tomate cerise": {
-    "cost": 0.015,
-    "unit": "g"
-  },
-  "tomates cerises": {
-    "cost": 0.015,
-    "unit": "g"
-  },
-  "champignon": {
-    "cost": 0.035,
-    "unit": "g"
-  },
-  "champignons": {
-    "cost": 0.035,
-    "unit": "g"
-  },
-  "courgette": {
-    "cost": 0.008,
-    "unit": "g"
-  },
-  "poivron": {
-    "cost": 0.01,
-    "unit": "g"
-  },
-  "poivrons": {
-    "cost": 0.01,
-    "unit": "g"
-  },
-  "oignon": {
-    "cost": 0.006,
-    "unit": "g"
-  },
-  "oignons": {
-    "cost": 0.006,
-    "unit": "g"
-  },
-  "oignon/ail": {
-    "cost": 0.008,
-    "unit": "g"
-  },
-  "ail": {
-    "cost": 0.025,
-    "unit": "g"
-  },
-  "carotte": {
-    "cost": 0.006,
-    "unit": "g"
-  },
-  "carottes fraiches": {
-    "cost": 0.006,
-    "unit": "g"
-  },
-  "concombre": {
-    "cost": 0.006,
-    "unit": "g"
+    "unit": "g",
+    "label": "semoule"
   },
   "haricot vert": {
-    "cost": 0.018,
-    "unit": "g"
+    "cost": 0.02,
+    "unit": "g",
+    "label": "haricot vert"
   },
   "betterave": {
-    "cost": 0.008,
-    "unit": "g"
+    "cost": 0.01,
+    "unit": "g",
+    "label": "betterave"
   },
   "brocoli": {
     "cost": 0.02,
-    "unit": "g"
+    "unit": "g",
+    "label": "brocoli"
   },
   "radis": {
     "cost": 0.01,
-    "unit": "g"
+    "unit": "g",
+    "label": "radis"
   },
   "petit pois": {
-    "cost": 0.018,
-    "unit": "g"
+    "cost": 0.02,
+    "unit": "g",
+    "label": "petit pois"
   },
   "cornichon": {
     "cost": 0.02,
-    "unit": "g"
+    "unit": "g",
+    "label": "cornichon"
   },
   "mais": {
-    "cost": 0.032350000000000004,
-    "unit": "g"
-  },
-  "maïs": {
-    "cost": 0.032350000000000004,
-    "unit": "g"
-  },
-  "olives noires": {
-    "cost": 0.04,
-    "unit": "g"
-  },
-  "olives": {
-    "cost": 0.04,
-    "unit": "g"
-  },
-  "olives vertes": {
-    "cost": 0.026,
-    "unit": "g"
-  },
-  "olive verte": {
-    "cost": 0.026,
-    "unit": "g"
-  },
-  "capres": {
     "cost": 0.03,
-    "unit": "g"
+    "unit": "g",
+    "label": "mais"
   },
-  "gingembre": {
-    "cost": 0.03,
-    "unit": "g"
-  },
-  "gingembre frais": {
-    "cost": 0.03,
-    "unit": "g"
-  },
-  "gingembre frais rape": {
-    "cost": 0.03,
-    "unit": "g"
-  },
-  "legumes": {
+  "semoule couscous": {
     "cost": 0.01,
-    "unit": "g"
+    "unit": "g",
+    "label": "semoule couscous"
   },
-  "legumes couscous": {
+  "poivron": {
     "cost": 0.01,
-    "unit": "g"
+    "unit": "g",
+    "label": "poivron"
   },
-  "legumes varies": {
+  "viande": {
+    "cost": 0.1,
+    "unit": "g",
+    "label": "viande"
+  },
+  "steak de boeuf": {
+    "cost": 0.1,
+    "unit": "g",
+    "label": "steak de boeuf"
+  },
+  "emince de boeuf": {
+    "cost": 0.11,
+    "unit": "g",
+    "label": "emince de boeuf"
+  },
+  "viande tajine": {
+    "cost": 0.09,
+    "unit": "g",
+    "label": "viande tajine"
+  },
+  "merguez": {
+    "cost": 0.1,
+    "unit": "g",
+    "label": "merguez"
+  },
+  "sucre": {
     "cost": 0.01,
-    "unit": "g"
+    "unit": "g",
+    "label": "sucre"
   },
-  "garnitures composees": {
-    "cost": 0.015,
-    "unit": "g"
-  },
-  "garniture composee": {
-    "cost": 0.015,
-    "unit": "g"
-  },
-  "avocat": {
-    "cost": 0.024,
-    "unit": "g"
-  },
-  "avocat hass": {
-    "cost": 0.024,
-    "unit": "g"
-  },
-  "banane": {
-    "cost": 0.014,
-    "unit": "g"
-  },
-  "orange": {
-    "cost": 0.005,
-    "unit": "g"
-  },
-  "citron": {
+  "sucre glace": {
     "cost": 0.01,
-    "unit": "g"
+    "unit": "g",
+    "label": "sucre glace"
   },
-  "citron vert": {
-    "cost": 0.015,
-    "unit": "g"
+  "miel": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "miel"
   },
-  "citron vert frais": {
-    "cost": 0.015,
-    "unit": "g"
-  },
-  "rondelles de citron": {
-    "cost": 0.5,
-    "unit": "piece"
-  },
-  "tranche de citron": {
-    "cost": 0.5,
-    "unit": "piece"
-  },
-  "tranches de citron": {
-    "cost": 0.5,
-    "unit": "piece"
-  },
-  "pomme": {
-    "cost": 0.014,
-    "unit": "g"
-  },
-  "pomme fraiche": {
-    "cost": 0.014,
-    "unit": "g"
-  },
-  "pomme verte": {
-    "cost": 0.014,
-    "unit": "g"
-  },
-  "fraise": {
-    "cost": 0.017,
-    "unit": "g"
-  },
-  "fraises fraiches": {
-    "cost": 0.017,
-    "unit": "g"
-  },
-  "fraise fraiche": {
-    "cost": 0.017,
-    "unit": "g"
-  },
-  "framboise": {
-    "cost": 0.035,
-    "unit": "g"
-  },
-  "framboises fraiches": {
-    "cost": 0.035,
-    "unit": "g"
-  },
-  "framboises": {
-    "cost": 0.035,
-    "unit": "g"
-  },
-  "puree de framboise": {
-    "cost": 0.035,
-    "unit": "g"
-  },
-  "puree de fraise": {
-    "cost": 0.017,
-    "unit": "g"
-  },
-  "myrtille": {
-    "cost": 0.037,
-    "unit": "g"
+  "miel pur d'abeille": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "miel pur d'abeille"
   },
   "myrtilles": {
-    "cost": 0.037,
-    "unit": "g"
+    "cost": 0.04,
+    "unit": "g",
+    "label": "myrtilles"
   },
   "fruits rouges": {
-    "cost": 0.043,
-    "unit": "g"
+    "cost": 0.04,
+    "unit": "g",
+    "label": "fruits rouges"
   },
   "ananas": {
-    "cost": 0.018,
-    "unit": "g"
+    "cost": 0.02,
+    "unit": "g",
+    "label": "ananas"
   },
   "peche": {
     "cost": 0.03,
-    "unit": "g"
+    "unit": "g",
+    "label": "peche"
   },
   "peches": {
     "cost": 0.03,
-    "unit": "g"
+    "unit": "g",
+    "label": "peches"
   },
   "peche fraiche": {
     "cost": 0.03,
-    "unit": "g"
+    "unit": "g",
+    "label": "peche fraiche"
   },
   "mangue": {
-    "cost": 0.031,
-    "unit": "g"
+    "cost": 0.03,
+    "unit": "g",
+    "label": "mangue"
   },
   "kiwi": {
-    "cost": 0.018,
-    "unit": "g"
+    "cost": 0.02,
+    "unit": "g",
+    "label": "kiwi"
   },
   "raisin": {
-    "cost": 0.045,
-    "unit": "g"
+    "cost": 0.05,
+    "unit": "g",
+    "label": "raisin"
   },
   "dattes medjool": {
     "cost": 0.06,
-    "unit": "g"
-  },
-  "dattes": {
-    "cost": 0.06,
-    "unit": "g"
-  },
-  "fruit de la passion": {
-    "cost": 0.045,
-    "unit": "g"
-  },
-  "fruits frais decor": {
-    "cost": 0.025,
-    "unit": "g"
-  },
-  "cafe": {
-    "cost": 0.14,
-    "unit": "g"
-  },
-  "cafe espresso": {
-    "cost": 0.14,
-    "unit": "g"
-  },
-  "pastille nespresso": {
-    "cost": 4.5,
-    "unit": "piece"
-  },
-  "the vert": {
-    "cost": 0.092,
-    "unit": "g"
-  },
-  "the vert gunpowder": {
-    "cost": 0.092,
-    "unit": "g"
-  },
-  "the noir": {
-    "cost": 0.21,
-    "unit": "g"
-  },
-  "menthe": {
-    "cost": 0.04,
-    "unit": "g"
-  },
-  "menthe fraiche": {
-    "cost": 0.04,
-    "unit": "g"
-  },
-  "verveine": {
-    "cost": 0.118,
-    "unit": "g"
-  },
-  "verveine nature": {
-    "cost": 0.118,
-    "unit": "g"
-  },
-  "melange plantes infusion": {
-    "cost": 0.55,
-    "unit": "g"
-  },
-  "cacao en poudre": {
-    "cost": 0.07,
-    "unit": "g"
-  },
-  "cacao": {
-    "cost": 0.07,
-    "unit": "g"
-  },
-  "chocolat en poudre": {
-    "cost": 0.07,
-    "unit": "g"
-  },
-  "chocolat": {
-    "cost": 0.065,
-    "unit": "g"
-  },
-  "chocolat noir": {
-    "cost": 0.065,
-    "unit": "g"
-  },
-  "chocolat noir fondu": {
-    "cost": 0.065,
-    "unit": "g"
-  },
-  "chocolat au lait": {
-    "cost": 0.065,
-    "unit": "g"
-  },
-  "chocolat au lait fondu": {
-    "cost": 0.065,
-    "unit": "g"
-  },
-  "fondant chocolat": {
-    "cost": 12,
-    "unit": "piece"
-  },
-  "fondant chocolat coeur coulant": {
-    "cost": 12,
-    "unit": "piece"
-  },
-  "cheesecake": {
-    "cost": 14,
-    "unit": "piece"
-  },
-  "cheesecake san sebastian": {
-    "cost": 14,
-    "unit": "piece"
-  },
-  "cheesecake chocolat": {
-    "cost": 14,
-    "unit": "piece"
-  },
-  "base frappe vanille": {
-    "cost": 0.045,
-    "unit": "g"
-  },
-  "base mixee acai/fruits rouges": {
-    "cost": 0.045,
-    "unit": "g"
-  },
-  "boule de glace": {
-    "cost": 3.2,
-    "unit": "piece"
-  },
-  "boule de glace vanille": {
-    "cost": 3.2,
-    "unit": "piece"
-  },
-  "glace artisanale": {
-    "cost": 0.064,
-    "unit": "g"
-  },
-  "glace vanille": {
-    "cost": 0.064,
-    "unit": "g"
-  },
-  "glace": {
-    "cost": 0.064,
-    "unit": "g"
-  },
-  "glace artisanale au choix": {
-    "cost": 0.064,
-    "unit": "g"
-  },
-  "glace vanille artisanale": {
-    "cost": 0.064,
-    "unit": "g"
-  },
-  "sucre": {
-    "cost": 0.0058,
-    "unit": "g"
-  },
-  "sucre glace": {
-    "cost": 0.009,
-    "unit": "g"
-  },
-  "miel": {
-    "cost": 0.016,
-    "unit": "g"
-  },
-  "miel pur d'abeille": {
-    "cost": 0.016,
-    "unit": "g"
+    "unit": "g",
+    "label": "dattes medjool"
   },
   "amlou": {
-    "cost": 0.075,
-    "unit": "g"
-  },
-  "nutella": {
-    "cost": 0.079,
-    "unit": "g"
+    "cost": 0.08,
+    "unit": "g",
+    "label": "amlou"
   },
   "pate de pistache": {
     "cost": 0.14,
-    "unit": "g"
+    "unit": "g",
+    "label": "pate de pistache"
   },
-  "kunafa": {
-    "cost": 0.025,
-    "unit": "g"
+  "saucisse": {
+    "cost": 0.11,
+    "unit": "g",
+    "label": "saucisse"
   },
-  "kunafa croustillante": {
-    "cost": 0.025,
-    "unit": "g"
+  "saucisses": {
+    "cost": 0.11,
+    "unit": "g",
+    "label": "saucisses"
   },
-  "noix": {
-    "cost": 0.075,
-    "unit": "g"
+  "khli3": {
+    "cost": 0.11,
+    "unit": "g",
+    "label": "khli3"
   },
-  "amandes": {
-    "cost": 0.08,
-    "unit": "g"
-  },
-  "amandes effilees": {
-    "cost": 0.08,
-    "unit": "g"
-  },
-  "noisettes": {
-    "cost": 0.16,
-    "unit": "g"
-  },
-  "pistache": {
-    "cost": 0.28,
-    "unit": "g"
-  },
-  "pistaches": {
-    "cost": 0.28,
-    "unit": "g"
-  },
-  "pistaches concassees": {
-    "cost": 0.28,
-    "unit": "g"
-  },
-  "fruits secs": {
-    "cost": 0.085,
-    "unit": "g"
-  },
-  "fruits secs varies": {
-    "cost": 0.085,
-    "unit": "g"
-  },
-  "graines de chia": {
-    "cost": 0.05,
-    "unit": "g"
-  },
-  "granola": {
-    "cost": 0.035,
-    "unit": "g"
-  },
-  "granola croustillant": {
-    "cost": 0.035,
-    "unit": "g"
-  },
-  "flocons d'avoine": {
-    "cost": 0.02,
-    "unit": "g"
-  },
-  "beurre de cacahuete": {
-    "cost": 0.04,
-    "unit": "g"
-  },
-  "biscuit speculoos": {
-    "cost": 1.5,
-    "unit": "piece"
-  },
-  "biscuit oreo": {
-    "cost": 1.4,
-    "unit": "piece"
-  },
-  "chocolat kitkat / snickers": {
-    "cost": 4.5,
-    "unit": "piece"
-  },
-  "guimauves": {
-    "cost": 0.075,
-    "unit": "g"
-  },
-  "perles de fruits popping boba": {
+  "charcuterie": {
     "cost": 0.06,
-    "unit": "g"
+    "unit": "g",
+    "label": "charcuterie"
   },
-  "sel": {
-    "cost": 0.005,
-    "unit": "g"
+  "charcuteries": {
+    "cost": 0.06,
+    "unit": "g",
+    "label": "charcuteries"
   },
-  "poivre": {
+  "charcuterie de dinde": {
+    "cost": 0.07,
+    "unit": "g",
+    "label": "charcuterie de dinde"
+  },
+  "jambon de dinde": {
     "cost": 0.09,
-    "unit": "g"
-  },
-  "paprika": {
-    "cost": 0.038,
-    "unit": "g"
-  },
-  "origan": {
-    "cost": 0.078,
-    "unit": "g"
-  },
-  "caramel": {
-    "cost": 0.045,
     "unit": "g",
-    "label": "Caramel"
+    "label": "jambon de dinde"
   },
-  "chou rouge": {
-    "cost": 0.008,
+  "salami": {
+    "cost": 0.09,
     "unit": "g",
-    "label": "Chou Rouge"
+    "label": "salami"
   },
-  "legumes grilles": {
-    "cost": 0.018,
+  "bacon": {
+    "cost": 0.1,
     "unit": "g",
-    "label": "Légumes Grillés"
+    "label": "bacon"
   },
-  "tapenade": {
-    "cost": 0.065,
+  "bacon de boeuf": {
+    "cost": 0.1,
     "unit": "g",
-    "label": "Tapenade"
+    "label": "bacon de boeuf"
+  },
+  "pepperoni": {
+    "cost": 0.12,
+    "unit": "g",
+    "label": "pepperoni"
+  },
+  "peperoni": {
+    "cost": 0.12,
+    "unit": "g",
+    "label": "peperoni"
+  },
+  "nuggets": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "nuggets"
+  },
+  "saumon brut": {
+    "cost": 0.13,
+    "unit": "g",
+    "label": "Saumon Brut (Avec carcasse)"
+  },
+  "dattes": {
+    "cost": 0.06,
+    "unit": "g",
+    "label": "dattes"
+  },
+  "fruit de la passion": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "fruit de la passion"
+  },
+  "base mixee acai/fruits rouges": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "base mixee acai/fruits rouges"
+  },
+  "boule de glace": {
+    "cost": 3.2,
+    "unit": "piece",
+    "label": "boule de glace"
+  },
+  "boule de glace vanille": {
+    "cost": 3.2,
+    "unit": "piece",
+    "label": "boule de glace vanille"
+  },
+  "glace artisanale": {
+    "cost": 0.06,
+    "unit": "g",
+    "label": "glace artisanale"
+  },
+  "glace vanille": {
+    "cost": 0.06,
+    "unit": "g",
+    "label": "glace vanille"
+  },
+  "glace": {
+    "cost": 0.06,
+    "unit": "g",
+    "label": "glace"
+  },
+  "glace artisanale au choix": {
+    "cost": 0.06,
+    "unit": "g",
+    "label": "glace artisanale au choix"
+  },
+  "glace vanille artisanale": {
+    "cost": 0.06,
+    "unit": "g",
+    "label": "glace vanille artisanale"
+  },
+  "pomme verte": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "pomme verte"
+  },
+  "fraise": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "fraise"
+  },
+  "fraises fraiches": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "fraises fraiches"
+  },
+  "fraise fraiche": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "fraise fraiche"
+  },
+  "framboise": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "framboise"
+  },
+  "framboises fraiches": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "framboises fraiches"
+  },
+  "framboises": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "framboises"
+  },
+  "puree de framboise": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "puree de framboise"
+  },
+  "puree de fraise": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "puree de fraise"
+  },
+  "myrtille": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "myrtille"
   },
   "corn flakes": {
     "cost": 0.04,
@@ -1642,67 +1220,252 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "Feta"
   },
   "agrumes": {
-    "cost": 0.015,
+    "cost": 0.02,
     "unit": "g",
     "label": "Agrumes"
   },
-  "farine": {
-    "cost": 0.006,
-    "unit": "g",
-    "label": "Farine"
+  "pain burger": {
+    "cost": 2.5,
+    "unit": "piece",
+    "label": "pain burger"
   },
-  "chapelure": {
-    "cost": 0.018,
-    "unit": "g",
-    "label": "Chapelure"
+  "pain de mie complet": {
+    "cost": 0.78,
+    "unit": "piece",
+    "label": "pain de mie complet"
   },
-  "persil": {
+  "pain de mie": {
+    "cost": 0.78,
+    "unit": "piece",
+    "label": "pain de mie"
+  },
+  "pain complet": {
+    "cost": 0.78,
+    "unit": "piece",
+    "label": "pain complet"
+  },
+  "pain seigle": {
+    "cost": 0.94,
+    "unit": "piece",
+    "label": "pain seigle"
+  },
+  "pain cereales": {
+    "cost": 0.94,
+    "unit": "piece",
+    "label": "pain cereales"
+  },
+  "linguines": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "linguines"
+  },
+  "rigatoni": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "rigatoni"
+  },
+  "spaghettis noirs": {
+    "cost": 0.07,
+    "unit": "g",
+    "label": "spaghettis noirs"
+  },
+  "frites": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "frites"
+  },
+  "potatos": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "potatos"
+  },
+  "puree de pomme de terre": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "puree de pomme de terre"
+  },
+  "puree": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "puree"
+  },
+  "pomme de terre": {
     "cost": 0.01,
     "unit": "g",
-    "label": "Persil"
+    "label": "pomme de terre"
   },
-  "fokacha": {
-    "cost": 0.012,
+  "croissant": {
+    "cost": 2,
+    "unit": "piece",
+    "label": "croissant"
+  },
+  "pain au chocolat": {
+    "cost": 2,
+    "unit": "piece",
+    "label": "pain au chocolat"
+  },
+  "perles de fruits popping boba": {
+    "cost": 0.06,
     "unit": "g",
-    "label": "Fokacha"
+    "label": "perles de fruits popping boba"
   },
-  "dinde fumee": {
-    "cost": 0.085,
+  "sel": {
+    "cost": 0.01,
     "unit": "g",
-    "label": "Dinde Fumée"
+    "label": "sel"
   },
-  "pate a gaufre": {
-    "cost": 1.8,
-    "unit": "piece",
-    "label": "Pâte à Gaufre"
+  "poivre": {
+    "cost": 0.09,
+    "unit": "g",
+    "label": "poivre"
   },
-  "pancakes": {
-    "cost": 1.2,
-    "unit": "piece",
-    "label": "Pancake"
+  "paprika": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "paprika"
   },
-  "boules de glace": {
-    "cost": 3,
-    "unit": "piece",
-    "label": "Boule Glace"
+  "origan": {
+    "cost": 0.08,
+    "unit": "g",
+    "label": "origan"
   },
-  "boule glace": {
-    "cost": 3,
-    "unit": "piece",
-    "label": "Boule Glace"
-  },
-  "cookies": {
+  "caramel": {
     "cost": 0.05,
     "unit": "g",
-    "label": "Cookies"
+    "label": "Caramel"
   },
-  "kitkat": {
-    "cost": 6,
+  "legumes grilles": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "Légumes Grillés"
+  },
+  "tapenade": {
+    "cost": 0.07,
+    "unit": "g",
+    "label": "Tapenade"
+  },
+  "chou rouge": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "Chou Rouge"
+  },
+  "saumon frais net": {
+    "cost": 0.18,
+    "unit": "g",
+    "label": "Saumon Frais Net (Pavé / Filet)"
+  },
+  "saumon fume": {
+    "cost": 0.28,
+    "unit": "g",
+    "label": "saumon fume"
+  },
+  "crevettes brut": {
+    "cost": 0.06,
+    "unit": "g",
+    "label": "Crevettes Brut (Avec coquille / Réception)"
+  },
+  "crevettes net": {
+    "cost": 0.21,
+    "unit": "g",
+    "label": "Crevettes Net (Chair décortiquée)"
+  },
+  "gambas brut": {
+    "cost": 0.06,
+    "unit": "g",
+    "label": "Gambas Brut (Avec coquille)"
+  },
+  "gambas net": {
+    "cost": 0.21,
+    "unit": "g",
+    "label": "Gambas Net (Chair décortiquée / Pochée)"
+  },
+  "gingembre": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "gingembre"
+  },
+  "gingembre frais": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "gingembre frais"
+  },
+  "gingembre frais rape": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "gingembre frais rape"
+  },
+  "legumes": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "legumes"
+  },
+  "legumes couscous": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "legumes couscous"
+  },
+  "legumes varies": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "legumes varies"
+  },
+  "garnitures composees": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "garnitures composees"
+  },
+  "garniture composee": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "garniture composee"
+  },
+  "banane": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "banane"
+  },
+  "orange": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "orange"
+  },
+  "citron vert": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "citron vert"
+  },
+  "citron vert frais": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "citron vert frais"
+  },
+  "rondelles de citron": {
+    "cost": 0.5,
     "unit": "piece",
-    "label": "KitKat"
+    "label": "rondelles de citron"
+  },
+  "tranche de citron": {
+    "cost": 0.5,
+    "unit": "piece",
+    "label": "tranche de citron"
+  },
+  "tranches de citron": {
+    "cost": 0.5,
+    "unit": "piece",
+    "label": "tranches de citron"
+  },
+  "pomme": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "pomme"
+  },
+  "pomme fraiche": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "pomme fraiche"
   },
   "lben": {
-    "cost": 0.012,
+    "cost": 0.01,
     "unit": "ml",
     "label": "Lait Fermenté Lben"
   },
@@ -1715,11 +1478,6 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 0.15,
     "unit": "g",
     "label": "Noisette"
-  },
-  "grenadine": {
-    "cost": 0.035,
-    "unit": "ml",
-    "label": "Sirop Grenadine"
   },
   "muesli": {
     "cost": 0.05,
@@ -1757,39 +1515,349 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "Fromage Portion"
   },
   "aubergine": {
-    "cost": 0.005,
+    "cost": 0.01,
     "unit": "g",
     "label": "Aubergine"
   },
   "cream cheese": {
-    "cost": 0.0456,
+    "cost": 0.05,
     "unit": "g",
     "label": "Cream Cheese"
   },
-  "fromage burrata": {
-    "cost": 35,
+  "pain cake": {
+    "cost": 2.5,
     "unit": "piece",
-    "label": "Fromage Burrata"
+    "label": "pain cake"
   },
-  "croutons": {
-    "cost": 0.035,
+  "toast hollandais": {
+    "cost": 2.5,
+    "unit": "piece",
+    "label": "toast hollandais"
+  },
+  "croquettes fromage": {
+    "cost": 3,
+    "unit": "piece",
+    "label": "croquettes fromage"
+  },
+  "croquettes": {
+    "cost": 3,
+    "unit": "piece",
+    "label": "croquettes"
+  },
+  "croque maison": {
+    "cost": 6.5,
+    "unit": "piece",
+    "label": "croque maison"
+  },
+  "salade": {
+    "cost": 0.01,
     "unit": "g",
-    "label": "Croûtons"
+    "label": "salade"
   },
-  "crouton": {
-    "cost": 0.035,
+  "salade rouge": {
+    "cost": 0.01,
     "unit": "g",
-    "label": "Croûtons"
+    "label": "salade rouge"
   },
-  "olive noire": {
-    "cost": 0.045,
+  "salade mesclun": {
+    "cost": 0.01,
     "unit": "g",
-    "label": "Olives Noires"
+    "label": "salade mesclun"
   },
-  "omelette": {
+  "laitue": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "laitue"
+  },
+  "mesclun": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "mesclun"
+  },
+  "mesclun salade": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "mesclun salade"
+  },
+  "roquette": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "roquette"
+  },
+  "epinard": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "epinard"
+  },
+  "epinards": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "epinards"
+  },
+  "tomate": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "tomate"
+  },
+  "tomates": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "tomates"
+  },
+  "tomate cerise": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "tomate cerise"
+  },
+  "tomates cerises": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "tomates cerises"
+  },
+  "champignon": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "champignon"
+  },
+  "courgette": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "courgette"
+  },
+  "cafe": {
+    "cost": 0.14,
+    "unit": "g",
+    "label": "cafe"
+  },
+  "cafe espresso": {
+    "cost": 0.14,
+    "unit": "g",
+    "label": "cafe espresso"
+  },
+  "pastille nespresso": {
     "cost": 4.5,
     "unit": "piece",
-    "label": "Omelette (Formule)"
+    "label": "pastille nespresso"
+  },
+  "the vert": {
+    "cost": 0.09,
+    "unit": "g",
+    "label": "the vert"
+  },
+  "the vert gunpowder": {
+    "cost": 0.09,
+    "unit": "g",
+    "label": "the vert gunpowder"
+  },
+  "the noir": {
+    "cost": 0.21,
+    "unit": "g",
+    "label": "the noir"
+  },
+  "menthe": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "menthe"
+  },
+  "menthe fraiche": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "menthe fraiche"
+  },
+  "verveine": {
+    "cost": 0.12,
+    "unit": "g",
+    "label": "verveine"
+  },
+  "verveine nature": {
+    "cost": 0.12,
+    "unit": "g",
+    "label": "verveine nature"
+  },
+  "melange plantes infusion": {
+    "cost": 0.55,
+    "unit": "g",
+    "label": "melange plantes infusion"
+  },
+  "cacao en poudre": {
+    "cost": 0.07,
+    "unit": "g",
+    "label": "cacao en poudre"
+  },
+  "cacao": {
+    "cost": 0.07,
+    "unit": "g",
+    "label": "cacao"
+  },
+  "chocolat en poudre": {
+    "cost": 0.07,
+    "unit": "g",
+    "label": "chocolat en poudre"
+  },
+  "chocolat": {
+    "cost": 0.07,
+    "unit": "g",
+    "label": "chocolat"
+  },
+  "chocolat noir": {
+    "cost": 0.07,
+    "unit": "g",
+    "label": "chocolat noir"
+  },
+  "chocolat noir fondu": {
+    "cost": 0.07,
+    "unit": "g",
+    "label": "chocolat noir fondu"
+  },
+  "chocolat au lait": {
+    "cost": 0.07,
+    "unit": "g",
+    "label": "chocolat au lait"
+  },
+  "avocat": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "avocat"
+  },
+  "avocat hass": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "avocat hass"
+  },
+  "champignons": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "champignons"
+  },
+  "citron": {
+    "cost": 0.014,
+    "unit": "g",
+    "label": "citron"
+  },
+  "chocolat au lait fondu": {
+    "cost": 0.07,
+    "unit": "g",
+    "label": "chocolat au lait fondu"
+  },
+  "fondant chocolat": {
+    "cost": 12,
+    "unit": "piece",
+    "label": "fondant chocolat"
+  },
+  "olives vertes": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "olives vertes"
+  },
+  "olive verte": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "olive verte"
+  },
+  "capres": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "capres"
+  },
+  "fruits frais decor": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "fruits frais decor"
+  },
+  "kunafa": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "kunafa"
+  },
+  "kunafa croustillante": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "kunafa croustillante"
+  },
+  "noix": {
+    "cost": 0.08,
+    "unit": "g",
+    "label": "noix"
+  },
+  "amandes": {
+    "cost": 0.08,
+    "unit": "g",
+    "label": "amandes"
+  },
+  "amandes effilees": {
+    "cost": 0.08,
+    "unit": "g",
+    "label": "amandes effilees"
+  },
+  "noisettes": {
+    "cost": 0.16,
+    "unit": "g",
+    "label": "noisettes"
+  },
+  "pistache": {
+    "cost": 0.28,
+    "unit": "g",
+    "label": "pistache"
+  },
+  "pistaches": {
+    "cost": 0.28,
+    "unit": "g",
+    "label": "pistaches"
+  },
+  "pistaches concassees": {
+    "cost": 0.28,
+    "unit": "g",
+    "label": "pistaches concassees"
+  },
+  "fruits secs": {
+    "cost": 0.09,
+    "unit": "g",
+    "label": "fruits secs"
+  },
+  "fruits secs varies": {
+    "cost": 0.09,
+    "unit": "g",
+    "label": "fruits secs varies"
+  },
+  "graines de chia": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "graines de chia"
+  },
+  "granola": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "granola"
+  },
+  "granola croustillant": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "granola croustillant"
+  },
+  "flocons d'avoine": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "flocons d'avoine"
+  },
+  "beurre de cacahuete": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "beurre de cacahuete"
+  },
+  "biscuit speculoos": {
+    "cost": 1.5,
+    "unit": "piece",
+    "label": "biscuit speculoos"
+  },
+  "biscuit oreo": {
+    "cost": 1.4,
+    "unit": "piece",
+    "label": "biscuit oreo"
+  },
+  "chocolat kitkat / snickers": {
+    "cost": 4.5,
+    "unit": "piece",
+    "label": "chocolat kitkat / snickers"
   },
   "boisson chaude": {
     "cost": 3.5,
@@ -1827,9 +1895,309 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "Ingrédients Bar Divers"
   },
   "penne": {
-    "cost": 0.032,
+    "cost": 0.03,
     "unit": "g",
     "label": "penne"
+  },
+  "guimauves": {
+    "cost": 0.08,
+    "unit": "g",
+    "label": "guimauves"
+  },
+  "olive noire": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "Olives Noires"
+  },
+  "omelette": {
+    "cost": 4.5,
+    "unit": "piece",
+    "label": "Omelette (Formule)"
+  },
+  "farine": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "Farine"
+  },
+  "chapelure": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "Chapelure"
+  },
+  "persil": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "Persil"
+  },
+  "fokacha": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "Fokacha"
+  },
+  "dinde fumee": {
+    "cost": 0.09,
+    "unit": "g",
+    "label": "Dinde Fumée"
+  },
+  "pate a gaufre": {
+    "cost": 1.8,
+    "unit": "piece",
+    "label": "Pâte à Gaufre"
+  },
+  "pancakes": {
+    "cost": 1.2,
+    "unit": "piece",
+    "label": "Pancake"
+  },
+  "boules de glace": {
+    "cost": 3,
+    "unit": "piece",
+    "label": "Boule Glace"
+  },
+  "boule glace": {
+    "cost": 3,
+    "unit": "piece",
+    "label": "Boule Glace"
+  },
+  "cookies": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "Cookies"
+  },
+  "kitkat": {
+    "cost": 6,
+    "unit": "piece",
+    "label": "KitKat"
+  },
+  "fromage burrata": {
+    "cost": 35,
+    "unit": "piece",
+    "label": "Fromage Burrata"
+  },
+  "croutons": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "Croûtons"
+  },
+  "crouton": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "Croûtons"
+  },
+  "viennoiserie": {
+    "cost": 2,
+    "unit": "piece",
+    "label": "viennoiserie"
+  },
+  "muffin": {
+    "cost": 3.5,
+    "unit": "piece",
+    "label": "muffin"
+  },
+  "gaufre": {
+    "cost": 3,
+    "unit": "piece",
+    "label": "gaufre"
+  },
+  "pancake": {
+    "cost": 2,
+    "unit": "piece",
+    "label": "pancake"
+  },
+  "pate a crepe": {
+    "cost": 1.8,
+    "unit": "piece",
+    "label": "pate a crepe"
+  },
+  "baghrir": {
+    "cost": 1.2,
+    "unit": "piece",
+    "label": "baghrir"
+  },
+  "harcha": {
+    "cost": 1.2,
+    "unit": "piece",
+    "label": "harcha"
+  },
+  "mlaoui": {
+    "cost": 1.5,
+    "unit": "piece",
+    "label": "mlaoui"
+  },
+  "msemen": {
+    "cost": 1.5,
+    "unit": "piece",
+    "label": "msemen"
+  },
+  "maïs": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "maïs"
+  },
+  "olives noires": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "olives noires"
+  },
+  "olives": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "olives"
+  },
+  "filet": {
+    "cost": 0.18,
+    "unit": "g",
+    "label": "filet"
+  },
+  "filet de boeuf": {
+    "cost": 0.18,
+    "unit": "g",
+    "label": "filet de boeuf"
+  },
+  "blanc de poulet": {
+    "cost": 0.055,
+    "unit": "g",
+    "label": "blanc de poulet"
+  },
+  "poulet pane": {
+    "cost": 0.053,
+    "unit": "g",
+    "label": "poulet pane"
+  },
+  "poulet grille": {
+    "cost": 0.055,
+    "unit": "g",
+    "label": "poulet grille"
+  },
+  "poulet hache": {
+    "cost": 0.055,
+    "unit": "g",
+    "label": "poulet hache"
+  },
+  "poulet emince": {
+    "cost": 0.055,
+    "unit": "g",
+    "label": "poulet emince"
+  },
+  "poulet": {
+    "cost": 0.055,
+    "unit": "g",
+    "label": "poulet"
+  },
+  "nutella": {
+    "cost": 0.085,
+    "unit": "g",
+    "label": "nutella"
+  },
+  "oulmes mojito": {
+    "cost": 7,
+    "unit": "piece",
+    "label": "OULMES MOJITO"
+  },
+  "oulmes tropical": {
+    "cost": 7,
+    "unit": "piece",
+    "label": "OULMES TROPICAL"
+  },
+  "sirop mojito": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop mojito"
+  },
+  "grenadine": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "Sirop Grenadine"
+  },
+  "sirop menthe": {
+    "cost": 0.04,
+    "unit": "ml",
+    "label": "sirop menthe"
+  },
+  "sirop grenadine": {
+    "cost": 0.04,
+    "unit": "ml",
+    "label": "sirop grenadine"
+  },
+  "sirop": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop"
+  },
+  "sirop framboise": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop framboise"
+  },
+  "sirop peche": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop peche"
+  },
+  "sirop passion": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop passion"
+  },
+  "sirop noisette": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop noisette"
+  },
+  "sirop sucre de canne": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop sucre de canne"
+  },
+  "sirop caramel": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop caramel"
+  },
+  "sirop curaçao bleu": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop curaçao bleu"
+  },
+  "sirop de canne": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop de canne"
+  },
+  "sirop de citron": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop de citron"
+  },
+  "sirop de grenadine": {
+    "cost": 0.04,
+    "unit": "ml",
+    "label": "sirop de grenadine"
+  },
+  "sirop de passion": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop de passion"
+  },
+  "sirop de peche": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop de peche"
+  },
+  "sirop de sucre de canne": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop de sucre de canne"
+  },
+  "sirop fraise": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop fraise"
+  },
+  "sirop vanille": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop vanille"
   }
 };
 
