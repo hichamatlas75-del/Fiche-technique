@@ -57,7 +57,9 @@ function loadRecipes() {
   try {
     const savedVersion = localStorage.getItem('gc_recipes_db_version');
     const saved = localStorage.getItem(kRecipes);
-    if (saved && (savedVersion === RECIPES_DB_VERSION || !savedVersion)) {
+    if (window.activeRecipes && Array.isArray(window.activeRecipes) && window.activeRecipes.length > 0) {
+      activeRecipes = window.activeRecipes;
+    } else if (saved && (savedVersion === RECIPES_DB_VERSION || !savedVersion)) {
       activeRecipes = JSON.parse(saved);
     } else if (saved && savedVersion) {
       activeRecipes = JSON.parse(saved);
@@ -71,7 +73,9 @@ function loadRecipes() {
       } catch (err) {}
     }
   } catch (e) {
-    activeRecipes = JSON.parse(JSON.stringify(BASE_RECIPES));
+    activeRecipes = (window.activeRecipes && window.activeRecipes.length > 0)
+      ? window.activeRecipes
+      : JSON.parse(JSON.stringify(BASE_RECIPES));
   }
 
   // Filtrer les recettes supprimées
@@ -398,27 +402,42 @@ async function loadMonthlySalesDB(onLoadedCallback) {
     console.warn('[IndexedDB] Erreur hydratation ventes:', e);
   }
 
-  // 3. Étape Cloud : Si la base locale a peu de données (< 10 jours), hydrater depuis Supabase Cloud
+  // Rendu initial avec les données en cache (s'il y en a) pour une réactivité immédiate
+  if (typeof onLoadedCallback === 'function' && Object.keys(monthlySalesDB).length > 0) {
+    onLoadedCallback(monthlySalesDB);
+  }
+
+  // 3. Étape Cloud Prioritaire (100% Supabase SSOT) : Hydratation systématique depuis Supabase Cloud
   try {
-    if (Object.keys(monthlySalesDB).length < 10 && window.GC_Supabase && typeof window.GC_Supabase.syncDailySalesFromCloud === 'function') {
-      const cloudSales = await window.GC_Supabase.syncDailySalesFromCloud(180);
+    if (window.GC_Supabase && typeof window.GC_Supabase.syncDailySalesFromCloud === 'function') {
+      const cloudSales = await window.GC_Supabase.syncDailySalesFromCloud(365);
       if (Array.isArray(cloudSales) && cloudSales.length > 0) {
-        let addedCount = 0;
+        let updatedCount = 0;
         cloudSales.forEach(day => {
-          if (day && day.sale_date && Array.isArray(day.items) && !monthlySalesDB[day.sale_date]) {
+          if (day && day.sale_date && Array.isArray(day.items)) {
             monthlySalesDB[day.sale_date] = day.items.map(it => ({
-              family: it.cat || 'Général',
+              family: it.cat || it.family || 'Général',
               product: it.name || it.product,
               price: it.price || 0,
               qty: it.qty || 1,
-              total: it.ca || ((it.qty || 1) * (it.price || 0))
+              total: it.ca || it.total || ((it.qty || 1) * (it.price || 0))
             }));
-            addedCount++;
+            updatedCount++;
           }
         });
-        if (addedCount > 0) {
-          console.log(`[GC_Supabase] ${addedCount} journées de ventes hydratées depuis Supabase Cloud !`);
+        if (updatedCount > 0) {
+          console.log(`[GC_Supabase] ${updatedCount} journées de ventes hydratées depuis Supabase Cloud (SSOT) !`);
+          if (typeof window !== 'undefined') window.monthlySalesDB = monthlySalesDB;
           saveMonthlySalesDB();
+          if (typeof onLoadedCallback === 'function') {
+            onLoadedCallback(monthlySalesDB);
+          }
+          if (typeof window !== 'undefined' && typeof window.recalculateCurrentView === 'function') {
+            window.recalculateCurrentView();
+          }
+          if (typeof window !== 'undefined' && typeof window.renderCalendar === 'function') {
+            window.renderCalendar();
+          }
         }
       }
     }
@@ -426,7 +445,7 @@ async function loadMonthlySalesDB(onLoadedCallback) {
     console.warn('[Supabase Cloud] Hydratation ventes ignorée:', e);
   }
 
-  if (typeof onLoadedCallback === 'function') {
+  if (typeof onLoadedCallback === 'function' && Object.keys(monthlySalesDB).length === 0) {
     onLoadedCallback(monthlySalesDB);
   }
 
@@ -498,6 +517,16 @@ if (typeof window !== 'undefined' && typeof window.addEventListener === 'functio
   window.loadRecipes = loadRecipes;
   window.saveRecipes = saveRecipes;
   window.activeRecipes = activeRecipes;
+  window.monthlySalesDB = monthlySalesDB;
+  window.loadMonthlySalesDB = loadMonthlySalesDB;
+  window.saveMonthlySalesDB = saveMonthlySalesDB;
+  window.deleteMonthlySalesDate = deleteMonthlySalesDate;
+  window.setActiveRecipes = function(arr) {
+    if (Array.isArray(arr)) {
+      activeRecipes = arr;
+      window.activeRecipes = arr;
+    }
+  };
 }
 
 if (typeof module !== 'undefined' && module.exports) {

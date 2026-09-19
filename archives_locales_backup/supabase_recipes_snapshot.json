@@ -1,0 +1,5037 @@
+[
+  {
+    "id": "desserts___p_tisseries_2_boules_de_glace",
+    "name": "2 BOULES DE GLACE",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 30,
+    "cost": 8.32,
+    "food_cost": 27.7,
+    "gross_margin": 21.68,
+    "ingredients": [
+      "Glace artisanale au choix : 130 g",
+      "Coulis & Chantilly : 0 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_3_boules_de_glace",
+    "name": "3 BOULES DE GLACE",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 45,
+    "cost": 12.48,
+    "food_cost": 27.7,
+    "gross_margin": 32.52,
+    "ingredients": [
+      "Glace artisanale au choix : 195 g",
+      "Coulis, Chantilly & Gaufrette : 0 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_3_merguez",
+    "name": "3 MERGUEZ",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 25,
+    "cost": 7.6,
+    "food_cost": 30.4,
+    "gross_margin": 17.4,
+    "ingredients": [
+      "Merguez : 80 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "entr_es_chaudes_6_croquettes_fromage",
+    "name": "6 CROQUETTES FROMAGE",
+    "category": "ENTRÉES CHAUDES",
+    "sell_price": 48,
+    "cost": 19.2,
+    "food_cost": 40,
+    "gross_margin": 28.8,
+    "ingredients": [
+      "Croquettes de fromage : 6 p",
+      "Sauce : 30 g",
+      "Mesclun : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_amlou",
+    "name": "AMLOU",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 3,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Amlou : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "sup_amuse_bouche",
+    "name": "AMUSE BOUCHE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 3.6,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Fokacha : 300 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-16T11:32:20.249+00:00"
+  },
+  {
+    "id": "burgers_avocado_forestier",
+    "name": "AVOCADO FORESTIER",
+    "category": "BURGERS",
+    "sell_price": 54,
+    "cost": 16.32,
+    "food_cost": 30.2,
+    "gross_margin": 37.68,
+    "ingredients": [
+      "Poulet : 120 g",
+      "Avocat : 50 g",
+      "Tomate/Laitue : 30 g",
+      "Chapelure : 50 g",
+      "Cheddar : 20 g",
+      "Sauce Bigy : 30 g",
+      "Frites+Sauce : 200 g",
+      "Pain : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "plats_ballotine_de_poulet",
+    "name": "BALLOTINE DE POULET",
+    "category": "PLATS",
+    "sell_price": 94,
+    "cost": 28.55,
+    "food_cost": 30.4,
+    "gross_margin": 65.45,
+    "ingredients": [
+      "Poulet : 200 g",
+      "Épinard : 40 g",
+      "Crème fraîche : 70 ml",
+      "Parmesan : 20 g",
+      "Cheddar : 60 g",
+      "Beurre : 30 g",
+      "Légumes : 220 g",
+      "Frites : 200 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_banana_split",
+    "name": "Banana Split",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 50,
+    "cost": 14.3,
+    "food_cost": 28.6,
+    "gross_margin": 35.7,
+    "ingredients": [
+      "Banane : 1 p",
+      "Boules de glace : 3 p",
+      "Chantilly : 40 g",
+      "Chocolat : 20 ml",
+      "BISCUIT : 1 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_banane_orange",
+    "name": "BANANE ORANGE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 0,
+    "cost": 2.9,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Banane : 100 g",
+      "Jus d'orange : 150 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_beldi",
+    "name": "BELDI",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 45,
+    "cost": 18.42,
+    "food_cost": 40.9,
+    "gross_margin": 26.58,
+    "ingredients": [
+      "Mlaoui : 2 p",
+      "Harcha : 2 p",
+      "Baghrir : 1 p",
+      "Jben : 40 g",
+      "Huile d’olive : 20 ml",
+      "Miel : 20 g",
+      "Olives : 20 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_berber",
+    "name": "BERBER",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 54,
+    "cost": 11.78,
+    "food_cost": 21.8,
+    "gross_margin": 42.22,
+    "ingredients": [
+      "Œufs : 2 p",
+      "Khlii : 50 g",
+      "Tomate : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_berb_re",
+    "name": "BERBÈRE",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 54,
+    "cost": 16.92,
+    "food_cost": 31.3,
+    "gross_margin": 37.08,
+    "ingredients": [
+      "Baghrir : 1 p",
+      "Amlou : 30 g",
+      "Fruits secs : 30 g",
+      "Jben : 40 g",
+      "Miel : 20 g",
+      "Banane : 1 p",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_beurre",
+    "name": "BEURRE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 2.4,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Beurre : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "burgers_big_burger",
+    "name": "BIG BURGER",
+    "category": "BURGERS",
+    "sell_price": 68,
+    "cost": 28.22,
+    "food_cost": 41.5,
+    "gross_margin": 39.78,
+    "ingredients": [
+      "Viande : 200 g",
+      "Cheddar : 20 g",
+      "Tomate/Laitue : 30 g",
+      "Sauce du chef : 30 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_boule_de_glace",
+    "name": "BOULE DE GLACE",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 16,
+    "cost": 4.16,
+    "food_cost": 26,
+    "gross_margin": 11.84,
+    "ingredients": [
+      "Glace artisanale au choix : 65 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "entr_es_chaudes_boulette_de_poulet_au_fromage",
+    "name": "BOULETTE DE POULET AU FROMAGE",
+    "category": "ENTRÉES CHAUDES",
+    "sell_price": 52,
+    "cost": 13.75,
+    "food_cost": 26.4,
+    "gross_margin": 38.25,
+    "ingredients": [
+      "Poulet : 200 g",
+      "Farine : 100 g",
+      "Chapelure : 50 g",
+      "Edam : 25 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "entr_es_chaudes_boulettes_de_poulet_fr",
+    "name": "BOULETTES DE POULET FR",
+    "category": "ENTRÉES CHAUDES",
+    "sell_price": 52,
+    "cost": 15.44,
+    "food_cost": 29.7,
+    "gross_margin": 36.56,
+    "ingredients": [
+      "Poulet haché : 200 g",
+      "Sauce : 30 g",
+      "FR EDAM: 40 g",
+      "CHAPLURE: 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "plats_brochette_de_poulet",
+    "name": "BROCHETTE DE POULET",
+    "category": "PLATS",
+    "sell_price": 84,
+    "cost": 18.34,
+    "food_cost": 21.8,
+    "gross_margin": 65.66,
+    "ingredients": [
+      "Poulet : 200 g",
+      "Frites : 200 g",
+      "Sauce : 30 g",
+      "légumes : 400 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "plats_brochettes_de_poulet",
+    "name": "BROCHETTES DE POULET",
+    "category": "PLATS",
+    "sell_price": 84,
+    "cost": 21.84,
+    "food_cost": 26,
+    "gross_margin": 62.16,
+    "ingredients": [
+      "Blanc de poulet : 200 g",
+      "Sauce barbecue : 30 g",
+      "Salade rouge : 50 g",
+      "Accompagnements — 2 au choix",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_brunch_duo",
+    "name": "BRUNCH DUO",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 144,
+    "cost": 57.38,
+    "food_cost": 39.8,
+    "gross_margin": 86.62,
+    "ingredients": [
+      "Poulet pané : 60 g",
+      "Croquettes : 2 p",
+      "Croque maison : 1 p",
+      "œufs         : 2 p",
+      "Charcuterie : 80 g",
+      "Fromage : 60 g",
+      "Pain seigle : 2 tr",
+      "Beldi : 2 mlaoui + 2 harcha",
+      "Mesclun : 40 g",
+      "Muffin : 1 p",
+      "Gaufre : 1 p",
+      "Jus d'orange : 2×200 ml",
+      "THE A LA MENTHE : 2 p",
+      "Desserts : 2 p",
+      "Bouteille Eau Minérale 33cl : 2 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_brunch_greycorner",
+    "name": "BRUNCH GREYCORNER",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 85,
+    "cost": 39.02,
+    "food_cost": 45.9,
+    "gross_margin": 45.98,
+    "ingredients": [
+      "Merguez : 80 g",
+      "OEUFS : 3 P",
+      "Fromage : 30 g",
+      "Toast hollandais : 1 p",
+      "Croquettes fromage : 1 p",
+      "Charcuteries : 60 g",
+      "Pain seigle : 2 tr",
+      "Mesclun : 40 g",
+      "Gaufre : 1 p",
+      "Pancake : 1 p",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "burgers_burger_royal",
+    "name": "BURGER ROYAL",
+    "category": "BURGERS",
+    "sell_price": 70,
+    "cost": 26,
+    "food_cost": 37.1,
+    "gross_margin": 44,
+    "ingredients": [
+      "Viande : 100 g",
+      "Poulet pané : 120 g",
+      "Œuf : 1 p",
+      "Cheddar : 20 g",
+      "Oignons caramélisés : 25 g",
+      "Laitue/Tomate : 30 g",
+      "Sauce spéciale : 30 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_caf__am_ricain",
+    "name": "CAFÉ AMÉRICAIN",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 17,
+    "cost": 3.49,
+    "food_cost": 20.5,
+    "gross_margin": 13.51,
+    "ingredients": [
+      "Café : 10 g",
+      "Eau chaude : 150 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_cafe_aromatise",
+    "name": "CAFE AROMATISE",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 0,
+    "cost": 1.93,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Café : 10 g",
+      "Eau chaude : 60 ml",
+      "Sirop : 15 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_caf__au_lait",
+    "name": "CAFÉ AU LAIT",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 19,
+    "cost": 4.59,
+    "food_cost": 24.2,
+    "gross_margin": 14.41,
+    "ingredients": [
+      "Café : 10 g",
+      "Lait chaud : 120 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_cafe_double",
+    "name": "CAFE DOUBLE",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 0,
+    "cost": 3.1,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Café : 18 g",
+      "Eau chaude : 100 ml",
+      "Sucre : 2 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_caf__latte",
+    "name": "CAFÉ LATTE",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 19,
+    "cost": 5.42,
+    "food_cost": 28.5,
+    "gross_margin": 13.58,
+    "ingredients": [
+      "Café : 10 g",
+      "Lait chaud : 180 ml",
+      "Mousse de lait : 30 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_caf__moiti_",
+    "name": "CAFÉ MOITIÉ",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 19,
+    "cost": 4.22,
+    "food_cost": 22.2,
+    "gross_margin": 14.78,
+    "ingredients": [
+      "Café : 10 g",
+      "Lait chaud : 80 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_caf__nespresso",
+    "name": "CAFÉ NESPRESSO",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 22,
+    "cost": 6.59,
+    "food_cost": 30,
+    "gross_margin": 15.41,
+    "ingredients": [
+      "Pastille Nespresso : 1 p",
+      "Eau chaude : 50 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_caf__noir___espresso",
+    "name": "CAFÉ NOIR / ESPRESSO",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 16,
+    "cost": 3.49,
+    "food_cost": 21.8,
+    "gross_margin": 12.51,
+    "ingredients": [
+      "Café : 10 g",
+      "Eau chaude : 60 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_caf__s_par_",
+    "name": "CAFÉ SÉPARÉ",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 24,
+    "cost": 4.41,
+    "food_cost": 18.4,
+    "gross_margin": 19.59,
+    "ingredients": [
+      "Café : 10 g",
+      "Lait chaud : 100 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_cappuccino_avec_chantilly",
+    "name": "Cappuccino Avec Chantilly",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 0,
+    "cost": 3.22,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Café : 10 g",
+      "Lait : 100 ml",
+      "Chantilly : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_cappuccino_chantilly",
+    "name": "CAPPUCCINO CHANTILLY",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 22,
+    "cost": 5.52,
+    "food_cost": 25.1,
+    "gross_margin": 16.48,
+    "ingredients": [
+      "Café : 10 g",
+      "Lait chaud : 100 ml",
+      "Crème chantilly : 30 g",
+      "Cacao : 3 g",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_cappuccino_italien",
+    "name": "CAPPUCCINO ITALIEN",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 19,
+    "cost": 5.08,
+    "food_cost": 26.7,
+    "gross_margin": 13.92,
+    "ingredients": [
+      "Café : 10 g",
+      "Lait chaud : 100 ml",
+      "Mousse de lait : 50 ml",
+      "Cacao en poudre : 3 g",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_champignon",
+    "name": "CHAMPIGNON",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 2.1,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Champignon : 60 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "burgers_cheese_burger",
+    "name": "CHEESE BURGER",
+    "category": "BURGERS",
+    "sell_price": 54,
+    "cost": 19.28,
+    "food_cost": 35.7,
+    "gross_margin": 34.72,
+    "ingredients": [
+      "Viande Hachée : 100 g",
+      "Cheddar : 20 g",
+      "Tomate : 30 g",
+      "Laitue : 20 g",
+      "Oignon+Cornichon : 45 ml",
+      "Sauce Bigy : 30 g",
+      "Frites + Sauce : 200 g",
+      "Pain : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_cheesecake_chocolat",
+    "name": "CHEESECAKE CHOCOLAT",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 45,
+    "cost": 14.6,
+    "food_cost": 32.4,
+    "gross_margin": 30.4,
+    "ingredients": [
+      "Cheesecake chocolat : 1 part (150 g)",
+      "Chantilly : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "burgers_chicken_burger",
+    "name": "CHICKEN BURGER",
+    "category": "BURGERS",
+    "sell_price": 50,
+    "cost": 15.71,
+    "food_cost": 31.4,
+    "gross_margin": 34.29,
+    "ingredients": [
+      "poulet : 120 g",
+      "Sauce blanche : 40 g",
+      "Sauce pesto : 20 g",
+      "Cheddar : 25 g",
+      "Tomate/Laitue : 30 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_chocolat_chaud",
+    "name": "CHOCOLAT CHAUD",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 18,
+    "cost": 6.02,
+    "food_cost": 33.4,
+    "gross_margin": 11.98,
+    "ingredients": [
+      "Chocolat en poudre : 30 g",
+      "Lait chaud : 200 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_chocolat_chaud_chantilly",
+    "name": "CHOCOLAT CHAUD CHANTILLY",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 22,
+    "cost": 6.94,
+    "food_cost": 31.5,
+    "gross_margin": 15.06,
+    "ingredients": [
+      "Chocolat en poudre : 30 g",
+      "Lait chaud : 180 ml",
+      "Crème chantilly : 35 g",
+      "Coulis chocolat : 10 ml",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_chocolat_fondu_gourmand",
+    "name": "CHOCOLAT FONDU GOURMAND",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 26,
+    "cost": 8.4,
+    "food_cost": 32.3,
+    "gross_margin": 17.6,
+    "ingredients": [
+      "Chocolat noir fondu : 45 g",
+      "Lait chaud : 180 ml",
+      "Guimauves : 15 g",
+      "Chantilly : 30 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "sodas___boissons_fra_ches_coca_cola_33cl",
+    "name": "COCA-COLA 33CL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "sell_price": 17,
+    "cost": 8.05,
+    "food_cost": 47.4,
+    "gross_margin": 8.95,
+    "ingredients": [
+      "Coca-Cola (Canette 33cl) : 1 p",
+      "Tranche de citron : 1 tr",
+      "Glaçons"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "sodas___boissons_fra_ches_coca_cola_z_ro_33cl",
+    "name": "COCA-COLA ZÉRO 33CL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "sell_price": 17,
+    "cost": 8.05,
+    "food_cost": 47.4,
+    "gross_margin": 8.95,
+    "ingredients": [
+      "Coca-Cola Zéro (Canette 33cl) : 1 p",
+      "Tranche de citron : 1 tr",
+      "Glaçons"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_cocktail___base_d_orange",
+    "name": "COCKTAIL À BASE D'ORANGE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 42,
+    "cost": 4.01,
+    "food_cost": 9.5,
+    "gross_margin": 37.99,
+    "ingredients": [
+      "Jus d'orange frais : 180 ml",
+      "Sirop de grenadine : 20 ml",
+      "Fraise fraîche : 50 g",
+      "Ananas frais : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "cocktails___mocktails_cocktail_fra_cheur",
+    "name": "Cocktail Fraîcheur",
+    "category": "COCKTAILS & MOCKTAILS",
+    "sell_price": 42,
+    "cost": 2.5,
+    "food_cost": 6,
+    "gross_margin": 39.5,
+    "ingredients": [
+      "Jus de pomme : 150 ml",
+      "Menthe : 10 g",
+      "Citron : 30 ml",
+      "Glaçons : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "cocktails___mocktails_cocktail_grey_corner",
+    "name": "Cocktail GREY CORNER",
+    "category": "COCKTAILS & MOCKTAILS",
+    "sell_price": 48,
+    "cost": 4.7,
+    "food_cost": 9.8,
+    "gross_margin": 43.3,
+    "ingredients": [
+      "Fruits variés : 150 g",
+      "Jus d'orange : 100 ml",
+      "Sirop : 20 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "cocktails___mocktails_cocktail_sans_alcool_sp_cial",
+    "name": "COCKTAIL SANS ALCOOL SPÉCIAL",
+    "category": "COCKTAILS & MOCKTAILS",
+    "sell_price": 34,
+    "cost": 12,
+    "food_cost": 35.3,
+    "gross_margin": 22,
+    "ingredients": [
+      "Jus d'orange : 100 ml",
+      "Jus de pêche : 80 ml",
+      "Purée de framboise : 30 ml",
+      "Sprite : 60 ml",
+      "Glaçons : 80 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "cocktails___mocktails_cocktail_tropical",
+    "name": "COCKTAIL TROPICAL",
+    "category": "COCKTAILS & MOCKTAILS",
+    "sell_price": 42,
+    "cost": 3.59,
+    "food_cost": 8.5,
+    "gross_margin": 38.41,
+    "ingredients": [
+      "Jus de mangue : 80 ml",
+      "Jus d'ananas : 80 ml",
+      "Jus d'orange : 60 ml",
+      "Sirop de grenadine : 15 ml",
+      "Glaçons : 80 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_compagnard",
+    "name": "COMPAGNARD",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 52,
+    "cost": 23.42,
+    "food_cost": 45,
+    "gross_margin": 28.58,
+    "ingredients": [
+      "pain cake : 2 p",
+      "Omelette : 3 œufs",
+      "Fromage : 10 g",
+      "Charcuteries : 50 g",
+      "Pain seigle : 2 tr",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_confiture",
+    "name": "CONFITURE",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 0,
+    "cost": 1.2,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Confiture : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_cornflex",
+    "name": "CORNFLEX",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 2.52,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Corn flakes : 40 g",
+      "Lait : 100 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_coupe_amor",
+    "name": "Coupe Amor",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 45,
+    "cost": 12.22,
+    "food_cost": 27.2,
+    "gross_margin": 32.78,
+    "ingredients": [
+      "Boules de glace : 3 p",
+      "Fruits rouges : 40 g",
+      "Chantilly : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_coupe_enfant",
+    "name": "Coupe Enfant",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 40,
+    "cost": 7.75,
+    "food_cost": 19.4,
+    "gross_margin": 32.25,
+    "ingredients": [
+      "Boules de glace : 2 p",
+      "Chantilly : 20 g",
+      "Smarties : 15 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_coupe_grey_corner",
+    "name": "Coupe Grey Corner",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 65,
+    "cost": 14.18,
+    "food_cost": 21.8,
+    "gross_margin": 50.82,
+    "ingredients": [
+      "Boules de glace : 3 p",
+      "Chantilly : 40 g",
+      "Coulis : 20 ml",
+      "Amandes : 15 g",
+      "BISCUIT : 1 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_couscous_poulet_avec_petit_lait",
+    "name": "COUSCOUS POULET AVEC PETIT LAIT",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 54,
+    "cost": 15.86,
+    "food_cost": 29.4,
+    "gross_margin": 38.14,
+    "ingredients": [
+      "Semoule couscous : 200 g",
+      "Poulet : 200 g",
+      "Légumes couscous : 250 g",
+      "Petit lait (Lben) : 200 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_couscous_viande_avec_petit_lait",
+    "name": "COUSCOUS VIANDE AVEC PETIT LAIT",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 64,
+    "cost": 25.86,
+    "food_cost": 40.4,
+    "gross_margin": 38.14,
+    "ingredients": [
+      "Semoule couscous : 200 g",
+      "Viande hachée : 200 g",
+      "Légumes couscous : 250 g",
+      "Petit lait (Lben) : 200 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_crepe_banane_nutella",
+    "name": "CREPE BANANE NUTELLA",
+    "category": "CRÊPES",
+    "sell_price": 42,
+    "cost": 12.68,
+    "food_cost": 30.2,
+    "gross_margin": 29.32,
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Nutella : 120 g",
+      "BANANE : 100 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_crepe_bolonaise",
+    "name": "CREPE BOLONAISE",
+    "category": "CRÊPES",
+    "sell_price": 54,
+    "cost": 15.54,
+    "food_cost": 28.8,
+    "gross_margin": 38.46,
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "VIANDE HACHEE :100 g",
+      "Mozzarella : 60 g",
+      "SAUCE TOMATE : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_cr_pe_charcuterie",
+    "name": "CRÊPE CHARCUTERIE",
+    "category": "CRÊPES",
+    "sell_price": 45,
+    "cost": 9.8,
+    "food_cost": 21.8,
+    "gross_margin": 35.2,
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Charcuterie de dinde : 60 g",
+      "Mozzarella : 40 g",
+      "Fromage : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_crepe_choco_noisette",
+    "name": "CREPE CHOCO-NOISETTE",
+    "category": "CRÊPES",
+    "sell_price": 42,
+    "cost": 11.04,
+    "food_cost": 26.3,
+    "gross_margin": 30.96,
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Nutella : 60 g",
+      "Noisette : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_crepe_exotique",
+    "name": "CREPE EXOTIQUE",
+    "category": "CRÊPES",
+    "sell_price": 48,
+    "cost": 8.14,
+    "food_cost": 17,
+    "gross_margin": 39.86,
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Nutella : 60 g",
+      "Fruits de saison : 80 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_cr_pe_fromage",
+    "name": "CRÊPE FROMAGE",
+    "category": "CRÊPES",
+    "sell_price": 45,
+    "cost": 8.1,
+    "food_cost": 18,
+    "gross_margin": 36.9,
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Mozzarella : 50 g",
+      "Fromage rouge : 30 g",
+      "Fromage blanc : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_crepe_grey_corner_salee",
+    "name": "CREPE GREY CORNER SALEE",
+    "category": "CRÊPES",
+    "sell_price": 58,
+    "cost": 17.5,
+    "food_cost": 30.2,
+    "gross_margin": 40.5,
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "VIANDE HACHEE : 50 g",
+      "CHARCUTERIE : 50 g",
+      "poulet : 50 g",
+      "Mozzarella : 60 g",
+      "Fromage : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_crepe_grey_corner_sucree",
+    "name": "CREPE GREY CORNER SUCREE",
+    "category": "CRÊPES",
+    "sell_price": 52,
+    "cost": 9.79,
+    "food_cost": 18.8,
+    "gross_margin": 42.21,
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Nutella : 60 g",
+      "Chocolat varié : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_cr_pe_kunafa_pistache",
+    "name": "CRÊPE KUNAFA PISTACHE",
+    "category": "CRÊPES",
+    "sell_price": 48,
+    "cost": 23.55,
+    "food_cost": 49.1,
+    "gross_margin": 24.45,
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Pâte de pistache :  150 g",
+      "Kunafa croustillante : 30 g",
+      "Pistaches concassées : 0 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_crepe_nature",
+    "name": "CREPE NATURE",
+    "category": "CRÊPES",
+    "sell_price": 28,
+    "cost": 3.6,
+    "food_cost": 12.9,
+    "gross_margin": 24.4,
+    "ingredients": [
+      "Pâte à crêpe : 2 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_cr_pe_norv_gienne",
+    "name": "CRÊPE NORVÉGIENNE",
+    "category": "CRÊPES",
+    "sell_price": 58,
+    "cost": 23.1,
+    "food_cost": 39.8,
+    "gross_margin": 34.9,
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Saumon frais : 90 g",
+      "Crème fraîche : 40 ml",
+      "Fromage : 20 g",
+      "Mozzarella : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_cr_pe_nutella",
+    "name": "CRÊPE NUTELLA",
+    "category": "CRÊPES",
+    "sell_price": 38,
+    "cost": 11.28,
+    "food_cost": 29.7,
+    "gross_margin": 26.72,
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Nutella : 120 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_cr_pe_p_cheur",
+    "name": "CRÊPE PÊCHEUR",
+    "category": "CRÊPES",
+    "sell_price": 58,
+    "cost": 18.97,
+    "food_cost": 32.7,
+    "gross_margin": 39.03,
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Crevettes avec coquille : 145 g",
+      "Calamar congelé : 120 g",
+      "Mozzarella : 40 g",
+      "creme fraiche : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_crepe_pm_caramelisee",
+    "name": "CREPE PM-CARAMELISEE",
+    "category": "CRÊPES",
+    "sell_price": 40,
+    "cost": 3.6,
+    "food_cost": 9,
+    "gross_margin": 36.4,
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Caramel : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_cr_pe_poulet_champignon",
+    "name": "CRÊPE POULET CHAMPIGNON",
+    "category": "CRÊPES",
+    "sell_price": 48,
+    "cost": 9.9,
+    "food_cost": 20.6,
+    "gross_margin": 38.1,
+    "ingredients": [
+      "Pâte à crêpe : 1 p",
+      "Blanc de poulet : 70 g",
+      "Champignons : 40 g",
+      "Mozzarella : 40 g",
+      "Crème fraîche : 40 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_croque",
+    "name": "CROQUE",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 50,
+    "cost": 15.28,
+    "food_cost": 30.6,
+    "gross_margin": 34.72,
+    "ingredients": [
+      "Croque maison : 1 p",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "entr_es_chaudes_croustillon_gambas",
+    "name": "CROUSTILLON GAMBAS",
+    "category": "ENTRÉES CHAUDES",
+    "sell_price": 68,
+    "cost": 25.69,
+    "food_cost": 37.8,
+    "gross_margin": 42.31,
+    "ingredients": [
+      "Gambas avec coquille : 330 g",
+      "Chapelure : 30 g",
+      "Purée : 200 g",
+      "Radis : 15 g",
+      "Parmesan : 14 g",
+      "Crème fraîche : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "cocktails___mocktails_d_tox_gingembre_citron",
+    "name": "DÉTOX GINGEMBRE CITRON",
+    "category": "COCKTAILS & MOCKTAILS",
+    "sell_price": 32,
+    "cost": 3.15,
+    "food_cost": 9.8,
+    "gross_margin": 28.85,
+    "ingredients": [
+      "Gingembre frais râpé : 15 g",
+      "Jus de citron pressé : 60 ml",
+      "Miel pur d'abeille : 25 g",
+      "Pomme verte : 100 g",
+      "Eau minérale : 100 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_divers_bar___boissons",
+    "name": "DIVERS BAR / BOISSONS",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 10,
+    "cost": 5,
+    "food_cost": 50,
+    "gross_margin": 5,
+    "ingredients": [
+      "Ingrédients bar divers : 1 portion"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_divers_cuisine___food",
+    "name": "DIVERS CUISINE / FOOD",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 10,
+    "cost": 10,
+    "food_cost": 100,
+    "gross_margin": 0,
+    "ingredients": [
+      "Ingrédients cuisine divers : 1 portion"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "eaux_min_rales___gazeuses_eau_min_rale_33cl",
+    "name": "EAU MINÉRALE 33CL",
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "sell_price": 6,
+    "cost": 1.8,
+    "food_cost": 30,
+    "gross_margin": 4.2,
+    "ingredients": [
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "eaux_min_rales___gazeuses_eau_min_rale_50cl",
+    "name": "EAU MINÉRALE 50CL",
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "sell_price": 12,
+    "cost": 2.73,
+    "food_cost": 22.8,
+    "gross_margin": 9.27,
+    "ingredients": [
+      "Bouteille Eau Minérale 50cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "eaux_min_rales___gazeuses_eau_min_rale_75cl",
+    "name": "EAU MINÉRALE 75CL",
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "sell_price": 22,
+    "cost": 10.4,
+    "food_cost": 47.3,
+    "gross_margin": 11.6,
+    "ingredients": [
+      "Bouteille Eau Minérale 75cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "burgers_egg_and_cheeseburger",
+    "name": "EGG AND CHEESEBURGER",
+    "category": "BURGERS",
+    "sell_price": 56,
+    "cost": 19.92,
+    "food_cost": 35.6,
+    "gross_margin": 36.08,
+    "ingredients": [
+      "Viande : 100 g",
+      "Œuf : 1 p",
+      "Cheddar : 25 g",
+      "Tomate/Laitue : 30 g",
+      "Sauce Bigy : 30 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "plats_emince_de_b_uf",
+    "name": "EMINCE DE BŒUF",
+    "category": "PLATS",
+    "sell_price": 115,
+    "cost": 39.44,
+    "food_cost": 34.3,
+    "gross_margin": 75.56,
+    "ingredients": [
+      "FILET DE Bœuf : 125 g",
+      "Champignons : 80 g",
+      "Crème fraîche : 70 ml",
+      "Demi-glace : 60 ml",
+      "Légumes : 220 g",
+      "Fokacha : 150 g",
+      "Frites : 200 g",
+      "Huile : 60 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "plats_emince_de_poulet",
+    "name": "EMINCE DE POULET",
+    "category": "PLATS",
+    "sell_price": 88,
+    "cost": 25.38,
+    "food_cost": 28.8,
+    "gross_margin": 62.62,
+    "ingredients": [
+      "Poulet : 160 g",
+      "Champignons : 60 g",
+      "Crème fraîche : 100 ml",
+      "Demi-glace : 100 ml",
+      "Légumes variés : 220 g",
+      "Fokacha : 150 g",
+      "Frites : 200 g",
+      "Huile : 50 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "smoothies___bowls__nerg_tique",
+    "name": "Énergétique",
+    "category": "SMOOTHIES & BOWLS",
+    "sell_price": 42,
+    "cost": 5.42,
+    "food_cost": 12.9,
+    "gross_margin": 36.58,
+    "ingredients": [
+      "Banane : 100 g",
+      "Dattes : 40 g",
+      "Lait : 150 ml",
+      "Miel : 15 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "plats_escalope_a_la_milanaise",
+    "name": "ESCALOPE A LA MILANAISE",
+    "category": "PLATS",
+    "sell_price": 85,
+    "cost": 21.07,
+    "food_cost": 24.8,
+    "gross_margin": 63.93,
+    "ingredients": [
+      "Poulet : 120 g",
+      "Chapelure : 50 g",
+      "Crème fraîche : 70 ml",
+      "Moutarde : 10 g",
+      "Parmesan : 30 g",
+      "Légumes : 220 g",
+      "Frites : 200 g",
+      "Pain : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_espagnol",
+    "name": "ESPAGNOL",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 64,
+    "cost": 25.09,
+    "food_cost": 39.2,
+    "gross_margin": 38.91,
+    "ingredients": [
+      "Tortilla : 1 p",
+      "Croquettes : 2 p",
+      "Tapenade : 20 g",
+      "Thon : 20 g",
+      "Tomates : 60 g",
+      "Fromage : 40 g",
+      "Pain seigle : 2 tr",
+      "Mesclun : 40 g",
+      "Jus : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "smoothies___bowls_exotique_bowl",
+    "name": "Exotique BOWL",
+    "category": "SMOOTHIES & BOWLS",
+    "sell_price": 48,
+    "cost": 11.5,
+    "food_cost": 24,
+    "gross_margin": 36.5,
+    "ingredients": [
+      "Fruits exotiques : 150 g",
+      "Açaï : 50 g",
+      "Muesli : 40 g",
+      "Graines de chia : 10 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_express",
+    "name": "EXPRESS",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 44,
+    "cost": 16.3,
+    "food_cost": 37,
+    "gross_margin": 27.7,
+    "ingredients": [
+      "Viennoiseries : 4 p",
+      "Jus : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_fassi",
+    "name": "FASSI",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 55,
+    "cost": 23.11,
+    "food_cost": 42,
+    "gross_margin": 31.89,
+    "ingredients": [
+      "Khli3 : 100 g",
+      "Œufs au plat : 3 p",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "plats_filet_de_b_uf",
+    "name": "FILET DE BŒUF",
+    "category": "PLATS",
+    "sell_price": 135,
+    "cost": 49.85,
+    "food_cost": 36.9,
+    "gross_margin": 85.15,
+    "ingredients": [
+      "Filet : 180 g",
+      "Beurre : 40 g",
+      "Poivre vert : 20 g",
+      "Demi-glace : 70 ml",
+      "Légumes : 220 g",
+      "Fokacha : 150 g",
+      "Frites : 200 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_fondant_au_chocolat",
+    "name": "FONDANT AU CHOCOLAT",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 40,
+    "cost": 16.21,
+    "food_cost": 40.5,
+    "gross_margin": 23.79,
+    "ingredients": [
+      "Fondant chocolat cœur coulant : 1 g",
+      "Glace vanille artisanale : 65 g",
+      "Sucre glace : 5 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "caf_s_glac_s___frapp_s_frappuccino_aromatis_",
+    "name": "FRAPPUCCINO AROMATISÉ",
+    "category": "CAFÉS GLACÉS & FRAPPÉS",
+    "sell_price": 28,
+    "cost": 4.6,
+    "food_cost": 16.4,
+    "gross_margin": 23.4,
+    "ingredients": [
+      "Café espresso : 10 g",
+      "Lait : 120 ml",
+      "Sirop Noisette / Caramel : 30 ml",
+      "Glace pilée : 150 g",
+      "Chantilly & Nappage : 35 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s_glac_s___frapp_s_frappuccino_classique",
+    "name": "FRAPPUCCINO CLASSIQUE",
+    "category": "CAFÉS GLACÉS & FRAPPÉS",
+    "sell_price": 25,
+    "cost": 4.53,
+    "food_cost": 18.1,
+    "gross_margin": 20.47,
+    "ingredients": [
+      "Café espresso : 10 g",
+      "Lait : 120 ml",
+      "Base frappé vanille : 25 g",
+      "Glace pilée : 150 g",
+      "Crème chantilly : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_fromage_rouge_taj",
+    "name": "FROMAGE ROUGE TAJ",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 3.8,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Fromage : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_fruits_secs",
+    "name": "FRUITS SECS",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 38,
+    "cost": 5.87,
+    "food_cost": 15.4,
+    "gross_margin": 32.13,
+    "ingredients": [
+      "Fruits secs / Amandes : 50 g",
+      "Lait : 150 ml",
+      "Miel : 15 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "cr_pes_gauffre_choco_noisette",
+    "name": "Gauffre Choco-Noisette",
+    "category": "CRÊPES",
+    "sell_price": 42,
+    "cost": 11.04,
+    "food_cost": 26.3,
+    "gross_margin": 30.96,
+    "ingredients": [
+      "Pâte à gaufre : 1 p",
+      "Nutella : 60 g",
+      "Noisette : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_gauffre_exotique",
+    "name": "Gauffre Exotique",
+    "category": "CRÊPES",
+    "sell_price": 48,
+    "cost": 6.56,
+    "food_cost": 13.7,
+    "gross_margin": 41.44,
+    "ingredients": [
+      "Pâte à gaufre : 1 p",
+      "Fruits de saison : 80 g",
+      "Nutella : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_gauffre_kunafa_pistache",
+    "name": "GAUFFRE KUNAFA PISTACHE",
+    "category": "CRÊPES",
+    "sell_price": 48,
+    "cost": 21.7,
+    "food_cost": 45.2,
+    "gross_margin": 26.3,
+    "ingredients": [
+      "Pâte à gaufre : 1 p",
+      "Kunafa : 40 g",
+      "Pate de Pistache : 130 g",
+      "Sirop : 20 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_gauffre_nature",
+    "name": "GAUFFRE NATURE",
+    "category": "CRÊPES",
+    "sell_price": 28,
+    "cost": 1.89,
+    "food_cost": 6.7,
+    "gross_margin": 26.11,
+    "ingredients": [
+      "Pâte à gaufre : 1 p",
+      "Sucre : 15 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_gauffre_nutela_banane",
+    "name": "Gauffre Nutela Banane",
+    "category": "CRÊPES",
+    "sell_price": 42,
+    "cost": 10.82,
+    "food_cost": 25.8,
+    "gross_margin": 31.18,
+    "ingredients": [
+      "Pâte à gaufre : 1 p",
+      "Nutella : 100 g",
+      "Banane : 80 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_gauffre_nutella",
+    "name": "Gauffre Nutella",
+    "category": "CRÊPES",
+    "sell_price": 38,
+    "cost": 11.28,
+    "food_cost": 29.7,
+    "gross_margin": 26.72,
+    "ingredients": [
+      "Pâte à gaufre : 1 p",
+      "Nutella : 120 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cr_pes_gauffre_pm_caramelisee",
+    "name": "Gauffre PM-Caramelisee",
+    "category": "CRÊPES",
+    "sell_price": 40,
+    "cost": 4.44,
+    "food_cost": 11.1,
+    "gross_margin": 35.56,
+    "ingredients": [
+      "Pâte à gaufre : 1 p",
+      "Pomme : 60 g",
+      "Caramel : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cocktails___mocktails_gingembre",
+    "name": "GINGEMBRE",
+    "category": "COCKTAILS & MOCKTAILS",
+    "sell_price": 32,
+    "cost": 5.12,
+    "food_cost": 16,
+    "gross_margin": 26.88,
+    "ingredients": [
+      "Jus de gingembre : 150 ml",
+      "Citron : 30 ml",
+      "Miel : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_harcha__a_la_carte_",
+    "name": "HARCHA (A LA CARTE)",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 0,
+    "cost": 1.2,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Harcha : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_harcha_nature",
+    "name": "HARCHA NATURE",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 6,
+    "cost": 1.2,
+    "food_cost": 20,
+    "gross_margin": 4.8,
+    "ingredients": [
+      "Harcha : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "sodas___boissons_fra_ches_hawa__33cl",
+    "name": "HAWAÏ 33CL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "sell_price": 17,
+    "cost": 7.55,
+    "food_cost": 44.4,
+    "gross_margin": 9.45,
+    "ingredients": [
+      "Hawaï Canette : 33 cl",
+      "Glaçons"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "smoothies___bowls_hawa_en",
+    "name": "Hawaïen",
+    "category": "SMOOTHIES & BOWLS",
+    "sell_price": 42,
+    "cost": 5.28,
+    "food_cost": 12.6,
+    "gross_margin": 36.72,
+    "ingredients": [
+      "Ananas : 100 g",
+      "Mangue : 80 g",
+      "Jus d'orange : 100 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_hollandais",
+    "name": "HOLLANDAIS",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 52,
+    "cost": 22.52,
+    "food_cost": 43.3,
+    "gross_margin": 29.48,
+    "ingredients": [
+      "Pain mie complet : 2 tr",
+      "Œufs au plat : 2 p",
+      "Fromage : 40 g",
+      "Dinde fumée : 40 g",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_huile_olive",
+    "name": "HUILE OLIVE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 1.6,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Huile d'olive : 40 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "caf_s_glac_s___frapp_s_ice_coffee_aromatis_",
+    "name": "ICE COFFEE AROMATISÉ",
+    "category": "CAFÉS GLACÉS & FRAPPÉS",
+    "sell_price": 23,
+    "cost": 5.18,
+    "food_cost": 22.5,
+    "gross_margin": 17.82,
+    "ingredients": [
+      "Café espresso : 10 g",
+      "Sirop Caramel / Vanille : 25 ml",
+      "Lait froid : 120 ml",
+      "Glaçons : 120 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s_glac_s___frapp_s_ice_coffee_classique",
+    "name": "ICE COFFEE CLASSIQUE",
+    "category": "CAFÉS GLACÉS & FRAPPÉS",
+    "sell_price": 20,
+    "cost": 4.82,
+    "food_cost": 24.1,
+    "gross_margin": 15.18,
+    "ingredients": [
+      "Café espresso : 10 g",
+      "Lait froid : 100 ml",
+      "Sirop de canne : 20 ml",
+      "Glaçons : 120 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "ice_tea_maison_ice_tea_citron_maison",
+    "name": "ICE TEA CITRON MAISON",
+    "category": "ICE TEA MAISON",
+    "sell_price": 28,
+    "cost": 2.6,
+    "food_cost": 9.3,
+    "gross_margin": 25.4,
+    "ingredients": [
+      "Infusion thé vert : 200 ml",
+      "Jus de citron pressé : 30 ml",
+      "Sirop de canne : 25 ml",
+      "Rondelles de citron : 2 tr",
+      "Glaçons : 100 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "ice_tea_maison_ice_tea_framboise_maison",
+    "name": "ICE TEA FRAMBOISE MAISON",
+    "category": "ICE TEA MAISON",
+    "sell_price": 28,
+    "cost": 2.58,
+    "food_cost": 9.2,
+    "gross_margin": 25.42,
+    "ingredients": [
+      "Infusion thé fruits rouges : 200 ml",
+      "Purée de framboise : 35 g",
+      "Jus de citron : 15 ml",
+      "Framboises fraîches : 20 g",
+      "Glaçons : 100 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "ice_tea_maison_ice_tea_p_che_maison",
+    "name": "ICE TEA PÊCHE MAISON",
+    "category": "ICE TEA MAISON",
+    "sell_price": 28,
+    "cost": 2.52,
+    "food_cost": 9,
+    "gross_margin": 25.48,
+    "ingredients": [
+      "Infusion thé noir : 200 ml",
+      "Sirop de pêche : 30 ml",
+      "Jus de citron : 15 ml",
+      "Pêche fraîche : 30 g",
+      "Glaçons : 100 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_infusion_bien__tre",
+    "name": "INFUSION BIEN-ÊTRE",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 18,
+    "cost": 7.62,
+    "food_cost": 42.3,
+    "gross_margin": 10.38,
+    "ingredients": [
+      "Mélange plantes infusion : 10 g",
+      "Eau chaude : 250 ml",
+      "Miel : 20 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_d_ananas",
+    "name": "JUS D'ANANAS",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 32,
+    "cost": 4.5,
+    "food_cost": 14.1,
+    "gross_margin": 27.5,
+    "ingredients": [
+      "Ananas frais : 250 g",
+      "Glaçons : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_d_avocat_au_lait",
+    "name": "JUS D'AVOCAT AU LAIT",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 32,
+    "cost": 5.79,
+    "food_cost": 18.1,
+    "gross_margin": 26.21,
+    "ingredients": [
+      "Avocat Hass : 160 g",
+      "Lait entier frais : 200 ml",
+      "Sucre : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_d_avocat_orange",
+    "name": "JUS D'AVOCAT ORANGE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 32,
+    "cost": 3.9,
+    "food_cost": 12.2,
+    "gross_margin": 28.1,
+    "ingredients": [
+      "Avocat : 100 g",
+      "Jus d'orange : 150 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_d_avocat_royal_fruits_secs",
+    "name": "JUS D'AVOCAT ROYAL FRUITS SECS",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 38,
+    "cost": 9.27,
+    "food_cost": 24.4,
+    "gross_margin": 28.73,
+    "ingredients": [
+      "Avocat Hass : 160 g",
+      "Lait entier : 200 ml",
+      "Miel pur : 25 g",
+      "Amandes, Noix, Raisins secs : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_d_orange_press_",
+    "name": "JUS D'ORANGE PRESSÉ",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 22,
+    "cost": 2.5,
+    "food_cost": 11.4,
+    "gross_margin": 19.5,
+    "ingredients": [
+      "Oranges fraîches à jus : 500 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_de_bettrave",
+    "name": "JUS DE BETTRAVE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 0,
+    "cost": 2.2,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Betterave : 150 g",
+      "Jus d'orange : 100 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_de_carotte",
+    "name": "JUS DE CAROTTE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 25,
+    "cost": 2.6,
+    "food_cost": 10.4,
+    "gross_margin": 22.4,
+    "ingredients": [
+      "Carottes fraîches : 350 g",
+      "Jus d'orange frais : 50 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_de_citron___citronnade",
+    "name": "JUS DE CITRON / CITRONNADE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 25,
+    "cost": 3.25,
+    "food_cost": 13,
+    "gross_margin": 21.75,
+    "ingredients": [
+      "Citron pressé : 200 g",
+      "Sirop de canne : 30 ml",
+      "Eau filtrée & Glaçons : 150 ml",
+      "Menthe fraîche : 5 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_de_fraise",
+    "name": "JUS DE FRAISE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 30,
+    "cost": 5.07,
+    "food_cost": 16.9,
+    "gross_margin": 24.93,
+    "ingredients": [
+      "Fraises fraîches : 220 g",
+      "Jus d'orange frais : 80 ml",
+      "Sirop de sucre : 15 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_de_framboise",
+    "name": "JUS DE FRAMBOISE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 35,
+    "cost": 8.5,
+    "food_cost": 24.3,
+    "gross_margin": 26.5,
+    "ingredients": [
+      "Framboises fraîches : 200 g",
+      "Jus d'orange : 80 ml",
+      "Sirop de sucre : 20 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_de_mangue",
+    "name": "JUS DE MANGUE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 30,
+    "cost": 7.62,
+    "food_cost": 25.4,
+    "gross_margin": 22.38,
+    "ingredients": [
+      "Mangue fraîche : 220 g",
+      "Jus d'orange frais : 80 ml",
+      "Glaçons : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_de_p_che",
+    "name": "JUS DE PÊCHE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 30,
+    "cost": 7.4,
+    "food_cost": 24.7,
+    "gross_margin": 22.6,
+    "ingredients": [
+      "Pêche fraîche : 220 g",
+      "Jus d'orange frais : 80 ml",
+      "Glaçons : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_de_pomme",
+    "name": "Jus De Pomme",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 28,
+    "cost": 3.5,
+    "food_cost": 12.5,
+    "gross_margin": 24.5,
+    "ingredients": [
+      "Pomme : 250 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_panach__fruits_frais",
+    "name": "JUS PANACHÉ FRUITS FRAIS",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 38,
+    "cost": 4.94,
+    "food_cost": 13,
+    "gross_margin": 33.06,
+    "ingredients": [
+      "Jus d'orange : 100 ml",
+      "Banane : 80 g",
+      "Fraise : 60 g",
+      "Pomme : 60 g",
+      "Avocat : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_jus_pomme___banane",
+    "name": "JUS POMME & BANANE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 28,
+    "cost": 4.78,
+    "food_cost": 17.1,
+    "gross_margin": 23.22,
+    "ingredients": [
+      "Pomme fraîche : 150 g",
+      "Banane : 120 g",
+      "Lait ou Jus d'orange : 100 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_la_vache_qui_rit",
+    "name": "LA VACHE QUI RIT",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 2.4,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Fromage portion : 2 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_lait_cass_",
+    "name": "LAIT CASSÉ",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 19,
+    "cost": 4.87,
+    "food_cost": 25.6,
+    "gross_margin": 14.13,
+    "ingredients": [
+      "Café : 10 g",
+      "Lait chaud : 150 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_lait_chaud",
+    "name": "LAIT CHAUD",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 0,
+    "cost": 2.12,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Lait : 200 ml",
+      "Sucre : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_lait_froid",
+    "name": "Lait FROID",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 12,
+    "cost": 2.12,
+    "food_cost": 17.7,
+    "gross_margin": 9.88,
+    "ingredients": [
+      "Lait : 200 ml",
+      "Sucre : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "p_tes_lasagne_bolognaise",
+    "name": "LASAGNE BOLOGNAISE",
+    "category": "PÂTES",
+    "sell_price": 72,
+    "cost": 21.89,
+    "food_cost": 30.4,
+    "gross_margin": 50.11,
+    "ingredients": [
+      "Pâtes : 60 g",
+      "Viande : 80 g",
+      "Parmesan : 15 g",
+      "Huile : 60 g",
+      "Tomate cerise : 50 g",
+      "Pesto : 70 g",
+      "Sauce tomate : 80 g",
+      "Oignon/Ail : 70 g",
+      "fromage rouge : 15 g",
+      "mozzarella : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "p_tes_lasagne_fruits_de_mer",
+    "name": "LASAGNE FRUITS DE MER",
+    "category": "PÂTES",
+    "sell_price": 78,
+    "cost": 25.93,
+    "food_cost": 33.2,
+    "gross_margin": 52.07,
+    "ingredients": [
+      "Pâtes : 60 g",
+      "Crevettes avec coquille : 145 g",
+      "Calamar congelé : 120 g",
+      "Parmesan : 15 g",
+      "Huile : 30 g",
+      "Pesto : 40 g",
+      "Sauce blanche : 50 g",
+      "Oignon/Ail : 50 g",
+      "fromage rouge : 15 g",
+      "mozzarella : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "p_tes_lasagne_poulet",
+    "name": "LASAGNE POULET",
+    "category": "PÂTES",
+    "sell_price": 60,
+    "cost": 19.44,
+    "food_cost": 32.4,
+    "gross_margin": 40.56,
+    "ingredients": [
+      "Pâtes : 60 g",
+      "poulet : 80 g",
+      "Parmesan : 15 g",
+      "Huile : 60 g",
+      "champignon : 50 g",
+      "Pesto : 70 g",
+      "Sauce blanche : 50 g",
+      "Oignon/Ail : 70 g",
+      "fromage rouge : 15 g",
+      "mozzarella : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_lben",
+    "name": "LBEN",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 3,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Lben : 250 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_legumes_sautees",
+    "name": "LEGUMES SAUTEES",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 1.66,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Légumes variés : 150 g",
+      "Huile : 10 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_light",
+    "name": "LIGHT",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 42,
+    "cost": 14.56,
+    "food_cost": 34.7,
+    "gross_margin": 27.44,
+    "ingredients": [
+      "Pain complet : 2 tr",
+      "Jben : 40 g",
+      "Huile d’olive : 20 ml",
+      "Amlou : 20 g",
+      "Olives : 20 g",
+      "Jus : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_menu_enfant__pdj_",
+    "name": "MENU ENFANT (PDJ)",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 40,
+    "cost": 14.24,
+    "food_cost": 35.6,
+    "gross_margin": 25.76,
+    "ingredients": [
+      "Crêpe/Gaufre/Pancake : 1 p",
+      "Corn flakes : 1 bol",
+      "Lait chocolat : 200 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "plats_menu_enfant__plat_",
+    "name": "MENU ENFANT (PLAT)",
+    "category": "PLATS",
+    "sell_price": 58,
+    "cost": 2.85,
+    "food_cost": 4.9,
+    "gross_margin": 55.15,
+    "ingredients": [
+      "Pasta nature ou Mini pizza + boisson",
+      "OU Burger / nuggets + frites + boisson"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_menu_enfant_burger",
+    "name": "MENU ENFANT BURGER",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 58,
+    "cost": 22.59,
+    "food_cost": 38.9,
+    "gross_margin": 35.41,
+    "ingredients": [
+      "Viande Hachée : 70 g",
+      "Cheddar : 20 g",
+      "Sauce Bigy : 30 g",
+      "Frites + Sauce : 200 g",
+      "Pain : 1 p",
+      "coca : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "p_tes_menu_enfant_pasta_nature",
+    "name": "MENU ENFANT PASTA NATURE",
+    "category": "PÂTES",
+    "sell_price": 58,
+    "cost": 11.73,
+    "food_cost": 20.2,
+    "gross_margin": 46.27,
+    "ingredients": [
+      "Pâtes : 100 g",
+      "Sauce tomate : 60 g",
+      "Parmesan : 30 g",
+      "Canette Soda : 3.5 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "pizza_menu_enfant_pizza",
+    "name": "MENU ENFANT PIZZA",
+    "category": "PIZZA",
+    "sell_price": 55,
+    "cost": 15.39,
+    "food_cost": 28,
+    "gross_margin": 39.61,
+    "ingredients": [
+      "Pâte : 220 g",
+      "Mozzarella : 100 g",
+      "Sauce tomate : 100 g",
+      "Olives noires : 13 g",
+      "COCA : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_milkshake_caramel",
+    "name": "Milkshake Caramel",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 42,
+    "cost": 10.45,
+    "food_cost": 24.9,
+    "gross_margin": 31.55,
+    "ingredients": [
+      "Lait : 180 ml",
+      "Boules de glace : 2 p",
+      "Caramel : 40 g",
+      "Chantilly : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_milkshake_chocolat",
+    "name": "Milkshake Chocolat",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 42,
+    "cost": 10.6,
+    "food_cost": 25.2,
+    "gross_margin": 31.4,
+    "ingredients": [
+      "Lait : 180 ml",
+      "Boules de glace : 2 p",
+      "Chocolat : 30 ml",
+      "Chantilly : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_milkshake_cookies",
+    "name": "Milkshake Cookies",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 42,
+    "cost": 10.65,
+    "food_cost": 25.4,
+    "gross_margin": 31.35,
+    "ingredients": [
+      "Lait : 180 ml",
+      "Boules de glace : 2 p",
+      "Cookies : 40 g",
+      "Chantilly : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_milkshake_fraise",
+    "name": "Milkshake Fraise",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 42,
+    "cost": 9.5,
+    "food_cost": 22.6,
+    "gross_margin": 32.5,
+    "ingredients": [
+      "Lait : 180 ml",
+      "Boules de glace : 2 p",
+      "Fraise : 50 g",
+      "Chantilly : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_milkshake_kitkat",
+    "name": "Milkshake Kitkat",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 42,
+    "cost": 14.65,
+    "food_cost": 34.9,
+    "gross_margin": 27.35,
+    "ingredients": [
+      "Lait : 180 ml",
+      "Boules de glace : 2 p",
+      "KitKat : 1 p",
+      "Chantilly : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_milkshake_nutella",
+    "name": "Milkshake Nutella",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 42,
+    "cost": 9.4,
+    "food_cost": 22.4,
+    "gross_margin": 32.6,
+    "ingredients": [
+      "Lait : 180 ml",
+      "Boules de glace : 1 p",
+      "Nutella : 50 g",
+      "Chantilly : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_milkshake_vanille",
+    "name": "Milkshake Vanille",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 42,
+    "cost": 8.65,
+    "food_cost": 20.6,
+    "gross_margin": 33.35,
+    "ingredients": [
+      "Lait : 180 ml",
+      "Boules de glace : 2 p",
+      "Chantilly : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_mini_orange",
+    "name": "MINI ORANGE",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 0,
+    "cost": 0.75,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Orange : 150 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "ck_mojito_citron",
+    "name": "MOJITO CITRON",
+    "category": "Général",
+    "sell_price": 34,
+    "cost": 10.74,
+    "food_cost": 31.6,
+    "gross_margin": 23.26,
+    "ingredients": [
+      "Citron vert : 40 g",
+      "Menthe fraîche : 15 g",
+      "OULMES MOJITO:  1 p",
+      "Glace pilée : 120 g",
+      "sirop mojito : 15 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-18T20:31:13.856+00:00"
+  },
+  {
+    "id": "ck_mojito_red_bull",
+    "name": "MOJITO RED BULL",
+    "category": "AUTRE",
+    "sell_price": 44,
+    "cost": 17.5,
+    "food_cost": 39.8,
+    "gross_margin": 26.5,
+    "ingredients": [
+      "Citron vert : 30 g",
+      "Menthe fraîche : 15 g",
+      "Red Bull (Canette 250ml) : 1 p",
+      "Glace pilée : 120 g",
+      "sirop bleu : 15 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-18T20:34:31.298+00:00"
+  },
+  {
+    "id": "ck_mojito_tropical",
+    "name": "MOJITO TROPICAL",
+    "category": "Général",
+    "sell_price": 38,
+    "cost": 9.94,
+    "food_cost": 26.2,
+    "gross_margin": 28.06,
+    "ingredients": [
+      "Citron vert : 30 g",
+      "sirop framboise : 15 ml",
+      "Oulmès tropical  : 1 p",
+      "Glace pilée : 120 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-18T20:30:47.897+00:00"
+  },
+  {
+    "id": "cocktails___mocktails_mojito_virgin___fra_cheur",
+    "name": "MOJITO VIRGIN / FRAÎCHEUR",
+    "category": "COCKTAILS & MOCKTAILS",
+    "sell_price": 42,
+    "cost": 3.1,
+    "food_cost": 7.4,
+    "gross_margin": 38.9,
+    "ingredients": [
+      "Citron vert frais : 1 p (40 g)",
+      "Menthe fraîche : 15 g",
+      "Sucre de canne : 20 g",
+      "Eau gazeuse Oulmès : 150 ml",
+      "Glace pilée : 120 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_mqila_merguez",
+    "name": "MQILA MERGUEZ",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 50,
+    "cost": 11.34,
+    "food_cost": 22.7,
+    "gross_margin": 38.66,
+    "ingredients": [
+      "Merguez : 80 g",
+      "Poivrons/oignons : 120 g",
+      "Œufs : 2 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_mquila_fruits_de_mer",
+    "name": "MQUILA-FRUITS DE MER",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 78,
+    "cost": 29.18,
+    "food_cost": 37.4,
+    "gross_margin": 48.82,
+    "ingredients": [
+      "crevettes : 140 g",
+      "calamars : 120 g",
+      "moules : 80 g",
+      "Œufs : 2 p",
+      "Jus : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_mquila_merguez",
+    "name": "MQUILA-MERGUEZ",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 64,
+    "cost": 19.64,
+    "food_cost": 30.7,
+    "gross_margin": 44.36,
+    "ingredients": [
+      "Merguez : 80 g",
+      "Poivrons/oignons : 120 g",
+      "Œufs : 2 p",
+      "Jus : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_msemen_nature",
+    "name": "MSEMEN NATURE",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 6,
+    "cost": 1.5,
+    "food_cost": 25,
+    "gross_margin": 4.5,
+    "ingredients": [
+      "Msemen : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_msemen_nature__a_la_carte_",
+    "name": "MSEMEN NATURE (A LA CARTE)",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 0,
+    "cost": 1.5,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Msemen : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_mssemen_agrich",
+    "name": "MSSEMEN AGRICH",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 0,
+    "cost": 6.3,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Msemen : 1 p",
+      "Griche : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "smoothies___bowls_multi_vitamine",
+    "name": "Multi-Vitamine",
+    "category": "SMOOTHIES & BOWLS",
+    "sell_price": 42,
+    "cost": 2.48,
+    "food_cost": 5.9,
+    "gross_margin": 39.52,
+    "ingredients": [
+      "Jus d'orange : 100 ml",
+      "Carotte : 60 g",
+      "Pomme : 80 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_norv_gien",
+    "name": "NORVÉGIEN",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 68,
+    "cost": 30.1,
+    "food_cost": 44.3,
+    "gross_margin": 37.9,
+    "ingredients": [
+      "Avocat : 80 g",
+      "Pain céréales : 2 tr",
+      "Jus : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p",
+      "saumon fumee : 60 g",
+      "jben : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_nutella",
+    "name": "NUTELLA",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 7,
+    "cost": 1.58,
+    "food_cost": 22.6,
+    "gross_margin": 5.42,
+    "ingredients": [
+      "NUTELLA : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_oeufs_beldi",
+    "name": "OEUFS BELDI",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 45,
+    "cost": 3.03,
+    "food_cost": 6.7,
+    "gross_margin": 41.97,
+    "ingredients": [
+      "Œufs Beldi : 2 p",
+      "Huile d’olive : 10 ml",
+      "Sel & Poivre : 1 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_omelette_continental",
+    "name": "OMELETTE CONTINENTAL",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 52,
+    "cost": 19.99,
+    "food_cost": 38.4,
+    "gross_margin": 32.01,
+    "ingredients": [
+      "Œufs : 3 p",
+      "Charcuterie : 60 g",
+      "Fromage : 40 g",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_omelette_du_chef",
+    "name": "OMELETTE DU CHEF",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 58,
+    "cost": 16.29,
+    "food_cost": 28.1,
+    "gross_margin": 41.71,
+    "ingredients": [
+      "Œufs : 3 p",
+      "Champignons : 40 g",
+      "Épinards : 30 g",
+      "Fromage : 30 g",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_omelette_fromage",
+    "name": "OMELETTE FROMAGE",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 52,
+    "cost": 16.39,
+    "food_cost": 31.5,
+    "gross_margin": 35.61,
+    "ingredients": [
+      "Œufs : 3 p",
+      "Fromage : 40 g",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_omelette_nature",
+    "name": "OMELETTE NATURE",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 42,
+    "cost": 12.59,
+    "food_cost": 30,
+    "gross_margin": 29.41,
+    "ingredients": [
+      "Œufs : 3 p",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_omelette_v_g_tarienne",
+    "name": "OMELETTE VÉGÉTARIENNE",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 52,
+    "cost": 13.79,
+    "food_cost": 26.5,
+    "gross_margin": 38.21,
+    "ingredients": [
+      "Œufs : 3 p",
+      "Légumes : 120 g",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_omlette_du_chef__a_la_carte_",
+    "name": "OMLETTE DU CHEF (A LA CARTE)",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 0,
+    "cost": 8.51,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Œufs : 3 p",
+      "Champignons : 40 g",
+      "Épinards : 30 g",
+      "Fromage : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_omlette_fromage__a_la_carte_",
+    "name": "OMLETTE FROMAGE (A LA CARTE)",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 38,
+    "cost": 7.97,
+    "food_cost": 21,
+    "gross_margin": 30.03,
+    "ingredients": [
+      "Œufs : 3 p",
+      "Fromage : 40 g",
+      "Mesclun : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_omlette_nature__a_la_carte_",
+    "name": "OMLETTE NATURE (A LA CARTE)",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 32,
+    "cost": 4.17,
+    "food_cost": 13,
+    "gross_margin": 27.83,
+    "ingredients": [
+      "Œufs : 3 p",
+      "Mesclun : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_orangeshake_au_choix",
+    "name": "ORANGESHAKE AU CHOIX",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 42,
+    "cost": 8.2,
+    "food_cost": 19.5,
+    "gross_margin": 33.8,
+    "ingredients": [
+      "Jus d'orange : 180 ml",
+      "Boules de glace : 2 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "sodas___boissons_fra_ches_orangina_33cl",
+    "name": "ORANGINA 33CL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "sell_price": 17,
+    "cost": 6.6,
+    "food_cost": 38.8,
+    "gross_margin": 10.4,
+    "ingredients": [
+      "Orangina (Canette 33cl) : 1 p",
+      "Tranche d'orange : 1 tr",
+      "Glaçons"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "eaux_min_rales___gazeuses_oulm_s_eau_gazeuse_33cl___50cl",
+    "name": "OULMÈS EAU GAZEUSE 33CL / 50CL",
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "sell_price": 16,
+    "cost": 4.5,
+    "food_cost": 28.1,
+    "gross_margin": 11.5,
+    "ingredients": [
+      "Bouteille Oulmès 33/50cl : 1 p",
+      "Tranche de citron : 1 tr"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "eaux_min_rales___gazeuses_oulm_s_eau_gazeuse_75cl",
+    "name": "OULMÈS EAU GAZEUSE 75CL",
+    "category": "EAUX MINÉRALES & GAZEUSES",
+    "sell_price": 26,
+    "cost": 13.3,
+    "food_cost": 51.2,
+    "gross_margin": 12.7,
+    "ingredients": [
+      "Bouteille Oulmès 75cl : 1 p",
+      "Tranches de citron : 2 tr"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "sod_oulmes_mojito",
+    "name": "OULMES MOJITO",
+    "category": "Général",
+    "sell_price": 20,
+    "cost": 7,
+    "food_cost": 35,
+    "gross_margin": 13,
+    "ingredients": [
+      "Canette Oulmès Mojito : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-18T20:32:10.24+00:00"
+  },
+  {
+    "id": "sodas___boissons_fra_ches_oulmes_tropical",
+    "name": "OULMES TROPICAL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "sell_price": 16,
+    "cost": 1,
+    "food_cost": 6.3,
+    "gross_margin": 15,
+    "ingredients": [
+      "Canette Oulmès Tropical : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_pain_cake_enfant",
+    "name": "Pain Cake Enfant",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 32,
+    "cost": 10.82,
+    "food_cost": 33.8,
+    "gross_margin": 21.18,
+    "ingredients": [
+      "Pancakes : 2 p",
+      "Nutella : 80 g",
+      "Smarties : 10 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_pain_cake_fruits_de_saison",
+    "name": "Pain Cake Fruits De Saison",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 44,
+    "cost": 8.08,
+    "food_cost": 18.4,
+    "gross_margin": 35.92,
+    "ingredients": [
+      "Pancakes : 3 p",
+      "Fruits de saison : 80 g",
+      "Miel : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_pain_cake_grey_corner",
+    "name": "Pain Cake Grey Corner",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 50,
+    "cost": 14.35,
+    "food_cost": 28.7,
+    "gross_margin": 35.65,
+    "ingredients": [
+      "Pancakes : 3 p",
+      "Nutella : 50 g",
+      "Fruits de saison : 60 g",
+      "Boules de glace : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_pain_cake_nutella",
+    "name": "Pain Cake Nutella",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 38,
+    "cost": 15.48,
+    "food_cost": 40.7,
+    "gross_margin": 22.52,
+    "ingredients": [
+      "Pancakes : 3 p",
+      "Nutella : 120 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_pain_cereal",
+    "name": "PAIN CEREAL",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 0,
+    "cost": 0.94,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Pain céréales : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_pain_grille",
+    "name": "PAIN GRILLE",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 0,
+    "cost": 1.6,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Pain toast : 2 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_panach__au_lait",
+    "name": "Panaché AU LAIT",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 38,
+    "cost": 3.78,
+    "food_cost": 9.9,
+    "gross_margin": 34.22,
+    "ingredients": [
+      "Fruits de saison : 120 g",
+      "Lait : 150 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "paninis_panini_charcuterie",
+    "name": "PANINI CHARCUTERIE",
+    "category": "PANINIS",
+    "sell_price": 40,
+    "cost": 14.54,
+    "food_cost": 36.4,
+    "gross_margin": 25.46,
+    "ingredients": [
+      "Charcuterie : 100 g",
+      "Mozzarella : 40 g",
+      "Frites + sauce : 200 g",
+      "Pain : 1 p",
+      "Sauce biggy : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "paninis_panini_fruits_de_mer",
+    "name": "PANINI FRUITS DE MER",
+    "category": "PANINIS",
+    "sell_price": 64,
+    "cost": 23.93,
+    "food_cost": 37.4,
+    "gross_margin": 40.07,
+    "ingredients": [
+      "Crevettes   : 150 g",
+      "Calamar congelé : 120 g",
+      "Pesto : 20 g",
+      "Mozzarella : 40 g",
+      "Frites + sauce : 200 g",
+      "Pain : 1 p",
+      "Sauce biggy : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "paninis_panini_gourmand",
+    "name": "PANINI GOURMAND",
+    "category": "PANINIS",
+    "sell_price": 64,
+    "cost": 19.04,
+    "food_cost": 29.8,
+    "gross_margin": 44.96,
+    "ingredients": [
+      "Viande : 50 g",
+      "Poulet : 50 g",
+      "Charcuterie : 50 g",
+      "Mozzarella : 40 g",
+      "Frites + sauce : 200 g",
+      "Pain : 1 p",
+      "Sauce biggy : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "paninis_panini_poulet",
+    "name": "PANINI POULET",
+    "category": "PANINIS",
+    "sell_price": 44,
+    "cost": 12.04,
+    "food_cost": 27.4,
+    "gross_margin": 31.96,
+    "ingredients": [
+      "Poulet : 70 g",
+      "Mozzarella : 40 g",
+      "Frites + sauce : 200 g",
+      "Pain : 1 p",
+      "Sauce biggy : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "paninis_panini_saumon",
+    "name": "PANINI SAUMON",
+    "category": "PANINIS",
+    "sell_price": 64,
+    "cost": 25.64,
+    "food_cost": 40.1,
+    "gross_margin": 38.36,
+    "ingredients": [
+      "Saumon : 90 g",
+      "Pesto : 20 g",
+      "Mozzarella : 40 g",
+      "Frites + sauce : 200 g",
+      "Pain : 1 p",
+      "Sauce biggy : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "paninis_panini_viande_hach_e",
+    "name": "PANINI VIANDE HACHÉE",
+    "category": "PANINIS",
+    "sell_price": 54,
+    "cost": 18.54,
+    "food_cost": 34.3,
+    "gross_margin": 35.46,
+    "ingredients": [
+      "Viande : 100 g",
+      "Mozzarella : 40 g",
+      "Frites + sauce : 200 g",
+      "Pain : 1 p",
+      "Sauce biggy : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_parmesan_fromage",
+    "name": "PARMESAN FROMAGE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 4.5,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Parmesan : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "p_tes_pasta_5_fromages",
+    "name": "PASTA 5 FROMAGES",
+    "category": "PÂTES",
+    "sell_price": 70,
+    "cost": 20.85,
+    "food_cost": 29.8,
+    "gross_margin": 49.15,
+    "ingredients": [
+      "Pâtes : 125 g",
+      "Crème fraîche : 200 ml",
+      "Mozzarella : 40 g",
+      "Fromage bleu : 30 g",
+      "Gouda : 30 g",
+      "Chèvre : 25 g",
+      "Parmesan : 25 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "p_tes_pasta_bolognaise",
+    "name": "PASTA BOLOGNAISE",
+    "category": "PÂTES",
+    "sell_price": 75,
+    "cost": 17.56,
+    "food_cost": 23.4,
+    "gross_margin": 57.44,
+    "ingredients": [
+      "Pâtes : 125 g",
+      "Viande hachée : 80 g",
+      "Sauce tomate : 100 g",
+      "Parmesan : 30 g",
+      "Oignon : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "p_tes_pasta_carbonara",
+    "name": "PASTA CARBONARA",
+    "category": "PÂTES",
+    "sell_price": 65,
+    "cost": 21.57,
+    "food_cost": 33.2,
+    "gross_margin": 43.43,
+    "ingredients": [
+      "Pâtes : 125 g",
+      "Crème fraîche : 200 ml",
+      "Parmesan : 30 g",
+      "Dinde fumée : 80 g",
+      "Jaune d'œuf : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "p_tes_pasta_fruits_de_mer",
+    "name": "PASTA FRUITS DE MER",
+    "category": "PÂTES",
+    "sell_price": 88,
+    "cost": 30.24,
+    "food_cost": 34.4,
+    "gross_margin": 57.76,
+    "ingredients": [
+      "Pâtes : 125 g",
+      "Crème fraîche : 200 ml",
+      "Parmesan : 30 g",
+      "Crevette  : 150 g",
+      "calamar  : 120 g",
+      "PESTO : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "p_tes_pasta_nature",
+    "name": "PASTA NATURE",
+    "category": "PÂTES",
+    "sell_price": 50,
+    "cost": 14.6,
+    "food_cost": 29.2,
+    "gross_margin": 35.4,
+    "ingredients": [
+      "Pâtes : 125 g",
+      "Parmesan : 30 g",
+      "Huile : 60 g",
+      "Tomate cerise : 50 g",
+      "Pesto : 70 g",
+      "Sauce tomate : 80 g",
+      "Oignon/Ail : 70 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "p_tes_pasta_poulet_champignon____pinard",
+    "name": "PASTA POULET CHAMPIGNON / ÉPINARD",
+    "category": "PÂTES",
+    "sell_price": 75,
+    "cost": 22.35,
+    "food_cost": 29.8,
+    "gross_margin": 52.65,
+    "ingredients": [
+      "Pâtes : 125 g",
+      "Poulet : 120 g",
+      "Champignons : 60 g",
+      "Épinards : 50 g",
+      "Crème fraîche : 200 ml",
+      "Parmesan : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "p_tes_pasta_saumon",
+    "name": "PASTA SAUMON",
+    "category": "PÂTES",
+    "sell_price": 98,
+    "cost": 29.7,
+    "food_cost": 30.3,
+    "gross_margin": 68.3,
+    "ingredients": [
+      "Pâtes : 125 g",
+      "Saumon : 90 g",
+      "Sauce blanche : 200 g",
+      "parmesan : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "p_tes_pasta_v_g_tarienne",
+    "name": "PASTA VÉGÉTARIENNE",
+    "category": "PÂTES",
+    "sell_price": 60,
+    "cost": 16.66,
+    "food_cost": 27.8,
+    "gross_margin": 43.34,
+    "ingredients": [
+      "Pâtes : 125 g",
+      "Sauce pesto : 70 g",
+      "Parmesan : 30 g",
+      "Huile d'olive : 60 g",
+      "Oignon : 60 g",
+      "Tomate cerise : 50 g",
+      "Légumes : 150 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "plats_pav__de_saumon",
+    "name": "PAVÉ DE SAUMON",
+    "category": "PLATS",
+    "sell_price": 145,
+    "cost": 47.85,
+    "food_cost": 33,
+    "gross_margin": 97.15,
+    "ingredients": [
+      "Saumon : 180 g",
+      "Crème fraîche : 70 ml",
+      "Parmesan : 20 g",
+      "Beurre : 40 g",
+      "Légumes : 220 g",
+      "Fokacha : 150 g",
+      "Frites : 200 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_petit_baghrir",
+    "name": "PETIT BAGHRIR",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 5,
+    "cost": 1.2,
+    "food_cost": 24,
+    "gross_margin": 3.8,
+    "ingredients": [
+      "Baghrir : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_petit_baghrir__a_la_carte_",
+    "name": "PETIT BAGHRIR (A LA CARTE)",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 0,
+    "cost": 1.2,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Baghrir : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "petit_d_jeuner_petit_d_jeuner_am_ricain",
+    "name": "PETIT DÉJEUNER AMÉRICAIN",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 68,
+    "cost": 26.64,
+    "food_cost": 39.2,
+    "gross_margin": 41.36,
+    "ingredients": [
+      "Bacon : 2 p",
+      "Omelette : 2 œufs",
+      "avocat : 60 g",
+      "Pain seigle : 2 tr",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p",
+      "JBEN : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "pdj_petit_dejeuner_americain",
+    "name": "PETIT DÉJEUNER AMÉRICAIN",
+    "category": "PETIT DÉJEUNER",
+    "sell_price": 68,
+    "cost": 25.97,
+    "food_cost": 38.2,
+    "gross_margin": 42.03,
+    "ingredients": [
+      "Bacon : 25 g",
+      "Omelette : 2 œufs",
+      "avocat : 60 g",
+      "Pain seigle : 2 tr",
+      "Mesclun : 40 g",
+      "Jus d'orange : 200 ml",
+      "Boisson chaude : 1 p",
+      "Dessert : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p",
+      "JBEN : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-19T12:54:45.065+00:00"
+  },
+  {
+    "id": "entr_es_chaudes_pil_pil_espagnol",
+    "name": "PIL PIL ESPAGNOL",
+    "category": "ENTRÉES CHAUDES",
+    "sell_price": 68,
+    "cost": 22.9,
+    "food_cost": 33.7,
+    "gross_margin": 45.1,
+    "ingredients": [
+      "Gambas avec coquille : 330 g",
+      "Tomate cerise : 60 g",
+      "Pesto : 22 g",
+      "Huile d’olive : 30 g",
+      "Oignon : 60 g",
+      "Ail : 10 g",
+      "Sauce tomate : 120 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "smoothies___bowls_pink_smoothie",
+    "name": "Pink Smoothie",
+    "category": "SMOOTHIES & BOWLS",
+    "sell_price": 48,
+    "cost": 6.77,
+    "food_cost": 14.1,
+    "gross_margin": 41.23,
+    "ingredients": [
+      "Fraise : 100 g",
+      "Framboise : 50 g",
+      "Yaourt : 80 g",
+      "Lait : 100 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "pizza_pizza_4_saisons",
+    "name": "PIZZA 4 SAISONS",
+    "category": "PIZZA",
+    "sell_price": 88,
+    "cost": 25.76,
+    "food_cost": 29.3,
+    "gross_margin": 62.24,
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 150 g",
+      "Calamar congelé : 70 g",
+      "Crevettes avec coquille : 70 g",
+      "Viande : 40 g",
+      "Poulet : 40 g",
+      "Légumes : 60 g",
+      "Champignon : 60 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "pizza_pizza_5_fromages",
+    "name": "PIZZA 5 FROMAGES",
+    "category": "PIZZA",
+    "sell_price": 78,
+    "cost": 27.67,
+    "food_cost": 35.5,
+    "gross_margin": 50.33,
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 150 g",
+      "Brie : 50 g",
+      "Bleu : 40 g",
+      "Sauce blanche : 40 g",
+      "Parmesan : 20 g",
+      "Fromage rouge : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "pizza_pizza_burrata",
+    "name": "PIZZA BURRATA",
+    "category": "PIZZA",
+    "sell_price": 110,
+    "cost": 37.92,
+    "food_cost": 34.5,
+    "gross_margin": 72.08,
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 150 g",
+      "Sauce tomate : 100 g",
+      "Burrata : 1 p",
+      "Tomate cerise : 50 g",
+      "Roquette : 30 g",
+      "Vinaigre balsamique : 10 ml",
+      "Noix : 15 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_pizza_compos_e_au_choix",
+    "name": "PIZZA COMPOSÉE AU CHOIX",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 94,
+    "cost": 34.09,
+    "food_cost": 36.3,
+    "gross_margin": 59.91,
+    "ingredients": [
+      "Pâte à pizza : 330 g",
+      "Mozzarella : 150 g",
+      "Sauce tomate : 100 g",
+      "saumon : 50 g",
+      "calamar net : 40 g",
+      "crevette net : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "pizza_pizza_dinde_fum_e__regina_",
+    "name": "PIZZA DINDE FUMÉE (REGINA)",
+    "category": "PIZZA",
+    "sell_price": 68,
+    "cost": 21.17,
+    "food_cost": 31.1,
+    "gross_margin": 46.83,
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 150 g",
+      "Dinde fumée : 100 g",
+      "Champignons : 60 g",
+      "Sauce blanche : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "pizza_pizza_fruits_de_mer",
+    "name": "PIZZA FRUITS DE MER",
+    "category": "PIZZA",
+    "sell_price": 88,
+    "cost": 27.31,
+    "food_cost": 31,
+    "gross_margin": 60.69,
+    "ingredients": [
+      "Crème fraîche : 40 ml",
+      "Crevette  : 150 g",
+      "calamar : 120 g",
+      "PATE : 330 g",
+      "PESTO : 50 g",
+      "MOZZARELLA : 150 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "pizza_pizza_margarita",
+    "name": "PIZZA MARGARITA",
+    "category": "PIZZA",
+    "sell_price": 52,
+    "cost": 11.22,
+    "food_cost": 21.6,
+    "gross_margin": 40.78,
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 150 g",
+      "Sauce tomate : 100 g",
+      "Olives noires : 15 g",
+      "Basilic : 5 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "pizza_pizza_moiti__moiti_",
+    "name": "PIZZA MOITIÉ MOITIÉ",
+    "category": "PIZZA",
+    "sell_price": 88,
+    "cost": 18.07,
+    "food_cost": 20.5,
+    "gross_margin": 69.93,
+    "ingredients": [
+      "Pâte : 330 g",
+      "VIANDE HACHEE : 50 g",
+      "POULET : 50 g",
+      "MOZZARELLA : 150 g",
+      "CREME FRAICHE : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "pizza_pizza_pepperoni",
+    "name": "PIZZA PEPPERONI",
+    "category": "PIZZA",
+    "sell_price": 74,
+    "cost": 20.05,
+    "food_cost": 27.1,
+    "gross_margin": 53.95,
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 150 g",
+      "Sauce tomate : 100 g",
+      "Pepperoni : 80 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "pizza_pizza_poulet__sauce_blanche_",
+    "name": "PIZZA POULET (SAUCE BLANCHE)",
+    "category": "PIZZA",
+    "sell_price": 78,
+    "cost": 18.67,
+    "food_cost": 23.9,
+    "gross_margin": 59.33,
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 150 g",
+      "Poulet : 120 g",
+      "Champignon : 60 g",
+      "Sauce blanche : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "pizza_pizza_saumon",
+    "name": "PIZZA SAUMON",
+    "category": "PIZZA",
+    "sell_price": 94,
+    "cost": 26.77,
+    "food_cost": 28.5,
+    "gross_margin": 67.23,
+    "ingredients": [
+      "Saumon : 90 g",
+      "Sauce blanche : 40 g",
+      "PATE : 330 g",
+      "MOZZARELLA : 150 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "pizza_pizza_thon",
+    "name": "PIZZA THON",
+    "category": "PIZZA",
+    "sell_price": 65,
+    "cost": 8.43,
+    "food_cost": 13,
+    "gross_margin": 56.57,
+    "ingredients": [
+      "Thon : 60 g",
+      "Tomate : 30 g",
+      "pate : 330 g",
+      "MOZARELLA : 150 g",
+      "SAUCE TOMATE : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "pizza_pizza_v_g_tarienne",
+    "name": "PIZZA VÉGÉTARIENNE",
+    "category": "PIZZA",
+    "sell_price": 62,
+    "cost": 14.72,
+    "food_cost": 23.7,
+    "gross_margin": 47.28,
+    "ingredients": [
+      "Pâte à pizza : 330 g",
+      "Mozzarella : 150 g",
+      "Sauce tomate : 100 g",
+      "Olives noires : 15 g",
+      "Légumes grillés : 200 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "pizza_pizza_viande_hach_e",
+    "name": "PIZZA VIANDE HACHÉE",
+    "category": "PIZZA",
+    "sell_price": 78,
+    "cost": 20.9,
+    "food_cost": 26.8,
+    "gross_margin": 57.1,
+    "ingredients": [
+      "Pâte : 330 g",
+      "Mozzarella : 150 g",
+      "Sauce tomate : 100 g",
+      "Viande hachée : 100 g",
+      "Tomate cerise : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "sodas___boissons_fra_ches_poms_33cl",
+    "name": "POMS 33CL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "sell_price": 17,
+    "cost": 7.55,
+    "food_cost": 44.4,
+    "gross_margin": 9.45,
+    "ingredients": [
+      "Poms (Canette 33cl) : 1 p",
+      "Glaçons"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "sodas___boissons_fra_ches_red_bull_250ml",
+    "name": "RED BULL 250ML",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "sell_price": 28,
+    "cost": 13.96,
+    "food_cost": 49.9,
+    "gross_margin": 14.04,
+    "ingredients": [
+      "Red Bull (Canette 250ml) : 1 p",
+      "Glaçons"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "p_tes_rigatoni_ricotta",
+    "name": "RIGATONI RICOTTA",
+    "category": "PÂTES",
+    "sell_price": 68,
+    "cost": 20.55,
+    "food_cost": 30.2,
+    "gross_margin": 47.45,
+    "ingredients": [
+      "Pâtes : 125 g",
+      "Ricotta : 40 g",
+      "Parmesan : 30 g",
+      "Huile : 60 g",
+      "Crème : 200 g",
+      "Pesto : 70 g",
+      "Courgette : 100 g",
+      "Oignon/Ail : 70 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_riz",
+    "name": "RIZ",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 4.05,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Riz : 150 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "plats_roulade_de_b_uf_vh",
+    "name": "ROULADE DE BŒUF VH",
+    "category": "PLATS",
+    "sell_price": 120,
+    "cost": 40.73,
+    "food_cost": 33.9,
+    "gross_margin": 79.27,
+    "ingredients": [
+      "Viande hachée : 200 g",
+      "Épinard : 30 g",
+      "Champignon : 30 g",
+      "Fromage rouge : 20 g",
+      "Fromage bleu : 20 g",
+      "Crème fraîche : 70 ml",
+      "Haricot vert : 55 g",
+      "Courgette : 55 g",
+      "Carotte : 57 g",
+      "Brocoli : 77 g",
+      "Olive noire : 60 g",
+      "Fokacha : 150 g",
+      "Frites : 200 g",
+      "Pain : 1 p",
+      "Huile de table : 30 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "entr_es_froides_russe",
+    "name": "RUSSE",
+    "category": "ENTRÉES FROIDES",
+    "sell_price": 54,
+    "cost": 6.16,
+    "food_cost": 11.4,
+    "gross_margin": 47.84,
+    "ingredients": [
+      "Pomme de terre : 150 g",
+      "Carotte : 80 g",
+      "Petit Pois : 50 g",
+      "Œufs de caille : 1 p",
+      "Poulet : 50 g",
+      "Mayonnaise : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "entr_es_froides_salade_burratta",
+    "name": "SALADE BURRATTA",
+    "category": "ENTRÉES FROIDES",
+    "sell_price": 98,
+    "cost": 27.96,
+    "food_cost": 28.5,
+    "gross_margin": 70.04,
+    "ingredients": [
+      "BURRATA : 1 p",
+      "NOIX : 30 G",
+      "tomate:30 G",
+      "roquette :25 G",
+      "vinaigre balsamique :10 G"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "entr_es_froides_salade_cercle_veggl",
+    "name": "SALADE CERCLE VEGGL",
+    "category": "ENTRÉES FROIDES",
+    "sell_price": 48,
+    "cost": 11.7,
+    "food_cost": 24.4,
+    "gross_margin": 36.3,
+    "ingredients": [
+      "Chou rouge : 100 g",
+      "Concombre : 80 g",
+      "Tomate cerise : 70 g",
+      "Œufs de caille : 1 p",
+      "Haricot vert : 60 g",
+      "Betterave : 120 g",
+      "Carotte : 40 g",
+      "Brocoli : 50 g",
+      "Radis : 60 g",
+      "Thon : 40 g",
+      "Vinaigrette : 40 ml",
+      "Maïs : 30 g",
+      "Poivron : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "entr_es_froides_salade_c_sar",
+    "name": "Salade César",
+    "category": "ENTRÉES FROIDES",
+    "sell_price": 65,
+    "cost": 17.15,
+    "food_cost": 26.4,
+    "gross_margin": 47.85,
+    "ingredients": [
+      "Salade Romaine : 180 g",
+      "Laitue : 100 g",
+      "Poulet : 130 g",
+      "Croûtons : 30 g",
+      "Tomate Cerise : 60 g",
+      "Sauce César : 70 g",
+      "Parmesan : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_salade_compos_e_au_choix",
+    "name": "SALADE COMPOSÉE AU CHOIX",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 4.2,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Salade mesclun : 100 g",
+      "Garnitures composées : 150 g",
+      "Sauce vinaigrette : 30 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "entr_es_froides_salade_quinoa",
+    "name": "Salade Quinoa",
+    "category": "ENTRÉES FROIDES",
+    "sell_price": 68,
+    "cost": 26.65,
+    "food_cost": 39.2,
+    "gross_margin": 41.35,
+    "ingredients": [
+      "Quinoa : 140 g",
+      "Gambas Pané : 20 g",
+      "Gambas Poché : 30 g",
+      "Fruits : 70 g",
+      "Feta : 20 g",
+      "Kiwi : 140 g",
+      "Vinaigrette : 20 g",
+      "Miel : 30 g",
+      "Framboise : 17 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "entr_es_froides_salade_russe",
+    "name": "Salade Russe",
+    "category": "ENTRÉES FROIDES",
+    "sell_price": 54,
+    "cost": 14.97,
+    "food_cost": 27.7,
+    "gross_margin": 39.03,
+    "ingredients": [
+      "Pomme de Terre : 400 g",
+      "Carotte : 200 g",
+      "Poulet : 50 g",
+      "Petit Pois : 150 g",
+      "Olive Verte : 15 g",
+      "Cornichon : 24 g",
+      "Œufs de Caille : 1 p",
+      "Mayonnaise : 30 g",
+      "Thon : 30 g",
+      "Maïs : 50 g",
+      "Radis : 14 g",
+      "Poivron : 10 g",
+      "Concombre : 10 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "entr_es_froides_salade_terre___mer",
+    "name": "Salade Terre & Mer",
+    "category": "ENTRÉES FROIDES",
+    "sell_price": 78,
+    "cost": 30.86,
+    "food_cost": 39.6,
+    "gross_margin": 47.14,
+    "ingredients": [
+      "Poulet Pané : 50 g",
+      "Tomate Cerise : 25 g",
+      "Salade Rouge : 25 g",
+      "Maïs : 30 g",
+      "Gambas Poché : 73 g",
+      "Gambas Pané : 30 g",
+      "Avocat : 150 g",
+      "Sauce Tartare : 30 g",
+      "Pomme : 24 g",
+      "Moules : 16 g",
+      "Agrumes : 15 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "entr_es_froides_salade_veggie",
+    "name": "Salade Veggie",
+    "category": "ENTRÉES FROIDES",
+    "sell_price": 48,
+    "cost": 15.9,
+    "food_cost": 33.1,
+    "gross_margin": 32.1,
+    "ingredients": [
+      "Salade Rouge : 100 g",
+      "Concombre : 80 g",
+      "Tomate Cerise : 70 g",
+      "Œufs de Caille : 1 p",
+      "Haricot Vert : 60 g",
+      "Betterave : 120 g",
+      "Carotte : 40 g",
+      "Brocoli : 50 g",
+      "Radis : 60 g",
+      "Thon : 40 g",
+      "Sauce Vinaigrette : 200 g",
+      "Maïs : 30 g",
+      "Poivron : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "cocktails___mocktails_san_francisco",
+    "name": "San Francisco",
+    "category": "COCKTAILS & MOCKTAILS",
+    "sell_price": 34,
+    "cost": 2.96,
+    "food_cost": 8.7,
+    "gross_margin": 31.04,
+    "ingredients": [
+      "Jus d'orange : 100 ml",
+      "Jus d'ananas : 100 ml",
+      "Sirop grenadine : 20 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "desserts___p_tisseries_san_sebastien_cheesecake",
+    "name": "SAN SEBASTIEN CHEESECAKE",
+    "category": "DESSERTS & PÂTISSERIES",
+    "sell_price": 45,
+    "cost": 15.02,
+    "food_cost": 33.4,
+    "gross_margin": 29.98,
+    "ingredients": [
+      "Cheesecake San Sebastian : 1 part (160 g)",
+      "Coulis chocolat chaud : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "sandwichs_sandwich_cheese_steak",
+    "name": "SANDWICH CHEESE STEAK",
+    "category": "SANDWICHS",
+    "sell_price": 64,
+    "cost": 22.92,
+    "food_cost": 35.8,
+    "gross_margin": 41.08,
+    "ingredients": [
+      "Pain : 1 p",
+      "Cheddar : 30 g",
+      "Sauce spéciale : 30 g",
+      "CHAMPIGNONS : 50 g",
+      "FILET : 62 g",
+      "FRITTES : 200 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "sandwichs_sandwich_fruits_de_mer",
+    "name": "SANDWICH FRUITS DE MER",
+    "category": "SANDWICHS",
+    "sell_price": 65,
+    "cost": 22.27,
+    "food_cost": 34.3,
+    "gross_margin": 42.73,
+    "ingredients": [
+      "Pain : 1 p",
+      "Crevette  : 150 g",
+      "calamar  : 120 g",
+      "Sauce cocktail : 50 g",
+      "Salade : 20 g",
+      "Tomate : 20 g",
+      "FRITTES : 200 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "sandwichs_sandwich_poulard",
+    "name": "SANDWICH POULARD",
+    "category": "SANDWICHS",
+    "sell_price": 54,
+    "cost": 15.72,
+    "food_cost": 29.1,
+    "gross_margin": 38.28,
+    "ingredients": [
+      "Pain : 1 p",
+      "Poulet : 80 g",
+      "Fromage : 30 g",
+      "Sauce : 40 g",
+      "CHAMPIGNONS : 50 g",
+      "FRITTES : 200 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "sandwichs_sandwich_poulet",
+    "name": "SANDWICH POULET",
+    "category": "SANDWICHS",
+    "sell_price": 48,
+    "cost": 12.18,
+    "food_cost": 25.4,
+    "gross_margin": 35.82,
+    "ingredients": [
+      "Pain : 1 p",
+      "Poulet : 100 g",
+      "Tomate : 30 g",
+      "Sauce spéciale : 30 g",
+      "Salade : 20 g",
+      "FRITTES : 200 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "sandwichs_sandwich_poulet_crunchy",
+    "name": "SANDWICH POULET CRUNCHY",
+    "category": "SANDWICHS",
+    "sell_price": 58,
+    "cost": 15.13,
+    "food_cost": 26.1,
+    "gross_margin": 42.87,
+    "ingredients": [
+      "Pain : 1 p",
+      "Poulet crunchy : 120 g",
+      "Cheddar : 25 g",
+      "Sauce spéciale : 30 g",
+      "Salade : 20 g",
+      "FRITTES : 200 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "sandwichs_sandwich_thon",
+    "name": "SANDWICH THON",
+    "category": "SANDWICHS",
+    "sell_price": 48,
+    "cost": 10.29,
+    "food_cost": 21.4,
+    "gross_margin": 37.71,
+    "ingredients": [
+      "Pain : 1 p",
+      "Thon : 60 g",
+      "Mayonnaise : 25 g",
+      "Tomate : 30 g",
+      "Salade : 20 g",
+      "FRITTES : 200 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "sandwichs_sandwich_viande_hach_e",
+    "name": "SANDWICH VIANDE HACHÉE",
+    "category": "SANDWICHS",
+    "sell_price": 54,
+    "cost": 19.14,
+    "food_cost": 35.4,
+    "gross_margin": 34.86,
+    "ingredients": [
+      "Pain : 1 p",
+      "Viande : 100 g",
+      "Tomate : 30 g",
+      "Cheddar : 25 g",
+      "FRITTES : 200 g",
+      "SALADE : 50 g",
+      "SAUCE TOMATE : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "sodas___boissons_fra_ches_schweppes_citron",
+    "name": "SCHWEPPES CITRON",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "sell_price": 17,
+    "cost": 7.55,
+    "food_cost": 44.4,
+    "gross_margin": 9.45,
+    "ingredients": [
+      "Canette Schweppes Citron : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "sodas___boissons_fra_ches_schweppes_citron___tonic_33cl",
+    "name": "SCHWEPPES CITRON / TONIC 33CL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "sell_price": 17,
+    "cost": 8.05,
+    "food_cost": 47.4,
+    "gross_margin": 8.95,
+    "ingredients": [
+      "Schweppes (Canette 33cl) : 1 p",
+      "Tranche de citron : 1 tr",
+      "Glaçons"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "cocktails___mocktails_signature_grey_corner",
+    "name": "SIGNATURE GREY CORNER",
+    "category": "COCKTAILS & MOCKTAILS",
+    "sell_price": 48,
+    "cost": 5.37,
+    "food_cost": 11.2,
+    "gross_margin": 42.63,
+    "ingredients": [
+      "Jus d'ananas : 100 ml",
+      "Jus de mangue : 80 ml",
+      "Purée de fraise : 40 ml",
+      "Jus de citron vert : 20 ml",
+      "Sirop de passion : 20 ml",
+      "Fruits frais décor : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "smoothies___bowls_smoothie_bowl_exotique",
+    "name": "SMOOTHIE BOWL EXOTIQUE",
+    "category": "SMOOTHIES & BOWLS",
+    "sell_price": 48,
+    "cost": 6.69,
+    "food_cost": 13.9,
+    "gross_margin": 41.31,
+    "ingredients": [
+      "Base mixée Mangue/Banane/Passion : 250 g",
+      "Granola croustillant : 40 g",
+      "Kiwi frais : 30 g",
+      "Graines de chia : 10 g",
+      "Noix de coco râpée : 10 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "smoothies___bowls_smoothie_bowl_ultra_boost",
+    "name": "SMOOTHIE BOWL ULTRA BOOST",
+    "category": "SMOOTHIES & BOWLS",
+    "sell_price": 48,
+    "cost": 16.1,
+    "food_cost": 33.5,
+    "gross_margin": 31.9,
+    "ingredients": [
+      "Base mixée Açaï/Fruits rouges : 250 g",
+      "Banane : 50 g",
+      "Granola croustillant : 40 g",
+      "Myrtilles & Framboises : 30 g",
+      "Graines de chia : 10 g",
+      "Amandes effilées : 15 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "smoothies___bowls_smoothie__nerg_tique",
+    "name": "SMOOTHIE ÉNERGÉTIQUE",
+    "category": "SMOOTHIES & BOWLS",
+    "sell_price": 42,
+    "cost": 19.88,
+    "food_cost": 47.3,
+    "gross_margin": 22.12,
+    "ingredients": [
+      "Banane : 120 g",
+      "Dattes Medjool : 40 g",
+      "Flocons d'avoine : 30 g",
+      "Lait d'amande : 180 ml",
+      "Beurre de cacahuète : 20 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "smoothies___bowls_smoothie_hawa_",
+    "name": "SMOOTHIE HAWAÏ",
+    "category": "SMOOTHIES & BOWLS",
+    "sell_price": 42,
+    "cost": 7.05,
+    "food_cost": 16.8,
+    "gross_margin": 34.95,
+    "ingredients": [
+      "Mangue fraîche : 100 g",
+      "Ananas frais : 100 g",
+      "Fruit de la passion : 30 g",
+      "Jus d'orange : 80 ml",
+      "Glaçons : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "smoothies___bowls_smoothie_jelly_fruit",
+    "name": "SMOOTHIE JELLY FRUIT",
+    "category": "SMOOTHIES & BOWLS",
+    "sell_price": 48,
+    "cost": 9.52,
+    "food_cost": 19.8,
+    "gross_margin": 38.48,
+    "ingredients": [
+      "Fruits rouges : 120 g",
+      "Banane : 80 g",
+      "Jus de cranberry : 80 ml",
+      "Perles de fruits Popping Boba : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "smoothies___bowls_smoothie_multivitamin_",
+    "name": "SMOOTHIE MULTIVITAMINÉ",
+    "category": "SMOOTHIES & BOWLS",
+    "sell_price": 42,
+    "cost": 2.75,
+    "food_cost": 6.5,
+    "gross_margin": 39.25,
+    "ingredients": [
+      "Jus d'orange frais : 100 ml",
+      "Carotte : 80 g",
+      "Pomme : 80 g",
+      "Gingembre frais : 5 g",
+      "Glaçons : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "smoothies___bowls_smoothie_pink_berry",
+    "name": "SMOOTHIE PINK BERRY",
+    "category": "SMOOTHIES & BOWLS",
+    "sell_price": 48,
+    "cost": 7.76,
+    "food_cost": 16.2,
+    "gross_margin": 40.24,
+    "ingredients": [
+      "Fraises fraîches : 100 g",
+      "Framboises : 60 g",
+      "Yaourt grec nature : 100 g",
+      "Jus de pomme : 80 ml",
+      "Glaçons : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "smoothies___bowls_smoothie_triple_fruits",
+    "name": "SMOOTHIE TRIPLE FRUITS",
+    "category": "SMOOTHIES & BOWLS",
+    "sell_price": 48,
+    "cost": 5.42,
+    "food_cost": 11.3,
+    "gross_margin": 42.58,
+    "ingredients": [
+      "Fraise : 70 g",
+      "Mangue : 70 g",
+      "Kiwi frais : 70 g",
+      "Jus d'orange : 80 ml",
+      "Glaçons : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "p_tes_spaghettis_noirs__suppl__",
+    "name": "SPAGHETTIS NOIRS (suppl.)",
+    "category": "PÂTES",
+    "sell_price": 5,
+    "cost": 1.6,
+    "food_cost": 32,
+    "gross_margin": 3.4,
+    "ingredients": [
+      "Supplément pâtes noires à l'encre de seiche"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "sodas___boissons_fra_ches_sprite_33cl",
+    "name": "SPRITE 33CL",
+    "category": "SODAS & BOISSONS FRAÎCHES",
+    "sell_price": 17,
+    "cost": 8.05,
+    "food_cost": 47.4,
+    "gross_margin": 8.95,
+    "ingredients": [
+      "Sprite (Canette 33cl) : 1 p",
+      "Tranche de citron : 1 tr",
+      "Glaçons"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_suppl_ment_charcuterie",
+    "name": "SUPPLÉMENT CHARCUTERIE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 3,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Charcuterie : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_suppl_ment_frites",
+    "name": "SUPPLÉMENT FRITES",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 15,
+    "cost": 4.34,
+    "food_cost": 28.9,
+    "gross_margin": 10.66,
+    "ingredients": [
+      "Frites : 200 g",
+      "Sauce : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_suppl_ment_fromage",
+    "name": "SUPPLÉMENT FROMAGE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 12,
+    "cost": 4.5,
+    "food_cost": 37.5,
+    "gross_margin": 7.5,
+    "ingredients": [
+      "Fromage variété : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_suppl_ment_jben",
+    "name": "SUPPLÉMENT JBEN",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 10,
+    "cost": 2,
+    "food_cost": 20,
+    "gross_margin": 8,
+    "ingredients": [
+      "Jben frais : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_suppl_ment_miel",
+    "name": "SUPPLÉMENT MIEL",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 8,
+    "cost": 0.48,
+    "food_cost": 6,
+    "gross_margin": 7.52,
+    "ingredients": [
+      "Miel pur : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_suppl_ment__ufs",
+    "name": "SUPPLÉMENT ŒUFS",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 10,
+    "cost": 2.54,
+    "food_cost": 25.4,
+    "gross_margin": 7.46,
+    "ingredients": [
+      "Œufs frais : 2 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_suppl_ment_potatos",
+    "name": "SUPPLÉMENT POTATOS",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 18,
+    "cost": 2.24,
+    "food_cost": 12.4,
+    "gross_margin": 15.76,
+    "ingredients": [
+      "Pomme de terre potatos : 200 g",
+      "Sauce : 30 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_suppl_ment_poulet",
+    "name": "SUPPLÉMENT POULET",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 4,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Poulet émincé : 80 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_suppl_ment_pur_e",
+    "name": "SUPPLÉMENT PURÉE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 18,
+    "cost": 2.95,
+    "food_cost": 16.4,
+    "gross_margin": 15.05,
+    "ingredients": [
+      "Pomme de terre purée : 250 g",
+      "Beurre : 15 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "suppl_ments___extras_suppl_ment_viande_hach_e",
+    "name": "SUPPLÉMENT VIANDE HACHÉE",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "sell_price": 0,
+    "cost": 8,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Viande hachée : 80 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "plats_supr_me_de_poulet",
+    "name": "SUPRÊME DE POULET",
+    "category": "PLATS",
+    "sell_price": 98,
+    "cost": 28.73,
+    "food_cost": 29.3,
+    "gross_margin": 69.27,
+    "ingredients": [
+      "Blanc de poulet : 180 g",
+      "Champignon : 120 g",
+      "Crème fraîche : 70 ml",
+      "Persil : 20 g",
+      "Haricot vert : 55 g",
+      "Courgette : 55 g",
+      "Carotte : 57 g",
+      "Brocoli : 77 g",
+      "Persil : 30 g",
+      "Œuf : 1 p",
+      "Frites : 200 g",
+      "Pain : 1 p",
+      "Beurre : 40 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "entr_es_froides_tartare_saumon",
+    "name": "TARTARE SAUMON",
+    "category": "ENTRÉES FROIDES",
+    "sell_price": 88,
+    "cost": 31.07,
+    "food_cost": 35.3,
+    "gross_margin": 56.93,
+    "ingredients": [
+      "saumon frais : 90 g",
+      "SAUMON FUMEE : 25 g",
+      "Avocat : 300 g",
+      "SAUCE TARTARE : 24 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_the_americain",
+    "name": "The Americain",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 0,
+    "cost": 1,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Sachet thé : 1 p",
+      "Eau chaude : 200 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_the_m3achab",
+    "name": "THE M3ACHAB",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 0,
+    "cost": 1.92,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Thé vert : 8 g",
+      "Menthe : 15 g",
+      "Sucre : 2 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_th__marocain___la_menthe",
+    "name": "THÉ MAROCAIN À LA MENTHE",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 16,
+    "cost": 3.67,
+    "food_cost": 22.9,
+    "gross_margin": 12.33,
+    "ingredients": [
+      "Thé vert Gunpowder : 10 g",
+      "Menthe fraîche : 20 g",
+      "Sucre : 25 g",
+      "Eau bouillante : 300 ml",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_th__noir",
+    "name": "THÉ NOIR",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 15,
+    "cost": 3.77,
+    "food_cost": 25.1,
+    "gross_margin": 11.23,
+    "ingredients": [
+      "Thé noir : 8 g",
+      "Eau bouillante : 250 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_th__noir_au_lait",
+    "name": "THÉ NOIR AU LAIT",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 18,
+    "cost": 4.87,
+    "food_cost": 27.1,
+    "gross_margin": 13.13,
+    "ingredients": [
+      "Thé noir : 8 g",
+      "Lait chaud : 120 ml",
+      "Eau : 130 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_toast_nutella",
+    "name": "TOAST NUTELLA",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 0,
+    "cost": 9.5,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Pain toast : 2 p",
+      "Nutella : 100 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "smoothies___bowls_triple_berry",
+    "name": "Triple Berry",
+    "category": "SMOOTHIES & BOWLS",
+    "sell_price": 48,
+    "cost": 7.58,
+    "food_cost": 15.8,
+    "gross_margin": 40.42,
+    "ingredients": [
+      "Fruits rouges : 120 g",
+      "Lait : 100 ml",
+      "Yaourt : 50 g"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_verre_de_lait",
+    "name": "VERRE DE LAIT",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 12,
+    "cost": 4.38,
+    "food_cost": 36.5,
+    "gross_margin": 7.62,
+    "ingredients": [
+      "Lait entier frais : 250 ml",
+      "Sucre : 1 p",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_verveine_aromatis_e",
+    "name": "VERVEINE AROMATISÉE",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 18,
+    "cost": 3.38,
+    "food_cost": 18.8,
+    "gross_margin": 14.62,
+    "ingredients": [
+      "Verveine séchée : 10 g",
+      "Fleur d'oranger : 5 ml",
+      "Zeste de citron : 5 g",
+      "Eau chaude : 250 ml",
+      "Miel : 20 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "caf_s___boissons_chaudes_verveine_nature",
+    "name": "VERVEINE NATURE",
+    "category": "CAFÉS & BOISSONS CHAUDES",
+    "sell_price": 15,
+    "cost": 3.1,
+    "food_cost": 20.7,
+    "gross_margin": 11.9,
+    "ingredients": [
+      "Verveine séchée : 10 g",
+      "Eau chaude : 250 ml",
+      "Miel / Sucre : 20 g",
+      "Bouteille Eau Minérale 33cl : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_viennoiserie",
+    "name": "VIENNOISERIE",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 6,
+    "cost": 2,
+    "food_cost": 33.3,
+    "gross_margin": 4,
+    "ingredients": [
+      "Viennoiserie : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "a_la_carte___boulangerie_viennoiserie__a_la_carte_",
+    "name": "VIENNOISERIE (A LA CARTE)",
+    "category": "A LA CARTE & BOULANGERIE",
+    "sell_price": 0,
+    "cost": 2,
+    "food_cost": 0,
+    "gross_margin": 0,
+    "ingredients": [
+      "Viennoiserie : 1 p"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.166253+00:00"
+  },
+  {
+    "id": "cocktails___mocktails_virgin_pi_a_colada",
+    "name": "VIRGIN PIÑA COLADA",
+    "category": "COCKTAILS & MOCKTAILS",
+    "sell_price": 42,
+    "cost": 6.3,
+    "food_cost": 15,
+    "gross_margin": 35.7,
+    "ingredients": [
+      "Jus d'ananas frais : 180 ml",
+      "Crème de coco : 60 ml",
+      "Lait de coco : 40 ml",
+      "Glaçons : 100 g",
+      "Tranche d'ananas : 1 tr"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  },
+  {
+    "id": "wraps_wrap_gourmand",
+    "name": "WRAP GOURMAND",
+    "category": "WRAPS",
+    "sell_price": 64,
+    "cost": 20.09,
+    "food_cost": 31.4,
+    "gross_margin": 43.91,
+    "ingredients": [
+      "Poulet : 120 g",
+      "Charcuterie : 40 g",
+      "Œuf : 1 p",
+      "Chapelure : 50 g",
+      "Cheddar : 25 g",
+      "Frites + sauce : 200 g",
+      "Pain : 1 p",
+      "Tomate fraîche : 35 g",
+      "Sauce burger : 60 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "wraps_wrap_poulet",
+    "name": "WRAP POULET",
+    "category": "WRAPS",
+    "sell_price": 58,
+    "cost": 17.66,
+    "food_cost": 30.4,
+    "gross_margin": 40.34,
+    "ingredients": [
+      "Poulet : 120 g",
+      "Œuf : 1 p",
+      "Frites + sauce : 200 g",
+      "Chapelure : 50 g",
+      "Cheddar : 25 g",
+      "Pain : 1 p",
+      "Tomate fraîche : 30 g",
+      "Sauce burger : 60 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "wraps_wrap_viande_hach_e",
+    "name": "WRAP VIANDE HACHÉE",
+    "category": "WRAPS",
+    "sell_price": 62,
+    "cost": 20.76,
+    "food_cost": 33.5,
+    "gross_margin": 41.24,
+    "ingredients": [
+      "Viande hachée : 100 g",
+      "Œuf : 1 p",
+      "Frites + sauce : 200 g",
+      "Cheddar : 25 g",
+      "Pain : 1 p",
+      "Tomate fraîche : 30 g",
+      "Sauce burger : 60 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:09.063976+00:00"
+  },
+  {
+    "id": "jus_frais_press_s___royaux_za3za3_royal_grey_corner",
+    "name": "ZA3ZA3 ROYAL GREY CORNER",
+    "category": "JUS FRAIS PRESSÉS & ROYAUX",
+    "sell_price": 46,
+    "cost": 18.33,
+    "food_cost": 39.8,
+    "gross_margin": 27.67,
+    "ingredients": [
+      "Avocat : 150 g",
+      "Lait : 180 ml",
+      "Chocolat KitKat / Snickers : 1 p",
+      "Fruits secs variés : 50 g",
+      "Biscuits Oreo : 2 p",
+      "Crème chantilly : 35 g",
+      "Coulis caramel : 15 ml"
+    ],
+    "is_active": true,
+    "updated_at": "2026-09-14T10:48:08.954324+00:00"
+  }
+]

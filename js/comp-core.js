@@ -170,13 +170,22 @@ var hasUnsavedChanges = false; // AM-03: suivi des modifications non sauvegardé
   // Chargement des prix personnalisés des matières premières
   function loadCustomIngredientPrices() {
     try {
+      // Si Supabase est connecté et a déjà hydraté les prix Cloud (SSOT), ne pas écraser avec un vieux cache local
+      if (window.GC_Supabase && window.GC_Supabase.isOnline && window.INGREDIENT_UNIT_COSTS && Object.keys(window.INGREDIENT_UNIT_COSTS).length > 50) {
+        return;
+      }
       const saved = localStorage.getItem(window.GC_STORAGE_KEYS.PRICES);
       if (saved) {
         const parsed = JSON.parse(saved);
-        const obsolete = window.OBSOLETE_INGREDIENT_KEYS;
+        const obsolete = window.OBSOLETE_INGREDIENT_KEYS || [];
         obsolete.forEach(k => { delete parsed[k]; if (window.INGREDIENT_UNIT_COSTS) delete window.INGREDIENT_UNIT_COSTS[k]; });
         if (!window.INGREDIENT_UNIT_COSTS) window.INGREDIENT_UNIT_COSTS = {};
-        Object.assign(window.INGREDIENT_UNIT_COSTS, parsed);
+        // N'assigner que si INGREDIENT_UNIT_COSTS n'a pas encore la clé (mode hors-ligne ou premier boot)
+        Object.keys(parsed).forEach(k => {
+          if (!window.INGREDIENT_UNIT_COSTS[k]) {
+            window.INGREDIENT_UNIT_COSTS[k] = parsed[k];
+          }
+        });
       }
     } catch (e) {
       console.warn("Erreur chargement prix personnalisés", e);
@@ -233,7 +242,7 @@ var hasUnsavedChanges = false; // AM-03: suivi des modifications non sauvegardé
         const initialTech = JSON.parse(JSON.stringify(item.tech || []));
         var sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
         
-        // Fiche Grey Corner (priorité aux edits locaux, puis base Déstockage)
+        // Fiche Grey Corner (priorité aux modifications enregistrées, puis base Déstockage)
         const userEdit = editedRecipes[item.name] || cleanEditsMap.get(cTarget);
         const destockRecipe = dbV5Map.get(cTarget);
 
@@ -248,6 +257,8 @@ var hasUnsavedChanges = false; // AM-03: suivi des modifications non sauvegardé
           currentTech = userEdit.tech.slice();
         } else if (destockRecipe && Array.isArray(destockRecipe.ingredients) && destockRecipe.ingredients.length > 0) {
           currentTech = destockRecipe.ingredients.slice();
+        } else if (initialTech && initialTech.length > 0) {
+          currentTech = initialTech;
         }
 
         const gcCostObj = window.calculateRecipeFoodCost(currentTech, sellPrice);

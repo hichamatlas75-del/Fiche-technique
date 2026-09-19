@@ -114,7 +114,7 @@
           }
           console.log('[GC_Supabase] ' + data.length + ' matières synchronisées depuis le Cloud.');
 
-          // Recalculer le Food Cost de toutes les recettes actives en mémoire
+          // Recalculer le Food Cost de toutes les recettes actives en mémoire (Déstockage)
           if (typeof window !== 'undefined' && Array.isArray(window.activeRecipes) && typeof window.calculateRecipeFoodCost === 'function') {
             window.activeRecipes.forEach(r => {
               if (!r) return;
@@ -133,20 +133,32 @@
             if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
           }
 
-          // Recalculer pour le comparateur si présent
-          if (typeof window !== 'undefined' && Array.isArray(window.allRecipes) && typeof window.calculateRecipeFoodCost === 'function') {
+          // Recalculer pour le comparateur si présent (Normes & Comparateur)
+          if (typeof window !== 'undefined' && typeof window.initData === 'function') {
+            window.initData();
+            if (typeof window.renderRecipeCards === 'function') window.renderRecipeCards();
+            if (typeof window.renderSummaryKPIs === 'function') window.renderSummaryKPIs();
+            if (typeof window.updateSummaryTable === 'function') window.updateSummaryTable();
+          } else if (typeof window !== 'undefined' && Array.isArray(window.allRecipes) && typeof window.calculateRecipeFoodCost === 'function') {
             window.allRecipes.forEach(r => {
               if (!r) return;
-              const ings = r.tech || r.ingredients || [];
+              const ings = (r.greyCorner && r.greyCorner.tech) || r.tech || r.ingredients || [];
               if (ings.length > 0) {
                 const fc = window.calculateRecipeFoodCost(ings, r.sellPrice || 0);
                 r.cost = fc.cost;
                 r.foodCost = fc.foodCost;
                 r.margin = fc.margin;
                 r.grossMarginDH = fc.grossMarginDH;
+                if (r.greyCorner) {
+                  r.greyCorner.cost = fc.cost;
+                  r.greyCorner.foodCost = fc.foodCost;
+                  r.greyCorner.margin = fc.margin;
+                  r.greyCorner.grossMarginDH = fc.grossMarginDH;
+                }
               }
             });
-            if (typeof window.renderCards === 'function') window.renderCards();
+            if (typeof window.renderRecipeCards === 'function') window.renderRecipeCards();
+            if (typeof window.renderSummaryKPIs === 'function') window.renderSummaryKPIs();
             if (typeof window.updateSummaryTable === 'function') window.updateSummaryTable();
           }
 
@@ -394,30 +406,32 @@
             if (typeof window.renderSummaryTable === 'function') window.renderSummaryTable();
           }
 
-          // 2. Mettre à jour allRecipes (comparateur.html)
-          if (typeof window !== 'undefined' && Array.isArray(window.allRecipes)) {
-            latestMap.forEach((cloudR, cleanName) => {
-              const cIdx = window.allRecipes.findIndex(r => r && (r.id === cloudR.id || ((typeof global.cleanText === 'function') && global.cleanText(r.name) === cleanName)));
-              const ingList = Array.isArray(cloudR.ingredients) ? cloudR.ingredients.slice() : [];
-              const compObj = {
-                id: cloudR.id,
-                name: cloudR.name,
-                category: cloudR.category || 'AUTRE',
-                tech: ingList.slice(),
-                ingredients: ingList.slice(),
-                sellPrice: Number(cloudR.sell_price) || 0,
-                cost: Number(cloudR.cost) || 0,
-                foodCost: Number(cloudR.food_cost) || 0,
-                grossMarginDH: Number(cloudR.gross_margin) || 0
-              };
-              if (cIdx >= 0) {
-                Object.assign(window.allRecipes[cIdx], compObj);
-              } else {
-                window.allRecipes.push(compObj);
-              }
-            });
-            if (typeof window.renderCards === 'function') window.renderCards();
-            if (typeof window.updateSummaryTable === 'function') window.updateSummaryTable();
+          // 2. Mettre à jour le comparateur si présent (comparateur.html)
+          if (typeof window !== 'undefined') {
+            if (window.editedRecipes) {
+              latestMap.forEach((cloudR, cleanName) => {
+                window.editedRecipes[cloudR.name] = {
+                  tech: (cloudR.ingredients || []).slice(),
+                  sellPrice: Number(cloudR.sell_price) || 0,
+                  updatedAt: Date.now()
+                };
+              });
+              try {
+                localStorage.setItem('grey_corner_custom_recipes_v5', JSON.stringify(window.editedRecipes));
+              } catch(e) {}
+            }
+            if (typeof window.initData === 'function') {
+              window.initData();
+            }
+            if (typeof window.renderRecipeCards === 'function') {
+              window.renderRecipeCards();
+            }
+            if (typeof window.renderSummaryKPIs === 'function') {
+              window.renderSummaryKPIs();
+            }
+            if (typeof window.updateSummaryTable === 'function') {
+              window.updateSummaryTable();
+            }
           }
         }
       } catch (err) {
@@ -645,7 +659,7 @@
     /**
      * Récupère l'historique des ventes journalières depuis Supabase Cloud
      */
-    syncDailySalesFromCloud: async function(limit = 180) {
+    syncDailySalesFromCloud: async function(limit = 365) {
       try {
         const res = await this.fetchWithFallback(SUPABASE_CONFIG.url + `/rest/v1/daily_sales?select=*&order=sale_date.desc&limit=${limit}`);
         if (!res.ok) throw new Error('HTTP error ' + res.status);
@@ -667,8 +681,23 @@
           .channel('schema-db-changes')
           .on('postgres_changes', { event: '*', schema: 'public', table: 'daily_sales' }, payload => {
             console.log('[GC_Supabase Realtime] Clôture de ventes reçue:', payload);
-            if (payload.new && payload.new.sale_date && global.GC_Toast) {
-              global.GC_Toast.show(`📅 Ventes du ${payload.new.sale_date} synchronisées (${payload.new.total_revenue} DH)`, 'info');
+            if (payload.new && payload.new.sale_date) {
+              const d = payload.new;
+              if (typeof window !== 'undefined' && window.monthlySalesDB) {
+                window.monthlySalesDB[d.sale_date] = (Array.isArray(d.items) ? d.items : []).map(it => ({
+                  family: it.cat || it.family || 'Général',
+                  product: it.name || it.product,
+                  price: it.price || 0,
+                  qty: it.qty || 1,
+                  total: it.ca || it.total || ((it.qty || 1) * (it.price || 0))
+                }));
+                if (typeof window.saveMonthlySalesDB === 'function') window.saveMonthlySalesDB();
+                if (typeof window.renderCalendar === 'function') window.renderCalendar();
+                if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
+              }
+              if (global.GC_Toast) {
+                global.GC_Toast.show(`📅 Ventes du ${payload.new.sale_date} synchronisées (${payload.new.total_revenue} DH)`, 'info');
+              }
             }
           })
           .on('postgres_changes', { event: '*', schema: 'public', table: 'ingredient_costs' }, payload => {
@@ -702,7 +731,7 @@
                 localStorage.setItem('gc_ingredient_prices_v1', JSON.stringify(global.INGREDIENT_UNIT_COSTS));
               }
 
-              // Recalculer le Food Cost de toutes les recettes actives en mémoire
+              // Recalculer le Food Cost de toutes les recettes actives en mémoire (Déstockage)
               if (typeof window !== 'undefined' && Array.isArray(window.activeRecipes) && typeof window.calculateRecipeFoodCost === 'function') {
                 window.activeRecipes.forEach(r => {
                   if (!r) return;
@@ -719,6 +748,14 @@
                 if (typeof window.renderRecipeList === 'function') window.renderRecipeList();
                 if (typeof window.renderSummaryTable === 'function') window.renderSummaryTable();
                 if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
+              }
+
+              // Recalculer pour le comparateur si présent
+              if (typeof window !== 'undefined') {
+                if (typeof window.initData === 'function') window.initData();
+                if (typeof window.renderRecipeCards === 'function') window.renderRecipeCards();
+                if (typeof window.renderSummaryKPIs === 'function') window.renderSummaryKPIs();
+                if (typeof window.updateSummaryTable === 'function') window.updateSummaryTable();
               }
 
               if (global.GC_PricesModal) {
@@ -740,9 +777,8 @@
           })
           .on('postgres_changes', { event: '*', schema: 'public', table: 'recipes' }, payload => {
             console.log('[GC_Supabase Realtime] Mise à jour fiche recette détectée:', payload);
-            if (payload.new && payload.new.name && typeof window !== 'undefined' && Array.isArray(window.activeRecipes)) {
+            if (payload.new && payload.new.name && typeof window !== 'undefined') {
               const r = payload.new;
-              const idx = window.activeRecipes.findIndex(x => x && (x.id === r.id || ((typeof global.cleanText === 'function') && global.cleanText(x.name) === global.cleanText(r.name))));
               const ingList = Array.isArray(r.ingredients) ? r.ingredients.slice() : [];
               const sPrice = Number(r.sell_price) || 0;
               let cost = Number(r.cost) || 0;
@@ -768,21 +804,71 @@
                 grossMarginDH: gm
               };
 
-              if (idx >= 0) {
-                window.activeRecipes[idx] = recipeObj;
-              } else {
-                window.activeRecipes.push(recipeObj);
+              // 1. Déstockage (activeRecipes)
+              if (Array.isArray(window.activeRecipes)) {
+                const idx = window.activeRecipes.findIndex(x => x && (x.id === r.id || ((typeof global.cleanText === 'function') && global.cleanText(x.name) === global.cleanText(r.name))));
+                if (idx >= 0) {
+                  window.activeRecipes[idx] = recipeObj;
+                } else {
+                  window.activeRecipes.push(recipeObj);
+                }
+
+                if (typeof global.cleanText === 'function') {
+                  if (!window.recipeNameIndex) window.recipeNameIndex = new Map();
+                  window.recipeNameIndex.set(global.cleanText(r.name), recipeObj);
+                }
+
+                if (typeof window.saveRecipes === 'function') window.saveRecipes();
+                if (typeof window.renderRecipeList === 'function') window.renderRecipeList();
+                if (typeof window.renderSummaryTable === 'function') window.renderSummaryTable();
+                if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
               }
 
-              if (typeof global.cleanText === 'function') {
-                if (!window.recipeNameIndex) window.recipeNameIndex = new Map();
-                window.recipeNameIndex.set(global.cleanText(r.name), recipeObj);
+              // 2. DATA & CATEGORIES_DATA
+              const allData = window.CATEGORIES_DATA || window.DATA || [];
+              if (Array.isArray(allData)) {
+                const cleanRName = (typeof global.cleanText === 'function') ? global.cleanText(r.name) : r.name.toLowerCase().trim();
+                let foundInCat = false;
+                for (const cat of allData) {
+                  const it = (cat.items || []).find(i => (typeof global.cleanText === 'function') && global.cleanText(i.name) === cleanRName);
+                  if (it) {
+                    it.tech = ingList.slice();
+                    it.ingredients = ingList.slice();
+                    it.sellPrice = sPrice;
+                    it.price = sPrice + ' DH';
+                    it.cost = cost;
+                    it.foodCost = fc;
+                    it.grossMarginDH = gm;
+                    foundInCat = true;
+                    break;
+                  }
+                }
+                if (!foundInCat) {
+                  const targetCat = allData.find(c => c.category === r.category) || allData[0];
+                  if (targetCat) {
+                    if (!targetCat.items) targetCat.items = [];
+                    targetCat.items.push({
+                      name: r.name,
+                      image: 'images/placeholder.svg',
+                      prepTime: 5,
+                      tech: ingList.slice(),
+                      ingredients: ingList.slice(),
+                      price: sPrice + ' DH',
+                      sellPrice: sPrice,
+                      cost: cost,
+                      foodCost: fc,
+                      grossMarginDH: gm
+                    });
+                  }
+                }
               }
 
-              if (typeof window.saveRecipes === 'function') window.saveRecipes();
-              if (typeof window.renderRecipeList === 'function') window.renderRecipeList();
-              if (typeof window.renderSummaryTable === 'function') window.renderSummaryTable();
-              if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
+              // 3. Comparateur
+              if (typeof window.initData === 'function') window.initData();
+              if (typeof window.renderRecipeCards === 'function') window.renderRecipeCards();
+              if (typeof window.renderSummaryKPIs === 'function') window.renderSummaryKPIs();
+              if (typeof window.updateSummaryTable === 'function') window.updateSummaryTable();
+
               if (global.GC_Toast) {
                 global.GC_Toast.show('⚡ Fiche mise à jour en direct : ' + r.name, 'info');
               }

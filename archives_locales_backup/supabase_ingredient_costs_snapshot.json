@@ -1,0 +1,3322 @@
+[
+  {
+    "id": "acai",
+    "label": "Açaï",
+    "unit": "g",
+    "cost": 0.12,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "accompagnements",
+    "label": "Accompagnements (Formule)",
+    "unit": "piece",
+    "cost": 5,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "agrumes",
+    "label": "Agrumes",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "ail",
+    "label": "ail",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "amandes",
+    "label": "amandes",
+    "unit": "g",
+    "cost": 0.08,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "amandes effilees",
+    "label": "amandes effilees",
+    "unit": "g",
+    "cost": 0.08,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "amlou",
+    "label": "amlou",
+    "unit": "g",
+    "cost": 0.08,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "ananas",
+    "label": "ananas",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "anchois",
+    "label": "anchois",
+    "unit": "g",
+    "cost": 0.11,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "aubergine",
+    "label": "Aubergine",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "avocat",
+    "label": "avocat",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "avocat hass",
+    "label": "avocat hass",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "bacon",
+    "label": "bacon",
+    "unit": "g",
+    "cost": 0.314,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "bacon de boeuf",
+    "label": "bacon de boeuf",
+    "unit": "g",
+    "cost": 0.314,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "baghrir",
+    "label": "baghrir",
+    "unit": "piece",
+    "cost": 1.2,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "banane",
+    "label": "banane",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "base frappe vanille",
+    "label": "base frappe vanille",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "base mixee acai/fruits rouges",
+    "label": "base mixee acai/fruits rouges",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "beldi",
+    "label": "Assortiment Beldi (Brunch)",
+    "unit": "piece",
+    "cost": 5,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "betterave",
+    "label": "betterave",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "beurre",
+    "label": "beurre",
+    "unit": "g",
+    "cost": 0.08,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "beurre de cacahuete",
+    "label": "beurre de cacahuete",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "biscuit oreo",
+    "label": "biscuit oreo",
+    "unit": "piece",
+    "cost": 1.4,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "biscuit speculoos",
+    "label": "biscuit speculoos",
+    "unit": "piece",
+    "cost": 1.5,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "blanc de poulet",
+    "label": "blanc de poulet",
+    "unit": "g",
+    "cost": 0.055,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "bleu",
+    "label": "bleu",
+    "unit": "g",
+    "cost": 0.12,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "boisson chaude",
+    "label": "Boisson Chaude (Formule)",
+    "unit": "piece",
+    "cost": 3.5,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "boule de glace",
+    "label": "boule de glace",
+    "unit": "piece",
+    "cost": 3.2,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "boule de glace vanille",
+    "label": "boule de glace vanille",
+    "unit": "piece",
+    "cost": 3.2,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "boule glace",
+    "label": "Boule Glace",
+    "unit": "piece",
+    "cost": 3,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "boules de glace",
+    "label": "Boule Glace",
+    "unit": "piece",
+    "cost": 3,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "bouteille eau minerale 33cl",
+    "label": "bouteille eau minerale 33cl",
+    "unit": "piece",
+    "cost": 1.8,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "bouteille eau minerale 50cl",
+    "label": "bouteille eau minerale 50cl",
+    "unit": "piece",
+    "cost": 2.73,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "bouteille eau minerale 75cl",
+    "label": "bouteille eau minerale 75cl",
+    "unit": "piece",
+    "cost": 10.4,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "bouteille oulmes 33/50cl",
+    "label": "bouteille oulmes 33/50cl",
+    "unit": "piece",
+    "cost": 4,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "bouteille oulmes 75cl",
+    "label": "bouteille oulmes 75cl",
+    "unit": "piece",
+    "cost": 12.3,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "brie",
+    "label": "brie",
+    "unit": "g",
+    "cost": 0.11,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "brocoli",
+    "label": "brocoli",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "burrata",
+    "label": "BURRATA",
+    "unit": "piece",
+    "cost": 25,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "cacao",
+    "label": "cacao",
+    "unit": "g",
+    "cost": 0.07,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "cacao en poudre",
+    "label": "cacao en poudre",
+    "unit": "g",
+    "cost": 0.07,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "cafe",
+    "label": "cafe",
+    "unit": "g",
+    "cost": 0.14,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "cafe espresso",
+    "label": "cafe espresso",
+    "unit": "g",
+    "cost": 0.14,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "calamar brut",
+    "label": "Calamar Brut (Congelé / Réception)",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "poissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "calamar net",
+    "label": "Calamar Net (Chair / Égoutté)",
+    "unit": "g",
+    "cost": 0.16,
+    "category": "poissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "camembert",
+    "label": "camembert",
+    "unit": "g",
+    "cost": 0.11,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "capres",
+    "label": "capres",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "caramel",
+    "label": "Caramel",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "carotte",
+    "label": "carotte",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "carottes fraiches",
+    "label": "carottes fraiches",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "champignon",
+    "label": "champignon",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "champignons",
+    "label": "champignons",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "chantilly",
+    "label": "chantilly",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "chapelure",
+    "label": "Chapelure",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "charcuterie",
+    "label": "charcuterie",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "charcuterie de dinde",
+    "label": "charcuterie de dinde",
+    "unit": "g",
+    "cost": 0.07,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "charcuteries",
+    "label": "charcuteries",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "cheddar",
+    "label": "cheddar",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "cheesecake",
+    "label": "cheesecake",
+    "unit": "piece",
+    "cost": 14,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "cheesecake chocolat",
+    "label": "cheesecake chocolat",
+    "unit": "piece",
+    "cost": 14,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "cheesecake san sebastian",
+    "label": "cheesecake san sebastian",
+    "unit": "piece",
+    "cost": 14,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "chocolat",
+    "label": "chocolat",
+    "unit": "g",
+    "cost": 0.07,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "chocolat au lait",
+    "label": "chocolat au lait",
+    "unit": "g",
+    "cost": 0.07,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "chocolat au lait fondu",
+    "label": "chocolat au lait fondu",
+    "unit": "g",
+    "cost": 0.07,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "chocolat en poudre",
+    "label": "chocolat en poudre",
+    "unit": "g",
+    "cost": 0.07,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "chocolat kitkat / snickers",
+    "label": "chocolat kitkat / snickers",
+    "unit": "piece",
+    "cost": 4.5,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "chocolat noir",
+    "label": "chocolat noir",
+    "unit": "g",
+    "cost": 0.07,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "chocolat noir fondu",
+    "label": "chocolat noir fondu",
+    "unit": "g",
+    "cost": 0.07,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "chou rouge",
+    "label": "Chou Rouge",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "citron",
+    "label": "citron",
+    "unit": "g",
+    "cost": 0.014,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "citron vert",
+    "label": "citron vert",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "citron vert frais",
+    "label": "citron vert frais",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "coca-cola",
+    "label": "coca-cola",
+    "unit": "piece",
+    "cost": 7.55,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "coca-cola (canette 33cl)",
+    "label": "coca-cola (canette 33cl)",
+    "unit": "piece",
+    "cost": 7.55,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "coca-cola zero (canette 33cl)",
+    "label": "coca-cola zero (canette 33cl)",
+    "unit": "piece",
+    "cost": 7.55,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "concombre",
+    "label": "concombre",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "confiture",
+    "label": "Confiture",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "cookies",
+    "label": "Cookies",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "corn flakes",
+    "label": "Corn Flakes",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "cornichon",
+    "label": "cornichon",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "coulis caramel",
+    "label": "coulis caramel",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "coulis chocolat",
+    "label": "coulis chocolat",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "coulis chocolat chaud",
+    "label": "coulis chocolat chaud",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "coulis fruits rouges",
+    "label": "coulis fruits rouges",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "courgette",
+    "label": "courgette",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "cream cheese",
+    "label": "Cream Cheese",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "creme",
+    "label": "creme",
+    "unit": "ml",
+    "cost": 0.03,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "creme chantilly",
+    "label": "creme chantilly",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "creme fraiche",
+    "label": "creme fraiche",
+    "unit": "ml",
+    "cost": 0.03,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "crevettes brut",
+    "label": "Crevettes Brut (Avec coquille / Réception)",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "poissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "crevettes net",
+    "label": "Crevettes Net (Chair décortiquée)",
+    "unit": "g",
+    "cost": 0.21,
+    "category": "poissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "croissant",
+    "label": "croissant",
+    "unit": "piece",
+    "cost": 2,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "croque maison",
+    "label": "croque maison",
+    "unit": "piece",
+    "cost": 6.5,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "croquettes",
+    "label": "croquettes",
+    "unit": "piece",
+    "cost": 3,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "croquettes fromage",
+    "label": "croquettes fromage",
+    "unit": "piece",
+    "cost": 3,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "crouton",
+    "label": "Croûtons",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "croutons",
+    "label": "Croûtons",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "curacao bleu",
+    "label": "curacao bleu",
+    "unit": "ml",
+    "cost": 0.04,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "dattes",
+    "label": "dattes",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "dattes medjool",
+    "label": "dattes medjool",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "demi glace",
+    "label": "demi glace",
+    "unit": "ml",
+    "cost": 0.05,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "demi-glace",
+    "label": "demi-glace",
+    "unit": "ml",
+    "cost": 0.05,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "dessert",
+    "label": "Dessert (Formule)",
+    "unit": "piece",
+    "cost": 1,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "dinde fumee",
+    "label": "Dinde Fumée",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "eau",
+    "label": "eau",
+    "unit": "ml",
+    "cost": 0,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.172+00:00"
+  },
+  {
+    "id": "eau bouillante",
+    "label": "eau bouillante",
+    "unit": "ml",
+    "cost": 0,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.172+00:00"
+  },
+  {
+    "id": "eau chaude",
+    "label": "eau chaude",
+    "unit": "ml",
+    "cost": 0,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.172+00:00"
+  },
+  {
+    "id": "eau de coco",
+    "label": "eau de coco",
+    "unit": "ml",
+    "cost": 0.02,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "eau gazeuse",
+    "label": "eau gazeuse",
+    "unit": "ml",
+    "cost": 0.01,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "eau gazeuse oulmes",
+    "label": "eau gazeuse oulmes",
+    "unit": "ml",
+    "cost": 0.01,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "eau minerale",
+    "label": "eau minerale",
+    "unit": "ml",
+    "cost": 0,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "eau minerale 33cl",
+    "label": "eau minerale 33cl",
+    "unit": "piece",
+    "cost": 1.8,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "edam",
+    "label": "edam",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "emince de boeuf",
+    "label": "emince de boeuf",
+    "unit": "g",
+    "cost": 0.11,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "epinard",
+    "label": "epinard",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "epinards",
+    "label": "epinards",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "farine",
+    "label": "Farine",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "feta",
+    "label": "Feta",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "filet",
+    "label": "filet",
+    "unit": "g",
+    "cost": 0.18,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "filet de boeuf",
+    "label": "filet de boeuf",
+    "unit": "g",
+    "cost": 0.18,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "flocons d'avoine",
+    "label": "flocons d'avoine",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "fokacha",
+    "label": "Fokacha",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "fondant chocolat",
+    "label": "fondant chocolat",
+    "unit": "piece",
+    "cost": 12,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "fondant chocolat coeur coulant",
+    "label": "fondant chocolat coeur coulant",
+    "unit": "piece",
+    "cost": 12,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "fraise",
+    "label": "fraise",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "fraise fraiche",
+    "label": "fraise fraiche",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "fraises fraiches",
+    "label": "fraises fraiches",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "framboise",
+    "label": "framboise",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "framboises",
+    "label": "framboises",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "framboises fraiches",
+    "label": "framboises fraiches",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "frites",
+    "label": "frites",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "fromage",
+    "label": "fromage",
+    "unit": "g",
+    "cost": 0.1,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "fromage blanc",
+    "label": "fromage blanc",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "fromage burrata",
+    "label": "Fromage Burrata",
+    "unit": "piece",
+    "cost": 35,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "fromage portion",
+    "label": "Fromage Portion",
+    "unit": "piece",
+    "cost": 1.2,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "fromage rouge",
+    "label": "fromage rouge",
+    "unit": "g",
+    "cost": 0.1,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "fromage variete",
+    "label": "fromage variete",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "fromages",
+    "label": "fromages",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "fruit de la passion",
+    "label": "fruit de la passion",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "fruits frais decor",
+    "label": "fruits frais decor",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "fruits rouges",
+    "label": "fruits rouges",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "fruits secs",
+    "label": "fruits secs",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "fruits secs varies",
+    "label": "fruits secs varies",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "gambas brut",
+    "label": "Gambas Brut (Avec coquille)",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "poissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "gambas net",
+    "label": "Gambas Net (Chair décortiquée / Pochée)",
+    "unit": "g",
+    "cost": 0.21,
+    "category": "poissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "gambas pane",
+    "label": "Gambas Pané",
+    "unit": "g",
+    "cost": 0.18,
+    "category": "poissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "garniture composee",
+    "label": "garniture composee",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "garnitures composees",
+    "label": "garnitures composees",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "gaufre",
+    "label": "gaufre",
+    "unit": "piece",
+    "cost": 3,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "gingembre",
+    "label": "gingembre",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "gingembre frais",
+    "label": "gingembre frais",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "gingembre frais rape",
+    "label": "gingembre frais rape",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "glace",
+    "label": "glace",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "glace artisanale",
+    "label": "glace artisanale",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "glace artisanale au choix",
+    "label": "glace artisanale au choix",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "glace pilee",
+    "label": "glace pilee",
+    "unit": "g",
+    "cost": 0,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.172+00:00"
+  },
+  {
+    "id": "glace vanille",
+    "label": "glace vanille",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "glace vanille artisanale",
+    "label": "glace vanille artisanale",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "glaçon",
+    "label": "glaçon",
+    "unit": "g",
+    "cost": 0,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "glacons",
+    "label": "glacons",
+    "unit": "g",
+    "cost": 0,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.172+00:00"
+  },
+  {
+    "id": "glaçons",
+    "label": "glaçons",
+    "unit": "g",
+    "cost": 0,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "gouda",
+    "label": "gouda",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "graines de chia",
+    "label": "graines de chia",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "granola",
+    "label": "granola",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "granola croustillant",
+    "label": "granola croustillant",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "grenadine",
+    "label": "Sirop Grenadine",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "griche",
+    "label": "Griche",
+    "unit": "g",
+    "cost": 0.12,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "guimauves",
+    "label": "guimauves",
+    "unit": "g",
+    "cost": 0.08,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "harcha",
+    "label": "harcha",
+    "unit": "piece",
+    "cost": 1.2,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "haricot vert",
+    "label": "haricot vert",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "hawai",
+    "label": "hawai",
+    "unit": "piece",
+    "cost": 7.55,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "hawai canette",
+    "label": "hawai canette",
+    "unit": "piece",
+    "cost": 7.55,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "huile",
+    "label": "huile",
+    "unit": "ml",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "huile d'olive",
+    "label": "huile d'olive",
+    "unit": "ml",
+    "cost": 0.04,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "infusion",
+    "label": "infusion",
+    "unit": "piece",
+    "cost": 1.1,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "infusion the fruits rouges",
+    "label": "infusion the fruits rouges",
+    "unit": "ml",
+    "cost": 0,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "infusion the noir",
+    "label": "infusion the noir",
+    "unit": "ml",
+    "cost": 0,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "infusion the vert",
+    "label": "infusion the vert",
+    "unit": "ml",
+    "cost": 0,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "ingredients bar divers",
+    "label": "Ingrédients Bar Divers",
+    "unit": "piece",
+    "cost": 5,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "ingredients cuisine divers",
+    "label": "Ingrédients Cuisine Divers",
+    "unit": "piece",
+    "cost": 10,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "jambon de dinde",
+    "label": "jambon de dinde",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "jben",
+    "label": "jben",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "jus d'ananas",
+    "label": "jus d'ananas",
+    "unit": "ml",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "jus d'orange",
+    "label": "jus d'orange",
+    "unit": "ml",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "jus d'orange presse",
+    "label": "jus d'orange presse",
+    "unit": "ml",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "jus de citron",
+    "label": "jus de citron",
+    "unit": "ml",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "jus de citron presse",
+    "label": "jus de citron presse",
+    "unit": "ml",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "jus de citron vert",
+    "label": "jus de citron vert",
+    "unit": "ml",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "jus de cranberry",
+    "label": "jus de cranberry",
+    "unit": "ml",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "jus de mangue",
+    "label": "jus de mangue",
+    "unit": "ml",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "jus de pomme",
+    "label": "jus de pomme",
+    "unit": "ml",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "ketchup",
+    "label": "ketchup",
+    "unit": "piece",
+    "cost": 0.33,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "khli3",
+    "label": "khli3",
+    "unit": "g",
+    "cost": 0.11,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "khlii",
+    "label": "Khlii",
+    "unit": "g",
+    "cost": 0.18,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "kitkat",
+    "label": "KitKat",
+    "unit": "piece",
+    "cost": 6,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "kiwi",
+    "label": "kiwi",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "kunafa",
+    "label": "kunafa",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "kunafa croustillante",
+    "label": "kunafa croustillante",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "lait",
+    "label": "lait",
+    "unit": "ml",
+    "cost": 0.01,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "lait chaud",
+    "label": "lait chaud",
+    "unit": "ml",
+    "cost": 0.01,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "lait de coco",
+    "label": "lait de coco",
+    "unit": "ml",
+    "cost": 0.03,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "lait uht",
+    "label": "lait uht",
+    "unit": "ml",
+    "cost": 0.01,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "laitue",
+    "label": "laitue",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "lben",
+    "label": "Lait Fermenté Lben",
+    "unit": "ml",
+    "cost": 0.01,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "leben",
+    "label": "leben",
+    "unit": "ml",
+    "cost": 0.01,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "legumes",
+    "label": "legumes",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "legumes couscous",
+    "label": "legumes couscous",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "legumes grilles",
+    "label": "Légumes Grillés",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "legumes varies",
+    "label": "legumes varies",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "linguine",
+    "label": "linguine",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "linguines",
+    "label": "linguines",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "mais",
+    "label": "mais",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "maïs",
+    "label": "maïs",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "mangue",
+    "label": "mangue",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "mascarpone",
+    "label": "mascarpone",
+    "unit": "g",
+    "cost": 0.13,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "mayonnaise",
+    "label": "mayonnaise",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "melange plantes infusion",
+    "label": "melange plantes infusion",
+    "unit": "g",
+    "cost": 0.55,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "menthe",
+    "label": "menthe",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "menthe fraiche",
+    "label": "menthe fraiche",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "merguez",
+    "label": "merguez",
+    "unit": "g",
+    "cost": 0.1,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "mesclun",
+    "label": "mesclun",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "mesclun salade",
+    "label": "mesclun salade",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "miel",
+    "label": "miel",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "miel pur d'abeille",
+    "label": "miel pur d'abeille",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "mlaoui",
+    "label": "mlaoui",
+    "unit": "piece",
+    "cost": 1.5,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "moules",
+    "label": "moules",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "poissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "mousse de lait",
+    "label": "mousse de lait",
+    "unit": "ml",
+    "cost": 0.01,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "moutarde",
+    "label": "moutarde",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "mozzarella",
+    "label": "mozzarella",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "msemen",
+    "label": "msemen",
+    "unit": "piece",
+    "cost": 1.5,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "muesli",
+    "label": "Muesli",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "muffin",
+    "label": "muffin",
+    "unit": "piece",
+    "cost": 3.5,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "myrtille",
+    "label": "myrtille",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "myrtilles",
+    "label": "myrtilles",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "noisette",
+    "label": "Noisette",
+    "unit": "g",
+    "cost": 0.15,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "noisettes",
+    "label": "noisettes",
+    "unit": "g",
+    "cost": 0.16,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "noix",
+    "label": "noix",
+    "unit": "g",
+    "cost": 0.08,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "nuggets",
+    "label": "nuggets",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "nutella",
+    "label": "nutella",
+    "unit": "g",
+    "cost": 0.085,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "oeuf",
+    "label": "oeuf",
+    "unit": "piece",
+    "cost": 1.27,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "œuf",
+    "label": "œuf",
+    "unit": "piece",
+    "cost": 1.27,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "oeuf baldi",
+    "label": "oeuf baldi",
+    "unit": "piece",
+    "cost": 2.7,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "oeuf brouille",
+    "label": "oeuf brouille",
+    "unit": "piece",
+    "cost": 1.27,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "oeufs",
+    "label": "œufs",
+    "unit": "piece",
+    "cost": 1.1,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:36:37.643+00:00"
+  },
+  {
+    "id": "œufs",
+    "label": "œufs",
+    "unit": "piece",
+    "cost": 1.27,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "oeufs au plat",
+    "label": "oeufs au plat",
+    "unit": "piece",
+    "cost": 1.1,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:36:37.644+00:00"
+  },
+  {
+    "id": "oeufs de caille",
+    "label": "oeufs de caille",
+    "unit": "piece",
+    "cost": 0.69,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "oeufs frais",
+    "label": "oeufs frais",
+    "unit": "piece",
+    "cost": 1.1,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:36:37.644+00:00"
+  },
+  {
+    "id": "oignon",
+    "label": "oignon",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "oignon/ail",
+    "label": "oignon/ail",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "oignons",
+    "label": "oignons",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "olive noire",
+    "label": "Olives Noires",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "olive verte",
+    "label": "olive verte",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "olives",
+    "label": "olives",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "olives noires",
+    "label": "olives noires",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "olives vertes",
+    "label": "olives vertes",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "omelette",
+    "label": "Omelette (Formule)",
+    "unit": "piece",
+    "cost": 4.5,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "orange",
+    "label": "orange",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "orangina",
+    "label": "orangina",
+    "unit": "piece",
+    "cost": 6.35,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "orangina (canette 33cl)",
+    "label": "orangina (canette 33cl)",
+    "unit": "piece",
+    "cost": 6.35,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "origan",
+    "label": "origan",
+    "unit": "g",
+    "cost": 0.08,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "oulmes mojito",
+    "label": "OULMES MOJITO",
+    "unit": "piece",
+    "cost": 7,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "oulmes tropical",
+    "label": "OULMES TROPICAL",
+    "unit": "piece",
+    "cost": 7,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "pain",
+    "label": "pain",
+    "unit": "piece",
+    "cost": 2,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "pain au chocolat",
+    "label": "pain au chocolat",
+    "unit": "piece",
+    "cost": 2,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pain burger",
+    "label": "pain burger",
+    "unit": "piece",
+    "cost": 2.5,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pain cake",
+    "label": "pain cake",
+    "unit": "piece",
+    "cost": 2,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pain cereal",
+    "label": "pain cereal",
+    "unit": "piece",
+    "cost": 0.94,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "pain cereales",
+    "label": "pain cereales",
+    "unit": "piece",
+    "cost": 0.94,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pain ciabatta",
+    "label": "pain ciabatta",
+    "unit": "piece",
+    "cost": 2.2,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "pain complet",
+    "label": "pain complet",
+    "unit": "piece",
+    "cost": 0.78,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pain de mie",
+    "label": "pain de mie",
+    "unit": "piece",
+    "cost": 0.78,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pain de mie complet",
+    "label": "pain de mie complet",
+    "unit": "piece",
+    "cost": 0.78,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pain panini",
+    "label": "pain panini",
+    "unit": "piece",
+    "cost": 2,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "pain seigle",
+    "label": "pain seigle",
+    "unit": "piece",
+    "cost": 0.94,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pain toast",
+    "label": "Pain Toast",
+    "unit": "piece",
+    "cost": 0.8,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "palourde",
+    "label": "palourde",
+    "unit": "g",
+    "cost": 0.08,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "pancake",
+    "label": "pancake",
+    "unit": "piece",
+    "cost": 2,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "pancakes",
+    "label": "Pancake",
+    "unit": "piece",
+    "cost": 1.2,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "paprika",
+    "label": "paprika",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "parmesan",
+    "label": "parmesan",
+    "unit": "g",
+    "cost": 0.15,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "pasta",
+    "label": "Pâtes / Pasta (Sèche)",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "pasta nature ou mini pizza + boisson",
+    "label": "Plat + Boisson Enfant",
+    "unit": "piece",
+    "cost": 12,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pastille nespresso",
+    "label": "pastille nespresso",
+    "unit": "piece",
+    "cost": 4.5,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pate",
+    "label": "pate",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "pate a crepe",
+    "label": "pate a crepe",
+    "unit": "piece",
+    "cost": 1.8,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "pate a gaufre",
+    "label": "Pâte à Gaufre",
+    "unit": "piece",
+    "cost": 1.8,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "pate a pizza",
+    "label": "pate a pizza",
+    "unit": "g",
+    "cost": 0,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "pate de pistache",
+    "label": "pate de pistache",
+    "unit": "g",
+    "cost": 0.14,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "pates",
+    "label": "pates",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "pates lasagne",
+    "label": "pates lasagne",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "peche",
+    "label": "peche",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "peche fraiche",
+    "label": "peche fraiche",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "peches",
+    "label": "peches",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "penne",
+    "label": "penne",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "peperoni",
+    "label": "peperoni",
+    "unit": "g",
+    "cost": 0.12,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "pepperoni",
+    "label": "pepperoni",
+    "unit": "g",
+    "cost": 0.12,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "perles de fruits popping boba",
+    "label": "perles de fruits popping boba",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "persil",
+    "label": "Persil",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "pesto",
+    "label": "pesto",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "petit lait",
+    "label": "petit lait",
+    "unit": "ml",
+    "cost": 0.01,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "petit pois",
+    "label": "petit pois",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "pistache",
+    "label": "pistache",
+    "unit": "g",
+    "cost": 0.28,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pistaches",
+    "label": "pistaches",
+    "unit": "g",
+    "cost": 0.28,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pistaches concassees",
+    "label": "pistaches concassees",
+    "unit": "g",
+    "cost": 0.28,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "poivre",
+    "label": "poivre",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "poivron",
+    "label": "poivron",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "poivrons",
+    "label": "poivrons",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "pomme",
+    "label": "pomme",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pomme de terre",
+    "label": "pomme de terre",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pomme fraiche",
+    "label": "pomme fraiche",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "pomme verte",
+    "label": "pomme verte",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "poms",
+    "label": "poms",
+    "unit": "piece",
+    "cost": 7.55,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "poms (canette 33cl)",
+    "label": "poms (canette 33cl)",
+    "unit": "piece",
+    "cost": 7.55,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "potatos",
+    "label": "potatos",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "poulet",
+    "label": "poulet",
+    "unit": "g",
+    "cost": 0.055,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "poulet emince",
+    "label": "poulet emince",
+    "unit": "g",
+    "cost": 0.055,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "poulet grille",
+    "label": "poulet grille",
+    "unit": "g",
+    "cost": 0.055,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "poulet hache",
+    "label": "poulet hache",
+    "unit": "g",
+    "cost": 0.055,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "poulet pane",
+    "label": "poulet pane",
+    "unit": "g",
+    "cost": 0.053,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "puree",
+    "label": "puree",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "puree de fraise",
+    "label": "puree de fraise",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "puree de framboise",
+    "label": "puree de framboise",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "puree de pomme de terre",
+    "label": "puree de pomme de terre",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "quinoa",
+    "label": "quinoa",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "quinoa blanc",
+    "label": "quinoa blanc",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "quinoa noir",
+    "label": "quinoa noir",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "radis",
+    "label": "radis",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "raisin",
+    "label": "raisin",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "red bull",
+    "label": "red bull",
+    "unit": "piece",
+    "cost": 13.96,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "red bull (canette 250ml)",
+    "label": "red bull (canette 250ml)",
+    "unit": "piece",
+    "cost": 13.96,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "ricotta",
+    "label": "ricotta",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "rigatoni",
+    "label": "rigatoni",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "riz",
+    "label": "riz",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "riz basmati",
+    "label": "riz basmati",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "rondelles de citron",
+    "label": "rondelles de citron",
+    "unit": "piece",
+    "cost": 0.5,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "roquette",
+    "label": "roquette",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "salade",
+    "label": "salade",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "salade mesclun",
+    "label": "salade mesclun",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "salade rouge",
+    "label": "salade rouge",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "salami",
+    "label": "salami",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "sauce",
+    "label": "sauce",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "sauce blanche",
+    "label": "sauce blanche",
+    "unit": "ml",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "sauce burger",
+    "label": "sauce burger",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "sauce cocktail",
+    "label": "sauce cocktail",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "sauce exclusive",
+    "label": "sauce exclusive",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "sauce exclusive du chef",
+    "label": "sauce exclusive du chef",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "sauce pesto",
+    "label": "sauce pesto",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "sauce tomate",
+    "label": "sauce tomate",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "sauce vinaigrette",
+    "label": "sauce vinaigrette",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "saucisse",
+    "label": "saucisse",
+    "unit": "g",
+    "cost": 0.11,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "saucisses",
+    "label": "saucisses",
+    "unit": "g",
+    "cost": 0.11,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "saumon brut",
+    "label": "Saumon Brut (Avec carcasse)",
+    "unit": "g",
+    "cost": 0.13,
+    "category": "poissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "saumon frais net",
+    "label": "Saumon Frais Net (Pavé / Filet)",
+    "unit": "g",
+    "cost": 0.18,
+    "category": "poissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "saumon fume",
+    "label": "saumon fume",
+    "unit": "g",
+    "cost": 0.28,
+    "category": "poissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "schweppes",
+    "label": "schweppes",
+    "unit": "piece",
+    "cost": 7.55,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "schweppes (canette 33cl)",
+    "label": "schweppes (canette 33cl)",
+    "unit": "piece",
+    "cost": 7.55,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "sel",
+    "label": "sel",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "semoule",
+    "label": "semoule",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "poissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "semoule couscous",
+    "label": "semoule couscous",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "poissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "sirop",
+    "label": "sirop",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop caramel",
+    "label": "sirop caramel",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop curaçao bleu",
+    "label": "sirop curaçao bleu",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop de canne",
+    "label": "sirop de canne",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop de citron",
+    "label": "sirop de citron",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop de grenadine",
+    "label": "sirop de grenadine",
+    "unit": "ml",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop de passion",
+    "label": "sirop de passion",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop de peche",
+    "label": "sirop de peche",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop de sucre de canne",
+    "label": "sirop de sucre de canne",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop fraise",
+    "label": "sirop fraise",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop framboise",
+    "label": "sirop framboise",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop grenadine",
+    "label": "sirop grenadine",
+    "unit": "ml",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop menthe",
+    "label": "sirop menthe",
+    "unit": "ml",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop mojito",
+    "label": "sirop mojito",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop noisette",
+    "label": "sirop noisette",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop passion",
+    "label": "sirop passion",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop peche",
+    "label": "sirop peche",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop sucre de canne",
+    "label": "sirop sucre de canne",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "sirop vanille",
+    "label": "sirop vanille",
+    "unit": "ml",
+    "cost": 0.156,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "smarties",
+    "label": "Smarties",
+    "unit": "g",
+    "cost": 0.05,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "spaghetti",
+    "label": "spaghetti",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "spaghettis",
+    "label": "spaghettis",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "spaghettis noirs",
+    "label": "spaghettis noirs",
+    "unit": "g",
+    "cost": 0.07,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "sprite (canette 33cl)",
+    "label": "sprite (canette 33cl)",
+    "unit": "piece",
+    "cost": 7.55,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "steak de boeuf",
+    "label": "steak de boeuf",
+    "unit": "g",
+    "cost": 0.1,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "sucre",
+    "label": "sucre",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "sucre de canne",
+    "label": "sucre de canne",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "sucre glace",
+    "label": "sucre glace",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "tagliatelle",
+    "label": "tagliatelle",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "tagliatelles",
+    "label": "tagliatelles",
+    "unit": "g",
+    "cost": 0.04,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "tapenade",
+    "label": "Tapenade",
+    "unit": "g",
+    "cost": 0.07,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "the noir",
+    "label": "the noir",
+    "unit": "g",
+    "cost": 0.21,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "the vert",
+    "label": "the vert",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "the vert gunpowder",
+    "label": "the vert gunpowder",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "thon",
+    "label": "thon",
+    "unit": "g",
+    "cost": 0.06,
+    "category": "poissons",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "toast hollandais",
+    "label": "toast hollandais",
+    "unit": "piece",
+    "cost": 2.5,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "tomate",
+    "label": "tomate",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "tomate cerise",
+    "label": "tomate cerise",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "tomates",
+    "label": "tomates",
+    "unit": "g",
+    "cost": 0.01,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "tomates cerises",
+    "label": "tomates cerises",
+    "unit": "g",
+    "cost": 0.02,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "tortilla",
+    "label": "tortilla",
+    "unit": "piece",
+    "cost": 1.8,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "tranche de citron",
+    "label": "tranche de citron",
+    "unit": "piece",
+    "cost": 0.5,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "tranches de citron",
+    "label": "tranches de citron",
+    "unit": "piece",
+    "cost": 0.5,
+    "category": "legumes",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "verveine",
+    "label": "verveine",
+    "unit": "g",
+    "cost": 0.12,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "verveine nature",
+    "label": "verveine nature",
+    "unit": "g",
+    "cost": 0.12,
+    "category": "boissons",
+    "updated_at": "2026-09-19T17:33:35.175+00:00"
+  },
+  {
+    "id": "viande",
+    "label": "viande",
+    "unit": "g",
+    "cost": 0.1,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "viande hachee",
+    "label": "viande hachee",
+    "unit": "g",
+    "cost": 0.1,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "viande tajine",
+    "label": "viande tajine",
+    "unit": "g",
+    "cost": 0.09,
+    "category": "viandes",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "viennoiserie",
+    "label": "viennoiserie",
+    "unit": "piece",
+    "cost": 2,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.176+00:00"
+  },
+  {
+    "id": "vinaigre balsamique",
+    "label": "vinaigre balsamique",
+    "unit": "ml",
+    "cost": 0.02,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "vinaigrette",
+    "label": "vinaigrette",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.173+00:00"
+  },
+  {
+    "id": "volaille",
+    "label": "volaille",
+    "unit": "g",
+    "cost": 0.07,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "volaille hachee",
+    "label": "volaille hachee",
+    "unit": "g",
+    "cost": 0.07,
+    "category": "Général",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "yaourt",
+    "label": "yaourt",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  },
+  {
+    "id": "yaourt grec nature",
+    "label": "yaourt grec nature",
+    "unit": "g",
+    "cost": 0.03,
+    "category": "fromages",
+    "updated_at": "2026-09-19T17:33:35.174+00:00"
+  }
+]
