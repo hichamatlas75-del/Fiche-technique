@@ -82,6 +82,22 @@ describe("Cas limites", function() {
   assert("Inconnu -> qty 999", r3.qty === 999);
 });
 
+describe("Boisson chaude mixte & Infusions", function() {
+  var bc = parseIngredientLine("Boisson chaude : 1 p");
+  assert("Boisson chaude a des composants", Array.isArray(bc.components) && bc.components.length === 2);
+  assert("Composant Cafe 5g", bc.components[0].name === "Café en Grains" && bc.components[0].qty === 5);
+  assert("Composant The 5g", bc.components[1].name === "Thé Vert Gunpowder" && bc.components[1].qty === 5);
+
+  var infNoir = parseIngredientLine("Infusion thé noir : 200 ml");
+  assert("Infusion thé noir -> ~2.5g sec", infNoir.name === "Thé Noir" && infNoir.qty === 2.5 && infNoir.unit === "g");
+
+  var infVert = parseIngredientLine("Infusion thé vert : 200 ml");
+  assert("Infusion thé vert -> ~2.5g sec", infVert.name === "Thé Vert Gunpowder" && infVert.qty === 2.5 && infVert.unit === "g");
+
+  var eau = parseIngredientLine("Eau : 200 ml");
+  assert("Eau -> Eau 200 ml", eau.name === "Eau" && eau.qty === 200 && eau.unit === "ml");
+});
+
 describe("escapeRegex securite", function() {
   assert("Eschappe +", escapeRegex("a+b") === "a\\+b");
   assert("Eschappe .", escapeRegex("a.b") === "a\\.b");

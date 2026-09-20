@@ -515,9 +515,18 @@ function parseIngredientLine(lineStr) {
     unit = 'p';
   }
   else if (n.includes('boisson chaude') || n.includes('boissons chaudes')) {
-    name = 'Café en Grains';
-    if (unit === 'p') { qty *= 10; unit = 'g'; }
-    else unit = 'g';
+    const pieces = (unit === 'p' || unit === 'piece' || unit === 'pièce') ? qty : (qty / 10);
+    // Déstockage mixte Petit Déjeuner : 5g Café en Grains + 5g Thé Vert Gunpowder par formule
+    return {
+      name: 'Café en Grains',
+      qty: 5 * pieces,
+      unit: 'g',
+      raw: lineStr,
+      components: [
+        { name: 'Café en Grains', qty: 5 * pieces, unit: 'g' },
+        { name: 'Thé Vert Gunpowder', qty: 5 * pieces, unit: 'g' }
+      ]
+    };
   }
   else if ((n.startsWith('cafe') || n.includes('cafe en grain') || n.includes('espresso')) && !n.includes('nespresso') && !n.includes('latte') && !n.includes('lait') && !n.includes('gla') && !n.includes('frap')) {
     name = 'Café en Grains';
@@ -525,10 +534,16 @@ function parseIngredientLine(lineStr) {
   }
   else if (n.includes('the noir')) {
     name = 'Thé Noir';
+    if (n.startsWith('infusion') || unit === 'ml') {
+      qty = Math.round((qty / 200) * 2.5 * 10) / 10;
+    }
     unit = 'g';
   }
   else if (n.includes('the vert') || n.includes('gunpowder') || n === 'the') {
     name = 'Thé Vert Gunpowder';
+    if (n.startsWith('infusion') || unit === 'ml') {
+      qty = Math.round((qty / 200) * 2.5 * 10) / 10;
+    }
     unit = 'g';
   }
   else if (n.includes('verveine')) {
@@ -616,18 +631,19 @@ function processSalesAndCalculateStock(rawRows, periodTitle = '', isMonthly = fa
   let totalQty = 0;
 
   (rawRows || []).forEach(row => {
-    if (!row.product) return;
-    const key = row.product.trim();
+    const rawProd = row.product || row.name;
+    if (!rawProd) return;
+    const key = rawProd.trim();
     const qty = parseFloat(row.qty) || 0;
     const price = parseFloat(row.price) || 0;
-    const total = parseFloat(row.total) || (qty * price);
+    const total = parseFloat(row.total != null ? row.total : row.ca) || (qty * price);
 
     totalCA += total;
     totalQty += qty;
 
     if (!salesMap.has(key)) {
       salesMap.set(key, {
-        family: row.family || 'DIVERS',
+        family: row.family || row.cat || 'DIVERS',
         product: key,
         price: price,
         qty: 0,
@@ -652,28 +668,31 @@ function processSalesAndCalculateStock(rawRows, periodTitle = '', isMonthly = fa
       matchedCount++;
       (recipe.ingredients || []).forEach(ingLine => {
         const parsed = parseIngredientLine(ingLine);
-        const totalIngQty = parsed.qty * sale.qty;
-        const ingKey = cleanText(parsed.name) + '_' + parsed.unit;
+        const pItems = (parsed && parsed.components) ? parsed.components : [parsed];
+        pItems.forEach(pItem => {
+          const totalIngQty = pItem.qty * sale.qty;
+          const ingKey = cleanText(pItem.name) + '_' + pItem.unit;
 
-        if (!ingMap.has(ingKey)) {
-          ingMap.set(ingKey, {
-            name: parsed.name,
-            unit: parsed.unit,
-            category: categorizeIngredient(parsed.name),
-            totalQty: 0,
-            dishes: []
+          if (!ingMap.has(ingKey)) {
+            ingMap.set(ingKey, {
+              name: pItem.name,
+              unit: pItem.unit,
+              category: categorizeIngredient(pItem.name),
+              totalQty: 0,
+              dishes: []
+            });
+          }
+
+          const ingObj = ingMap.get(ingKey);
+          ingObj.totalQty += totalIngQty;
+          ingObj.dishes.push({
+            dish: sale.product,
+            recipeName: recipe.name,
+            portions: sale.qty,
+            unitQty: pItem.qty,
+            lineTotal: totalIngQty,
+            unit: pItem.unit
           });
-        }
-
-        const ingObj = ingMap.get(ingKey);
-        ingObj.totalQty += totalIngQty;
-        ingObj.dishes.push({
-          dish: sale.product,
-          recipeName: recipe.name,
-          portions: sale.qty,
-          unitQty: parsed.qty,
-          lineTotal: totalIngQty,
-          unit: parsed.unit
         });
       });
     }
@@ -699,8 +718,10 @@ function processSalesAndCalculateStock(rawRows, periodTitle = '', isMonthly = fa
   renderSalesTable();
   renderMenuEngineeringMatrix();
   renderComparatorTab();
-  const expBtn = document.getElementById('btn-export-excel');
-  if (expBtn) expBtn.style.display = 'inline-flex';
+  if (typeof document !== 'undefined') {
+    const expBtn = document.getElementById('btn-export-excel');
+    if (expBtn) expBtn.style.display = 'inline-flex';
+  }
 }
 
 // Interopérabilité Node.js (scripts d'automatisation + tests unitaires)

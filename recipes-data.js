@@ -881,7 +881,7 @@ const DATA = [
         "image": "images/icetea-peche.webp",
         "prepTime": 3,
         "tech": [
-          "Infusion thé noir : 200 ml",
+          "Eau : 200 ml",
           "Sirop de pêche : 30 ml",
           "Jus de citron : 15 ml",
           "Pêche fraîche : 30 g",
@@ -898,7 +898,7 @@ const DATA = [
           "images/icetea-peche.webp"
         ],
         "ingredients": [
-          "Infusion thé noir : 200 ml",
+          "Eau : 200 ml",
           "Sirop de pêche : 30 ml",
           "Jus de citron : 15 ml",
           "Pêche fraîche : 30 g",
@@ -8728,14 +8728,14 @@ const BASE_RECIPES = [
     "name": "ICE TEA PÊCHE MAISON",
     "category": "ICE TEA MAISON",
     "ingredients": [
-      "Infusion thé noir : 200 ml",
+      "Eau : 200 ml",
       "Sirop de pêche : 30 ml",
       "Jus de citron : 15 ml",
       "Pêche fraîche : 30 g",
       "Glaçons : 100 g"
     ],
     "tech": [
-      "Infusion thé noir : 200 ml",
+      "Eau : 200 ml",
       "Sirop de pêche : 30 ml",
       "Jus de citron : 15 ml",
       "Pêche fraîche : 30 g",

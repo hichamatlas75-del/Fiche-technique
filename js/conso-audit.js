@@ -592,9 +592,12 @@ function exportToExcel() {
               if (recipe) {
                 (recipe.ingredients || []).forEach(ingLine => {
                   const parsed = parseIngredientLine(ingLine);
-                  const totalQ = parsed.qty * (parseFloat(row.qty) || 0);
-                  const k = cleanText(parsed.name) + '_' + parsed.unit;
-                  mMap[k] = (mMap[k] || 0) + totalQ;
+                  const pItems = (parsed && parsed.components) ? parsed.components : [parsed];
+                  pItems.forEach(pItem => {
+                    const totalQ = pItem.qty * (parseFloat(row.qty) || 0);
+                    const k = cleanText(pItem.name) + '_' + pItem.unit;
+                    mMap[k] = (mMap[k] || 0) + totalQ;
+                  });
                 });
               }
             });
@@ -644,9 +647,12 @@ function exportToExcel() {
           if (recipe) {
             (recipe.ingredients || []).forEach(ingLine => {
               const parsed = parseIngredientLine(ingLine);
-              const totalQ = parsed.qty * (parseFloat(row.qty) || 0);
-              const k = cleanText(parsed.name) + '_' + parsed.unit;
-              dMap[k] = (dMap[k] || 0) + totalQ;
+              const pItems = (parsed && parsed.components) ? parsed.components : [parsed];
+              pItems.forEach(pItem => {
+                const totalQ = pItem.qty * (parseFloat(row.qty) || 0);
+                const k = cleanText(pItem.name) + '_' + pItem.unit;
+                dMap[k] = (dMap[k] || 0) + totalQ;
+              });
             });
           }
         });
@@ -727,10 +733,13 @@ function initAuditFlashDropdown() {
   recipesList.forEach(r => {
     (r.ingredients || []).forEach(line => {
       const parsed = parseIngredientLine(line);
-      const clean = cleanText(parsed.name);
-      if (!uniqueIngs.has(clean) && clean.length > 1) {
-        uniqueIngs.set(clean, { name: parsed.name, unit: parsed.unit });
-      }
+      const pItems = (parsed && parsed.components) ? parsed.components : [parsed];
+      pItems.forEach(pItem => {
+        const clean = cleanText(pItem.name);
+        if (!uniqueIngs.has(clean) && clean.length > 1) {
+          uniqueIngs.set(clean, { name: pItem.name, unit: pItem.unit });
+        }
+      });
     });
   });
 
