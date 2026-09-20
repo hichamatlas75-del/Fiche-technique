@@ -115,65 +115,80 @@
           console.log('[GC_Supabase] ' + data.length + ' matières synchronisées depuis le Cloud.');
 
           // Recalculer le Food Cost de toutes les recettes actives en mémoire (Déstockage)
-          if (typeof window !== 'undefined' && Array.isArray(window.activeRecipes) && typeof window.calculateRecipeFoodCost === 'function') {
-            window.activeRecipes.forEach(r => {
-              if (!r) return;
-              const ings = r.ingredients || r.tech || [];
-              if (ings.length > 0) {
-                const fc = window.calculateRecipeFoodCost(ings, r.sellPrice || 0);
-                r.cost = fc.cost;
-                r.foodCost = fc.foodCost;
-                r.margin = fc.margin;
-                r.grossMarginDH = fc.grossMarginDH;
-              }
-            });
-            if (typeof window.saveRecipes === 'function') window.saveRecipes();
-            if (typeof window.renderRecipeList === 'function') window.renderRecipeList();
-            if (typeof window.renderSummaryTable === 'function') window.renderSummaryTable();
-            if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
+          try {
+            if (typeof window !== 'undefined' && Array.isArray(window.activeRecipes) && typeof window.calculateRecipeFoodCost === 'function') {
+              window.activeRecipes.forEach(r => {
+                if (!r) return;
+                const ings = r.ingredients || r.tech || [];
+                if (ings.length > 0) {
+                  const fc = window.calculateRecipeFoodCost(ings, r.sellPrice || 0);
+                  r.cost = fc.cost;
+                  r.foodCost = fc.foodCost;
+                  r.margin = fc.margin;
+                  r.grossMarginDH = fc.grossMarginDH;
+                }
+              });
+              if (typeof window.saveRecipes === 'function') { try { window.saveRecipes(); } catch(e){} }
+              if (typeof window.renderRecipeList === 'function') { try { window.renderRecipeList(); } catch(e){} }
+              if (typeof window.renderSummaryTable === 'function') { try { window.renderSummaryTable(); } catch(e){} }
+              if (typeof window.recalculateCurrentView === 'function') { try { window.recalculateCurrentView(); } catch(e){} }
+            }
+          } catch(eRecalc) {
+            console.warn('[GC_Supabase] Recalcul recettes déstockage non bloquant:', eRecalc.message);
           }
 
           // Recalculer pour le comparateur si présent (Normes & Comparateur)
-          if (typeof window !== 'undefined' && typeof window.initData === 'function') {
-            window.initData();
-            if (typeof window.renderRecipeCards === 'function') window.renderRecipeCards();
-            if (typeof window.renderSummaryKPIs === 'function') window.renderSummaryKPIs();
-            if (typeof window.updateSummaryTable === 'function') window.updateSummaryTable();
-          } else if (typeof window !== 'undefined' && Array.isArray(window.allRecipes) && typeof window.calculateRecipeFoodCost === 'function') {
-            window.allRecipes.forEach(r => {
-              if (!r) return;
-              const ings = (r.greyCorner && r.greyCorner.tech) || r.tech || r.ingredients || [];
-              if (ings.length > 0) {
-                const fc = window.calculateRecipeFoodCost(ings, r.sellPrice || 0);
-                r.cost = fc.cost;
-                r.foodCost = fc.foodCost;
-                r.margin = fc.margin;
-                r.grossMarginDH = fc.grossMarginDH;
-                if (r.greyCorner) {
-                  r.greyCorner.cost = fc.cost;
-                  r.greyCorner.foodCost = fc.foodCost;
-                  r.greyCorner.margin = fc.margin;
-                  r.greyCorner.grossMarginDH = fc.grossMarginDH;
+          try {
+            if (typeof window !== 'undefined' && typeof window.initData === 'function') {
+              window.initData();
+              if (typeof window.renderRecipeCards === 'function') { try { window.renderRecipeCards(); } catch(e){} }
+              if (typeof window.renderSummaryKPIs === 'function') { try { window.renderSummaryKPIs(); } catch(e){} }
+              if (typeof window.updateSummaryTable === 'function') { try { window.updateSummaryTable(); } catch(e){} }
+            } else if (typeof window !== 'undefined' && Array.isArray(window.allRecipes) && typeof window.calculateRecipeFoodCost === 'function') {
+              window.allRecipes.forEach(r => {
+                if (!r) return;
+                const ings = (r.greyCorner && r.greyCorner.tech) || r.tech || r.ingredients || [];
+                if (ings.length > 0) {
+                  const fc = window.calculateRecipeFoodCost(ings, r.sellPrice || 0);
+                  r.cost = fc.cost;
+                  r.foodCost = fc.foodCost;
+                  r.margin = fc.margin;
+                  r.grossMarginDH = fc.grossMarginDH;
+                  if (r.greyCorner) {
+                    r.greyCorner.cost = fc.cost;
+                    r.greyCorner.foodCost = fc.foodCost;
+                    r.greyCorner.margin = fc.margin;
+                    r.greyCorner.grossMarginDH = fc.grossMarginDH;
+                  }
                 }
-              }
-            });
-            if (typeof window.renderRecipeCards === 'function') window.renderRecipeCards();
-            if (typeof window.renderSummaryKPIs === 'function') window.renderSummaryKPIs();
-            if (typeof window.updateSummaryTable === 'function') window.updateSummaryTable();
+              });
+              if (typeof window.renderRecipeCards === 'function') { try { window.renderRecipeCards(); } catch(e){} }
+              if (typeof window.renderSummaryKPIs === 'function') { try { window.renderSummaryKPIs(); } catch(e){} }
+              if (typeof window.updateSummaryTable === 'function') { try { window.updateSummaryTable(); } catch(e){} }
+            }
+          } catch(eComp) {
+            console.warn('[GC_Supabase] Recalcul comparateur non bloquant:', eComp.message);
           }
 
-          // Notifier immédiatement les vues et fiches ouvertes
-          if (global.GC_PricesModal) {
-            if (typeof global.GC_PricesModal.isOpen === 'function' && global.GC_PricesModal.isOpen() && typeof global.GC_PricesModal.renderTable === 'function') {
-              global.GC_PricesModal.renderTable();
+          // Notifier immédiatement les vues et fiches ouvertes (Mercuriale)
+          try {
+            if (global.GC_PricesModal) {
+              if (typeof global.GC_PricesModal.isOpen === 'function' && global.GC_PricesModal.isOpen() && typeof global.GC_PricesModal.renderTable === 'function') {
+                global.GC_PricesModal.renderTable();
+              }
+              if (typeof global.GC_PricesModal.notify === 'function') {
+                global.GC_PricesModal.notify();
+              }
             }
-            if (typeof global.GC_PricesModal.notify === 'function') {
-              global.GC_PricesModal.notify();
-            }
+          } catch(eModal) {
+            console.warn('[GC_PricesModal] Notification modale:', eModal.message);
           }
+          return true;
         }
+        return false;
       } catch (err) {
         console.warn('[GC_Supabase] Synchronisation matières cloud ignorée:', err.message);
+        return false;
       }
     },
 
@@ -401,9 +416,13 @@
             }
 
             // Rafraîchir les vues du Cockpit
-            if (typeof window.renderRecipeList === 'function') window.renderRecipeList();
-            if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
-            if (typeof window.renderSummaryTable === 'function') window.renderSummaryTable();
+            try {
+              if (typeof window.renderRecipeList === 'function') window.renderRecipeList();
+              if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
+              if (typeof window.renderSummaryTable === 'function') window.renderSummaryTable();
+            } catch(eViews) {
+              console.warn('[GC_Supabase] Rendu vues déstockage non bloquant:', eViews.message);
+            }
           }
 
           // 2. Mettre à jour le comparateur si présent (comparateur.html)
@@ -420,22 +439,21 @@
                 localStorage.setItem('grey_corner_custom_recipes_v5', JSON.stringify(window.editedRecipes));
               } catch(e) {}
             }
-            if (typeof window.initData === 'function') {
-              window.initData();
-            }
-            if (typeof window.renderRecipeCards === 'function') {
-              window.renderRecipeCards();
-            }
-            if (typeof window.renderSummaryKPIs === 'function') {
-              window.renderSummaryKPIs();
-            }
-            if (typeof window.updateSummaryTable === 'function') {
-              window.updateSummaryTable();
+            try {
+              if (typeof window.initData === 'function') window.initData();
+              if (typeof window.renderRecipeCards === 'function') window.renderRecipeCards();
+              if (typeof window.renderSummaryKPIs === 'function') window.renderSummaryKPIs();
+              if (typeof window.updateSummaryTable === 'function') window.updateSummaryTable();
+            } catch(eCompViews) {
+              console.warn('[GC_Supabase] Rendu vues comparateur non bloquant:', eCompViews.message);
             }
           }
+          return true;
         }
+        return false;
       } catch (err) {
         console.warn('[GC_Supabase] Synchronisation fiches cloud ignorée:', err.message);
+        return false;
       }
     },
 

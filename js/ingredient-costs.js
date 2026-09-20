@@ -124,15 +124,15 @@ const INGREDIENT_CATEGORIES = {
 };
 
 const INGREDIENT_UNIT_COSTS = {
+  "eau chaude": {
+    "cost": 0,
+    "unit": "ml",
+    "label": "eau chaude"
+  },
   "eau": {
     "cost": 0,
     "unit": "ml",
     "label": "eau"
-  },
-  "eau bouillante": {
-    "cost": 0,
-    "unit": "ml",
-    "label": "eau bouillante"
   },
   "glacons": {
     "cost": 0,
@@ -144,10 +144,15 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g",
     "label": "glace pilee"
   },
-  "eau chaude": {
+  "eau bouillante": {
     "cost": 0,
     "unit": "ml",
-    "label": "eau chaude"
+    "label": "eau bouillante"
+  },
+  "orangina (canette 33cl)": {
+    "cost": 6.35,
+    "unit": "piece",
+    "label": "orangina (canette 33cl)"
   },
   "schweppes": {
     "cost": 7.55,
@@ -389,11 +394,6 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece",
     "label": "bouteille eau minerale 50cl"
   },
-  "bouteille eau minerale 33cl": {
-    "cost": 1.8,
-    "unit": "piece",
-    "label": "bouteille eau minerale 33cl"
-  },
   "eau minerale": {
     "cost": 0,
     "unit": "ml",
@@ -429,11 +429,6 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "ml",
     "label": "creme fraiche"
   },
-  "coulis caramel": {
-    "cost": 0.03,
-    "unit": "g",
-    "label": "coulis caramel"
-  },
   "coulis chocolat": {
     "cost": 0.03,
     "unit": "g",
@@ -454,15 +449,15 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g",
     "label": "pesto"
   },
-  "eau minerale 33cl": {
-    "cost": 1.8,
-    "unit": "piece",
-    "label": "eau minerale 33cl"
-  },
   "glaçon": {
     "cost": 0,
     "unit": "g",
     "label": "glaçon"
+  },
+  "coulis caramel": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "coulis caramel"
   },
   "jus d'orange": {
     "cost": 0.01,
@@ -484,15 +479,10 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece",
     "label": "orangina"
   },
-  "orangina (canette 33cl)": {
-    "cost": 6.35,
-    "unit": "piece",
-    "label": "orangina (canette 33cl)"
-  },
-  "pasta": {
+  "pates lasagne": {
     "cost": 0.03,
     "unit": "g",
-    "label": "Pâtes / Pasta (Sèche)"
+    "label": "pates lasagne"
   },
   "bacon": {
     "cost": 0.314,
@@ -834,11 +824,6 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g",
     "label": "palourde"
   },
-  "thon": {
-    "cost": 0.06,
-    "unit": "g",
-    "label": "thon"
-  },
   "anchois": {
     "cost": 0.11,
     "unit": "g",
@@ -934,10 +919,10 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g",
     "label": "pates"
   },
-  "pates lasagne": {
+  "pasta": {
     "cost": 0.03,
     "unit": "g",
-    "label": "pates lasagne"
+    "label": "Pâtes / Pasta (Sèche)"
   },
   "tagliatelle": {
     "cost": 0.04,
@@ -1209,25 +1194,85 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g",
     "label": "base mixee acai/fruits rouges"
   },
+  "gambas brut": {
+    "cost": 0.06,
+    "unit": "g",
+    "label": "Gambas Brut (Avec coquille)"
+  },
   "crevettes brut": {
     "cost": 0.06,
     "unit": "g",
     "label": "Crevettes Brut (Avec coquille / Réception)"
+  },
+  "saumon fume": {
+    "cost": 0.28,
+    "unit": "g",
+    "label": "saumon fume"
   },
   "saumon frais net": {
     "cost": 0.18,
     "unit": "g",
     "label": "Saumon Frais Net (Pavé / Filet)"
   },
+  "champignons": {
+    "cost": 0.06,
+    "unit": "g",
+    "label": "champignons"
+  },
+  "kunafa croustillante": {
+    "cost": 0.03,
+    "unit": "g",
+    "label": "kunafa croustillante"
+  },
+  "noix": {
+    "cost": 0.08,
+    "unit": "g",
+    "label": "noix"
+  },
+  "amandes": {
+    "cost": 0.08,
+    "unit": "g",
+    "label": "amandes"
+  },
+  "amandes effilees": {
+    "cost": 0.08,
+    "unit": "g",
+    "label": "amandes effilees"
+  },
+  "noisettes": {
+    "cost": 0.16,
+    "unit": "g",
+    "label": "noisettes"
+  },
+  "pistache": {
+    "cost": 0.28,
+    "unit": "g",
+    "label": "pistache"
+  },
+  "pistaches": {
+    "cost": 0.28,
+    "unit": "g",
+    "label": "pistaches"
+  },
+  "guimauves": {
+    "cost": 0.08,
+    "unit": "g",
+    "label": "guimauves"
+  },
+  "olive noire": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "Olives Noires"
+  },
+  "omelette": {
+    "cost": 4.5,
+    "unit": "piece",
+    "label": "Omelette (Formule)"
+  },
   "farine": {
     "cost": 0.01,
     "unit": "g",
     "label": "Farine"
-  },
-  "chocolat au lait fondu": {
-    "cost": 0.07,
-    "unit": "g",
-    "label": "chocolat au lait fondu"
   },
   "orange": {
     "cost": 0.01,
@@ -1259,20 +1304,10 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g",
     "label": "legumes couscous"
   },
-  "tomates cerises": {
-    "cost": 0.02,
-    "unit": "g",
-    "label": "tomates cerises"
-  },
-  "champignon": {
-    "cost": 0.04,
-    "unit": "g",
-    "label": "champignon"
-  },
-  "courgette": {
+  "legumes": {
     "cost": 0.01,
     "unit": "g",
-    "label": "courgette"
+    "label": "legumes"
   },
   "sel": {
     "cost": 0.01,
@@ -1293,6 +1328,21 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 0.08,
     "unit": "g",
     "label": "origan"
+  },
+  "caramel": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "Caramel"
+  },
+  "legumes grilles": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "Légumes Grillés"
+  },
+  "tapenade": {
+    "cost": 0.07,
+    "unit": "g",
+    "label": "Tapenade"
   },
   "pain burger": {
     "cost": 2.5,
@@ -1434,16 +1484,6 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece",
     "label": "chocolat kitkat / snickers"
   },
-  "boisson chaude": {
-    "cost": 3.5,
-    "unit": "piece",
-    "label": "Boisson Chaude (Formule)"
-  },
-  "dessert": {
-    "cost": 1,
-    "unit": "piece",
-    "label": "Dessert (Formule)"
-  },
   "beldi": {
     "cost": 5,
     "unit": "piece",
@@ -1474,11 +1514,6 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g",
     "label": "penne"
   },
-  "legumes": {
-    "cost": 0.01,
-    "unit": "g",
-    "label": "legumes"
-  },
   "gingembre frais rape": {
     "cost": 0.03,
     "unit": "g",
@@ -1499,30 +1534,15 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g",
     "label": "Gambas Net (Chair décortiquée / Pochée)"
   },
-  "gambas brut": {
-    "cost": 0.06,
-    "unit": "g",
-    "label": "Gambas Brut (Avec coquille)"
-  },
   "crevettes net": {
     "cost": 0.21,
     "unit": "g",
     "label": "Crevettes Net (Chair décortiquée)"
   },
-  "saumon fume": {
-    "cost": 0.28,
-    "unit": "g",
-    "label": "saumon fume"
-  },
   "citron": {
     "cost": 0.014,
     "unit": "g",
     "label": "citron"
-  },
-  "champignons": {
-    "cost": 0.05,
-    "unit": "g",
-    "label": "champignons"
   },
   "avocat hass": {
     "cost": 0.05,
@@ -1619,21 +1639,6 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g",
     "label": "cafe espresso"
   },
-  "caramel": {
-    "cost": 0.05,
-    "unit": "g",
-    "label": "Caramel"
-  },
-  "legumes grilles": {
-    "cost": 0.02,
-    "unit": "g",
-    "label": "Légumes Grillés"
-  },
-  "tapenade": {
-    "cost": 0.07,
-    "unit": "g",
-    "label": "Tapenade"
-  },
   "chou rouge": {
     "cost": 0.01,
     "unit": "g",
@@ -1643,6 +1648,11 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 0.02,
     "unit": "g",
     "label": "citron vert"
+  },
+  "fondant chocolat": {
+    "cost": 12,
+    "unit": "piece",
+    "label": "fondant chocolat"
   },
   "citron vert frais": {
     "cost": 0.02,
@@ -1709,11 +1719,6 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g",
     "label": "Griche"
   },
-  "fondant chocolat": {
-    "cost": 12,
-    "unit": "piece",
-    "label": "fondant chocolat"
-  },
   "confiture": {
     "cost": 0.03,
     "unit": "g",
@@ -1728,6 +1733,11 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 1.2,
     "unit": "piece",
     "label": "Fromage Portion"
+  },
+  "chocolat au lait fondu": {
+    "cost": 0.07,
+    "unit": "g",
+    "label": "chocolat au lait fondu"
   },
   "aubergine": {
     "cost": 0.01,
@@ -1799,11 +1809,6 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g",
     "label": "roquette"
   },
-  "cafe": {
-    "cost": 0.14,
-    "unit": "g",
-    "label": "cafe"
-  },
   "epinard": {
     "cost": 0.02,
     "unit": "g",
@@ -1813,6 +1818,11 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 0.02,
     "unit": "g",
     "label": "epinards"
+  },
+  "cafe": {
+    "cost": 0.14,
+    "unit": "g",
+    "label": "cafe"
   },
   "tomate": {
     "cost": 0.01,
@@ -1828,6 +1838,21 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 0.02,
     "unit": "g",
     "label": "tomate cerise"
+  },
+  "tomates cerises": {
+    "cost": 0.02,
+    "unit": "g",
+    "label": "tomates cerises"
+  },
+  "champignon": {
+    "cost": 0.04,
+    "unit": "g",
+    "label": "champignon"
+  },
+  "courgette": {
+    "cost": 0.01,
+    "unit": "g",
+    "label": "courgette"
   },
   "olives vertes": {
     "cost": 0.03,
@@ -1854,60 +1879,10 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "g",
     "label": "kunafa"
   },
-  "kunafa croustillante": {
-    "cost": 0.03,
-    "unit": "g",
-    "label": "kunafa croustillante"
-  },
-  "noix": {
-    "cost": 0.08,
-    "unit": "g",
-    "label": "noix"
-  },
-  "amandes": {
-    "cost": 0.08,
-    "unit": "g",
-    "label": "amandes"
-  },
-  "amandes effilees": {
-    "cost": 0.08,
-    "unit": "g",
-    "label": "amandes effilees"
-  },
-  "noisettes": {
-    "cost": 0.16,
-    "unit": "g",
-    "label": "noisettes"
-  },
-  "pistache": {
-    "cost": 0.28,
-    "unit": "g",
-    "label": "pistache"
-  },
-  "pistaches": {
-    "cost": 0.28,
-    "unit": "g",
-    "label": "pistaches"
-  },
-  "guimauves": {
-    "cost": 0.08,
-    "unit": "g",
-    "label": "guimauves"
-  },
-  "olive noire": {
-    "cost": 0.05,
-    "unit": "g",
-    "label": "Olives Noires"
-  },
-  "omelette": {
-    "cost": 4.5,
+  "mlaoui": {
+    "cost": 1.5,
     "unit": "piece",
-    "label": "Omelette (Formule)"
-  },
-  "sirop curaçao bleu": {
-    "cost": 0.156,
-    "unit": "ml",
-    "label": "sirop curaçao bleu"
+    "label": "mlaoui"
   },
   "sirop fraise": {
     "cost": 0.156,
@@ -1984,10 +1959,10 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece",
     "label": "msemen"
   },
-  "mlaoui": {
-    "cost": 1.5,
-    "unit": "piece",
-    "label": "mlaoui"
+  "sirop vanille": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop vanille"
   },
   "harcha": {
     "cost": 1.2,
@@ -2034,6 +2009,31 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece",
     "label": "Fromage Burrata"
   },
+  "sirop framboise": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop framboise"
+  },
+  "sirop caramel": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop caramel"
+  },
+  "sirop curaçao bleu": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop curaçao bleu"
+  },
+  "poulet": {
+    "cost": 0.055,
+    "unit": "g",
+    "label": "poulet"
+  },
+  "poulet pane": {
+    "cost": 0.053,
+    "unit": "g",
+    "label": "poulet pane"
+  },
   "sirop de canne": {
     "cost": 0.156,
     "unit": "ml",
@@ -2054,45 +2054,10 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "ml",
     "label": "sirop de passion"
   },
-  "cookies": {
-    "cost": 0.05,
-    "unit": "g",
-    "label": "Cookies"
-  },
-  "kitkat": {
-    "cost": 6,
-    "unit": "piece",
-    "label": "KitKat"
-  },
-  "poulet pane": {
-    "cost": 0.053,
-    "unit": "g",
-    "label": "poulet pane"
-  },
   "croutons": {
     "cost": 0.04,
     "unit": "g",
     "label": "Croûtons"
-  },
-  "sirop framboise": {
-    "cost": 0.156,
-    "unit": "ml",
-    "label": "sirop framboise"
-  },
-  "sirop peche": {
-    "cost": 0.156,
-    "unit": "ml",
-    "label": "sirop peche"
-  },
-  "sirop passion": {
-    "cost": 0.156,
-    "unit": "ml",
-    "label": "sirop passion"
-  },
-  "sirop noisette": {
-    "cost": 0.156,
-    "unit": "ml",
-    "label": "sirop noisette"
   },
   "chapelure": {
     "cost": 0.02,
@@ -2129,6 +2094,36 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece",
     "label": "Boule Glace"
   },
+  "boule glace": {
+    "cost": 3,
+    "unit": "piece",
+    "label": "Boule Glace"
+  },
+  "cookies": {
+    "cost": 0.05,
+    "unit": "g",
+    "label": "Cookies"
+  },
+  "kitkat": {
+    "cost": 6,
+    "unit": "piece",
+    "label": "KitKat"
+  },
+  "sirop peche": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop peche"
+  },
+  "sirop passion": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop passion"
+  },
+  "sirop noisette": {
+    "cost": 0.156,
+    "unit": "ml",
+    "label": "sirop noisette"
+  },
   "filet": {
     "cost": 0.18,
     "unit": "g",
@@ -2138,16 +2133,6 @@ const INGREDIENT_UNIT_COSTS = {
     "cost": 0.18,
     "unit": "g",
     "label": "filet de boeuf"
-  },
-  "boule glace": {
-    "cost": 3,
-    "unit": "piece",
-    "label": "Boule Glace"
-  },
-  "poulet": {
-    "cost": 0.055,
-    "unit": "g",
-    "label": "poulet"
   },
   "poulet grille": {
     "cost": 0.055,
@@ -2174,30 +2159,45 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "ml",
     "label": "sirop sucre de canne"
   },
-  "sirop caramel": {
-    "cost": 0.156,
-    "unit": "ml",
-    "label": "sirop caramel"
-  },
-  "sirop vanille": {
-    "cost": 0.156,
-    "unit": "ml",
-    "label": "sirop vanille"
-  },
   "oeufs": {
     "cost": 1.1,
     "unit": "piece",
     "label": "œufs"
+  },
+  "oeufs au plat": {
+    "cost": 1.1,
+    "unit": "piece",
+    "label": "oeufs au plat"
   },
   "oeufs frais": {
     "cost": 1.1,
     "unit": "piece",
     "label": "oeufs frais"
   },
-  "oeufs au plat": {
-    "cost": 1.1,
+  "thon": {
+    "cost": 0.124,
+    "unit": "g",
+    "label": "thon"
+  },
+  "boisson chaude": {
+    "cost": 2,
     "unit": "piece",
-    "label": "oeufs au plat"
+    "label": "Boisson Chaude (Formule)"
+  },
+  "eau minerale 33cl": {
+    "cost": 1.65,
+    "unit": "piece",
+    "label": "eau minerale 33cl"
+  },
+  "bouteille eau minerale 33cl": {
+    "cost": 1.65,
+    "unit": "piece",
+    "label": "bouteille eau minerale 33cl"
+  },
+  "dessert": {
+    "cost": 1.6,
+    "unit": "piece",
+    "label": "Dessert (Formule)"
   }
 };
 

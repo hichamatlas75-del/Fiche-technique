@@ -29,10 +29,16 @@
             <span style="font-size:20px;">💲</span>
             <div>
               <h3 style="margin:0; font-size:15px; font-weight:800; color:var(--text, #0f172a);">Mercuriale & Prix d'Achat Matières</h3>
-              <span id="gc-prices-count-badge" style="font-size:11px; color:var(--muted, #64748b); font-weight:600;">Chargement des matières...</span>
+              <div style="display:flex; align-items:center; gap:8px; margin-top:2px;">
+                <span id="gc-prices-count-badge" style="font-size:11px; color:var(--muted, #64748b); font-weight:600;">Chargement des matières...</span>
+                <span id="gc-prices-cloud-status" style="font-size:11px; font-weight:700; color:#0284c7; background:rgba(2, 132, 199, 0.1); padding:2px 8px; border-radius:10px;">☁️ Supabase Cloud</span>
+              </div>
             </div>
           </div>
-          <button type="button" style="background:none; border:none; font-size:22px; color:var(--muted, #64748b); cursor:pointer; padding:4px 8px; min-height:40px; min-width:40px; display:flex; align-items:center; justify-content:center;" onclick="window.GC_PricesModal.close()">✕</button>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <button type="button" id="gc-prices-btn-refresh-cloud" class="btn btn-secondary" style="padding:5px 10px; font-size:12px; font-weight:700; display:inline-flex; align-items:center; gap:4px; min-height:36px;" onclick="window.GC_PricesModal.refreshFromCloud()" title="Recharger immédiatement les derniers prix depuis Supabase Cloud">🔄 Cloud</button>
+            <button type="button" style="background:none; border:none; font-size:22px; color:var(--muted, #64748b); cursor:pointer; padding:4px 8px; min-height:40px; min-width:40px; display:flex; align-items:center; justify-content:center;" onclick="window.GC_PricesModal.close()">✕</button>
+          </div>
         </div>
 
         <!-- CORPS DE LA MODALE -->
@@ -387,6 +393,38 @@
     }
   }
 
+  async function refreshFromCloud() {
+    const statusEl = document.getElementById('gc-prices-cloud-status');
+    const refreshBtn = document.getElementById('gc-prices-btn-refresh-cloud');
+    if (statusEl) {
+      statusEl.textContent = '☁️ Synchro Cloud...';
+      statusEl.style.color = '#f59e0b';
+      statusEl.style.background = 'rgba(245, 158, 11, 0.12)';
+    }
+    if (refreshBtn) refreshBtn.disabled = true;
+
+    try {
+      if (global.GC_Supabase && typeof global.GC_Supabase.syncIngredientsFromCloud === 'function') {
+        await global.GC_Supabase.syncIngredientsFromCloud();
+      }
+      renderTable(document.getElementById('gc-prices-search')?.value || '');
+      if (statusEl) {
+        statusEl.textContent = '☁️ Supabase Cloud à jour';
+        statusEl.style.color = '#16a34a';
+        statusEl.style.background = 'rgba(22, 163, 74, 0.12)';
+      }
+    } catch (e) {
+      console.warn('[GC_PricesModal] Erreur refresh Cloud:', e);
+      if (statusEl) {
+        statusEl.textContent = '⚠️ Erreur Cloud';
+        statusEl.style.color = '#ef4444';
+        statusEl.style.background = 'rgba(239, 68, 68, 0.12)';
+      }
+    } finally {
+      if (refreshBtn) refreshBtn.disabled = false;
+    }
+  }
+
   function open() {
     ensureModalDOM();
     modalEl = document.getElementById('gc-prices-modal-root');
@@ -394,6 +432,9 @@
       modalEl.style.display = 'flex';
       renderTable();
       document.getElementById('gc-prices-search')?.focus();
+
+      // Synchronisation temps réel transparente avec Supabase Cloud
+      refreshFromCloud();
     }
   }
 
@@ -409,6 +450,7 @@
   const GC_PricesModal = {
     open: open,
     close: close,
+    refreshFromCloud: refreshFromCloud,
     isOpen: () => !!(modalEl && modalEl.style.display === 'flex'),
     renderTable: renderTable,
     notify: notifyCallbacks,
