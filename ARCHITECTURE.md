@@ -87,7 +87,7 @@ js/
   9. `js/comp-ai-assistant.js`
   10. `js/comp-ai-simulator.js`
   11. `js/comp-ai-generator.js`
-  12. `js/comp-ai-render.js` (avec `defer`)
+  12. `js/comp-ai-render.js`
   13. `js/comp-ui.js`
   14. `js/comp-editor.js`
   15. `js/comp-export.js` (avec `defer`)

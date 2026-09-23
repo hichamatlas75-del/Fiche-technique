@@ -65,17 +65,30 @@ function loadRecipes() {
       activeRecipes = JSON.parse(saved);
       localStorage.setItem('gc_recipes_db_version', RECIPES_DB_VERSION);
     } else {
-      activeRecipes = JSON.parse(JSON.stringify(BASE_RECIPES));
+      const baseSrc = (window.BASE_RECIPES && window.BASE_RECIPES.length > 0) ? window.BASE_RECIPES : BASE_RECIPES;
+      activeRecipes = JSON.parse(JSON.stringify(baseSrc || []));
       try {
         localStorage.removeItem('gc_recipes_db_v4');
         localStorage.setItem('gc_recipes_db_version', RECIPES_DB_VERSION);
         localStorage.setItem(kRecipes, JSON.stringify(activeRecipes));
       } catch (err) {}
     }
+
+    // Auto-réparation immédiate si activeRecipes est vide ou corrompu
+    if (!Array.isArray(activeRecipes) || activeRecipes.length === 0) {
+      const baseSrc = (window.BASE_RECIPES && window.BASE_RECIPES.length > 0) ? window.BASE_RECIPES : BASE_RECIPES;
+      if (baseSrc && baseSrc.length > 0) {
+        activeRecipes = JSON.parse(JSON.stringify(baseSrc));
+        try {
+          localStorage.setItem(kRecipes, JSON.stringify(activeRecipes));
+        } catch (err) {}
+      }
+    }
   } catch (e) {
+    const baseSrc = (window.BASE_RECIPES && window.BASE_RECIPES.length > 0) ? window.BASE_RECIPES : BASE_RECIPES;
     activeRecipes = (window.activeRecipes && window.activeRecipes.length > 0)
       ? window.activeRecipes
-      : JSON.parse(JSON.stringify(BASE_RECIPES));
+      : JSON.parse(JSON.stringify(baseSrc || []));
   }
 
   // Filtrer les recettes supprimées
@@ -184,7 +197,10 @@ function loadRecipes() {
 
   // Normalize ALIAS_MAP keys with cleanText
   window.cleanAliasMap = {};
-  for (const [key, val] of Object.entries(ALIAS_MAP)) {
+  const currentAliasSource = (typeof window !== 'undefined' && window.ALIAS_MAP && Object.keys(window.ALIAS_MAP).length > 0)
+    ? window.ALIAS_MAP
+    : (typeof ALIAS_MAP !== 'undefined' ? ALIAS_MAP : {});
+  for (const [key, val] of Object.entries(currentAliasSource)) {
     window.cleanAliasMap[cleanText(key)] = val;
   }
 
