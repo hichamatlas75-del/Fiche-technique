@@ -39,7 +39,11 @@ js/
 ├── conso-main.js              # Déstockage : Point d entrée DOM, routage des onglets & drag-and-drop
 │
 ├── comp-core.js               # Comparateur : État global (allRecipes, editedRecipes), initialisation & KPIs
-├── comp-ai.js                 # Comparateur : Agent IA optimiseur de rentabilité & analyse des marges
+├── comp-ai-engine.js          # Comparateur IA : État, getDailySalesContext, analyzeDailySales, analyzeMenuEngineering, FES_CAFE_RESTAURANT_MARKET, analyzeDatasetForOptimizations
+├── comp-ai-assistant.js       # Comparateur IA : Assistant F&B conversationnel NLP (levenshtein, fuzzyFindRecipe, askAIFBAssistant)
+├── comp-ai-simulator.js       # Comparateur IA : Simulateur What-If (runMacroInflationSimulation, applyGrammageToRecipe, updateSimulationView)
+├── comp-ai-generator.js       # Comparateur IA : Quick Wins batch & Générateur de recettes IA (generateAIRecipeDraft, saveAIGeneratedRecipeToDB)
+├── comp-ai-render.js          # Comparateur IA : Master renderer HTML (renderAIOptimizerAgent, 9 onglets)
 ├── comp-ui.js                 # Comparateur : Rendu des cartes comparatives et tableau synthétique
 ├── comp-editor.js             # Comparateur : Éditeur dynamique des grammages de portions
 └── comp-export.js             # Comparateur : Export Excel comparatif, mercuriale & commit direct GitHub
@@ -79,10 +83,14 @@ js/
   5. `js/proposed-standards.js`
   6. `js/burger-menu.js`
   7. `js/comp-core.js`
-  8. `js/comp-ai.js`
-  9. `js/comp-ui.js`
-  10. `js/comp-editor.js`
-  11. `js/comp-export.js` (avec `defer`)
+  8. `js/comp-ai-engine.js`
+  9. `js/comp-ai-assistant.js`
+  10. `js/comp-ai-simulator.js`
+  11. `js/comp-ai-generator.js`
+  12. `js/comp-ai-render.js` (avec `defer`)
+  13. `js/comp-ui.js`
+  14. `js/comp-editor.js`
+  15. `js/comp-export.js` (avec `defer`)
 
 ### D. Audit Flash Manuel (`audit.html`)
 - **Rôle** : Contrôle physique inopiné des stocks, écarts réels vs théoriques et consolidation multi-sessions.
