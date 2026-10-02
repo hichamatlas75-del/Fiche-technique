@@ -15,14 +15,18 @@
      AGENT INTELLIGENT D'OPTIMISATION DES REVENUS (AI REVENUE ADVISOR)
      Analyse en temps réel le tableau de synthèse & les ventes journalières
   ======================================================== */
-var currentAITab = 'menu_engineering'; // 'assistant', 'simulator', 'generator', 'menu_engineering', 'daily_sales', 'quick_wins', 'pricing', 'standards', 'critical'
-var currentMenuEngFilter = 'all'; // 'all', 'star', 'plowhorse', 'puzzle', 'dog'
-var selectedAIDailyDate = (function() {
+window.currentAITab = window.currentAITab || 'menu_engineering';
+var currentAITab = window.currentAITab;
+window.currentMenuEngFilter = window.currentMenuEngFilter || 'all';
+var currentMenuEngFilter = window.currentMenuEngFilter;
+window.selectedAIDailyDate = window.selectedAIDailyDate || (function() {
     try { return localStorage.getItem('gc_ai_daily_date') || '__auto__'; } catch(e) { return '__auto__'; }
   })();
-var isAIAgentCollapsed = (function() {
+var selectedAIDailyDate = window.selectedAIDailyDate;
+window.isAIAgentCollapsed = typeof window.isAIAgentCollapsed === 'boolean' ? window.isAIAgentCollapsed : (function() {
     try { return localStorage.getItem('gc_ai_agent_collapsed') === 'true'; } catch(e) { return false; }
   })();
+var isAIAgentCollapsed = window.isAIAgentCollapsed;
 
   const BENCHMARK_DAILY_SALES = [
     { product: "Pizza Fruits de Mer", qty: 18, price: 88, family: "PIZZA" },
@@ -44,26 +48,30 @@ var isAIAgentCollapsed = (function() {
 
   window.setAITab = function(tab) {
     currentAITab = tab;
-    renderAIOptimizerAgent();
+    window.currentAITab = tab;
+    if (typeof window.renderAIOptimizerAgent === 'function') window.renderAIOptimizerAgent();
   };
 
   window.setMenuEngFilter = function(filter) {
     currentMenuEngFilter = filter;
-    renderAIOptimizerAgent();
+    window.currentMenuEngFilter = filter;
+    if (typeof window.renderAIOptimizerAgent === 'function') window.renderAIOptimizerAgent();
   };
 
   window.setAIDailySalesDate = function(dateVal) {
     selectedAIDailyDate = dateVal;
+    window.selectedAIDailyDate = dateVal;
     try { localStorage.setItem('gc_ai_daily_date', dateVal); } catch(e) {}
-    renderAIOptimizerAgent();
+    if (typeof window.renderAIOptimizerAgent === 'function') window.renderAIOptimizerAgent();
   };
 
   window.toggleAIAgentCollapse = function() {
     isAIAgentCollapsed = !isAIAgentCollapsed;
+    window.isAIAgentCollapsed = isAIAgentCollapsed;
     try {
       localStorage.setItem('gc_ai_agent_collapsed', isAIAgentCollapsed);
     } catch(e) {}
-    renderAIOptimizerAgent();
+    if (typeof window.renderAIOptimizerAgent === 'function') window.renderAIOptimizerAgent();
   };
 
   window.applyAIOptimization = function(recipeName, actionType, paramVal) {

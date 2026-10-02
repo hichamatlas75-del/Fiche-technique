@@ -104,7 +104,8 @@
       ];
     }
 
-    const market = FES_CAFE_RESTAURANT_MARKET.getLimits(category, dishName);
+    const marketObj = (typeof FES_CAFE_RESTAURANT_MARKET !== 'undefined' ? FES_CAFE_RESTAURANT_MARKET : window.FES_CAFE_RESTAURANT_MARKET);
+    const market = marketObj ? marketObj.getLimits(category, dishName) : { targetFc: 0.28, softCeiling: 120 };
     let sellPrice = parseFloat(price) || window.aiFormulatorState.targetPrice || 0;
     
     // Calculer le coût de revient

@@ -238,9 +238,9 @@ Cliquez sur une suggestion ci-dessous ou posez-moi n'importe quelle question sur
 
     let responseText = '';
     const recipes = window.allRecipes || [];
-    const salesCtx = getDailySalesContext();
-    const menuEng = analyzeMenuEngineering(salesCtx.salesRows);
-    const analysis = analyzeDatasetForOptimizations();
+    const salesCtx = (typeof getDailySalesContext === 'function') ? getDailySalesContext() : (window.getDailySalesContext ? window.getDailySalesContext() : { date: '', totalDH: 0, salesRows: [] });
+    const menuEng = (typeof analyzeMenuEngineering === 'function') ? analyzeMenuEngineering(salesCtx.salesRows) : (window.analyzeMenuEngineering ? window.analyzeMenuEngineering(salesCtx.salesRows) : []);
+    const analysis = (typeof analyzeDatasetForOptimizations === 'function') ? analyzeDatasetForOptimizations() : (window.analyzeDatasetForOptimizations ? window.analyzeDatasetForOptimizations() : { quickWins: [], stars: [], totalRecipes: 0 });
 
     // ========================================================
     // 1. SALUTATIONS, AIDE & GUIDE DE DÉCOUVERTE
@@ -887,19 +887,4 @@ Voici quelques suggestions que vous pouvez me poser :<br>
     aiChatHistory.push({ sender: 'ai', time: now, text: responseText });
     if (typeof window.renderAIChatMessages === 'function') window.renderAIChatMessages();
   };
-
-  /* ========================================================
-     2. SIMULATEUR MACRO "WHAT-IF" : DUAL LEVIER PRIX & GRAMMAGE
-     Permet de simuler conjointement :
-     - Levier A (Fournisseur) : variation du prix d'achat (+% / -%)
-     - Levier B (Cuisine/Portion) : surdosage ou réduction de grammage (±g ou ±%)
-     - Mesure l'impact direct sur la trésorerie mensuelle et le Food Cost
-     - Permet d'appliquer le nouveau grammage sur une recette ou en masse (SSOT)
-  ======================================================== */
-  window.simSelectedIngredient = window.simSelectedIngredient || 'Mozzarella';
-  window.simVariationPct = typeof window.simVariationPct === 'number' ? window.simVariationPct : 15;
-  window.simGrammageDelta = typeof window.simGrammageDelta === 'number' ? window.simGrammageDelta : 0;
-  window.simGrammageMode = window.simGrammageMode || 'grams'; // 'grams' ou 'pct'
-
-  window.setSimVariation = function(pct) {
 

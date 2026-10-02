@@ -241,13 +241,17 @@ function parseIngredientLine(lineStr) {
   else if (unit.includes('p') || unit.includes('piece') || unit.includes('pièce') || unit.includes('bouteille') || unit.includes('canette') || unit.includes('capsule')) unit = 'p';
 
   const n = cleanText(name);
+  const typoMap = (typeof window !== 'undefined' && window.INGREDIENT_TYPO_ALIASES) || (typeof INGREDIENT_TYPO_ALIASES !== 'undefined' ? INGREDIENT_TYPO_ALIASES : null);
+  const nExpanded = typoMap
+    ? n.split(' ').map(w => typoMap[w] || w).join(' ')
+    : n;
 
   // ========================================================
   // FUSIONS INTELLIGENTES DES MATIÈRES PREMIÈRES SIMILAIRES
   // ========================================================
 
   // 1. VIANDES & VOLAILLES
-  if (n.includes('viande hache') || n.includes('viande hachee') || (n.startsWith('viande') && !n.includes('sechee') && !n.includes('khli'))) {
+  if (n.includes('viande hache') || n.includes('viande hachee') || n.includes('viand hache') || n.includes('kefta') || nExpanded.includes('viande hache') || (n.startsWith('viande') && !n.includes('sechee') && !n.includes('khli'))) {
     name = 'Viande Hachée';
     unit = 'g';
   }
@@ -256,11 +260,11 @@ function parseIngredientLine(lineStr) {
     if (unit === 'p') { qty *= 60; unit = 'g'; }
     else unit = 'g';
   }
-  else if (n.includes('boeuf') || n.includes('bœuf') || n === 'filet' || n.startsWith('filet') || n.includes('filet de boeuf') || n.includes('steak')) {
+  else if (n.includes('boeuf') || n.includes('bœuf') || n === 'filet' || n.startsWith('filet') || n.includes('filet de boeuf') || n.includes('steak') || n.includes('steack')) {
     name = 'Bœuf (Filet / Émincé)';
     unit = 'g';
   }
-  else if (n.includes('poulet') || n.includes('escalope a la milanaise') || n.includes('nugget')) {
+  else if (n.includes('poulet') || n.includes('polet') || nExpanded.includes('poulet') || n.includes('escalope a la milanaise') || n.includes('nugget')) {
     name = 'Poulet (Blanc / Pané / Émincé)';
     unit = 'g';
   }
@@ -279,19 +283,19 @@ function parseIngredientLine(lineStr) {
   }
 
   // 2. POISSONS & FRUITS DE MER
-  else if (n.includes('crevette') || n.includes('gambas')) {
+  else if (n.includes('crevette') || n.includes('crevete') || n.includes('gambas') || n.includes('gamba') || nExpanded.includes('crevette')) {
     name = 'Crevettes & Gambas';
     unit = 'g';
   }
-  else if (n.includes('saumon fume') || n.includes('saumon fumee')) {
+  else if (n.includes('saumon fume') || n.includes('saumon fumee') || n.includes('saumon fumer') || nExpanded.includes('saumon fume')) {
     name = 'Saumon Fumé';
     unit = 'g';
   }
-  else if (n.includes('saumon') || n.includes('pave de saumon')) {
+  else if (n.includes('saumon') || n.includes('pave de saumon') || nExpanded.includes('saumon')) {
     name = 'Saumon Frais (Pavé)';
     unit = 'g';
   }
-  else if (n.includes('calamar')) {
+  else if (n.includes('calamar') || n.includes('calmar') || n.includes('kalamar') || nExpanded.includes('calamar')) {
     name = 'Calamars';
     unit = 'g';
   }
@@ -305,7 +309,7 @@ function parseIngredientLine(lineStr) {
   }
 
   // 3. CRÉMERIE, FROMAGES & ŒUFS
-  else if (!n.includes('caille') && !n.includes('boeuf') && (n.includes('oeuf') || n.includes('œuf') || n.includes('omelette') || n.includes('omlette'))) {
+  else if (!n.includes('caille') && !n.includes('boeuf') && (n.includes('oeuf') || n.includes('œuf') || n.includes('omelette') || n.includes('omlette') || nExpanded.includes('omelette'))) {
     name = 'Œufs (Pièces)';
     unit = 'p';
   }
@@ -321,20 +325,24 @@ function parseIngredientLine(lineStr) {
     name = 'Fromage Rouge';
     unit = 'g';
   }
-  else if (n === 'fromage' || n === 'fromages' || n.includes('fromage edam') || n.includes('fromage rape') || n.includes('edam') || n.includes('gouda') || n.includes('fromage variete')) {
-    name = 'Fromage (Gouda / Edam / Râpé)';
-    unit = 'g';
+  else if (n.includes('burrata') || n.includes('burata') || nExpanded.includes('burrata')) {
+    name = 'Burrata';
+    unit = 'p';
   }
-  else if (n.includes('mozzarella')) {
+  else if (n.includes('mozzarella') || n.includes('mozarel') || n.includes('mozza') || n.includes('mozarell') || nExpanded.includes('mozzarella')) {
     name = 'Mozzarella';
     unit = 'g';
   }
-  else if (n.includes('parmesan')) {
+  else if (n.includes('parmesan') || n.includes('parmezan') || nExpanded.includes('parmesan')) {
     name = 'Parmesan Reggiano';
     unit = 'g';
   }
-  else if (n.includes('cheddar')) {
+  else if (n.includes('cheddar') || n.includes('chedar') || nExpanded.includes('cheddar')) {
     name = 'Cheddar';
+    unit = 'g';
+  }
+  else if (n === 'fromage' || n === 'fromages' || n.includes('fromage edam') || n.includes('fromage rape') || n.includes('edam') || n.includes('gouda') || n.includes('fromage variete')) {
+    name = 'Fromage (Gouda / Edam / Râpé)';
     unit = 'g';
   }
   else if (n.includes('jben')) {
@@ -345,7 +353,7 @@ function parseIngredientLine(lineStr) {
     name = 'Lait Entier';
     unit = 'ml';
   }
-  else if (n.includes('creme fraiche') || n.includes('creme liquide') || n === 'creme') {
+  else if (n.includes('creme fraiche') || n.includes('creme fraich') || n.includes('creme liquide') || n === 'creme' || nExpanded.includes('creme fraiche')) {
     name = 'Crème Fraîche';
     unit = unit === 'ml' ? 'ml' : 'g';
   }

@@ -6,6 +6,11 @@
  *            applyBatchSimulatedGrammage, updateSimulationView.
  * Dépendances : comp-ai-engine.js, core-utils.js (cleanText)
  */
+  window.simSelectedIngredient = window.simSelectedIngredient || 'Mozzarella';
+  window.simVariationPct = typeof window.simVariationPct === 'number' ? window.simVariationPct : 15;
+  window.simGrammageDelta = typeof window.simGrammageDelta === 'number' ? window.simGrammageDelta : 0;
+  window.simGrammageMode = window.simGrammageMode || 'grams'; // 'grams' ou 'pct'
+
   window.setSimVariation = function(pct) {
     window.simVariationPct = pct;
     const disp = document.getElementById('sim-variation-display');

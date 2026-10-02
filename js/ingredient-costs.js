@@ -2201,6 +2201,63 @@ const INGREDIENT_UNIT_COSTS = {
   }
 };
 
+// Levenshtein distance for fuzzy ingredient typo tolerance
+function levenshteinIngredientDist(a, b) {
+  if (a === b) return 0;
+  const m = a.length, n = b.length;
+  if (!m) return n;
+  if (!n) return m;
+  if (Math.abs(m - n) > 3) return Math.abs(m - n);
+  const dp = new Array(n + 1);
+  for (let j = 0; j <= n; j++) dp[j] = j;
+  for (let i = 1; i <= m; i++) {
+    let prev = i;
+    for (let j = 1; j <= n; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      const val = Math.min(dp[j] + 1, prev + 1, dp[j - 1] + cost);
+      dp[j - 1] = prev;
+      prev = val;
+    }
+    dp[n] = prev;
+  }
+  return dp[n];
+}
+
+const INGREDIENT_TYPO_ALIASES = {
+  'mozza': 'mozzarella',
+  'mozarella': 'mozzarella',
+  'mozzarela': 'mozzarella',
+  'mozarelle': 'mozzarella',
+  'mozzarelle': 'mozzarella',
+  'mozarela': 'mozzarella',
+  'burata': 'fromage burrata',
+  'burrata': 'fromage burrata',
+  'parmezan': 'parmesan',
+  'parmigiano': 'parmesan',
+  'chedar': 'cheddar',
+  'cheddare': 'cheddar',
+  'nutela': 'nutella',
+  'omlette': 'omelette',
+  'polet': 'poulet',
+  'poulete': 'poulet',
+  'escalope poulet': 'poulet emince',
+  'blanc poulet': 'blanc de poulet',
+  'viand hache': 'viande hachee',
+  'viand hachee': 'viande hachee',
+  'kefta': 'viande hachee',
+  'steack': 'steak',
+  'crevete': 'crevettes net',
+  'crevetes': 'crevettes net',
+  'calmar': 'calamar net',
+  'kalamar': 'calamar net',
+  'gamba': 'gambas net',
+  'mayonaise': 'mayonnaise',
+  'sauce tomat': 'sauce tomate',
+  'champinon': 'champignons',
+  'champinions': 'champignons',
+  'avoca': 'avocat'
+};
+
 function calculateRecipeFoodCost(ingredients, sellPrice) {
   if (typeof window !== 'undefined' && typeof window.calculateRecipeFoodCost === 'function' && window.calculateRecipeFoodCost !== calculateRecipeFoodCost) {
     return window.calculateRecipeFoodCost(ingredients, sellPrice);
@@ -2222,17 +2279,21 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
     const normIng = cleanStr(ingName);
     const normIngSingular = stripPlural(normIng);
 
+    // 0. Token-level alias expansion (tolérance fautes de frappe directes ex: mozarelle -> mozzarella)
+    const expandedIng = normIng.split(' ').map(w => INGREDIENT_TYPO_ALIASES[w] || INGREDIENT_TYPO_ALIASES[stripPlural(w)] || w).join(' ');
+    const expandedSingular = stripPlural(expandedIng);
+
     // Résolution ciblée des produits à double statut (Brut vs Net)
-    let lookupKey = normIngSingular;
-    if (normIng.includes('calamar')) {
+    let lookupKey = INGREDIENT_TYPO_ALIASES[normIng] || INGREDIENT_TYPO_ALIASES[normIngSingular] || normIngSingular;
+    if (normIng.includes('calamar') || normIng.includes('calmar') || normIng.includes('kalamar')) {
       lookupKey = (normIng.includes('net') || normIng.includes('chair') || normIng.includes('egoutt') || normIng.includes('frais') || normIng.includes('decongel')) ? 'calamar net' : 'calamar brut';
-    } else if (normIng.includes('crevette')) {
+    } else if (normIng.includes('crevette') || normIng.includes('crevete')) {
       lookupKey = (normIng.includes('chair') || normIng.includes('decortiqu') || normIng.includes('net') || normIng.includes('pur')) ? 'crevettes net' : 'crevettes brut';
     } else if (normIng.includes('gamba')) {
       if (normIng.includes('pane')) lookupKey = 'gambas pane';
       else if (normIng.includes('chair') || normIng.includes('poche') || normIng.includes('decortiqu') || normIng.includes('net')) lookupKey = 'gambas net';
       else lookupKey = 'gambas brut';
-    } else if (normIng.includes('saumon')) {
+    } else if (normIng.includes('saumon') || normIng.includes('salmon')) {
       if (normIng.includes('fume')) lookupKey = 'saumon fume';
       else if (normIng.includes('carcasse') && !normIng.includes('sans')) lookupKey = 'saumon brut';
       else lookupKey = 'saumon frais net';
@@ -2242,21 +2303,66 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
       if (!normIng.includes('crepe') && !normIng.includes('gaufre') && !normIng.includes('pistache')) {
         lookupKey = 'pates';
       }
-    } else if (normIng === 'oeufs' || normIng === 'oeuf' || (normIng === 'omelette' && (qtyStr.includes('œuf') || qtyStr.includes('oeuf')))) {
+    } else if (normIng === 'oeufs' || normIng === 'oeuf' || ((normIng === 'omelette' || normIng === 'omlette') && (qtyStr.includes('œuf') || qtyStr.includes('oeuf')))) {
       lookupKey = 'oeufs';
     }
 
-    let ingDef = costMap[lookupKey] || costMap[normIng] || costMap[normIngSingular];
+    let ingDef = costMap[lookupKey] || costMap[normIng] || costMap[normIngSingular] || costMap[expandedIng] || costMap[expandedSingular];
 
+    const sortedKeys = Object.keys(costMap).sort((a, b) => b.length - a.length);
+
+    // 1. Recherche par inclusion de sous-chaîne (exacte ou étendue)
     if (!ingDef) {
-      const sortedKeys = Object.keys(costMap).sort((a, b) => b.length - a.length);
       for (const k of sortedKeys) {
         const normK = cleanStr(k);
         const normKSingular = stripPlural(normK);
-        if (normIng === normK || normIngSingular === normKSingular || normIng.includes(normK) || normK.includes(normIng) || normIngSingular.includes(normKSingular) || normKSingular.includes(normIngSingular)) {
+        if (normIng === normK || normIngSingular === normKSingular || normIng.includes(normK) || normK.includes(normIng) || normIngSingular.includes(normKSingular) || normKSingular.includes(normIngSingular) || expandedIng === normK || expandedSingular === normKSingular || expandedIng.includes(normK) || normK.includes(expandedIng)) {
           ingDef = costMap[k];
           break;
         }
+      }
+    }
+
+    // 2. Tolérance aux fautes de frappe par distance de Levenshtein (chaîne complète)
+    if (!ingDef) {
+      let bestKey = null;
+      let bestDist = Infinity;
+      for (const k of sortedKeys) {
+        const normK = cleanStr(k);
+        const maxLen = Math.max(normIng.length, normK.length);
+        const maxAllowed = maxLen >= 8 ? 2 : (maxLen >= 4 ? 1 : 0);
+        const d = levenshteinIngredientDist(normIng, normK);
+        if (d <= maxAllowed && d < bestDist) {
+          bestDist = d;
+          bestKey = k;
+        }
+      }
+      if (bestKey) {
+        ingDef = costMap[bestKey];
+      }
+    }
+
+    // 3. Tolérance aux fautes de frappe par token (pour ingrédients multi-mots)
+    if (!ingDef) {
+      const ingTokens = normIng.split(' ').filter(w => w.length >= 4);
+      let bestTokenKey = null;
+      let bestTokenDist = Infinity;
+      for (const k of sortedKeys) {
+        const kTokens = cleanStr(k).split(' ').filter(w => w.length >= 4);
+        for (const it of ingTokens) {
+          for (const kt of kTokens) {
+            const maxLen = Math.max(it.length, kt.length);
+            const maxAllowed = maxLen >= 8 ? 2 : (maxLen >= 4 ? 1 : 0);
+            const d = levenshteinIngredientDist(it, kt);
+            if (d <= maxAllowed && d < bestTokenDist) {
+              bestTokenDist = d;
+              bestTokenKey = k;
+            }
+          }
+        }
+      }
+      if (bestTokenKey) {
+        ingDef = costMap[bestTokenKey];
       }
     }
 

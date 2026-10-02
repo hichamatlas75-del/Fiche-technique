@@ -3,7 +3,7 @@
  */
 
 (function(global) {
-  const APP_DATA_VERSION = 'v9.4_20260924';
+  const APP_DATA_VERSION = 'v9.5_20261002';
 
   // ─────────────────────────────────────────────────────────────
   // CLÉS LOCALSTORAGE CENTRALISÉES (Single Source of Truth)
@@ -597,6 +597,65 @@
     return null; // Not a seafood item
   }
 
+  // ─────────────────────────────────────────────────────────────
+  // TOLÉRANCE AUX FAUTES DE FRAPPE DANS LES MATIÈRES PREMIÈRES
+  // ─────────────────────────────────────────────────────────────
+  const INGREDIENT_TYPO_ALIASES = {
+    'mozza': 'mozzarella',
+    'mozarella': 'mozzarella',
+    'mozzarela': 'mozzarella',
+    'mozarelle': 'mozzarella',
+    'mozzarelle': 'mozzarella',
+    'mozarela': 'mozzarella',
+    'burata': 'fromage burrata',
+    'burrata': 'fromage burrata',
+    'parmezan': 'parmesan',
+    'parmigiano': 'parmesan',
+    'chedar': 'cheddar',
+    'cheddare': 'cheddar',
+    'nutela': 'nutella',
+    'omlette': 'omelette',
+    'polet': 'poulet',
+    'poulete': 'poulet',
+    'escalope poulet': 'poulet emince',
+    'blanc poulet': 'blanc de poulet',
+    'viand hache': 'viande hachee',
+    'viand hachee': 'viande hachee',
+    'kefta': 'viande hachee',
+    'steack': 'steak',
+    'crevete': 'crevettes net',
+    'crevetes': 'crevettes net',
+    'calmar': 'calamar net',
+    'kalamar': 'calamar net',
+    'gamba': 'gambas net',
+    'mayonaise': 'mayonnaise',
+    'sauce tomat': 'sauce tomate',
+    'champinon': 'champignons',
+    'champinions': 'champignons',
+    'avoca': 'avocat'
+  };
+
+  function levenshteinDistance(a, b) {
+    if (a === b) return 0;
+    const m = a.length, n = b.length;
+    if (!m) return n;
+    if (!n) return m;
+    if (Math.abs(m - n) > 3) return Math.abs(m - n);
+    const dp = new Array(n + 1);
+    for (let j = 0; j <= n; j++) dp[j] = j;
+    for (let i = 1; i <= m; i++) {
+      let prev = i;
+      for (let j = 1; j <= n; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        const val = Math.min(dp[j] + 1, prev + 1, dp[j - 1] + cost);
+        dp[j - 1] = prev;
+        prev = val;
+      }
+      dp[n] = prev;
+    }
+    return dp[n];
+  }
+
   global.cleanText = cleanText;
   global.escapeHtml = escapeHtml;
   global.applyTheme = applyTheme;
@@ -616,12 +675,15 @@
   global.isExcludedFromMenuEngineering = isExcludedFromMenuEngineering;
   global.stripPlural = stripPlural;
   global.resolveSeafoodKey = resolveSeafoodKey;
+  global.INGREDIENT_TYPO_ALIASES = INGREDIENT_TYPO_ALIASES;
+  global.levenshteinDistance = levenshteinDistance;
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
       cleanText, escapeHtml, applyTheme, formatMoney, formatNumber, formatDateFR, formatMonthFR,
       initThemeManager, GC_Store, GC_WakeLock, GC_Toast, GC_STORAGE_KEYS, OBSOLETE_INGREDIENT_KEYS,
       GC_EXCLUSION_KEYWORDS, forceCacheRefresh, APP_DATA_VERSION,
-      isExcludedFromMenuEngineering, stripPlural, resolveSeafoodKey
+      isExcludedFromMenuEngineering, stripPlural, resolveSeafoodKey,
+      INGREDIENT_TYPO_ALIASES, levenshteinDistance
     };
   }
 })(typeof window !== 'undefined' ? window : globalThis);

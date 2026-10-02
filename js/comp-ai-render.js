@@ -10,14 +10,24 @@
     const container = document.getElementById('ai-agent-wrapper');
     if (!container) return;
 
-    const analysis = analyzeDatasetForOptimizations();
-    const stats = analysis.stats;
+    const _analyzeDataset = (typeof analyzeDatasetForOptimizations === 'function') ? analyzeDatasetForOptimizations : (window.analyzeDatasetForOptimizations || (() => ({ stats: {}, quickWins: [], pricingOpportunities: [], stars: [] })));
+    const _getDailySalesCtx = (typeof getDailySalesContext === 'function') ? getDailySalesContext : (window.getDailySalesContext || (() => ({ date: '', totalDH: 0, salesRows: [] })));
+    const _analyzeDailySales = (typeof analyzeDailySales === 'function') ? analyzeDailySales : (window.analyzeDailySales || (() => ({ matchedSales: [] })));
+    const _analyzeMenuEng = (typeof analyzeMenuEngineering === 'function') ? analyzeMenuEngineering : (window.analyzeMenuEngineering || (() => ({ stars: [], plowhorses: [], puzzles: [], dogs: [], items: [] })));
+
+    const analysis = _analyzeDataset();
+    const stats = analysis.stats || {};
+
+    var currentAITab = (typeof window.currentAITab !== 'undefined') ? window.currentAITab : 'menu_engineering';
+    var currentMenuEngFilter = (typeof window.currentMenuEngFilter !== 'undefined') ? window.currentMenuEngFilter : 'all';
+    var selectedAIDailyDate = (typeof window.selectedAIDailyDate !== 'undefined') ? window.selectedAIDailyDate : '__auto__';
+    var isAIAgentCollapsed = (typeof window.isAIAgentCollapsed !== 'undefined') ? window.isAIAgentCollapsed : false;
 
     // Contexte des ventes journalières et Menu Engineering
-    const salesCtx = getDailySalesContext();
-    const dailySales = analyzeDailySales(salesCtx.salesRows);
-    const menuEng = analyzeMenuEngineering(salesCtx.salesRows);
-var activeList = [];
+    const salesCtx = _getDailySalesCtx();
+    const dailySales = _analyzeDailySales(salesCtx.salesRows);
+    const menuEng = _analyzeMenuEng(salesCtx.salesRows);
+    var activeList = [];
     if (currentAITab === 'menu_engineering') {
       if (currentMenuEngFilter === 'star') activeList = menuEng.stars;
       else if (currentMenuEngFilter === 'plowhorse') activeList = menuEng.plowhorses;

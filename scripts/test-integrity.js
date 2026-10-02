@@ -107,15 +107,25 @@ if (invalidCosts === 0) {
   console.error(`❌ [4/5] ${invalidCosts} matière(s) première(s) ont un coût unitaire erroné`);
 }
 
-// 5. Test Benchmark de Calcul Dynamique
+// 5. Test Benchmark de Calcul Dynamique & Tolérance aux Fautes de Frappe
 const testBenchmark = calculateRecipeFoodCost([
   "Pâte : 230 g",
   "Mozzarella : 110 g",
   "Sauce tomate : 85 g"
 ], 60);
 
+const testBenchmarkTypo = calculateRecipeFoodCost([
+  "Pâte : 230 g",
+  "Mozarelle : 110 g",
+  "Sauce tomat : 85 g"
+], 60);
+
 if (testBenchmark && typeof testBenchmark.cost === 'number' && testBenchmark.cost > 0 && testBenchmark.foodCost > 0) {
-  console.log(`✅ [5/5] Moteur Dynamique calculateRecipeFoodCost : Fonctionnel (Coût test: ${testBenchmark.cost} DH, FC: ${testBenchmark.foodCost}%)`);
+  if (testBenchmarkTypo.cost === testBenchmark.cost) {
+    console.log(`✅ [5/5] Moteur Dynamique calculateRecipeFoodCost : Fonctionnel avec Tolérance Fautes de Frappe (Coût: ${testBenchmark.cost} DH, FC: ${testBenchmark.foodCost}%, mozarelle == mozzarella)`);
+  } else {
+    console.warn(`⚠️ [5/5] Moteur Dynamique : Coût avec faute (${testBenchmarkTypo.cost} DH) différent du standard (${testBenchmark.cost} DH)`);
+  }
 } else {
   console.error('❌ [5/5] Échec du test unitaire calculateRecipeFoodCost');
   hasErrors = true;
