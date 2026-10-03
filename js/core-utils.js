@@ -3,24 +3,25 @@
  */
 
 (function(global) {
-  const APP_DATA_VERSION = 'v9.7_20261003_parity';
+  const APP_DATA_VERSION = 'v9.8_20261003_sim_daily';
 
   // ─────────────────────────────────────────────────────────────
   // CLÉS LOCALSTORAGE CENTRALISÉES (Single Source of Truth)
   // ─────────────────────────────────────────────────────────────
   const GC_STORAGE_KEYS = {
-    RECIPES:     'gc_recipes_db_v5',
-    RECIPES_OLD: 'gc_recipes_db_v4',
-    RECIPES_VER: 'gc_recipes_db_version',
-    PRICES:      'gc_ingredient_prices_v1',
-    SALES:       'gc_monthly_sales_db_v3',
-    COMP_EDITS:  'grey_corner_custom_recipes_v5',
-    DELETED:     'gc_deleted_recipes_v1',
-    THEME:       'gc_theme',
-    APP_VER:     'gc_app_data_version',
-    KITCHEN:     'gc_kitchen_state',
-    AUDIT:       'gc_audit_sessions_v1',
-    SYNC_PING:   'gc_sync_ping',
+    RECIPES:      'gc_recipes_db_v5',
+    RECIPES_OLD:  'gc_recipes_db_v4',
+    RECIPES_VER:  'gc_recipes_db_version',
+    PRICES:       'gc_ingredient_prices_v1',
+    SALES:        'gc_monthly_sales_db_v3',
+    LATEST_SALES: 'gc_latest_daily_sales',
+    COMP_EDITS:   'grey_corner_custom_recipes_v5',
+    DELETED:      'gc_deleted_recipes_v1',
+    THEME:        'gc_theme',
+    APP_VER:      'gc_app_data_version',
+    KITCHEN:      'gc_kitchen_state',
+    AUDIT:        'gc_audit_sessions_v1',
+    SYNC_PING:    'gc_sync_ping',
   };
 
   // ─────────────────────────────────────────────────────────────

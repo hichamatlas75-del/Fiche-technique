@@ -11,7 +11,9 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <!-- Supabase Backend Cloud, Auth & Realtime (Direction) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/auth.js?v=v9.6"></script>
+  <script src="recipes-data.js?v=v9.8"></script>
+  <script src="js/core-utils.js?v=v9.8"></script>
+  <script src="js/auth.js?v=v9.8"></script>
   <style>
     :root {
       --bg: #070b14;
@@ -1499,6 +1501,9 @@
           </div>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <button class="action-btn" onclick="loadVentesFromFolder()" style="background:linear-gradient(135deg, rgba(245,158,11,0.2), rgba(217,119,6,0.2)); border:1px solid var(--gold); color:var(--gold-light); font-weight:800; padding:10px 16px; border-radius:8px; font-size:0.84rem; display:inline-flex; align-items:center; gap:6px;">
+            <span>📥</span> <span>Importer Vente Journée (.xlsx)</span>
+          </button>
           <button class="action-btn" onclick="autoLoadLatestDailySales(true)" style="background:linear-gradient(135deg, rgba(16,185,129,0.2), rgba(6,182,212,0.2)); border:1px solid var(--emerald); color:#34d399; font-weight:800; padding:10px 16px; border-radius:8px; font-size:0.84rem; display:inline-flex; align-items:center; gap:6px;">
             <span>🔄</span> <span>Actualiser Dernier Jour</span>
           </button>
@@ -2456,6 +2461,8 @@
       if (descEl) {
         if (period === 'ALL') {
           descEl.innerText = "Affichage du cumul global d'Avril à Septembre (166 jours). Toutes les analyses portent sur l'ensemble de la période post-mars.";
+        } else if (period === 'LATEST_DAY') {
+          descEl.innerText = "Affichage isolé des ventes du jour (" + meta.name + ", 1 jour). Volumes réels, CA journalier (" + (typeof latestDailyTotalCA !== 'undefined' && latestDailyTotalCA > 0 ? latestDailyTotalCA.toLocaleString('fr-FR') + ' DH' : '') + ") et matrices Kasavana recalculées.";
         } else {
           descEl.innerText = "Affichage isolé des ventes de " + meta.name + " (" + meta.days + " jours). Volumes, marges, classements et matrices Kasavana sont recalculés pour ce mois.";
         }
@@ -2469,10 +2476,18 @@
       menuData.forEach(item => {
         if (period === 'ALL') {
           item.qty = item.baseQty !== undefined ? item.baseQty : item.qty;
+          item.ca = item.baseCA !== undefined ? item.baseCA : Math.round(item.qty * item.price);
+        } else if (period === 'LATEST_DAY') {
+          const dayEntry = (typeof latestDailyMap !== 'undefined' && latestDailyMap) ? latestDailyMap[item.id] : null;
+          item.qty = dayEntry ? dayEntry.qty : 0;
+          item.ca = dayEntry ? dayEntry.ca : Math.round(item.qty * item.price);
+          item.monthlyQty = item.qty * 30;
+          item.weeklyQty = item.qty * 7;
+          return;
         } else {
           item.qty = (item.monthlySales && item.monthlySales[period] !== undefined) ? item.monthlySales[period] : 0;
+          item.ca = Math.round(item.qty * item.price);
         }
-        item.ca = Math.round(item.qty * item.price);
         const days = meta.days;
         item.monthlyQty = Math.round(((item.qty / days) * 30) * 10) / 10;
         item.weeklyQty = Math.round(((item.qty / days) * 7) * 10) / 10;
@@ -3848,6 +3863,42 @@
     CAISSE_NAME_LOOKUP['NORVEGIEN'] = '16cebd6f';
     CAISSE_NAME_LOOKUP['BELDI'] = 'c4189160';
 
+    function extractDateFromFilename(rawFilename) {
+      if (!rawFilename) return null;
+      let filename = rawFilename;
+      try { filename = decodeURIComponent(rawFilename); } catch (e) {}
+      filename = filename.trim();
+
+      const mIso = filename.match(/(?<!\d)(20\d{2})[-_.](0[1-9]|1[0-2])[-_.](0[1-9]|[12]\d|3[01])(?!\d)/);
+      if (mIso) return `${mIso[1]}-${mIso[2]}-${mIso[3]}`;
+
+      const mCompact = filename.match(/(?<!\d)(20\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])(?!\d)/);
+      if (mCompact) return `${mCompact[1]}-${mCompact[2]}-${mCompact[3]}`;
+
+      const mFr = filename.match(/(?<!\d)(0[1-9]|[12]\d|3[01])[-_.](0[1-9]|1[0-2])[-_.](20\d{2})(?!\d)/);
+      if (mFr) return `${mFr[3]}-${mFr[2]}-${mFr[1]}`;
+
+      const mFrCompact = filename.match(/(?<!\d)(0[1-9]|[12]\d|3[01])(0[1-9]|1[0-2])(20\d{2})(?!\d)/);
+      if (mFrCompact) return `${mFrCompact[3]}-${mFrCompact[2]}-${mFrCompact[1]}`;
+
+      const mFallback = filename.match(/(\d{4})(\d{2})(\d{2})/);
+      if (mFallback) return `${mFallback[1]}-${mFallback[2]}-${mFallback[3]}`;
+
+      return null;
+    }
+
+    function formatIsoDateToFrench(isoDate) {
+      if (!isoDate) return '';
+      try {
+        const parts = isoDate.split('-');
+        if (parts.length === 3) {
+          const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+          return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+      } catch (e) {}
+      return isoDate;
+    }
+
     function matchCaisseProductToMenu(rawName) {
       const clean = normalizeDishName(rawName);
       if (!clean) return null;
@@ -3860,7 +3911,16 @@
       const exact = menuData.find(m => normalizeDishName(m.name) === clean);
       if (exact) return exact.id;
 
-      // 3. Match fuzzy (inclusion)
+      // 3. Match via ALIAS_MAP SSOT unifié (gère les 53 articles historiques et variantes caisse)
+      if (typeof ALIAS_MAP !== 'undefined' && ALIAS_MAP[clean]) {
+        const canonical = ALIAS_MAP[clean];
+        const canonicalClean = normalizeDishName(canonical);
+        if (CAISSE_NAME_LOOKUP[canonicalClean]) return CAISSE_NAME_LOOKUP[canonicalClean];
+        const mCanon = menuData.find(m => normalizeDishName(m.name) === canonicalClean);
+        if (mCanon) return mCanon.id;
+      }
+
+      // 4. Match fuzzy (inclusion)
       if (clean.length >= 4) {
         for (const [k, id] of Object.entries(CAISSE_NAME_LOOKUP)) {
           if (k.length >= 4 && (k.includes(clean) || clean.includes(k))) {
@@ -3915,7 +3975,7 @@
         const text = await file.text();
         try {
           const json = JSON.parse(text);
-          applyDailySalesData(json, fileName);
+          applyDailySalesData(json, fileName, true);
         } catch (err) {
           alert('Erreur lecture JSON : ' + err.message);
         }
@@ -3956,12 +4016,15 @@
           let nameKey = keys.find(k => /produit|article|designation|libelle|item|nom|plat/i.test(k));
           let qtyKey = keys.find(k => /qte|quantite|qty|vente|vendu|count|nb/i.test(k));
           let dateKey = keys.find(k => /date|jour|cloture|periode/i.test(k));
+          let priceKey = keys.find(k => /prix|pu|tarif|unit|price/i.test(k));
+          let totalKey = keys.find(k => /total|montant|ca|valeur/i.test(k));
+          let catKey = keys.find(k => /famille|cat|rayon|groupe/i.test(k));
           let idKey = keys.find(k => /^id$/i.test(k));
 
           if (!nameKey && !idKey) nameKey = keys[1] || keys[0];
           if (!qtyKey) qtyKey = keys[3] || keys[2];
 
-          // Agrégation des ventes
+          // Agrégation des ventes du jour
           const aggregatedSales = {};
           let skippedOldDates = 0;
           let skippedOldArticles = 0;
@@ -3993,27 +4056,57 @@
 
             let matchedId = idKey && row[idKey] ? row[idKey] : matchCaisseProductToMenu(rawName);
             if (matchedId) {
-              aggregatedSales[matchedId] = (aggregatedSales[matchedId] || 0) + Math.round(q);
+              const menuItem = menuData.find(m => m.id === matchedId);
+              const p = menuItem ? menuItem.price : (priceKey && row[priceKey] ? (parseFloat(String(row[priceKey]).replace(/[^\d.-]/g, '')) || 0) : 0);
+              let lineCA = 0;
+              if (totalKey && row[totalKey]) {
+                lineCA = parseFloat(String(row[totalKey]).replace(/[^\d.-]/g, '')) || 0;
+              } else if (p > 0) {
+                lineCA = Math.round(q * p);
+              }
+
+              if (!aggregatedSales[matchedId]) {
+                aggregatedSales[matchedId] = {
+                  id: matchedId,
+                  name: menuItem ? menuItem.name : rawName,
+                  cat: menuItem ? menuItem.cat : (catKey && row[catKey] ? String(row[catKey]) : ''),
+                  price: p,
+                  qty: 0,
+                  ca: 0
+                };
+              }
+              aggregatedSales[matchedId].qty += Math.round(q);
+              aggregatedSales[matchedId].ca += lineCA;
               totalImportedQty += Math.round(q);
             }
           });
 
-          // Convertir en format de mise à jour
-          const entries = Object.entries(aggregatedSales).map(([id, q]) => ({
-            id: id,
-            qty_journee: q
-          }));
+          const entries = Object.values(aggregatedSales);
 
           if (entries.length === 0) {
             alert("Aucun article du menu actuel n'a pu être reconnu dans ce fichier Excel.");
             return;
           }
 
+          const detectedIso = extractDateFromFilename(fileName);
+          const detectedDateStr = detectedIso ? formatIsoDateToFrench(detectedIso) : '';
+          const totalCA = entries.reduce((s, it) => s + (it.ca || 0), 0);
+
           let extraInfo = '';
           if (skippedOldDates > 0) extraInfo += ' (' + skippedOldDates + ' lignes de Jan/Fév/Mars exclues)';
           if (skippedOldArticles > 0) extraInfo += ' (' + skippedOldArticles + ' anciens articles rejetés)';
 
-          applyDailySalesData(entries, fileName + extraInfo);
+          const payload = {
+            date: detectedDateStr,
+            isoDate: detectedIso,
+            fileName: fileName,
+            totalCA: totalCA,
+            totalQty: totalImportedQty,
+            totalItems: entries.length,
+            items: entries
+          };
+
+          applyDailySalesData(payload, fileName + extraInfo, true);
 
         } catch (err) {
           console.error("Error parsing Excel:", err);
@@ -4346,38 +4439,159 @@
     window.resetPriceSimDish = resetPriceSimDish;
 
 
-    // =========================================================
-    // DERNIER JOUR DE VENTE (CHARGEMENT AUTOMATIQUE DOSSIER VENTES)
-    // =========================================================
-    const LATEST_DAILY_SALES = {"date": "2 Octobre 2026", "dateKey": "20261002", "fileName": "Fin_Journée_20261002.xls", "filePath": "ventes/2026-10/Fin_Journée_20261002.xls", "totalCA": 9960, "totalQty": 317, "totalItems": 93, "items": [{"id": "2870e2fd", "name": "CAFE NOIR", "cat": "BOISSONS CHAUDES", "price": 16.0, "qty": 74, "ca": 1184}, {"id": "f5568705", "name": "Couscous Vainde Avec Petit Lait", "cat": "COUSCOUS VENDREDI", "price": 64.0, "qty": 11, "ca": 704}, {"id": "2d4954ac", "name": "Couscous Poulet Avec Petit Lait", "cat": "COUSCOUS VENDREDI", "price": 54.0, "qty": 12, "ca": 648}, {"id": "2c0ab4a2", "name": "Pizza 4 Saisons", "cat": "PIZZA", "price": 88.0, "qty": 4, "ca": 352}, {"id": "52e4ef86", "name": "Brunch GREY CORNER", "cat": "PETIT DEJEUNER", "price": 85.0, "qty": 4, "ca": 340}, {"id": "218eeccc", "name": "The à La Menthe", "cat": "THE", "price": 16.0, "qty": 19, "ca": 304}, {"id": "16cebd6f", "name": "Pet-Dej Norvegien", "cat": "PETIT DEJEUNER", "price": 68.0, "qty": 4, "ca": 272}, {"id": "15ab9bd7", "name": "Plat Emince De Poulet", "cat": "PLATS", "price": 88.0, "qty": 3, "ca": 264}, {"id": "7d1cd22f", "name": "Pasta Carbonara", "cat": "PASTA", "price": 65.0, "qty": 4, "ca": 260}, {"id": "8f08d89a", "name": "Jus De Mangue", "cat": "JUS", "price": 30.0, "qty": 8, "ca": 240}, {"id": "88f83b09", "name": "Jus D' Orange", "cat": "JUS", "price": 22.0, "qty": 10, "ca": 220}, {"id": "a2351075", "name": "PANINI MIX", "cat": "PANINI", "price": 58.0, "qty": 3, "ca": 174}, {"id": "f606ba70", "name": "Brunch Duo", "cat": "PETIT DEJEUNER", "price": 144.0, "qty": 1, "ca": 144}, {"id": "b35d099b", "name": "AMERICAIN", "cat": "PETIT DEJEUNER", "price": 68.0, "qty": 2, "ca": 136}, {"id": "c637898f", "name": "Coca", "cat": "SODA", "price": 17.0, "qty": 8, "ca": 136}, {"id": "c4189160", "name": "Pet-Dej Beldi", "cat": "PETIT DEJEUNER", "price": 45.0, "qty": 3, "ca": 135}, {"id": "a963b039", "name": "Panini Fruit De Mer", "cat": "PANINI", "price": 64.0, "qty": 2, "ca": 128}, {"id": "pizza_veget_arienne", "name": "Pizza Veget Arienne", "cat": "PIZZA", "price": 62.0, "qty": 2, "ca": 124}, {"id": "d6da872d", "name": "2 BOULE DE GLACE", "cat": "COUPE DE GLACE", "price": 30.0, "qty": 4, "ca": 120}, {"id": "184bcbd7", "name": "San Sebastien", "cat": "GATEAUX", "price": 40.0, "qty": 3, "ca": 120}, {"id": "3c1696d2", "name": "Omlette Du Chef", "cat": "PETIT DEJEUNER", "price": 58.0, "qty": 2, "ca": 116}, {"id": "e336c172", "name": "Plat EminceDe Boeuf", "cat": "PLATS", "price": 115.0, "qty": 1, "ca": 115}, {"id": "d07f4608", "name": "Crepe Nutella", "cat": "CREPES SUCREE", "price": 38.0, "qty": 3, "ca": 114}, {"id": "bc60875d", "name": "Pet-Dej Fassi", "cat": "PETIT DEJEUNER", "price": 55.0, "qty": 2, "ca": 110}, {"id": "029899a7", "name": "POULARD", "cat": "SANDWICHS CIABATTA", "price": 54.0, "qty": 2, "ca": 108}, {"id": "pet_compagnard_12", "name": "COMPAGNARD", "cat": "PETIT DEJEUNER", "price": 52.0, "qty": 2, "ca": 104}, {"id": "67861d9d", "name": "Pet-Dej Hollandais", "cat": "PETIT DEJEUNER", "price": 52.0, "qty": 2, "ca": 104}, {"id": "b3a02657", "name": "Pizza Margarita", "cat": "PIZZA", "price": 52.0, "qty": 2, "ca": 104}, {"id": "san_poulet_49", "name": "Sandwich Poulet", "cat": "SANDWICHS CIABATTA", "price": 48.0, "qty": 2, "ca": 96}, {"id": "59c848c2", "name": "Triple Berry", "cat": "SMOOTHIES", "price": 48.0, "qty": 2, "ca": 96}, {"id": "c8619369", "name": "oULMES", "cat": "SODA", "price": 16.0, "qty": 6, "ca": 96}, {"id": "0f2b73d2", "name": "Cafe  Americain", "cat": "BOISSONS CHAUDES", "price": 18.0, "qty": 5, "ca": 90}, {"id": "328adad9", "name": "Jus De Fraise", "cat": "JUS", "price": 30.0, "qty": 3, "ca": 90}, {"id": "6dc0a0c4", "name": "Mojito Red Bull", "cat": "MOJITO", "price": 44.0, "qty": 2, "ca": 88}, {"id": "pet_dej_express", "name": "Pet-Dej Express", "cat": "PETIT DEJEUNER", "price": 44.0, "qty": 2, "ca": 88}, {"id": "43c999d5", "name": "Coca Zero", "cat": "SODA", "price": 17.0, "qty": 5, "ca": 85}, {"id": "f59f863c", "name": "Pizza VIANDE HACHEE", "cat": "PIZZA", "price": 78.0, "qty": 1, "ca": 78}, {"id": "9fb4f4ef", "name": "Pizza Poulet", "cat": "PIZZA", "price": 78.0, "qty": 1, "ca": 78}, {"id": "aae90257", "name": "Pizza 5 Fromages", "cat": "PIZZA", "price": 78.0, "qty": 1, "ca": 78}, {"id": "65a2ed5a", "name": "Jus De Citron", "cat": "JUS", "price": 25.0, "qty": 3, "ca": 75}, {"id": "a4197610", "name": "Pasta Poulet Champignon", "cat": "PASTA", "price": 75.0, "qty": 1, "ca": 75}, {"id": "7ff4d8d0", "name": "Verveine", "cat": "THE", "price": 15.0, "qty": 5, "ca": 75}, {"id": "c6e82ded", "name": "Eau Minerale 0.5l", "cat": "SODA", "price": 12.0, "qty": 6, "ca": 72}, {"id": "bbbfbf94", "name": "SANDWICH CHEESE STEAK", "cat": "SANDWICHS CIABATTA", "price": 65.0, "qty": 1, "ca": 65}, {"id": "3aa22a4f", "name": "Jus D'Ananas", "cat": "JUS", "price": 32.0, "qty": 2, "ca": 64}, {"id": "bfe13ada", "name": "Pet-Dej Espagnol", "cat": "PETIT DEJEUNER", "price": 64.0, "qty": 1, "ca": 64}, {"id": "banane_orange", "name": "BANANE ORANGE", "cat": "JUS", "price": 30.0, "qty": 2, "ca": 60}, {"id": "f1fa7f97", "name": "LASAGNE POULET", "cat": "PASTA", "price": 60.0, "qty": 1, "ca": 60}, {"id": "48fb1cf5", "name": "WRAP POULET", "cat": "PANINI", "price": 58.0, "qty": 1, "ca": 58}, {"id": "3266f865", "name": "Sandwich Poulet Crunchy", "cat": "SANDWICHS CIABATTA", "price": 58.0, "qty": 1, "ca": 58}, {"id": "c8cb62c4", "name": "Cafe Au Lait", "cat": "BOISSONS CHAUDES", "price": 19.0, "qty": 3, "ca": 57}, {"id": "319b9d3e", "name": "Cappuccino Italien", "cat": "BOISSONS CHAUDES", "price": 19.0, "qty": 3, "ca": 57}, {"id": "af8ccaaa", "name": "Ice Tea Framboise", "cat": "ICE TEA", "price": 28.0, "qty": 2, "ca": 56}, {"id": "menu_enfant_pizza", "name": "Menu Enfant Pizza", "cat": "Menu Enfant", "price": 55.0, "qty": 1, "ca": 55}, {"id": "deb8fba9", "name": "Chocolat Au Lait", "cat": "BOISSONS CHAUDES", "price": 18.0, "qty": 3, "ca": 54}, {"id": "san_viandehach_48", "name": "Sandwich Viande Hache", "cat": "SANDWICHS CIABATTA", "price": 54.0, "qty": 1, "ca": 54}, {"id": "23a0f3a2", "name": "Pet-Dej Continental", "cat": "PETIT DEJEUNER", "price": 52.0, "qty": 1, "ca": 52}, {"id": "bf39e64c", "name": "EAU GAZEUSE 75 CL", "cat": "SODA", "price": 26.0, "qty": 2, "ca": 52}, {"id": "c02cdaa8", "name": "CHICKEN BURGER", "cat": "BURGERS", "price": 50.0, "qty": 1, "ca": 50}, {"id": "9b075b42", "name": "Crepe Poulet CHAMPIGNON", "cat": "CREPES SALEES", "price": 48.0, "qty": 1, "ca": 48}, {"id": "d3ae6551", "name": "Salade Cercle Veggl", "cat": "ENTREES FROIDES", "price": 48.0, "qty": 1, "ca": 48}, {"id": "pain_cake_fruits_de_saison", "name": "Pain Cake Fruits De Saison", "cat": "PAIN CAKE", "price": 48.0, "qty": 1, "ca": 48}, {"id": "837af11a", "name": "Pink Smoothie", "cat": "SMOOTHIES", "price": 48.0, "qty": 1, "ca": 48}, {"id": "san_sebastien_grey_corner", "name": "SAN SEBASTIEN GREY CORNER", "cat": "GATEAUX", "price": 45.0, "qty": 1, "ca": 45}, {"id": "15a95226", "name": "Tropical", "cat": "COCKTAILS", "price": 42.0, "qty": 1, "ca": 42}, {"id": "674eabac", "name": "Fraicheur", "cat": "COCKTAILS", "price": 42.0, "qty": 1, "ca": 42}, {"id": "crepe_choco_noisette", "name": "Crepe Choco-Noisette", "cat": "CREPES SUCREE", "price": 42.0, "qty": 1, "ca": 42}, {"id": "pet_dej_light", "name": "Pet-Dej Light", "cat": "PETIT DEJEUNER", "price": 42.0, "qty": 1, "ca": 42}, {"id": "fruits_sec", "name": "FRUITS SEC", "cat": "JUS", "price": 38.0, "qty": 1, "ca": 38}, {"id": "schwepps_citron", "name": "SCHWEPPS CITRON", "cat": "SODA", "price": 17.0, "qty": 2, "ca": 34}, {"id": "a23d8e89", "name": "Hawai", "cat": "SODA", "price": 17.0, "qty": 2, "ca": 34}, {"id": "gingembre", "name": "GINGEMBRE", "cat": "COCKTAILS", "price": 32.0, "qty": 1, "ca": 32}, {"id": "46818b0a", "name": "Boule De Glace", "cat": "COUPE DE GLACE", "price": 16.0, "qty": 2, "ca": 32}, {"id": "jus_d_avocat_au_lait", "name": "Jus D'Avocat AU LAIT", "cat": "JUS", "price": 32.0, "qty": 1, "ca": 32}, {"id": "3d5c4709", "name": "The Noir", "cat": "THE", "price": 15.0, "qty": 2, "ca": 30}, {"id": "jus_de_banane", "name": "Jus De Banane", "cat": "JUS", "price": 28.0, "qty": 1, "ca": 28}, {"id": "chocolat_fondu", "name": "Chocolat Fondu", "cat": "BOISSONS CHAUDES", "price": 26.0, "qty": 1, "ca": 26}, {"id": "7636c161", "name": "OMLETTE NATURE", "cat": "A LA CARTE", "price": 22.0, "qty": 1, "ca": 22}, {"id": "972b68fa", "name": "Ice Coffee Classique", "cat": "ICE COFFEE", "price": 20.0, "qty": 1, "ca": 20}, {"id": "oulmess_mojito", "name": "OULMESS MOJITO", "cat": "SODA", "price": 20.0, "qty": 1, "ca": 20}, {"id": "divers_food", "name": "DIVERS FOOD", "cat": "ENTREES FROIDES", "price": 8.0, "qty": 11, "ca": 18}, {"id": "b09952c5", "name": "Verveine au lait", "cat": "THE", "price": 18.0, "qty": 1, "ca": 18}, {"id": "the_americain", "name": "The Americain", "cat": "THE", "price": 18.0, "qty": 1, "ca": 18}, {"id": "b415c9dd", "name": "Poms", "cat": "SODA", "price": 17.0, "qty": 1, "ca": 17}, {"id": "schwepps_tonic", "name": "SCHWEPPS TONIC", "cat": "SODA", "price": 17.0, "qty": 1, "ca": 17}, {"id": "2_oeufs", "name": "2 OEUFS", "cat": "A LA CARTE", "price": 16.0, "qty": 1, "ca": 16}, {"id": "viennoiserie", "name": "VIENNOISERIE", "cat": "A LA CARTE", "price": 6.0, "qty": 2, "ca": 12}, {"id": "sup_fromage", "name": "SUP FROMAGE", "cat": "SUPPLEMENT PTDEJ", "price": 10.0, "qty": 1, "ca": 10}, {"id": "fe25cf72", "name": "Supp Chantilly", "cat": "COUPE DE GLACE", "price": 5.0, "qty": 1, "ca": 5}, {"id": "miel", "name": "MIEL", "cat": "SUPPLEMENT PTDEJ", "price": 5.0, "qty": 1, "ca": 5}, {"id": "jben", "name": "JBEN", "cat": "SUPPLEMENT PTDEJ", "price": 5.0, "qty": 1, "ca": 5}, {"id": "oeufs_beldi", "name": "OEUFS BELDI", "cat": "SUPPLEMENT PTDEJ", "price": 5.0, "qty": 1, "ca": 5}, {"id": "huile_olive", "name": "HUILE OLIVE", "cat": "SUPPLEMENT PTDEJ", "price": 5.0, "qty": 1, "ca": 5}]};
+    let latestDailyMap = {};
+    let latestDailyTotalCA = 0;
+    let latestDailyTotalQty = 0;
+    let latestDailyDateStr = '';
 
-    function applyDailySalesData(payload, fileName) {
+    function applyDailySalesData(payload, fileName, autoSelectPeriod = true) {
       try {
         let rows = [];
         let totalCA = 0;
         let totalQty = 0;
         let dateStr = '';
+
+        if (!payload) return;
+
+        // Détection de la date
+        if (payload.date) {
+          dateStr = payload.date;
+        } else if (fileName) {
+          const iso = extractDateFromFilename(fileName);
+          if (iso) dateStr = formatIsoDateToFrench(iso);
+        }
+        if (!dateStr) {
+          dateStr = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
+        latestDailyMap = {};
+
         if (payload && payload.items && Array.isArray(payload.items)) {
-          rows = payload.items;
-          totalCA = payload.totalCA || rows.reduce((s, r) => s + (r.ca || 0), 0);
-          totalQty = payload.totalQty || rows.reduce((s, r) => s + (r.qty || 0), 0);
-          dateStr = payload.date || '';
+          payload.items.forEach(r => {
+            const rawId = r.id;
+            const matchedId = menuData.some(m => m.id === rawId) ? rawId : matchCaisseProductToMenu(r.name || rawId);
+            const targetId = matchedId || rawId;
+            const menuItem = menuData.find(m => m.id === targetId);
+            const q = parseInt(r.qty) || 0;
+            const p = menuItem ? menuItem.price : (parseFloat(r.price) || 0);
+            const c = (typeof r.ca === 'number' ? r.ca : Math.round(q * p));
+
+            if (targetId) {
+              if (!latestDailyMap[targetId]) {
+                latestDailyMap[targetId] = { qty: 0, ca: 0 };
+              }
+              latestDailyMap[targetId].qty += q;
+              latestDailyMap[targetId].ca += c;
+            }
+
+            rows.push({
+              id: targetId,
+              name: menuItem ? menuItem.name : (r.name || targetId),
+              cat: menuItem ? menuItem.cat : (r.cat || 'DIVERS'),
+              price: p,
+              qty: q,
+              ca: c
+            });
+            totalCA += c;
+            totalQty += q;
+          });
+          if (payload.totalCA && payload.totalCA > 0) totalCA = payload.totalCA;
+          if (payload.totalQty && payload.totalQty > 0) totalQty = payload.totalQty;
           fileName = payload.fileName || fileName;
         } else if (Array.isArray(payload)) {
           payload.forEach(entry => {
-            const it = menuData.find(m => m.id === entry.id);
-            if (it) {
-              const q = parseInt(entry.qty_journee || entry.qty) || 0;
-              if (q > 0) {
-                const ca = parseInt(entry.ca) || Math.round(q * it.price);
-                rows.push({ id: it.id, name: it.name, cat: it.cat, price: it.price, qty: q, ca: ca });
-                totalCA += ca;
-                totalQty += q;
+            const rawName = entry.product || entry.name || entry.id || '';
+            const matchedId = menuData.some(m => m.id === entry.id) ? entry.id : matchCaisseProductToMenu(rawName);
+            const it = menuData.find(m => m.id === matchedId);
+            const q = parseInt(entry.qty_journee || entry.qty) || 0;
+            if (q > 0) {
+              const p = it ? it.price : (parseFloat(entry.price) || 0);
+              const ca = (typeof entry.ca === 'number' ? entry.ca : (typeof entry.total === 'number' ? entry.total : Math.round(q * p)));
+              const targetId = matchedId || rawName;
+              if (targetId) {
+                if (!latestDailyMap[targetId]) {
+                  latestDailyMap[targetId] = { qty: 0, ca: 0 };
+                }
+                latestDailyMap[targetId].qty += q;
+                latestDailyMap[targetId].ca += ca;
               }
+              rows.push({
+                id: targetId,
+                name: it ? it.name : rawName,
+                cat: it ? it.cat : (entry.family || 'DIVERS'),
+                price: p,
+                qty: q,
+                ca: ca
+              });
+              totalCA += ca;
+              totalQty += q;
             }
           });
         }
+
+        latestDailyTotalCA = totalCA;
+        latestDailyTotalQty = totalQty;
+        latestDailyDateStr = dateStr;
+
+        // Sauvegarde dans le localStorage pour synchronisation inter-onglets et réouverture
+        try {
+          const exportPayload = {
+            date: dateStr,
+            fileName: fileName,
+            totalCA: totalCA,
+            totalQty: totalQty,
+            totalItems: rows.length,
+            items: rows
+          };
+          localStorage.setItem('gc_latest_daily_sales', JSON.stringify(exportPayload));
+        } catch (e) {}
+
+        // Mise à jour du bandeau watcher
+        const wDate = document.getElementById('watcher-latest-date');
+        if (wDate) wDate.innerText = dateStr;
+        const wMeta = document.getElementById('watcher-latest-meta');
+        if (wMeta) wMeta.innerText = (fileName || '') + ' (' + totalCA.toLocaleString('fr-FR') + ' DH • ' + totalQty + ' articles)';
+        const wBadge = document.getElementById('watcher-auto-badge');
+        if (wBadge) {
+          wBadge.innerText = '⚡ Synchronisé';
+          wBadge.style.background = 'rgba(16, 185, 129, 0.2)';
+          wBadge.style.color = '#34d399';
+          wBadge.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+        }
+
+        // Enregistrement de la période LATEST_DAY dans PERIOD_METADATA
+        PERIOD_METADATA['LATEST_DAY'] = {
+          name: 'Ventes du ' + dateStr,
+          days: 1,
+          label: dateStr + ' (1 jour)',
+          badge: '📅 JOURNÉE : ' + dateStr.toUpperCase() + ' (' + totalCA.toLocaleString('fr-FR') + ' DH)'
+        };
+
+        // Ajout ou mise à jour dynamique du bouton Pill dans la barre de filtre calendrier
+        let dayPill = document.getElementById('btn-period-LATEST_DAY');
+        if (!dayPill) {
+          dayPill = document.createElement('button');
+          dayPill.className = 'cal-pill';
+          dayPill.id = 'btn-period-LATEST_DAY';
+          dayPill.onclick = () => selectCalendarPeriod('LATEST_DAY');
+          dayPill.style.borderColor = 'var(--emerald)';
+          dayPill.style.color = '#34d399';
+          dayPill.style.background = 'rgba(16, 185, 129, 0.15)';
+          const allBtn = document.getElementById('btn-period-ALL');
+          if (allBtn && allBtn.parentNode) {
+            allBtn.parentNode.insertBefore(dayPill, allBtn.nextSibling);
+          }
+        }
+        dayPill.innerHTML = '<span>📅</span> <span>' + dateStr + ' (' + totalCA.toLocaleString('fr-FR') + ' DH)</span>';
+
+        // Mise à jour immédiate du simulateur décisionnel avec les ventes de ce jour
+        if (autoSelectPeriod) {
+          selectCalendarPeriod('LATEST_DAY');
+        }
+
+        // Rendu du rapport journalier détaillé en bas de page
         renderDailyReport(rows, totalCA, totalQty, fileName, dateStr);
+
       } catch (err) {
         console.error('Error in applyDailySalesData:', err);
       }
@@ -4386,31 +4600,58 @@
 
     async function autoLoadLatestDailySales(isManualRefresh = false) {
       let data = null;
+
+      // 1. Priorité au cache local partagé mis à jour lors de l'import caisse
       try {
-        const res = await fetch('ventes/dernier_jour_ventes.json?t=' + Date.now());
-        if (res.ok) {
-          data = await res.json();
+        const stored = localStorage.getItem('gc_latest_daily_sales');
+        if (stored) {
+          data = JSON.parse(stored);
         }
       } catch (e) {}
+
+      // 2. Fetch du fichier json dernier jour si non trouvé en cache
+      if (!data) {
+        try {
+          const res = await fetch('ventes/dernier_jour_ventes.json?t=' + Date.now());
+          if (res.ok) {
+            data = await res.json();
+          }
+        } catch (e) {}
+      }
+
+      // 3. Fallback variable statique
       if (!data && typeof LATEST_DAILY_SALES !== 'undefined') {
         data = LATEST_DAILY_SALES;
       }
+
       if (data) {
-        applyDailySalesData(data, data.fileName || 'Fin_Journée_20260913.xls');
-        const wDate = document.getElementById('watcher-latest-date');
-        if (wDate && data.date) wDate.innerText = data.date;
-        const wMeta = document.getElementById('watcher-latest-meta');
-        if (wMeta) wMeta.innerText = (data.fileName || '') + ' (' + data.totalCA.toLocaleString('fr-FR') + ' DH • ' + data.totalQty + ' articles)';
+        applyDailySalesData(data, data.fileName || 'Fin_Journée_20261002.xls', isManualRefresh);
         if (isManualRefresh) {
           const toast = document.createElement('div');
           toast.style.cssText = 'position:fixed; bottom:24px; right:24px; background:linear-gradient(135deg,#10b981,#059669); color:#fff; padding:14px 22px; border-radius:12px; font-weight:800; font-size:0.95rem; z-index:99999; box-shadow:0 8px 25px rgba(0,0,0,0.4); animation:fadeIn 0.3s ease;';
-          toast.innerHTML = '✅ Dernier jour synchronisé : ' + (data.date || '') + ' (' + data.totalCA.toLocaleString('fr-FR') + ' DH) !';
+          toast.innerHTML = '✅ Simulateur mis à jour avec le dernier jour : ' + (data.date || '') + ' (' + (data.totalCA ? data.totalCA.toLocaleString('fr-FR') + ' DH' : '') + ') !';
           document.body.appendChild(toast);
           setTimeout(() => toast.remove(), 3500);
         }
       }
     }
     window.autoLoadLatestDailySales = autoLoadLatestDailySales;
+
+    // Écoute temps réel des imports effectués dans d'autres onglets (ex: consommation.html)
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'gc_latest_daily_sales' && e.newValue) {
+        try {
+          const data = JSON.parse(e.newValue);
+          applyDailySalesData(data, data.fileName, true);
+        } catch (err) {}
+      }
+    });
+
+    window.addEventListener('gc-daily-sales-updated', (e) => {
+      if (e.detail) {
+        applyDailySalesData(e.detail, e.detail.fileName, true);
+      }
+    });
 
     // --- RAPPORT JOURNALIER ---
     function renderDailyReport(rows, totalCA, totalQty, fileName, dateStr) {

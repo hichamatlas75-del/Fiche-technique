@@ -14,19 +14,19 @@ function extractDateFromFilename(rawFilename) {
   filename = filename.trim();
 
   // 1. Format ISO avec séparateurs : YYYY-MM-DD ou YYYY_MM_DD ou YYYY.MM.DD
-  const mIso = filename.match(/\b(20\d{2})[-_.](0[1-9]|1[0-2])[-_.](0[1-9]|[12]\d|3[01])\b/);
+  const mIso = filename.match(/(?<!\d)(20\d{2})[-_.](0[1-9]|1[0-2])[-_.](0[1-9]|[12]\d|3[01])(?!\d)/);
   if (mIso) return `${mIso[1]}-${mIso[2]}-${mIso[3]}`;
 
   // 2. Format compact YYYYMMDD (ex: 20260829)
-  const mCompact = filename.match(/\b(20\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\b/);
+  const mCompact = filename.match(/(?<!\d)(20\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])(?!\d)/);
   if (mCompact) return `${mCompact[1]}-${mCompact[2]}-${mCompact[3]}`;
 
   // 3. Format FR avec séparateurs : DD-MM-YYYY ou DD_MM_YYYY (ex: 29-08-2026)
-  const mFr = filename.match(/\b(0[1-9]|[12]\d|3[01])[-_.](0[1-9]|1[0-2])[-_.](20\d{2})\b/);
+  const mFr = filename.match(/(?<!\d)(0[1-9]|[12]\d|3[01])[-_.](0[1-9]|1[0-2])[-_.](20\d{2})(?!\d)/);
   if (mFr) return `${mFr[3]}-${mFr[2]}-${mFr[1]}`;
 
   // 4. Format FR compact DDMMYYYY (ex: 29082026)
-  const mFrCompact = filename.match(/\b(0[1-9]|[12]\d|3[01])(0[1-9]|1[0-2])(20\d{2})\b/);
+  const mFrCompact = filename.match(/(?<!\d)(0[1-9]|[12]\d|3[01])(0[1-9]|1[0-2])(20\d{2})(?!\d)/);
   if (mFrCompact) return `${mFrCompact[3]}-${mFrCompact[2]}-${mFrCompact[1]}`;
 
   // Fallback 8 chiffres
@@ -144,23 +144,48 @@ async function handleUploadedFiles(fileList) {
         loadedFilesCount++;
         lastLoadedDate = extractedDate;
 
+        // Préparation du payload de vente journalière (utilisé pour Supabase et le Simulateur Décisionnel)
+        let totCA = 0;
+        let totQty = 0;
+        const itemsPayload = rows.map(r => {
+          const lineCA = (typeof r.total === 'number' ? r.total : ((r.qty || 1) * (r.price || 0)));
+          totCA += lineCA;
+          totQty += (r.qty || 1);
+          return {
+            id: (r.product || '').toLowerCase().replace(/[^a-z0-9]/g, '_'),
+            name: r.product,
+            cat: r.family || '',
+            price: r.price || 0,
+            qty: r.qty || 1,
+            ca: Math.round(lineCA * 100) / 100
+          };
+        });
+
+        const friendlyDate = (() => {
+          try {
+            const parts = extractedDate.split('-');
+            if (parts.length === 3) {
+              const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+              return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+            }
+          } catch(e) {}
+          return extractedDate;
+        })();
+
+        lastProcessedDailyPayload = {
+          date: friendlyDate,
+          isoDate: extractedDate,
+          dateKey: extractedDate.replace(/-/g, ''),
+          fileName: file.name,
+          filePath: 'ventes/' + file.name,
+          totalCA: Math.round(totCA * 100) / 100,
+          totalQty: Math.round(totQty),
+          totalItems: itemsPayload.length,
+          items: itemsPayload
+        };
+
         // Synchronisation automatique immédiate vers Supabase Cloud
         if (window.GC_Supabase && typeof window.GC_Supabase.saveDailySalesToCloud === 'function') {
-          let totCA = 0;
-          let totQty = 0;
-          const itemsPayload = rows.map(r => {
-            const lineCA = (typeof r.total === 'number' ? r.total : ((r.qty || 1) * (r.price || 0)));
-            totCA += lineCA;
-            totQty += (r.qty || 1);
-            return {
-              id: (r.product || '').toLowerCase().replace(/[^a-z0-9]/g, '_'),
-              name: r.product,
-              cat: r.family || '',
-              price: r.price || 0,
-              qty: r.qty || 1,
-              ca: Math.round(lineCA * 100) / 100
-            };
-          });
           window.GC_Supabase.saveDailySalesToCloud(extractedDate, Math.round(totCA * 100) / 100, Math.round(totQty), itemsPayload);
         }
       }
@@ -179,6 +204,17 @@ async function handleUploadedFiles(fileList) {
 
   if (loadedFilesCount > 0) {
     saveMonthlySalesDB();
+
+    // Propagation immédiate au Simulateur Décisionnel
+    if (lastProcessedDailyPayload) {
+      try {
+        localStorage.setItem('gc_latest_daily_sales', JSON.stringify(lastProcessedDailyPayload));
+        if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+          window.dispatchEvent(new CustomEvent('gc-daily-sales-updated', { detail: lastProcessedDailyPayload }));
+        }
+      } catch (e) {}
+    }
+
     selectedDate = lastLoadedDate;
     selectedYearMonth = selectedDate.slice(0, 7);
     renderCalendar();

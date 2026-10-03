@@ -497,6 +497,60 @@ function saveMonthlySalesDB() {
       console.warn('[SalesStorage] Miroir localStorage ignoré, IndexedDB actif:', e2);
     }
   }
+
+  // 3. Synchronisation automatique du dernier jour de vente pour le simulateur décisionnel
+  try {
+    const dates = Object.keys(monthlySalesDB).filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d)).sort();
+    if (dates.length > 0) {
+      const latestDate = dates[dates.length - 1];
+      const latestRows = monthlySalesDB[latestDate];
+      if (Array.isArray(latestRows) && latestRows.length > 0) {
+        let totCA = 0;
+        let totQty = 0;
+        const itemsPayload = latestRows.map(r => {
+          const lineCA = (typeof r.total === 'number' ? r.total : ((r.qty || 1) * (r.price || 0)));
+          totCA += lineCA;
+          totQty += (r.qty || 1);
+          return {
+            id: (r.product || '').toLowerCase().replace(/[^a-z0-9]/g, '_'),
+            name: r.product,
+            cat: r.family || '',
+            price: r.price || 0,
+            qty: r.qty || 1,
+            ca: Math.round(lineCA * 100) / 100
+          };
+        });
+        const friendlyDate = (() => {
+          try {
+            const parts = latestDate.split('-');
+            if (parts.length === 3) {
+              const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+              return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+            }
+          } catch(e) {}
+          return latestDate;
+        })();
+        const latestPayload = {
+          date: friendlyDate,
+          isoDate: latestDate,
+          dateKey: latestDate.replace(/-/g, ''),
+          fileName: `Fin_Journée_${latestDate.replace(/-/g, '')}.xls`,
+          filePath: `ventes/${latestDate.slice(0, 7)}/Fin_Journée_${latestDate.replace(/-/g, '')}.xls`,
+          totalCA: Math.round(totCA * 100) / 100,
+          totalQty: Math.round(totQty),
+          totalItems: itemsPayload.length,
+          items: itemsPayload
+        };
+        const kLatest = (typeof GC_STORAGE_KEYS !== 'undefined' && GC_STORAGE_KEYS.LATEST_SALES) ? GC_STORAGE_KEYS.LATEST_SALES : 'gc_latest_daily_sales';
+        localStorage.setItem(kLatest, JSON.stringify(latestPayload));
+        if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+          window.dispatchEvent(new CustomEvent('gc-daily-sales-updated', { detail: latestPayload }));
+        }
+      }
+    }
+  } catch (errSync) {
+    console.warn('[SalesStorage] Erreur synchronisation dernier jour simulateur:', errSync);
+  }
 }
 
 function deleteMonthlySalesDate(dateKey) {
