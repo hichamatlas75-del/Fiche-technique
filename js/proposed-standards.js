@@ -512,7 +512,7 @@
         "Sauce spéciale : 20 g"
       ]
     },
-    "PANINI GOURMAND": {
+    "PANINI MIX": {
       category: "PANINIS",
       standardPortionWeight: "300 g",
       rationale: "Pain panini 110g + Poulet 50g + Viande 50g + Mozzarella 50g + Sauce 25g.",

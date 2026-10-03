@@ -4751,7 +4751,7 @@ const DATA = [
         ]
       },
       {
-        "name": "PANINI GOURMAND",
+        "name": "PANINI MIX",
         "price": "64 DH",
         "sellPrice": 64,
         "tech": [
@@ -4763,7 +4763,7 @@ const DATA = [
           "Pain : 1 p",
           "Sauce biggy : 30 g"
         ],
-        "__key": "pa_panini_gourmand",
+        "__key": "pa_panini_mix",
         "cost": 19.04,
         "foodCost": 29.8,
         "margin": 68.7,
@@ -10816,7 +10816,7 @@ const BASE_RECIPES = [
   },
   {
     "id": "pa_gourmand",
-    "name": "PANINI GOURMAND",
+    "name": "PANINI MIX",
     "category": "PANINIS",
     "ingredients": [
       "Viande : 50 g",

@@ -138,7 +138,7 @@ describe("Matching contextuel POS & Parité PC/Mobile", function() {
   assert("4 SAISONS (PIZZA) -> Pizza 4 Saisons", p6 && p6.id === "pz_4_saisons");
 
   var p7 = findRecipeForProduct("MIXTE", "PANINI");
-  assert("MIXTE (PANINI) -> Panini Gourmand/Mix", p7 && p7.id === "pa_gourmand");
+  assert("MIXTE (PANINI) -> Panini Mix", p7 && p7.id === "pa_gourmand");
 });
 
 console.log("\n" + "=".repeat(60));
