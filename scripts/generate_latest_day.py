@@ -141,15 +141,22 @@ for r in range(1, sh.nrows):
     if not prod or prod.upper() in ['TOTAL', 'SOMME', 'MONTANT']:
         continue
     try:
+        price = float(sh.cell_value(r, 2))
+    except:
+        price = 0.0
+    try:
         qty = float(sh.cell_value(r, 3))
     except:
         qty = 1.0
-    if qty <= 0: qty = 1.0
     
     try:
         total = float(sh.cell_value(r, 4))
     except:
-        total = 0.0
+        total = qty * price
+    
+    # Exclure les lignes a 0 DH (boissons et extras inclus en formule)
+    if qty <= 0 or (price <= 0 and total <= 0):
+        continue
     
     n_prod = norm(prod)
     matched_id = dish_map.get(n_prod)
@@ -162,15 +169,12 @@ for r in range(1, sh.nrows):
     if not matched_id:
         matched_id = n_prod.lower().replace(' ', '_')
     
-    if matched_id not in aggregated:
-        item_name = prod
-        item_cat = fam or "DIVERS"
-        item_price = round(total / qty, 2) if qty > 0 else 0.0
-        if matched_id in menu_by_id:
-            item_name = menu_by_id[matched_id]['name']
-            item_cat = menu_by_id[matched_id].get('cat', fam or 'DIVERS')
-            item_price = menu_by_id[matched_id].get('price', item_price)
-        aggregated[matched_id] = {
+    key = prod.strip().upper()
+    if key not in aggregated:
+        item_name = prod.strip()
+        item_cat = fam.strip() or "DIVERS"
+        item_price = price if price > 0 else (round(total / qty, 2) if qty > 0 else 0.0)
+        aggregated[key] = {
             'id': matched_id,
             'name': item_name,
             'cat': item_cat,
@@ -179,8 +183,8 @@ for r in range(1, sh.nrows):
             'ca': 0.0
         }
     
-    aggregated[matched_id]['qty'] += int(round(qty))
-    aggregated[matched_id]['ca'] += total
+    aggregated[key]['qty'] += int(round(qty))
+    aggregated[key]['ca'] += total
 
 items_report = []
 total_ca = 0

@@ -11814,6 +11814,17 @@ const BASE_RECIPES = [
     ]
   },
   {
+    "id": "sup_supplement_chantilly",
+    "name": "SUPPLÉMENT CHANTILLY",
+    "category": "SUPPLÉMENTS & EXTRAS",
+    "ingredients": [
+      "Chantilly : 30 g"
+    ],
+    "tech": [
+      "Chantilly : 30 g"
+    ]
+  },
+  {
     "id": "sup_supplement_poulet",
     "name": "SUPPLÉMENT POULET",
     "category": "SUPPLÉMENTS & EXTRAS",
@@ -13629,6 +13640,8 @@ const ALIAS_MAP = {
   "supplement oeufs": "sup_supplement_oeufs",
   "supplément œufs": "sup_supplement_oeufs",
   "supplement fromage": "sup_supplement_fromage",
+  "supp chantilly": "sup_supplement_chantilly",
+  "supplement chantilly": "sup_supplement_chantilly",
   "supplément fromage": "sup_supplement_fromage",
   "pizza composee au choix": "sup_pizza_composee_au_choix",
   "pizza composée au choix": "sup_pizza_composee_au_choix",

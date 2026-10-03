@@ -3,7 +3,7 @@
  */
 
 (function(global) {
-  const APP_DATA_VERSION = 'v9.6_20261003_mix';
+  const APP_DATA_VERSION = 'v9.7_20261003_parity';
 
   // ─────────────────────────────────────────────────────────────
   // CLÉS LOCALSTORAGE CENTRALISÉES (Single Source of Truth)

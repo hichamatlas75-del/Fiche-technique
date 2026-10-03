@@ -184,7 +184,8 @@ def parse_sales_file(file_path, dish_map, menu_by_id):
     tot_qty = 0
 
     for fam, prod, price, qty, total in raw_rows:
-        if qty <= 0:
+        # Exclure les lignes a 0 DH (boissons et extras inclus en formule)
+        if qty <= 0 or (price <= 0 and total <= 0):
             continue
         n_prod = norm(prod)
         did = dish_map.get(n_prod)
@@ -197,15 +198,11 @@ def parse_sales_file(file_path, dish_map, menu_by_id):
         if not did:
             did = prod.lower().replace(' ', '_')
 
-        key = did
+        key = prod.strip().upper()
         if key not in prods:
-            item_name = prod
-            item_cat = fam
-            item_price = price
-            if did in menu_by_id:
-                item_name = menu_by_id[did]['name']
-                item_cat = menu_by_id[did].get('cat', fam)
-                item_price = menu_by_id[did].get('price', price)
+            item_name = prod.strip()
+            item_cat = fam.strip() or "DIVERS"
+            item_price = price if price > 0 else (round(total / qty, 2) if qty > 0 else 0.0)
 
             prods[key] = {
                 'id': did,

@@ -22,6 +22,7 @@ const POS_RULES = [
 
   // ── Plats ──────────────────────────────────────────────────────────────────
   { id: 'plat_brochette_poulet',       test: (n) => n.includes('brochette') },
+  { id: 'plat_couscous_viande',        test: (n) => n.includes('couscous') && (n.includes('viande') || n.includes('vainde') || n.includes('boeuf')) },
   { id: 'plat_couscous_poulet',        test: (n) => n.includes('couscous') },
   { id: 'ec_boulettes_poulet',         test: (n) => n.includes('boulette') },
   { id: 'ec_croquettes_fromage',       test: (n) => n.includes('croquette') },
@@ -51,6 +52,7 @@ const POS_RULES = [
   { id: 'sup_supplement_poulet',       test: (n) => (n.startsWith('sup ') || n.startsWith('supplement')) && n.includes('poulet') },
   { id: 'sup_supplement_viande',       test: (n) => (n.startsWith('sup ') || n.startsWith('supplement')) && n.includes('viande') },
   { id: 'sup_supplement_oeufs',        test: (n) => (n.startsWith('sup ') || n.startsWith('supplement')) && n.includes('oeuf') },
+  { id: 'sup_supplement_chantilly',    test: (n) => (n.startsWith('sup') || n.includes('supplement')) && n.includes('chantilly') },
 
   // ── Composé ───────────────────────────────────────────────────────────────
   { id: 'sup_pizza_composee_au_choix', test: (n, f) => n.includes('compose') && (n.includes('pizza') || f.includes('pizza')) },
