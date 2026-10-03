@@ -162,7 +162,7 @@ assert.strictEqual(stored.totalCA, 9960);
 assert.strictEqual(stored.totalQty, 317);
 console.log("✅ [4/5] Données de la journée correctement enregistrées dans localStorage.");
 
-// 5. Tester le retour à la vue 'ALL' (Cumul 166 jours) sans corruption des données
+// 5. Tester le retour à la vue 'ALL' (Cumul 185 jours) sans corruption des données
 console.log("\n--- TEST [5/5] Rétablissement de la vue globale 'ALL' ---");
 selectCalendarPeriod('ALL');
 
@@ -170,7 +170,7 @@ assert.strictEqual(cafeItem.qty, cafeBaseQty, "Café Noir a retrouvé sa baseQty
 assert.strictEqual(cafeItem.ca, cafeBaseCA, "Café Noir a retrouvé son baseCA original");
 assert(unsoldItem.qty === unsoldItem.baseQty, "Article non vendu a retrouvé sa baseQty");
 
-console.log("✅ [5/5] Basculement parfait entre Journée et Cumul Global 166 jours (aucune corruption).");
+console.log("✅ [5/5] Basculement parfait entre Journée et Cumul Global 185 jours (aucune corruption).");
 
 console.log("\n==================================================================");
 console.log("🎉 TOUS LES TESTS DU SIMULATEUR DÉCISIONNEL SONT PASSÉS À 100% !");
