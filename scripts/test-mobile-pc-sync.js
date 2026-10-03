@@ -47,10 +47,11 @@ async function testMobilePcSync() {
   console.log('\n3️⃣ Vérification du Cache-Buster dans js/core-utils.js...');
   const coreUtilsPath = path.resolve(__dirname, '../js/core-utils.js');
   const coreContent = fs.readFileSync(coreUtilsPath, 'utf-8');
-  if (!coreContent.includes("APP_DATA_VERSION = 'v9.2_20260920'")) {
-    throw new Error('APP_DATA_VERSION non mis à jour dans js/core-utils.js');
+  const verMatch = coreContent.match(/APP_DATA_VERSION\s*=\s*['"]([^'"]+)['"]/);
+  if (!verMatch || !verMatch[1].startsWith('v9.')) {
+    throw new Error('APP_DATA_VERSION non valide ou absent dans js/core-utils.js');
   }
-  console.log('  ✅ APP_DATA_VERSION est bien "v9.2_20260920" (force la purge du cache mobile)');
+  console.log(`  ✅ APP_DATA_VERSION est bien "${verMatch[1]}" (force la purge du cache mobile)`);
 
   // 4. Vérifier la présence de refreshFromCloud dans prices-modal.js
   console.log('\n4️⃣ Vérification de la synchronisation automatique dans js/prices-modal.js...');

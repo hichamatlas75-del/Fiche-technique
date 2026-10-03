@@ -82,6 +82,8 @@ const POS_RULES = [
   { id: 'sw_viande_hachee',            test: (n, f) => (f.includes('sandwich') || f.includes('ciabatta') || n.includes('sandwich') || n.includes('ciabatta')) && (n.includes('viande') || n.includes('hache')) },
 
   // ── Pizzas ────────────────────────────────────────────────────────────────
+  { id: 'pz_4_saisons',                test: (n, f) => (f.includes('pizza') || n.includes('pizza')) && (n.includes('4 saison') || n.includes('quatre saison')) },
+  { id: 'pz_margarita',                test: (n, f) => (f.includes('pizza') || n.includes('pizza')) && (n.includes('margarita') || n.includes('margherita')) },
   { id: 'pz_fruits_de_mer',            test: (n, f) => (f.includes('pizza') || n.includes('pizza')) && (n.includes('fruit') || n.includes('mer')) },
   { id: 'pz_saumon',                   test: (n, f) => (f.includes('pizza') || n.includes('pizza')) && n.includes('saumon') },
   { id: 'pz_thon',                     test: (n, f) => (f.includes('pizza') || n.includes('pizza')) && n.includes('thon') },
@@ -112,25 +114,41 @@ function findRecipeForProduct(rawName, rawFamille = '') {
   const cName = cleanText(rawName);
   const cFam = cleanText(rawFamille);
 
-  // 0. Correspondance exacte ultra-rapide O(1) via l'index de recettes ou la table d'alias
+  // 0. Correspondance exacte ultra-rapide O(1) via l'index de recettes (nom exact complet de la fiche technique)
   if (window.recipeNameIndex && window.recipeNameIndex.has(cName)) {
     return window.recipeNameIndex.get(cName);
   }
+
+  // 1. AME-03 / PARITY-FIX : Évaluation des règles POS contextuelles en priorité si une famille/catégorie POS est présente
+  // Évite qu'un nom générique de caisse (ex: "FRUIT DE MER" en Panini, "POULET" en Ciabatta, "VIANDE HACHÉE" en Ciabatta)
+  // ne soit capté à tort par un alias générique Pizza non contextualisé !
+  if (cFam) {
+    for (const rule of POS_RULES) {
+      if (rule.test(cName, cFam)) {
+        const found = activeRecipes.find(x => x.id === rule.id);
+        if (found) return found;
+      }
+    }
+  }
+
+  // 2. Table d'alias POS (pour correspondances directes sans conflit ou si aucune règle contextuelle n'a matché)
   const aliasMap = window.cleanAliasMap || ALIAS_MAP;
   if (aliasMap && aliasMap[cName]) {
     const r = activeRecipes.find(x => x.id === aliasMap[cName]);
     if (r) return r;
   }
 
-  // 1. AME-03 : Évaluation des règles POS déclaratives (ordre prioritaire)
-  for (const rule of POS_RULES) {
-    if (rule.test(cName, cFam)) {
-      const found = activeRecipes.find(x => x.id === rule.id);
-      if (found) return found;
+  // 3. Fallback règles POS sans famille (si le fichier POS n'avait pas de colonne Famille)
+  if (!cFam) {
+    for (const rule of POS_RULES) {
+      if (rule.test(cName, cFam)) {
+        const found = activeRecipes.find(x => x.id === rule.id);
+        if (found) return found;
+      }
     }
   }
 
-  // 2. Nettoyage de préfixes habituels de caisse
+  // 4. Nettoyage de préfixes habituels de caisse
   let simplified = cName
     .replace(/^pet dej\s+/, '')
     .replace(/^plat\s+/, '')
@@ -161,11 +179,11 @@ function findRecipeForProduct(rawName, rawFamille = '') {
     if (r) return r;
   }
 
-  // 3. Fast O(1) exact match via index (nom complet + nom simplifié)
+  // 5. Fast O(1) exact match via index (nom complet + nom simplifié)
   if (window.recipeNameIndex && window.recipeNameIndex.has(cName)) return window.recipeNameIndex.get(cName);
   if (window.recipeNameIndex && window.recipeNameIndex.has(simplified)) return window.recipeNameIndex.get(simplified);
 
-  // 4. Recherche par mot entier — BUG-02 FIX : regex sécurisée via escapeRegex()
+  // 6. Recherche par mot entier — BUG-02 FIX : regex sécurisée via escapeRegex()
   for (const r of activeRecipes) {
     const rClean = cleanText(r.name);
     if (rClean.length > 2) {
@@ -188,7 +206,7 @@ function findRecipeForProduct(rawName, rawFamille = '') {
    5. PARSER D'INGRÉDIENTS & SYNCHRONISATION DES CATÉGORIES
 ======================================================== */
 // Dictionnaire configurable pour la catégorisation des ingrédients
-const INGREDIENT_CATEGORIES = window.INGREDIENT_CATEGORIES || {
+const INGREDIENT_CATEGORIES = (typeof window !== 'undefined' && window.INGREDIENT_CATEGORIES) ? window.INGREDIENT_CATEGORIES : {
   viandes: ['viande', 'boeuf', 'bœuf', 'filet', 'steak', 'poulet', 'merguez', 'saucisse', 'dinde', 'charcuterie', 'khli', 'bacon', 'pepperoni', 'nugget'],
   poissons: ['saumon', 'crevette', 'gambas', 'calamar', 'moule', 'thon', 'mer', 'poisson'],
   fromages: ['oeuf', 'œuf', 'omelette', 'fromage', 'mozzarella', 'parmesan', 'cheddar', 'edam', 'gouda', 'jben', 'beurre', 'creme', 'crème', 'lait', 'yaourt', 'ricotta', 'burrata', 'brie', 'bleu'],
@@ -734,5 +752,5 @@ function processSalesAndCalculateStock(rawRows, periodTitle = '', isMonthly = fa
 
 // Interopérabilité Node.js (scripts d'automatisation + tests unitaires)
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { parseIngredientLine, findRecipeForProduct, escapeRegex, categorizeIngredient, processSalesAndCalculateStock };
+  module.exports = { parseIngredientLine, findRecipeForProduct, escapeRegex, categorizeIngredient, processSalesAndCalculateStock, POS_RULES };
 }

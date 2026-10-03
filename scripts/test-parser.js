@@ -3,8 +3,6 @@ const path = require("path");
 const ROOT = path.resolve(__dirname, "..");
 
 // Globaux nécessaires
-global.ALIAS_MAP = {};
-global.activeRecipes = [];
 global.window = global;
 global.window.recipeNameIndex = new Map();
 global.window.cleanAliasMap = {};
@@ -15,10 +13,25 @@ try { require(path.join(ROOT, "js", "core-utils.js")); } catch(e) {
   global.cleanText = (s) => String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g," ").replace(/\s+/g," ").trim();
 }
 
+// Charger recipes-data
+try {
+  const rData = require(path.join(ROOT, "recipes-data.js"));
+  global.activeRecipes = rData.BASE_RECIPES || [];
+  global.ALIAS_MAP = rData.ALIAS_MAP || {};
+  activeRecipes.forEach(r => global.window.recipeNameIndex.set(cleanText(r.name), r));
+  for (const [k, v] of Object.entries(global.ALIAS_MAP)) {
+    global.window.cleanAliasMap[cleanText(k)] = v;
+  }
+} catch(e) {
+  global.ALIAS_MAP = {};
+  global.activeRecipes = [];
+}
+
 // Charger conso-processing
 const proc = require(path.join(ROOT, "js", "conso-processing.js"));
 const parseIngredientLine = proc.parseIngredientLine;
 const escapeRegex = proc.escapeRegex;
+const findRecipeForProduct = proc.findRecipeForProduct;
 
 // Framework
 let passed = 0, failed = 0;
@@ -103,6 +116,29 @@ describe("escapeRegex securite", function() {
   assert("Eschappe .", escapeRegex("a.b") === "a\\.b");
   assert("Eschappe ()", escapeRegex("a(b)") === "a\\(b\\)");
   assert("Chaine normale inchangee", escapeRegex("pizza") === "pizza");
+});
+
+describe("Matching contextuel POS & Parité PC/Mobile", function() {
+  var p1 = findRecipeForProduct("FRUIT DE MER", "PANINI");
+  assert("FRUIT DE MER (PANINI) -> Panini Fruit de Mer (non Pizza)", p1 && p1.id === "pa_fruits_de_mer");
+
+  var p2 = findRecipeForProduct("POULET", "SANDWICHS CIABATTA");
+  assert("POULET (SANDWICHS CIABATTA) -> Sandwich Ciabatta Poulet (non Pizza)", p2 && p2.id === "sw_poulet");
+
+  var p3 = findRecipeForProduct("VIANDE HACHÉE", "SANDWICHS CIABATTA");
+  assert("VIANDE HACHÉE (SANDWICHS CIABATTA) -> Sandwich Ciabatta VH (non Pizza)", p3 && p3.id === "sw_viande_hachee");
+
+  var p4 = findRecipeForProduct("VIANDE HACHÉE", "PIZZA");
+  assert("VIANDE HACHÉE (PIZZA) -> Pizza Viande Hachée", p4 && p4.id === "pz_viande_hachee");
+
+  var p5 = findRecipeForProduct("POULET SAUCE BLANCHE", "PIZZA");
+  assert("POULET SAUCE BLANCHE (PIZZA) -> Pizza Poulet", p5 && p5.id === "pz_poulet_sauce_blanche");
+
+  var p6 = findRecipeForProduct("4 SAISONS", "PIZZA");
+  assert("4 SAISONS (PIZZA) -> Pizza 4 Saisons", p6 && p6.id === "pz_4_saisons");
+
+  var p7 = findRecipeForProduct("MIXTE", "PANINI");
+  assert("MIXTE (PANINI) -> Panini Gourmand/Mix", p7 && p7.id === "pa_gourmand");
 });
 
 console.log("\n" + "=".repeat(60));
