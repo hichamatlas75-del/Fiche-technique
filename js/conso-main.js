@@ -195,8 +195,9 @@ document.addEventListener('DOMContentLoaded', () => {
   loadMonthlySalesDB(() => {
     renderCalendar();
     recalculateCurrentView();
-    // Si Supabase est en ligne (architecture 100% Cloud), pas besoin de scanner 170 fichiers GitHub Raw
-    if ((!window.GC_Supabase || !window.GC_Supabase.isOnline) && typeof autoScanVentesFolder === 'function') {
+    // Architecture 100% Cloud Supabase SSOT : Si Supabase est en ligne ou que les ventes sont déjà chargées, ne pas scanner GitHub Raw
+    const hasSales = window.monthlySalesDB && Object.keys(window.monthlySalesDB).length > 0;
+    if (!window.__supabaseSalesLoaded && !hasSales && (!window.GC_Supabase || !window.GC_Supabase.isOnline) && typeof autoScanVentesFolder === 'function') {
       autoScanVentesFolder(false);
     }
   });

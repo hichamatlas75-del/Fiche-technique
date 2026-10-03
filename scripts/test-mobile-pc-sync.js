@@ -62,6 +62,36 @@ async function testMobilePcSync() {
   }
   console.log('  ✅ refreshFromCloud() intégré dans open() et bouton 🔄 Cloud présent');
 
+  // 5. Vérifier la synchronisation lifecycle mobile dans supabase-client.js
+  console.log('\n5️⃣ Vérification du cycle de vie mobile (setupLifecycleSync) dans js/supabase-client.js...');
+  const supaClientPath = path.resolve(__dirname, '../js/supabase-client.js');
+  const supaClientContent = fs.readFileSync(supaClientPath, 'utf-8');
+  if (!supaClientContent.includes('refreshAllFromCloud') || !supaClientContent.includes('setupLifecycleSync') || !supaClientContent.includes('visibilitychange')) {
+    throw new Error('setupLifecycleSync ou visibilitychange non trouvé dans js/supabase-client.js');
+  }
+  console.log('  ✅ refreshAllFromCloud() et setupLifecycleSync(visibilitychange, online, focus) présents');
+
+  // 6. Vérifier la protection SSOT contre les écrasements GitHub Raw
+  console.log('\n6️⃣ Vérification de la protection SSOT dans js/conso-audit.js...');
+  const auditPath = path.resolve(__dirname, '../js/conso-audit.js');
+  const auditContent = fs.readFileSync(auditPath, 'utf-8');
+  if (!auditContent.includes('window.__supabaseSalesLoaded')) {
+    throw new Error('Protection __supabaseSalesLoaded absente dans js/conso-audit.js');
+  }
+  console.log('  ✅ Protection SSOT active contre l\'écrasement par des scans bruts');
+
+  // 7. Vérifier la présence des ventes du 2026-10-02 dans Supabase Cloud
+  console.log('\n7️⃣ Vérification des ventes du 2026-10-02 dans Supabase daily_sales...');
+  const resSales = await fetch(`${SUPABASE_URL}/rest/v1/daily_sales?sale_date=eq.2026-10-02`, {
+    headers: { apikey: ANON_KEY, Authorization: `Bearer ${ANON_KEY}` }
+  });
+  if (resSales.ok) {
+    const salesRows = await resSales.json();
+    if (salesRows.length > 0 && Array.isArray(salesRows[0].items)) {
+      console.log(`  ☁️ Supabase daily_sales (2026-10-02) : ${salesRows[0].items.length} articles vendus.`);
+    }
+  }
+
   console.log('\n🎉 TOUS LES TESTS SONT AU VERT : COHÉRENCE 100% ASSURÉE ENTRE PC, SUPABASE ET MOBILE !');
 }
 

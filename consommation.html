@@ -54,9 +54,10 @@
       </div>
     </div>
     <div class="app-header-nav">
-      <span class="badge-status-sync" id="sync-status-badge" style="display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:800; background:rgba(22, 163, 74, 0.12); color:#16a34a; border:1px solid rgba(22, 163, 74, 0.3); padding:5px 10px; border-radius:20px;">
+      <span class="badge-status-sync" id="sync-status-badge" style="display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:800; background:rgba(22, 163, 74, 0.12); color:#16a34a; border:1px solid rgba(22, 163, 74, 0.3); padding:5px 10px; border-radius:20px; cursor:pointer;" title="Synchroniser avec Supabase Cloud">
         🟢 Ventes Connectées
       </span>
+      <button class="btn btn-secondary" style="border-color:#0284c7; color:#0284c7; font-weight:700;" onclick="window.GC_Supabase ? window.GC_Supabase.refreshAllFromCloud(true) : window.forceCacheRefresh()" title="Synchroniser immédiatement toutes les données depuis Supabase Cloud (SSOT)">☁️ Sync Cloud</button>
       <a href="audit.html" class="btn btn-secondary" title="Ouvrir la page dédiée à l'Audit Flash Manuel de Stock">⚡ Audit Flash</a>
       <a href="comparateur.html" class="btn btn-secondary" title="Comparateur Fiches Grey Corner vs Normes Internationales">⚖️ Normes &amp; Comparateur</a>
       <button class="btn btn-secondary" onclick="window.GC_PricesModal ? window.GC_PricesModal.open() : (window.openPricesModal ? window.openPricesModal() : null)" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
@@ -167,6 +168,10 @@
       <div class="gc-drawer-section-title">
         <span>🛠️ Gestion des Données</span>
       </div>
+      <button type="button" class="gc-drawer-action-btn" style="background:rgba(2, 132, 199, 0.1); border-color:rgba(2, 132, 199, 0.3); color:#0284c7; font-weight:700;" onclick="window.GC_Supabase ? window.GC_Supabase.refreshAllFromCloud(true) : window.forceCacheRefresh(); GC_BurgerMenu.close();">
+        <span>☁️</span>
+        <span>Synchroniser Supabase Cloud (SSOT)</span>
+      </button>
       <button type="button" class="gc-drawer-action-btn" onclick="window.toggleCalendarCard(true); GC_BurgerMenu.close();">
         <span>📅</span>
         <span>Calendrier &amp; Sélection de Période</span>

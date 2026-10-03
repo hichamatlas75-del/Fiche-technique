@@ -443,7 +443,10 @@ async function loadMonthlySalesDB(onLoadedCallback) {
         });
         if (updatedCount > 0) {
           console.log(`[GC_Supabase] ${updatedCount} journées de ventes hydratées depuis Supabase Cloud (SSOT) !`);
-          if (typeof window !== 'undefined') window.monthlySalesDB = monthlySalesDB;
+          if (typeof window !== 'undefined') {
+            window.monthlySalesDB = monthlySalesDB;
+            window.__supabaseSalesLoaded = true;
+          }
           saveMonthlySalesDB();
           if (typeof onLoadedCallback === 'function') {
             onLoadedCallback(monthlySalesDB);

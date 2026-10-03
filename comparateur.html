@@ -60,6 +60,10 @@
         </div>
       </div>
       <div class="app-header-nav">
+        <span class="badge-status-sync" id="sync-status-badge" style="display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:800; background:rgba(2, 132, 199, 0.12); color:#0284c7; border:1px solid rgba(2, 132, 199, 0.3); padding:5px 10px; border-radius:20px; cursor:pointer;" title="Synchroniser avec Supabase Cloud">
+          ☁️ Supabase Connecté (SSOT)
+        </span>
+        <button class="btn btn-secondary" style="border-color:#0284c7; color:#0284c7; font-weight:700;" onclick="window.GC_Supabase ? window.GC_Supabase.refreshAllFromCloud(true) : window.forceCacheRefresh()" title="Synchroniser immédiatement toutes les données depuis Supabase Cloud (SSOT)">☁️ Sync Cloud</button>
         <button class="btn btn-secondary" onclick="window.GC_PricesModal ? window.GC_PricesModal.open() : (window.openPricesModal ? window.openPricesModal() : null)" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
         <button class="btn btn-secondary" onclick="window.forceCacheRefresh()" title="Forcer la mise à jour et recharger les dernières données">🔄 Actualiser</button>
         <button id="theme-toggle" class="btn btn-secondary" title="Basculer le thème">🌓 Thème</button>
@@ -171,6 +175,10 @@
         <div class="gc-drawer-section-title">
           <span>💾 Sauvegarde &amp; Actions</span>
         </div>
+        <button type="button" class="gc-drawer-action-btn" style="background:rgba(2, 132, 199, 0.1); border-color:rgba(2, 132, 199, 0.3); color:#0284c7; font-weight:700;" onclick="window.GC_Supabase ? window.GC_Supabase.refreshAllFromCloud(true) : window.forceCacheRefresh(); GC_BurgerMenu.close();">
+          <span>☁️</span>
+          <span>Synchroniser Supabase Cloud (SSOT)</span>
+        </button>
         <button type="button" class="gc-drawer-action-btn success" onclick="window.saveAllEdits ? window.saveAllEdits() : (window.saveEdits ? window.saveEdits() : null); GC_BurgerMenu.close();">
           <span>☁️</span>
           <span>Enregistrer les Fiches (Supabase)</span>

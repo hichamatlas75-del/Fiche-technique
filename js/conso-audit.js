@@ -202,6 +202,15 @@ async function handleUploadedFiles(fileList) {
 
 // Détection et synchronisation automatique avec le dossier racine /ventes
 async function autoScanVentesFolder(showUserAlert = false, forceFullResync = false) {
+  // RÈGLE SSOT SUPABASE : Si les ventes proviennent de Supabase Cloud ou que Supabase est en ligne,
+  // ne pas lancer de scan GitHub qui risquerait d'écraser la base Cloud avec des formats bruts !
+  if (!forceFullResync && (window.__supabaseSalesLoaded || (window.GC_Supabase && window.GC_Supabase.isOnline && Object.keys(monthlySalesDB).length > 0))) {
+    console.log('[Auto-sync] Ventes gérées par Supabase Cloud (SSOT). Scan GitHub ignoré.');
+    const banner = document.getElementById('sync-status-banner');
+    if (banner) banner.style.display = 'none';
+    return;
+  }
+
   const banner = document.getElementById('sync-status-banner');
   if (banner) {
     banner.style.display = 'block';

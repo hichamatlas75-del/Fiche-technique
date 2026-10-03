@@ -59,15 +59,89 @@
      */
     init: async function() {
       try {
-        await this.syncIngredientsFromCloud();
-        await this.syncRecipesFromCloud();
-        this.isOnline = true;
-        this.updateUiBadge(true);
+        await this.refreshAllFromCloud(false);
         this.setupRealtime();
+        this.setupLifecycleSync();
       } catch (err) {
         console.warn('[GC_Supabase] Connexion cloud indisponible (mode hors-ligne):', err);
         this.isOnline = false;
         this.updateUiBadge(false);
+      }
+    },
+
+    /**
+     * Synchronise intégralement toutes les données (matières, fiches et ventes) depuis Supabase Cloud (SSOT)
+     */
+    refreshAllFromCloud: async function(showToast = false) {
+      try {
+        await this.syncIngredientsFromCloud();
+        await this.syncRecipesFromCloud();
+        const cloudSales = await this.syncDailySalesFromCloud(365);
+        if (Array.isArray(cloudSales) && cloudSales.length > 0) {
+          if (typeof window !== 'undefined') {
+            if (!window.monthlySalesDB) window.monthlySalesDB = {};
+            cloudSales.forEach(day => {
+              if (day && day.sale_date && Array.isArray(day.items)) {
+                window.monthlySalesDB[day.sale_date] = day.items.map(it => ({
+                  family: it.cat || it.family || 'Général',
+                  product: it.name || it.product,
+                  price: it.price || 0,
+                  qty: it.qty || 1,
+                  total: it.ca || it.total || ((it.qty || 1) * (it.price || 0))
+                }));
+              }
+            });
+            window.__supabaseSalesLoaded = true;
+            if (typeof window.saveMonthlySalesDB === 'function') window.saveMonthlySalesDB();
+            if (typeof window.renderCalendar === 'function') window.renderCalendar();
+            if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
+          }
+        }
+        this.isOnline = true;
+        this.updateUiBadge(true);
+        if (showToast && global.GC_Toast) {
+          global.GC_Toast.show('☁️ Données 100% synchronisées avec Supabase Cloud !', 'success');
+        }
+        return true;
+      } catch (err) {
+        console.warn('[GC_Supabase] Erreur synchronisation globale Cloud:', err);
+        this.isOnline = false;
+        this.updateUiBadge(false);
+        if (showToast && global.GC_Toast) {
+          global.GC_Toast.show('⚠️ Mode hors-ligne : données locales affichées.', 'warning');
+        }
+        return false;
+      }
+    },
+
+    /**
+     * Écoute les événements du cycle de vie (écran de smartphone déverrouillé, retour sur l'onglet, reconnexion réseau)
+     */
+    setupLifecycleSync: function() {
+      let lastSyncTime = Date.now();
+      const triggerThrottledSync = () => {
+        const now = Date.now();
+        if (now - lastSyncTime > 8000) {
+          lastSyncTime = now;
+          this.refreshAllFromCloud(false);
+        }
+      };
+
+      if (typeof document !== 'undefined') {
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') {
+            triggerThrottledSync();
+          }
+        });
+      }
+
+      if (typeof window !== 'undefined') {
+        window.addEventListener('online', () => {
+          triggerThrottledSync();
+        });
+        window.addEventListener('focus', () => {
+          triggerThrottledSync();
+        });
       }
     },
 
@@ -902,12 +976,21 @@
     updateUiBadge: function(isOnline) {
       const badge = document.getElementById('sync-status-badge');
       if (badge) {
+        badge.style.cursor = 'pointer';
         if (isOnline) {
-          badge.innerHTML = '☁️ Supabase Connecté';
+          badge.innerHTML = '☁️ Supabase Connecté (SSOT)';
           badge.style.background = 'rgba(2, 132, 199, 0.12)';
           badge.style.color = '#0284c7';
           badge.style.border = '1px solid rgba(2, 132, 199, 0.3)';
-          badge.title = 'Base de données Supabase connectée en temps réel (Direction)';
+          badge.title = 'Base de données Cloud Supabase connectée. Cliquer pour forcer la synchronisation.';
+          badge.onclick = () => this.refreshAllFromCloud(true);
+        } else {
+          badge.innerHTML = '⚡ Mode Hors-Ligne (Local)';
+          badge.style.background = 'rgba(234, 179, 8, 0.12)';
+          badge.style.color = '#ca8a04';
+          badge.style.border = '1px solid rgba(234, 179, 8, 0.3)';
+          badge.title = 'Connexion Cloud indisponible. Cliquer pour retenter la synchronisation.';
+          badge.onclick = () => this.refreshAllFromCloud(true);
         }
       }
     }
