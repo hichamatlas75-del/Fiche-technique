@@ -260,12 +260,11 @@ def sync_sales(start_date="2026-04-01", end_date="2026-09-15"):
     print("=" * 66)
 
     dish_map, menu_by_id = load_dish_map()
-    pattern = os.path.join(VENTES_DIR, "2026-*", "*.xls*")
-    all_files = glob.glob(pattern)
+    all_files = glob.glob(os.path.join(VENTES_DIR, "2026-*", "*.xls*")) + glob.glob(os.path.join(VENTES_DIR, "*.xls*"))
 
     files_by_date = {}
     for f in all_files:
-        if "manifest.json" in f:
+        if "manifest.json" in f or "dernier_jour_ventes.json" in f:
             continue
         m = re.search(r"2026(\d{2})(\d{2})", os.path.basename(f))
         if m:
@@ -324,7 +323,9 @@ def sync_sales(start_date="2026-04-01", end_date="2026-09-15"):
     print("=" * 66)
 
 if __name__ == "__main__":
-    if "--latest" in sys.argv:
+    import datetime
+
+    if "--latest" in sys.argv or "--recent" in sys.argv:
         manifest_path = os.path.join(REPO_DIR, "ventes", "dernier_jour_ventes.json")
         target = None
         if os.path.exists(manifest_path):
@@ -337,18 +338,24 @@ if __name__ == "__main__":
             except Exception:
                 pass
         if not target:
-            files = sorted(glob.glob(os.path.join(REPO_DIR, "ventes", "2026-*", "*.xls*")))
+            files = sorted(glob.glob(os.path.join(REPO_DIR, "ventes", "2026-*", "*.xls*")) + glob.glob(os.path.join(REPO_DIR, "ventes", "*.xls*")))
             for f in reversed(files):
                 m = re.search(r"2026\d{4}", os.path.basename(f))
                 if m:
                     dk = m.group(0)
                     target = f"{dk[:4]}-{dk[4:6]}-{dk[6:]}"
                     break
-        target = target or "2026-09-16"
-        sync_sales(start_date=target, end_date=target)
+        target = target or "2026-10-05"
+        try:
+            target_dt = datetime.date.fromisoformat(target)
+            start_dt = target_dt - datetime.timedelta(days=30)
+            start_date_str = start_dt.isoformat()
+        except Exception:
+            start_date_str = "2026-09-01"
+        sync_sales(start_date=start_date_str, end_date="2099-12-31")
     elif "--date" in sys.argv:
         idx = sys.argv.index("--date")
         target_date = sys.argv[idx + 1]
         sync_sales(start_date=target_date, end_date=target_date)
     else:
-        sync_sales(start_date="2026-04-01", end_date="2026-09-30")
+        sync_sales(start_date="2026-04-01", end_date="2099-12-31")

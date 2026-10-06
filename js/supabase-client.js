@@ -81,7 +81,7 @@
           if (typeof window !== 'undefined') {
             if (!window.monthlySalesDB) window.monthlySalesDB = {};
             cloudSales.forEach(day => {
-              if (day && day.sale_date && Array.isArray(day.items)) {
+              if (day && day.sale_date && Array.isArray(day.items) && day.items.length > 0) {
                 window.monthlySalesDB[day.sale_date] = day.items.map(it => ({
                   family: it.cat || it.family || 'Général',
                   product: it.name || it.product,
@@ -92,7 +92,64 @@
               }
             });
             window.__supabaseSalesLoaded = true;
-            if (typeof window.saveMonthlySalesDB === 'function') window.saveMonthlySalesDB();
+
+            // Auto-sélection de la date la plus récente avec des données
+            const availableDates = Object.keys(window.monthlySalesDB).filter(d => window.monthlySalesDB[d] && window.monthlySalesDB[d].length > 0).sort();
+            if (availableDates.length > 0) {
+              const latestDate = availableDates[availableDates.length - 1];
+              if (!window.monthlySalesDB[window.selectedDate] || window.monthlySalesDB[window.selectedDate].length === 0) {
+                window.selectedDate = latestDate;
+                if (typeof window.selectedYearMonth !== 'undefined') {
+                  window.selectedYearMonth = latestDate.slice(0, 7);
+                }
+              }
+
+              // Mettre à jour immédiatement le Simulateur Décisionnel (localStorage + CustomEvent)
+              const latestCloudDay = cloudSales.find(d => d.sale_date === latestDate);
+              const latestRows = window.monthlySalesDB[latestDate] || [];
+              let totCA = 0, totQty = 0;
+              const itemsList = latestRows.map(r => {
+                const ca = Number(r.total) || 0;
+                const q = Number(r.qty) || 0;
+                totCA += ca;
+                totQty += q;
+                return {
+                  cat: r.family || 'Général',
+                  name: r.product,
+                  price: Number(r.price) || 0,
+                  qty: q,
+                  ca: ca
+                };
+              });
+              if (latestCloudDay && latestCloudDay.total_revenue) {
+                totCA = Number(latestCloudDay.total_revenue);
+              }
+              const simPayload = {
+                date: (typeof formatDateFR === 'function') ? formatDateFR(latestDate) : latestDate,
+                isoDate: latestDate,
+                dateKey: latestDate.replace(/-/g, ''),
+                fileName: `Fin_Journée_${latestDate.replace(/-/g, '')}.xls`,
+                totalCA: Math.round(totCA * 100) / 100,
+                totalQty: Math.round(totQty),
+                totalItems: itemsList.length,
+                items: itemsList
+              };
+              try {
+                localStorage.setItem('gc_latest_daily_sales', JSON.stringify(simPayload));
+                if (typeof window.dispatchEvent === 'function') {
+                  window.dispatchEvent(new CustomEvent('gc-daily-sales-updated', { detail: simPayload }));
+                }
+              } catch(e) {}
+            }
+
+            if (typeof window.saveMonthlySalesDB === 'function') {
+              window.saveMonthlySalesDB();
+            } else {
+              try {
+                const kSales = (typeof GC_STORAGE_KEYS !== 'undefined' && GC_STORAGE_KEYS.SALES) ? GC_STORAGE_KEYS.SALES : 'gc_monthly_sales_db';
+                localStorage.setItem(kSales, JSON.stringify(window.monthlySalesDB));
+              } catch(e) {}
+            }
             if (typeof window.renderCalendar === 'function') window.renderCalendar();
             if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
           }
@@ -783,10 +840,36 @@
                   qty: it.qty || 1,
                   total: it.ca || it.total || ((it.qty || 1) * (it.price || 0))
                 }));
-                if (typeof window.saveMonthlySalesDB === 'function') window.saveMonthlySalesDB();
+                if (typeof window.saveMonthlySalesDB === 'function') {
+                  window.saveMonthlySalesDB();
+                } else {
+                  try {
+                    const kSales = (typeof GC_STORAGE_KEYS !== 'undefined' && GC_STORAGE_KEYS.SALES) ? GC_STORAGE_KEYS.SALES : 'gc_monthly_sales_db';
+                    localStorage.setItem(kSales, JSON.stringify(window.monthlySalesDB));
+                  } catch(e) {}
+                }
                 if (typeof window.renderCalendar === 'function') window.renderCalendar();
                 if (typeof window.recalculateCurrentView === 'function') window.recalculateCurrentView();
               }
+
+              // Propagation temps réel vers le Simulateur Décisionnel
+              const realPayload = {
+                date: (typeof formatDateFR === 'function') ? formatDateFR(d.sale_date) : d.sale_date,
+                isoDate: d.sale_date,
+                dateKey: d.sale_date.replace(/-/g, ''),
+                fileName: `Fin_Journée_${d.sale_date.replace(/-/g, '')}.xls`,
+                totalCA: Number(d.total_revenue) || 0,
+                totalQty: Number(d.total_items) || 0,
+                totalItems: Array.isArray(d.items) ? d.items.length : 0,
+                items: d.items || []
+              };
+              try {
+                localStorage.setItem('gc_latest_daily_sales', JSON.stringify(realPayload));
+                if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+                  window.dispatchEvent(new CustomEvent('gc-daily-sales-updated', { detail: realPayload }));
+                }
+              } catch(e) {}
+
               if (global.GC_Toast) {
                 global.GC_Toast.show(`📅 Ventes du ${payload.new.sale_date} synchronisées (${payload.new.total_revenue} DH)`, 'info');
               }

@@ -14,6 +14,7 @@
   <script src="recipes-data.js?v=v9.8"></script>
   <script src="js/core-utils.js?v=v9.8"></script>
   <script src="js/auth.js?v=v9.8"></script>
+  <script src="js/supabase-client.js?v=v9.8"></script>
   <style>
     :root {
       --bg: #070b14;
@@ -4605,15 +4606,53 @@
     async function autoLoadLatestDailySales(isManualRefresh = false) {
       let data = null;
 
-      // 1. Priorité au cache local partagé mis à jour lors de l'import caisse
+      // 1. Consultation prioritaire de Supabase Cloud (SSOT en ligne)
       try {
-        const stored = localStorage.getItem('gc_latest_daily_sales');
-        if (stored) {
-          data = JSON.parse(stored);
+        if (window.GC_Supabase && typeof window.GC_Supabase.syncDailySalesFromCloud === 'function') {
+          const cloudSales = await window.GC_Supabase.syncDailySalesFromCloud(5);
+          if (Array.isArray(cloudSales) && cloudSales.length > 0) {
+            const validDays = cloudSales.filter(d => d && d.sale_date && Array.isArray(d.items) && d.items.length > 0);
+            if (validDays.length > 0) {
+              const best = validDays[0];
+              const itemsList = best.items.map(it => ({
+                id: it.id || (it.name || '').toLowerCase().replace(/\s+/g, '_'),
+                name: it.name || it.product,
+                cat: it.cat || it.family || 'DIVERS',
+                price: Number(it.price) || 0,
+                qty: Number(it.qty) || 1,
+                ca: Number(it.ca || it.total) || ((Number(it.qty) || 1) * (Number(it.price) || 0))
+              }));
+              data = {
+                date: (typeof formatIsoDateToFrench === 'function') ? formatIsoDateToFrench(best.sale_date) : best.sale_date,
+                dateKey: best.sale_date.replace(/-/g, ''),
+                isoDate: best.sale_date,
+                fileName: `Fin_Journée_${best.sale_date.replace(/-/g, '')}.xls`,
+                totalCA: Number(best.total_revenue) || 0,
+                totalQty: Number(best.total_items) || 0,
+                totalItems: itemsList.length,
+                items: itemsList
+              };
+              try {
+                localStorage.setItem('gc_latest_daily_sales', JSON.stringify(data));
+              } catch (e) {}
+            }
+          }
         }
-      } catch (e) {}
+      } catch (errCloud) {
+        console.warn('[Simulator] Consultation Supabase Cloud ignorée:', errCloud);
+      }
 
-      // 2. Fetch du fichier json dernier jour si non trouvé en cache
+      // 2. Cache local partagé mis à jour lors de l'import caisse
+      if (!data) {
+        try {
+          const stored = localStorage.getItem('gc_latest_daily_sales');
+          if (stored) {
+            data = JSON.parse(stored);
+          }
+        } catch (e) {}
+      }
+
+      // 3. Fetch du fichier json dernier jour si non trouvé en cache
       if (!data) {
         try {
           const res = await fetch('ventes/dernier_jour_ventes.json?t=' + Date.now());
@@ -4623,13 +4662,13 @@
         } catch (e) {}
       }
 
-      // 3. Fallback variable statique
+      // 4. Fallback variable statique
       if (!data && typeof LATEST_DAILY_SALES !== 'undefined') {
         data = LATEST_DAILY_SALES;
       }
 
       if (data) {
-        applyDailySalesData(data, data.fileName || 'Fin_Journée_20261002.xls', isManualRefresh);
+        applyDailySalesData(data, data.fileName || 'Fin_Journée_20261005.xls', isManualRefresh);
         if (isManualRefresh) {
           const toast = document.createElement('div');
           toast.style.cssText = 'position:fixed; bottom:24px; right:24px; background:linear-gradient(135deg,#10b981,#059669); color:#fff; padding:14px 22px; border-radius:12px; font-weight:800; font-size:0.95rem; z-index:99999; box-shadow:0 8px 25px rgba(0,0,0,0.4); animation:fadeIn 0.3s ease;';

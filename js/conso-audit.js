@@ -236,22 +236,34 @@ async function handleUploadedFiles(fileList) {
   }
 }
 
-// Détection et synchronisation automatique avec le dossier racine /ventes
+// Détection et synchronisation automatique avec le dossier racine /ventes & Supabase Cloud
 async function autoScanVentesFolder(showUserAlert = false, forceFullResync = false) {
-  // RÈGLE SSOT SUPABASE : Si les ventes proviennent de Supabase Cloud ou que Supabase est en ligne,
-  // ne pas lancer de scan GitHub qui risquerait d'écraser la base Cloud avec des formats bruts !
-  if (!forceFullResync && (window.__supabaseSalesLoaded || (window.GC_Supabase && window.GC_Supabase.isOnline && Object.keys(monthlySalesDB).length > 0))) {
-    console.log('[Auto-sync] Ventes gérées par Supabase Cloud (SSOT). Scan GitHub ignoré.');
-    const banner = document.getElementById('sync-status-banner');
-    if (banner) banner.style.display = 'none';
-    return;
-  }
-
   const banner = document.getElementById('sync-status-banner');
   if (banner) {
     banner.style.display = 'block';
-    banner.textContent = "🔄 Analyse et synchronisation du dossier /ventes en cours...";
+    banner.textContent = "🔄 Synchronisation des ventes (Supabase Cloud & GitHub)...";
     banner.style.color = "var(--accent)";
+  }
+
+  // 1. Si Supabase Cloud est connecté, rafraîchir en priorité depuis Supabase (SSOT)
+  if (window.GC_Supabase && typeof window.GC_Supabase.refreshAllFromCloud === 'function') {
+    try {
+      await window.GC_Supabase.refreshAllFromCloud(false);
+    } catch (e) {
+      console.warn('[Auto-sync] Erreur pré-chargement Supabase Cloud:', e);
+    }
+  }
+
+  // RÈGLE SSOT OPTIMISÉE : Si appel automatique en tâche de fond et que les ventes Cloud sont déjà chargées et récentes
+  const availableCachedDates = Object.keys(monthlySalesDB).filter(d => monthlySalesDB[d] && monthlySalesDB[d].length > 0).sort();
+  const lastCachedDate = availableCachedDates.length > 0 ? availableCachedDates[availableCachedDates.length - 1] : null;
+  const todayISO = new Date().toLocaleDateString('en-CA');
+  const yesterdayISO = new Date(Date.now() - 86400000).toLocaleDateString('en-CA');
+
+  if (!showUserAlert && !forceFullResync && window.__supabaseSalesLoaded && (lastCachedDate === todayISO || lastCachedDate === yesterdayISO)) {
+    console.log('[Auto-sync] Ventes à jour depuis Supabase Cloud (' + lastCachedDate + '). Scan GitHub ignoré.');
+    if (banner) banner.style.display = 'none';
+    return;
   }
 
   let foundCount = 0;
@@ -396,7 +408,39 @@ async function autoScanVentesFolder(showUserAlert = false, forceFullResync = fal
     }
   }
 
-  // 3. SCANNER DE CANDIDATS (ACTIF UNIQUEMENT EN SECOURS si aucun fichier détecté par GitHub API / manifest.json)
+  // 3. CANDIDATS RÉCENTS DU MOIS EN COURS (Détection proactive des nouveaux ajouts GitHub avant mise à jour du manifest)
+  const nowScan = new Date();
+  const curY = nowScan.getFullYear();
+  const curM = String(nowScan.getMonth() + 1).padStart(2, '0');
+  const curYM = `${curY}-${curM}`;
+  const curD = nowScan.getDate();
+
+  for (let d = Math.max(1, curD - 7); d <= curD + 1; d++) {
+    const dayStr = String(d).padStart(2, '0');
+    const compactDate = `${curY}${curM}${dayStr}`;
+    const isoDate = `${curYM}-${dayStr}`;
+
+    // Si cette date est déjà en cache avec des données et pas de re-sync forcée, ignorer
+    if (!forceFullResync && monthlySalesDB[isoDate] && monthlySalesDB[isoDate].length > 0) {
+      continue;
+    }
+
+    const cNames = [
+      `${curYM}/Fin_Journée_${compactDate}.xls`,
+      `${curYM}/Fin_Journee_${compactDate}.xls`,
+      `${curYM}/Fin_Journée_${compactDate}.xlsx`,
+      `${curYM}/Fin_Journee_${compactDate}.xlsx`,
+      `Fin_Journée_${compactDate}.xls`,
+      `Fin_Journee_${compactDate}.xls`
+    ];
+    cNames.forEach(cn => {
+      if (!filesToProcess.has(cn)) {
+        filesToProcess.set(cn, null);
+      }
+    });
+  }
+
+  // 3b. SCANNER DE CANDIDATS (ACTIF UNIQUEMENT EN SECOURS si aucun fichier détecté par GitHub API / manifest.json)
   if (filesToProcess.size === 0) {
     const monthsToScan = new Set([
       selectedYearMonth,
@@ -447,7 +491,7 @@ async function autoScanVentesFolder(showUserAlert = false, forceFullResync = fal
   }
 
   // Si toutes les dates sont déjà en cache et aucun fichier manquant
-  if (filesToLoad.length === 0 && alreadyCachedCount > 0) {
+  if (filesToLoad.length === 0 && (alreadyCachedCount > 0 || Object.keys(monthlySalesDB).length > 0)) {
     const availableDates = Object.keys(monthlySalesDB).filter(d => monthlySalesDB[d] && monthlySalesDB[d].length > 0).sort();
     if (availableDates.length > 0 && (!monthlySalesDB[selectedDate] || monthlySalesDB[selectedDate].length === 0)) {
       selectedDate = availableDates[availableDates.length - 1];
@@ -456,7 +500,8 @@ async function autoScanVentesFolder(showUserAlert = false, forceFullResync = fal
       recalculateCurrentView();
     }
     const lastDateFR = formatDateFR(selectedDate);
-    const msg = `⚡ Ventes à jour (${alreadyCachedCount} journées enregistrées / 12 mois complets). Dernière date : ${lastDateFR}.`;
+    const totalDaysCount = availableDates.length;
+    const msg = `⚡ Ventes à jour (${totalDaysCount} journées enregistrées). Dernière date : ${lastDateFR}.`;
     if (banner) {
       banner.style.color = "var(--ok)";
       banner.textContent = msg;
@@ -465,7 +510,7 @@ async function autoScanVentesFolder(showUserAlert = false, forceFullResync = fal
       }, 5000);
     }
     if (showUserAlert) {
-      alert(`✅ Vos ventes sont 100% synchronisées !\n${alreadyCachedCount} journées sont conservées en local sans aucune restriction ni purge.\n\nDernière journée active : ${lastDateFR}.`);
+      alert(`✅ Vos ventes sont 100% synchronisées avec Supabase Cloud & GitHub !\n${totalDaysCount} journées sont enregistrées.\n\nDernière journée active : ${lastDateFR}.`);
     }
     return;
   }
@@ -509,11 +554,71 @@ async function autoScanVentesFolder(showUserAlert = false, forceFullResync = fal
   if (foundCount > 0) {
     saveMonthlySalesDB();
 
+    // Propagation immédiate vers Supabase Cloud (SSOT) pour chaque nouvelle journée découverte
+    if (window.GC_Supabase && typeof window.GC_Supabase.saveDailySalesToCloud === 'function') {
+      for (const dKey of loadedDates) {
+        const rows = monthlySalesDB[dKey] || [];
+        let totalRevenue = 0, totalItems = 0;
+        const itemsPayload = [];
+        rows.forEach(r => {
+          const ca = Number(r.total) || 0;
+          const q = Number(r.qty) || 0;
+          totalRevenue += ca;
+          totalItems += q;
+          itemsPayload.push({
+            cat: r.family || 'Général',
+            name: r.product,
+            price: Number(r.price) || 0,
+            qty: q,
+            ca: ca
+          });
+        });
+        window.GC_Supabase.saveDailySalesToCloud(
+          dKey,
+          Math.round(totalRevenue * 100) / 100,
+          Math.round(totalItems),
+          itemsPayload
+        );
+      }
+    }
+
     // AUTO-SÉLECTION : Basculer automatiquement sur la journée la plus récente avec des données
     const availableDates = Object.keys(monthlySalesDB).filter(d => monthlySalesDB[d] && monthlySalesDB[d].length > 0).sort();
     if (availableDates.length > 0) {
       selectedDate = availableDates[availableDates.length - 1];
       selectedYearMonth = selectedDate.slice(0, 7);
+
+      // Mise à jour immédiate du Simulateur Décisionnel (localStorage + CustomEvent)
+      const latDate = selectedDate;
+      const latRows = monthlySalesDB[latDate] || [];
+      let latCA = 0, latQty = 0;
+      const latItems = latRows.map(r => {
+        latCA += (Number(r.total) || 0);
+        latQty += (Number(r.qty) || 0);
+        return {
+          cat: r.family || 'Général',
+          name: r.product,
+          price: Number(r.price) || 0,
+          qty: Number(r.qty) || 0,
+          ca: Number(r.total) || 0
+        };
+      });
+      const latPayload = {
+        date: formatDateFR(latDate),
+        isoDate: latDate,
+        dateKey: latDate.replace(/-/g, ''),
+        fileName: `Fin_Journée_${latDate.replace(/-/g, '')}.xls`,
+        totalCA: Math.round(latCA * 100) / 100,
+        totalQty: Math.round(latQty),
+        totalItems: latItems.length,
+        items: latItems
+      };
+      try {
+        localStorage.setItem('gc_latest_daily_sales', JSON.stringify(latPayload));
+        if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+          window.dispatchEvent(new CustomEvent('gc-daily-sales-updated', { detail: latPayload }));
+        }
+      } catch(e) {}
     }
 
     renderCalendar();
