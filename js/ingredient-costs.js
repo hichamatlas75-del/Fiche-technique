@@ -595,7 +595,7 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "oeufs de caille"
   },
   "boule de glace": {
-    "cost": 3.2,
+    "cost": 5.5,
     "unit": "piece",
     "label": "boule de glace"
   },
@@ -625,32 +625,32 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "oignon/ail"
   },
   "boule de glace vanille": {
-    "cost": 3.2,
+    "cost": 5.5,
     "unit": "piece",
     "label": "boule de glace vanille"
   },
   "glace artisanale": {
-    "cost": 0.06,
+    "cost": 0.085,
     "unit": "g",
     "label": "glace artisanale"
   },
   "glace vanille": {
-    "cost": 0.06,
+    "cost": 0.085,
     "unit": "g",
     "label": "glace vanille"
   },
   "glace": {
-    "cost": 0.06,
+    "cost": 0.085,
     "unit": "g",
     "label": "glace"
   },
   "glace artisanale au choix": {
-    "cost": 0.06,
+    "cost": 0.085,
     "unit": "g",
     "label": "glace artisanale au choix"
   },
   "glace vanille artisanale": {
-    "cost": 0.06,
+    "cost": 0.085,
     "unit": "g",
     "label": "glace vanille artisanale"
   },
@@ -830,7 +830,7 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "anchois"
   },
   "mozzarella": {
-    "cost": 0.06,
+    "cost": 0.055,
     "unit": "g",
     "label": "mozzarella"
   },
@@ -2090,12 +2090,12 @@ const INGREDIENT_UNIT_COSTS = {
     "label": "Pancake"
   },
   "boules de glace": {
-    "cost": 3,
+    "cost": 5.5,
     "unit": "piece",
     "label": "Boule Glace"
   },
   "boule glace": {
-    "cost": 3,
+    "cost": 5.5,
     "unit": "piece",
     "label": "Boule Glace"
   },

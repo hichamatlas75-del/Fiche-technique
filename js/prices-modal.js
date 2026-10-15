@@ -404,17 +404,25 @@
     if (refreshBtn) refreshBtn.disabled = true;
 
     try {
+      let syncOk = false;
       if (global.GC_Supabase && typeof global.GC_Supabase.syncIngredientsFromCloud === 'function') {
-        await global.GC_Supabase.syncIngredientsFromCloud();
+        syncOk = await global.GC_Supabase.syncIngredientsFromCloud();
       }
       renderTable(document.getElementById('gc-prices-search')?.value || '');
       if (statusEl) {
-        statusEl.textContent = '☁️ Supabase Cloud à jour';
-        statusEl.style.color = '#16a34a';
-        statusEl.style.background = 'rgba(22, 163, 74, 0.12)';
+        if (syncOk) {
+          statusEl.textContent = '☁️ Supabase Cloud à jour';
+          statusEl.style.color = '#16a34a';
+          statusEl.style.background = 'rgba(22, 163, 74, 0.12)';
+        } else {
+          statusEl.textContent = '💾 Mode Local (Hors-ligne)';
+          statusEl.style.color = '#f59e0b';
+          statusEl.style.background = 'rgba(245, 158, 11, 0.12)';
+        }
       }
     } catch (e) {
       console.warn('[GC_PricesModal] Erreur refresh Cloud:', e);
+      renderTable(document.getElementById('gc-prices-search')?.value || '');
       if (statusEl) {
         statusEl.textContent = '⚠️ Erreur Cloud';
         statusEl.style.color = '#ef4444';

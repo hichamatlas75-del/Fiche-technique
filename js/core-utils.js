@@ -3,7 +3,7 @@
  */
 
 (function(global) {
-  const APP_DATA_VERSION = 'v9.8_20261003_sim_daily';
+  const APP_DATA_VERSION = 'v9.9_20261015_sync_supabase';
 
   // ─────────────────────────────────────────────────────────────
   // CLÉS LOCALSTORAGE CENTRALISÉES (Single Source of Truth)

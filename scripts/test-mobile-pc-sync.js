@@ -25,6 +25,17 @@ async function testMobilePcSync() {
     throw new Error(`Prix Supabase non conforme: attendu 0.124, reçu ${cloudThon.cost}`);
   }
 
+  // Vérifier boule de glace dans Supabase
+  const resGlace = await fetch(`${SUPABASE_URL}/rest/v1/ingredient_costs?id=eq.boule%20de%20glace`, {
+    headers: { apikey: ANON_KEY, Authorization: `Bearer ${ANON_KEY}` }
+  });
+  const rowsGlace = await resGlace.json();
+  const cloudGlace = rowsGlace[0];
+  console.log(`  ☁️ Supabase : id="${cloudGlace.id}", cost=${cloudGlace.cost}, unit="${cloudGlace.unit}", label="${cloudGlace.label}"`);
+  if (Math.abs(cloudGlace.cost - 5.5) > 0.0001) {
+    throw new Error(`Prix Supabase boule de glace non conforme: attendu 5.5, reçu ${cloudGlace.cost}`);
+  }
+
   // 2. Vérifier js/ingredient-costs.js
   console.log('\n2️⃣ Vérification du fichier local js/ingredient-costs.js...');
   const ingPath = path.resolve(__dirname, '../js/ingredient-costs.js');
@@ -41,6 +52,13 @@ async function testMobilePcSync() {
 
   if (Math.abs(localThon.cost - 0.124) > 0.0001) {
     throw new Error(`Prix local non synchronisé: attendu 0.124, reçu ${localThon.cost}`);
+  }
+
+  const localGlace = ingCosts['boule de glace'];
+  if (!localGlace) throw new Error('Matière "boule de glace" absente de js/ingredient-costs.js');
+  console.log(`  📁 Local js : cost=${localGlace.cost}, unit="${localGlace.unit}", label="${localGlace.label}"`);
+  if (Math.abs(localGlace.cost - 5.5) > 0.0001) {
+    throw new Error(`Prix local boule de glace non conforme: attendu 5.5, reçu ${localGlace.cost}`);
   }
 
   // 3. Vérifier la version Cache-Buster dans core-utils.js
