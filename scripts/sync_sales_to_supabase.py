@@ -253,22 +253,22 @@ def send_batch_to_supabase(records):
         print(f"Erreur réseau Supabase : {e}")
         return False
 
-def sync_sales(start_date="2026-04-01", end_date="2026-09-15"):
+def sync_sales(start_date="2024-01-01", end_date="2099-12-31"):
     print("=" * 66)
     print(f"📡 GREY CORNER — IMPORT DES VENTES VERS SUPABASE")
     print(f"   Période ciblée : du {start_date} au {end_date}")
     print("=" * 66)
 
     dish_map, menu_by_id = load_dish_map()
-    all_files = glob.glob(os.path.join(VENTES_DIR, "2026-*", "*.xls*")) + glob.glob(os.path.join(VENTES_DIR, "*.xls*"))
+    all_files = glob.glob(os.path.join(VENTES_DIR, "20*-*", "*.xls*")) + glob.glob(os.path.join(VENTES_DIR, "*.xls*"))
 
     files_by_date = {}
     for f in all_files:
         if "manifest.json" in f or "dernier_jour_ventes.json" in f:
             continue
-        m = re.search(r"2026(\d{2})(\d{2})", os.path.basename(f))
+        m = re.search(r"(\d{4})(\d{2})(\d{2})", os.path.basename(f))
         if m:
-            d_iso = f"2026-{m.group(1)}-{m.group(2)}"
+            d_iso = f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
             if start_date <= d_iso <= end_date:
                 # Priorité au format .xlsx si les deux existent
                 if d_iso not in files_by_date or f.endswith(".xlsx"):
@@ -338,24 +338,23 @@ if __name__ == "__main__":
             except Exception:
                 pass
         if not target:
-            files = sorted(glob.glob(os.path.join(REPO_DIR, "ventes", "2026-*", "*.xls*")) + glob.glob(os.path.join(REPO_DIR, "ventes", "*.xls*")))
+            files = sorted(glob.glob(os.path.join(REPO_DIR, "ventes", "20*-*", "*.xls*")) + glob.glob(os.path.join(REPO_DIR, "ventes", "*.xls*")))
             for f in reversed(files):
-                m = re.search(r"2026\d{4}", os.path.basename(f))
+                m = re.search(r"(\d{4})(\d{2})(\d{2})", os.path.basename(f))
                 if m:
-                    dk = m.group(0)
-                    target = f"{dk[:4]}-{dk[4:6]}-{dk[6:]}"
+                    target = f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
                     break
-        target = target or "2026-10-05"
+        target = target or datetime.date.today().isoformat()
         try:
             target_dt = datetime.date.fromisoformat(target)
             start_dt = target_dt - datetime.timedelta(days=30)
             start_date_str = start_dt.isoformat()
         except Exception:
-            start_date_str = "2026-09-01"
+            start_date_str = "2024-01-01"
         sync_sales(start_date=start_date_str, end_date="2099-12-31")
     elif "--date" in sys.argv:
         idx = sys.argv.index("--date")
         target_date = sys.argv[idx + 1]
         sync_sales(start_date=target_date, end_date=target_date)
     else:
-        sync_sales(start_date="2026-04-01", end_date="2099-12-31")
+        sync_sales(start_date="2024-01-01", end_date="2099-12-31")

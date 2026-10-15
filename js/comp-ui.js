@@ -152,10 +152,10 @@ var rowsHTML = filtered.map((recipe, idx) => {
           </td>
           <td style="padding:12px 14px; text-align:center;">
             <div style="display:flex; gap:6px; justify-content:center; align-items:center;">
-              <button class="btn btn-secondary" id="btn-table-drawer-${idx}" style="padding:5px 8px; font-size:11.5px; font-weight:700; border-radius:6px; cursor:pointer;" onclick="window.toggleTableRowDrawer(${idx}, '${escapeHtml(recipe.name).replace(/'/g, "\\'")}')">
+              <button class="btn btn-secondary" id="btn-table-drawer-${idx}" style="padding:5px 8px; font-size:11.5px; font-weight:700; border-radius:6px; cursor:pointer;" onclick="window.toggleTableRowDrawer(${idx})">
                 📂 Détails
               </button>
-              <button class="btn btn-secondary" style="padding:5px 8px; font-size:11.5px; font-weight:700; border-radius:6px; cursor:pointer;" onclick="window.copyStandardToRecipe('${escapeHtml(recipe.name).replace(/'/g, "\\'")}', ${idx})">
+              <button class="btn btn-secondary" style="padding:5px 8px; font-size:11.5px; font-weight:700; border-radius:6px; cursor:pointer;" onclick="window.copyStandardToRecipe(${idx})">
                 🟢 Standard
               </button>
             </div>

@@ -2258,6 +2258,35 @@ const INGREDIENT_TYPO_ALIASES = {
   'avoca': 'avocat'
 };
 
+const cleanStr = (s) => (s || '').toLowerCase().replace(/œ/g, 'oe').replace(/æ/g, 'ae').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+const stripPlural = (s) => s.split(' ').map(w => w.endsWith('s') && w.length > 3 ? w.slice(0, -1) : w).join(' ');
+
+let _cachedCostMap = null;
+let _cachedKeysData = null;
+
+function getCostMapKeysData(costMap) {
+  if (costMap === _cachedCostMap && _cachedKeysData) {
+    return _cachedKeysData;
+  }
+  const sortedKeys = Object.keys(costMap).sort((a, b) => b.length - a.length);
+  const keysData = new Array(sortedKeys.length);
+  for (let i = 0; i < sortedKeys.length; i++) {
+    const k = sortedKeys[i];
+    const normK = cleanStr(k);
+    const normKSingular = stripPlural(normK);
+    const tokens = normK.split(' ').filter(w => w.length >= 4);
+    keysData[i] = {
+      key: k,
+      normK: normK,
+      normKSingular: normKSingular,
+      tokens: tokens
+    };
+  }
+  _cachedCostMap = costMap;
+  _cachedKeysData = keysData;
+  return keysData;
+}
+
 function calculateRecipeFoodCost(ingredients, sellPrice) {
   if (typeof window !== 'undefined' && typeof window.calculateRecipeFoodCost === 'function' && window.calculateRecipeFoodCost !== calculateRecipeFoodCost) {
     return window.calculateRecipeFoodCost(ingredients, sellPrice);
@@ -2266,9 +2295,7 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
   const breakdown = [];
   const validSellPrice = typeof sellPrice === 'number' && sellPrice > 0 ? sellPrice : parseFloat(String(sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
   const costMap = (typeof window !== 'undefined' && window.INGREDIENT_UNIT_COSTS) || INGREDIENT_UNIT_COSTS;
-
-  const cleanStr = (s) => (s || '').toLowerCase().replace(/œ/g, 'oe').replace(/æ/g, 'ae').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
-  const stripPlural = (s) => s.split(' ').map(w => w.endsWith('s') && w.length > 3 ? w.slice(0, -1) : w).join(' ');
+  const keysData = getCostMapKeysData(costMap);
 
   (ingredients || []).forEach(line => {
     if (!line || typeof line !== 'string') return;
@@ -2309,15 +2336,14 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
 
     let ingDef = costMap[lookupKey] || costMap[normIng] || costMap[normIngSingular] || costMap[expandedIng] || costMap[expandedSingular];
 
-    const sortedKeys = Object.keys(costMap).sort((a, b) => b.length - a.length);
-
     // 1. Recherche par inclusion de sous-chaîne (exacte ou étendue)
     if (!ingDef) {
-      for (const k of sortedKeys) {
-        const normK = cleanStr(k);
-        const normKSingular = stripPlural(normK);
+      for (let i = 0; i < keysData.length; i++) {
+        const item = keysData[i];
+        const normK = item.normK;
+        const normKSingular = item.normKSingular;
         if (normIng === normK || normIngSingular === normKSingular || normIng.includes(normK) || normK.includes(normIng) || normIngSingular.includes(normKSingular) || normKSingular.includes(normIngSingular) || expandedIng === normK || expandedSingular === normKSingular || expandedIng.includes(normK) || normK.includes(expandedIng)) {
-          ingDef = costMap[k];
+          ingDef = costMap[item.key];
           break;
         }
       }
@@ -2327,14 +2353,15 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
     if (!ingDef) {
       let bestKey = null;
       let bestDist = Infinity;
-      for (const k of sortedKeys) {
-        const normK = cleanStr(k);
+      for (let i = 0; i < keysData.length; i++) {
+        const item = keysData[i];
+        const normK = item.normK;
         const maxLen = Math.max(normIng.length, normK.length);
         const maxAllowed = maxLen >= 8 ? 2 : (maxLen >= 4 ? 1 : 0);
         const d = levenshteinIngredientDist(normIng, normK);
         if (d <= maxAllowed && d < bestDist) {
           bestDist = d;
-          bestKey = k;
+          bestKey = item.key;
         }
       }
       if (bestKey) {
@@ -2347,8 +2374,9 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
       const ingTokens = normIng.split(' ').filter(w => w.length >= 4);
       let bestTokenKey = null;
       let bestTokenDist = Infinity;
-      for (const k of sortedKeys) {
-        const kTokens = cleanStr(k).split(' ').filter(w => w.length >= 4);
+      for (let i = 0; i < keysData.length; i++) {
+        const item = keysData[i];
+        const kTokens = item.tokens;
         for (const it of ingTokens) {
           for (const kt of kTokens) {
             const maxLen = Math.max(it.length, kt.length);
@@ -2356,7 +2384,7 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
             const d = levenshteinIngredientDist(it, kt);
             if (d <= maxAllowed && d < bestTokenDist) {
               bestTokenDist = d;
-              bestTokenKey = k;
+              bestTokenKey = item.key;
             }
           }
         }

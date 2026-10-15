@@ -36,8 +36,9 @@
 
       const client = getClient();
       if (!client) {
-        console.error('[GC_Auth] Supabase SDK non chargé');
-        this.showLoginModal("Le service d'authentification n'a pas pu être chargé. Vérifiez votre connexion.");
+        console.warn('[GC_Auth] Supabase SDK non chargé (mode hors-ligne)');
+        this.showError("Le service d'authentification n'a pas pu être chargé (hors-ligne). Vous pouvez accéder à l'application avec les données locales.");
+        this.enableOfflineBypass();
         return;
       }
 
@@ -227,6 +228,31 @@
         errBox.innerText = msg;
         errBox.style.display = "block";
       }
+    },
+
+    enableOfflineBypass: function() {
+      if (document.getElementById('gc-auth-offline-btn')) return;
+      const form = document.getElementById('gc-auth-form');
+      if (!form) return;
+      const btn = document.createElement('button');
+      btn.id = 'gc-auth-offline-btn';
+      btn.type = 'button';
+      btn.innerText = '⚡ Continuer en Mode Hors-Ligne (Données Locales)';
+      btn.style.cssText = 'width:100%; margin-top:10px; padding:11px; border-radius:10px; border:1px solid rgba(255,255,255,0.2); background:transparent; color:#cbd5e1; font-weight:700; font-size:13px; cursor:pointer; transition:all 0.2s;';
+      btn.onmouseover = () => { btn.style.background = 'rgba(255,255,255,0.08)'; btn.style.color = '#fff'; };
+      btn.onmouseout = () => { btn.style.background = 'transparent'; btn.style.color = '#cbd5e1'; };
+      btn.onclick = () => {
+        const overlay = document.getElementById('gc-auth-gate');
+        if (overlay) {
+          overlay.style.transition = 'opacity 0.3s ease';
+          overlay.style.opacity = '0';
+          setTimeout(() => overlay.remove(), 300);
+        }
+        if (global.GC_Toast) {
+          global.GC_Toast.show('⚡ Accès hors-ligne autorisé : consultation locale active.', 'warning');
+        }
+      };
+      form.appendChild(btn);
     },
 
     /**

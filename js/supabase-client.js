@@ -1081,9 +1081,11 @@
 
   global.GC_Supabase = GC_Supabase;
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => GC_Supabase.init());
-  } else {
-    GC_Supabase.init();
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => GC_Supabase.init());
+    } else {
+      GC_Supabase.init();
+    }
   }
 })(typeof window !== 'undefined' ? window : globalThis);

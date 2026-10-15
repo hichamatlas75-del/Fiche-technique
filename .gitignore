@@ -26,3 +26,5 @@ GitHub
 *token*
 *.pat
 *.secret
+config/*.json
+!config/*.example.json

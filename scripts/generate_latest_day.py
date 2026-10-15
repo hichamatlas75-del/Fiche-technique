@@ -110,13 +110,13 @@ dish_map.update(aliases)
 
 # 2. Trouver le fichier de caisse le plus récent (excluant ancien menu janv/fév/mars)
 all_sales_files = []
-pattern = os.path.join(ventes_dir, '2026-*', '*.xls*')
+pattern = os.path.join(ventes_dir, '20*-*', '*.xls*')
 for f in glob.glob(pattern):
     if 'manifest.json' in f: continue
     lower = f.lower()
     if '2026-01' in lower or '2026-02' in lower or '2026-03' in lower:
         continue
-    d_match = re.search(r'2026\d{4}', os.path.basename(f))
+    d_match = re.search(r'(\d{4}\d{4})', os.path.basename(f))
     date_str = d_match.group(0) if d_match else os.path.basename(f)
     all_sales_files.append((date_str, f))
 
@@ -212,10 +212,11 @@ months_fr = {
     '09': 'Septembre', '10': 'Octobre', '11': 'Novembre', '12': 'Décembre'
 }
 friendly_date = latest_date_str
-if len(latest_date_str) == 8 and latest_date_str.startswith('2026'):
+if len(latest_date_str) == 8 and latest_date_str[:4].isdigit():
+    yr = latest_date_str[:4]
     d = latest_date_str[6:8]
     m_code = latest_date_str[4:6]
-    friendly_date = f"{int(d)} {months_fr.get(m_code, m_code)} 2026"
+    friendly_date = f"{int(d)} {months_fr.get(m_code, m_code)} {yr}"
 
 result = {
     'date': friendly_date,
