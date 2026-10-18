@@ -28,3 +28,4 @@ GitHub
 *.secret
 config/*.json
 !config/*.example.json
+!config/telegram_config.json
