@@ -66,7 +66,7 @@ async function testMobilePcSync() {
   const coreUtilsPath = path.resolve(__dirname, '../js/core-utils.js');
   const coreContent = fs.readFileSync(coreUtilsPath, 'utf-8');
   const verMatch = coreContent.match(/APP_DATA_VERSION\s*=\s*['"]([^'"]+)['"]/);
-  if (!verMatch || !verMatch[1].startsWith('v9.')) {
+  if (!verMatch || (!verMatch[1].startsWith('v9.') && !verMatch[1].startsWith('v10.'))) {
     throw new Error('APP_DATA_VERSION non valide ou absent dans js/core-utils.js');
   }
   console.log(`  ✅ APP_DATA_VERSION est bien "${verMatch[1]}" (force la purge du cache mobile)`);

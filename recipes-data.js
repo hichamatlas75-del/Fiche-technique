@@ -8184,7 +8184,8 @@ const BASE_RECIPES = [
       "Frites : 200 g",
       "Sauce : 30 g",
       "légumes : 400 g"
-    ]
+    ],
+    "sellPrice": 84
   },
   {
     "id": "plat_couscous_poulet",
@@ -8201,7 +8202,8 @@ const BASE_RECIPES = [
       "Poulet : 200 g",
       "Légumes couscous : 250 g",
       "Petit lait (Lben) : 200 ml"
-    ]
+    ],
+    "sellPrice": 54
   },
   {
     "id": "plat_couscous_viande",
@@ -8218,7 +8220,8 @@ const BASE_RECIPES = [
       "Viande hachée : 200 g",
       "Légumes couscous : 250 g",
       "Petit lait (Lben) : 200 ml"
-    ]
+    ],
+    "sellPrice": 64
   },
   {
     "id": "sup_supplement_charcuterie",
@@ -8261,7 +8264,8 @@ const BASE_RECIPES = [
       "Sauce : 30 g",
       "FR EDAM: 40 g",
       "CHAPLURE: 50 g"
-    ]
+    ],
+    "sellPrice": 52
   },
   {
     "id": "alc_oeufs_beldi",
@@ -8276,7 +8280,8 @@ const BASE_RECIPES = [
       "Œufs Beldi : 2 p",
       "Huile d’olive : 10 ml",
       "Sel & Poivre : 1 g"
-    ]
+    ],
+    "sellPrice": 45
   },
   {
     "id": "ec_croquettes_fromage",
@@ -8291,7 +8296,8 @@ const BASE_RECIPES = [
       "Croquettes de fromage : 6 p",
       "Sauce : 30 g",
       "Mesclun : 30 g"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "bc_cafe_noir_espresso",
@@ -8308,7 +8314,8 @@ const BASE_RECIPES = [
       "Eau chaude : 60 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 16
   },
   {
     "id": "bc_cafe_americain",
@@ -8325,7 +8332,8 @@ const BASE_RECIPES = [
       "Eau chaude : 150 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 17
   },
   {
     "id": "bc_cafe_au_lait",
@@ -8342,7 +8350,8 @@ const BASE_RECIPES = [
       "Lait chaud : 120 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 19
   },
   {
     "id": "bc_cafe_latte",
@@ -8361,7 +8370,8 @@ const BASE_RECIPES = [
       "Mousse de lait : 30 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 19
   },
   {
     "id": "bc_cappuccino_italien",
@@ -8382,7 +8392,8 @@ const BASE_RECIPES = [
       "Cacao en poudre : 3 g",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 19
   },
   {
     "id": "bc_cappuccino_chantilly",
@@ -8397,7 +8408,8 @@ const BASE_RECIPES = [
       "Café : 10 g",
       "Lait : 100 ml",
       "Chantilly : 30 g"
-    ]
+    ],
+    "sellPrice": 22
   },
   {
     "id": "bc_cafe_nespresso",
@@ -8414,7 +8426,8 @@ const BASE_RECIPES = [
       "Eau chaude : 50 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 22
   },
   {
     "id": "bc_chocolat_chaud",
@@ -8431,7 +8444,8 @@ const BASE_RECIPES = [
       "Lait chaud : 200 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 18
   },
   {
     "id": "bc_chocolat_chaud_chantilly",
@@ -8450,7 +8464,8 @@ const BASE_RECIPES = [
       "Crème chantilly : 35 g",
       "Coulis chocolat : 10 ml",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 22
   },
   {
     "id": "bc_chocolat_fondu_gourmand",
@@ -8469,7 +8484,8 @@ const BASE_RECIPES = [
       "Guimauves : 15 g",
       "Chantilly : 30 g",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 26
   },
   {
     "id": "bc_the_marocain_a_la_menthe",
@@ -8488,7 +8504,8 @@ const BASE_RECIPES = [
       "Sucre : 25 g",
       "Eau bouillante : 300 ml",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 16
   },
   {
     "id": "bc_the_noir",
@@ -8505,7 +8522,8 @@ const BASE_RECIPES = [
       "Eau bouillante : 250 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 15
   },
   {
     "id": "bc_the_noir_au_lait",
@@ -8524,7 +8542,8 @@ const BASE_RECIPES = [
       "Eau : 130 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 18
   },
   {
     "id": "bc_verveine_nature",
@@ -8541,7 +8560,8 @@ const BASE_RECIPES = [
       "Eau chaude : 250 ml",
       "Miel / Sucre : 20 g",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 15
   },
   {
     "id": "bc_verveine_aromatisee",
@@ -8562,7 +8582,8 @@ const BASE_RECIPES = [
       "Eau chaude : 250 ml",
       "Miel : 20 g",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 18
   },
   {
     "id": "bc_infusion_bien_etre",
@@ -8579,7 +8600,8 @@ const BASE_RECIPES = [
       "Eau chaude : 250 ml",
       "Miel : 20 g",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 18
   },
   {
     "id": "bc_verre_de_lait",
@@ -8594,7 +8616,8 @@ const BASE_RECIPES = [
       "Lait entier frais : 250 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 12
   },
   {
     "id": "bc_lait_casse",
@@ -8611,7 +8634,8 @@ const BASE_RECIPES = [
       "Lait chaud : 150 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 19
   },
   {
     "id": "bc_cafe_separe",
@@ -8628,7 +8652,8 @@ const BASE_RECIPES = [
       "Lait chaud : 100 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 24
   },
   {
     "id": "bc_cafe_moitie",
@@ -8645,7 +8670,8 @@ const BASE_RECIPES = [
       "Lait chaud : 80 ml",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 19
   },
   {
     "id": "fg_ice_coffee_classique",
@@ -8664,7 +8690,8 @@ const BASE_RECIPES = [
       "Sirop de canne : 20 ml",
       "Glaçons : 120 g",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 20
   },
   {
     "id": "fg_ice_coffee_aromatise",
@@ -8683,7 +8710,8 @@ const BASE_RECIPES = [
       "Lait froid : 120 ml",
       "Glaçons : 120 g",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 23
   },
   {
     "id": "fg_frappuccino_classique",
@@ -8702,7 +8730,8 @@ const BASE_RECIPES = [
       "Base frappé vanille : 25 g",
       "Glace pilée : 150 g",
       "Crème chantilly : 30 g"
-    ]
+    ],
+    "sellPrice": 25
   },
   {
     "id": "fg_frappuccino_aromatise",
@@ -8721,7 +8750,8 @@ const BASE_RECIPES = [
       "Sirop Noisette / Caramel : 30 ml",
       "Glace pilée : 150 g",
       "Chantilly & Nappage : 35 g"
-    ]
+    ],
+    "sellPrice": 28
   },
   {
     "id": "it_ice_tea_peche_maison",
@@ -8740,7 +8770,8 @@ const BASE_RECIPES = [
       "Jus de citron : 15 ml",
       "Pêche fraîche : 30 g",
       "Glaçons : 100 g"
-    ]
+    ],
+    "sellPrice": 28
   },
   {
     "id": "it_ice_tea_citron_maison",
@@ -8759,7 +8790,8 @@ const BASE_RECIPES = [
       "Sirop de canne : 25 ml",
       "Rondelles de citron : 2 tr",
       "Glaçons : 100 g"
-    ]
+    ],
+    "sellPrice": 28
   },
   {
     "id": "it_ice_tea_framboise_maison",
@@ -8778,7 +8810,8 @@ const BASE_RECIPES = [
       "Jus de citron : 15 ml",
       "Framboises fraîches : 20 g",
       "Glaçons : 100 g"
-    ]
+    ],
+    "sellPrice": 28
   },
   {
     "id": "jf_jus_d_orange_presse",
@@ -8789,7 +8822,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Oranges fraîches à jus : 500 g"
-    ]
+    ],
+    "sellPrice": 22
   },
   {
     "id": "jf_jus_de_citron_citronnade",
@@ -8806,7 +8840,8 @@ const BASE_RECIPES = [
       "Sirop de canne : 30 ml",
       "Eau filtrée & Glaçons : 150 ml",
       "Menthe fraîche : 5 g"
-    ]
+    ],
+    "sellPrice": 25
   },
   {
     "id": "jf_jus_de_fraise",
@@ -8821,7 +8856,8 @@ const BASE_RECIPES = [
       "Fraises fraîches : 220 g",
       "Jus d'orange frais : 80 ml",
       "Sirop de sucre : 15 ml"
-    ]
+    ],
+    "sellPrice": 30
   },
   {
     "id": "jf_jus_de_framboise",
@@ -8836,7 +8872,8 @@ const BASE_RECIPES = [
       "Framboises fraîches : 200 g",
       "Jus d'orange : 80 ml",
       "Sirop de sucre : 20 ml"
-    ]
+    ],
+    "sellPrice": 35
   },
   {
     "id": "jf_jus_de_mangue",
@@ -8851,7 +8888,8 @@ const BASE_RECIPES = [
       "Mangue fraîche : 220 g",
       "Jus d'orange frais : 80 ml",
       "Glaçons : 50 g"
-    ]
+    ],
+    "sellPrice": 30
   },
   {
     "id": "jf_jus_d_ananas",
@@ -8864,7 +8902,8 @@ const BASE_RECIPES = [
     "tech": [
       "Ananas frais : 250 g",
       "Glaçons : 50 g"
-    ]
+    ],
+    "sellPrice": 32
   },
   {
     "id": "jf_jus_de_peche",
@@ -8879,7 +8918,8 @@ const BASE_RECIPES = [
       "Pêche fraîche : 220 g",
       "Jus d'orange frais : 80 ml",
       "Glaçons : 50 g"
-    ]
+    ],
+    "sellPrice": 30
   },
   {
     "id": "jf_jus_de_carotte",
@@ -8892,7 +8932,8 @@ const BASE_RECIPES = [
     "tech": [
       "Carottes fraîches : 350 g",
       "Jus d'orange frais : 50 ml"
-    ]
+    ],
+    "sellPrice": 25
   },
   {
     "id": "jf_jus_pomme_banane",
@@ -8907,7 +8948,8 @@ const BASE_RECIPES = [
       "Pomme fraîche : 150 g",
       "Banane : 120 g",
       "Lait ou Jus d'orange : 100 ml"
-    ]
+    ],
+    "sellPrice": 28
   },
   {
     "id": "jf_jus_d_avocat_au_lait",
@@ -8922,7 +8964,8 @@ const BASE_RECIPES = [
       "Avocat Hass : 160 g",
       "Lait entier frais : 200 ml",
       "Sucre : 20 g"
-    ]
+    ],
+    "sellPrice": 32
   },
   {
     "id": "jf_jus_d_avocat_royal_fruits_secs",
@@ -8939,7 +8982,8 @@ const BASE_RECIPES = [
       "Lait entier : 200 ml",
       "Miel pur : 25 g",
       "Amandes, Noix, Raisins secs : 40 g"
-    ]
+    ],
+    "sellPrice": 38
   },
   {
     "id": "jf_jus_panache_fruits_frais",
@@ -8958,7 +9002,8 @@ const BASE_RECIPES = [
       "Fraise : 60 g",
       "Pomme : 60 g",
       "Avocat : 40 g"
-    ]
+    ],
+    "sellPrice": 38
   },
   {
     "id": "jf_cocktail_a_base_d_orange",
@@ -8975,7 +9020,8 @@ const BASE_RECIPES = [
       "Sirop de grenadine : 20 ml",
       "Fraise fraîche : 50 g",
       "Ananas frais : 50 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "jf_za3za3_royal_grey_corner",
@@ -8998,7 +9044,8 @@ const BASE_RECIPES = [
       "Biscuits Oreo : 2 p",
       "Crème chantilly : 35 g",
       "Coulis caramel : 15 ml"
-    ]
+    ],
+    "sellPrice": 46
   },
   {
     "id": "ck_signature_grey_corner",
@@ -9019,7 +9066,8 @@ const BASE_RECIPES = [
       "Jus de citron vert : 20 ml",
       "Sirop de passion : 20 ml",
       "Fruits frais décor : 30 g"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "ck_virgin_pi_a_colada",
@@ -9038,7 +9086,8 @@ const BASE_RECIPES = [
       "Lait de coco : 40 ml",
       "Glaçons : 100 g",
       "Tranche d'ananas : 1 tr"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "ck_cocktail_tropical",
@@ -9057,7 +9106,8 @@ const BASE_RECIPES = [
       "Jus d'orange : 60 ml",
       "Sirop de grenadine : 15 ml",
       "Glaçons : 80 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "ck_mojito_virgin_fraicheur",
@@ -9076,7 +9126,8 @@ const BASE_RECIPES = [
       "Sucre de canne : 20 g",
       "Eau gazeuse Oulmès : 150 ml",
       "Glace pilée : 120 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "ck_detox_gingembre_citron",
@@ -9095,7 +9146,8 @@ const BASE_RECIPES = [
       "Miel pur d'abeille : 25 g",
       "Pomme verte : 100 g",
       "Eau minérale : 100 ml"
-    ]
+    ],
+    "sellPrice": 32
   },
   {
     "id": "ck_cocktail_sans_alcool_special",
@@ -9114,7 +9166,8 @@ const BASE_RECIPES = [
       "Purée de framboise : 30 ml",
       "Sprite : 60 ml",
       "Glaçons : 80 g"
-    ]
+    ],
+    "sellPrice": 34
   },
   {
     "id": "ck_mojito_tropical",
@@ -9131,7 +9184,8 @@ const BASE_RECIPES = [
       "sirop framboise : 15 ml",
       "Oulmès tropical  : 1 p",
       "Glace pilée : 120 g"
-    ]
+    ],
+    "sellPrice": 38
   },
   {
     "id": "ck_mojito_red_bull",
@@ -9150,7 +9204,8 @@ const BASE_RECIPES = [
       "Red Bull (Canette 250ml) : 1 p",
       "Glace pilée : 120 g",
       "sirop bleu : 15 ml"
-    ]
+    ],
+    "sellPrice": 44
   },
   {
     "id": "ck_mojito_citron",
@@ -9169,7 +9224,8 @@ const BASE_RECIPES = [
       "OULMES MOJITO:  1 p",
       "Glace pilée : 120 g",
       "sirop mojito : 15 ml"
-    ]
+    ],
+    "sellPrice": 34
   },
   {
     "id": "sm_smoothie_pink_berry",
@@ -9188,7 +9244,8 @@ const BASE_RECIPES = [
       "Yaourt grec nature : 100 g",
       "Jus de pomme : 80 ml",
       "Glaçons : 50 g"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "sm_smoothie_energetique",
@@ -9207,7 +9264,8 @@ const BASE_RECIPES = [
       "Flocons d'avoine : 30 g",
       "Lait d'amande : 180 ml",
       "Beurre de cacahuète : 20 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "sm_smoothie_hawai",
@@ -9226,7 +9284,8 @@ const BASE_RECIPES = [
       "Fruit de la passion : 30 g",
       "Jus d'orange : 80 ml",
       "Glaçons : 50 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "sm_smoothie_multivitamine",
@@ -9245,7 +9304,8 @@ const BASE_RECIPES = [
       "Pomme : 80 g",
       "Gingembre frais : 5 g",
       "Glaçons : 50 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "sm_smoothie_jelly_fruit",
@@ -9262,7 +9322,8 @@ const BASE_RECIPES = [
       "Banane : 80 g",
       "Jus de cranberry : 80 ml",
       "Perles de fruits Popping Boba : 30 g"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "sm_smoothie_triple_fruits",
@@ -9281,7 +9342,8 @@ const BASE_RECIPES = [
       "Kiwi frais : 70 g",
       "Jus d'orange : 80 ml",
       "Glaçons : 50 g"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "sm_smoothie_bowl_exotique",
@@ -9300,7 +9362,8 @@ const BASE_RECIPES = [
       "Kiwi frais : 30 g",
       "Graines de chia : 10 g",
       "Noix de coco râpée : 10 g"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "sm_smoothie_bowl_ultra_boost",
@@ -9321,7 +9384,8 @@ const BASE_RECIPES = [
       "Myrtilles & Framboises : 30 g",
       "Graines de chia : 10 g",
       "Amandes effilées : 15 g"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "sd_coca_cola_33cl",
@@ -9336,7 +9400,8 @@ const BASE_RECIPES = [
       "Coca-Cola (Canette 33cl) : 1 p",
       "Tranche de citron : 1 tr",
       "Glaçons"
-    ]
+    ],
+    "sellPrice": 17
   },
   {
     "id": "sd_coca_cola_zero_33cl",
@@ -9351,7 +9416,8 @@ const BASE_RECIPES = [
       "Coca-Cola Zéro (Canette 33cl) : 1 p",
       "Tranche de citron : 1 tr",
       "Glaçons"
-    ]
+    ],
+    "sellPrice": 17
   },
   {
     "id": "sd_sprite_33cl",
@@ -9366,7 +9432,8 @@ const BASE_RECIPES = [
       "Sprite (Canette 33cl) : 1 p",
       "Tranche de citron : 1 tr",
       "Glaçons"
-    ]
+    ],
+    "sellPrice": 17
   },
   {
     "id": "sd_hawai_33cl",
@@ -9379,7 +9446,8 @@ const BASE_RECIPES = [
     "tech": [
       "Hawaï Canette : 33 cl",
       "Glaçons"
-    ]
+    ],
+    "sellPrice": 17
   },
   {
     "id": "sd_poms_33cl",
@@ -9392,7 +9460,8 @@ const BASE_RECIPES = [
     "tech": [
       "Poms (Canette 33cl) : 1 p",
       "Glaçons"
-    ]
+    ],
+    "sellPrice": 17
   },
   {
     "id": "sd_schweppes_citron_tonic_33cl",
@@ -9407,7 +9476,8 @@ const BASE_RECIPES = [
       "Schweppes (Canette 33cl) : 1 p",
       "Tranche de citron : 1 tr",
       "Glaçons"
-    ]
+    ],
+    "sellPrice": 17
   },
   {
     "id": "sd_orangina_33cl",
@@ -9422,7 +9492,8 @@ const BASE_RECIPES = [
       "Orangina (Canette 33cl) : 1 p",
       "Tranche d'orange : 1 tr",
       "Glaçons"
-    ]
+    ],
+    "sellPrice": 17
   },
   {
     "id": "sd_red_bull_250ml",
@@ -9435,7 +9506,8 @@ const BASE_RECIPES = [
     "tech": [
       "Red Bull (Canette 250ml) : 1 p",
       "Glaçons"
-    ]
+    ],
+    "sellPrice": 28
   },
   {
     "id": "ea_eau_minerale_33cl",
@@ -9446,7 +9518,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 6
   },
   {
     "id": "ea_eau_minerale_50cl",
@@ -9457,7 +9530,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Bouteille Eau Minérale 50cl : 1 p"
-    ]
+    ],
+    "sellPrice": 12
   },
   {
     "id": "ea_eau_minerale_75cl",
@@ -9468,7 +9542,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Bouteille Eau Minérale 75cl : 1 p"
-    ]
+    ],
+    "sellPrice": 22
   },
   {
     "id": "ea_oulmes_eau_gazeuse_33cl_50cl",
@@ -9481,7 +9556,8 @@ const BASE_RECIPES = [
     "tech": [
       "Bouteille Oulmès 33/50cl : 1 p",
       "Tranche de citron : 1 tr"
-    ]
+    ],
+    "sellPrice": 16
   },
   {
     "id": "ea_oulmes_eau_gazeuse_75cl",
@@ -9494,7 +9570,8 @@ const BASE_RECIPES = [
     "tech": [
       "Bouteille Oulmès 75cl : 1 p",
       "Tranches de citron : 2 tr"
-    ]
+    ],
+    "sellPrice": 26
   },
   {
     "id": "pdj_compagnard",
@@ -9523,7 +9600,8 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 52
   },
   {
     "id": "pdj_petit_dejeuner_americain",
@@ -9552,7 +9630,8 @@ const BASE_RECIPES = [
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p",
       "JBEN : 50 g"
-    ]
+    ],
+    "sellPrice": 68
   },
   {
     "id": "pdj_brunch_greycorner",
@@ -9630,7 +9709,8 @@ const BASE_RECIPES = [
       "THE A LA MENTHE : 2 p",
       "Desserts : 2 p",
       "Bouteille Eau Minérale 33cl : 2 p"
-    ]
+    ],
+    "sellPrice": 144
   },
   {
     "id": "pdj_beldi",
@@ -9661,7 +9741,8 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 45
   },
   {
     "id": "pdj_hollandais",
@@ -9688,7 +9769,8 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 52
   },
   {
     "id": "pdj_omelette_vegetarienne",
@@ -9711,7 +9793,8 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 52
   },
   {
     "id": "pdj_berbere",
@@ -9740,7 +9823,8 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 54
   },
   {
     "id": "pdj_croque",
@@ -9761,7 +9845,8 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 50
   },
   {
     "id": "pdj_fassi",
@@ -9782,7 +9867,8 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 55
   },
   {
     "id": "pdj_omelette_continental",
@@ -9807,7 +9893,8 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 52
   },
   {
     "id": "pdj_omelette_fromage",
@@ -9830,7 +9917,8 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 52
   },
   {
     "id": "pdj_omelette_nature",
@@ -9851,7 +9939,8 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "pdj_omelette_du_chef",
@@ -9876,7 +9965,8 @@ const BASE_RECIPES = [
       "Jus d'orange : 200 ml",
       "Boisson chaude : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 58
   },
   {
     "id": "pdj_espagnol",
@@ -9943,7 +10033,7 @@ const BASE_RECIPES = [
     "name": "MQUILA-FRUITS DE MER",
     "category": "PETIT DÉJEUNER",
     "ingredients": [
-      "crevettes : 140 g",
+      "crevettes CHAIR : 50 g",
       "calamars : 120 g",
       "moules : 80 g",
       "Œufs : 2 p",
@@ -9953,7 +10043,7 @@ const BASE_RECIPES = [
       "Bouteille Eau Minérale 33cl : 1 p"
     ],
     "tech": [
-      "crevettes : 140 g",
+      "crevettes CHAIR : 50 g",
       "calamars : 120 g",
       "moules : 80 g",
       "Œufs : 2 p",
@@ -9961,7 +10051,8 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 78
   },
   {
     "id": "pdj_norvegien",
@@ -9986,7 +10077,8 @@ const BASE_RECIPES = [
       "Bouteille Eau Minérale 33cl : 1 p",
       "saumon fumee : 60 g",
       "jben : 30 g"
-    ]
+    ],
+    "sellPrice": 68
   },
   {
     "id": "pdj_light",
@@ -10013,7 +10105,8 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "pdj_express",
@@ -10032,7 +10125,8 @@ const BASE_RECIPES = [
       "Boisson chaude : 1 p",
       "Dessert : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 44
   },
   {
     "id": "pdj_menu_enfant_pdj",
@@ -10047,7 +10141,8 @@ const BASE_RECIPES = [
       "Crêpe/Gaufre/Pancake : 1 p",
       "Corn flakes : 1 bol",
       "Lait chocolat : 200 ml"
-    ]
+    ],
+    "sellPrice": 40
   },
   {
     "id": "ef_salade_veggie",
@@ -10144,7 +10239,8 @@ const BASE_RECIPES = [
       "Tomate Cerise : 60 g",
       "Sauce César : 70 g",
       "Parmesan : 30 g"
-    ]
+    ],
+    "sellPrice": 65
   },
   {
     "id": "ef_salade_quinoa",
@@ -10171,7 +10267,8 @@ const BASE_RECIPES = [
       "Vinaigrette : 20 g",
       "Miel : 30 g",
       "Framboise : 17 g"
-    ]
+    ],
+    "sellPrice": 68
   },
   {
     "id": "ef_salade_terre_mer",
@@ -10202,7 +10299,8 @@ const BASE_RECIPES = [
       "Pomme : 24 g",
       "Moules : 16 g",
       "Agrumes : 15 g"
-    ]
+    ],
+    "sellPrice": 78
   },
   {
     "id": "ef_tartare_saumon",
@@ -10219,7 +10317,8 @@ const BASE_RECIPES = [
       "SAUMON FUMEE : 25 g",
       "Avocat : 300 g",
       "SAUCE TARTARE : 24 g"
-    ]
+    ],
+    "sellPrice": 88
   },
   {
     "id": "ec_boulettes_de_poulet_au_fromage",
@@ -10236,14 +10335,15 @@ const BASE_RECIPES = [
       "Farine : 100 g",
       "Chapelure : 50 g",
       "Edam : 25 g"
-    ]
+    ],
+    "sellPrice": 52
   },
   {
     "id": "ec_croustillon_gambas",
     "name": "CROUSTILLON GAMBAS",
     "category": "ENTRÉES CHAUDES",
     "ingredients": [
-      "Gambas avec coquille : 330 g",
+      "crevettes CHAIR : 122 g",
       "Chapelure : 30 g",
       "Purée : 200 g",
       "Radis : 15 g",
@@ -10251,20 +10351,21 @@ const BASE_RECIPES = [
       "Crème fraîche : 50 g"
     ],
     "tech": [
-      "Gambas avec coquille : 330 g",
+      "crevettes CHAIR : 122 g",
       "Chapelure : 30 g",
       "Purée : 200 g",
       "Radis : 15 g",
       "Parmesan : 14 g",
       "Crème fraîche : 50 g"
-    ]
+    ],
+    "sellPrice": 68
   },
   {
     "id": "ec_pil_pil_espagnol",
     "name": "PIL PIL ESPAGNOL",
     "category": "ENTRÉES CHAUDES",
     "ingredients": [
-      "Gambas avec coquille : 330 g",
+      "crevettes CHAIR : 122 g",
       "Tomate cerise : 60 g",
       "Pesto : 22 g",
       "Huile d’olive : 30 g",
@@ -10273,14 +10374,15 @@ const BASE_RECIPES = [
       "Sauce tomate : 120 g"
     ],
     "tech": [
-      "Gambas avec coquille : 330 g",
+      "crevettes CHAIR : 122 g",
       "Tomate cerise : 60 g",
       "Pesto : 22 g",
       "Huile d’olive : 30 g",
       "Oignon : 60 g",
       "Ail : 10 g",
       "Sauce tomate : 120 g"
-    ]
+    ],
+    "sellPrice": 68
   },
   {
     "id": "pl_brochettes_de_poulet",
@@ -10301,7 +10403,8 @@ const BASE_RECIPES = [
       "Accompagnements — 2 au choix",
       "Frites : 200 g",
       "Pain : 1 p"
-    ]
+    ],
+    "sellPrice": 84
   },
   {
     "id": "pl_emince_de_poulet",
@@ -10326,7 +10429,8 @@ const BASE_RECIPES = [
       "Fokacha : 150 g",
       "Frites : 200 g",
       "Huile : 50 ml"
-    ]
+    ],
+    "sellPrice": 88
   },
   {
     "id": "pl_ballotine_de_poulet",
@@ -10351,7 +10455,8 @@ const BASE_RECIPES = [
       "Beurre : 30 g",
       "Légumes : 220 g",
       "Frites : 200 g"
-    ]
+    ],
+    "sellPrice": 94
   },
   {
     "id": "pl_supreme_de_poulet",
@@ -10386,7 +10491,8 @@ const BASE_RECIPES = [
       "Frites : 200 g",
       "Pain : 1 p",
       "Beurre : 40 g"
-    ]
+    ],
+    "sellPrice": 98
   },
   {
     "id": "pl_escalope_a_la_milanaise",
@@ -10411,7 +10517,8 @@ const BASE_RECIPES = [
       "Légumes : 220 g",
       "Frites : 200 g",
       "Pain : 1 p"
-    ]
+    ],
+    "sellPrice": 85
   },
   {
     "id": "pl_emince_de_boeuf",
@@ -10436,7 +10543,8 @@ const BASE_RECIPES = [
       "Fokacha : 150 g",
       "Frites : 200 g",
       "Huile : 60 ml"
-    ]
+    ],
+    "sellPrice": 115
   },
   {
     "id": "pl_filet_de_boeuf",
@@ -10459,7 +10567,8 @@ const BASE_RECIPES = [
       "Légumes : 220 g",
       "Fokacha : 150 g",
       "Frites : 200 g"
-    ]
+    ],
+    "sellPrice": 135
   },
   {
     "id": "pl_pave_de_saumon",
@@ -10497,7 +10606,8 @@ const BASE_RECIPES = [
     "tech": [
       "Pasta nature ou Mini pizza + boisson",
       "OU Burger / nuggets + frites + boisson"
-    ]
+    ],
+    "sellPrice": 58
   },
   {
     "id": "pl_roulade_de_boeuf_vh",
@@ -10536,7 +10646,8 @@ const BASE_RECIPES = [
       "Frites : 200 g",
       "Pain : 1 p",
       "Huile de table : 30 ml"
-    ]
+    ],
+    "sellPrice": 120
   },
   {
     "id": "bg_chicken_burger",
@@ -10559,7 +10670,8 @@ const BASE_RECIPES = [
       "Tomate/Laitue : 30 g",
       "Frites : 200 g",
       "Pain : 1 p"
-    ]
+    ],
+    "sellPrice": 50
   },
   {
     "id": "bg_cheese_burger",
@@ -10584,7 +10696,8 @@ const BASE_RECIPES = [
       "Sauce Bigy : 30 g",
       "Frites + Sauce : 200 g",
       "Pain : 1 p"
-    ]
+    ],
+    "sellPrice": 54
   },
   {
     "id": "bg_avocado_forestier",
@@ -10609,7 +10722,8 @@ const BASE_RECIPES = [
       "Sauce Bigy : 30 g",
       "Frites+Sauce : 200 g",
       "Pain : 1 p"
-    ]
+    ],
+    "sellPrice": 54
   },
   {
     "id": "bg_egg_et_cheeseburger",
@@ -10632,7 +10746,8 @@ const BASE_RECIPES = [
       "Sauce Bigy : 30 g",
       "Frites : 200 g",
       "Pain : 1 p"
-    ]
+    ],
+    "sellPrice": 56
   },
   {
     "id": "bg_big_burger",
@@ -10653,7 +10768,8 @@ const BASE_RECIPES = [
       "Sauce du chef : 30 g",
       "Frites : 200 g",
       "Pain : 1 p"
-    ]
+    ],
+    "sellPrice": 68
   },
   {
     "id": "bg_burger_royal",
@@ -10680,7 +10796,8 @@ const BASE_RECIPES = [
       "Sauce spéciale : 30 g",
       "Frites : 200 g",
       "Pain : 1 p"
-    ]
+    ],
+    "sellPrice": 70
   },
   {
     "id": "wr_wrap_poulet",
@@ -10705,7 +10822,8 @@ const BASE_RECIPES = [
       "Pain : 1 p",
       "Tomate fraîche : 30 g",
       "Sauce burger : 60 ml"
-    ]
+    ],
+    "sellPrice": 58
   },
   {
     "id": "wr_wrap_viande_hachee",
@@ -10728,7 +10846,8 @@ const BASE_RECIPES = [
       "Pain : 1 p",
       "Tomate fraîche : 30 g",
       "Sauce burger : 60 ml"
-    ]
+    ],
+    "sellPrice": 62
   },
   {
     "id": "wr_wrap_gourmand",
@@ -10755,7 +10874,8 @@ const BASE_RECIPES = [
       "Pain : 1 p",
       "Tomate fraîche : 35 g",
       "Sauce burger : 60 ml"
-    ]
+    ],
+    "sellPrice": 64
   },
   {
     "id": "pa_charcuterie",
@@ -10774,7 +10894,8 @@ const BASE_RECIPES = [
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
-    ]
+    ],
+    "sellPrice": 40
   },
   {
     "id": "pa_poulet",
@@ -10793,7 +10914,8 @@ const BASE_RECIPES = [
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
-    ]
+    ],
+    "sellPrice": 44
   },
   {
     "id": "pa_viande_hachee",
@@ -10812,7 +10934,8 @@ const BASE_RECIPES = [
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
-    ]
+    ],
+    "sellPrice": 54
   },
   {
     "id": "pa_gourmand",
@@ -10835,14 +10958,15 @@ const BASE_RECIPES = [
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
-    ]
+    ],
+    "sellPrice": 64
   },
   {
     "id": "pa_fruits_de_mer",
     "name": "PANINI FRUITS DE MER",
     "category": "PANINIS",
     "ingredients": [
-      "Crevettes   : 150 g",
+      "crevettes CHAIR  : 50 g",
       "Calamar congelé : 120 g",
       "Pesto : 20 g",
       "Mozzarella : 40 g",
@@ -10853,7 +10977,7 @@ const BASE_RECIPES = [
     "sellPrice": 64,
     "price": "64 DH",
     "tech": [
-      "Crevettes   : 150 g",
+      "crevettes CHAIR  : 50 g",
       "Calamar congelé : 120 g",
       "Pesto : 20 g",
       "Mozzarella : 40 g",
@@ -10881,7 +11005,8 @@ const BASE_RECIPES = [
       "Frites + sauce : 200 g",
       "Pain : 1 p",
       "Sauce biggy : 30 g"
-    ]
+    ],
+    "sellPrice": 64
   },
   {
     "id": "sw_fruits_de_mer",
@@ -10889,7 +11014,7 @@ const BASE_RECIPES = [
     "category": "SANDWICHS",
     "ingredients": [
       "Pain : 1 p",
-      "Crevette  : 150 g",
+      "crevettes CHAIR  : 50 g",
       "calamar  : 120 g",
       "Sauce cocktail : 50 g",
       "Salade : 20 g",
@@ -10900,7 +11025,7 @@ const BASE_RECIPES = [
     "price": "65 DH",
     "tech": [
       "Pain : 1 p",
-      "Crevette  : 150 g",
+      "crevettes CHAIR  : 50 g",
       "calamar  : 120 g",
       "Sauce cocktail : 50 g",
       "Salade : 20 g",
@@ -10950,7 +11075,8 @@ const BASE_RECIPES = [
       "Sauce spéciale : 30 g",
       "Salade : 20 g",
       "FRITTES : 200 g"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "sw_poulet_crunchy",
@@ -10971,7 +11097,8 @@ const BASE_RECIPES = [
       "Sauce spéciale : 30 g",
       "Salade : 20 g",
       "FRITTES : 200 g"
-    ]
+    ],
+    "sellPrice": 58
   },
   {
     "id": "sw_cheese_steak",
@@ -10992,7 +11119,8 @@ const BASE_RECIPES = [
       "CHAMPIGNONS : 50 g",
       "FILET : 62 g",
       "FRITTES : 200 g"
-    ]
+    ],
+    "sellPrice": 65
   },
   {
     "id": "sw_viande_hachee",
@@ -11015,7 +11143,8 @@ const BASE_RECIPES = [
       "FRITTES : 200 g",
       "SALADE : 50 g",
       "SAUCE TOMATE : 50 g"
-    ]
+    ],
+    "sellPrice": 54
   },
   {
     "id": "pz_margarita",
@@ -11034,7 +11163,8 @@ const BASE_RECIPES = [
       "Sauce tomate : 100 g",
       "Olives noires : 15 g",
       "Basilic : 5 g"
-    ]
+    ],
+    "sellPrice": 52
   },
   {
     "id": "pz_thon",
@@ -11074,7 +11204,8 @@ const BASE_RECIPES = [
       "Sauce tomate : 100 g",
       "Olives noires : 15 g",
       "Légumes grillés : 200 g"
-    ]
+    ],
+    "sellPrice": 62
   },
   {
     "id": "pz_regina",
@@ -11093,7 +11224,8 @@ const BASE_RECIPES = [
       "Dinde fumée : 100 g",
       "Champignons : 60 g",
       "Sauce blanche : 40 g"
-    ]
+    ],
+    "sellPrice": 68
   },
   {
     "id": "pz_5_fromages",
@@ -11116,7 +11248,8 @@ const BASE_RECIPES = [
       "Sauce blanche : 40 g",
       "Parmesan : 20 g",
       "Fromage rouge : 40 g"
-    ]
+    ],
+    "sellPrice": 78
   },
   {
     "id": "pz_viande_hachee",
@@ -11135,7 +11268,8 @@ const BASE_RECIPES = [
       "Sauce tomate : 100 g",
       "Viande hachée : 100 g",
       "Tomate cerise : 30 g"
-    ]
+    ],
+    "sellPrice": 78
   },
   {
     "id": "pz_pepperoni",
@@ -11152,7 +11286,8 @@ const BASE_RECIPES = [
       "Mozzarella : 150 g",
       "Sauce tomate : 100 g",
       "Pepperoni : 80 g"
-    ]
+    ],
+    "sellPrice": 74
   },
   {
     "id": "pz_poulet_sauce_blanche",
@@ -11171,7 +11306,8 @@ const BASE_RECIPES = [
       "Poulet : 120 g",
       "Champignon : 60 g",
       "Sauce blanche : 40 g"
-    ]
+    ],
+    "sellPrice": 78
   },
   {
     "id": "pz_4_saisons",
@@ -11196,7 +11332,8 @@ const BASE_RECIPES = [
       "Poulet : 40 g",
       "Légumes : 60 g",
       "Champignon : 60 g"
-    ]
+    ],
+    "sellPrice": 88
   },
   {
     "id": "pz_moitie_moitie",
@@ -11215,7 +11352,8 @@ const BASE_RECIPES = [
       "POULET : 50 g",
       "MOZZARELLA : 150 g",
       "CREME FRAICHE : 40 g"
-    ]
+    ],
+    "sellPrice": 88
   },
   {
     "id": "pz_burrata",
@@ -11240,7 +11378,8 @@ const BASE_RECIPES = [
       "Roquette : 30 g",
       "Vinaigre balsamique : 10 ml",
       "Noix : 15 g"
-    ]
+    ],
+    "sellPrice": 110
   },
   {
     "id": "pz_fruits_de_mer",
@@ -11248,7 +11387,7 @@ const BASE_RECIPES = [
     "category": "PIZZA",
     "ingredients": [
       "Crème fraîche : 40 ml",
-      "Crevette  : 150 g",
+      "Crevette CHAIR  : 50 g",
       "calamar : 120 g",
       "PATE : 330 g",
       "PESTO : 50 g",
@@ -11258,7 +11397,7 @@ const BASE_RECIPES = [
     "price": "88 DH",
     "tech": [
       "Crème fraîche : 40 ml",
-      "Crevette  : 150 g",
+      "Crevette CHAIR  : 50 g",
       "calamar : 120 g",
       "PATE : 330 g",
       "PESTO : 50 g",
@@ -11280,7 +11419,8 @@ const BASE_RECIPES = [
       "Sauce blanche : 40 g",
       "PATE : 330 g",
       "MOZZARELLA : 150 g"
-    ]
+    ],
+    "sellPrice": 94
   },
   {
     "id": "pae_lasagne_poulet",
@@ -11309,7 +11449,8 @@ const BASE_RECIPES = [
       "Oignon/Ail : 70 g",
       "fromage rouge : 15 g",
       "mozzarella : 40 g"
-    ]
+    ],
+    "sellPrice": 60
   },
   {
     "id": "pae_lasagne_bolognaise",
@@ -11338,7 +11479,8 @@ const BASE_RECIPES = [
       "Oignon/Ail : 70 g",
       "fromage rouge : 15 g",
       "mozzarella : 40 g"
-    ]
+    ],
+    "sellPrice": 72
   },
   {
     "id": "pae_lasagne_fruits_de_mer",
@@ -11346,7 +11488,7 @@ const BASE_RECIPES = [
     "category": "PÂTES",
     "ingredients": [
       "Pâtes : 60 g",
-      "Crevettes avec coquille : 145 g",
+      "crevettes CHAIR : 50 g",
       "Calamar congelé : 120 g",
       "Parmesan : 15 g",
       "Huile : 30 g",
@@ -11358,7 +11500,7 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Pâtes : 60 g",
-      "Crevettes avec coquille : 145 g",
+      "crevettes CHAIR : 50 g",
       "Calamar congelé : 120 g",
       "Parmesan : 15 g",
       "Huile : 30 g",
@@ -11367,7 +11509,8 @@ const BASE_RECIPES = [
       "Oignon/Ail : 50 g",
       "fromage rouge : 15 g",
       "mozzarella : 40 g"
-    ]
+    ],
+    "sellPrice": 78
   },
   {
     "id": "pae_vegetarien",
@@ -11390,7 +11533,8 @@ const BASE_RECIPES = [
       "Oignon : 60 g",
       "Tomate cerise : 50 g",
       "Légumes : 150 g"
-    ]
+    ],
+    "sellPrice": 60
   },
   {
     "id": "pae_carbonara",
@@ -11409,7 +11553,8 @@ const BASE_RECIPES = [
       "Parmesan : 30 g",
       "Dinde fumée : 80 g",
       "Jaune d'œuf : 1 p"
-    ]
+    ],
+    "sellPrice": 65
   },
   {
     "id": "pae_5_fromages",
@@ -11432,7 +11577,8 @@ const BASE_RECIPES = [
       "Gouda : 30 g",
       "Chèvre : 25 g",
       "Parmesan : 25 g"
-    ]
+    ],
+    "sellPrice": 70
   },
   {
     "id": "pae_rigatoni_ricotta",
@@ -11457,7 +11603,8 @@ const BASE_RECIPES = [
       "Pesto : 70 g",
       "Courgette : 100 g",
       "Oignon/Ail : 70 g"
-    ]
+    ],
+    "sellPrice": 68
   },
   {
     "id": "pae_bolognaise",
@@ -11476,7 +11623,8 @@ const BASE_RECIPES = [
       "Sauce tomate : 100 g",
       "Parmesan : 30 g",
       "Oignon : 30 g"
-    ]
+    ],
+    "sellPrice": 75
   },
   {
     "id": "pae_poulet_champignon_epinard",
@@ -11497,7 +11645,8 @@ const BASE_RECIPES = [
       "Épinards : 50 g",
       "Crème fraîche : 200 ml",
       "Parmesan : 30 g"
-    ]
+    ],
+    "sellPrice": 75
   },
   {
     "id": "pae_fruits_de_mer",
@@ -11507,7 +11656,7 @@ const BASE_RECIPES = [
       "Pâtes : 125 g",
       "Crème fraîche : 200 ml",
       "Parmesan : 30 g",
-      "Crevette  : 150 g",
+      "Crevette CHAIR : 50 g",
       "calamar  : 120 g",
       "PESTO : 50 g"
     ],
@@ -11517,7 +11666,7 @@ const BASE_RECIPES = [
       "Pâtes : 125 g",
       "Crème fraîche : 200 ml",
       "Parmesan : 30 g",
-      "Crevette  : 150 g",
+      "Crevette CHAIR : 50 g",
       "calamar  : 120 g",
       "PESTO : 50 g"
     ]
@@ -11537,7 +11686,8 @@ const BASE_RECIPES = [
       "Saumon : 90 g",
       "Sauce blanche : 200 g",
       "parmesan : 30 g"
-    ]
+    ],
+    "sellPrice": 98
   },
   {
     "id": "pae_spaghettis_noirs_suppl",
@@ -11548,7 +11698,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Supplément pâtes noires à l'encre de seiche"
-    ]
+    ],
+    "sellPrice": 5
   },
   {
     "id": "dp_san_sebastien_cheesecake",
@@ -11561,7 +11712,8 @@ const BASE_RECIPES = [
     "tech": [
       "Cheesecake San Sebastian : 1 part (160 g)",
       "Coulis chocolat chaud : 30 g"
-    ]
+    ],
+    "sellPrice": 45
   },
   {
     "id": "dp_fondant_au_chocolat",
@@ -11576,7 +11728,8 @@ const BASE_RECIPES = [
       "Fondant chocolat cœur coulant : 1 g",
       "Glace vanille artisanale : 65 g",
       "Sucre glace : 5 g"
-    ]
+    ],
+    "sellPrice": 40
   },
   {
     "id": "dp_cheesecake_chocolat",
@@ -11589,7 +11742,8 @@ const BASE_RECIPES = [
     "tech": [
       "Cheesecake chocolat : 1 part (150 g)",
       "Chantilly : 20 g"
-    ]
+    ],
+    "sellPrice": 45
   },
   {
     "id": "dp_boule_de_glace",
@@ -11600,7 +11754,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Glace artisanale au choix : 65 g"
-    ]
+    ],
+    "sellPrice": 16
   },
   {
     "id": "dp_2_boules_de_glace",
@@ -11613,7 +11768,8 @@ const BASE_RECIPES = [
     "tech": [
       "Glace artisanale au choix : 130 g",
       "Coulis & Chantilly : 0 g"
-    ]
+    ],
+    "sellPrice": 30
   },
   {
     "id": "dp_3_boules_de_glace",
@@ -11626,7 +11782,8 @@ const BASE_RECIPES = [
     "tech": [
       "Glace artisanale au choix : 195 g",
       "Coulis, Chantilly & Gaufrette : 0 g"
-    ]
+    ],
+    "sellPrice": 45
   },
   {
     "id": "cr_crepe_nutella",
@@ -11639,7 +11796,8 @@ const BASE_RECIPES = [
     "tech": [
       "Pâte à crêpe : 1 p",
       "Nutella : 120 g"
-    ]
+    ],
+    "sellPrice": 38
   },
   {
     "id": "cr_crepe_kunafa_pistache",
@@ -11656,7 +11814,8 @@ const BASE_RECIPES = [
       "Pâte de pistache :  150 g",
       "Kunafa croustillante : 30 g",
       "Pistaches concassées : 0 g"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "cr_crepe_fromage",
@@ -11673,7 +11832,8 @@ const BASE_RECIPES = [
       "Mozzarella : 50 g",
       "Fromage rouge : 30 g",
       "Fromage blanc : 20 g"
-    ]
+    ],
+    "sellPrice": 45
   },
   {
     "id": "cr_crepe_poulet_champignon",
@@ -11692,7 +11852,8 @@ const BASE_RECIPES = [
       "Champignons : 40 g",
       "Mozzarella : 40 g",
       "Crème fraîche : 40 ml"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "cr_crepe_charcuterie",
@@ -11709,7 +11870,8 @@ const BASE_RECIPES = [
       "Charcuterie de dinde : 60 g",
       "Mozzarella : 40 g",
       "Fromage : 20 g"
-    ]
+    ],
+    "sellPrice": 45
   },
   {
     "id": "cr_crepe_norvegienne",
@@ -11728,7 +11890,8 @@ const BASE_RECIPES = [
       "Crème fraîche : 40 ml",
       "Fromage : 20 g",
       "Mozzarella : 40 g"
-    ]
+    ],
+    "sellPrice": 58
   },
   {
     "id": "sup_supplement_frites",
@@ -11741,7 +11904,8 @@ const BASE_RECIPES = [
     "tech": [
       "Frites : 200 g",
       "Sauce : 30 g"
-    ]
+    ],
+    "sellPrice": 15
   },
   {
     "id": "sup_supplement_puree",
@@ -11754,7 +11918,8 @@ const BASE_RECIPES = [
     "tech": [
       "Pomme de terre purée : 250 g",
       "Beurre : 15 g"
-    ]
+    ],
+    "sellPrice": 18
   },
   {
     "id": "sup_supplement_potatos",
@@ -11767,7 +11932,8 @@ const BASE_RECIPES = [
     "tech": [
       "Pomme de terre potatos : 200 g",
       "Sauce : 30 g"
-    ]
+    ],
+    "sellPrice": 18
   },
   {
     "id": "sup_supplement_miel",
@@ -11778,7 +11944,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Miel pur : 30 g"
-    ]
+    ],
+    "sellPrice": 8
   },
   {
     "id": "sup_supplement_jben",
@@ -11789,7 +11956,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Jben frais : 50 g"
-    ]
+    ],
+    "sellPrice": 10
   },
   {
     "id": "sup_supplement_oeufs",
@@ -11800,7 +11968,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Œufs frais : 2 p"
-    ]
+    ],
+    "sellPrice": 10
   },
   {
     "id": "sup_supplement_fromage",
@@ -11811,7 +11980,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Fromage variété : 50 g"
-    ]
+    ],
+    "sellPrice": 12
   },
   {
     "id": "sup_supplement_chantilly",
@@ -11865,7 +12035,8 @@ const BASE_RECIPES = [
       "saumon : 50 g",
       "calamar net : 40 g",
       "crevette net : 40 g"
-    ]
+    ],
+    "sellPrice": 94
   },
   {
     "id": "sup_divers_cuisine_food",
@@ -11876,7 +12047,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Ingrédients cuisine divers : 1 portion"
-    ]
+    ],
+    "sellPrice": 10
   },
   {
     "id": "sup_divers_bar_boissons",
@@ -11887,7 +12059,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Ingrédients bar divers : 1 portion"
-    ]
+    ],
+    "sellPrice": 10
   },
   {
     "id": "alc_baghrir",
@@ -11946,7 +12119,8 @@ const BASE_RECIPES = [
       "Œufs : 3 p",
       "Fromage : 40 g",
       "Mesclun : 30 g"
-    ]
+    ],
+    "sellPrice": 38
   },
   {
     "id": "alc_omlette_nature",
@@ -11959,7 +12133,8 @@ const BASE_RECIPES = [
     "tech": [
       "Œufs : 3 p",
       "Mesclun : 30 g"
-    ]
+    ],
+    "sellPrice": 32
   },
   {
     "id": "alc_omlette_chef",
@@ -11984,18 +12159,19 @@ const BASE_RECIPES = [
     "category": "CRÊPES",
     "ingredients": [
       "Pâte à crêpe : 1 p",
-      "Crevettes avec coquille : 145 g",
+      "crevettes CHAIR : 50 g",
       "Calamar congelé : 120 g",
       "Mozzarella : 40 g",
       "creme fraiche : 30 g"
     ],
     "tech": [
       "Pâte à crêpe : 1 p",
-      "Crevettes avec coquille : 145 g",
+      "crevettes CHAIR : 50 g",
       "Calamar congelé : 120 g",
       "Mozzarella : 40 g",
       "creme fraiche : 30 g"
-    ]
+    ],
+    "sellPrice": 58
   },
   {
     "id": "rec_1788199150306",
@@ -12012,7 +12188,8 @@ const BASE_RECIPES = [
       "VIANDE HACHEE :100 g",
       "Mozzarella : 60 g",
       "SAUCE TOMATE : 50 g"
-    ]
+    ],
+    "sellPrice": 54
   },
   {
     "id": "rec_1788199269031",
@@ -12033,7 +12210,8 @@ const BASE_RECIPES = [
       "poulet : 50 g",
       "Mozzarella : 60 g",
       "Fromage : 20 g"
-    ]
+    ],
+    "sellPrice": 58
   },
   {
     "id": "rec_1788199499882",
@@ -12048,7 +12226,8 @@ const BASE_RECIPES = [
       "Pâte à crêpe : 1 p",
       "Nutella : 120 g",
       "BANANE : 100 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "rec_1788199584604",
@@ -12059,7 +12238,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Pâte à crêpe : 2 p"
-    ]
+    ],
+    "sellPrice": 28
   },
   {
     "id": "rec_1788199636915",
@@ -12074,7 +12254,8 @@ const BASE_RECIPES = [
       "Pâte à crêpe : 1 p",
       "Nutella : 60 g",
       "Noisette : 30 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "rec_1788199691970",
@@ -12089,7 +12270,8 @@ const BASE_RECIPES = [
       "Pâte à crêpe : 1 p",
       "Nutella : 60 g",
       "Fruits de saison : 80 g"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "rec_1788199770175",
@@ -12104,7 +12286,8 @@ const BASE_RECIPES = [
       "Pâte à crêpe : 1 p",
       "Nutella : 60 g",
       "Chocolat varié : 50 g"
-    ]
+    ],
+    "sellPrice": 52
   },
   {
     "id": "rec_1788199916543",
@@ -12117,7 +12300,8 @@ const BASE_RECIPES = [
     "tech": [
       "Pâte à crêpe : 1 p",
       "Caramel : 40 g"
-    ]
+    ],
+    "sellPrice": 40
   },
   {
     "id": "rec_1788200045078",
@@ -12128,7 +12312,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "NUTELLA : 20 g"
-    ]
+    ],
+    "sellPrice": 7
   },
   {
     "id": "rec_1788200166784",
@@ -12166,7 +12351,8 @@ const BASE_RECIPES = [
       "Sauce : 40 g",
       "CHAMPIGNONS : 50 g",
       "FRITTES : 200 g"
-    ]
+    ],
+    "sellPrice": 54
   },
   {
     "id": "rec_1788200577957",
@@ -12189,7 +12375,8 @@ const BASE_RECIPES = [
       "Pesto : 70 g",
       "Sauce tomate : 80 g",
       "Oignon/Ail : 70 g"
-    ]
+    ],
+    "sellPrice": 50
   },
   {
     "id": "rec_1788200961049",
@@ -12208,7 +12395,8 @@ const BASE_RECIPES = [
       "Sauce tomate : 100 g",
       "Olives noires : 13 g",
       "COCA : 1 p"
-    ]
+    ],
+    "sellPrice": 55
   },
   {
     "id": "rec_1788201140701",
@@ -12229,7 +12417,8 @@ const BASE_RECIPES = [
       "Frites + Sauce : 200 g",
       "Pain : 1 p",
       "coca : 1 p"
-    ]
+    ],
+    "sellPrice": 58
   },
   {
     "id": "rec_1788201291652",
@@ -12285,7 +12474,8 @@ const BASE_RECIPES = [
       "tomate:30 G",
       "roquette :25 G",
       "vinaigre balsamique :10 G"
-    ]
+    ],
+    "sellPrice": 98
   },
   {
     "id": "rec_1788201893575",
@@ -12306,7 +12496,8 @@ const BASE_RECIPES = [
       "Œufs de caille : 1 p",
       "Poulet : 50 g",
       "Mayonnaise : 30 g"
-    ]
+    ],
+    "sellPrice": 54
   },
   {
     "id": "sod_schweppes_citron",
@@ -12317,7 +12508,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Canette Schweppes Citron : 1 p"
-    ]
+    ],
+    "sellPrice": 17
   },
   {
     "id": "sod_oulmes_mojito",
@@ -12328,7 +12520,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Canette Oulmès Mojito : 1 p"
-    ]
+    ],
+    "sellPrice": 20
   },
   {
     "id": "sod_oulmes_tropical",
@@ -12339,7 +12532,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Canette Oulmès Tropical : 1 p"
-    ]
+    ],
+    "sellPrice": 16
   },
   {
     "id": "ck_gingembre",
@@ -12354,7 +12548,8 @@ const BASE_RECIPES = [
       "Jus de gingembre : 150 ml",
       "Citron : 30 ml",
       "Miel : 20 g"
-    ]
+    ],
+    "sellPrice": 32
   },
   {
     "id": "ck_fraicheur",
@@ -12371,7 +12566,8 @@ const BASE_RECIPES = [
       "Menthe : 10 g",
       "Citron : 30 ml",
       "Glaçons : 1 p"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "ck_san_francisco",
@@ -12386,7 +12582,8 @@ const BASE_RECIPES = [
       "Jus d'orange : 100 ml",
       "Jus d'ananas : 100 ml",
       "Sirop grenadine : 20 ml"
-    ]
+    ],
+    "sellPrice": 34
   },
   {
     "id": "ck_cocktail_gc",
@@ -12401,7 +12598,8 @@ const BASE_RECIPES = [
       "Fruits variés : 150 g",
       "Jus d'orange : 100 ml",
       "Sirop : 20 ml"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "sm_triple_berry",
@@ -12416,7 +12614,8 @@ const BASE_RECIPES = [
       "Fruits rouges : 120 g",
       "Lait : 100 ml",
       "Yaourt : 50 g"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "sm_energetique",
@@ -12433,7 +12632,8 @@ const BASE_RECIPES = [
       "Dattes : 40 g",
       "Lait : 150 ml",
       "Miel : 15 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "sm_pink_smoothie",
@@ -12450,7 +12650,8 @@ const BASE_RECIPES = [
       "Framboise : 50 g",
       "Yaourt : 80 g",
       "Lait : 100 ml"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "sm_multi_vitamine",
@@ -12465,7 +12666,8 @@ const BASE_RECIPES = [
       "Jus d'orange : 100 ml",
       "Carotte : 60 g",
       "Pomme : 80 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "sm_hawaien",
@@ -12480,7 +12682,8 @@ const BASE_RECIPES = [
       "Ananas : 100 g",
       "Mangue : 80 g",
       "Jus d'orange : 100 ml"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "smb_exotique_bowl",
@@ -12497,7 +12700,8 @@ const BASE_RECIPES = [
       "Açaï : 50 g",
       "Muesli : 40 g",
       "Graines de chia : 10 g"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "jf_fruits_secs",
@@ -12512,7 +12716,8 @@ const BASE_RECIPES = [
       "Fruits secs / Amandes : 50 g",
       "Lait : 150 ml",
       "Miel : 15 g"
-    ]
+    ],
+    "sellPrice": 38
   },
   {
     "id": "jf_avocat_orange",
@@ -12525,7 +12730,8 @@ const BASE_RECIPES = [
     "tech": [
       "Avocat : 100 g",
       "Jus d'orange : 150 ml"
-    ]
+    ],
+    "sellPrice": 32
   },
   {
     "id": "jf_pomme",
@@ -12536,7 +12742,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Pomme : 250 g"
-    ]
+    ],
+    "sellPrice": 28
   },
   {
     "id": "jf_banane_orange",
@@ -12562,7 +12769,8 @@ const BASE_RECIPES = [
     "tech": [
       "Fruits de saison : 120 g",
       "Lait : 150 ml"
-    ]
+    ],
+    "sellPrice": 38
   },
   {
     "id": "jf_mini_orange",
@@ -12599,7 +12807,8 @@ const BASE_RECIPES = [
     "tech": [
       "Pâte à gaufre : 1 p",
       "Nutella : 120 g"
-    ]
+    ],
+    "sellPrice": 38
   },
   {
     "id": "cr_gaufre_nutela_banane",
@@ -12614,7 +12823,8 @@ const BASE_RECIPES = [
       "Pâte à gaufre : 1 p",
       "Nutella : 100 g",
       "Banane : 80 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "cr_gaufre_kunafa_pistache",
@@ -12631,7 +12841,8 @@ const BASE_RECIPES = [
       "Kunafa : 40 g",
       "Pate de Pistache : 130 g",
       "Sirop : 20 ml"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "cr_gaufre_exotique",
@@ -12646,7 +12857,8 @@ const BASE_RECIPES = [
       "Pâte à gaufre : 1 p",
       "Fruits de saison : 80 g",
       "Nutella : 40 g"
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "cr_gaufre_choco_noisette",
@@ -12661,7 +12873,8 @@ const BASE_RECIPES = [
       "Pâte à gaufre : 1 p",
       "Nutella : 60 g",
       "Noisette : 30 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "cr_gaufre_pm_caramelisee",
@@ -12676,7 +12889,8 @@ const BASE_RECIPES = [
       "Pâte à gaufre : 1 p",
       "Pomme : 60 g",
       "Caramel : 40 g"
-    ]
+    ],
+    "sellPrice": 40
   },
   {
     "id": "cr_gaufre_nature",
@@ -12689,7 +12903,8 @@ const BASE_RECIPES = [
     "tech": [
       "Pâte à gaufre : 1 p",
       "Sucre : 15 g"
-    ]
+    ],
+    "sellPrice": 28
   },
   {
     "id": "des_coupe_grey_corner",
@@ -12708,7 +12923,8 @@ const BASE_RECIPES = [
       "Coulis : 20 ml",
       "Amandes : 15 g",
       "BISCUIT : 1 g"
-    ]
+    ],
+    "sellPrice": 65
   },
   {
     "id": "des_banana_split",
@@ -12727,7 +12943,8 @@ const BASE_RECIPES = [
       "Chantilly : 40 g",
       "Chocolat : 20 ml",
       "BISCUIT : 1 g"
-    ]
+    ],
+    "sellPrice": 50
   },
   {
     "id": "des_coupe_enfant",
@@ -12742,7 +12959,8 @@ const BASE_RECIPES = [
       "Boules de glace : 2 p",
       "Chantilly : 20 g",
       "Smarties : 15 g"
-    ]
+    ],
+    "sellPrice": 40
   },
   {
     "id": "des_coupe_amor",
@@ -12757,7 +12975,8 @@ const BASE_RECIPES = [
       "Boules de glace : 3 p",
       "Fruits rouges : 40 g",
       "Chantilly : 30 g"
-    ]
+    ],
+    "sellPrice": 45
   },
   {
     "id": "des_milkshake_nutella",
@@ -12774,7 +12993,8 @@ const BASE_RECIPES = [
       "Boules de glace : 1 p",
       "Nutella : 50 g",
       "Chantilly : 20 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "des_milkshake_vanille",
@@ -12789,7 +13009,8 @@ const BASE_RECIPES = [
       "Lait : 180 ml",
       "Boules de glace : 2 p",
       "Chantilly : 20 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "des_milkshake_cookies",
@@ -12806,7 +13027,8 @@ const BASE_RECIPES = [
       "Boules de glace : 2 p",
       "Cookies : 40 g",
       "Chantilly : 20 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "des_milkshake_fraise",
@@ -12823,7 +13045,8 @@ const BASE_RECIPES = [
       "Boules de glace : 2 p",
       "Fraise : 50 g",
       "Chantilly : 20 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "des_milkshake_chocolat",
@@ -12840,7 +13063,8 @@ const BASE_RECIPES = [
       "Boules de glace : 2 p",
       "Chocolat : 30 ml",
       "Chantilly : 20 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "des_milkshake_kitkat",
@@ -12857,7 +13081,8 @@ const BASE_RECIPES = [
       "Boules de glace : 2 p",
       "KitKat : 1 p",
       "Chantilly : 20 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "des_milkshake_caramel",
@@ -12874,7 +13099,8 @@ const BASE_RECIPES = [
       "Boules de glace : 2 p",
       "Caramel : 40 g",
       "Chantilly : 20 g"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "des_orangeshake",
@@ -12887,7 +13113,8 @@ const BASE_RECIPES = [
     "tech": [
       "Jus d'orange : 180 ml",
       "Boules de glace : 2 p"
-    ]
+    ],
+    "sellPrice": 42
   },
   {
     "id": "des_pain_cake_nutella",
@@ -12900,7 +13127,8 @@ const BASE_RECIPES = [
     "tech": [
       "Pancakes : 3 p",
       "Nutella : 120 g"
-    ]
+    ],
+    "sellPrice": 38
   },
   {
     "id": "des_pain_cake_fruits",
@@ -12915,7 +13143,8 @@ const BASE_RECIPES = [
       "Pancakes : 3 p",
       "Fruits de saison : 80 g",
       "Miel : 30 g"
-    ]
+    ],
+    "sellPrice": 44
   },
   {
     "id": "des_pain_cake_enfant",
@@ -12930,7 +13159,8 @@ const BASE_RECIPES = [
       "Pancakes : 2 p",
       "Nutella : 80 g",
       "Smarties : 10 g"
-    ]
+    ],
+    "sellPrice": 32
   },
   {
     "id": "des_pain_cake_gc",
@@ -12947,7 +13177,8 @@ const BASE_RECIPES = [
       "Nutella : 50 g",
       "Fruits de saison : 60 g",
       "Boules de glace : 1 p"
-    ]
+    ],
+    "sellPrice": 50
   },
   {
     "id": "bc_lait_chaud",
@@ -12960,7 +13191,8 @@ const BASE_RECIPES = [
     "tech": [
       "Lait : 200 ml",
       "Sucre : 1 p"
-    ]
+    ],
+    "sellPrice": 12
   },
   {
     "id": "bc_lait_froid",
@@ -12973,7 +13205,8 @@ const BASE_RECIPES = [
     "tech": [
       "Lait : 200 ml",
       "Sucre : 1 p"
-    ]
+    ],
+    "sellPrice": 12
   },
   {
     "id": "bc_cafe_aromatise",
@@ -13219,7 +13452,8 @@ const BASE_RECIPES = [
       "Œufs : 2 p",
       "Khlii : 50 g",
       "Tomate : 40 g"
-    ]
+    ],
+    "sellPrice": 54
   },
   {
     "id": "alc_toast_nutella",
@@ -13271,7 +13505,8 @@ const BASE_RECIPES = [
       "Sauce tomate : 60 g",
       "Parmesan : 30 g",
       "Canette Soda : 3.5 p"
-    ]
+    ],
+    "sellPrice": 58
   },
   {
     "id": "caf_s___boissons_chaudes_cappuccino_chantilly",
@@ -13292,7 +13527,8 @@ const BASE_RECIPES = [
       "Cacao : 3 g",
       "Sucre : 1 p",
       "Bouteille Eau Minérale 33cl : 1 p"
-    ]
+    ],
+    "sellPrice": 22
   },
   {
     "id": "a_la_carte___boulangerie_petit_baghrir",
@@ -13303,7 +13539,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Baghrir : 1 p"
-    ]
+    ],
+    "sellPrice": 5
   },
   {
     "id": "a_la_carte___boulangerie_msemen_nature",
@@ -13314,7 +13551,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Msemen : 1 p"
-    ]
+    ],
+    "sellPrice": 6
   },
   {
     "id": "a_la_carte___boulangerie_viennoiserie",
@@ -13325,7 +13563,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Viennoiserie : 1 p"
-    ]
+    ],
+    "sellPrice": 6
   },
   {
     "id": "a_la_carte___boulangerie_harcha_nature",
@@ -13336,7 +13575,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Harcha : 1 p"
-    ]
+    ],
+    "sellPrice": 6
   }
 ];
 

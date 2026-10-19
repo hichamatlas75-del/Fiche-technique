@@ -423,17 +423,17 @@ var sumPrice = 0;
           <div class="kpi-sub">Fiches techniques actives</div>
         </div>
         <div class="kpi-card initial-theme">
-          <div class="kpi-label">Food Cost Moyen Grey Corner</div>
+          <div class="kpi-label">Food Cost Moyen Exploitation</div>
           <div class="kpi-value text-accent" style="color:#0284c7;">${avgGcFC} %</div>
-          <div class="kpi-sub">Fiches opérationnelles actuelles</div>
+          <div class="kpi-sub">Fiches opérationnelles en cours</div>
         </div>
         <div class="kpi-card standard-theme">
-          <div class="kpi-label">Food Cost Standard Int.</div>
+          <div class="kpi-label">Food Cost Référence Déstockage</div>
           <div class="kpi-value text-success">${avgStdFC} %</div>
-          <div class="kpi-sub">Référence métier hôtelière</div>
+          <div class="kpi-sub">Standard de référence (SSOT)</div>
         </div>
         <div class="kpi-card gain-theme">
-          <div class="kpi-label">Écart Moyen vs Standard</div>
+          <div class="kpi-label">Écart Moyen vs Référence</div>
           <div class="kpi-value ${totalDiffDH > 0 ? 'text-gold' : 'text-success'}">${totalDiffDH > 0 ? '+' + totalDiffDH : totalDiffDH} DH</div>
           <div class="kpi-sub">Différentiel de matière / portion</div>
         </div>

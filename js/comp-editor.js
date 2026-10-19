@@ -572,7 +572,7 @@ function copyStandardToRecipe(p1, p2) {
   if (renderKPIs) renderKPIs();
 
   if (window.GC_Toast) {
-    window.GC_Toast.show(`🟢 Standard international copié sur ${recipe.name}`, 'success');
+    window.GC_Toast.show(`🟢 Référence Déstockage rétablie sur ${recipe.name}`, 'success');
   }
 }
 

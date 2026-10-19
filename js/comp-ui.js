@@ -156,7 +156,7 @@ var rowsHTML = filtered.map((recipe, idx) => {
                 📂 Détails
               </button>
               <button class="btn btn-secondary" style="padding:5px 8px; font-size:11.5px; font-weight:700; border-radius:6px; cursor:pointer;" onclick="window.copyStandardToRecipe(${idx})">
-                🟢 Standard
+                🟢 Référence
               </button>
             </div>
           </td>
@@ -166,13 +166,13 @@ var rowsHTML = filtered.map((recipe, idx) => {
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
               <div style="background:var(--paper); padding:12px; border-radius:8px; border:1px solid var(--border);">
                 <div style="font-weight:800; font-size:12.5px; color:#0284c7; margin-bottom:6px;">
-                  🔵 Détail Coût Grey Corner (${recipe.greyCorner.cost.toFixed(2)} DH)
+                  🔵 Détail Coût Exploitation (${recipe.greyCorner.cost.toFixed(2)} DH)
                 </div>
                 ${renderPortionCostBreakdownHTML(recipe.greyCorner.tech, recipe.sellPrice, 'gc', idx)}
               </div>
               <div style="background:var(--paper); padding:12px; border-radius:8px; border:1px solid var(--border);">
                 <div style="font-weight:800; font-size:12.5px; color:#16a34a; margin-bottom:6px;">
-                  🟢 Détail Coût Standard Int. (${recipe.standard.cost.toFixed(2)} DH)
+                  🟢 Détail Coût Référence Déstockage (${recipe.standard.cost.toFixed(2)} DH)
                 </div>
                 ${renderPortionCostBreakdownHTML(recipe.standard.tech, recipe.sellPrice, 'std', idx)}
               </div>
@@ -190,8 +190,8 @@ var rowsHTML = filtered.map((recipe, idx) => {
               <th style="padding:12px 14px; text-align:left;">Plat / Recette</th>
               <th style="padding:12px 14px; text-align:left;">Catégorie</th>
               <th style="padding:12px 14px; text-align:right;">Prix Vente</th>
-              <th style="padding:12px 14px; text-align:right;">Coût Grey Corner</th>
-              <th style="padding:12px 14px; text-align:right;">Coût Standard Int.</th>
+              <th style="padding:12px 14px; text-align:right;">Coût Exploitation</th>
+              <th style="padding:12px 14px; text-align:right;">Coût Référence</th>
               <th style="padding:12px 14px; text-align:right;">Écart DH</th>
               <th style="padding:12px 14px; text-align:center;">Action Rapide</th>
             </tr>
@@ -284,8 +284,10 @@ var rowsHTML = filtered.map((recipe, idx) => {
     const stdFCClass = recipe.standard.foodCost <= 32 ? 'badge-ok' : (recipe.standard.foodCost <= 38 ? 'badge-warn' : 'badge-danger');
 
     const diffBadge = recipe.standard.diffDH > 0 
-      ? `<span id="badge-diff-${idx}" class="badge-gain" style="background:rgba(2, 132, 199, 0.1); color:#0284c7; border-color:rgba(2, 132, 199, 0.3);">Écart vs Standard : +${recipe.standard.diffDH.toFixed(2)} DH</span>`
-      : `<span id="badge-diff-${idx}" class="badge-neutral">Marge conforme au standard</span>`;
+      ? `<span id="badge-diff-${idx}" class="badge-gain" style="background:rgba(2, 132, 199, 0.1); color:#0284c7; border-color:rgba(2, 132, 199, 0.3);">Écart vs Référence : +${recipe.standard.diffDH.toFixed(2)} DH</span>`
+      : (recipe.standard.diffDH < 0 
+        ? `<span id="badge-diff-${idx}" class="badge-gain" style="background:rgba(245, 158, 11, 0.1); color:#f59e0b; border-color:rgba(245, 158, 11, 0.3);">Écart vs Référence : ${recipe.standard.diffDH.toFixed(2)} DH</span>`
+        : `<span id="badge-diff-${idx}" class="badge-neutral" style="background:rgba(16,185,129,0.1); color:#10b981; border:1px solid rgba(16,185,129,0.25);">✓ Conforme à la référence Déstockage</span>`);
 
     return `
       <div class="comparative-card" id="card-${idx}" data-recipe-name="${escapeHtml(recipe.name)}" data-category="${escapeHtml(recipe.category)}">
@@ -315,11 +317,11 @@ var rowsHTML = filtered.map((recipe, idx) => {
         <!-- GRILLE COMPARATIVE 2 COLONNES -->
         <div class="comparison-dual-grid">
           
-          <!-- COLONNE 1 : FICHE GREY CORNER (OPÉRATIONNELLE & MODIFIABLE) -->
+          <!-- COLONNE 1 : FICHE EXPLOITATION (MODIFIABLE & SIMULATION) -->
           <div class="col-box col-greycorner">
             <div class="col-header">
               <span class="col-dot dot-blue"></span>
-              <h4>1. Fiche Technique Grey Corner (Modifiable)</h4>
+              <h4>1. Fiche Technique Exploitation (Modifiable)</h4>
             </div>
 
             <!-- ÉDITEUR D'INGRÉDIENTS EN DIRECT -->
@@ -330,11 +332,11 @@ var rowsHTML = filtered.map((recipe, idx) => {
             <!-- BOUTONS D'ACTION SUR LA RECETTE -->
             <div class="quick-preset-actions" style="margin-top:12px;">
               <button class="btn-preset" title="Ajouter un ingrédient à la fiche" onclick="window.addIngredientToRecipe(${idx})">➕ Ajouter ingrédient</button>
-              <button class="btn-preset text-success" title="Appliquer le standard international sur la fiche Grey Corner" onclick="window.copyStandardToRecipe(${idx})">🟢 Copier Standard Int.</button>
+              <button class="btn-preset text-success" title="Rétablir les grammages selon la référence Déstockage" onclick="window.copyStandardToRecipe(${idx})">🟢 Rétablir Référence</button>
               <button class="btn-preset text-danger" title="Rétablir la fiche d'origine" onclick="window.resetRecipeToInitial(${idx})">🔄 Rétablir d'origine</button>
             </div>
 
-            <!-- RÉSULTAT FINANCIER DE LA FICHE GREY CORNER -->
+            <!-- RÉSULTAT FINANCIER DE LA FICHE EXPLOITATION -->
             <div class="col-finances fin-custom" style="margin-top:14px;">
               <div class="fin-row">
                 <span>Coût Portion Réel :</span>
@@ -350,7 +352,7 @@ var rowsHTML = filtered.map((recipe, idx) => {
               </div>
             </div>
 
-            <!-- TIROIR ACCORDÉON : DÉTAILS DU COÛT DE PORTION GREY CORNER -->
+            <!-- TIROIR ACCORDÉON : DÉTAILS DU COÛT DE PORTION EXPLOITATION -->
             <div class="portion-drawer-wrapper">
               <button type="button" class="btn-drawer-toggle gc-drawer-btn" id="btn-drawer-gc-${idx}" onclick="window.togglePortionCostDrawer(${idx}, 'gc')" title="Déplier / replier le détail du coût par ingrédient">
                 <span class="drawer-title">📂 Détails Coût Portion (Tiroir)</span>
@@ -362,11 +364,11 @@ var rowsHTML = filtered.map((recipe, idx) => {
             </div>
           </div>
 
-          <!-- COLONNE 2 : NORME INTERNATIONALE (À TITRE COMPARATIF) -->
+          <!-- COLONNE 2 : NORME DE RÉFÉRENCE DÉSTOCKAGE (SSOT) -->
           <div class="col-box col-standard">
             <div class="col-header">
               <span class="col-dot dot-green"></span>
-              <h4>2. Norme Internationale & Standard F&B <span style="font-size:11px; font-weight:600; color:var(--text-muted);">(À titre comparatif)</span></h4>
+              <h4>2. Norme de Référence <span style="font-size:11px; font-weight:600; color:var(--text-muted);">(Déstockage SSOT)</span></h4>
             </div>
 
             <ul class="tech-list" style="margin-bottom:12px;">
@@ -374,28 +376,28 @@ var rowsHTML = filtered.map((recipe, idx) => {
             </ul>
 
             <div class="rationale-box">
-              💡 <strong>Standard Métier :</strong> <em>${escapeHtml(recipe.standard.rationale)}</em>
+              💡 <strong>Norme Déstockage :</strong> <em>${escapeHtml(recipe.standard.rationale)}</em>
             </div>
 
             <div class="col-finances" style="margin-top:auto;">
               <div class="fin-row">
-                <span>Coût Portion Standard :</span>
+                <span>Coût Portion Référence :</span>
                 <strong class="text-success">${recipe.standard.cost.toFixed(2)} DH</strong>
               </div>
               <div class="fin-row">
-                <span>Food Cost Standard :</span>
+                <span>Food Cost Référence :</span>
                 <span id="std-fc-${idx}" class="badge ${stdFCClass}">${recipe.standard.foodCost.toFixed(1)} %</span>
               </div>
               <div class="fin-row">
-                <span>Écart vs Grey Corner :</span>
+                <span>Écart vs Référence :</span>
                 <strong id="std-diff-${idx}" class="${recipe.standard.diffDH > 0 ? 'text-gold' : 'text-success'}">${recipe.standard.diffDH > 0 ? '+' + recipe.standard.diffDH.toFixed(2) : recipe.standard.diffDH.toFixed(2)} DH</strong>
               </div>
             </div>
 
-            <!-- TIROIR ACCORDÉON : DÉTAILS DU COÛT DE PORTION STANDARD -->
+            <!-- TIROIR ACCORDÉON : DÉTAILS DU COÛT DE PORTION RÉFÉRENCE -->
             <div class="portion-drawer-wrapper">
               <button type="button" class="btn-drawer-toggle std-drawer-btn" id="btn-drawer-std-${idx}" onclick="window.togglePortionCostDrawer(${idx}, 'std')" title="Déplier / replier le détail du coût standard par ingrédient">
-                <span class="drawer-title">📂 Détails Coût Standard (Tiroir)</span>
+                <span class="drawer-title">📂 Détails Coût Référence (Tiroir)</span>
                 <span class="drawer-icon" id="icon-drawer-std-${idx}">▼</span>
               </button>
               <div class="portion-drawer-panel" id="drawer-panel-std-${idx}" style="display:none;">
