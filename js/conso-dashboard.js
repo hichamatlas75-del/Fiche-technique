@@ -868,7 +868,10 @@ function renderSalesTable() {
     return `
       <tr>
         <td><span class="chip-pill" style="font-size:11px;">${escapeHtml(s.family)}</span></td>
-        <td><strong style="color:var(--text); font-size:13.5px;">${escapeHtml(s.product)}</strong></td>
+        <td>
+          <strong style="color:var(--text); font-size:13.5px;">${escapeHtml(s.product)}</strong>
+          ${s.rawVariants && s.rawVariants.size > 1 ? `<div style="font-size:11px; color:var(--muted); margin-top:2px; font-weight:normal;">Inclus : ${Array.from(s.rawVariants).map(v => escapeHtml(v)).join(' &bull; ')}</div>` : ''}
+        </td>
         <td style="text-align:right;"><span class="qty-highlight" style="font-size:14px; font-weight:900;">${s.qty.toLocaleString('fr-FR')}</span></td>
         <td style="text-align:right;"><strong style="color:var(--accent); font-size:13.5px;">${s.total.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} DH</strong></td>
         <td>${statusBadge}</td>

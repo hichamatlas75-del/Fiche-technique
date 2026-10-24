@@ -5,7 +5,7 @@
   "filePath": "ventes/2026-10/Fin_Journée_20261023.xls",
   "totalCA": 10743,
   "totalQty": 326,
-  "totalItems": 103,
+  "totalItems": 102,
   "items": [
     {
       "id": "2870e2fd",
@@ -33,7 +33,7 @@
     },
     {
       "id": "15ab9bd7",
-      "name": "Plat Emince De Poulet",
+      "name": "ÉMINCÉ DE POULET",
       "cat": "PLATS",
       "price": 88.0,
       "qty": 4,
@@ -41,7 +41,7 @@
     },
     {
       "id": "bc60875d",
-      "name": "Pet-Dej Fassi",
+      "name": "PETIT DÉJEUNER FASSI",
       "cat": "PETIT DEJEUNER",
       "price": 55.0,
       "qty": 5,
@@ -49,7 +49,7 @@
     },
     {
       "id": "218eeccc",
-      "name": "The à La Menthe",
+      "name": "THÉ À LA MENTHE",
       "cat": "THE",
       "price": 16.0,
       "qty": 17,
@@ -73,11 +73,19 @@
     },
     {
       "id": "52e4ef86",
-      "name": "Brunch GREY CORNER",
+      "name": "BRUNCH GREY CORNER",
       "cat": "PETIT DEJEUNER",
       "price": 85.0,
       "qty": 3,
       "ca": 255
+    },
+    {
+      "id": "63489054",
+      "name": "PANINI POULET",
+      "cat": "PANINI",
+      "price": 49.6,
+      "qty": 5,
+      "ca": 248
     },
     {
       "id": "san_poulet_49",
@@ -105,7 +113,7 @@
     },
     {
       "id": "b4f0b866",
-      "name": "CREPE KUNAFA PISTACHE",
+      "name": "CRÊPE KUNAFA PISTACHE",
       "cat": "CREPES SUCREE",
       "price": 48.0,
       "qty": 4,
@@ -113,7 +121,7 @@
     },
     {
       "id": "c4189160",
-      "name": "Pet-Dej Beldi",
+      "name": "PETIT DÉJEUNER BELDI",
       "cat": "PETIT DEJEUNER",
       "price": 45.0,
       "qty": 4,
@@ -137,7 +145,7 @@
     },
     {
       "id": "67861d9d",
-      "name": "Pet-Dej Hollandais",
+      "name": "PETIT DÉJEUNER HOLLANDAIS",
       "cat": "PETIT DEJEUNER",
       "price": 52.0,
       "qty": 3,
@@ -145,7 +153,7 @@
     },
     {
       "id": "9fb4f4ef",
-      "name": "Pizza Poulet",
+      "name": "PIZZA POULET",
       "cat": "PIZZA",
       "price": 78.0,
       "qty": 2,
@@ -153,7 +161,7 @@
     },
     {
       "id": "b3a02657",
-      "name": "Pizza Margarita",
+      "name": "PIZZA MARGARITA",
       "cat": "PIZZA",
       "price": 52.0,
       "qty": 3,
@@ -193,19 +201,11 @@
     },
     {
       "id": "pan_viandehach_60",
-      "name": "Panini Viande Hachee",
+      "name": "PANINI VIANDE HACHÉE",
       "cat": "PANINI",
       "price": 45.0,
       "qty": 3,
       "ca": 135
-    },
-    {
-      "id": "63489054",
-      "name": "Panini Poulet",
-      "cat": "PANINI",
-      "price": 44.0,
-      "qty": 3,
-      "ca": 132
     },
     {
       "id": "7d1cd22f",
@@ -224,14 +224,6 @@
       "ca": 120
     },
     {
-      "id": "48fb1cf5",
-      "name": "WRAP POULET",
-      "cat": "PANINI",
-      "price": 58.0,
-      "qty": 2,
-      "ca": 116
-    },
-    {
       "id": "d07f4608",
       "name": "Crepe Nutella",
       "cat": "CREPES SUCREE",
@@ -241,7 +233,7 @@
     },
     {
       "id": "88f83b09",
-      "name": "Jus D' Orange",
+      "name": "JUS D'ORANGE",
       "cat": "JUS",
       "price": 22.0,
       "qty": 5,
@@ -257,7 +249,7 @@
     },
     {
       "id": "9b075b42",
-      "name": "Crepe Poulet CHAMPIGNON",
+      "name": "CRÊPE POULET CHAMPIGNON",
       "cat": "CREPES SALEES",
       "price": 48.0,
       "qty": 2,
@@ -288,8 +280,8 @@
       "ca": 88
     },
     {
-      "id": "pet_dej_express",
-      "name": "Pet-Dej Express",
+      "id": "c83522e3",
+      "name": "PETIT DÉJEUNER EXPRESS",
       "cat": "PETIT DEJEUNER",
       "price": 44.0,
       "qty": 2,
@@ -297,7 +289,7 @@
     },
     {
       "id": "2c0ab4a2",
-      "name": "Pizza 4 Saisons",
+      "name": "PIZZA 4 SAISONS",
       "cat": "PIZZA",
       "price": 88.0,
       "qty": 1,
@@ -305,15 +297,15 @@
     },
     {
       "id": "4c4c53d3",
-      "name": "Plat Escalope A La Milanaise",
+      "name": "ESCALOPE À LA MILANAISE",
       "cat": "PLATS",
       "price": 85.0,
       "qty": 1,
       "ca": 85
     },
     {
-      "id": "pet_dej_light",
-      "name": "Pet-Dej Light",
+      "id": "79007bd5",
+      "name": "PETIT DÉJEUNER LIGHT",
       "cat": "PETIT DEJEUNER",
       "price": 42.0,
       "qty": 2,
@@ -321,7 +313,7 @@
     },
     {
       "id": "59d7c3ba",
-      "name": "BROCHETTE DE POULET",
+      "name": "BROCHETTES DE POULET",
       "cat": "PLATS",
       "price": 84.0,
       "qty": 1,
@@ -329,7 +321,7 @@
     },
     {
       "id": "184bcbd7",
-      "name": "San Sebastien",
+      "name": "SAN SEBASTIEN",
       "cat": "GATEAUX",
       "price": 40.0,
       "qty": 2,
@@ -337,7 +329,7 @@
     },
     {
       "id": "aae90257",
-      "name": "Pizza 5 Fromages",
+      "name": "PIZZA 5 FROMAGES",
       "cat": "PIZZA",
       "price": 78.0,
       "qty": 1,
@@ -345,7 +337,7 @@
     },
     {
       "id": "f59f863c",
-      "name": "Pizza VIANDE HACHEE",
+      "name": "PIZZA VIANDE HACHÉE",
       "cat": "PIZZA",
       "price": 78.0,
       "qty": 1,
@@ -369,7 +361,7 @@
     },
     {
       "id": "deb8fba9",
-      "name": "Chocolat Au Lait",
+      "name": "CHOCOLAT CHAUD",
       "cat": "BOISSONS CHAUDES",
       "price": 18.0,
       "qty": 4,
@@ -385,7 +377,7 @@
     },
     {
       "id": "16cebd6f",
-      "name": "Pet-Dej Norvegien",
+      "name": "PETIT DÉJEUNER NORVÉGIEN",
       "cat": "PETIT DEJEUNER",
       "price": 68.0,
       "qty": 1,
@@ -400,8 +392,8 @@
       "ca": 68
     },
     {
-      "id": "schwepps_tonic",
-      "name": "SCHWEPPS TONIC",
+      "id": "schweppes_tonic",
+      "name": "SCHWEPPES TONIC",
       "cat": "SODA",
       "price": 17.0,
       "qty": 4,
@@ -409,7 +401,7 @@
     },
     {
       "id": "72ee54b5",
-      "name": "Salade Cesar",
+      "name": "SALADE CÉSAR",
       "cat": "ENTREES FROIDES",
       "price": 65.0,
       "qty": 1,
@@ -425,15 +417,15 @@
     },
     {
       "id": "bfe13ada",
-      "name": "Pet-Dej Espagnol",
+      "name": "PETIT DÉJEUNER ESPAGNOL",
       "cat": "PETIT DEJEUNER",
       "price": 64.0,
       "qty": 1,
       "ca": 64
     },
     {
-      "id": "pizza_veget_arienne",
-      "name": "Pizza Veget Arienne",
+      "id": "a7c2005f",
+      "name": "PIZZA VÉGÉTARIENNE",
       "cat": "PIZZA",
       "price": 62.0,
       "qty": 1,
@@ -481,7 +473,7 @@
     },
     {
       "id": "1131e545",
-      "name": "Cheese Burger",
+      "name": "CHEESE BURGER",
       "cat": "BURGERS",
       "price": 54.0,
       "qty": 1,
@@ -505,7 +497,7 @@
     },
     {
       "id": "23a0f3a2",
-      "name": "Pet-Dej Continental",
+      "name": "PETIT DÉJEUNER CONTINENTAL",
       "cat": "PETIT DEJEUNER",
       "price": 52.0,
       "qty": 1,
@@ -545,7 +537,7 @@
     },
     {
       "id": "f2037453",
-      "name": "Crepe CHARCUTERIE",
+      "name": "CRÊPE CHARCUTERIE",
       "cat": "CREPES SALEES",
       "price": 45.0,
       "qty": 1,
@@ -625,7 +617,7 @@
     },
     {
       "id": "3aa22a4f",
-      "name": "Jus D'Ananas",
+      "name": "JUS D'ANANAS",
       "cat": "JUS",
       "price": 32.0,
       "qty": 1,
@@ -665,7 +657,7 @@
     },
     {
       "id": "8f08d89a",
-      "name": "Jus De Mangue",
+      "name": "JUS DE MANGUE",
       "cat": "JUS",
       "price": 30.0,
       "qty": 1,
@@ -752,8 +744,8 @@
       "ca": 18
     },
     {
-      "id": "schwepps_citron",
-      "name": "SCHWEPPS CITRON",
+      "id": "schweppes_citron",
+      "name": "SCHWEPPES CITRON",
       "cat": "SODA",
       "price": 17.0,
       "qty": 1,

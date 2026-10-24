@@ -13581,6 +13581,20 @@ const BASE_RECIPES = [
 ];
 
 const ALIAS_MAP = {
+  "emince de poulet a la creme de champignons": "pl_emince_de_poulet",
+  "emince de poulet a la creme": "pl_emince_de_poulet",
+  "plat emince poulet": "pl_emince_de_poulet",
+  "pave de saumon a la plancha": "pl_pave_de_saumon",
+  "pave de saumon plancha": "pl_pave_de_saumon",
+  "roulade de viande hachee": "pl_roulade_de_boeuf_vh",
+  "lasagne bolonaise": "pae_lasagne_bolognaise",
+  "san sebastien grey corner": "dp_san_sebastien_cheesecake",
+  "panini mixte gourmand": "pa_gourmand",
+  "mquila fruits mer": "pdj_mquila_fruits_de_mer",
+  "pet dej mquila merguez": "pdj_mquila_merguez",
+  "pet-dej mquila merguez": "pdj_mquila_merguez",
+  "pet-dej mquila": "pdj_mquila_merguez",
+  "pet dej mquila": "pdj_mquila_merguez",
   "salade burratta": "ef_salade_burrata",
   "crepe banane nutella": "rec_1788199499882",
   "salade cercle veggl": "rec_1788201291652",

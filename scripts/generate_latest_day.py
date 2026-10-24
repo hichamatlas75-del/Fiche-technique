@@ -131,6 +131,127 @@ rel_path = os.path.relpath(latest_file, repo_dir).replace('\\', '/')
 print(f"Fichier le plus récent : {base_name} ({latest_date_str})")
 
 # 3. Extraire et agréger
+CANONICAL_PRODUCT_MAP = {
+    'mquila fruits mer': 'MQUILA FRUITS DE MER',
+    'mquila fruits de mer': 'MQUILA FRUITS DE MER',
+    'mqila fruits de mer': 'MQUILA FRUITS DE MER',
+    'pet dej mquila merguez': 'PETIT DÉJEUNER MQUILA MERGUEZ',
+    'pet dej mquila': 'PETIT DÉJEUNER MQUILA MERGUEZ',
+    'pet dej fassi': 'PETIT DÉJEUNER FASSI',
+    'pet dej beldi': 'PETIT DÉJEUNER BELDI',
+    'pet dej norvegien': 'PETIT DÉJEUNER NORVÉGIEN',
+    'pet dej hollandais': 'PETIT DÉJEUNER HOLLANDAIS',
+    'pet dej espagnol': 'PETIT DÉJEUNER ESPAGNOL',
+    'pet dej croque': 'PETIT DÉJEUNER CROQUE',
+    'pet dej berbere': 'PETIT DÉJEUNER BERBÈRE',
+    'pet dej continental': 'PETIT DÉJEUNER CONTINENTAL',
+    'pet dej express': 'PETIT DÉJEUNER EXPRESS',
+    'pet dej light': 'PETIT DÉJEUNER LIGHT',
+    'brunch grey corner': 'BRUNCH GREY CORNER',
+    'panini mix': 'PANINI MIX',
+    'panini mixte gourmand': 'PANINI MIX',
+    'lasagne bolonaise': 'LASAGNE BOLOGNAISE',
+    'lasagne bolognaise': 'LASAGNE BOLOGNAISE',
+    'san sebastien grey corner': 'SAN SEBASTIEN',
+    'san sebastien': 'SAN SEBASTIEN',
+    'cafe casse': 'LAIT CASSÉ',
+    'lait casse': 'LAIT CASSÉ',
+    'chocolat au lait': 'CHOCOLAT CHAUD',
+    'the a la menthe': 'THÉ À LA MENTHE',
+    'the menthe': 'THÉ À LA MENTHE',
+    'vervenine aromatisee': 'VERVEINE AROMATISÉE',
+    'verveine au lait': 'VERVEINE AU LAIT',
+    'schwepps citron': 'SCHWEPPES CITRON',
+    'schweppes citron': 'SCHWEPPES CITRON',
+    'schwepps tonic': 'SCHWEPPES TONIC',
+    'schweppes tonic': 'SCHWEPPES TONIC',
+    'eau minerale 0 33l': 'EAU MINÉRALE 33CL',
+    'sidi ali 33 cl': 'EAU MINÉRALE 33CL',
+    'jus d orange': "JUS D'ORANGE",
+    'jus d ananas': "JUS D'ANANAS",
+    'jus de citron': "JUS DE CITRON",
+    'jus de mangue': "JUS DE MANGUE",
+    'veinoierie': 'VIENNOISERIE',
+    'viennoiserie': 'VIENNOISERIE',
+}
+
+def get_canonical_product_name(raw_name, raw_fam=""):
+    if not raw_name: return ""
+    c_name = norm(raw_name).lower()
+    c_fam = norm(raw_fam).lower()
+
+    if c_name in CANONICAL_PRODUCT_MAP:
+        return CANONICAL_PRODUCT_MAP[c_name]
+
+    if 'plat' in c_fam or 'plat' in c_name or 'cuisine' in c_fam:
+        if 'emince' in c_name and 'poulet' in c_name: return 'ÉMINCÉ DE POULET'
+        if 'emince' in c_name and ('boeuf' in c_name or 'bœuf' in c_name): return 'ÉMINCÉ DE BŒUF'
+        if 'pave' in c_name and 'saumon' in c_name: return 'PAVÉ DE SAUMON'
+        if 'roulade' in c_name and ('boeuf' in c_name or 'viande' in c_name): return 'ROULADE DE BŒUF VH'
+        if 'escalope' in c_name and 'milan' in c_name: return 'ESCALOPE À LA MILANAISE'
+        if 'escalope' in c_name and 'parmig' in c_name: return 'ESCALOPE À LA PARMIGIANA'
+        if 'cordon' in c_name and 'bleu' in c_name: return 'CORDON BLEU'
+        if 'rumsteak' in c_name or 'steak' in c_name: return 'RUMSTEAK'
+        if 'supreme' in c_name and 'poulet' in c_name: return 'SUPRÊME DE POULET'
+        if 'ballotine' in c_name: return 'BALLOTINE DE POULET'
+        if 'brochette' in c_name: return 'BROCHETTES DE POULET'
+        if 'filet' in c_name and 'boeuf' in c_name: return 'FILET DE BŒUF'
+
+    if 'crepe' in c_fam or 'crepe' in c_name:
+        if 'charcuterie' in c_name: return 'CRÊPE CHARCUTERIE'
+        if 'pistache' in c_name and 'kunafa' not in c_name: return 'CRÊPE PISTACHE'
+        if 'kunafa' in c_name: return 'CRÊPE KUNAFA PISTACHE'
+        if 'poulet' in c_name and 'champignon' in c_name: return 'CRÊPE POULET CHAMPIGNON'
+        if 'grey corner' in c_name and 'sale' in (c_fam + c_name): return 'CRÊPE GREY CORNER SALÉE'
+        if 'grey corner' in c_name and 'sucre' in (c_fam + c_name): return 'CRÊPE GREY CORNER SUCRÉE'
+        if 'caramel' in c_name: return 'CRÊPE PM-CARAMÉLISÉE'
+
+    if 'panini' in c_fam or 'panini' in c_name:
+        if 'mix' in c_name: return 'PANINI MIX'
+        if 'charcuterie' in c_name: return 'PANINI CHARCUTERIE'
+        if 'saumon' in c_name: return 'PANINI SAUMON'
+        if 'poulet' in c_name: return 'PANINI POULET'
+        if 'viande' in c_name and 'hache' in c_name: return 'PANINI VIANDE HACHÉE'
+        if 'fruit' in c_name and 'mer' in c_name: return 'PANINI FRUITS DE MER'
+
+    if 'pasta' in c_fam or 'pate' in c_fam or 'pasta' in c_name or 'lasagne' in c_name:
+        if 'lasagne' in c_name and ('bologn' in c_name or 'bolon' in c_name): return 'LASAGNE BOLOGNAISE'
+        if 'lasagne' in c_name and 'poulet' in c_name: return 'LASAGNE POULET'
+        if 'lasagne' in c_name and 'mer' in c_name: return 'LASAGNE FRUITS DE MER'
+
+    if 'pizza' in c_fam or 'pizza' in c_name:
+        if '4 saison' in c_name or 'quatre' in c_name: return 'PIZZA 4 SAISONS'
+        if '5 fromage' in c_name: return 'PIZZA 5 FROMAGES'
+        if 'margarita' in c_name or 'margherita' in c_name: return 'PIZZA MARGARITA'
+        if 'fruits de mer' in c_name or 'fruit de mer' in c_name: return 'PIZZA FRUITS DE MER'
+        if 'saumon' in c_name: return 'PIZZA SAUMON'
+        if 'thon' in c_name: return 'PIZZA THON'
+        if 'viande hache' in c_name: return 'PIZZA VIANDE HACHÉE'
+        if 'veget' in c_name: return 'PIZZA VÉGÉTARIENNE'
+        if 'pepperoni' in c_name: return 'PIZZA PEPPERONI'
+        if 'burrata' in c_name: return 'PIZZA BURRATA'
+        if 'poulet' in c_name: return 'PIZZA POULET'
+
+    if 'salade' in c_fam or 'salade' in c_name:
+        if 'cesar' in c_name: return 'SALADE CÉSAR'
+        if 'burrat' in c_name: return 'SALADE BURRATA'
+        if 'quinoa' in c_name: return 'SALADE QUINOA'
+        if 'terre mer' in c_name: return 'SALADE TERRE MER'
+        if 'cercle' in c_name or 'vegg' in c_name: return 'SALADE CERCLE VEGGI'
+
+    if 'burger' in c_fam or 'burger' in c_name:
+        if 'big' in c_name: return 'BIG BURGER'
+        if 'cheese' in c_name: return 'CHEESE BURGER'
+        if 'chicken' in c_name: return 'CHICKEN BURGER'
+        if 'egg' in c_name: return 'EGG BURGER'
+        if 'royal' in c_name: return 'BURGER ROYAL'
+        if 'avocado' in c_name: return 'BURGER AVOCADO FORESTIER'
+
+    simplified = raw_name.strip()
+    if simplified.upper().startswith('PLAT '):
+        simplified = simplified[5:].strip()
+    return simplified
+
 wb = xlrd.open_workbook(latest_file)
 sh = wb.sheet_by_index(0)
 
@@ -144,6 +265,7 @@ for r in range(1, sh.nrows):
         price = float(sh.cell_value(r, 2))
     except:
         price = 0.0
+    
     try:
         qty = float(sh.cell_value(r, 3))
     except:
@@ -157,9 +279,10 @@ for r in range(1, sh.nrows):
     # Exclure les lignes a 0 DH (boissons et extras inclus en formule)
     if qty <= 0 or (price <= 0 and total <= 0):
         continue
-    
-    n_prod = norm(prod)
-    matched_id = dish_map.get(n_prod)
+
+    canonical_name = get_canonical_product_name(prod, fam)
+    n_prod = norm(canonical_name)
+    matched_id = dish_map.get(n_prod) or dish_map.get(norm(prod))
     if not matched_id:
         for prefix in ['PLAT ', 'PASTA ', 'PIZZA ', 'PANINI ', 'SANDWICH ', 'CREPE ', 'SALADE ', 'BURGER ']:
             if n_prod.startswith(prefix):
@@ -169,9 +292,9 @@ for r in range(1, sh.nrows):
     if not matched_id:
         matched_id = n_prod.lower().replace(' ', '_')
     
-    key = prod.strip().upper()
+    key = canonical_name.upper()
     if key not in aggregated:
-        item_name = prod.strip()
+        item_name = canonical_name
         item_cat = fam.strip() or "DIVERS"
         item_price = price if price > 0 else (round(total / qty, 2) if qty > 0 else 0.0)
         aggregated[key] = {
@@ -185,6 +308,9 @@ for r in range(1, sh.nrows):
     
     aggregated[key]['qty'] += int(round(qty))
     aggregated[key]['ca'] += total
+    if aggregated[key]['qty'] > 0:
+        aggregated[key]['price'] = round(aggregated[key]['ca'] / aggregated[key]['qty'], 2)
+
 
 items_report = []
 total_ca = 0

@@ -651,7 +651,173 @@ function parseIngredientLine(lineStr) {
 }
 
 /* ========================================================
-   6. CALCUL DU DÉSTOCKAGE & AGRÉGATION JOURNALIÈRE / MENSUELLE
+   6. CANONICAL PRODUCT RESOLVER (UNIFICATION DES ARTICLES SIMILAIRES)
+======================================================== */
+const CANONICAL_PRODUCT_MAP = {
+  // Petit déjeuner
+  'mquila fruits mer': 'MQUILA FRUITS DE MER',
+  'mquila fruits de mer': 'MQUILA FRUITS DE MER',
+  'mqila fruits de mer': 'MQUILA FRUITS DE MER',
+  'pet dej mquila merguez': 'PETIT DÉJEUNER MQUILA MERGUEZ',
+  'pet-dej mquila merguez': 'PETIT DÉJEUNER MQUILA MERGUEZ',
+  'pet-dej mquila': 'PETIT DÉJEUNER MQUILA MERGUEZ',
+  'pet dej mquila': 'PETIT DÉJEUNER MQUILA MERGUEZ',
+  'pet-dej fassi': 'PETIT DÉJEUNER FASSI',
+  'pet dej fassi': 'PETIT DÉJEUNER FASSI',
+  'pet-dej beldi': 'PETIT DÉJEUNER BELDI',
+  'pet dej beldi': 'PETIT DÉJEUNER BELDI',
+  'pet-dej norvegien': 'PETIT DÉJEUNER NORVÉGIEN',
+  'pet dej norvegien': 'PETIT DÉJEUNER NORVÉGIEN',
+  'pet-dej hollandais': 'PETIT DÉJEUNER HOLLANDAIS',
+  'pet dej hollandais': 'PETIT DÉJEUNER HOLLANDAIS',
+  'pet-dej espagnol': 'PETIT DÉJEUNER ESPAGNOL',
+  'pet dej espagnol': 'PETIT DÉJEUNER ESPAGNOL',
+  'pet-dej croque': 'PETIT DÉJEUNER CROQUE',
+  'pet dej croque': 'PETIT DÉJEUNER CROQUE',
+  'pet-dej berbere': 'PETIT DÉJEUNER BERBÈRE',
+  'pet dej berbere': 'PETIT DÉJEUNER BERBÈRE',
+  'pet-dej continental': 'PETIT DÉJEUNER CONTINENTAL',
+  'pet dej continental': 'PETIT DÉJEUNER CONTINENTAL',
+  'pet-dej express': 'PETIT DÉJEUNER EXPRESS',
+  'pet dej express': 'PETIT DÉJEUNER EXPRESS',
+  'pet-dej light': 'PETIT DÉJEUNER LIGHT',
+  'pet dej light': 'PETIT DÉJEUNER LIGHT',
+  'brunch grey corner': 'BRUNCH GREY CORNER',
+  'brunch greycorner': 'BRUNCH GREY CORNER',
+
+  // Paninis
+  'panini mix': 'PANINI MIX',
+  'panini mixte gourmand': 'PANINI MIX',
+
+  // Pâtes
+  'lasagne bolonaise': 'LASAGNE BOLOGNAISE',
+  'lasagne bolognaise': 'LASAGNE BOLOGNAISE',
+
+  // Desserts
+  'san sebastien grey corner': 'SAN SEBASTIEN',
+  'san sebastien': 'SAN SEBASTIEN',
+  's sebastian entier': 'SAN SEBASTIEN (ENTIER)',
+
+  // Boissons chaudes & thés
+  'cafe casse': 'LAIT CASSÉ',
+  'lait casse': 'LAIT CASSÉ',
+  'chocolat au lait': 'CHOCOLAT CHAUD',
+  'the a la menthe': 'THÉ À LA MENTHE',
+  'the menthe': 'THÉ À LA MENTHE',
+  'the a la menthe ': 'THÉ À LA MENTHE',
+  'vervenine aromatisee': 'VERVEINE AROMATISÉE',
+  'verveine au lait': 'VERVEINE AU LAIT',
+
+  // Boissons fraîches & sodas
+  'schwepps citron': 'SCHWEPPES CITRON',
+  'schweppes citron': 'SCHWEPPES CITRON',
+  'schwepps tonic': 'SCHWEPPES TONIC',
+  'schweppes tonic': 'SCHWEPPES TONIC',
+  'eau minerale 0 33l': 'EAU MINÉRALE 33CL',
+  'sidi ali 33 cl': 'EAU MINÉRALE 33CL',
+  'jus d orange': 'JUS D\'ORANGE',
+  'jus d ananas': 'JUS D\'ANANAS',
+  'jus de citron': 'JUS DE CITRON',
+  'jus de mangue': 'JUS DE MANGUE',
+
+  // Boulangerie & viennoiserie
+  'veinoierie': 'VIENNOISERIE',
+  'viennoiserie': 'VIENNOISERIE'
+};
+
+function getCanonicalProductName(rawName, rawFamily = '') {
+  if (!rawName) return '';
+  const cName = cleanText(rawName);
+  const cFam = cleanText(rawFamily);
+
+  if (CANONICAL_PRODUCT_MAP[cName]) return CANONICAL_PRODUCT_MAP[cName];
+
+  // 1. Plats
+  if (cFam.includes('plat') || cName.includes('plat') || cFam.includes('cuisine')) {
+    if (cName.includes('emince') && cName.includes('poulet')) return 'ÉMINCÉ DE POULET';
+    if (cName.includes('emince') && (cName.includes('boeuf') || cName.includes('bœuf'))) return 'ÉMINCÉ DE BŒUF';
+    if (cName.includes('pave') && cName.includes('saumon')) return 'PAVÉ DE SAUMON';
+    if (cName.includes('roulade') && (cName.includes('boeuf') || cName.includes('viande'))) return 'ROULADE DE BŒUF VH';
+    if (cName.includes('escalope') && cName.includes('milan')) return 'ESCALOPE À LA MILANAISE';
+    if (cName.includes('escalope') && cName.includes('parmig')) return 'ESCALOPE À LA PARMIGIANA';
+    if (cName.includes('cordon') && cName.includes('bleu')) return 'CORDON BLEU';
+    if (cName.includes('rumsteak') || cName.includes('steak')) return 'RUMSTEAK';
+    if (cName.includes('supreme') && cName.includes('poulet')) return 'SUPRÊME DE POULET';
+    if (cName.includes('ballotine')) return 'BALLOTINE DE POULET';
+    if (cName.includes('brochette')) return 'BROCHETTES DE POULET';
+    if (cName.includes('filet') && cName.includes('boeuf')) return 'FILET DE BŒUF';
+  }
+
+  // 2. Crêpes salées / sucrées
+  if (cFam.includes('crepe') || cName.includes('crepe')) {
+    if (cName.includes('charcuterie')) return 'CRÊPE CHARCUTERIE';
+    if (cName.includes('pistache') && !cName.includes('kunafa')) return 'CRÊPE PISTACHE';
+    if (cName.includes('kunafa')) return 'CRÊPE KUNAFA PISTACHE';
+    if (cName.includes('poulet') && cName.includes('champignon')) return 'CRÊPE POULET CHAMPIGNON';
+    if (cName.includes('grey corner') && (cFam.includes('sale') || cName.includes('sale'))) return 'CRÊPE GREY CORNER SALÉE';
+    if (cName.includes('grey corner') && (cFam.includes('sucre') || cName.includes('sucre'))) return 'CRÊPE GREY CORNER SUCRÉE';
+    if (cName.includes('caramel')) return 'CRÊPE PM-CARAMÉLISÉE';
+  }
+
+  // 3. Paninis
+  if (cFam.includes('panini') || cName.includes('panini')) {
+    if (cName.includes('mix')) return 'PANINI MIX';
+    if (cName.includes('charcuterie')) return 'PANINI CHARCUTERIE';
+    if (cName.includes('saumon')) return 'PANINI SAUMON';
+    if (cName.includes('poulet')) return 'PANINI POULET';
+    if (cName.includes('viande') && cName.includes('hache')) return 'PANINI VIANDE HACHÉE';
+    if (cName.includes('fruit') && cName.includes('mer')) return 'PANINI FRUITS DE MER';
+  }
+
+  // 4. Pâtes
+  if (cFam.includes('pasta') || cFam.includes('pate') || cName.includes('pasta') || cName.includes('lasagne')) {
+    if (cName.includes('lasagne') && (cName.includes('bologn') || cName.includes('bolon'))) return 'LASAGNE BOLOGNAISE';
+    if (cName.includes('lasagne') && cName.includes('poulet')) return 'LASAGNE POULET';
+    if (cName.includes('lasagne') && cName.includes('mer')) return 'LASAGNE FRUITS DE MER';
+  }
+
+  // 5. Pizzas
+  if (cFam.includes('pizza') || cName.includes('pizza')) {
+    if (cName.includes('4 saison') || cName.includes('quatre')) return 'PIZZA 4 SAISONS';
+    if (cName.includes('5 fromage')) return 'PIZZA 5 FROMAGES';
+    if (cName.includes('margarita') || cName.includes('margherita')) return 'PIZZA MARGARITA';
+    if (cName.includes('fruits de mer') || cName.includes('fruit de mer')) return 'PIZZA FRUITS DE MER';
+    if (cName.includes('saumon')) return 'PIZZA SAUMON';
+    if (cName.includes('thon')) return 'PIZZA THON';
+    if (cName.includes('viande hache')) return 'PIZZA VIANDE HACHÉE';
+    if (cName.includes('veget')) return 'PIZZA VÉGÉTARIENNE';
+    if (cName.includes('pepperoni')) return 'PIZZA PEPPERONI';
+    if (cName.includes('burrata')) return 'PIZZA BURRATA';
+    if (cName.includes('poulet')) return 'PIZZA POULET';
+  }
+
+  // 6. Salades
+  if (cFam.includes('salade') || cName.includes('salade')) {
+    if (cName.includes('cesar')) return 'SALADE CÉSAR';
+    if (cName.includes('burrat')) return 'SALADE BURRATA';
+    if (cName.includes('quinoa')) return 'SALADE QUINOA';
+    if (cName.includes('terre mer')) return 'SALADE TERRE MER';
+    if (cName.includes('cercle') || cName.includes('vegg')) return 'SALADE CERCLE VEGGI';
+  }
+
+  // 7. Burgers
+  if (cFam.includes('burger') || cName.includes('burger')) {
+    if (cName.includes('big')) return 'BIG BURGER';
+    if (cName.includes('cheese')) return 'CHEESE BURGER';
+    if (cName.includes('chicken')) return 'CHICKEN BURGER';
+    if (cName.includes('egg')) return 'EGG BURGER';
+    if (cName.includes('royal')) return 'BURGER ROYAL';
+    if (cName.includes('avocado')) return 'BURGER AVOCADO FORESTIER';
+  }
+
+  // Retrait de préfixes "PLAT " redondants si applicable
+  let simplified = rawName.trim();
+  if (/^plat\s+/i.test(simplified)) simplified = simplified.replace(/^plat\s+/i, '').trim();
+  return simplified;
+}
+
+/* ========================================================
+   7. CALCUL DU DÉSTOCKAGE & AGRÉGATION JOURNALIÈRE / MENSUELLE
 ======================================================== */
 function processSalesAndCalculateStock(rawRows, periodTitle = '', isMonthly = false, activeDaysList = []) {
   const salesMap = new Map();
@@ -661,7 +827,8 @@ function processSalesAndCalculateStock(rawRows, periodTitle = '', isMonthly = fa
   (rawRows || []).forEach(row => {
     const rawProd = row.product || row.name;
     if (!rawProd) return;
-    const key = rawProd.trim();
+    const unifiedName = getCanonicalProductName(rawProd, row.family || row.cat);
+    const key = unifiedName;
     const qty = parseFloat(row.qty) || 0;
     const price = parseFloat(row.price) || 0;
     const total = parseFloat(row.total != null ? row.total : row.ca) || (qty * price);
@@ -675,13 +842,19 @@ function processSalesAndCalculateStock(rawRows, periodTitle = '', isMonthly = fa
         product: key,
         price: price,
         qty: 0,
-        total: 0
+        total: 0,
+        rawVariants: new Set()
       });
     }
     const item = salesMap.get(key);
     item.qty += qty;
     item.total += total;
-    if (price > 0 && item.price === 0) item.price = price;
+    if (rawProd) item.rawVariants.add(rawProd.trim());
+    if (item.qty > 0) {
+      item.price = item.total / item.qty;
+    } else if (price > 0 && item.price === 0) {
+      item.price = price;
+    }
   });
 
   const aggregatedSales = Array.from(salesMap.values());
@@ -754,5 +927,5 @@ function processSalesAndCalculateStock(rawRows, periodTitle = '', isMonthly = fa
 
 // Interopérabilité Node.js (scripts d'automatisation + tests unitaires)
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { parseIngredientLine, findRecipeForProduct, escapeRegex, categorizeIngredient, processSalesAndCalculateStock, POS_RULES };
+  module.exports = { parseIngredientLine, findRecipeForProduct, escapeRegex, categorizeIngredient, processSalesAndCalculateStock, POS_RULES, getCanonicalProductName, CANONICAL_PRODUCT_MAP };
 }
