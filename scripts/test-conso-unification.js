@@ -68,19 +68,34 @@ assert.strictEqual(lasagne1, 'LASAGNE BOLOGNAISE');
 assert.strictEqual(lasagne2, 'LASAGNE BOLOGNAISE');
 console.log('  ✅ Lasagne variations all resolve to LASAGNE BOLOGNAISE');
 
-// Test 5: processSalesAndCalculateStock aggregation test
+// Test 5: Couscous variations & typo 'Vainde'
+const cc1 = consoProc.getCanonicalProductName('Couscous poulet avec petit lait', 'COUSCOUS VENDREDI');
+const cc2 = consoProc.getCanonicalProductName('Couscous Poulet Avec Petit Lait', 'COUSCOUS VENDREDI');
+const cc3 = consoProc.getCanonicalProductName('Couscous viande avec petit lait', 'COUSCOUS VENDREDI');
+const cc4 = consoProc.getCanonicalProductName('Couscous Vainde Avec Petit Lait', 'COUSCOUS VENDREDI');
+assert.strictEqual(cc1, 'COUSCOUS POULET AVEC PETIT LAIT');
+assert.strictEqual(cc2, 'COUSCOUS POULET AVEC PETIT LAIT');
+assert.strictEqual(cc3, 'COUSCOUS VIANDE AVEC PETIT LAIT');
+assert.strictEqual(cc4, 'COUSCOUS VIANDE AVEC PETIT LAIT');
+console.log('  ✅ Couscous variations & typo resolve correctly to COUSCOUS POULET / VIANDE AVEC PETIT LAIT');
+
+// Test 6: processSalesAndCalculateStock aggregation test
 const rawRows = [
   { product: 'ÉMINCÉ DE POULET À LA CRÈME DE CHAMPIGNONS', family: 'PLATS', qty: 377, total: 33176 },
   { product: 'Plat Emince De Poulet', family: 'PLATS', qty: 256, total: 21384 },
   { product: 'PLAT PAVE DE SAUMON', family: 'PLATS', qty: 100, total: 14500 },
   { product: 'PAVE DE SAUMON A LA PLANCHA', family: 'PLATS', qty: 50, total: 7250 },
   { product: 'LASAGNE BOLONAISE', family: 'PASTA', qty: 13, total: 936 },
-  { product: 'LASAGNE BOLOGNAISE', family: 'PASTA', qty: 166, total: 11952 }
+  { product: 'LASAGNE BOLOGNAISE', family: 'PASTA', qty: 166, total: 11952 },
+  { product: 'Couscous poulet avec petit lait', family: 'COUSCOUS VENDREDI', qty: 236, total: 12744 },
+  { product: 'Couscous Poulet Avec Petit Lait', family: 'COUSCOUS VENDREDI', qty: 167, total: 8298 },
+  { product: 'Couscous viande avec petit lait', family: 'COUSCOUS VENDREDI', qty: 229, total: 14656 },
+  { product: 'Couscous Vainde Avec Petit Lait', family: 'COUSCOUS VENDREDI', qty: 139, total: 8248 }
 ];
 
 consoProc.processSalesAndCalculateStock(rawRows);
 
-assert.strictEqual(global.currentSalesData.length, 3, 'Should aggregate 6 duplicate rows into exactly 3 unified dishes');
+assert.strictEqual(global.currentSalesData.length, 5, 'Should aggregate 10 duplicate rows into exactly 5 unified dishes');
 
 const eminceEntry = global.currentSalesData.find(s => s.product === 'ÉMINCÉ DE POULET');
 assert(eminceEntry, 'ÉMINCÉ DE POULET entry must exist');
@@ -104,5 +119,21 @@ assert.strictEqual(lasagneEntry.qty, 179);
 assert.strictEqual(lasagneEntry.total, 12888);
 assert.strictEqual(lasagneEntry.matchedRecipe.id, 'pae_lasagne_bolognaise');
 console.log('  ✅ Aggregation test passed: LASAGNE BOLOGNAISE unified correctly (Qty: 179, CA: 12,888 DH)');
+
+const ccPouletEntry = global.currentSalesData.find(s => s.product === 'COUSCOUS POULET AVEC PETIT LAIT');
+assert(ccPouletEntry, 'COUSCOUS POULET AVEC PETIT LAIT entry must exist');
+assert.strictEqual(ccPouletEntry.qty, 236 + 167, 'Quantities must sum to 403');
+assert.strictEqual(ccPouletEntry.total, 12744 + 8298, 'Totals must sum to 21042');
+assert.strictEqual(ccPouletEntry.matchedRecipe.id, 'plat_couscous_poulet');
+assert.strictEqual(ccPouletEntry.rawVariants.size, 2);
+console.log('  ✅ Aggregation test passed: COUSCOUS POULET AVEC PETIT LAIT unified correctly (Qty: 403, CA: 21,042 DH)');
+
+const ccViandeEntry = global.currentSalesData.find(s => s.product === 'COUSCOUS VIANDE AVEC PETIT LAIT');
+assert(ccViandeEntry, 'COUSCOUS VIANDE AVEC PETIT LAIT entry must exist');
+assert.strictEqual(ccViandeEntry.qty, 229 + 139, 'Quantities must sum to 368');
+assert.strictEqual(ccViandeEntry.total, 14656 + 8248, 'Totals must sum to 22904');
+assert.strictEqual(ccViandeEntry.matchedRecipe.id, 'plat_couscous_viande');
+assert.strictEqual(ccViandeEntry.rawVariants.size, 2);
+console.log('  ✅ Aggregation test passed: COUSCOUS VIANDE AVEC PETIT LAIT unified correctly (Qty: 368, CA: 22,904 DH)');
 
 console.log('\n🎉 ALL UNIFICATION TESTS PASSED SUCCESSFULLY!');

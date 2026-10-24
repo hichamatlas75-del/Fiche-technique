@@ -685,6 +685,14 @@ const CANONICAL_PRODUCT_MAP = {
   'brunch grey corner': 'BRUNCH GREY CORNER',
   'brunch greycorner': 'BRUNCH GREY CORNER',
 
+  // Couscous Vendredi
+  'couscous poulet avec petit lait': 'COUSCOUS POULET AVEC PETIT LAIT',
+  'couscous poulet': 'COUSCOUS POULET AVEC PETIT LAIT',
+  'couscous viande avec petit lait': 'COUSCOUS VIANDE AVEC PETIT LAIT',
+  'couscous vainde avec petit lait': 'COUSCOUS VIANDE AVEC PETIT LAIT',
+  'couscous viande': 'COUSCOUS VIANDE AVEC PETIT LAIT',
+  'couscous vainde': 'COUSCOUS VIANDE AVEC PETIT LAIT',
+
   // Paninis
   'panini mix': 'PANINI MIX',
   'panini mixte gourmand': 'PANINI MIX',
@@ -810,6 +818,13 @@ function getCanonicalProductName(rawName, rawFamily = '') {
     if (cName.includes('avocado')) return 'BURGER AVOCADO FORESTIER';
   }
 
+  // 8. Couscous Vendredi
+  if (cFam.includes('couscous') || cName.includes('couscous') || cName.includes('vainde')) {
+    if (cName.includes('poulet')) return 'COUSCOUS POULET AVEC PETIT LAIT';
+    if (cName.includes('viande') || cName.includes('vainde') || cName.includes('boeuf') || cName.includes('bœuf') || cName.includes('hache')) return 'COUSCOUS VIANDE AVEC PETIT LAIT';
+    if (cName.includes('lben') || cName.includes('petit lait')) return 'LBEN (PETIT LAIT)';
+  }
+
   // Retrait de préfixes "PLAT " redondants si applicable
   let simplified = rawName.trim();
   if (/^plat\s+/i.test(simplified)) simplified = simplified.replace(/^plat\s+/i, '').trim();
@@ -828,7 +843,7 @@ function processSalesAndCalculateStock(rawRows, periodTitle = '', isMonthly = fa
     const rawProd = row.product || row.name;
     if (!rawProd) return;
     const unifiedName = getCanonicalProductName(rawProd, row.family || row.cat);
-    const key = unifiedName;
+    const key = cleanText(unifiedName);
     const qty = parseFloat(row.qty) || 0;
     const price = parseFloat(row.price) || 0;
     const total = parseFloat(row.total != null ? row.total : row.ca) || (qty * price);
@@ -839,7 +854,7 @@ function processSalesAndCalculateStock(rawRows, periodTitle = '', isMonthly = fa
     if (!salesMap.has(key)) {
       salesMap.set(key, {
         family: row.family || row.cat || 'DIVERS',
-        product: key,
+        product: unifiedName,
         price: price,
         qty: 0,
         total: 0,

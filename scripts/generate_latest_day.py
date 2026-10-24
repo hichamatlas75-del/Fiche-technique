@@ -148,6 +148,12 @@ CANONICAL_PRODUCT_MAP = {
     'pet dej express': 'PETIT DÉJEUNER EXPRESS',
     'pet dej light': 'PETIT DÉJEUNER LIGHT',
     'brunch grey corner': 'BRUNCH GREY CORNER',
+    'couscous poulet avec petit lait': 'COUSCOUS POULET AVEC PETIT LAIT',
+    'couscous poulet': 'COUSCOUS POULET AVEC PETIT LAIT',
+    'couscous viande avec petit lait': 'COUSCOUS VIANDE AVEC PETIT LAIT',
+    'couscous vainde avec petit lait': 'COUSCOUS VIANDE AVEC PETIT LAIT',
+    'couscous viande': 'COUSCOUS VIANDE AVEC PETIT LAIT',
+    'couscous vainde': 'COUSCOUS VIANDE AVEC PETIT LAIT',
     'panini mix': 'PANINI MIX',
     'panini mixte gourmand': 'PANINI MIX',
     'lasagne bolonaise': 'LASAGNE BOLOGNAISE',
@@ -246,6 +252,11 @@ def get_canonical_product_name(raw_name, raw_fam=""):
         if 'egg' in c_name: return 'EGG BURGER'
         if 'royal' in c_name: return 'BURGER ROYAL'
         if 'avocado' in c_name: return 'BURGER AVOCADO FORESTIER'
+
+    if 'couscous' in c_fam or 'couscous' in c_name or 'vainde' in c_name:
+        if 'poulet' in c_name: return 'COUSCOUS POULET AVEC PETIT LAIT'
+        if 'viande' in c_name or 'vainde' in c_name or 'boeuf' in c_name or 'bœuf' in c_name or 'hache' in c_name: return 'COUSCOUS VIANDE AVEC PETIT LAIT'
+        if 'lben' in c_name or 'petit lait' in c_name: return 'LBEN (PETIT LAIT)'
 
     simplified = raw_name.strip()
     if simplified.upper().startswith('PLAT '):
