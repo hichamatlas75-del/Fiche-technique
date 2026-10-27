@@ -1,283 +1,67 @@
 {
-  "date": "25 Octobre 2026",
-  "dateKey": "20261025",
-  "fileName": "Fin_Journée_20261025.xls",
-  "filePath": "ventes/2026-10/Fin_Journée_20261025.xls",
-  "totalCA": 19986,
-  "totalQty": 550,
-  "totalItems": 124,
+  "date": "26 Octobre 2026",
+  "dateKey": "20261026",
+  "fileName": "Fin_Journée_20261026.xls",
+  "filePath": "ventes/2026-10/Fin_Journée_20261026.xls",
+  "totalCA": 6797,
+  "totalQty": 220,
+  "totalItems": 78,
   "items": [
     {
       "id": "2870e2fd",
       "name": "CAFE NOIR",
       "cat": "BOISSONS CHAUDES",
       "price": 16.0,
-      "qty": 97,
-      "ca": 1552
+      "qty": 63,
+      "ca": 1008
     },
     {
-      "id": "f606ba70",
-      "name": "Brunch Duo",
-      "cat": "PETIT DEJEUNER",
-      "price": 144.0,
-      "qty": 8,
-      "ca": 1152
-    },
-    {
-      "id": "63489054",
-      "name": "PANINI POULET",
-      "cat": "PANINI",
-      "price": 49.25,
-      "qty": 16,
-      "ca": 788
-    },
-    {
-      "id": "52e4ef86",
-      "name": "BRUNCH GREY CORNER",
-      "cat": "PETIT DEJEUNER",
-      "price": 85.0,
-      "qty": 9,
-      "ca": 765
-    },
-    {
-      "id": "bc60875d",
-      "name": "PETIT DÉJEUNER FASSI",
-      "cat": "PETIT DEJEUNER",
-      "price": 55.0,
-      "qty": 11,
-      "ca": 605
-    },
-    {
-      "id": "67861d9d",
-      "name": "PETIT DÉJEUNER HOLLANDAIS",
-      "cat": "PETIT DEJEUNER",
-      "price": 52.0,
-      "qty": 11,
-      "ca": 572
-    },
-    {
-      "id": "16cebd6f",
-      "name": "PETIT DÉJEUNER NORVÉGIEN",
-      "cat": "PETIT DEJEUNER",
-      "price": 68.0,
-      "qty": 8,
-      "ca": 544
-    },
-    {
-      "id": "pet_compagnard_12",
-      "name": "COMPAGNARD",
-      "cat": "PETIT DEJEUNER",
-      "price": 52.0,
-      "qty": 10,
-      "ca": 520
+      "id": "filet_de_b_uf",
+      "name": "FILET DE BŒUF",
+      "cat": "PLATS",
+      "price": 135.0,
+      "qty": 2,
+      "ca": 270
     },
     {
       "id": "218eeccc",
       "name": "THÉ À LA MENTHE",
       "cat": "THE",
       "price": 16.0,
-      "qty": 31,
-      "ca": 496
-    },
-    {
-      "id": "3c1696d2",
-      "name": "Omlette Du Chef",
-      "cat": "PETIT DEJEUNER",
-      "price": 58.0,
-      "qty": 8,
-      "ca": 464
-    },
-    {
-      "id": "pet_menuenfant_20",
-      "name": "Menu Enfant",
-      "cat": "PETIT DEJEUNER",
-      "price": 40.0,
-      "qty": 11,
-      "ca": 440
-    },
-    {
-      "id": "b35d099b",
-      "name": "AMERICAIN",
-      "cat": "PETIT DEJEUNER",
-      "price": 68.0,
-      "qty": 6,
-      "ca": 408
-    },
-    {
-      "id": "9b075b42",
-      "name": "CRÊPE POULET CHAMPIGNON",
-      "cat": "CREPES SALEES",
-      "price": 48.0,
-      "qty": 8,
-      "ca": 384
-    },
-    {
-      "id": "184bcbd7",
-      "name": "SAN SEBASTIEN",
-      "cat": "GATEAUX",
-      "price": 41.67,
-      "qty": 9,
-      "ca": 375
-    },
-    {
-      "id": "5c8a7b01",
-      "name": "Pasta Bolognaise",
-      "cat": "PASTA",
-      "price": 75.0,
-      "qty": 5,
-      "ca": 375
-    },
-    {
-      "id": "4c4c53d3",
-      "name": "ESCALOPE À LA MILANAISE",
-      "cat": "PLATS",
-      "price": 85.0,
-      "qty": 4,
-      "ca": 340
-    },
-    {
-      "id": "b4f0b866",
-      "name": "CRÊPE KUNAFA PISTACHE",
-      "cat": "CREPES SUCREE",
-      "price": 48.0,
-      "qty": 7,
-      "ca": 336
-    },
-    {
-      "id": "8f08d89a",
-      "name": "JUS DE MANGUE",
-      "cat": "JUS",
-      "price": 30.0,
-      "qty": 11,
-      "ca": 330
-    },
-    {
-      "id": "029899a7",
-      "name": "POULARD",
-      "cat": "SANDWICHS CIABATTA",
-      "price": 54.0,
-      "qty": 6,
-      "ca": 324
-    },
-    {
-      "id": "c4189160",
-      "name": "PETIT DÉJEUNER BELDI",
-      "cat": "PETIT DEJEUNER",
-      "price": 45.0,
-      "qty": 7,
-      "ca": 315
-    },
-    {
-      "id": "a4197610",
-      "name": "Pasta Poulet Champignon",
-      "cat": "PASTA",
-      "price": 75.0,
-      "qty": 4,
-      "ca": 300
+      "qty": 14,
+      "ca": 224
     },
     {
       "id": "72ee54b5",
       "name": "SALADE CÉSAR",
       "cat": "ENTREES FROIDES",
       "price": 65.0,
-      "qty": 4,
-      "ca": 260
-    },
-    {
-      "id": "46818b0a",
-      "name": "Boule De Glace",
-      "cat": "COUPE DE GLACE",
-      "price": 16.0,
-      "qty": 15,
-      "ca": 240
-    },
-    {
-      "id": "9829f0a2",
-      "name": "CRÊPE GREY CORNER SALÉE",
-      "cat": "CREPES SALEES",
-      "price": 58.0,
-      "qty": 4,
-      "ca": 232
-    },
-    {
-      "id": "e336c172",
-      "name": "ÉMINCÉ DE BŒUF",
-      "cat": "PLATS",
-      "price": 115.0,
-      "qty": 2,
-      "ca": 230
-    },
-    {
-      "id": "1131e545",
-      "name": "CHEESE BURGER",
-      "cat": "BURGERS",
-      "price": 54.0,
-      "qty": 4,
-      "ca": 216
-    },
-    {
-      "id": "3a87eb07",
-      "name": "LASAGNE BOLOGNAISE",
-      "cat": "PASTA",
-      "price": 72.0,
       "qty": 3,
-      "ca": 216
+      "ca": 195
     },
     {
-      "id": "328adad9",
-      "name": "Jus De Fraise",
-      "cat": "JUS",
-      "price": 30.0,
-      "qty": 7,
-      "ca": 210
-    },
-    {
-      "id": "50c31f33",
-      "name": "BIG BURGER",
-      "cat": "BURGERS",
-      "price": 68.0,
+      "id": "bbbfbf94",
+      "name": "SANDWICH CHEESE STEAK",
+      "cat": "SANDWICHS CIABATTA",
+      "price": 65.0,
       "qty": 3,
-      "ca": 204
+      "ca": 195
     },
     {
-      "id": "a67ad52b",
-      "name": "Pasta Saumon",
-      "cat": "PASTA",
-      "price": 98.0,
-      "qty": 2,
-      "ca": 196
-    },
-    {
-      "id": "45be5a1f",
-      "name": "PETIT DÉJEUNER MQUILA MERGUEZ",
+      "id": "c4189160",
+      "name": "PETIT DÉJEUNER BELDI",
       "cat": "PETIT DEJEUNER",
-      "price": 64.0,
-      "qty": 3,
-      "ca": 192
+      "price": 45.0,
+      "qty": 4,
+      "ca": 180
     },
     {
-      "id": "88f83b09",
-      "name": "JUS D'ORANGE",
-      "cat": "JUS",
-      "price": 22.0,
-      "qty": 8,
-      "ca": 176
-    },
-    {
-      "id": "15ab9bd7",
-      "name": "ÉMINCÉ DE POULET",
-      "cat": "PLATS",
+      "id": "2c0ab4a2",
+      "name": "PIZZA 4 SAISONS",
+      "cat": "PIZZA",
       "price": 88.0,
       "qty": 2,
       "ca": 176
-    },
-    {
-      "id": "c637898f",
-      "name": "Coca",
-      "cat": "SODA",
-      "price": 17.0,
-      "qty": 10,
-      "ca": 170
     },
     {
       "id": "d838bed8",
@@ -288,248 +72,176 @@
       "ca": 162
     },
     {
-      "id": "f59f863c",
-      "name": "PIZZA VIANDE HACHÉE",
-      "cat": "PIZZA",
-      "price": 78.0,
-      "qty": 2,
-      "ca": 156
-    },
-    {
-      "id": "fde15742",
-      "name": "EAU MINERAL 75 cl",
-      "cat": "SODA",
+      "id": "88f83b09",
+      "name": "JUS D'ORANGE",
+      "cat": "JUS",
       "price": 22.0,
       "qty": 7,
       "ca": 154
     },
     {
-      "id": "pan_viandehach_60",
-      "name": "PANINI VIANDE HACHÉE",
-      "cat": "PANINI",
-      "price": 50.67,
+      "id": "ultra_vitamines_bowl",
+      "name": "Ultra Vitamines BOWL",
+      "cat": "SMOOTHIE BOWL",
+      "price": 48.0,
       "qty": 3,
-      "ca": 152
-    },
-    {
-      "id": "0f2b73d2",
-      "name": "Cafe  Americain",
-      "cat": "BOISSONS CHAUDES",
-      "price": 18.0,
-      "qty": 8,
       "ca": 144
     },
     {
-      "id": "c93641d1",
-      "name": "BURGER ROYAL",
-      "cat": "BURGERS",
-      "price": 70.0,
+      "id": "951d6f6f",
+      "name": "Croustillon Gambas",
+      "cat": "ENTREES CHAUDES",
+      "price": 68.0,
       "qty": 2,
-      "ca": 140
+      "ca": 136
     },
     {
-      "id": "filet_de_b_uf",
-      "name": "FILET DE BŒUF",
-      "cat": "PLATS",
-      "price": 135.0,
-      "qty": 1,
-      "ca": 135
-    },
-    {
-      "id": "319b9d3e",
-      "name": "Cappuccino Italien",
-      "cat": "BOISSONS CHAUDES",
-      "price": 19.0,
-      "qty": 7,
-      "ca": 133
-    },
-    {
-      "id": "c83522e3",
-      "name": "PETIT DÉJEUNER EXPRESS",
+      "id": "16cebd6f",
+      "name": "PETIT DÉJEUNER NORVÉGIEN",
       "cat": "PETIT DEJEUNER",
-      "price": 44.0,
-      "qty": 3,
-      "ca": 132
-    },
-    {
-      "id": "7d1cd22f",
-      "name": "Pasta Carbonara",
-      "cat": "PASTA",
-      "price": 65.0,
+      "price": 68.0,
       "qty": 2,
-      "ca": 130
-    },
-    {
-      "id": "bbbfbf94",
-      "name": "SANDWICH CHEESE STEAK",
-      "cat": "SANDWICHS CIABATTA",
-      "price": 65.0,
-      "qty": 2,
-      "ca": 130
-    },
-    {
-      "id": "9a2a15fd",
-      "name": "WRAP GOURMAND",
-      "cat": "PANINI",
-      "price": 64.0,
-      "qty": 2,
-      "ca": 128
-    },
-    {
-      "id": "deb8fba9",
-      "name": "CHOCOLAT CHAUD",
-      "cat": "BOISSONS CHAUDES",
-      "price": 18.0,
-      "qty": 7,
-      "ca": 126
-    },
-    {
-      "id": "f6db7713",
-      "name": "COCKTAIL ORANGE",
-      "cat": "JUS",
-      "price": 42.0,
-      "qty": 3,
-      "ca": 126
-    },
-    {
-      "id": "50ad385d",
-      "name": "Fondant Au Chocolat",
-      "cat": "GATEAUX",
-      "price": 40.0,
-      "qty": 3,
-      "ca": 120
-    },
-    {
-      "id": "3266f865",
-      "name": "Sandwich Poulet Crunchy",
-      "cat": "SANDWICHS CIABATTA",
-      "price": 58.0,
-      "qty": 2,
-      "ca": 116
-    },
-    {
-      "id": "gauffre_nutella",
-      "name": "Gauffre Nutella",
-      "cat": "GAUFFRES",
-      "price": 38.0,
-      "qty": 3,
-      "ca": 114
-    },
-    {
-      "id": "san_viandehach_48",
-      "name": "Sandwich Viande Hache",
-      "cat": "SANDWICHS CIABATTA",
-      "price": 54.0,
-      "qty": 2,
-      "ca": 108
-    },
-    {
-      "id": "c6e82ded",
-      "name": "Eau Minerale 0.5l",
-      "cat": "SODA",
-      "price": 12.0,
-      "qty": 9,
-      "ca": 108
-    },
-    {
-      "id": "630fad4f",
-      "name": "OMLETTE VEGETARIENNE",
-      "cat": "PETIT DEJEUNER",
-      "price": 52.0,
-      "qty": 2,
-      "ca": 104
-    },
-    {
-      "id": "23a0f3a2",
-      "name": "PETIT DÉJEUNER CONTINENTAL",
-      "cat": "PETIT DEJEUNER",
-      "price": 52.0,
-      "qty": 2,
-      "ca": 104
-    },
-    {
-      "id": "43c999d5",
-      "name": "Coca Zero",
-      "cat": "SODA",
-      "price": 17.0,
-      "qty": 6,
-      "ca": 102
+      "ca": 136
     },
     {
       "id": "c8cb62c4",
       "name": "Cafe Au Lait",
       "cat": "BOISSONS CHAUDES",
       "price": 19.0,
-      "qty": 5,
-      "ca": 95
+      "qty": 7,
+      "ca": 133
     },
     {
-      "id": "8947e8bb",
-      "name": "OMLETTE FROMAGE",
-      "cat": "A LA CARTE",
-      "price": 45.0,
+      "id": "63489054",
+      "name": "PANINI POULET",
+      "cat": "PANINI",
+      "price": 44.0,
+      "qty": 3,
+      "ca": 132
+    },
+    {
+      "id": "45be5a1f",
+      "name": "PETIT DÉJEUNER MQUILA MERGUEZ",
+      "cat": "PETIT DEJEUNER",
+      "price": 64.0,
       "qty": 2,
-      "ca": 90
+      "ca": 128
     },
     {
-      "id": "52617320",
-      "name": "PIZZA MOITIE MOITIE",
-      "cat": "PIZZA",
+      "id": "a2351075",
+      "name": "PANINI MIX",
+      "cat": "PANINI",
+      "price": 58.0,
+      "qty": 2,
+      "ca": 116
+    },
+    {
+      "id": "8494037b",
+      "name": "TIRAMISU",
+      "cat": "GATEAUX",
+      "price": 38.0,
+      "qty": 3,
+      "ca": 114
+    },
+    {
+      "id": "bc60875d",
+      "name": "PETIT DÉJEUNER FASSI",
+      "cat": "PETIT DEJEUNER",
+      "price": 55.0,
+      "qty": 2,
+      "ca": 110
+    },
+    {
+      "id": "2fc98edf",
+      "name": "BURGER AVOCADO FORESTIER",
+      "cat": "BURGERS",
+      "price": 54.0,
+      "qty": 2,
+      "ca": 108
+    },
+    {
+      "id": "029899a7",
+      "name": "POULARD",
+      "cat": "SANDWICHS CIABATTA",
+      "price": 54.0,
+      "qty": 2,
+      "ca": 108
+    },
+    {
+      "id": "pan_viandehach_60",
+      "name": "PANINI VIANDE HACHÉE",
+      "cat": "PANINI",
+      "price": 53.5,
+      "qty": 2,
+      "ca": 107
+    },
+    {
+      "id": "pet_compagnard_12",
+      "name": "COMPAGNARD",
+      "cat": "PETIT DEJEUNER",
+      "price": 52.0,
+      "qty": 2,
+      "ca": 104
+    },
+    {
+      "id": "gingembre",
+      "name": "GINGEMBRE",
+      "cat": "COCKTAILS",
+      "price": 32.0,
+      "qty": 3,
+      "ca": 96
+    },
+    {
+      "id": "a4dbd839",
+      "name": "Ice Coffee Aromatise",
+      "cat": "ICE COFFEE",
+      "price": 23.0,
+      "qty": 4,
+      "ca": 92
+    },
+    {
+      "id": "c83522e3",
+      "name": "PETIT DÉJEUNER EXPRESS",
+      "cat": "PETIT DEJEUNER",
+      "price": 44.0,
+      "qty": 2,
+      "ca": 88
+    },
+    {
+      "id": "15ab9bd7",
+      "name": "ÉMINCÉ DE POULET",
+      "cat": "PLATS",
       "price": 88.0,
       "qty": 1,
       "ca": 88
     },
     {
-      "id": "schweppes_tonic",
-      "name": "SCHWEPPES TONIC",
-      "cat": "SODA",
-      "price": 17.0,
-      "qty": 5,
+      "id": "52e4ef86",
+      "name": "BRUNCH GREY CORNER",
+      "cat": "PETIT DEJEUNER",
+      "price": 85.0,
+      "qty": 1,
       "ca": 85
     },
     {
-      "id": "15a95226",
-      "name": "Tropical",
-      "cat": "COCKTAILS",
-      "price": 42.0,
-      "qty": 2,
+      "id": "59d7c3ba",
+      "name": "BROCHETTES DE POULET",
+      "cat": "PLATS",
+      "price": 84.0,
+      "qty": 1,
       "ca": 84
     },
     {
-      "id": "5213017a",
-      "name": "Pina Colada",
-      "cat": "COCKTAILS",
-      "price": 42.0,
-      "qty": 2,
-      "ca": 84
-    },
-    {
-      "id": "3a61c45c",
-      "name": "Crepe Banane Nutella",
-      "cat": "CREPES SUCREE",
-      "price": 42.0,
-      "qty": 2,
-      "ca": 84
-    },
-    {
-      "id": "8240295e",
-      "name": "Ice Tea Pèche",
-      "cat": "ICE TEA",
+      "id": "652c18e1",
+      "name": "Red Bull",
+      "cat": "SODA",
       "price": 28.0,
       "qty": 3,
       "ca": 84
     },
     {
-      "id": "c8619369",
-      "name": "oULMES",
-      "cat": "SODA",
-      "price": 16.0,
-      "qty": 5,
-      "ca": 80
-    },
-    {
-      "id": "9fb4f4ef",
-      "name": "PIZZA POULET",
+      "id": "f59f863c",
+      "name": "PIZZA VIANDE HACHÉE",
       "cat": "PIZZA",
       "price": 78.0,
       "qty": 1,
@@ -544,20 +256,36 @@
       "ca": 76
     },
     {
-      "id": "163fbfa8",
-      "name": "Pasta 5 Fromage",
+      "id": "a4197610",
+      "name": "Pasta Poulet Champignon",
       "cat": "PASTA",
-      "price": 70.0,
+      "price": 75.0,
       "qty": 1,
-      "ca": 70
+      "ca": 75
     },
     {
-      "id": "951d6f6f",
-      "name": "Croustillon Gambas",
-      "cat": "ENTREES CHAUDES",
-      "price": 68.0,
-      "qty": 1,
-      "ca": 68
+      "id": "7ff4d8d0",
+      "name": "Verveine",
+      "cat": "THE",
+      "price": 15.0,
+      "qty": 5,
+      "ca": 75
+    },
+    {
+      "id": "0f2b73d2",
+      "name": "Cafe  Americain",
+      "cat": "BOISSONS CHAUDES",
+      "price": 18.0,
+      "qty": 4,
+      "ca": 72
+    },
+    {
+      "id": "jus_d_avocat_orange",
+      "name": "JUS D AVOCAT ORANGE",
+      "cat": "JUS",
+      "price": 35.0,
+      "qty": 2,
+      "ca": 70
     },
     {
       "id": "2413d39b",
@@ -568,44 +296,44 @@
       "ca": 68
     },
     {
-      "id": "regina_dinde_fumee",
-      "name": "REGINA DINDE FUMEE",
-      "cat": "PIZZA",
+      "id": "b35d099b",
+      "name": "AMERICAIN",
+      "cat": "PETIT DEJEUNER",
       "price": 68.0,
       "qty": 1,
       "ca": 68
     },
     {
-      "id": "91438660",
-      "name": "Sprite",
+      "id": "c637898f",
+      "name": "Coca",
       "cat": "SODA",
       "price": 17.0,
       "qty": 4,
       "ca": 68
     },
     {
-      "id": "3aa22a4f",
-      "name": "JUS D'ANANAS",
+      "id": "7d1cd22f",
+      "name": "Pasta Carbonara",
+      "cat": "PASTA",
+      "price": 65.0,
+      "qty": 1,
+      "ca": 65
+    },
+    {
+      "id": "c8619369",
+      "name": "oULMES",
+      "cat": "SODA",
+      "price": 16.0,
+      "qty": 4,
+      "ca": 64
+    },
+    {
+      "id": "8f08d89a",
+      "name": "JUS DE MANGUE",
       "cat": "JUS",
-      "price": 32.0,
+      "price": 30.0,
       "qty": 2,
-      "ca": 64
-    },
-    {
-      "id": "bfe13ada",
-      "name": "PETIT DÉJEUNER ESPAGNOL",
-      "cat": "PETIT DEJEUNER",
-      "price": 64.0,
-      "qty": 1,
-      "ca": 64
-    },
-    {
-      "id": "a7c2005f",
-      "name": "PIZZA VÉGÉTARIENNE",
-      "cat": "PIZZA",
-      "price": 62.0,
-      "qty": 1,
-      "ca": 62
+      "ca": 60
     },
     {
       "id": "d8f0a2f6",
@@ -616,52 +344,36 @@
       "ca": 58
     },
     {
-      "id": "a2351075",
-      "name": "PANINI MIX",
-      "cat": "PANINI",
+      "id": "3c1696d2",
+      "name": "Omlette Du Chef",
+      "cat": "PETIT DEJEUNER",
       "price": 58.0,
       "qty": 1,
       "ca": 58
     },
     {
-      "id": "7833bd8a",
-      "name": "EGG BURGER",
-      "cat": "BURGERS",
-      "price": 56.0,
+      "id": "67861d9d",
+      "name": "PETIT DÉJEUNER HOLLANDAIS",
+      "cat": "PETIT DEJEUNER",
+      "price": 52.0,
       "qty": 1,
-      "ca": 56
+      "ca": 52
     },
     {
-      "id": "af8ccaaa",
-      "name": "Ice Tea Framboise",
-      "cat": "ICE TEA",
-      "price": 28.0,
-      "qty": 2,
-      "ca": 56
-    },
-    {
-      "id": "jus_de_banane",
-      "name": "Jus De Banane",
-      "cat": "JUS",
-      "price": 28.0,
-      "qty": 2,
-      "ca": 56
-    },
-    {
-      "id": "menu_enfant_pizza",
-      "name": "Menu Enfant Pizza",
-      "cat": "Menu Enfant",
-      "price": 55.0,
+      "id": "23a0f3a2",
+      "name": "PETIT DÉJEUNER CONTINENTAL",
+      "cat": "PETIT DEJEUNER",
+      "price": 52.0,
       "qty": 1,
-      "ca": 55
+      "ca": 52
     },
     {
-      "id": "viennoiserie",
-      "name": "VIENNOISERIE",
-      "cat": "A LA CARTE",
-      "price": 6.0,
-      "qty": 9,
-      "ca": 54
+      "id": "630fad4f",
+      "name": "OMLETTE VEGETARIENNE",
+      "cat": "PETIT DEJEUNER",
+      "price": 52.0,
+      "qty": 1,
+      "ca": 52
     },
     {
       "id": "b3a02657",
@@ -672,17 +384,25 @@
       "ca": 52
     },
     {
-      "id": "bfe13ada",
-      "name": "ESPAGNOL",
-      "cat": "A LA CARTE",
-      "price": 50.0,
-      "qty": 1,
-      "ca": 50
+      "id": "b415c9dd",
+      "name": "Poms",
+      "cat": "SODA",
+      "price": 17.0,
+      "qty": 3,
+      "ca": 51
     },
     {
-      "id": "pain_cake_fruits_de_saison",
-      "name": "Pain Cake Fruits De Saison",
-      "cat": "PAIN CAKE",
+      "id": "9b075b42",
+      "name": "CRÊPE POULET CHAMPIGNON",
+      "cat": "CREPES SALEES",
+      "price": 48.0,
+      "qty": 1,
+      "ca": 48
+    },
+    {
+      "id": "b4f0b866",
+      "name": "CRÊPE KUNAFA PISTACHE",
+      "cat": "CREPES SUCREE",
       "price": 48.0,
       "qty": 1,
       "ca": 48
@@ -696,76 +416,52 @@
       "ca": 48
     },
     {
-      "id": "san_thon_50",
-      "name": "Sandwich Thon",
-      "cat": "SANDWICHS CIABATTA",
-      "price": 48.0,
-      "qty": 1,
-      "ca": 48
-    },
-    {
-      "id": "ultra_vitamines_bowl",
-      "name": "Ultra Vitamines BOWL",
-      "cat": "SMOOTHIE BOWL",
-      "price": 48.0,
-      "qty": 1,
-      "ca": 48
-    },
-    {
-      "id": "f2037453",
-      "name": "CRÊPE CHARCUTERIE",
-      "cat": "CREPES SALEES",
+      "id": "c83b2d43",
+      "name": "Coupe Amor",
+      "cat": "COUPE DE GLACE",
       "price": 45.0,
       "qty": 1,
       "ca": 45
     },
     {
-      "id": "oeufs_beldi",
-      "name": "OEUFS BELDI",
-      "cat": "SUPPLEMENT PTDEJ",
-      "price": 5.0,
-      "qty": 9,
-      "ca": 45
-    },
-    {
-      "id": "6dc0a0c4",
-      "name": "Mojito Red Bull",
-      "cat": "MOJITO",
-      "price": 44.0,
+      "id": "15a95226",
+      "name": "Tropical",
+      "cat": "COCKTAILS",
+      "price": 42.0,
       "qty": 1,
-      "ca": 44
+      "ca": 42
     },
     {
-      "id": "crepe_choco_noisette",
-      "name": "Crepe Choco-Noisette",
+      "id": "3a61c45c",
+      "name": "Crepe Banane Nutella",
       "cat": "CREPES SUCREE",
       "price": 42.0,
       "qty": 1,
       "ca": 42
     },
     {
-      "id": "b11b8a3f",
-      "name": "Milkshake Vanille",
-      "cat": "MILKSHAKE",
+      "id": "7636c161",
+      "name": "OMLETTE NATURE",
+      "cat": "PETIT DEJEUNER",
       "price": 42.0,
       "qty": 1,
       "ca": 42
     },
     {
-      "id": "1c7b9f42",
-      "name": "Hawaien",
-      "cat": "SMOOTHIES",
-      "price": 42.0,
-      "qty": 1,
-      "ca": 42
-    },
-    {
-      "id": "berber",
-      "name": "BERBER",
+      "id": "khlie",
+      "name": "KHLIE",
       "cat": "A LA CARTE",
-      "price": 38.0,
+      "price": 40.0,
       "qty": 1,
-      "ca": 38
+      "ca": 40
+    },
+    {
+      "id": "50ad385d",
+      "name": "Fondant Au Chocolat",
+      "cat": "GATEAUX",
+      "price": 40.0,
+      "qty": 1,
+      "ca": 40
     },
     {
       "id": "25cc85dc",
@@ -776,28 +472,36 @@
       "ca": 38
     },
     {
-      "id": "jus_d_avocat_orange",
-      "name": "JUS D AVOCAT ORANGE",
+      "id": "deb8fba9",
+      "name": "CHOCOLAT CHAUD",
+      "cat": "BOISSONS CHAUDES",
+      "price": 18.0,
+      "qty": 2,
+      "ca": 36
+    },
+    {
+      "id": "fcb2f80e",
+      "name": "Jus De Framboise",
       "cat": "JUS",
       "price": 35.0,
       "qty": 1,
       "ca": 35
     },
     {
-      "id": "schweppes_citron",
-      "name": "SCHWEPPES CITRON",
+      "id": "a23d8e89",
+      "name": "Hawai",
       "cat": "SODA",
       "price": 17.0,
       "qty": 2,
       "ca": 34
     },
     {
-      "id": "gingembre",
-      "name": "GINGEMBRE",
-      "cat": "COCKTAILS",
-      "price": 32.0,
-      "qty": 1,
-      "ca": 32
+      "id": "schweppes_tonic",
+      "name": "SCHWEPPES TONIC",
+      "cat": "SODA",
+      "price": 17.0,
+      "qty": 2,
+      "ca": 34
     },
     {
       "id": "d6da872d",
@@ -808,36 +512,20 @@
       "ca": 30
     },
     {
-      "id": "crepe_nature",
-      "name": "Crepe Nature",
-      "cat": "CREPES SUCREE",
-      "price": 30.0,
+      "id": "6e4ac56f",
+      "name": "Frappuccino Aromatisé",
+      "cat": "FRAPPUCCINO",
+      "price": 28.0,
       "qty": 1,
-      "ca": 30
+      "ca": 28
     },
     {
-      "id": "gauffre_nature",
-      "name": "GAUFFRE NATURE",
-      "cat": "GAUFFRES",
-      "price": 30.0,
+      "id": "af8ccaaa",
+      "name": "Ice Tea Framboise",
+      "cat": "ICE TEA",
+      "price": 28.0,
       "qty": 1,
-      "ca": 30
-    },
-    {
-      "id": "frites",
-      "name": "FRITES",
-      "cat": "SUPPLEMENT CUISINE",
-      "price": 15.0,
-      "qty": 2,
-      "ca": 30
-    },
-    {
-      "id": "7ff4d8d0",
-      "name": "Verveine",
-      "cat": "THE",
-      "price": 15.0,
-      "qty": 2,
-      "ca": 30
+      "ca": 28
     },
     {
       "id": "chocolat_fondu",
@@ -848,116 +536,76 @@
       "ca": 26
     },
     {
-      "id": "bf39e64c",
-      "name": "EAU GAZEUSE 75 CL",
+      "id": "fde15742",
+      "name": "EAU MINERAL 75 cl",
       "cat": "SODA",
-      "price": 26.0,
-      "qty": 1,
-      "ca": 26
-    },
-    {
-      "id": "creme_brulee_maison",
-      "name": "CREME BRULEE MAISON",
-      "cat": "GATEAUX",
-      "price": 25.0,
-      "qty": 1,
-      "ca": 25
-    },
-    {
-      "id": "cafe_separe",
-      "name": "CAFE SEPARE",
-      "cat": "BOISSONS CHAUDES",
-      "price": 24.0,
-      "qty": 1,
-      "ca": 24
-    },
-    {
-      "id": "c03ef312",
-      "name": "Cafe Nespresso",
-      "cat": "BOISSONS CHAUDES",
       "price": 22.0,
       "qty": 1,
       "ca": 22
     },
     {
-      "id": "d07f4608",
-      "name": "NUTELLA",
-      "cat": "A LA CARTE",
-      "price": 10.0,
-      "qty": 2,
-      "ca": 20
-    },
-    {
-      "id": "divers_food",
-      "name": "DIVERS FOOD",
-      "cat": "ENTREES FROIDES",
-      "price": 10.0,
-      "qty": 2,
-      "ca": 20
-    },
-    {
-      "id": "972b68fa",
-      "name": "Ice Coffee Classique",
-      "cat": "ICE COFFEE",
+      "id": "oulmes_tropical",
+      "name": "OULMES TROPICAL",
+      "cat": "SODA",
       "price": 20.0,
       "qty": 1,
       "ca": 20
     },
     {
-      "id": "cafe_moitie",
-      "name": "CAFE MOITIE",
-      "cat": "BOISSONS CHAUDES",
-      "price": 19.0,
-      "qty": 1,
-      "ca": 19
-    },
-    {
-      "id": "21529e11",
-      "name": "Orangina",
+      "id": "43c999d5",
+      "name": "Coca Zero",
       "cat": "SODA",
       "price": 17.0,
       "qty": 1,
       "ca": 17
     },
     {
-      "id": "a23d8e89",
-      "name": "Hawai",
+      "id": "schweppes_citron",
+      "name": "SCHWEPPES CITRON",
       "cat": "SODA",
       "price": 17.0,
       "qty": 1,
       "ca": 17
     },
     {
-      "id": "b415c9dd",
-      "name": "Poms",
-      "cat": "SODA",
-      "price": 17.0,
+      "id": "3d5c4709",
+      "name": "The Noir",
+      "cat": "THE",
+      "price": 15.0,
       "qty": 1,
-      "ca": 17
+      "ca": 15
+    },
+    {
+      "id": "c6e82ded",
+      "name": "Eau Minerale 0.5l",
+      "cat": "SODA",
+      "price": 12.0,
+      "qty": 1,
+      "ca": 12
+    },
+    {
+      "id": "champignon",
+      "name": "CHAMPIGNON",
+      "cat": "SUPPLEMENT PTDEJ",
+      "price": 10.0,
+      "qty": 1,
+      "ca": 10
     },
     {
       "id": "divers_bar",
       "name": "DIVERS BAR",
       "cat": "SODA",
-      "price": 8.0,
-      "qty": 2,
-      "ca": 16
+      "price": 7.0,
+      "qty": 1,
+      "ca": 7
     },
     {
-      "id": "potatos",
-      "name": "POTATOS",
-      "cat": "SUPPLEMENT CUISINE",
-      "price": 15.0,
+      "id": "viennoiserie",
+      "name": "VIENNOISERIE",
+      "cat": "A LA CARTE",
+      "price": 6.0,
       "qty": 1,
-      "ca": 15
-    },
-    {
-      "id": "riz",
-      "name": "RIZ",
-      "cat": "SUPPLEMENT CUISINE",
-      "price": 15.0,
-      "qty": 1,
-      "ca": 15
+      "ca": 6
     },
     {
       "id": "oeuf",
@@ -976,24 +624,8 @@
       "ca": 5
     },
     {
-      "id": "jben",
-      "name": "JBEN",
-      "cat": "SUPPLEMENT PTDEJ",
-      "price": 5.0,
-      "qty": 1,
-      "ca": 5
-    },
-    {
-      "id": "la_vache_qui_rit",
-      "name": "LA VACHE QUI RIT",
-      "cat": "SUPPLEMENT PTDEJ",
-      "price": 5.0,
-      "qty": 1,
-      "ca": 5
-    },
-    {
-      "id": "huile_olive",
-      "name": "HUILE OLIVE",
+      "id": "oeufs_beldi",
+      "name": "OEUFS BELDI",
       "cat": "SUPPLEMENT PTDEJ",
       "price": 5.0,
       "qty": 1,
