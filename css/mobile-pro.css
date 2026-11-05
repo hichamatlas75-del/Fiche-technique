@@ -1,0 +1,586 @@
+/* ==========================================================================
+   GREY CORNER — OPTIMISATION MOBILE PRO (PWA & ERGONOMIE TACTILE)
+   Compatible iOS Safari, Chrome Mobile, Android Edge-to-Edge & Tablettes
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. RESET TACTILE & VARIABLES SÉCURISÉES (SAFE AREAS)
+   -------------------------------------------------------------------------- */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --mobile-nav-height: 62px;
+}
+
+/* Suppression des artefacts tactiles natifs désagréables */
+*, *::before, *::after {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Défilement fluide avec inertie naturelle */
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  overscroll-behavior-y: contain;
+}
+
+/* Feedback tactile immédiat sur tous les éléments cliquables */
+button:active,
+.btn:active,
+.v-tab:active,
+.cat-pill-btn:active,
+.cal-day-cell:active,
+.comp-nav-btn:active,
+.dropdown-item:active {
+  transform: scale(0.97) !important;
+  transition: transform 0.08s ease-out !important;
+}
+
+/* ==========================================================================
+   2. MEDIA QUERY MAJEURE : MOBILE & TABLETTES (< 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+
+  /* ------------------------------------------------------------------------
+     A. ESPACEMENT & CONTENEURS ADAPTATIFS
+     ------------------------------------------------------------------------ */
+  body {
+    /* Marge inférieure suffisante pour ne jamais être masqué par la barre de nav mobile */
+    padding-bottom: calc(var(--mobile-nav-height) + var(--safe-bottom) + 24px) !important;
+  }
+
+  .container,
+  .comp-page-container,
+  .audit-page-container {
+    padding-left: max(10px, var(--safe-left)) !important;
+    padding-right: max(10px, var(--safe-right)) !important;
+    padding-top: 10px !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     B. EN-TÊTE D'APPLICATION ULTRA-COMPACT (APP HEADER)
+     ------------------------------------------------------------------------ */
+  .app-header {
+    padding: 8px 0 !important;
+    padding-top: max(8px, var(--safe-top)) !important;
+  }
+
+  .app-header-content {
+    gap: 8px !important;
+  }
+
+  .app-brand {
+    gap: 8px !important;
+  }
+
+  .brand-badge,
+  .gc-drawer-badge {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 13px !important;
+    border-radius: 8px !important;
+  }
+
+  .brand-title {
+    font-size: 14.5px !important;
+    line-height: 1.2 !important;
+  }
+
+  .brand-title span {
+    font-size: 11px !important;
+    display: inline-block !important;
+  }
+
+  /* Masquer le sous-titre verbeux pour libérer la hauteur utile */
+  .brand-subtitle {
+    display: none !important;
+  }
+
+  /* Nettoyage de la barre d'actions supérieure : défilement horizontal fluide */
+  .app-header-nav {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 2px !important;
+    scrollbar-width: none !important;
+  }
+
+  .app-header-nav::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .app-header-nav .btn {
+    padding: 6px 10px !important;
+    font-size: 11.5px !important;
+    min-height: 36px !important;
+    border-radius: 8px !important;
+  }
+
+  .badge-status-sync {
+    font-size: 10.5px !important;
+    padding: 4px 8px !important;
+    white-space: nowrap !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     C. BANDEAU DE CONTRÔLE COMPACT (PÉRIODE, CA & TOUCH TOGGLES)
+     ------------------------------------------------------------------------ */
+  .destock-top-control-bar {
+    padding: 10px 12px !important;
+    border-radius: 12px !important;
+    gap: 8px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .destock-period-indicator {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    gap: 6px !important;
+  }
+
+  .destock-period-pill {
+    font-size: 11.5px !important;
+    padding: 4px 8px !important;
+  }
+
+  .destock-period-stats {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: var(--text) !important;
+  }
+
+  .destock-toggle-buttons {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    width: 100% !important;
+    gap: 6px !important;
+  }
+
+  .destock-toggle-btn {
+    width: 100% !important;
+    padding: 8px 6px !important;
+    font-size: 11.5px !important;
+    justify-content: center !important;
+    text-align: center !important;
+    border-radius: 8px !important;
+    min-height: 38px !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     D. GRILLE DES KPIS STATISTIQUES (CARTES MOBILES COMPACTES)
+     ------------------------------------------------------------------------ */
+  .stats-grid,
+  .kpis-grid,
+  .comp-kpis-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .stat-card,
+  .kpi-card,
+  .comp-kpi-card {
+    padding: 10px 10px !important;
+    border-radius: 10px !important;
+  }
+
+  .stat-val,
+  .kpi-value {
+    font-size: 18px !important;
+    letter-spacing: -0.5px !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+
+  .stat-label,
+  .kpi-label {
+    font-size: 10.5px !important;
+  }
+
+  .stat-sub,
+  .kpi-sub {
+    font-size: 9.5px !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     E. ONGLETS DE NAVIGATION CARROUSEL TACTILE (VIEW-TABS)
+     ------------------------------------------------------------------------ */
+  .view-tabs {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 6px !important;
+    padding: 4px 0 8px 0 !important;
+    margin: 8px 0 14px 0 !important;
+    scrollbar-width: none !important;
+  }
+
+  .view-tabs::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .v-tab {
+    flex-shrink: 0 !important;
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+    min-height: 38px !important;
+    border-radius: 8px !important;
+  }
+
+  .tab-count {
+    padding: 2px 6px !important;
+    font-size: 10px !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     F. TABLEAUX ULTRA-OPTIMISÉS : 1ère COLONNE STICKY & CHIFFRES NETS
+     ------------------------------------------------------------------------ */
+  .table-responsive,
+  .destock-table-wrap {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border-radius: 10px !important;
+    border: 1px solid var(--border) !important;
+    margin-bottom: 14px !important;
+    box-shadow: var(--shadow-sm) !important;
+    position: relative !important;
+  }
+
+  /* Table styling */
+  .table-responsive table,
+  .destock-table {
+    min-width: 580px !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+  }
+
+  /* En-têtes compacts */
+  .table-responsive th,
+  .destock-table th {
+    padding: 8px 10px !important;
+    font-size: 11px !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 2 !important;
+    background: var(--thead-bg, #f1f5f9) !important;
+  }
+
+  /* Cellules optimisées pour le tactile */
+  .table-responsive td,
+  .destock-table td {
+    padding: 8px 8px !important;
+    font-size: 12px !important;
+  }
+
+  /* 🎯 COLONNE PRODUIT / INGRÉDIENT STICKY (Garde le nom visible au scroll horizontal) */
+  .table-responsive table tr td:nth-child(2),
+  .table-responsive table tr th:nth-child(2) {
+    position: sticky !important;
+    left: 0 !important;
+    background: var(--paper, #ffffff) !important;
+    z-index: 3 !important;
+    box-shadow: 3px 0 6px -2px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  [data-theme="dark"] .table-responsive table tr td:nth-child(2),
+  [data-theme="dark"] .table-responsive table tr th:nth-child(2) {
+    background: #0f172a !important;
+    box-shadow: 3px 0 6px -2px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .table-responsive table tr th:nth-child(2) {
+    z-index: 5 !important;
+    background: var(--thead-bg, #f1f5f9) !important;
+  }
+
+  [data-theme="dark"] .table-responsive table tr th:nth-child(2) {
+    background: #1e293b !important;
+  }
+
+  /* Chiffres nets et non sécables */
+  .qty-highlight,
+  .price-highlight,
+  .total-highlight {
+    font-variant-numeric: tabular-nums !important;
+    white-space: nowrap !important;
+  }
+
+  /* Pilules d'ingrédients compactes sur mobile */
+  .dishes-pill-list {
+    max-width: 220px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 3px !important;
+  }
+
+  .dish-pill {
+    font-size: 10px !important;
+    padding: 2px 6px !important;
+    max-width: 180px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     G. CALENDRIER DE DÉSTOCKAGE TACTILE SUR MOBILE
+     ------------------------------------------------------------------------ */
+  .calendar-card {
+    padding: 10px 8px !important;
+    border-radius: 12px !important;
+  }
+
+  .cal-month-nav input[type="month"] {
+    font-size: 12.5px !important;
+  }
+
+  .cal-mode-selector {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 3px !important;
+  }
+
+  .cal-mode-btn {
+    padding: 7px 3px !important;
+    font-size: 10.5px !important;
+    min-height: 36px !important;
+  }
+
+  .cal-grid {
+    gap: 3px !important;
+    min-width: 290px !important;
+  }
+
+  .cal-day-cell {
+    min-height: 44px !important;
+    padding: 4px 2px !important;
+    border-radius: 6px !important;
+  }
+
+  .cal-day-num {
+    font-size: 11px !important;
+  }
+
+  .cal-day-ca {
+    font-size: 8.5px !important;
+    letter-spacing: -0.3px !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     H. MODALES STYLE "BOTTOM SHEET NATIVE" POUR MOBILE
+     ------------------------------------------------------------------------ */
+  .modal-overlay {
+    padding: 0 !important;
+    align-items: flex-end !important; /* Ancrage en bas de l'écran */
+  }
+
+  .modal-box {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 92vh !important;
+    border-radius: 20px 20px 0 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.35) !important;
+    animation: slideUpBottomSheet 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    border: 1px solid var(--border) !important;
+    border-bottom: none !important;
+  }
+
+  /* Poignée tactile de glissement (Drag Handle) */
+  .modal-box::before {
+    content: '';
+    display: block;
+    width: 42px;
+    height: 4.5px;
+    background: var(--border, #cbd5e1);
+    border-radius: 3px;
+    margin: 8px auto 2px auto;
+    flex-shrink: 0;
+  }
+
+  .modal-head {
+    padding: 12px 16px !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+
+  .modal-title {
+    font-size: 15px !important;
+    font-weight: 800 !important;
+  }
+
+  .modal-body {
+    padding: 14px 16px !important;
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Barre d'action inférieure de la modale fixée */
+  .modal-foot {
+    padding: 12px 16px !important;
+    padding-bottom: max(14px, var(--safe-bottom)) !important;
+    border-top: 1px solid var(--border) !important;
+    background: var(--paper, #ffffff) !important;
+    display: flex !important;
+    gap: 8px !important;
+  }
+
+  [data-theme="dark"] .modal-foot {
+    background: #0f172a !important;
+  }
+
+  .modal-foot .btn {
+    flex: 1 !important;
+    min-height: 44px !important;
+    font-size: 13.5px !important;
+    justify-content: center !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     I. BARRE DE NAVIGATION INFÉRIEURE TACTILE (BOTTOM NAVIGATION BAR)
+     ------------------------------------------------------------------------ */
+  .gc-mobile-nav {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: var(--mobile-nav-height) !important;
+    padding-bottom: var(--safe-bottom) !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-top: 1px solid var(--border) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    z-index: 990 !important;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06) !important;
+  }
+
+  [data-theme="dark"] .gc-mobile-nav {
+    background: rgba(15, 23, 42, 0.92) !important;
+    border-top-color: #334155 !important;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .gc-mobile-nav-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 !important;
+    height: 100% !important;
+    color: var(--muted) !important;
+    text-decoration: none !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    background: none !important;
+    border: none !important;
+    gap: 3px !important;
+    cursor: pointer !important;
+    transition: color 0.15s ease !important;
+  }
+
+  .gc-mobile-nav-item .nav-icon {
+    font-size: 18px !important;
+    line-height: 1 !important;
+  }
+
+  .gc-mobile-nav-item.is-active {
+    color: var(--accent, #0284c7) !important;
+  }
+
+  [data-theme="dark"] .gc-mobile-nav-item.is-active {
+    color: #38bdf8 !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     J. REPOSITIONNEMENT DU BOUTON SCROLL-TO-TOP & BURGER FAB
+     ------------------------------------------------------------------------ */
+  /* Sur mobile, le burger est accessible directement dans la barre inférieure */
+  .gc-burger-fab {
+    display: none !important;
+  }
+
+  /* Bouton retour en haut au-dessus de la barre de nav mobile */
+  .btn-scroll-top {
+    bottom: calc(var(--mobile-nav-height) + var(--safe-bottom) + 14px) !important;
+    right: 14px !important;
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 16px !important;
+    box-shadow: var(--shadow-md) !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     K. FORMULAIRES & SAISIE TACTILE SANS AUTO-ZOOM SUR SAFARI
+     ------------------------------------------------------------------------ */
+  input[type="text"],
+  input[type="search"],
+  input[type="number"],
+  input[type="date"],
+  input[type="month"],
+  select,
+  textarea {
+    font-size: 16px !important; /* Seuil obligatoire iOS pour empêcher le zoom forcé */
+    min-height: 42px !important;
+  }
+
+  .form-group label {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    margin-bottom: 4px !important;
+  }
+}
+
+/* ==========================================================================
+   3. ANIMATIONS BOTTOM SHEET
+   ========================================================================== */
+@keyframes slideUpBottomSheet {
+  from {
+    transform: translateY(100%);
+    opacity: 0.7;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   4. ADAPTATION PETITS MOBILES (< 420px : iPhone SE, Galaxy A, etc.)
+   ========================================================================== */
+@media (max-width: 420px) {
+  .brand-title {
+    font-size: 13.5px !important;
+  }
+  .destock-period-stats {
+    font-size: 11px !important;
+  }
+  .stat-val,
+  .kpi-value {
+    font-size: 16.5px !important;
+  }
+  .v-tab {
+    font-size: 11.5px !important;
+    padding: 7px 10px !important;
+  }
+  .gc-mobile-nav-item {
+    font-size: 9.5px !important;
+  }
+  .gc-mobile-nav-item .nav-icon {
+    font-size: 17px !important;
+  }
+}
