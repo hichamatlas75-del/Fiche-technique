@@ -1,6 +1,6 @@
 /* ==========================================================================
    GREY CORNER — OPTIMISATION MOBILE PRO (PWA & ERGONOMIE TACTILE)
-   Compatible iOS Safari, Chrome Mobile, Android Edge-to-Edge & Tablettes
+   Version 10.2 — Compatible iOS Safari, Chrome Mobile, Android & Tablettes
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -19,14 +19,13 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Défilement fluide avec inertie naturelle */
+/* Défilement vertical naturel garanti sans blocage */
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
 }
 
 body {
-  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Feedback tactile immédiat sur tous les éléments cliquables */
@@ -244,18 +243,18 @@ button:active,
   }
 
   /* ------------------------------------------------------------------------
-     F. TABLEAUX ULTRA-OPTIMISÉS : 1ère COLONNE STICKY & CHIFFRES NETS
+     F. TABLEAUX : DÉFILEMENT HORIZONTAL FLUIDE & CHIFFRES NETS
      ------------------------------------------------------------------------ */
   .table-responsive,
   .destock-table-wrap {
     width: 100% !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-x pan-y !important;
     border-radius: 10px !important;
     border: 1px solid var(--border) !important;
     margin-bottom: 14px !important;
     box-shadow: var(--shadow-sm) !important;
-    position: relative !important;
   }
 
   /* Table styling */
@@ -271,9 +270,6 @@ button:active,
   .destock-table th {
     padding: 8px 10px !important;
     font-size: 11px !important;
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 2 !important;
     background: var(--thead-bg, #f1f5f9) !important;
   }
 
@@ -282,31 +278,6 @@ button:active,
   .destock-table td {
     padding: 8px 8px !important;
     font-size: 12px !important;
-  }
-
-  /* 🎯 COLONNE PRODUIT / INGRÉDIENT STICKY (Garde le nom visible au scroll horizontal) */
-  .table-responsive table tr td:nth-child(2),
-  .table-responsive table tr th:nth-child(2) {
-    position: sticky !important;
-    left: 0 !important;
-    background: var(--paper, #ffffff) !important;
-    z-index: 3 !important;
-    box-shadow: 3px 0 6px -2px rgba(0, 0, 0, 0.08) !important;
-  }
-
-  [data-theme="dark"] .table-responsive table tr td:nth-child(2),
-  [data-theme="dark"] .table-responsive table tr th:nth-child(2) {
-    background: #0f172a !important;
-    box-shadow: 3px 0 6px -2px rgba(0, 0, 0, 0.3) !important;
-  }
-
-  .table-responsive table tr th:nth-child(2) {
-    z-index: 5 !important;
-    background: var(--thead-bg, #f1f5f9) !important;
-  }
-
-  [data-theme="dark"] .table-responsive table tr th:nth-child(2) {
-    background: #1e293b !important;
   }
 
   /* Chiffres nets et non sécables */
@@ -378,78 +349,7 @@ button:active,
   }
 
   /* ------------------------------------------------------------------------
-     H. MODALES STYLE "BOTTOM SHEET NATIVE" POUR MOBILE
-     ------------------------------------------------------------------------ */
-  .modal-overlay {
-    padding: 0 !important;
-    align-items: flex-end !important; /* Ancrage en bas de l'écran */
-  }
-
-  .modal-box {
-    width: 100% !important;
-    max-width: 100% !important;
-    max-height: 92vh !important;
-    border-radius: 20px 20px 0 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.35) !important;
-    animation: slideUpBottomSheet 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    border: 1px solid var(--border) !important;
-    border-bottom: none !important;
-  }
-
-  /* Poignée tactile de glissement (Drag Handle) */
-  .modal-box::before {
-    content: '';
-    display: block;
-    width: 42px;
-    height: 4.5px;
-    background: var(--border, #cbd5e1);
-    border-radius: 3px;
-    margin: 8px auto 2px auto;
-    flex-shrink: 0;
-  }
-
-  .modal-head {
-    padding: 12px 16px !important;
-    border-bottom: 1px solid var(--border) !important;
-  }
-
-  .modal-title {
-    font-size: 15px !important;
-    font-weight: 800 !important;
-  }
-
-  .modal-body {
-    padding: 14px 16px !important;
-    flex: 1 1 auto !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-
-  /* Barre d'action inférieure de la modale fixée */
-  .modal-foot {
-    padding: 12px 16px !important;
-    padding-bottom: max(14px, var(--safe-bottom)) !important;
-    border-top: 1px solid var(--border) !important;
-    background: var(--paper, #ffffff) !important;
-    display: flex !important;
-    gap: 8px !important;
-  }
-
-  [data-theme="dark"] .modal-foot {
-    background: #0f172a !important;
-  }
-
-  .modal-foot .btn {
-    flex: 1 !important;
-    min-height: 44px !important;
-    font-size: 13.5px !important;
-    justify-content: center !important;
-  }
-
-  /* ------------------------------------------------------------------------
-     I. BARRE DE NAVIGATION INFÉRIEURE TACTILE (BOTTOM NAVIGATION BAR)
+     H. BARRE DE NAVIGATION INFÉRIEURE TACTILE (BOTTOM NAVIGATION BAR)
      ------------------------------------------------------------------------ */
   .gc-mobile-nav {
     position: fixed !important;
@@ -507,7 +407,7 @@ button:active,
   }
 
   /* ------------------------------------------------------------------------
-     J. REPOSITIONNEMENT DU BOUTON SCROLL-TO-TOP & BURGER FAB
+     I. REPOSITIONNEMENT DU BOUTON SCROLL-TO-TOP & BURGER FAB
      ------------------------------------------------------------------------ */
   /* Sur mobile, le burger est accessible directement dans la barre inférieure */
   .gc-burger-fab {
@@ -525,7 +425,7 @@ button:active,
   }
 
   /* ------------------------------------------------------------------------
-     K. FORMULAIRES & SAISIE TACTILE SANS AUTO-ZOOM SUR SAFARI
+     J. FORMULAIRES & SAISIE TACTILE SANS AUTO-ZOOM SUR SAFARI
      ------------------------------------------------------------------------ */
   input[type="text"],
   input[type="search"],
@@ -546,21 +446,7 @@ button:active,
 }
 
 /* ==========================================================================
-   3. ANIMATIONS BOTTOM SHEET
-   ========================================================================== */
-@keyframes slideUpBottomSheet {
-  from {
-    transform: translateY(100%);
-    opacity: 0.7;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* ==========================================================================
-   4. ADAPTATION PETITS MOBILES (< 420px : iPhone SE, Galaxy A, etc.)
+   3. ADAPTATION PETITS MOBILES (< 420px : iPhone SE, Galaxy A, etc.)
    ========================================================================== */
 @media (max-width: 420px) {
   .brand-title {

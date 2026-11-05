@@ -1,19 +1,42 @@
 /**
  * ============================================================================
  * GREY CORNER — COMPAGNON MOBILE PRO (NAVIGATION BASSE & ERGONOMIE TACTILE)
- * Version 10.1 — PWA & Responsive Native-Like Experience
+ * Version 10.2 — PWA & Responsive Native-Like Experience (Zero Scroll Lock)
  * ============================================================================
  */
 
 (function () {
   'use strict';
 
+  /**
+   * Déverrouillage systématique et inconditionnel du défilement
+   * Garantit qu'aucun script ou événement résiduel ne bloque le scroll utilisateur
+   */
+  function unlockScroll() {
+    try {
+      if (document.documentElement && document.documentElement.style) {
+        document.documentElement.style.overflow = '';
+        document.documentElement.style.overflowY = 'auto';
+      }
+      if (document.body && document.body.style) {
+        document.body.style.overflow = '';
+        document.body.style.overflowY = 'auto';
+      }
+    } catch (e) {
+      console.warn('[MobilePro] unlockScroll error:', e);
+    }
+  }
+
+  // Déblocage immédiat dès l'évaluation du script
+  unlockScroll();
+
   function initMobilePro() {
+    unlockScroll();
+
     const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window && window.innerWidth <= 1024);
     if (!isMobile) return;
 
     setupMobileBottomNav();
-    setupBottomSheetTouchHandling();
     setupScrollTopAdjustment();
     observeActiveTabs();
   }
@@ -121,11 +144,11 @@
 
       if (action === 'drawer') {
         e.preventDefault();
-        if (window.GC_BurgerMenu && typeof window.GC_BurgerMenu.open === 'function') {
-          window.GC_BurgerMenu.open();
-        } else {
-          const trigger = document.querySelector('[data-drawer-trigger]');
-          if (trigger) trigger.click();
+        const trigger = document.querySelector('[data-drawer-trigger]');
+        if (trigger) {
+          trigger.click();
+        } else if (window.GC_BurgerMenu && typeof window.GC_BurgerMenu.open === 'function') {
+          window.GC_BurgerMenu.open('drawer-destockage');
         }
         return;
       }
@@ -135,8 +158,7 @@
         const tabBtn = document.querySelector(`.v-tab[data-tab="${dest}"]`);
         if (tabBtn) {
           tabBtn.click();
-          // Défilement doux vers le contenu
-          window.scrollTo({ top: 120, behavior: 'smooth' });
+          window.scrollTo({ top: 100, behavior: 'smooth' });
         }
         updateActiveMobileNav(dest);
       }
@@ -168,37 +190,7 @@
   }
 
   /**
-   * 3. Amélioration des Modales en "Bottom Sheets" tactiles
-   * Verrouillage du scroll en arrière-plan lorsque la modale est ouverte
-   */
-  function setupBottomSheetTouchHandling() {
-    const observer = new MutationObserver(mutations => {
-      mutations.forEach(mut => {
-        if (mut.type === 'attributes' && (mut.attributeName === 'style' || mut.attributeName === 'class')) {
-          const target = mut.target;
-          if (target.classList.contains('modal-overlay')) {
-            const isVisible = target.style.display !== 'none' && !target.classList.contains('hidden');
-            if (isVisible && window.innerWidth <= 768) {
-              document.body.style.overflow = 'hidden';
-            } else {
-              // Vérifie si une autre modale est encore visible
-              const otherVisible = Array.from(document.querySelectorAll('.modal-overlay')).some(m => m !== target && m.style.display !== 'none');
-              if (!otherVisible) {
-                document.body.style.overflow = '';
-              }
-            }
-          }
-        }
-      });
-    });
-
-    document.querySelectorAll('.modal-overlay').forEach(modal => {
-      observer.observe(modal, { attributes: true });
-    });
-  }
-
-  /**
-   * 4. Ajustement du bouton retour en haut pour ne jamais chevaucher la nav mobile
+   * 3. Ajustement du bouton retour en haut pour ne jamais chevaucher la nav mobile
    */
   function setupScrollTopAdjustment() {
     const btn = document.querySelector('.btn-scroll-top');
@@ -216,18 +208,19 @@
   }
 
   window.addEventListener('resize', function () {
+    unlockScroll();
     if (window.innerWidth <= 768) {
       setupMobileBottomNav();
       setupScrollTopAdjustment();
     } else {
       const nav = document.getElementById('gc-mobile-nav');
       if (nav) nav.remove();
-      document.body.style.overflow = '';
     }
   });
 
   window.GC_MobilePro = {
     init: initMobilePro,
+    unlockScroll: unlockScroll,
     setActiveTab: updateActiveMobileNav
   };
 })();
