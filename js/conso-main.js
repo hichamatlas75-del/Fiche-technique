@@ -19,7 +19,10 @@ function switchToTab(tabId) {
     }
   }
   if (tabId === 'tab-comparator') {
-    renderComparatorTab();
+    if (typeof renderComparatorTab === 'function') renderComparatorTab();
+  }
+  if (tabId === 'tab-menu-engineering') {
+    if (typeof renderMenuEngineeringMatrix === 'function') renderMenuEngineeringMatrix();
   }
   if (window.GC_BurgerMenu) {
     window.GC_BurgerMenu.setActiveItem(tabId);

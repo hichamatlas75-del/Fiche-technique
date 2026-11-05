@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="css/common.css?v=v10.0" />
 <link rel="stylesheet" href="css/consommation.css?v=v10.0" />
 <link rel="stylesheet" href="css/burger-menu.css?v=v10.0" />
-<link rel="stylesheet" href="css/mobile-pro.css?v=v10.2" />
+<link rel="stylesheet" href="css/mobile-pro.css?v=v10.3" />
 
 <!-- Données Centralisées (SSOT), Utilitaires & Composants -->
 <script src="recipes-data.js?v=v10.0"></script>
@@ -37,7 +37,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/auth.js?v=v10.0"></script>
 <script src="js/supabase-client.js?v=v10.0"></script>
-<script src="js/mobile-pro.js?v=v10.2" defer></script>
+<script src="js/mobile-pro.js?v=v10.3" defer></script>
 </head>
 <body>
 <!-- HEADER UNIFIÉ (Design System Grey Corner) -->
@@ -910,7 +910,10 @@
         </span>
       </div>
 
-      <div class="comp-header-actions">
+      <div class="comp-header-actions" style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+        <a href="comparateur.html" class="btn btn-primary" style="background:#0284c7; border-color:#0284c7; font-weight:700; text-decoration:none;" title="Ouvrir le Comparateur de Fiches Techniques vs Normes Internationales">
+          ⚖️ Normes &amp; Comparateur International ➔
+        </a>
         <button class="btn btn-secondary" onclick="exportComparatorToExcel()" title="Exporter l'analyse comparative vers Excel">
           📥 Exporter Rapport Excel
         </button>
@@ -1165,7 +1168,7 @@
 <script src="js/conso-audit.js?v=v10.0"></script>
 <script src="js/conso-menu-engineering.js?v=v10.0"></script>
 <script src="js/conso-temporal.js?v=v10.0"></script>
-<script src="js/conso-main.js?v=v10.0"></script>
+<script src="js/conso-main.js?v=v10.3"></script>
 <script>
   if (typeof window.initThemeManager === 'function') {
     window.initThemeManager('theme-toggle');

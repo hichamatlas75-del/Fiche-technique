@@ -155,11 +155,28 @@
 
       if (dest) {
         e.preventDefault();
-        const tabBtn = document.querySelector(`.v-tab[data-tab="${dest}"]`);
-        if (tabBtn) {
-          tabBtn.click();
-          window.scrollTo({ top: 100, behavior: 'smooth' });
+
+        // 1. Activer l'onglet via switchToTab
+        if (typeof window.switchToTab === 'function') {
+          window.switchToTab(dest);
+        } else {
+          const tabBtn = document.querySelector(`.v-tab[data-tab="${dest}"]`);
+          if (tabBtn) tabBtn.click();
         }
+
+        // 2. Faire défiler immédiatement vers l'onglet sélectionné
+        setTimeout(function () {
+          const tabsBar = document.querySelector('.view-tabs');
+          const targetTab = document.getElementById(dest);
+          const scrollTarget = tabsBar || targetTab;
+          if (scrollTarget) {
+            const headerEl = document.querySelector('.app-header');
+            const headerH = headerEl ? headerEl.offsetHeight : 52;
+            const targetY = scrollTarget.getBoundingClientRect().top + window.pageYOffset - headerH - 8;
+            window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+          }
+        }, 50);
+
         updateActiveMobileNav(dest);
       }
     });
