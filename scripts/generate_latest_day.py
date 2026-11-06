@@ -263,27 +263,38 @@ def get_canonical_product_name(raw_name, raw_fam=""):
         simplified = simplified[5:].strip()
     return simplified
 
-wb = xlrd.open_workbook(latest_file)
-sh = wb.sheet_by_index(0)
+rows_data = []
+if latest_file.lower().endswith('.xlsx'):
+    import openpyxl
+    wb = openpyxl.load_workbook(latest_file, data_only=True)
+    sh = wb.active
+    for row in list(sh.iter_rows(values_only=True))[1:]:
+        if row:
+            rows_data.append(list(row) + [None] * max(0, 5 - len(row)))
+else:
+    wb = xlrd.open_workbook(latest_file)
+    sh = wb.sheet_by_index(0)
+    for r in range(1, sh.nrows):
+        rows_data.append([sh.cell_value(r, c) if c < sh.ncols else '' for c in range(5)])
 
 aggregated = {}
-for r in range(1, sh.nrows):
-    fam = str(sh.cell_value(r, 0)).strip()
-    prod = str(sh.cell_value(r, 1)).strip()
+for row_vals in rows_data:
+    fam = str(row_vals[0] if row_vals[0] is not None else '').strip()
+    prod = str(row_vals[1] if row_vals[1] is not None else '').strip()
     if not prod or prod.upper() in ['TOTAL', 'SOMME', 'MONTANT']:
         continue
     try:
-        price = float(sh.cell_value(r, 2))
+        price = float(row_vals[2])
     except:
         price = 0.0
     
     try:
-        qty = float(sh.cell_value(r, 3))
+        qty = float(row_vals[3])
     except:
         qty = 1.0
     
     try:
-        total = float(sh.cell_value(r, 4))
+        total = float(row_vals[4])
     except:
         total = qty * price
     

@@ -3922,13 +3922,22 @@
       const exact = menuData.find(m => normalizeDishName(m.name) === clean);
       if (exact) return exact.id;
 
-      // 3. Match via ALIAS_MAP SSOT unifié (gère les 53 articles historiques et variantes caisse)
-      if (typeof ALIAS_MAP !== 'undefined' && ALIAS_MAP[clean]) {
-        const canonical = ALIAS_MAP[clean];
-        const canonicalClean = normalizeDishName(canonical);
-        if (CAISSE_NAME_LOOKUP[canonicalClean]) return CAISSE_NAME_LOOKUP[canonicalClean];
-        const mCanon = menuData.find(m => normalizeDishName(m.name) === canonicalClean);
-        if (mCanon) return mCanon.id;
+      // 3. Match via ALIAS_MAP SSOT unifié (gère les articles historiques et variantes caisse)
+      if (typeof ALIAS_MAP !== 'undefined') {
+        const cleanLower = clean.toLowerCase();
+        const rawLower = String(rawName || '').toLowerCase().trim();
+        const aliasVal = ALIAS_MAP[clean] || ALIAS_MAP[cleanLower] || ALIAS_MAP[rawLower];
+        if (aliasVal) {
+          let canonical = aliasVal;
+          if (typeof BASE_RECIPES !== 'undefined' && Array.isArray(BASE_RECIPES)) {
+            const brMatch = BASE_RECIPES.find(r => r && r.id === aliasVal);
+            if (brMatch && brMatch.name) canonical = brMatch.name;
+          }
+          const canonicalClean = normalizeDishName(canonical);
+          if (CAISSE_NAME_LOOKUP[canonicalClean]) return CAISSE_NAME_LOOKUP[canonicalClean];
+          const mCanon = menuData.find(m => normalizeDishName(m.name) === canonicalClean || m.id === aliasVal);
+          if (mCanon) return mCanon.id;
+        }
       }
 
       // 4. Match fuzzy (inclusion)

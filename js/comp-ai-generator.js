@@ -213,6 +213,40 @@
       localStorage.setItem('gc_recipes_db_version', (typeof RECIPES_DB_VERSION !== 'undefined' ? RECIPES_DB_VERSION : 'v8.3_20260916'));
     } catch(e) {}
 
+    // Mettre à jour window.BASE_RECIPES et window.DATA en mémoire (BUG-10 FIX)
+    try {
+      if (Array.isArray(window.BASE_RECIPES) && !window.BASE_RECIPES.some(r => r.name === recipeObj.name)) {
+        window.BASE_RECIPES.push(recipeObj);
+      }
+      const dataArr = window.CATEGORIES_DATA || window.DATA;
+      if (Array.isArray(dataArr)) {
+        let targetCat = dataArr.find(c => c.category === recipeObj.category);
+        if (!targetCat) {
+          targetCat = { key: 'ai_custom', category: recipeObj.category || 'AUTRE', items: [] };
+          dataArr.push(targetCat);
+        }
+        if (!targetCat.items.some(it => it.name === recipeObj.name)) {
+          targetCat.items.push({
+            id: recipeObj.id,
+            name: recipeObj.name,
+            image: 'images/placeholder.svg',
+            prepTime: 10,
+            tech: recipeObj.tech.slice(),
+            ingredients: recipeObj.ingredients.slice(),
+            price: recipeObj.price,
+            sellPrice: recipeObj.sellPrice,
+            cost: recipeObj.cost,
+            foodCost: recipeObj.foodCost,
+            margin: recipeObj.margin,
+            grossMarginDH: recipeObj.grossMarginDH
+          });
+        }
+      }
+      if (window.GC_Supabase && typeof window.GC_Supabase.saveRecipeToCloud === 'function') {
+        window.GC_Supabase.saveRecipeToCloud(recipeObj);
+      }
+    } catch(e) {}
+
     try {
       const savedComp = localStorage.getItem(window.GC_STORAGE_KEYS ? window.GC_STORAGE_KEYS.COMP_EDITS : 'grey_corner_custom_recipes_v5');
       const compEdits = savedComp ? JSON.parse(savedComp) : {};

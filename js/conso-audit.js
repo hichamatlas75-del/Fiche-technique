@@ -1806,13 +1806,14 @@ function renderMonthlyAuditTable() {
     return true;
   });
 
-  // Calcul des KPIs sur la sélection active
+  // Calcul des KPIs sur la sélection active (BUG-05 FIX : prise en compte de unitMult pour g/ml)
   let fTotTheo = 0, fTotReel = 0, fTotEcart = 0, fTotCasse = 0, fAlertCount = 0;
   filtered.forEach(item => {
-    fTotTheo += item.theorique * item.prix;
-    fTotReel += (item.consReelle || 0) * item.prix;
+    const unitMult = (item.unit === 'g' || item.unit === 'ml') ? 0.001 : 1;
+    fTotTheo += (item.theorique || 0) * unitMult * item.prix;
+    fTotReel += (item.consReelle || 0) * unitMult * item.prix;
     fTotEcart += (item.impactDH || 0);
-    fTotCasse += (item.casse || 0) * item.prix;
+    fTotCasse += (item.casse || 0) * unitMult * item.prix;
     if ((item.ecartPct || 0) > 8) fAlertCount++;
   });
 

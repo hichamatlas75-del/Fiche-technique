@@ -142,26 +142,28 @@
       }
       matched++;
 
+      const normUnit = (def.unit || 'g').toLowerCase();
       let buyUnit = 'kg';
-      let buyPrice = (def.cost * 1000).toFixed(2);
-      let unitCostStr = `${def.cost.toFixed(4)} DH/g`;
+      let buyPrice = ((normUnit === 'kg' && def.cost >= 1) ? def.cost : def.cost * 1000).toFixed(2);
+      let unitCostStr = `${((normUnit === 'kg' && def.cost >= 1) ? def.cost / 1000 : def.cost).toFixed(4)} DH/g`;
 
-      if (def.unit === 'ml') {
+      if (normUnit === 'ml' || normUnit === 'l') {
         buyUnit = 'Litre (L)';
-        buyPrice = (def.cost * 1000).toFixed(2);
-        unitCostStr = `${def.cost.toFixed(4)} DH/ml`;
-      } else if (def.unit === 'piece') {
+        buyPrice = ((normUnit === 'l' && def.cost >= 1) ? def.cost : def.cost * 1000).toFixed(2);
+        unitCostStr = `${((normUnit === 'l' && def.cost >= 1) ? def.cost / 1000 : def.cost).toFixed(4)} DH/ml`;
+      } else if (normUnit === 'piece') {
         buyUnit = 'Pièce (p)';
         buyPrice = def.cost.toFixed(2);
         unitCostStr = `${def.cost.toFixed(2)} DH/u`;
       }
 
+      const esc = window.escapeHtml || (s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'));
       return `
         <tr style="border-bottom:1px solid var(--border, #e2e8f0);">
-          <td style="padding:8px 14px; font-weight:700;">${label} <span style="font-size:10.5px; color:var(--muted, #64748b); font-weight:normal;">(${k})</span></td>
+          <td style="padding:8px 14px; font-weight:700;">${esc(label)} <span style="font-size:10.5px; color:var(--muted, #64748b); font-weight:normal;">(${esc(k)})</span></td>
           <td style="padding:8px 14px; text-align:center;"><span style="display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; background:rgba(2, 132, 199, 0.08); color:#0284c7; font-weight:700;">${buyUnit}</span></td>
           <td style="padding:8px 14px; text-align:right;">
-            <input type="number" step="0.1" value="${buyPrice}" data-ing-key="${k}" data-unit="${def.unit}" style="width:110px; padding:5px 8px; text-align:right; font-weight:800; border:1px solid var(--border, #e2e8f0); border-radius:6px; background:var(--bg, #f8fafc); color:var(--text, #0f172a);" oninput="window.GC_PricesModal.onPriceInput(this)" />
+            <input type="number" step="0.1" value="${buyPrice}" data-ing-key="${esc(k)}" data-unit="${esc(def.unit)}" style="width:110px; padding:5px 8px; text-align:right; font-weight:800; border:1px solid var(--border, #e2e8f0); border-radius:6px; background:var(--bg, #f8fafc); color:var(--text, #0f172a);" oninput="window.GC_PricesModal.onPriceInput(this)" />
             <span style="font-size:11px; font-weight:700; color:var(--muted, #64748b); margin-left:4px;">DH</span>
           </td>
           <td style="padding:8px 14px; text-align:right; font-weight:700; color:var(--muted, #64748b);" class="unit-cost-preview">${unitCostStr}</td>
@@ -178,14 +180,15 @@
   function onPriceInput(input) {
     const row = input.closest('tr');
     const preview = row ? row.querySelector('.unit-cost-preview') : null;
-    const unit = input.getAttribute('data-unit');
+    const unit = (input.getAttribute('data-unit') || 'g').toLowerCase();
     const k = input.getAttribute('data-ing-key');
     const val = parseFloat(input.value) || 0;
 
     // Mise à jour immédiate en mémoire (évite la perte lors d'un filtrage dans la barre de recherche)
     if (k && window.INGREDIENT_UNIT_COSTS && window.INGREDIENT_UNIT_COSTS[k]) {
-      if (unit === 'g' || unit === 'ml') {
+      if (unit === 'g' || unit === 'kg' || unit === 'ml' || unit === 'l') {
         window.INGREDIENT_UNIT_COSTS[k].cost = val / 1000;
+        window.INGREDIENT_UNIT_COSTS[k].unit = (unit === 'ml' || unit === 'l') ? 'ml' : 'g';
       } else {
         window.INGREDIENT_UNIT_COSTS[k].cost = val;
       }
@@ -193,9 +196,9 @@
     }
 
     if (preview) {
-      if (unit === 'g') {
+      if (unit === 'g' || unit === 'kg') {
         preview.textContent = `${(val / 1000).toFixed(4)} DH/g`;
-      } else if (unit === 'ml') {
+      } else if (unit === 'ml' || unit === 'l') {
         preview.textContent = `${(val / 1000).toFixed(4)} DH/ml`;
       } else {
         preview.textContent = `${val.toFixed(2)} DH/u`;
@@ -292,7 +295,10 @@
 
         if (window.INGREDIENT_UNIT_COSTS[k]) {
           const oldCost = window.INGREDIENT_UNIT_COSTS[k].cost || 0;
-          const newCost = (unit === 'g' || unit === 'ml') ? (buyPrice / 1000) : buyPrice;
+          const uLow = (unit || 'g').toLowerCase();
+          const newCost = (uLow === 'g' || uLow === 'kg' || uLow === 'ml' || uLow === 'l') ? (buyPrice / 1000) : buyPrice;
+          if (uLow === 'kg') window.INGREDIENT_UNIT_COSTS[k].unit = 'g';
+          if (uLow === 'l') window.INGREDIENT_UNIT_COSTS[k].unit = 'ml';
           if (Math.abs(oldCost - newCost) > 0.00001) {
             window.INGREDIENT_UNIT_COSTS[k].cost = newCost;
             modifiedKeys.add(k);

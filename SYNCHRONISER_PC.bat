@@ -7,12 +7,12 @@ echo ======================================================================
 echo    GREY CORNER - SYNCHRONISATION COMPLETE (SUPABASE <-> PC <-> GITHUB)
 echo ======================================================================
 echo.
-echo [1/4] Synchronisation des donnees depuis Supabase Cloud...
-node scripts/pull-supabase.js 2>nul
+echo [1/4] Telechargement des modifications faites depuis GitHub...
+git pull --rebase --autostash origin main
 
 echo.
-echo [2/4] Telechargement des modifications faites depuis le web/mobile...
-git pull --rebase origin main
+echo [2/4] Synchronisation des donnees depuis Supabase Cloud...
+node scripts/pull-supabase.js 2>nul
 
 echo.
 echo [3/4] Verification des modifications locales du PC...

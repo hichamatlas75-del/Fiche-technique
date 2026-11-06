@@ -281,7 +281,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (confirm('Voulez-vous réinitialiser toutes les fiches techniques aux valeurs d\'origine ?')) {
       localStorage.removeItem('gc_recipes_db_v4');
       localStorage.removeItem(GC_STORAGE_KEYS.RECIPES);
+      localStorage.removeItem(GC_STORAGE_KEYS.COMP_EDITS);
+      localStorage.removeItem(GC_STORAGE_KEYS.DELETED);
       localStorage.removeItem('gc_recipes_db_version');
+      window.activeRecipes = null;
+      if (typeof activeRecipes !== 'undefined') activeRecipes = [];
       loadRecipes();
       renderRecipeList();
       recalculateCurrentView();

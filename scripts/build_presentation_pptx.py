@@ -5,7 +5,7 @@ from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.enum.shapes import MSO_SHAPE
 
-workspace_dir = r'c:\Users\mplp000\OneDrive\Dokumente\GitHub\Fiche-technique'
+workspace_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 assets_dir = os.path.join(workspace_dir, 'assets_presentation')
 pptx_path = os.path.join(workspace_dir, 'Guide_Pratique_FoodCost_MenuEngineering.pptx')
 

@@ -205,12 +205,17 @@
         const aliasMap = window.ALIAS_MAP || {};
         salesRows.forEach(r => {
           if (r && r.product) {
-            const aliasTarget = aliasMap[r.product] || r.product;
-            const p = cleanText(aliasTarget);
-            salesMap[p] = (salesMap[p] || 0) + (parseFloat(r.qty) || 0);
             const directClean = cleanText(r.product);
+            const rawLower = String(r.product).toLowerCase().trim();
+            const aliasTarget = aliasMap[r.product] || aliasMap[rawLower] || aliasMap[directClean] || r.product;
+            const p = cleanText(aliasTarget);
+            const qty = parseFloat(r.qty) || 0;
+            salesMap[p] = (salesMap[p] || 0) + qty;
+            if (aliasTarget && aliasTarget !== p) {
+              salesMap[aliasTarget] = (salesMap[aliasTarget] || 0) + qty;
+            }
             if (directClean !== p) {
-              salesMap[directClean] = (salesMap[directClean] || 0) + (parseFloat(r.qty) || 0);
+              salesMap[directClean] = (salesMap[directClean] || 0) + qty;
             }
           }
         });
@@ -218,7 +223,8 @@
         data.forEach(cat => {
           (cat.items || []).forEach(item => {
             const itemClean = cleanText(item.name);
-            const count = salesMap[itemClean] || 0;
+            const itemIdClean = item.id ? cleanText(item.id) : '';
+            const count = (item.id && salesMap[item.id]) || (itemIdClean && salesMap[itemIdClean]) || salesMap[itemClean] || 0;
             if (count > 0 && Array.isArray(item.tech)) {
               item.tech.forEach(line => {
                 const parts = line.split(':');

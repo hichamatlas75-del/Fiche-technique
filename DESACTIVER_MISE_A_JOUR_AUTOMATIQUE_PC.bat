@@ -9,8 +9,11 @@ echo ======================================================================
 echo.
 schtasks /delete /tn "GreyCorner_AutoPull_PC" /f >nul 2>&1
 schtasks /delete /tn "GreyCorner_AutoPull_Daily" /f >nul 2>&1
+if exist "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\GreyCorner_AutoUpdate.lnk" (
+    del /f /q "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\GreyCorner_AutoUpdate.lnk" >nul 2>&1
+)
 
-echo [INFO] Les taches automatiques ont ete retirees.
+echo [INFO] Les taches automatiques et le raccourci de demarrage ont ete retires.
 echo Vous pouvez toujours utiliser METTRE_A_JOUR_PC.bat manuellement.
 echo.
 pause

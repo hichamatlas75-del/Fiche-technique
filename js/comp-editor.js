@@ -587,6 +587,9 @@ function resetRecipeToInitial(p1, p2) {
   window.hasUnsavedChanges = true;
 
   recipe.greyCorner.tech = JSON.parse(JSON.stringify(recipe.initialTech));
+  if (typeof recipe.initialSellPrice === 'number') {
+    recipe.sellPrice = recipe.initialSellPrice;
+  }
 
   // Rétablir également dans gc_recipes_db_v5 si présent
   try {
@@ -599,6 +602,10 @@ function resetRecipeToInitial(p1, p2) {
       if (found) {
         found.tech = recipe.greyCorner.tech.slice();
         found.ingredients = recipe.greyCorner.tech.slice();
+        if (typeof recipe.initialSellPrice === 'number') {
+          found.sellPrice = recipe.initialSellPrice;
+          found.price = recipe.initialSellPrice + ' DH';
+        }
         const calc = window.calculateRecipeFoodCost(found.tech, found.sellPrice || recipe.sellPrice);
         found.cost = calc.cost;
         found.foodCost = calc.foodCost;
@@ -615,7 +622,21 @@ function resetRecipeToInitial(p1, p2) {
   recipe.greyCorner.margin = costObj.margin;
   recipe.greyCorner.grossMarginDH = costObj.grossMarginDH;
   recipe.greyCorner.breakdown = costObj.breakdown;
-  recipe.standard.diffDH = Math.round((recipe.greyCorner.cost - recipe.standard.cost) * 100) / 100;
+  if (recipe.standard) {
+    const stdCostObj = window.calculateRecipeFoodCost(recipe.standard.tech, recipe.sellPrice);
+    recipe.standard.cost = stdCostObj.cost;
+    recipe.standard.foodCost = stdCostObj.foodCost;
+    recipe.standard.margin = stdCostObj.margin;
+    recipe.standard.grossMarginDH = stdCostObj.grossMarginDH;
+    recipe.standard.diffDH = Math.round((recipe.greyCorner.cost - recipe.standard.cost) * 100) / 100;
+  }
+
+  // Mettre à jour le champ input prix de vente sur la carte DOM
+  const cardEl = document.getElementById(`card-${cardIdx}`);
+  if (cardEl) {
+    const priceInput = cardEl.querySelector('.sell-price-input');
+    if (priceInput) priceInput.value = recipe.sellPrice;
+  }
 
   // Mise à jour fluide de la carte unique sans tout reconstruire
   updateSingleCardEditor(cardIdx, recipe);

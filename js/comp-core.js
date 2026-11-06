@@ -240,7 +240,8 @@ var hasUnsavedChanges = false; // AM-03: suivi des modifications non sauvegardé
         processedRecipeNames.add(cTarget);
 
         const initialTech = JSON.parse(JSON.stringify(item.tech || []));
-        var sellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
+        const initialSellPrice = parseFloat(String(item.price || item.sellPrice || 0).replace(/[^0-9.]/g, '')) || 0;
+        var sellPrice = initialSellPrice;
         
         // Fiche Grey Corner (priorité aux modifications enregistrées, puis base Déstockage)
         const userEdit = editedRecipes[item.name] || cleanEditsMap.get(cTarget);
@@ -272,10 +273,12 @@ var hasUnsavedChanges = false; // AM-03: suivi des modifications non sauvegardé
         const diffDH = Math.round((gcCostObj.cost - standardCostObj.cost) * 100) / 100;
 
         allRecipes.push({
+          id: item.id,
           category: catName,
           name: item.name,
           image: item.image || (item.images ? item.images.split(',')[0] : null),
           sellPrice: sellPrice,
+          initialSellPrice: initialSellPrice,
           initialTech: initialTech,
           greyCorner: {
             tech: currentTech,
@@ -387,11 +390,13 @@ var hasUnsavedChanges = false; // AM-03: suivi des modifications non sauvegardé
       'DESSERTS & PÂTISSERIES': '🍰 Desserts'
     };
 
+    const esc = window.escapeHtml || (s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'));
     bar.innerHTML = categories.map(cat => {
-      const label = categoryIcons[cat] || cat;
+      const label = categoryIcons[cat] || esc(cat);
       const count = cat === 'ALL' ? allRecipes.length : allRecipes.filter(r => r.category === cat).length;
       const isActive = currentCategory === cat ? 'active' : '';
-      return `<button class="cat-pill ${isActive}" onclick="window.setComparatorCategory('${cat}')">
+      const safeCatJs = String(cat).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      return `<button class="cat-pill ${isActive}" data-cat="${esc(cat)}" onclick="window.setComparatorCategory('${safeCatJs}')">
         ${label} <span class="pill-count">(${count})</span>
       </button>`;
     }).join('');

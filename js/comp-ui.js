@@ -67,10 +67,19 @@ var currentComparatorMainView = 'recipes'; // 'recipes', 'ai', 'table'
   };
 
   window.setCategoryFromDrawer = function(cat) {
-    currentCategory = cat;
+    const catAliases = {
+      'PIZZAS': 'PIZZA',
+      'PATES': 'PÂTES',
+      'BURGER': 'BURGERS',
+      'CREPES': 'CRÊPES',
+      'PETIT DEJEUNER': 'PETIT DÉJEUNER'
+    };
+    const resolvedCat = catAliases[cat] || cat;
+    currentCategory = resolvedCat;
+    window.currentCategory = resolvedCat;
     window.setComparatorMainView('recipes');
     document.querySelectorAll('.cat-pill').forEach(pill => {
-      if (pill.dataset.cat === cat) {
+      if (pill.dataset.cat === resolvedCat) {
         pill.classList.add('active');
         if (typeof pill.scrollIntoView === 'function') {
           pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
@@ -294,8 +303,8 @@ var rowsHTML = filtered.map((recipe, idx) => {
         <!-- HEADER DU PLAT -->
         <div class="card-top-bar">
           <div class="card-title-group">
-            <span class="cat-tag">${recipe.category}</span>
-            <h3 class="dish-title">${recipe.name}</h3>
+            <span class="cat-tag">${escapeHtml(recipe.category)}</span>
+            <h3 class="dish-title">${escapeHtml(recipe.name)}</h3>
           </div>
           <div class="card-price-group">
             <span class="sell-price-tag" style="display:inline-flex; align-items:center; gap:6px;">

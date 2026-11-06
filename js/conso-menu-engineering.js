@@ -596,13 +596,14 @@ function renderMenuEngineeringHologram() {
   const totalProfit = menuEngData.reduce((acc, i) => acc + i.totalProfitDH, 0);
   const avgGrossMargin = totalVolume > 0 ? (totalProfit / totalVolume) : 0;
   const avgQty = menuEngData.length > 0 ? (totalVolume / menuEngData.length) : 0;
+  const popThreshold = avgQty * 0.70; // Seuil de popularité Kasavana & Smith (70% de la moyenne)
 
   const gmRange = Math.max(1, maxGM - minGM);
-  const threshX = padLeft + Math.min(plotW, (avgQty / maxQty) * plotW);
+  const threshX = padLeft + Math.min(plotW, (popThreshold / maxQty) * plotW);
   const threshY = padTop + plotH - Math.max(0, Math.min(plotH, ((avgGrossMargin - minGM) / gmRange) * plotH));
 
   // 2. Lignes laser des seuils et étiquettes des 4 quadrants
-  drawSimpleHoloThresholds(ctx, padLeft, padTop, plotW, plotH, threshX, threshY, avgGrossMargin, avgQty);
+  drawSimpleHoloThresholds(ctx, padLeft, padTop, plotW, plotH, threshX, threshY, avgGrossMargin, popThreshold);
 
   // 3. Faisceau laser de balayage scanner
   if (hologramScanActive) {
@@ -1261,14 +1262,17 @@ window.toggleHologramBeams = toggleHologramBeams;
 
 function renderSummaryTopIngredientsPodium() {
   const container = document.getElementById('summary-top-ingredients-podium');
+  if (!container) return;
   if (!aggregatedIngredients || aggregatedIngredients.length === 0) {
     container.style.display = 'none';
     return;
   }
 
+  const getIngQty = (ing) => (typeof ing.totalQty === 'number' ? ing.totalQty : (ing.qty || 0));
+
   const top4 = [...aggregatedIngredients]
-    .filter(ing => ing.qty > 0)
-    .sort((a, b) => b.qty - a.qty)
+    .filter(ing => getIngQty(ing) > 0)
+    .sort((a, b) => getIngQty(b) - getIngQty(a))
     .slice(0, 4);
 
   if (top4.length === 0) {
@@ -1277,9 +1281,17 @@ function renderSummaryTopIngredientsPodium() {
   }
 
   const medals = ['🥇', '🥈', '🥉', '🏅'];
-  const totalWeight = top4.reduce((acc, x) => acc + x.qty, 0);
 
   container.innerHTML = top4.map((ing, idx) => {
+    let displayQty = getIngQty(ing);
+    let displayUnit = ing.unit || 'g';
+    if (displayUnit === 'g' && displayQty >= 1000) {
+      displayQty = displayQty / 1000;
+      displayUnit = 'Kg';
+    } else if (displayUnit === 'ml' && displayQty >= 1000) {
+      displayQty = displayQty / 1000;
+      displayUnit = 'L';
+    }
     return `
       <div class="podium-ing-card">
         <span class="pod-rank">${medals[idx]}</span>
@@ -1288,7 +1300,7 @@ function renderSummaryTopIngredientsPodium() {
           <div class="pod-cat">${escapeHtml(ing.category || 'Épicerie')}</div>
         </div>
         <div>
-          <div class="pod-qty">${ing.qty.toLocaleString('fr-FR', { maximumFractionDigits: 1 })} <span style="font-size:13px; font-weight:700;">${ing.unit}</span></div>
+          <div class="pod-qty">${displayQty.toLocaleString('fr-FR', { maximumFractionDigits: 2 })} <span style="font-size:13px; font-weight:700;">${displayUnit}</span></div>
           <div style="font-size:11px; color:var(--muted); margin-top:2px;">Consommé sur la période</div>
         </div>
       </div>

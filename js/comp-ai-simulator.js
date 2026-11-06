@@ -127,7 +127,7 @@
     };
   };
 
-  window.applyGrammageToRecipe = function(recipeName, ingTarget, newQty, unit, silent) {
+  window.applyGrammageToRecipe = function(recipeName, ingTarget, newQty, unit, silent, batchMode) {
     const cleanFn = window.cleanText || (s => String(s || '').toLowerCase().trim());
     const decodedName = (typeof recipeName === 'string' && recipeName.includes('%')) ? decodeURIComponent(recipeName) : recipeName;
     const decodedIng = (typeof ingTarget === 'string' && ingTarget.includes('%')) ? decodeURIComponent(ingTarget) : ingTarget;
@@ -158,7 +158,7 @@
       updatedAt: Date.now()
     };
     window.editedRecipes = edits;
-    if (typeof window.saveEdits === 'function') window.saveEdits(true);
+    if (!batchMode && typeof window.saveEdits === 'function') window.saveEdits(true);
 
     // Recalculer le food cost & standard diff
     if (typeof window.calculateRecipeFoodCost === 'function') {
@@ -177,9 +177,11 @@
       window.GC_Toast.show(`⚖️ Portion ajustée : ${ingLabel} réglé à ${newQty}${finalUnit} sur "${recipe.name}" !`, 'success');
     }
 
-    if (typeof window.updateSimulationView === 'function') window.updateSimulationView();
-    if (typeof window.renderRecipeCards === 'function') window.renderRecipeCards();
-    if (typeof window.renderComparatorTable === 'function') window.renderComparatorTable();
+    if (!batchMode) {
+      if (typeof window.updateSimulationView === 'function') window.updateSimulationView();
+      if (typeof window.renderRecipeCards === 'function') window.renderRecipeCards();
+      if (typeof window.renderComparatorTable === 'function') window.renderComparatorTable();
+    }
   };
 
   window.applyBatchSimulatedGrammage = function() {
@@ -206,8 +208,10 @@
     if (!confirmed) return;
 
     sim.affectedDishes.forEach(d => {
-      window.applyGrammageToRecipe(d.name, sim.ingredient, d.newQty, d.unit, true);
+      window.applyGrammageToRecipe(d.name, sim.ingredient, d.newQty, d.unit, true, true);
     });
+
+    if (typeof window.saveEdits === 'function') window.saveEdits(true);
 
     if (typeof window.GC_Toast !== 'undefined') {
       window.GC_Toast.show(`⚡ Ajustement groupé réussi : ${sim.count} fiches mises à jour avec le nouveau grammage de ${sim.ingredient} !`, 'success');

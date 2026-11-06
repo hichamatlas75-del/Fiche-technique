@@ -216,7 +216,10 @@
           data.forEach(item => {
             if (!item || !item.id) return;
             const costVal = Number(item.cost) || 0;
-            const unitVal = item.unit || 'kg';
+            let rawUnit = (item.unit || 'g').toLowerCase();
+            if (rawUnit === 'kg' && costVal < 1) rawUnit = 'g';
+            if (rawUnit === 'l' && costVal < 1) rawUnit = 'ml';
+            const unitVal = rawUnit;
             const labelVal = item.label || item.id;
 
             global.INGREDIENT_UNIT_COSTS[item.id] = {
@@ -362,7 +365,7 @@
             rows.push({
               id: k,
               cost: typeof def.cost === 'number' ? def.cost : 0,
-              unit: def.unit || 'kg',
+              unit: def.unit || 'g',
               label: def.label || k,
               category: def.category || 'Général',
               updated_at: new Date().toISOString()
@@ -396,7 +399,7 @@
           rows.push({
             id: id,
             cost: typeof def.cost === 'number' ? def.cost : 0,
-            unit: def.unit || 'kg',
+            unit: def.unit || 'g',
             label: def.label || id,
             updated_at: new Date().toISOString()
           });
@@ -653,12 +656,37 @@
 
 
     /**
-     * Supprime ou désactive une fiche technique de Supabase Cloud
+     * Supprime ou désactive une fiche technique de Supabase Cloud (BUG-09 FIX : résolution de l'ID réel)
      */
     deleteRecipeFromCloud: async function(id, name) {
       try {
-        const rowId = (id && !id.startsWith('rec_')) ? id : (name ? ('_' + name.toLowerCase().replace(/[^a-z0-9]/g, '_')) : '');
-        const url = SUPABASE_CONFIG.url + '/rest/v1/recipes?' + (rowId ? `id=eq.${encodeURIComponent(rowId)}` : `name=eq.${encodeURIComponent(name)}`);
+        const cleanFn = global.cleanText || (s => String(s || '').toLowerCase().trim());
+        const targetName = name || id || '';
+        const targetClean = cleanFn(targetName);
+
+        let resolvedId = (id && !id.startsWith('rec_') && id !== name) ? id : '';
+        if (!resolvedId && targetClean) {
+          const baseList = global.BASE_RECIPES || (typeof window !== 'undefined' && window.BASE_RECIPES) || [];
+          const foundBase = baseList.find(r => r && (r.id === id || cleanFn(r.name) === targetClean));
+          if (foundBase && foundBase.id) {
+            resolvedId = foundBase.id;
+          }
+        }
+        if (!resolvedId && targetClean) {
+          const dataList = global.DATA || (typeof window !== 'undefined' && window.DATA) || [];
+          for (const cat of dataList) {
+            const foundItem = (cat.items || []).find(it => it && (it.id === id || cleanFn(it.name) === targetClean));
+            if (foundItem && foundItem.id) {
+              resolvedId = foundItem.id;
+              break;
+            }
+          }
+        }
+
+        const queryParam = resolvedId
+          ? `id=eq.${encodeURIComponent(resolvedId)}`
+          : `name=eq.${encodeURIComponent(targetName)}`;
+        const url = SUPABASE_CONFIG.url + '/rest/v1/recipes?' + queryParam;
         const res = await this.fetchWithFallback(url, {
           method: 'DELETE'
         });
@@ -880,7 +908,10 @@
             if (payload.new && payload.new.id) {
               if (!global.INGREDIENT_UNIT_COSTS) global.INGREDIENT_UNIT_COSTS = {};
               const costVal = Number(payload.new.cost) || 0;
-              const unitVal = payload.new.unit || 'kg';
+              let rawUnit = (payload.new.unit || 'g').toLowerCase();
+              if (rawUnit === 'kg' && costVal < 1) rawUnit = 'g';
+              if (rawUnit === 'l' && costVal < 1) rawUnit = 'ml';
+              const unitVal = rawUnit;
               const labelVal = payload.new.label || payload.new.id;
 
               global.INGREDIENT_UNIT_COSTS[payload.new.id] = {

@@ -26,9 +26,9 @@ REPO_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONFIG_PATH = os.path.join(REPO_DIR, "config", "telegram_config.json")
 VENTES_DIR = os.path.join(REPO_DIR, "ventes")
 
-# Identifiants de repli (SSOT bot Grey Corner)
-DEFAULT_BOT_TOKEN = "8486156814:AAGcve2m4GkkvaH-J4N9SU2XaBnZJ0wv-LM"
-DEFAULT_CHAT_ID = "1168694845"
+# Identifiants chargés depuis les variables d'environnement ou config/telegram_config.json local (SEC-01 FIX)
+DEFAULT_BOT_TOKEN = ""
+DEFAULT_CHAT_ID = ""
 
 def load_config():
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
@@ -43,7 +43,6 @@ def load_config():
         except Exception as e:
             print(f"[!] Erreur lecture config Telegram: {e}")
 
-    # Fallback automatique garanti pour exécution GitHub Actions et locale
     bot_token = bot_token or DEFAULT_BOT_TOKEN
     chat_id = chat_id or DEFAULT_CHAT_ID
 
@@ -51,11 +50,6 @@ def load_config():
 
 def parse_sales_excel(file_path):
     if not os.path.exists(file_path):
-        return None
-    try:
-        import xlrd
-    except ImportError:
-        print("[!] xlrd n'est pas disponible pour lire le fichier Excel.")
         return None
 
     d_match = re.search(r'(\d{8})', os.path.basename(file_path))
@@ -72,25 +66,45 @@ def parse_sales_excel(file_path):
         d = date_key[6:8]
         friendly_date = f"{int(d)} {months_fr.get(m_code, m_code)} {yr}"
 
-    wb = xlrd.open_workbook(file_path)
-    sh = wb.sheet_by_index(0)
+    rows_data = []
+    if file_path.lower().endswith('.xlsx'):
+        try:
+            import openpyxl
+            wb = openpyxl.load_workbook(file_path, data_only=True)
+            sh = wb.active
+            for row in list(sh.iter_rows(values_only=True))[1:]:
+                if row:
+                    rows_data.append(list(row) + [None] * max(0, 5 - len(row)))
+        except Exception as e:
+            print(f"[!] Erreur lecture .xlsx ({file_path}): {e}")
+            return None
+    else:
+        try:
+            import xlrd
+            wb = xlrd.open_workbook(file_path)
+            sh = wb.sheet_by_index(0)
+            for r in range(1, sh.nrows):
+                rows_data.append([sh.cell_value(r, c) if c < sh.ncols else '' for c in range(5)])
+        except Exception as e:
+            print(f"[!] Erreur lecture .xls ({file_path}): {e}")
+            return None
 
     aggregated = {}
-    for r in range(1, sh.nrows):
-        fam = str(sh.cell_value(r, 0)).strip()
-        prod = str(sh.cell_value(r, 1)).strip()
+    for row_vals in rows_data:
+        fam = str(row_vals[0] if row_vals[0] is not None else '').strip()
+        prod = str(row_vals[1] if row_vals[1] is not None else '').strip()
         if not prod or prod.upper() in ['TOTAL', 'SOMME', 'MONTANT']:
             continue
         try:
-            price = float(sh.cell_value(r, 2))
+            price = float(row_vals[2])
         except Exception:
             price = 0.0
         try:
-            qty = float(sh.cell_value(r, 3))
+            qty = float(row_vals[3])
         except Exception:
             qty = 1.0
         try:
-            total = float(sh.cell_value(r, 4))
+            total = float(row_vals[4])
         except Exception:
             total = qty * price
 

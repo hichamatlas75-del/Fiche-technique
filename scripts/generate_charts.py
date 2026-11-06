@@ -4,7 +4,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 
-workspace_dir = r'c:\Users\mplp000\OneDrive\Dokumente\GitHub\Fiche-technique'
+workspace_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 assets_dir = os.path.join(workspace_dir, 'assets_presentation')
 os.makedirs(assets_dir, exist_ok=True)
 

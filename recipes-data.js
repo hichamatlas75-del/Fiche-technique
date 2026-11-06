@@ -1,6 +1,6 @@
 /**
  * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes
- * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-09-13T19:39:28.064Z
+ * Source Unique de Vérité (SSOT) mise à jour automatiquement le 2026-11-06T10:59:31.791Z
  */
 
 (function(global) {
@@ -2061,11 +2061,11 @@ const DATA = [
           "Noix de coco râpée : 10 g"
         ],
         "price": "48 DH",
-        "cost": 6,
+        "cost": 11,
         "sellPrice": 48,
-        "foodCost": 12.5,
-        "margin": 87.5,
-        "grossMarginDH": 42,
+        "foodCost": 22.9,
+        "margin": 77.1,
+        "grossMarginDH": 37,
         "__key": "sm",
         "__images": [
           "images/smoothiebowl-exotic.webp"
@@ -3262,7 +3262,7 @@ const DATA = [
         "image": "images/petit-dej_mquilafruitdemer.jpeg",
         "prepTime": 12,
         "tech": [
-          "crevettes : 140 g",
+          "crevettes CHAIR : 50 g",
           "calamars : 120 g",
           "moules : 80 g",
           "Œufs : 2 p",
@@ -3272,17 +3272,17 @@ const DATA = [
           "Bouteille Eau Minérale 33cl : 1 p"
         ],
         "price": "78 DH",
-        "cost": 28.65,
+        "cost": 30.75,
         "sellPrice": 78,
-        "foodCost": 36.7,
-        "margin": 63.3,
-        "grossMarginDH": 49.35,
+        "foodCost": 39.4,
+        "margin": 60.6,
+        "grossMarginDH": 47.25,
         "__key": "pdj",
         "__images": [
           "images/petit-dej_mquilafruitdemer.jpeg"
         ],
         "ingredients": [
-          "crevettes : 140 g",
+          "crevettes CHAIR : 50 g",
           "calamars : 120 g",
           "moules : 80 g",
           "Œufs : 2 p",
@@ -3827,7 +3827,7 @@ const DATA = [
         "images": "images/entree-croustillon.jpg,images/entree-croustillon2.jpg,images/entree-croustillon3.jpg",
         "prepTime": 12,
         "tech": [
-          "Gambas avec coquille : 330 g",
+          "crevettes CHAIR : 122 g",
           "Chapelure : 30 g",
           "Purée : 200 g",
           "Radis : 15 g",
@@ -3835,11 +3835,11 @@ const DATA = [
           "Crème fraîche : 50 g"
         ],
         "price": "68 DH",
-        "cost": 28.15,
+        "cost": 33.97,
         "sellPrice": 68,
-        "foodCost": 41.4,
-        "margin": 58.6,
-        "grossMarginDH": 39.85,
+        "foodCost": 50,
+        "margin": 50,
+        "grossMarginDH": 34.03,
         "__key": "ec",
         "__images": [
           "images/entree-croustillon.jpg",
@@ -3847,7 +3847,7 @@ const DATA = [
           "images/entree-croustillon3.jpg"
         ],
         "ingredients": [
-          "Gambas avec coquille : 330 g",
+          "crevettes CHAIR : 122 g",
           "Chapelure : 30 g",
           "Purée : 200 g",
           "Radis : 15 g",
@@ -3860,7 +3860,7 @@ const DATA = [
         "images": "images/entree-pilpil.jpg,images/entree-pilpil2.jpg",
         "prepTime": 14,
         "tech": [
-          "Gambas avec coquille : 330 g",
+          "crevettes CHAIR : 122 g",
           "Tomate cerise : 60 g",
           "Pesto : 22 g",
           "Huile d’olive : 30 g",
@@ -3869,18 +3869,18 @@ const DATA = [
           "Sauce tomate : 120 g"
         ],
         "price": "68 DH",
-        "cost": 25.4,
+        "cost": 31.22,
         "sellPrice": 68,
-        "foodCost": 37.4,
-        "margin": 62.6,
-        "grossMarginDH": 42.6,
+        "foodCost": 45.9,
+        "margin": 54.1,
+        "grossMarginDH": 36.78,
         "__key": "ec",
         "__images": [
           "images/entree-pilpil.jpg",
           "images/entree-pilpil2.jpg"
         ],
         "ingredients": [
-          "Gambas avec coquille : 330 g",
+          "crevettes CHAIR : 122 g",
           "Tomate cerise : 60 g",
           "Pesto : 22 g",
           "Huile d’olive : 30 g",
@@ -4783,7 +4783,7 @@ const DATA = [
         "price": "64 DH",
         "sellPrice": 64,
         "tech": [
-          "Crevettes   : 150 g",
+          "crevettes CHAIR  : 50 g",
           "Calamar congelé : 120 g",
           "Pesto : 20 g",
           "Mozzarella : 40 g",
@@ -4792,12 +4792,12 @@ const DATA = [
           "Sauce biggy : 30 g"
         ],
         "__key": "pa_panini_fruits_de_mer",
-        "cost": 25.1,
-        "foodCost": 39.2,
-        "margin": 60.8,
-        "grossMarginDH": 38.9,
+        "cost": 26.6,
+        "foodCost": 41.6,
+        "margin": 58.4,
+        "grossMarginDH": 37.4,
         "ingredients": [
-          "Crevettes   : 150 g",
+          "crevettes CHAIR  : 50 g",
           "Calamar congelé : 120 g",
           "Pesto : 20 g",
           "Mozzarella : 40 g",
@@ -4845,7 +4845,7 @@ const DATA = [
         "prepTime": 14,
         "tech": [
           "Pain : 1 p",
-          "Crevette  : 150 g",
+          "crevettes CHAIR  : 50 g",
           "calamar  : 120 g",
           "Sauce cocktail : 50 g",
           "Salade : 20 g",
@@ -4853,18 +4853,18 @@ const DATA = [
           "FRITTES : 200 g"
         ],
         "price": "65 DH",
-        "cost": 22.9,
+        "cost": 24.4,
         "sellPrice": 65,
-        "foodCost": 35.2,
-        "margin": 64.8,
-        "grossMarginDH": 42.1,
+        "foodCost": 37.5,
+        "margin": 62.5,
+        "grossMarginDH": 40.6,
         "__key": "sw",
         "__images": [
           "images/sand-fruitsmer.jpg"
         ],
         "ingredients": [
           "Pain : 1 p",
-          "Crevette  : 150 g",
+          "crevettes CHAIR  : 50 g",
           "calamar  : 120 g",
           "Sauce cocktail : 50 g",
           "Salade : 20 g",
@@ -5407,25 +5407,25 @@ const DATA = [
         "prepTime": 18,
         "tech": [
           "Crème fraîche : 40 ml",
-          "Crevette  : 150 g",
+          "Crevette CHAIR  : 50 g",
           "calamar : 120 g",
           "PATE : 330 g",
           "PESTO : 50 g",
           "MOZZARELLA : 150 g"
         ],
         "price": "88 DH",
-        "cost": 26.95,
+        "cost": 28.45,
         "sellPrice": 88,
-        "foodCost": 30.6,
-        "margin": 69.4,
-        "grossMarginDH": 61.05,
+        "foodCost": 32.3,
+        "margin": 67.7,
+        "grossMarginDH": 59.55,
         "__key": "pz",
         "__images": [
           "images/pizza-fruitsmer.jpg"
         ],
         "ingredients": [
           "Crème fraîche : 40 ml",
-          "Crevette  : 150 g",
+          "Crevette CHAIR  : 50 g",
           "calamar : 120 g",
           "PATE : 330 g",
           "PESTO : 50 g",
@@ -5580,7 +5580,7 @@ const DATA = [
         "prepTime": 15,
         "tech": [
           "Pâtes : 60 g",
-          "Crevettes avec coquille : 145 g",
+          "crevettes CHAIR : 50 g",
           "Calamar congelé : 120 g",
           "Parmesan : 15 g",
           "Huile : 30 g",
@@ -5591,18 +5591,18 @@ const DATA = [
           "mozzarella : 40 g"
         ],
         "price": "78 DH",
-        "cost": 27.05,
+        "cost": 28.85,
         "sellPrice": 78,
-        "foodCost": 34.7,
-        "margin": 65.3,
-        "grossMarginDH": 50.95,
+        "foodCost": 37,
+        "margin": 63,
+        "grossMarginDH": 49.15,
         "__key": "pae",
         "__images": [
           "images/lasagne-fruitdemer.jpeg"
         ],
         "ingredients": [
           "Pâtes : 60 g",
-          "Crevettes avec coquille : 145 g",
+          "crevettes CHAIR : 50 g",
           "Calamar congelé : 120 g",
           "Parmesan : 15 g",
           "Huile : 30 g",
@@ -5811,16 +5811,16 @@ const DATA = [
           "Pâtes : 125 g",
           "Crème fraîche : 200 ml",
           "Parmesan : 30 g",
-          "Crevette  : 150 g",
+          "Crevette CHAIR : 50 g",
           "calamar  : 120 g",
           "PESTO : 50 g"
         ],
         "price": "88 DH",
-        "cost": 31.75,
+        "cost": 33.25,
         "sellPrice": 88,
-        "foodCost": 36.1,
-        "margin": 63.9,
-        "grossMarginDH": 56.25,
+        "foodCost": 37.8,
+        "margin": 62.2,
+        "grossMarginDH": 54.75,
         "__key": "pae",
         "__images": [
           "images/pasta-fruitsmer.jpg"
@@ -5829,7 +5829,7 @@ const DATA = [
           "Pâtes : 125 g",
           "Crème fraîche : 200 ml",
           "Parmesan : 30 g",
-          "Crevette  : 150 g",
+          "Crevette CHAIR : 50 g",
           "calamar  : 120 g",
           "PESTO : 50 g"
         ]
@@ -5980,11 +5980,11 @@ const DATA = [
           "Sucre glace : 5 g"
         ],
         "price": "40 DH",
-        "cost": 17.58,
+        "cost": 5.82,
         "sellPrice": 40,
-        "foodCost": 43.9,
-        "margin": 56.1,
-        "grossMarginDH": 22.42,
+        "foodCost": 14.6,
+        "margin": 85.5,
+        "grossMarginDH": 34.18,
         "__key": "dp",
         "__images": [],
         "ingredients": [
@@ -6085,10 +6085,10 @@ const DATA = [
         ],
         "price": "65 DH",
         "sellPrice": 65,
-        "cost": 21,
-        "foodCost": 32.3,
-        "margin": 67.7,
-        "grossMarginDH": 44,
+        "cost": 19.53,
+        "foodCost": 30,
+        "margin": 70,
+        "grossMarginDH": 45.47,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -6115,10 +6115,10 @@ const DATA = [
         ],
         "price": "50 DH",
         "sellPrice": 50,
-        "cost": 21.1,
-        "foodCost": 42.2,
-        "margin": 57.8,
-        "grossMarginDH": 28.9,
+        "cost": 19.63,
+        "foodCost": 39.3,
+        "margin": 60.7,
+        "grossMarginDH": 30.37,
         "__key": "dp",
         "__images": [
           "images/placeholder.svg"
@@ -6661,22 +6661,22 @@ const DATA = [
         "prepTime": 10,
         "tech": [
           "Pâte à crêpe : 1 p",
-          "Crevettes avec coquille : 145 g",
+          "crevettes CHAIR : 50 g",
           "Calamar congelé : 120 g",
           "Mozzarella : 40 g",
           "creme fraiche : 30 g"
         ],
         "price": "58 DH",
-        "cost": 19.6,
+        "cost": 21.4,
         "sellPrice": 58,
-        "foodCost": 33.8,
-        "margin": 66.2,
-        "grossMarginDH": 38.4,
+        "foodCost": 36.9,
+        "margin": 63.1,
+        "grossMarginDH": 36.6,
         "__key": "cr",
         "__images": [],
         "ingredients": [
           "Pâte à crêpe : 1 p",
-          "Crevettes avec coquille : 145 g",
+          "crevettes CHAIR : 50 g",
           "Calamar congelé : 120 g",
           "Mozzarella : 40 g",
           "creme fraiche : 30 g"
@@ -7766,6 +7766,28 @@ const DATA = [
         "ingredients": [
           "Lben : 250 ml"
         ]
+      },
+      {
+        "id": "sup_supplement_chantilly",
+        "name": "SUPPLÉMENT CHANTILLY",
+        "image": "images/placeholder.svg",
+        "prepTime": 5,
+        "tech": [
+          "Chantilly : 30 g"
+        ],
+        "price": "0 DH",
+        "sellPrice": 0,
+        "cost": 0.9,
+        "foodCost": 0,
+        "margin": 0,
+        "grossMarginDH": 0,
+        "__key": "sup",
+        "__images": [
+          "images/placeholder.svg"
+        ],
+        "ingredients": [
+          "Chantilly : 30 g"
+        ]
       }
     ]
   },
@@ -7894,10 +7916,10 @@ const DATA = [
         ],
         "price": "45 DH",
         "sellPrice": 45,
-        "cost": 2.69,
-        "foodCost": 6,
-        "margin": 94,
-        "grossMarginDH": 42.31,
+        "cost": 10.49,
+        "foodCost": 23.3,
+        "margin": 76.7,
+        "grossMarginDH": 34.51,
         "__key": "alc",
         "__images": [
           "images/placeholder.svg"
@@ -8232,7 +8254,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Charcuterie : 50 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sal_composee_au_choix",
@@ -8247,7 +8270,8 @@ const BASE_RECIPES = [
       "Salade mesclun : 100 g",
       "Garnitures composées : 150 g",
       "Sauce vinaigrette : 30 ml"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "ec_boulettes_poulet",
@@ -11992,7 +12016,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Chantilly : 30 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_supplement_poulet",
@@ -12003,7 +12028,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Poulet émincé : 80 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_supplement_viande",
@@ -12014,7 +12040,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Viande hachée : 80 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_pizza_composee_au_choix",
@@ -12071,7 +12098,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Baghrir : 1 p"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "alc_msemen",
@@ -12082,7 +12110,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Msemen : 1 p"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "alc_viennoiserie",
@@ -12093,7 +12122,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Viennoiserie : 1 p"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "alc_harcha",
@@ -12104,7 +12134,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Harcha : 1 p"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "alc_omlette_fromage",
@@ -12151,7 +12182,8 @@ const BASE_RECIPES = [
       "Champignons : 40 g",
       "Épinards : 30 g",
       "Fromage : 30 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "rec_1788198827952",
@@ -12756,7 +12788,8 @@ const BASE_RECIPES = [
     "tech": [
       "Banane : 100 g",
       "Jus d'orange : 150 ml"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "jf_panache_lait",
@@ -12781,7 +12814,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Orange : 150 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "jf_bettrave",
@@ -12794,7 +12828,8 @@ const BASE_RECIPES = [
     "tech": [
       "Betterave : 150 g",
       "Jus d'orange : 100 ml"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "cr_gaufre_nutella",
@@ -13221,7 +13256,8 @@ const BASE_RECIPES = [
       "Café : 10 g",
       "Eau chaude : 60 ml",
       "Sirop : 15 ml"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "bc_cafe_double",
@@ -13236,7 +13272,8 @@ const BASE_RECIPES = [
       "Café : 18 g",
       "Eau chaude : 100 ml",
       "Sucre : 2 p"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "bc_the_m3achab",
@@ -13251,7 +13288,8 @@ const BASE_RECIPES = [
       "Thé vert : 8 g",
       "Menthe : 15 g",
       "Sucre : 2 p"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "bc_the_americain",
@@ -13264,7 +13302,8 @@ const BASE_RECIPES = [
     "tech": [
       "Sachet thé : 1 p",
       "Eau chaude : 200 ml"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_amlou",
@@ -13275,7 +13314,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Amlou : 40 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_beurre",
@@ -13286,7 +13326,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Beurre : 30 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_cornflex",
@@ -13299,7 +13340,8 @@ const BASE_RECIPES = [
     "tech": [
       "Corn flakes : 40 g",
       "Lait : 100 ml"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_huile_olive",
@@ -13310,7 +13352,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Huile d'olive : 40 ml"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_la_vache_qui_rit",
@@ -13321,7 +13364,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Fromage portion : 2 p"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_3_merguez",
@@ -13345,7 +13389,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Champignon : 60 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_fromage_rouge_taj",
@@ -13356,7 +13401,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Fromage : 40 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_parmesan_fromage",
@@ -13367,7 +13413,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Parmesan : 30 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_amuse_bouche",
@@ -13378,7 +13425,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Fokacha : 300 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_riz",
@@ -13389,7 +13437,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Riz : 150 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_legumes_sautees",
@@ -13402,7 +13451,8 @@ const BASE_RECIPES = [
     "tech": [
       "Légumes variés : 150 g",
       "Huile : 10 ml"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "alc_mssemen_agrich",
@@ -13415,7 +13465,8 @@ const BASE_RECIPES = [
     "tech": [
       "Msemen : 1 p",
       "Griche : 40 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "alc_pain_cereal",
@@ -13426,7 +13477,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Pain céréales : 1 p"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "alc_pain_grille",
@@ -13437,7 +13489,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Pain toast : 2 p"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "alc_berber",
@@ -13466,7 +13519,8 @@ const BASE_RECIPES = [
     "tech": [
       "Pain toast : 2 p",
       "Nutella : 100 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "alc_confiture",
@@ -13477,7 +13531,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Confiture : 40 g"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "sup_lben",
@@ -13488,7 +13543,8 @@ const BASE_RECIPES = [
     ],
     "tech": [
       "Lben : 250 ml"
-    ]
+    ],
+    "sellPrice": 0
   },
   {
     "id": "me_pasta_nature",
@@ -13813,7 +13869,6 @@ const ALIAS_MAP = {
   "roulade de boeuf vh": "pl_roulade_de_boeuf_vh",
   "roulade de bœuf vh": "pl_roulade_de_boeuf_vh",
   "roulade de boeuf": "pl_roulade_de_boeuf_vh",
-  "roulade de viande hachee": "pl_roulade_de_boeuf_vh",
   "roulade de viande hachée": "pl_roulade_de_boeuf_vh",
   "roulade viande hachee": "pl_roulade_de_boeuf_vh",
   "roulade v hache": "pl_roulade_de_boeuf_vh",
@@ -13905,11 +13960,8 @@ const ALIAS_MAP = {
   "veinoierie": "alc_viennoiserie",
   "khlie": "pdj_fassi",
   "mqila": "pdj_mquila_merguez",
-  "mquila fruits mer": "pdj_mquila_fruits_de_mer",
   "tortilla": "pdj_espagnol",
   "divers pt dej": "sup_divers_cuisine_food",
-  "pet-dej mquila": "pdj_mquila_merguez",
-  "pet dej mquila": "pdj_mquila_merguez",
   "sidi ali 33 cl": "ea_eau_minerale_33cl",
   "eau minerale 0.33l": "ea_eau_minerale_33cl",
   "eau minerale 0 33l": "ea_eau_minerale_33cl",
@@ -14024,7 +14076,6 @@ const ALIAS_MAP = {
   "ultra vitamines bowl": "sm_smoothie_bowl_ultra_boost",
   "ultra vitamines": "sm_smoothie_bowl_ultra_boost",
   "san sebastien": "dp_san_sebastien_cheesecake",
-  "san sebastien grey corner": "dp_san_sebastien_cheesecake",
   "cheesecake san sebastian": "dp_san_sebastien_cheesecake",
   "fondant chocolat": "dp_fondant_au_chocolat",
   "cheese cake chocolat": "dp_cheesecake_chocolat",
@@ -14072,7 +14123,6 @@ const ALIAS_MAP = {
   "pet-dej berbere": "pdj_berbere",
   "pet-dej hollandais": "pdj_hollandais",
   "pet-dej espagnol": "pdj_espagnol",
-  "pet-dej mquila merguez": "pdj_mquila_merguez",
   "pet-dej mquila fruits de mer": "pdj_mquila_fruits_de_mer",
   "pet-dej americain": "pdj_petit_dejeuner_americain",
   "americain": "pdj_petit_dejeuner_americain",
@@ -15157,7 +15207,7 @@ const INGREDIENT_UNIT_COSTS = {
     "unit": "piece"
   },
   "pate a pizza": {
-    "cost": 0,
+    "cost": 0.008,
     "unit": "g"
   },
   "pate": {
@@ -16170,8 +16220,11 @@ const INGREDIENT_TYPO_ALIASES = {
   'blanc poulet': 'blanc de poulet',
   'viand hache': 'viande hachee',
   'viand hachee': 'viande hachee',
+  'steak hache': 'viande hachee',
+  'steak hache pur boeuf': 'viande hachee',
   'kefta': 'viande hachee',
-  'steack': 'steak',
+  'steack': 'steak de boeuf',
+  'steak': 'steak de boeuf',
   'crevete': 'crevettes net',
   'crevetes': 'crevettes net',
   'calmar': 'calamar net',
@@ -16186,6 +16239,11 @@ const INGREDIENT_TYPO_ALIASES = {
 
 const cleanStr = (s) => (s || '').toLowerCase().replace(/œ/g, 'oe').replace(/æ/g, 'ae').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
 const stripPlural = (s) => s.split(' ').map(w => w.endsWith('s') && w.length > 3 ? w.slice(0, -1) : w).join(' ');
+const hasWordPhrase = (haystack, needle) => {
+  if (!haystack || !needle) return false;
+  if (haystack === needle) return true;
+  return (' ' + haystack + ' ').indexOf(' ' + needle + ' ') !== -1;
+};
 
 let _cachedCostMap = null;
 let _cachedKeysData = null;
@@ -16262,13 +16320,24 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
 
     let ingDef = costMap[lookupKey] || costMap[normIng] || costMap[normIngSingular] || costMap[expandedIng] || costMap[expandedSingular];
 
-    // 1. Recherche par inclusion de sous-chaîne (exacte ou étendue)
+    // 1. Recherche par inclusion de mots entiers (évite les faux positifs de sous-chaîne ex: boeuf -> oeuf)
     if (!ingDef) {
       for (let i = 0; i < keysData.length; i++) {
         const item = keysData[i];
         const normK = item.normK;
         const normKSingular = item.normKSingular;
-        if (normIng === normK || normIngSingular === normKSingular || normIng.includes(normK) || normK.includes(normIng) || normIngSingular.includes(normKSingular) || normKSingular.includes(normIngSingular) || expandedIng === normK || expandedSingular === normKSingular || expandedIng.includes(normK) || normK.includes(expandedIng)) {
+        if (
+          normIng === normK ||
+          normIngSingular === normKSingular ||
+          hasWordPhrase(normIng, normK) ||
+          hasWordPhrase(normK, normIng) ||
+          hasWordPhrase(normIngSingular, normKSingular) ||
+          hasWordPhrase(normKSingular, normIngSingular) ||
+          expandedIng === normK ||
+          expandedSingular === normKSingular ||
+          hasWordPhrase(expandedIng, normK) ||
+          hasWordPhrase(normK, expandedIng)
+        ) {
           ingDef = costMap[item.key];
           break;
         }
@@ -16332,12 +16401,13 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
     const lMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*l\b/i);
     const pMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*(?:p|piece|tranche|part|boule|sachet|portion|tr|œufs|oeufs)\b/i);
 
-    if (ingDef.unit === 'g') {
+    const defUnit = (ingDef.unit || 'g').toLowerCase();
+    if (defUnit === 'g' || defUnit === 'kg') {
       if (gMatch) qty = parseFloat(gMatch[1].replace(',', '.'));
       else if (kgMatch) qty = parseFloat(kgMatch[1].replace(',', '.')) * 1000;
       else if (pMatch) qty = parseFloat(pMatch[1].replace(',', '.')) * 50;
       else qty = parseFloat(qtyStr.replace(',', '.')) || 1;
-    } else if (ingDef.unit === 'ml') {
+    } else if (defUnit === 'ml' || defUnit === 'l') {
       if (mlMatch) qty = parseFloat(mlMatch[1].replace(',', '.'));
       else if (clMatch) qty = parseFloat(clMatch[1].replace(',', '.')) * 10;
       else if (lMatch) qty = parseFloat(lMatch[1].replace(',', '.')) * 1000;
@@ -16347,6 +16417,10 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
         qty = 1;
       } else if (pMatch) {
         qty = parseFloat(pMatch[1].replace(',', '.'));
+      } else if (gMatch) {
+        qty = parseFloat(gMatch[1].replace(',', '.')) / 50;
+      } else if (kgMatch) {
+        qty = (parseFloat(kgMatch[1].replace(',', '.')) * 1000) / 50;
       } else {
         qty = parseFloat(qtyStr.replace(',', '.')) || 1;
       }

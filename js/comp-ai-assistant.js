@@ -382,7 +382,7 @@ Un <strong>Quick Win</strong> est une correction immédiate de surdosage en cuis
 • <strong>Prix d'Achat Standard :</strong> <strong>${unitCostDH > 0 ? unitCostDH.toFixed(2) + ' DH / ' + unitLabel : 'Donnée mercuriale active'}</strong>.<br>
 • <strong>Présence dans la carte :</strong> Utilisé dans <strong>${matchingDishes.length} fiches techniques</strong>.<br>
 • <strong>Levier de Négociation :</strong> Une baisse négociée de 10% sur cette matière première économise immédiatement de la marge sur ${matchingDishes.length} plats.<br><br>
-<button class="btn btn-primary" style="font-size:11.5px; padding:5px 12px;" onclick="window.simSelectedIngredient='${encodeURIComponent(targetIng.label)}'; window.setAITab('simulator');">
+<button class="btn btn-primary" style="font-size:11.5px; padding:5px 12px;" onclick="window.simSelectedIngredient=decodeURIComponent('${encodeURIComponent(targetIng.label)}'); window.setAITab('simulator');">
   🎛️ Simuler l'impact prix dans What-If
 </button>`;
       }
@@ -855,14 +855,15 @@ ${bdList.length > 0 ? `
 
       fallbackMatches.sort((a, b) => b.score - a.score);
 
+      const esc = window.escapeHtml || (s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'));
       if (fallbackMatches.length > 0) {
         const topMatches = fallbackMatches.slice(0, 6);
-        responseText = `🔍 <strong>Résultats pertinents pour votre recherche « ${rawQ} » (${fallbackMatches.length} fiches trouvées) :</strong><br><br>
+        responseText = `🔍 <strong>Résultats pertinents pour votre recherche « ${esc(rawQ)} » (${fallbackMatches.length} fiches trouvées) :</strong><br><br>
 <div class="ai-chat-cards-list">
   ${topMatches.map((m, idx) => `
     <div class="ai-chat-mini-card">
       <div>
-        <strong>#${idx + 1} ${m.recipe.name}</strong> (${m.recipe.category})<br>
+        <strong>#${idx + 1} ${esc(m.recipe.name)}</strong> (${esc(m.recipe.category)})<br>
         <small style="color:var(--text-muted);">Prix : ${m.recipe.sellPrice} DH | Coût : ${m.recipe.greyCorner.cost.toFixed(2)} DH (FC ${m.recipe.greyCorner.foodCost.toFixed(1)}%)</small>
       </div>
       <div style="text-align:right;">
@@ -874,7 +875,7 @@ ${bdList.length > 0 ? `
 </div>
 ${fallbackMatches.length > 6 ? `<div style="font-size:11.5px; color:var(--text-muted); margin-top:4px;">... et ${fallbackMatches.length - 6} autres plats correspondants.</div>` : ''}`;
       } else {
-        responseText = `🤖 Je n'ai trouvé aucune fiche technique ni ingrédient correspondant exactement à « <strong>${rawQ}</strong> » dans le catalogue.<br><br>
+        responseText = `🤖 Je n'ai trouvé aucune fiche technique ni ingrédient correspondant exactement à « <strong>${esc(rawQ)}</strong> » dans le catalogue.<br><br>
 Voici quelques suggestions que vous pouvez me poser :<br>
 • 🥩 <em>« Quel plat qui contient viande hachée ? »</em><br>
 • 🍕 <em>« Combien avons-nous de pizzas ? »</em><br>

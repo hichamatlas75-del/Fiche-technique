@@ -24,10 +24,10 @@ function isExcludedFromLeastSold(productName, familyName) {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '');
 
-  // 1. Détection via catégorie standard (boisson)
+  // 1. Détection via catégorie standard (boisson, boisson-chaude, boisson-fraiche)
   if (typeof detectProductCategory === 'function') {
     const cat = detectProductCategory(productName, familyName, null);
-    if (cat === 'boisson') return true;
+    if (cat === 'boisson' || cat === 'boisson-chaude' || cat === 'boisson-fraiche') return true;
   }
 
   // 2. Famille / Rayon Boissons & Bar

@@ -28,17 +28,16 @@ if %ERRORLEVEL% EQU 0 (
     powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\organize_and_update_manifest.ps1"
 )
 
-:: 2.bis Synchronisation automatique de la journee de caisse vers Supabase Cloud
-echo [*] Synchronisation automatique du jour de caisse vers Supabase Cloud...
+:: 2.bis Generation de latest_day.json et mise a jour de la synthese
+echo [*] Mise a jour du dernier jour de vente (latest_day.json)...
 where python >nul 2>&1
 if %ERRORLEVEL% EQU 0 (
-    python "%~dp0scripts\sync_sales_to_supabase.py" --latest
-    python "%~dp0scripts\send_telegram_summary.py"
+    python "%~dp0scripts\generate_latest_day.py"
 )
 
 :: 3. Ajout des fichiers a Git
 echo [*] Preparation des commits Git dans ventes/...
-git add ventes/
+git add ventes/ SYNTHESE_DECISIONNELLE_MENU.html
 
 :: 4. Commit s'il y a des nouveaux fichiers ou modifications
 git diff --staged --quiet

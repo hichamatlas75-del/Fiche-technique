@@ -2244,8 +2244,11 @@ const INGREDIENT_TYPO_ALIASES = {
   'blanc poulet': 'blanc de poulet',
   'viand hache': 'viande hachee',
   'viand hachee': 'viande hachee',
+  'steak hache': 'viande hachee',
+  'steak hache pur boeuf': 'viande hachee',
   'kefta': 'viande hachee',
-  'steack': 'steak',
+  'steack': 'steak de boeuf',
+  'steak': 'steak de boeuf',
   'crevete': 'crevettes net',
   'crevetes': 'crevettes net',
   'calmar': 'calamar net',
@@ -2260,6 +2263,11 @@ const INGREDIENT_TYPO_ALIASES = {
 
 const cleanStr = (s) => (s || '').toLowerCase().replace(/œ/g, 'oe').replace(/æ/g, 'ae').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
 const stripPlural = (s) => s.split(' ').map(w => w.endsWith('s') && w.length > 3 ? w.slice(0, -1) : w).join(' ');
+const hasWordPhrase = (haystack, needle) => {
+  if (!haystack || !needle) return false;
+  if (haystack === needle) return true;
+  return (' ' + haystack + ' ').indexOf(' ' + needle + ' ') !== -1;
+};
 
 let _cachedCostMap = null;
 let _cachedKeysData = null;
@@ -2336,13 +2344,24 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
 
     let ingDef = costMap[lookupKey] || costMap[normIng] || costMap[normIngSingular] || costMap[expandedIng] || costMap[expandedSingular];
 
-    // 1. Recherche par inclusion de sous-chaîne (exacte ou étendue)
+    // 1. Recherche par inclusion de mots entiers (évite les faux positifs de sous-chaîne ex: boeuf -> oeuf)
     if (!ingDef) {
       for (let i = 0; i < keysData.length; i++) {
         const item = keysData[i];
         const normK = item.normK;
         const normKSingular = item.normKSingular;
-        if (normIng === normK || normIngSingular === normKSingular || normIng.includes(normK) || normK.includes(normIng) || normIngSingular.includes(normKSingular) || normKSingular.includes(normIngSingular) || expandedIng === normK || expandedSingular === normKSingular || expandedIng.includes(normK) || normK.includes(expandedIng)) {
+        if (
+          normIng === normK ||
+          normIngSingular === normKSingular ||
+          hasWordPhrase(normIng, normK) ||
+          hasWordPhrase(normK, normIng) ||
+          hasWordPhrase(normIngSingular, normKSingular) ||
+          hasWordPhrase(normKSingular, normIngSingular) ||
+          expandedIng === normK ||
+          expandedSingular === normKSingular ||
+          hasWordPhrase(expandedIng, normK) ||
+          hasWordPhrase(normK, expandedIng)
+        ) {
           ingDef = costMap[item.key];
           break;
         }
@@ -2406,12 +2425,13 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
     const lMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*l\b/i);
     const pMatch = qtyStr.match(/(\d+(?:[.,]\d+)?)\s*(?:p|piece|tranche|part|boule|sachet|portion|tr|œufs|oeufs)\b/i);
 
-    if (ingDef.unit === 'g') {
+    const defUnit = (ingDef.unit || 'g').toLowerCase();
+    if (defUnit === 'g' || defUnit === 'kg') {
       if (gMatch) qty = parseFloat(gMatch[1].replace(',', '.'));
       else if (kgMatch) qty = parseFloat(kgMatch[1].replace(',', '.')) * 1000;
       else if (pMatch) qty = parseFloat(pMatch[1].replace(',', '.')) * 50;
       else qty = parseFloat(qtyStr.replace(',', '.')) || 1;
-    } else if (ingDef.unit === 'ml') {
+    } else if (defUnit === 'ml' || defUnit === 'l') {
       if (mlMatch) qty = parseFloat(mlMatch[1].replace(',', '.'));
       else if (clMatch) qty = parseFloat(clMatch[1].replace(',', '.')) * 10;
       else if (lMatch) qty = parseFloat(lMatch[1].replace(',', '.')) * 1000;
@@ -2421,6 +2441,10 @@ function calculateRecipeFoodCost(ingredients, sellPrice) {
         qty = 1;
       } else if (pMatch) {
         qty = parseFloat(pMatch[1].replace(',', '.'));
+      } else if (gMatch) {
+        qty = parseFloat(gMatch[1].replace(',', '.')) / 50;
+      } else if (kgMatch) {
+        qty = (parseFloat(kgMatch[1].replace(',', '.')) * 1000) / 50;
       } else {
         qty = parseFloat(qtyStr.replace(',', '.')) || 1;
       }

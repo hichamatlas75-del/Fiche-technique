@@ -407,6 +407,7 @@ function buildUpdatedRecipesDataJsString() {
     id: r.id,
     name: r.name,
     category: r.category || 'AUTRE',
+    sellPrice: typeof r.sellPrice === 'number' ? r.sellPrice : (parseFloat(r.sellPrice) || 0),
     ingredients: r.ingredients || []
   }));
 
@@ -415,13 +416,55 @@ function buildUpdatedRecipesDataJsString() {
   const unitCostsObj = window.INGREDIENT_UNIT_COSTS || {};
   const fnStr = (typeof calculateRecipeFoodCost === 'function' ? calculateRecipeFoodCost : window.calculateRecipeFoodCost).toString();
 
+  const helpersStr = `function levenshteinIngredientDist(a, b) {
+  if (a === b) return 0;
+  const m = a.length, n = b.length;
+  if (!m) return n;
+  if (!n) return m;
+  if (Math.abs(m - n) > 3) return Math.abs(m - n);
+  const dp = new Array(n + 1);
+  for (let j = 0; j <= n; j++) dp[j] = j;
+  for (let i = 1; i <= m; i++) {
+    let prev = i;
+    for (let j = 1; j <= n; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      const val = Math.min(dp[j] + 1, prev + 1, dp[j - 1] + cost);
+      dp[j - 1] = prev;
+      prev = val;
+    }
+    dp[n] = prev;
+  }
+  return dp[n];
+}
+const INGREDIENT_TYPO_ALIASES = ${JSON.stringify(typeof INGREDIENT_TYPO_ALIASES !== 'undefined' ? INGREDIENT_TYPO_ALIASES : {}, null, 2)};
+const cleanStr = (s) => (s || '').toLowerCase().replace(/œ/g, 'oe').replace(/æ/g, 'ae').normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\\s+/g, ' ').trim();
+const stripPlural = (s) => s.split(' ').map(w => w.endsWith('s') && w.length > 3 ? w.slice(0, -1) : w).join(' ');
+const hasWordPhrase = (haystack, needle) => {
+  if (!haystack || !needle) return false;
+  if (haystack === needle) return true;
+  return (' ' + haystack + ' ').indexOf(' ' + needle + ' ') !== -1;
+};
+let _cachedCostMap = null;
+let _cachedKeysData = null;
+function getCostMapKeysData(costMap) {
+  if (costMap === _cachedCostMap && _cachedKeysData) return _cachedKeysData;
+  const sortedKeys = Object.keys(costMap).sort((a, b) => b.length - a.length);
+  const keysData = sortedKeys.map(k => {
+    const normK = cleanStr(k);
+    return { key: k, normK, normKSingular: stripPlural(normK), tokens: normK.split(' ').filter(w => w.length >= 4) };
+  });
+  _cachedCostMap = costMap;
+  _cachedKeysData = keysData;
+  return keysData;
+}\n`;
+
   let content = `/**\n * GREY CORNER — Base de données centralisée des Fiches Techniques et Recettes\n * Source Unique de Vérité (SSOT) mise à jour automatiquement le ${new Date().toISOString()}\n */\n\n(function(global) {\n`;
   content += `const DATA = ${JSON.stringify(clonedData, null, 2)};\n\n`;
   content += `const BASE_RECIPES = ${JSON.stringify(updatedBaseRecipes, null, 2)};\n\n`;
   content += `const ALIAS_MAP = ${JSON.stringify(aliasObj, null, 2)};\n\n`;
   content += `const INGREDIENT_CATEGORIES = ${JSON.stringify(catObj, null, 2)};\n\n`;
   content += `const INGREDIENT_UNIT_COSTS = ${JSON.stringify(unitCostsObj, null, 2)};\n\n`;
-  content += `${fnStr}\n\n`;
+  content += `${helpersStr}\n${fnStr}\n\n`;
   content += `global.CATEGORIES_DATA = DATA;\nglobal.DATA = DATA;\nglobal.BASE_RECIPES = BASE_RECIPES;\nglobal.ALIAS_MAP = ALIAS_MAP;\nglobal.INGREDIENT_CATEGORIES = INGREDIENT_CATEGORIES;\nglobal.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\nglobal.calculateRecipeFoodCost = calculateRecipeFoodCost;\nif (typeof window !== 'undefined') {\n  window.calculateRecipeFoodCost = calculateRecipeFoodCost;\n  window.INGREDIENT_UNIT_COSTS = INGREDIENT_UNIT_COSTS;\n  window.DATA = DATA;\n  window.CATEGORIES_DATA = DATA;\n  window.BASE_RECIPES = BASE_RECIPES;\n}\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = { DATA, CATEGORIES_DATA: DATA, BASE_RECIPES, ALIAS_MAP, INGREDIENT_CATEGORIES, INGREDIENT_UNIT_COSTS, calculateRecipeFoodCost };\n}\n})(typeof window !== 'undefined' ? window : globalThis);\n`;
 
   return content;

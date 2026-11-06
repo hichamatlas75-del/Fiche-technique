@@ -178,6 +178,8 @@ assert(compBurger, "Burger présent dans Comparateur");
 assert.strictEqual(compBurger.sellPrice, modifiedBurgerPrice, "Comparateur a reçu le nouveau prix de vente");
 assert.deepStrictEqual(compBurger.greyCorner.tech, modifiedBurgerTech, "Comparateur a reçu les nouveaux ingrédients");
 assert.strictEqual(compBurger.greyCorner.foodCost, burgerFc.foodCost, "Comparateur a le Food Cost exact");
+assert(compBurger.greyCorner.foodCost > 0 && compBurger.greyCorner.foodCost < 80, `Food Cost du Burger réaliste (${compBurger.greyCorner.foodCost}% < 80%) — aucune collision bœuf/oeuf`);
+assert.strictEqual(window.allRecipes.length, activeRecipes.length, "Nombre de fiches strictement identique entre Comparateur et Déstockage");
 
 console.log(`✅ [CAS 2 PASSÉ] Burger modifié depuis Déstockage :`);
 console.log(`   - Prix : ${compBurger.sellPrice} DH`);
