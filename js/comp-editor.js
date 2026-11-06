@@ -174,6 +174,19 @@ function updateCardMetrics(cardIdx, recipe) {
   }
   if (marginEl) marginEl.textContent = `+${recipe.greyCorner.grossMarginDH.toFixed(2)} DH`;
 
+  const ratioBarEl = document.getElementById(`ratio-fc-bar-${cardIdx}`);
+  const ratioFcLbl = document.getElementById(`ratio-fc-lbl-${cardIdx}`);
+  const ratioMarginLbl = document.getElementById(`ratio-margin-lbl-${cardIdx}`);
+  const fcClamped = Math.min(100, Math.max(0, Number(recipe.greyCorner.foodCost) || 0));
+  const mPct = Math.max(0, 100 - fcClamped).toFixed(1);
+  const barColor = fcClamped <= 32 ? '#0284c7' : (fcClamped <= 38 ? '#f59e0b' : '#ef4444');
+  if (ratioBarEl) {
+    ratioBarEl.style.width = `${fcClamped}%`;
+    ratioBarEl.style.background = barColor;
+  }
+  if (ratioFcLbl) ratioFcLbl.textContent = `${fcClamped.toFixed(1)}%`;
+  if (ratioMarginLbl) ratioMarginLbl.textContent = `${mPct}%`;
+
   if (diffBadgeEl) {
     if (recipe.standard.diffDH > 0) {
       diffBadgeEl.className = 'badge-gain';

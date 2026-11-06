@@ -65,16 +65,20 @@
         </div>
       </div>
       <div class="app-header-nav">
-        <span class="badge-status-sync" id="sync-status-badge" style="display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:800; background:rgba(2, 132, 199, 0.12); color:#0284c7; border:1px solid rgba(2, 132, 199, 0.3); padding:5px 10px; border-radius:20px; cursor:pointer;" title="Synchroniser avec Supabase Cloud">
-          ☁️ Supabase Connecté (SSOT)
+        <span class="badge-status-sync" id="sync-status-badge" style="display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:800; background:rgba(2, 132, 199, 0.14); color:#38bdf8; border:1px solid rgba(56, 189, 248, 0.35); padding:5px 11px; border-radius:20px; cursor:pointer;" title="Synchroniser avec Supabase Cloud">
+          <span class="sync-pulse-dot"></span>
+          <span>☁️ Supabase Connecté (SSOT)</span>
         </span>
-        <button class="btn btn-secondary" style="border-color:#0284c7; color:#0284c7; font-weight:700;" onclick="window.GC_Supabase ? window.GC_Supabase.refreshAllFromCloud(true) : window.forceCacheRefresh()" title="Synchroniser immédiatement toutes les données depuis Supabase Cloud (SSOT)">☁️ Sync Cloud</button>
+        <nav class="gc-module-nav" aria-label="Navigation inter-modules">
+          <a href="consommation.html" class="gc-mod-link" title="Déstockage Théorique &amp; Food Cost">📊 Déstockage</a>
+          <a href="comparateur.html" class="gc-mod-link is-active" title="Normes &amp; Comparateur Fiches Techniques">⚖️ Normes</a>
+          <a href="audit.html" class="gc-mod-link" title="Audit Flash Manuel de Stock">⚡ Audit Flash</a>
+          <a href="SYNTHESE_DECISIONNELLE_MENU.html" class="gc-mod-link mod-gold" title="Cockpit Décisionnel &amp; Allègement du Menu (Direction)">👑 Cockpit</a>
+        </nav>
+        <button class="btn btn-secondary" style="border-color:#0284c7; color:#38bdf8; font-weight:700;" onclick="window.GC_Supabase ? window.GC_Supabase.refreshAllFromCloud(true) : window.forceCacheRefresh()" title="Synchroniser immédiatement toutes les données depuis Supabase Cloud (SSOT)">☁️ Sync Cloud</button>
         <button class="btn btn-secondary" onclick="window.GC_PricesModal ? window.GC_PricesModal.open() : (window.openPricesModal ? window.openPricesModal() : null)" title="Consulter et modifier les prix d'achat des matières premières">💲 Prix Matières</button>
         <button class="btn btn-secondary" onclick="window.forceCacheRefresh()" title="Forcer la mise à jour et recharger les dernières données">🔄 Actualiser</button>
         <button id="theme-toggle" class="btn btn-secondary" title="Basculer le thème">🌓 Thème</button>
-        <a href="consommation.html" class="btn btn-secondary" style="text-decoration:none;">📊 Déstockage</a>
-        <a href="audit.html" class="btn btn-secondary" style="text-decoration:none;">⚡ Audit Flash</a>
-        <a href="SYNTHESE_DECISIONNELLE_MENU.html" class="btn btn-secondary" style="text-decoration:none; border-color:rgba(245,158,11,0.5); color:#fbbf24; font-weight:700;" title="Cockpit Décisionnel &amp; Allègement du Menu (Direction)">👑 Cockpit Direction</a>
       </div>
     </div>
   </header>
@@ -297,6 +301,9 @@
           <span class="search-icon">🔍</span>
           <input type="search" id="search-comparator" class="search-input" placeholder="Rechercher une pizza, un plat, une crêpe, des pâtes ou un ingrédient..." />
         </div>
+        <button id="btn-toggle-compact-grid" class="btn" style="padding:8px 14px; font-size:13px; font-weight:700; border-radius:10px; border:1px solid var(--border); background:var(--bg); color:var(--text); cursor:pointer;" onclick="window.toggleComparatorCompactGrid()" title="Basculer entre la vue Cartes Détaillées et la Grille Compacte 2 colonnes">
+          🔲 Vue : Grille Compacte
+        </button>
         <button id="btn-toggle-comp-view" class="btn" style="padding:8px 16px; font-size:13px; font-weight:700; border-radius:10px; border:1px solid var(--border); background:var(--bg); color:var(--text); cursor:pointer;" onclick="window.toggleComparatorViewMode()">
           📊 Vue : Tableau Synthétique
         </button>

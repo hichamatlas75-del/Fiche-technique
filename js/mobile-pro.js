@@ -85,21 +85,21 @@
       `;
     } else if (isComparateur) {
       navHtml = `
+        <button type="button" class="gc-mobile-nav-item is-active" data-comp-view="recipes" title="Fiches vs Normes">
+          <span class="nav-icon">⚖️</span>
+          <span>Fiches</span>
+        </button>
+        <button type="button" class="gc-mobile-nav-item" data-comp-view="ai" title="Agent IA Optimiseur">
+          <span class="nav-icon">🤖</span>
+          <span>Agent IA</span>
+        </button>
+        <button type="button" class="gc-mobile-nav-item" data-comp-view="table" title="Tableau Synthétique">
+          <span class="nav-icon">📊</span>
+          <span>Tableau</span>
+        </button>
         <a href="consommation.html" class="gc-mobile-nav-item" title="Déstockage & Consommation">
           <span class="nav-icon">🥩</span>
           <span>Déstockage</span>
-        </a>
-        <button type="button" class="gc-mobile-nav-item is-active" title="Normes & Comparateur">
-          <span class="nav-icon">⚖️</span>
-          <span>Normes</span>
-        </button>
-        <a href="audit.html" class="gc-mobile-nav-item" title="Audit Flash Manuel">
-          <span class="nav-icon">⚡</span>
-          <span>Audit</span>
-        </a>
-        <a href="SYNTHESE_DECISIONNELLE_MENU.html" class="gc-mobile-nav-item" title="Cockpit Menu">
-          <span class="nav-icon">👑</span>
-          <span>Cockpit</span>
         </a>
         <button type="button" class="gc-mobile-nav-item" data-action="drawer" title="Menu Fonctions">
           <span class="nav-icon">☰</span>
@@ -140,6 +140,7 @@
       if (!btn) return;
 
       const dest = btn.getAttribute('data-dest');
+      const compView = btn.getAttribute('data-comp-view');
       const action = btn.getAttribute('data-action');
 
       if (action === 'drawer') {
@@ -150,6 +151,16 @@
         } else if (window.GC_BurgerMenu && typeof window.GC_BurgerMenu.open === 'function') {
           window.GC_BurgerMenu.open('drawer-destockage');
         }
+        return;
+      }
+
+      if (compView && typeof window.setComparatorMainView === 'function') {
+        e.preventDefault();
+        window.setComparatorMainView(compView);
+        nav.querySelectorAll('.gc-mobile-nav-item[data-comp-view]').forEach(item => {
+          item.classList.toggle('is-active', item.getAttribute('data-comp-view') === compView);
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
 

@@ -117,6 +117,25 @@ var currentComparatorMainView = 'recipes'; // 'recipes', 'ai', 'table'
     }
   };
 
+  var isComparatorCompactGrid = false;
+  window.toggleComparatorCompactGrid = function() {
+    if (currentComparatorMainView !== 'recipes') {
+      window.setComparatorMainView('recipes');
+    }
+    isComparatorCompactGrid = !isComparatorCompactGrid;
+    const container = document.getElementById('recipes-comparator-container');
+    const btn = document.getElementById('btn-toggle-compact-grid');
+    if (container) {
+      container.classList.toggle('compact-grid', isComparatorCompactGrid);
+    }
+    if (btn) {
+      btn.classList.toggle('active', isComparatorCompactGrid);
+      btn.style.borderColor = isComparatorCompactGrid ? '#0284c7' : 'var(--border)';
+      btn.style.color = isComparatorCompactGrid ? '#0284c7' : 'var(--text)';
+      btn.innerHTML = isComparatorCompactGrid ? '🗂️ Vue : Cartes Détaillées' : '🔲 Vue : Grille Compacte';
+    }
+  };
+
   function renderComparatorTable() {
     const container = document.getElementById('comparator-table-container');
     if (!container) return;
@@ -298,6 +317,10 @@ var rowsHTML = filtered.map((recipe, idx) => {
         ? `<span id="badge-diff-${idx}" class="badge-gain" style="background:rgba(245, 158, 11, 0.1); color:#f59e0b; border-color:rgba(245, 158, 11, 0.3);">Écart vs Référence : ${recipe.standard.diffDH.toFixed(2)} DH</span>`
         : `<span id="badge-diff-${idx}" class="badge-neutral" style="background:rgba(16,185,129,0.1); color:#10b981; border:1px solid rgba(16,185,129,0.25);">✓ Conforme à la référence Déstockage</span>`);
 
+    const fcPctClamped = Math.min(100, Math.max(0, Number(recipe.greyCorner.foodCost) || 0));
+    const marginPct = Math.max(0, (100 - fcPctClamped)).toFixed(1);
+    const fcBarColor = fcPctClamped <= 32 ? '#0284c7' : (fcPctClamped <= 38 ? '#f59e0b' : '#ef4444');
+
     return `
       <div class="comparative-card" id="card-${idx}" data-recipe-name="${escapeHtml(recipe.name)}" data-category="${escapeHtml(recipe.category)}">
         <!-- HEADER DU PLAT -->
@@ -320,6 +343,17 @@ var rowsHTML = filtered.map((recipe, idx) => {
                      style="width:70px; padding:2px 6px; font-weight:800; border:1.5px solid #0284c7; border-radius:6px; background:#fff; text-align:center; font-size:13px; color:#0f172a;" /> DH
             </span>
             ${diffBadge}
+          </div>
+        </div>
+
+        <!-- BARRE VISUELLE RATIO COÛT MATIÈRE VS MARGE BRUTE -->
+        <div class="card-ratio-strip">
+          <div class="card-ratio-track" title="Répartition du Prix de Vente : Food Cost (${fcPctClamped.toFixed(1)}%) vs Marge Brute (${marginPct}%)">
+            <div class="card-ratio-fc" id="ratio-fc-bar-${idx}" style="width:${fcPctClamped}%; background:${fcBarColor};"></div>
+          </div>
+          <div class="card-ratio-legend">
+            <span style="color:${fcBarColor};">🔵 Coût Matière : <strong id="ratio-fc-lbl-${idx}">${fcPctClamped.toFixed(1)}%</strong> (${recipe.greyCorner.cost.toFixed(2)} DH)</span>
+            <span style="color:#10b981;">🟢 Marge Brute : <strong id="ratio-margin-lbl-${idx}">${marginPct}%</strong> (+${(recipe.greyCorner.grossMarginDH || 0).toFixed(2)} DH)</span>
           </div>
         </div>
 

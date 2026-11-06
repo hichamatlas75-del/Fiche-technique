@@ -421,6 +421,13 @@ var sumPrice = 0;
 
     const kpiEl = document.getElementById('summary-kpis');
     if (kpiEl) {
+      const gcFcNum = parseFloat(avgGcFC) || 0;
+      const stdFcNum = parseFloat(avgStdFC) || 0;
+      const gcGaugeWidth = Math.min(100, Math.max(0, (gcFcNum / 50) * 100)).toFixed(1);
+      const stdGaugeWidth = Math.min(100, Math.max(0, (stdFcNum / 50) * 100)).toFixed(1);
+      const gcGaugeColor = gcFcNum <= 30 ? '#10b981' : (gcFcNum <= 35 ? '#0284c7' : '#f59e0b');
+      const stdGaugeColor = stdFcNum <= 30 ? '#10b981' : '#22c55e';
+
       kpiEl.innerHTML = `
         <div class="kpi-card">
           <div class="kpi-label">Plats au Menu</div>
@@ -430,12 +437,20 @@ var sumPrice = 0;
         <div class="kpi-card initial-theme">
           <div class="kpi-label">Food Cost Moyen Exploitation</div>
           <div class="kpi-value text-accent" style="color:#0284c7;">${avgGcFC} %</div>
-          <div class="kpi-sub">Fiches opérationnelles en cours</div>
+          <div class="kpi-gauge-track" title="Cible Food Cost F&B : 30% (barre graduée de 0% à 50%)">
+            <div class="kpi-gauge-marker" style="left:60%;" title="Seuil Cible 30%"></div>
+            <div class="kpi-gauge-fill" style="width:${gcGaugeWidth}%; background:${gcGaugeColor};"></div>
+          </div>
+          <div class="kpi-sub" style="margin-top:6px;">Fiches opérationnelles (Cible ≤ 30%)</div>
         </div>
         <div class="kpi-card standard-theme">
           <div class="kpi-label">Food Cost Référence Déstockage</div>
           <div class="kpi-value text-success">${avgStdFC} %</div>
-          <div class="kpi-sub">Standard de référence (SSOT)</div>
+          <div class="kpi-gauge-track" title="Standard de référence SSOT (barre graduée de 0% à 50%)">
+            <div class="kpi-gauge-marker" style="left:60%;" title="Seuil Cible 30%"></div>
+            <div class="kpi-gauge-fill" style="width:${stdGaugeWidth}%; background:${stdGaugeColor};"></div>
+          </div>
+          <div class="kpi-sub" style="margin-top:6px;">Standard de référence (SSOT)</div>
         </div>
         <div class="kpi-card gain-theme">
           <div class="kpi-label">Écart Moyen vs Référence</div>

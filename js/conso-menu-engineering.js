@@ -1281,9 +1281,14 @@ function renderSummaryTopIngredientsPodium() {
   }
 
   const medals = ['🥇', '🥈', '🥉', '🏅'];
+  const maxQty = Math.max(...top4.map(getIngQty), 1);
+  const totalTop4Qty = top4.reduce((acc, item) => acc + getIngQty(item), 0) || 1;
 
   container.innerHTML = top4.map((ing, idx) => {
-    let displayQty = getIngQty(ing);
+    const rawQty = getIngQty(ing);
+    const barPct = Math.min(100, Math.max(8, (rawQty / maxQty) * 100)).toFixed(0);
+    const sharePct = ((rawQty / totalTop4Qty) * 100).toFixed(0);
+    let displayQty = rawQty;
     let displayUnit = ing.unit || 'g';
     if (displayUnit === 'g' && displayQty >= 1000) {
       displayQty = displayQty / 1000;
@@ -1293,15 +1298,21 @@ function renderSummaryTopIngredientsPodium() {
       displayUnit = 'L';
     }
     return `
-      <div class="podium-ing-card">
+      <div class="podium-ing-card podium-rank-${idx}">
         <span class="pod-rank">${medals[idx]}</span>
         <div>
           <div class="pod-name">${escapeHtml(ing.name)}</div>
           <div class="pod-cat">${escapeHtml(ing.category || 'Épicerie')}</div>
         </div>
         <div>
-          <div class="pod-qty">${displayQty.toLocaleString('fr-FR', { maximumFractionDigits: 2 })} <span style="font-size:13px; font-weight:700;">${displayUnit}</span></div>
-          <div style="font-size:11px; color:var(--muted); margin-top:2px;">Consommé sur la période</div>
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:6px;">
+            <div class="pod-qty">${displayQty.toLocaleString('fr-FR', { maximumFractionDigits: 2 })} <span style="font-size:13px; font-weight:700;">${displayUnit}</span></div>
+            <span style="font-size:10.5px; font-weight:800; color:var(--accent); background:var(--accent-soft); padding:2px 6px; border-radius:99px;">${sharePct}% du Top 4</span>
+          </div>
+          <div class="podium-share-bar" title="Poids relatif dans le Top 4 : ${sharePct}%">
+            <div class="podium-share-fill" style="width:${barPct}%;"></div>
+          </div>
+          <div style="font-size:11px; color:var(--muted); margin-top:4px;">Consommé sur la période</div>
         </div>
       </div>
     `;
